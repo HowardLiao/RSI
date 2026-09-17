@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 2027 IT 營運計畫全年度 25 項專案甘特圖 (全年度排程 · 排開連假與封網)</title>
+  <title>信源全球 (RSI) · 2027 IT 營運計畫全專案甘特圖 (含精確起訖年月日與實質工期)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-cream: #FBFBFA;
@@ -57,7 +57,7 @@
     }
 
     .container {
-      max-width: 1520px;
+      max-width: 1560px;
       margin: 0 auto;
       position: relative;
       z-index: 10;
@@ -137,7 +137,7 @@
     .notice-icon { font-size: 1.3rem; line-height: 1; }
     .notice-title { font-weight: 800; margin-bottom: 4px; color: #92400E; }
 
-    /* 4-Quarter Progress Pipeline */
+    /* 4-Quarter Pipeline */
     .quarter-pipeline {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -150,7 +150,6 @@
       border-radius: var(--radius-md);
       padding: 14px 16px;
       box-shadow: var(--shadow-sm);
-      position: relative;
     }
     .quarter-card.q1 { border-top: 4px solid var(--green-run); }
     .quarter-card.q2 { border-top: 4px solid var(--orange-vibrant); }
@@ -167,7 +166,7 @@
       font-size: 0.72rem;
       font-weight: 700;
       color: var(--rust-primary);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .quarter-desc {
       font-size: 0.74rem;
@@ -240,7 +239,7 @@
       border-radius: 2px;
     }
 
-    /* Gantt Table Layout */
+    /* Gantt Table */
     .gantt-wrapper {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -251,7 +250,7 @@
     }
     .gantt-table {
       width: 100%;
-      min-width: 1350px;
+      min-width: 1420px;
       border-collapse: collapse;
     }
     .gantt-table th, .gantt-table td {
@@ -267,11 +266,11 @@
     }
     .th-info {
       text-align: left !important;
-      width: 440px;
-      min-width: 440px;
+      width: 460px;
+      min-width: 460px;
     }
     .month-header {
-      width: calc((100% - 440px) / 12);
+      width: calc((100% - 460px) / 12);
       font-family: var(--font-mono);
       font-size: 0.72rem;
     }
@@ -320,7 +319,7 @@
     .project-meta {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
     .project-id-title {
       display: flex;
@@ -340,24 +339,44 @@
     .project-name {
       font-weight: 700;
       color: var(--text-charcoal);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
-    .project-stage {
-      font-size: 0.7rem;
-      color: #4338CA;
-      font-weight: 600;
-      background: #EEF2FF;
-      padding: 1px 6px;
-      border-radius: 3px;
-      display: inline-block;
+    
+    /* Prominent Start & End Date Badge */
+    .project-date-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1E293B;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 2px 8px;
+      border-radius: 4px;
       margin-top: 2px;
+      width: fit-content;
     }
+    .project-date-pill strong {
+      color: var(--rust-primary);
+    }
+    .workdays-badge {
+      background: #E2E8F0;
+      color: #475569;
+      font-size: 0.65rem;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-left: 2px;
+    }
+
     .project-subline {
       font-size: 0.7rem;
       color: var(--text-muted);
       display: flex;
       gap: 10px;
       margin-top: 2px;
+      flex-wrap: wrap;
     }
     .cat-badge {
       display: inline-block;
@@ -376,7 +395,7 @@
       position: relative;
       padding: 0 !important;
       background: transparent;
-      height: 44px;
+      height: 48px;
     }
     .bar-container {
       position: absolute;
@@ -390,14 +409,15 @@
       border-radius: 4px;
       display: flex;
       align-items: center;
-      padding: 0 8px;
+      justify-content: space-between;
+      padding: 0 10px;
       color: #FFF;
       font-size: 0.68rem;
       font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.14);
       transition: transform 0.15s ease, filter 0.15s ease;
       cursor: pointer;
     }
@@ -405,9 +425,50 @@
       transform: translateY(-1px);
       filter: brightness(1.08);
     }
+    .bar-date-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      opacity: 0.92;
+      background: rgba(0,0,0,0.18);
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
     .bar-run { background: linear-gradient(90deg, #0D9488, #14B8A6); }
     .bar-grow { background: linear-gradient(90deg, #2563EB, #3B82F6); }
     .bar-trans { background: linear-gradient(90deg, #9333EA, #A855F7); }
+
+    /* Detailed Schedule Breakdown Table */
+    .schedule-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .schedule-table th {
+      background: #FAF8F5;
+      padding: 10px 12px;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1.5px solid var(--border-subtle);
+      color: var(--text-charcoal);
+    }
+    .schedule-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-body);
+    }
+    .schedule-table tr:hover td {
+      background: #FFFDF9;
+    }
 
     /* Footer */
     .gantt-footer {
@@ -426,7 +487,7 @@
       body { padding: 0; background: #FFF; }
       .control-bar, .calendar-notice-banner { display: none; }
       .container { max-width: 100%; }
-      .gantt-wrapper { border: none; box-shadow: none; }
+      .gantt-wrapper, .schedule-table-wrap { border: none; box-shadow: none; }
     }
   </style>
 </head>
@@ -438,12 +499,12 @@
     <!-- Header -->
     <header class="gantt-header">
       <div class="header-dateline">
-        <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGIC ROADMAP</div>
-        <div>CONFIDENTIAL EXECUTIVE SCHEDULE · 12-MONTH FULL-YEAR DEPLOYMENT</div>
+        <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGIC TIMELINE</div>
+        <div>EXECUTIVE GANTT SCHEDULE · EXACT START & END DATE CONTROL</div>
       </div>
       <div class="title-row">
         <div>
-          <h1 class="main-title">2027 年度 IT 營運計畫全專案進度甘特圖<br><span>整合運用・智能營運 (全年度 25 項專案平準化推進)</span></h1>
+          <h1 class="main-title">2027 年度 IT 營運計畫全專案進度甘特圖<br><span>整合運用・智能營運 (25 項核心專案精確起訖年月日與實質工期)</span></h1>
         </div>
         <div class="leadership-chips">
           <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
@@ -456,16 +517,16 @@
       </div>
     </header>
 
-    <!-- Calendar Notice Banner (Factor in Holidays & Code Freeze) -->
+    <!-- Calendar Notice Banner -->
     <div class="calendar-notice-banner">
       <div class="notice-icon">📅</div>
       <div>
-        <div class="notice-title">2027 跨國年節假日、連續假日與封網管制（Code Freeze）排程原則</div>
+        <div class="notice-title">2027 跨國年節假日、連續假日與系統封網（Code Freeze）排程管制原則</div>
         <div>
-          本排程嚴格排除週休二日與跨國連續假日：
-          <strong>2月春節與越南 Tet 年假（2/5~2/14，工廠全停工 10 天）嚴格實施系統封網（Code Freeze）</strong>，禁止核心生產變更；
-          <strong>3月印尼開齋節（3/9~3/12）</strong> 與 <strong>4月中旬柬埔寨新年（4/13~4/16）</strong> 均排開產線停工週；
-          並避開 <strong>9月越南國慶、10月國慶連假與柬埔寨亡人節</strong>。全年度 25 項專案依「<strong>Q1 總部築底 ➔ Q2 隆安燈塔 ➔ Q3 柬印複製 ➔ Q4 全集團驗收</strong>」節奏平準化分佈於 12 個月推進。
+          本排程嚴格排除週休二日與跨國重大連續假日，並明確標記每個專案的<strong>【精確開工日 ➔ 驗收完成日】</strong>與<strong>【實質工作天數（Workdays）】</strong>：<br>
+          • <strong>2月春節與越南 Tet 年假（2/5～2/14，工廠全停工 10 天）嚴格實施系統封網（Code Freeze）</strong>，禁止核心生產變更。<br>
+          • <strong>3月印尼開齋節（3/9～3/12）</strong> 與 <strong>4月中旬柬埔寨新年（4/13～4/16）</strong> 均排開產線停工週。<br>
+          • 避開 <strong>9月越南國慶、10月國慶連假與柬埔寨亡人節</strong>，確保與現場排產大貨交付零衝突。
         </div>
       </div>
     </div>
@@ -474,30 +535,30 @@
     <div class="quarter-pipeline">
       <div class="quarter-card q1">
         <div class="quarter-title">Q1 · 總部基底成型</div>
-        <div class="quarter-stats">15 項專案啟動 · 排除2月春節封網</div>
+        <div class="quarter-stats">2027/01/04 ～ 2027/03/31 · 15項專案啟動</div>
         <div class="quarter-desc">
-          台北總部雙活 Kong 網關、Entra ID 核心 SSO、CrowdStrike 24/7 MDR 託管、Zerto 秒級災備與 SD-WAN HA 雙機骨幹就緒。
+          台北總部雙活 Kong 網關、Entra ID 400 核心幹部 SSO、CrowdStrike 24/7 MDR、Zerto 秒級災備與 SD-WAN HA 雙機骨幹就緒（排除2月春節封網）。
         </div>
       </div>
       <div class="quarter-card q2">
         <div class="quarter-title">Q2 · 越南隆安示範</div>
-        <div class="quarter-stats">24 項專案攻堅 · 避開柬埔寨新年</div>
+        <div class="quarter-stats">2027/04/01 ～ 2027/06/30 · 24項專案攻堅</div>
         <div class="quarter-desc">
-          越南隆安旗艦廠打通 Ready-to-Sew 4-Gate 產前門禁、72h 斷網離線自律、Camunda 8 履約流與 Flink PCD 提前72h 缺料預警。
+          避開柬埔寨新年，集中資源在越南隆安旗艦廠打通 4-Gate 產前門禁、72h 斷網離線自律、Camunda 8 履約流與 Flink PCD 缺料預警。
         </div>
       </div>
       <div class="quarter-card q3">
         <div class="quarter-title">Q3 · 柬印新廠複製</div>
-        <div class="quarter-stats">23 項專案推廣 · 暑期黃金無長假期</div>
+        <div class="quarter-stats">2027/07/01 ～ 2027/09/30 · 23項專案推廣</div>
         <div class="quarter-desc">
-          將標準樣板交鑰匙複製至柬埔寨金邊與印尼中爪哇基地；貫通 Databricks 30TB 湖倉、Profisee MDM 主數據與多國語 RAG。
+          善用暑期無長假黃金期，將標準樣板交鑰匙複製至柬埔寨金邊與印尼中爪哇基地；貫通 Databricks 30TB 湖倉中台與多國語 Tech Pack RAG。
         </div>
       </div>
       <div class="quarter-card q4">
         <div class="quarter-title">Q4 · 全集團驗收</div>
-        <div class="quarter-stats">12 項專案收官 · 智能決策全面投產</div>
+        <div class="quarter-stats">2027/10/01 ～ 2027/12/31 · 12項專案收官</div>
         <div class="quarter-desc">
-          Agentic AI 生管跟單、OR-Tools 動態線平衡人機排程、交期預測全面上線，達成 Run Cost -10%、工時釋放 15~25% 全年驗收。
+          Agentic AI 生管跟單、OR-Tools 動態線平衡人機排程、完工交期預測全面投產，實戰檢驗 Run Cost -10% 與工時釋放 15~25% 全年收官。
         </div>
       </div>
     </div>
@@ -506,11 +567,11 @@
     <div class="control-bar">
       <div class="filter-group">
         <span class="filter-label">主架構切換：</span>
-        <button class="filter-btn active" onclick="filterPillar('ALL')">全部顯示 (25)</button>
-        <button class="filter-btn" onclick="filterPillar('Pillar I')">Pillar I 數位底座 (8)</button>
-        <button class="filter-btn" onclick="filterPillar('Pillar II')">Pillar II 流程整合 (5)</button>
-        <button class="filter-btn" onclick="filterPillar('Pillar III')">Pillar III 智能決策 (7)</button>
-        <button class="filter-btn" onclick="filterPillar('Pillar IV')">Pillar IV 智慧製造 (5)</button>
+        <button class="filter-btn active" onclick="filterGanttPillar('ALL')">全部顯示 (25)</button>
+        <button class="filter-btn" onclick="filterGanttPillar('Pillar I')">Pillar I 數位底座 (8)</button>
+        <button class="filter-btn" onclick="filterGanttPillar('Pillar II')">Pillar II 流程整合 (5)</button>
+        <button class="filter-btn" onclick="filterGanttPillar('Pillar III')">Pillar III 智能決策 (7)</button>
+        <button class="filter-btn" onclick="filterGanttPillar('Pillar IV')">Pillar IV 智慧製造 (5)</button>
       </div>
 
       <div class="legend-pills">
@@ -525,7 +586,7 @@
       <table class="gantt-table" id="ganttTable">
         <thead>
           <tr>
-            <th rowspan="2" class="th-info">專案編號 / 專案名稱 / 推進階段 / 負責團隊 / 交付成果</th>
+            <th rowspan="2" class="th-info">專案編號 / 專案名稱 / 精確起訖日期 / 負責團隊 / 關鍵成果</th>
             <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">Q1 (第一季) · 總部築底</th>
             <th colspan="3" style="background: #FFF7ED; border-bottom: 2px solid #FDBA74;">Q2 (第二季) · 隆安示範</th>
             <th colspan="3" style="background: #EFF6FF; border-bottom: 2px solid #93C5FD;">Q3 (第三季) · 柬印複製</th>
@@ -600,9 +661,37 @@
       </table>
     </div>
 
+    <!-- Section: Detailed Schedule Breakdown Table -->
+    <div class="schedule-table-wrap">
+      <div style="padding: 14px 18px; border-bottom: 1px solid var(--border-subtle); background: #FAF8F5; display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: var(--text-charcoal);">
+          📋 2027 年度 25 項專案起訖日期、實質工期與交付明細清單
+        </h3>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">已完整扣除週休二日、國定連假與春節封網期</span>
+      </div>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th style="width: 80px;">編號</th>
+            <th style="width: 280px;">專案名稱</th>
+            <th style="width: 90px;">資本屬性</th>
+            <th style="width: 110px;">開始日期</th>
+            <th style="width: 110px;">結束日期</th>
+            <th style="width: 90px;">實質工期</th>
+            <th style="width: 120px;">負責團隊</th>
+            <th>關鍵里程碑與交付成果</th>
+            <th style="width: 110px;">預算預估</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleTableBody">
+          <!-- Will be rendered by JS -->
+        </tbody>
+      </table>
+    </div>
+
     <!-- Footer -->
     <footer class="gantt-footer">
-      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫全專案甘特圖 (內部戰略推演，未更新至公開庫)</div>
+      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫全專案甘特圖 (內部戰略推演專用)</div>
       <div>計劃主持：周文津 副總 ｜ 執行負責：Howard Liao Ph.D.</div>
     </footer>
   </div>
@@ -614,105 +703,123 @@
         "pillar": "Pillar I 數位底座與治理",
         "name": "API Management (Kong 雙活架構與跨國邊緣節點)",
         "cat": "Run",
-        "start": 1,
-        "end": 5,
-        "stage": "Q1 總部雙活建置 ➔ Q2 越/柬/印 3 廠邊緣節點部署",
+        "start_m": 1,
+        "end_m": 5,
+        "startDate": "2027/01/04",
+        "endDate": "2027/05/28",
+        "workdays": 92,
         "lead": "雲端架構組",
-        "deliverable": "總部雙活網關 + 3 海外廠邊緣 Kong 叢集，避開2月年假封網",
-        "budget": "$52,000 USD (NT$ 164萬)"
+        "deliverable": "總部雙活網關 + 3 海外廠邊緣 Kong 叢集",
+        "budget": "$52,000 USD"
     },
     {
         "id": "P1-2",
         "pillar": "Pillar I 數位底座與治理",
         "name": "Access Governance (Entra ID 分層 SSO + Vault 金鑰輪替)",
         "cat": "Run",
-        "start": 1,
-        "end": 6,
-        "stage": "Q1 總部與400幹部 SSO ➔ Q2 2,100第一線現場分層",
+        "start_m": 1,
+        "end_m": 6,
+        "startDate": "2027/01/04",
+        "endDate": "2027/06/30",
+        "workdays": 115,
         "lead": "資安身分組",
         "deliverable": "全集團 2,500 席分層身分 + 核心 DB 動態金鑰 + AI Agent 沙盒",
-        "budget": "$105,000 USD (NT$ 331萬)"
+        "budget": "$105,000 USD"
     },
     {
         "id": "P1-3",
         "pillar": "Pillar I 數位底座與治理",
         "name": "Enterprise Data Layer (Databricks 30TB+ 企業湖倉)",
         "cat": "Grow",
-        "start": 2,
-        "end": 9,
-        "stage": "Q1 湖倉架構 ➔ Q2 越南CDC ➔ Q3 柬/印資料串流中台",
+        "start_m": 2,
+        "end_m": 9,
+        "startDate": "2027/02/15",
+        "endDate": "2027/09/30",
+        "workdays": 155,
         "lead": "數據工程組",
-        "deliverable": "4 廠 CDC 實時串流 + 30TB 湖倉中台 + 按需查詢節點",
-        "budget": "$115,000 USD (NT$ 362萬)"
+        "deliverable": "4 廠 CDC 實時串流 + 30TB 湖倉中台 + 按需運算節點",
+        "budget": "$115,000 USD"
     },
     {
         "id": "P1-4",
         "pillar": "Pillar I 數位底座與治理",
         "name": "Data Governance (Profisee MDM 主數據與品質門禁)",
         "cat": "Grow",
-        "start": 3,
-        "end": 10,
-        "stage": "Q2 物料號清洗 ➔ Q3 跨廠同料編碼統一 ➔ Q4 門禁常態化",
+        "start_m": 3,
+        "end_m": 10,
+        "startDate": "2027/03/01",
+        "endDate": "2027/10/29",
+        "workdays": 164,
         "lead": "數據治理組",
         "deliverable": "原副料/款號主數據清洗 + 自動品質門禁 (SAM>0, PCD檢核)",
-        "budget": "$80,000 USD (NT$ 252萬)"
+        "budget": "$80,000 USD"
     },
     {
         "id": "P1-5",
         "pillar": "Pillar I 數位底座與治理",
         "name": "AI Governance (Portkey / LiteLLM 多模型調度與專利遮罩)",
         "cat": "Transform",
-        "start": 4,
-        "end": 11,
-        "stage": "Q2 Token管控代理 ➔ Q3 Tech Pack遮罩 ➔ Q4 Agent合規審計",
+        "start_m": 4,
+        "end_m": 11,
+        "startDate": "2027/04/06",
+        "endDate": "2027/11/30",
+        "workdays": 161,
         "lead": "AI 架構組",
         "deliverable": "多模型路由 + 1,000 萬 Token 配額管控 + Tech Pack 專利保護",
-        "budget": "$48,000 USD (NT$ 151萬)"
+        "budget": "$48,000 USD"
     },
     {
         "id": "P1-6",
         "pillar": "Pillar I 數位底座與治理",
         "name": "Cybersecurity (CrowdStrike 24/7 MDR + Cloudflare ZTNA)",
         "cat": "Run",
-        "start": 1,
-        "end": 12,
-        "stage": "Q1 總部與核心伺服器 ➔ Q2~Q3 海外端點覆蓋 ➔ Q4 紅藍對抗演練",
+        "start_m": 1,
+        "end_m": 12,
+        "startDate": "2027/01/04",
+        "endDate": "2027/12/31",
+        "workdays": 240,
         "lead": "資安維運組",
         "deliverable": "2,500 席 ZTNA 零信任 + 800 台端點 24/7 全託管防勒索",
-        "budget": "$100,000 USD (NT$ 315萬)"
+        "budget": "$100,000 USD"
     },
     {
         "id": "P1-7",
         "pillar": "Pillar I 數位底座與治理",
         "name": "Backup / DR / BCP (Zerto CDP 秒級災備 + S3 WORM)",
         "cat": "Run",
-        "start": 1,
-        "end": 8,
-        "stage": "Q1 總部核心VM複製 ➔ Q2 越南廠災備 ➔ Q3 柬/印實戰演練",
+        "start_m": 1,
+        "end_m": 8,
+        "startDate": "2027/01/04",
+        "endDate": "2027/08/31",
+        "workdays": 159,
         "lead": "系統維運組",
         "deliverable": "12~16 台核心生產 VM 秒級複製 + 30TB 不可篡改備份 (RPO<15m, RTO<2h)",
-        "budget": "$68,000 USD (NT$ 214萬)"
+        "budget": "$68,000 USD"
     },
     {
         "id": "P1-8",
         "pillar": "Pillar I 數位底座與治理",
         "name": "Network & Edge (Fortinet SD-WAN HA + 8台車間邊緣主機)",
         "cat": "Run",
-        "start": 1,
-        "end": 7,
-        "stage": "Q1 總部與隆安雙軌線路 ➔ Q2 金邊/中爪哇部署 ➔ Q3 斷網實測",
+        "start_m": 1,
+        "end_m": 7,
+        "startDate": "2027/01/04",
+        "endDate": "2027/07/30",
+        "workdays": 137,
         "lead": "網路通訊組",
         "deliverable": "4 基地雙軌 SD-WAN HA + 8 台車間工業邊緣主機 (48~72h 自治)",
-        "budget": "$72,000 USD (NT$ 227萬)"
+        "budget": "$72,000 USD"
     },
     {
         "id": "P2-1",
         "pillar": "Pillar II 營運流程整合",
         "name": "Production Fulfillment (Camunda 8 端到端履約編排)",
         "cat": "Grow",
-        "start": 3,
-        "end": 9,
-        "stage": "Q2 訂單至裁剪工序 ➔ Q3 車縫/特工至出貨跨廠串聯",
+        "start_m": 3,
+        "end_m": 9,
+        "startDate": "2027/03/01",
+        "endDate": "2027/09/30",
+        "workdays": 145,
         "lead": "生管系統組",
         "deliverable": "訂單至出貨 9 大工序端到端履約可視化與節點阻礙預警",
         "budget": "$45,000 USD"
@@ -722,9 +829,11 @@
         "pillar": "Pillar II 營運流程整合",
         "name": "Material Flow & Risk (供應鏈 Control Tower 物料流)",
         "cat": "Grow",
-        "start": 2,
-        "end": 8,
-        "stage": "Q1 原料入庫流 ➔ Q2 國際物流ETA看板 ➔ Q3 裁片發料閉環",
+        "start_m": 2,
+        "end_m": 8,
+        "startDate": "2027/02/15",
+        "endDate": "2027/08/31",
+        "workdays": 135,
         "lead": "供應鏈組",
         "deliverable": "BOM/採購/海運 ETA 與 WMS 庫存即時風險看板，避開2月Tet年假停工",
         "budget": "$40,000 USD"
@@ -734,9 +843,11 @@
         "pillar": "Pillar II 營運流程整合",
         "name": "Pre-production 4-Gate (Ready-to-Sew 產前門禁引擎)",
         "cat": "Transform",
-        "start": 3,
-        "end": 9,
-        "stage": "Q2 越南隆安示範上線 ➔ Q3 柬埔寨/印尼廠開箱複製",
+        "start_m": 3,
+        "end_m": 9,
+        "startDate": "2027/03/01",
+        "endDate": "2027/09/30",
+        "workdays": 145,
         "lead": "產前技術組",
         "deliverable": "Gate 1~4 齊套硬性攔截引擎，未達標鎖死發料，提升換線效率35%",
         "budget": "$50,000 USD"
@@ -746,9 +857,11 @@
         "pillar": "Pillar II 營運流程整合",
         "name": "IE Digital Process (GSDCost 標準工時與技能矩陣串接)",
         "cat": "Grow",
-        "start": 5,
-        "end": 10,
-        "stage": "Q2 標準工時庫打通 ➔ Q3 車縫技能矩陣串接 ➔ Q4 線平衡核算",
+        "start_m": 5,
+        "end_m": 10,
+        "startDate": "2027/05/03",
+        "endDate": "2027/10/29",
+        "workdays": 124,
         "lead": "IE 工程組",
         "deliverable": "標準工時庫與員工技能矩陣整合，線上效率與人機配比即時核算",
         "budget": "$35,000 USD"
@@ -758,9 +871,11 @@
         "pillar": "Pillar II 營運流程整合",
         "name": "Enterprise Workflow (Flowable BPM 跨部門營運協同)",
         "cat": "Run",
-        "start": 2,
-        "end": 7,
-        "stage": "Q1 行政簽核延伸 ➔ Q2 產銷異常派工 ➔ Q3 品質返修流程",
+        "start_m": 2,
+        "end_m": 7,
+        "startDate": "2027/02/15",
+        "endDate": "2027/07/30",
+        "workdays": 113,
         "lead": "BPM 開發組",
         "deliverable": "行政簽核延伸至產銷跨部門異常工單自動派工與 SLA 追蹤",
         "budget": "$25,000 USD"
@@ -770,9 +885,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "Exception Management (Apache Flink CEP 實時預警)",
         "cat": "Transform",
-        "start": 4,
-        "end": 10,
-        "stage": "Q2 規則引擎上線 ➔ Q3 跨廠即時事件流 ➔ Q4 複合異常關聯",
+        "start_m": 4,
+        "end_m": 10,
+        "startDate": "2027/04/06",
+        "endDate": "2027/10/29",
+        "workdays": 140,
         "lead": "流計算組",
         "deliverable": "PCD 裁剪前 72h 缺料主動預警規則引擎上線，攔截非預期停工",
         "budget": "$42,000 USD"
@@ -782,9 +899,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "Production & Material Analytics (Power BI 跨廠戰情室)",
         "cat": "Run",
-        "start": 4,
-        "end": 9,
-        "stage": "Q2 隆安廠戰情板 ➔ Q3 跨越柬印總部中控室上線",
+        "start_m": 4,
+        "end_m": 9,
+        "startDate": "2027/04/06",
+        "endDate": "2027/09/30",
+        "workdays": 121,
         "lead": "BI 報表組",
         "deliverable": "Power BI + Superset 跨廠產量、效率、損耗中控大屏",
         "budget": "$30,000 USD"
@@ -794,9 +913,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "Capacity / Completion Forecast (XGBoost 交期完工預估)",
         "cat": "Transform",
-        "start": 6,
-        "end": 11,
-        "stage": "Q3 歷史數據特徵工程 ➔ Q4 完工交期風險預測模型投產",
+        "start_m": 6,
+        "end_m": 11,
+        "startDate": "2027/06/01",
+        "endDate": "2027/11/30",
+        "workdays": 126,
         "lead": "演算法組",
         "deliverable": "XGBoost 剩餘工時與準時交貨 (OTD) 風險預估模型",
         "budget": "$45,000 USD"
@@ -806,9 +927,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "IE Optimization & Simulation (OR-Tools 線平衡動態模擬)",
         "cat": "Transform",
-        "start": 7,
-        "end": 12,
-        "stage": "Q3 瓶頸站數學建模 ➔ Q4 人機配置動態模擬排線全面驗收",
+        "start_m": 7,
+        "end_m": 12,
+        "startDate": "2027/07/01",
+        "endDate": "2027/12/31",
+        "workdays": 126,
         "lead": "智能 IE 組",
         "deliverable": "動態人機配置模擬器，自動尋優換線損失最低解，提升平衡率至95%+",
         "budget": "$55,000 USD"
@@ -818,9 +941,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "AI Agent (生管跟單代理人與客訴自動追蹤協同)",
         "cat": "Transform",
-        "start": 6,
-        "end": 12,
-        "stage": "Q3 生管跟單 Agent 試點 ➔ Q4 跨語系多模態客服協同上線",
+        "start_m": 6,
+        "end_m": 12,
+        "startDate": "2027/06/01",
+        "endDate": "2027/12/31",
+        "workdays": 147,
         "lead": "Agent 研發組",
         "deliverable": "跨系統跨語言生管問答與客訴自動跟催 Agent，釋放15~25%特定工時",
         "budget": "$60,000 USD"
@@ -830,9 +955,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "Enterprise Knowledge / RAG (多國語 Tech Pack 知識庫)",
         "cat": "Transform",
-        "start": 5,
-        "end": 10,
-        "stage": "Q2 英中工藝手冊解析 ➔ Q3 越/高棉/印尼在地問答上線",
+        "start_m": 5,
+        "end_m": 10,
+        "startDate": "2027/05/03",
+        "endDate": "2027/10/29",
+        "workdays": 124,
         "lead": "知識中台組",
         "deliverable": "Qdrant 語意檢索，英中技術手冊即時轉譯越/高棉/印尼，做工檢索提效70%",
         "budget": "$48,000 USD"
@@ -842,9 +969,11 @@
         "pillar": "Pillar III 智能營運與決策",
         "name": "RPA 流程自動化 (Power Automate 跨系統行政拋單)",
         "cat": "Run",
-        "start": 3,
-        "end": 8,
-        "stage": "Q2 報關報驗拋單 ➔ Q3 採購核銷自動化",
+        "start_m": 3,
+        "end_m": 8,
+        "startDate": "2027/03/01",
+        "endDate": "2027/08/31",
+        "workdays": 125,
         "lead": "RPA 開發組",
         "deliverable": "重複性進出口報關與採購拋單機器人上線，消除人工抄寫轉錄",
         "budget": "$20,000 USD"
@@ -854,9 +983,11 @@
         "pillar": "Pillar IV 智慧製造與設備",
         "name": "Smart Equipment (AGV / 自動模板機與 MES 實時介接)",
         "cat": "Grow",
-        "start": 4,
-        "end": 11,
-        "stage": "Q2 隆安模板機串接 ➔ Q3 裁片超市AGV聯動 ➔ Q4 中爪哇推廣",
+        "start_m": 4,
+        "end_m": 11,
+        "startDate": "2027/04/06",
+        "endDate": "2027/11/30",
+        "workdays": 161,
         "lead": "OT 整合組",
         "deliverable": "Kepware OPC-UA + EMQX 實現模板機自動派單與裁片計工",
         "budget": "$45,000 USD"
@@ -866,9 +997,11 @@
         "pillar": "Pillar IV 智慧製造與設備",
         "name": "AI / Computing Infra (總部 vLLM 算力與海外 K3s 輕量邊緣)",
         "cat": "Transform",
-        "start": 3,
-        "end": 8,
-        "stage": "Q1 硬體選型 ➔ Q2 總部 GPU 叢集 ➔ Q3 4廠邊緣推論節點",
+        "start_m": 3,
+        "end_m": 8,
+        "startDate": "2027/03/01",
+        "endDate": "2027/08/31",
+        "workdays": 125,
         "lead": "基礎算力組",
         "deliverable": "總部 4x GPU 伺服器叢集 + 4 廠 K3s 邊緣推論節點就緒",
         "budget": "$65,000 USD"
@@ -878,9 +1011,11 @@
         "pillar": "Pillar IV 智慧製造與設備",
         "name": "Network & Edge Infra (車間 OT 實體隔離與 48~72h 離線自治)",
         "cat": "Run",
-        "start": 2,
-        "end": 7,
-        "stage": "Q1 網路隔離規劃 ➔ Q2 隆安離線實測 ➔ Q3 柬/印全覆蓋",
+        "start_m": 2,
+        "end_m": 7,
+        "startDate": "2027/02/15",
+        "endDate": "2027/07/30",
+        "workdays": 113,
         "lead": "網路基礎組",
         "deliverable": "車間 OT 實體隔離 + Moxa/研華邊緣網關 Delta 雙向同步 (100% 斷網零停機)",
         "budget": "$40,000 USD"
@@ -890,9 +1025,11 @@
         "pillar": "Pillar IV 智慧製造與設備",
         "name": "Production Data Collection (RFID 產線讀寫與光電計工)",
         "cat": "Grow",
-        "start": 3,
-        "end": 10,
-        "stage": "Q2 吊掛 RFID 試點 ➔ Q3 車間光電感測 ➔ Q4 4廠全線計工",
+        "start_m": 3,
+        "end_m": 10,
+        "startDate": "2027/03/01",
+        "endDate": "2027/10/29",
+        "workdays": 164,
         "lead": "物聯傳感組",
         "deliverable": "Impinj RFID 讀寫器 + 產線光電計工 Sensor 實時回傳 MES",
         "budget": "$50,000 USD"
@@ -902,19 +1039,29 @@
         "pillar": "Pillar IV 智慧製造與設備",
         "name": "特種自動化設備整合 (自動裁床/吊掛/印尼無縫貼合監控)",
         "cat": "Grow",
-        "start": 5,
-        "end": 12,
-        "stage": "Q2 拉布裁床數據 ➔ Q3 印尼貼合基地溫壓IoT ➔ Q4 全年閉環",
+        "start_m": 5,
+        "end_m": 12,
+        "startDate": "2027/05/03",
+        "endDate": "2027/12/31",
+        "workdays": 166,
         "lead": "自動化工藝組",
         "deliverable": "印尼貼合基地溫壓 IoT 監控 + 自動拉布裁床接口，保障大貨零脫膠",
         "budget": "$55,000 USD"
     }
 ];
+    let activeGanttFilter = 'ALL';
 
-    let activeFilter = 'ALL';
+    function filterGanttPillar(pillarKey) {
+      activeGanttFilter = pillarKey;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      if (window.event && window.event.target) window.event.target.classList.add('active');
+      renderGantt();
+      renderScheduleTable();
+    }
 
     function renderGantt() {
       const tbody = document.getElementById('ganttBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
 
       const pillars = [
@@ -925,20 +1072,19 @@
       ];
 
       pillars.forEach(pillarName => {
-        if (activeFilter !== 'ALL' && !pillarName.startsWith(activeFilter)) {
+        if (activeGanttFilter !== 'ALL' && !pillarName.startsWith(activeGanttFilter)) {
           return;
         }
 
         const filteredProjects = projectsData.filter(p => p.pillar === pillarName);
         if (filteredProjects.length === 0) return;
 
-        // Add Pillar Group Header Row
+        // Group header
         const groupRow = document.createElement('tr');
         groupRow.className = 'pillar-group-row';
         groupRow.innerHTML = `<td colspan="13">${pillarName} (${filteredProjects.length} 項專案)</td>`;
         tbody.appendChild(groupRow);
 
-        // Add Each Project Row
         filteredProjects.forEach(proj => {
           const row = document.createElement('tr');
           row.className = 'project-row';
@@ -954,7 +1100,12 @@
                   <span class="project-name">${proj.name}</span>
                   <span class="cat-badge ${catClass}">${catName}</span>
                 </div>
-                <div><span class="project-stage">📍 ${proj.stage}</span></div>
+                <div>
+                  <span class="project-date-pill">
+                    🗓️ <strong>${proj.startDate}</strong> 至 <strong>${proj.endDate}</strong>
+                    <span class="workdays-badge">${proj.workdays} 工作天</span>
+                  </span>
+                </div>
                 <div class="project-subline">
                   <span>👤 ${proj.lead}</span>
                   <span>📦 ${proj.deliverable}</span>
@@ -964,21 +1115,21 @@
             </td>
           `;
 
-          // Generate 12 Month Cells
           let monthTds = '';
           const barClass = proj.cat === 'Run' ? 'bar-run' : (proj.cat === 'Grow' ? 'bar-grow' : 'bar-trans');
           
           for (let m = 1; m <= 12; m++) {
-            if (m >= proj.start && m <= proj.end) {
-              const isFirst = (m === proj.start);
-              const duration = proj.end - proj.start + 1;
+            if (m >= proj.start_m && m <= proj.end_m) {
+              const isFirst = (m === proj.start_m);
+              const duration = proj.end_m - proj.start_m + 1;
               
               if (isFirst) {
                 monthTds += `
                   <td class="gantt-cell" colspan="${duration}" style="padding: 0 4px !important;">
                     <div class="bar-container">
-                      <div class="gantt-bar ${barClass}" title="${proj.id}: ${proj.name} (${proj.start}月~${proj.end}月, 階段: ${proj.stage})">
-                        ${proj.id} (${proj.start}月~${proj.end}月) · ${proj.stage.split('➔')[0]}
+                      <div class="gantt-bar ${barClass}" title="${proj.id}: ${proj.name}\n開始日期：${proj.startDate}\n結束日期：${proj.endDate}\n實質工期：${proj.workdays} 工作天 (已排開連假/封網)\n負責團隊：${proj.lead}\n關鍵成果：${proj.deliverable}">
+                        <span><strong>${proj.id}</strong> ${proj.name.split('(')[0]}</span>
+                        <span class="bar-date-label">${proj.startDate.substring(5)}～${proj.endDate.substring(5)} · ${proj.workdays}天</span>
                       </div>
                     </div>
                   </td>
@@ -996,15 +1147,38 @@
       });
     }
 
-    function filterPillar(pillarKey) {
-      activeFilter = pillarKey;
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      renderGantt();
+    function renderScheduleTable() {
+      const tbody = document.getElementById('scheduleTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      projectsData.forEach(p => {
+        if (activeGanttFilter !== 'ALL' && !p.pillar.startsWith(activeGanttFilter)) {
+          return;
+        }
+
+        const catClass = p.cat === 'Run' ? 'cat-run' : (p.cat === 'Grow' ? 'cat-grow' : 'cat-trans');
+        const catName = p.cat === 'Run' ? '55% Run' : (p.cat === 'Grow' ? '25% Grow' : '20% Trans');
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="project-id">${p.id}</span></td>
+          <td style="font-weight:700; color:var(--text-charcoal);">${p.name}</td>
+          <td><span class="cat-badge ${catClass}">${catName}</span></td>
+          <td style="font-family:var(--font-mono); font-weight:700; color:var(--rust-primary);">${p.startDate}</td>
+          <td style="font-family:var(--font-mono); font-weight:700; color:var(--rust-primary);">${p.endDate}</td>
+          <td style="font-family:var(--font-mono); font-weight:700;">${p.workdays} 天</td>
+          <td style="color:var(--text-muted);">${p.lead}</td>
+          <td style="font-size:0.75rem;">${p.deliverable}</td>
+          <td style="font-weight:700; font-family:var(--font-mono); color:var(--text-charcoal);">${p.budget}</td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    // Initial render
+    // Initialize
     renderGantt();
+    renderScheduleTable();
   </script>
 </body>
 </html>
