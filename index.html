@@ -2869,84 +2869,84 @@
         desc: "2027 不再只將資訊安全、網路或系統穩定視為單一基礎設施工作，而是進一步建立企業級的資料交換、存取、治理及 AI 管理能力，使不同系統與新應用能在一致規則下運作。",
         items: [
           {
-                    "tag": "Integration",
                     "title": "API Management",
-                    "desc": "建立系統間資料交換與微服務介接的共同管理機制與生命週期標準。",
-                    "tools": "Kong (Gateway OSS / Cloud) / OpenAPI 3.0 / Postman",
-                    "sizing": "台北總部網關 + 越南/柬埔寨/印尼 3 廠邊緣節點 (Kong Edge) + 200 席內部調用",
-                    "budgetUSD": "$12,000 ～ $18,000 USD / 年",
-                    "budgetTWD": "約 NT$ 38萬 ～ 58萬",
-                    "rgtCategory": "70% Run / 30% Grow"
+                    "tag": "API 管理機制",
+                    "desc": "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES 與供應商 API 路由與頻寬管制。",
+                    "tools": "Kong Gateway (OSS / Cloud) + OpenAPI 3.0 + Postman",
+                    "sizing": "台北總部核心網關 + 3 海外廠邊緣 Kong 節點 + 200 席調用",
+                    "budgetUSD": "$14,000 USD / 年 (約 $11k～$16k)",
+                    "budgetTWD": "約 NT$ 44 萬 / 年",
+                    "rgtCategory": "70% Run ($9.8k) / 30% Grow ($4.2k)"
           },
           {
-                    "tag": "Security",
                     "title": "Access Governance",
-                    "desc": "建立跨系統、主數據、不同職能使用者及新興 AI Agent 的身分驗證與精細化存取控管。",
-                    "tools": "Microsoft Entra ID (P2) + HashiCorp Vault + SPIFFE/SPIRE (Agent ID)",
-                    "sizing": "最多 200 席跨國幹部 SSO (Entra ID P2) + 核心資料庫動態金鑰 + AI Agent 身分憑證沙盒",
-                    "budgetUSD": "$20,000 ～ $28,000 USD / 年",
-                    "budgetTWD": "約 NT$ 64萬 ～ 90萬",
-                    "rgtCategory": "80% Run / 20% Transform"
+                    "tag": "存取治理與身分",
+                    "desc": "建立不同系統、資料、使用者及 AI Agent 的存取權限控管原則，落實動態金鑰與 Agent 身分沙盒。",
+                    "tools": "Microsoft Entra ID (P2) + HashiCorp Vault + SPIFFE/SPIRE",
+                    "sizing": "最多 200 席跨國幹部 SSO + 核心 DB 動態金鑰 + AI Agent 身分沙盒",
+                    "budgetUSD": "$24,000 USD / 年 (約 $20k～$28k)",
+                    "budgetTWD": "約 NT$ 76 萬 / 年",
+                    "rgtCategory": "70% Run ($16.8k) / 10% Grow ($2.4k) / 20% Transform ($4.8k)"
           },
           {
-                    "tag": "Architecture",
                     "title": "Enterprise Data Layer",
-                    "desc": "逐步建立跨 ERP、MES、WMS 可共同使用的企業級單一資料層 (Lakehouse / Data Vault)。",
-                    "tools": "Databricks Serverless (Delta Lake) + Debezium + Kafka",
-                    "sizing": "4 廠 CDC 即時串流 + 10TB 湖倉儲存 + 最多 200 席分析查詢運算 (按需彈性用量)",
-                    "budgetUSD": "$24,000 ～ $35,000 USD / 年",
-                    "budgetTWD": "約 NT$ 76萬 ～ 110萬",
-                    "rgtCategory": "60% Grow / 40% Transform"
+                    "tag": "企業資料層",
+                    "desc": "逐步建立跨系統可共同使用的企業資料層，支援近即時生產串流分析與跨廠湖倉查詢。",
+                    "tools": "Databricks Serverless (Delta Lake) + Debezium CDC + Apache Kafka",
+                    "sizing": "4 廠 CDC 串流 + 10TB 湖倉儲存 + 200 席彈性按需查詢節點",
+                    "budgetUSD": "$28,000 USD / 年 (約 $24k～$34k)",
+                    "budgetTWD": "約 NT$ 88 萬 / 年",
+                    "rgtCategory": "20% Run ($5.6k) / 40% Grow ($11.2k) / 40% Transform ($11.2k)"
           },
           {
-                    "tag": "Quality",
                     "title": "Data Governance",
-                    "desc": "建立核心資料定義、Source of Truth（單一真實數據來源）、資料品質及共用 Key/狀態標準。",
-                    "tools": "Profisee MDM (Starter) + Atlan + Great Expectations",
-                    "sizing": "最多 200 席資料存取 + 全球原副料號/款號主數據清洗 + 自動品質門禁",
-                    "budgetUSD": "$18,000 ～ $25,000 USD / 年",
-                    "budgetTWD": "約 NT$ 58萬 ～ 80萬",
-                    "rgtCategory": "50% Run / 50% Grow"
+                    "tag": "資料治理與標準",
+                    "desc": "建立核心資料定義、Source of Truth、資料品質及共用 Key／狀態標準，消除各廠同布不同號亂象。",
+                    "tools": "Profisee MDM (Starter) + Atlan Data Catalog + Great Expectations",
+                    "sizing": "200 席存取 + 全球原副料/款號主數據清洗 + 自動品質門禁",
+                    "budgetUSD": "$20,000 USD / 年 (約 $16k～$24k)",
+                    "budgetTWD": "約 NT$ 63 萬 / 年",
+                    "rgtCategory": "35% Run ($7.0k) / 45% Grow ($9.0k) / 20% Transform ($4.0k)"
           },
           {
-                    "tag": "Compliance",
                     "title": "AI Governance",
-                    "desc": "建立企業內部 AI 工具、模型評估、Agent 呼叫、資料外洩防護、合規監控及稽核機制。",
-                    "tools": "Portkey / LiteLLM Proxy (Team Tier) + Guardrails AI + LangSmith",
-                    "sizing": "最多 200 席 AI 調用管制 + 月均 200 萬 Tokens + Tech Pack 提示詞機敏遮罩與審計日誌",
-                    "budgetUSD": "$6,000 ～ $10,000 USD / 年",
-                    "budgetTWD": "約 NT$ 19萬 ～ 32萬",
-                    "rgtCategory": "100% Transform"
+                    "tag": "AI 治理與監控",
+                    "desc": "建立 AI 工具、模型、Agent、資料存取、監控及稽核之治理機制，管制 Token 預算並遮蔽 Tech Pack 機敏內容。",
+                    "tools": "Portkey / LiteLLM Proxy + Guardrails AI + LangSmith",
+                    "sizing": "200 席 AI 調用管制 + 月均 200 萬 Tokens + Tech Pack 提示詞機敏遮罩",
+                    "budgetUSD": "$12,000 USD / 年 (約 $9k～$15k)",
+                    "budgetTWD": "約 NT$ 38 萬 / 年",
+                    "rgtCategory": "10% Run ($1.2k) / 20% Grow ($2.4k) / 70% Transform ($8.4k)"
           },
           {
-                    "tag": "Defense",
                     "title": "Cybersecurity",
-                    "desc": "持續強化資安防護、主動弱點掃描、EDR 端點安全監控與全球員工社交工程防護意識。",
-                    "tools": "CrowdStrike Falcon (200 席端點與工控伺服器) + Cloudflare One (ZTNA 200 席)",
-                    "sizing": "最多 200 席核心端點/伺服器 24/7 EDR 託管防護 + 零信任遠端存取與季度弱點修補",
-                    "budgetUSD": "$25,000 ～ $36,000 USD / 年",
-                    "budgetTWD": "約 NT$ 80萬 ～ 115萬",
-                    "rgtCategory": "90% Run / 10% Grow"
+                    "tag": "資安與弱點管理",
+                    "desc": "持續強化資安防護、弱點管理、端點安全與跨國人員資安意識，實施 24/7 EDR 託管防勒索威脅。",
+                    "tools": "CrowdStrike Falcon (EDR/XDR) + Cloudflare One (ZTNA) + Tenable.io",
+                    "sizing": "最多 200 席核心端點/伺服器 24/7 EDR 託管 + 零信任遠端存取與弱檢",
+                    "budgetUSD": "$28,000 USD / 年 (約 $24k～$34k)",
+                    "budgetTWD": "約 NT$ 88 萬 / 年",
+                    "rgtCategory": "85% Run ($23.8k) / 10% Grow ($2.8k) / 5% Transform ($1.4k)"
           },
           {
-                    "tag": "Resilience",
-                    "title": "Backup / DR / Continuity",
-                    "desc": "由單純檔案備份進一步提升至高可用營運持續性（BCP）與跨區災害復原（DR）驗證。",
-                    "tools": "Zerto (Tier-1 CDP) + Veeam Backup + AWS S3 Glacier WORM (防篡改儲存)",
-                    "sizing": "6~8 台核心生產 VM 秒級連續複製 + 15TB WORM 不可篡改備份槽 + 年 2 次無預警演練",
-                    "budgetUSD": "$15,000 ～ $22,000 USD / 年",
-                    "budgetTWD": "約 NT$ 48萬 ～ 70萬",
-                    "rgtCategory": "80% Run / 20% Grow"
+                    "title": "Backup / DR / BCP",
+                    "tag": "營運持續管理",
+                    "desc": "由單純備份進一步提升至營運持續與復原能力管理，達成 Tier-1 系統 RPO < 15m / RTO < 2h 之國際稽核標準。",
+                    "tools": "Zerto (Tier-1 CDP) + Veeam Backup + AWS S3 Glacier Object Lock (WORM)",
+                    "sizing": "6~8 台核心生產 VM 秒級連續複製 + 15TB WORM 不可篡改備份槽",
+                    "budgetUSD": "$16,000 USD / 年 (約 $13k～$20k)",
+                    "budgetTWD": "約 NT$ 50 萬 / 年",
+                    "rgtCategory": "80% Run ($12.8k) / 20% Grow ($3.2k)"
           },
           {
-                    "tag": "Infra",
                     "title": "Network Architecture",
-                    "desc": "建立支援海外各工廠即時資訊採集、IoT 感測器、AI 邊緣推論與跨國 SD-WAN 穩定基礎。",
-                    "tools": "Fortinet Secure SD-WAN + Aruba Wi-Fi 6 + 研華工業邊緣主機",
-                    "sizing": "4 基地 SD-WAN 多線路控制器 + 4 台車間邊緣離線主機維護攤提",
-                    "budgetUSD": "$18,000 ～ $26,000 USD / 年",
-                    "budgetTWD": "約 NT$ 58萬 ～ 83萬",
-                    "rgtCategory": "60% Run / 40% Grow"
+                    "tag": "跨廠整合架構",
+                    "desc": "建立支援工廠即時資訊、IoT、AI 與跨廠整合之穩定基礎架構，保障海外廠 48~72 小時離線自主運轉能力。",
+                    "tools": "Fortinet Secure SD-WAN + Aruba Wi-Fi 6 + 研華 (Advantech) 工業邊緣主機",
+                    "sizing": "4 基地 SD-WAN 多線路控制器 + 4 台車間邊緣離線主機維護與硬體攤提",
+                    "budgetUSD": "$18,000 USD / 年 (約 $15k～$22k)",
+                    "budgetTWD": "約 NT$ 57 萬 / 年",
+                    "rgtCategory": "61% Run ($11.0k) / 27% Grow ($4.8k) / 12% Transform ($2.2k)"
           }
 ]
       },
