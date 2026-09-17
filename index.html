@@ -1505,6 +1505,162 @@
     .commit-stat { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; color: var(--rust-primary); }
     .commit-desc { font-size: 0.83rem; color: var(--text-body); line-height: 1.5; }
 
+
+    /* Sticky Top Global Bar (Always Visible Language Switcher & Search) */
+    .sticky-global-bar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--text-charcoal);
+      box-shadow: 0 4px 16px rgba(45, 30, 20, 0.08);
+      padding: 10px 32px;
+    }
+
+    .sticky-global-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .global-brand-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-charcoal);
+    }
+
+    .global-brand-badge {
+      background: var(--bg-amber-soft);
+      color: var(--rust-primary);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      border: 1px solid rgba(168, 50, 18, 0.2);
+    }
+
+    /* 6-Language Switcher Box - Super Prominent! */
+    .lang-switcher-box {
+      display: inline-flex;
+      align-items: center;
+      background: #F7F5F0;
+      border: 1.5px solid #D1C9BE;
+      border-radius: 28px;
+      padding: 3px 6px;
+      gap: 3px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .lang-indicator-text {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-charcoal);
+      background: rgba(0,0,0,0.06);
+    }
+
+    .lang-btn.active {
+      background: var(--rust-primary) !important;
+      color: #FFFFFF !important;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.35);
+    }
+
+    /* Global Search Box in Top Bar */
+    .global-search-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .global-search-input-wrap {
+      display: flex;
+      align-items: center;
+      background: #F7F5F0;
+      border: 1.5px solid #D1C9BE;
+      border-radius: 24px;
+      padding: 5px 14px;
+      gap: 8px;
+      width: 240px;
+      transition: all 0.25s ease;
+    }
+
+    .global-search-input-wrap:focus-within {
+      background: #FFF;
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 3px rgba(222, 88, 20, 0.15);
+      width: 300px;
+    }
+
+    .global-search-input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--text-charcoal);
+      width: 100%;
+    }
+
+    .global-search-shortcut {
+      font-size: 0.65rem;
+      background: #E2E8F0;
+      color: var(--text-muted);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .global-search-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 460px;
+      max-height: 460px;
+      overflow-y: auto;
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 10001;
+      padding: 12px;
+    }
+
   </style>
 </head>
 <body>
@@ -1520,8 +1676,11 @@
         <div class="masthead-badge">
           <span>●</span> 2027 C-LEVEL OPERATIONAL ARCHITECTURE
         </div>
-        <div class="author-chip">
-          <span>STRATEGIC ARCHITECT:</span> <strong>Howard Liao Ph.D.</strong>
+        <div class="author-chip" id="t-sponsorChip" style="background:#FFF8EE; border-left:3px solid var(--orange-vibrant);">
+          <span>計劃主持：</span> <strong>周文津 副總</strong>
+        </div>
+        <div class="author-chip" id="t-authorChip">
+          <span>執行負責：</span> <strong>Howard Liao Ph.D.</strong>
         </div>
       </div>
 
@@ -1560,8 +1719,12 @@
       <div class="author-profile-info">
         <div class="author-seal">HL</div>
         <div>
-          <div class="author-name-text" id="t-authorName">Howard Liao Ph.D. <span style="font-size: 1rem; font-weight: 500; color: var(--rust-primary);" id="t-authorSub"></span></div>
-          <div class="author-title-text" id="t-authorTitle">C-Level IT & Digital Architect · 跨國製造數據治理與智能營運戰略主持人</div>
+          <div class="author-name-text" id="t-leadershipTitle" style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+            <span>周文津 副總 <span style="font-size: 0.92rem; font-weight: 500; color: var(--text-muted);">(計劃主持人)</span></span>
+            <span style="color: var(--border-accent);">|</span>
+            <span>Howard Liao Ph.D. <span style="font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);">(執行負責人)</span></span>
+          </div>
+          <div class="author-title-text" id="t-authorTitle">RSI Global Enterprise · 跨國製造數據治理、營運韌性與智能營運架構藍圖</div>
         </div>
       </div>
       <div class="author-metrics-summary">
