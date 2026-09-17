@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 2027 IT 策略與投資計畫 (向執行長與經營團隊報告)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FBFBFA;
+      --bg-card: #FFFFFF;
+      --bg-warm-tint: #F5F2EB;
+      --bg-amber-soft: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #DE5814;
+      --amber-gold: #D97706;
+      --green-run: #0D9488;
+      --blue-grow: #2563EB;
+      --purple-trans: #9333EA;
+      --text-charcoal: #1E1E24;
+      --text-body: #4A4A52;
+      --text-muted: #7A7A85;
+      --border-subtle: #E8E5DF;
+      --border-strong: #D5D0C5;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 2px 8px rgba(30, 30, 36, 0.04);
+      --shadow-md: 0 8px 24px rgba(30, 30, 36, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      position: relative;
+      min-height: 100vh;
+      padding: 30px 24px;
+    }
+
+    /* Watermark Overlay */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'%3E%3Ctext x='20' y='90' fill='%23A83212' font-family='sans-serif' font-size='18' font-weight='bold' letter-spacing='2' transform='rotate(-25 150 90)'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Top Navigation Links */
+    .top-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-btn:hover {
+      border-color: var(--rust-primary);
+      color: var(--rust-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+    }
+
+    /* Masthead */
+    .masthead {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .main-title {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .main-title span {
+      color: var(--rust-primary);
+      font-style: italic;
+    }
+    .main-lead {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      max-width: 1050px;
+    }
+    .leadership-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .chip strong {
+      color: var(--text-charcoal);
+      margin-left: 4px;
+    }
+
+    /* Document Layout */
+    .doc-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    @media (max-width: 1024px) {
+      .doc-layout { grid-template-columns: 1fr; }
+      .sticky-sidebar { display: none; }
+    }
+
+    .sticky-sidebar {
+      position: sticky;
+      top: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      max-height: 85vh;
+      overflow-y: auto;
+      font-size: 0.8rem;
+    }
+    .sidebar-heading {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sidebar-menu {
+      list-style: none;
+    }
+    .sidebar-item {
+      margin-bottom: 6px;
+    }
+    .sidebar-link {
+      color: var(--text-body);
+      text-decoration: none;
+      display: block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      font-size: 0.78rem;
+    }
+    .sidebar-link:hover {
+      background: var(--bg-warm-tint);
+      color: var(--rust-primary);
+      font-weight: 600;
+    }
+
+    .doc-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Content Typography */
+    .doc-content h2 {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-top: 36px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+    .doc-content h3 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .doc-content h4 {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+    .doc-content p {
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.7;
+    }
+    .doc-content ul, .doc-content ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      font-size: 0.86rem;
+    }
+    .doc-content li {
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    .doc-content hr {
+      border: none;
+      border-top: 1px solid var(--border-subtle);
+      margin: 30px 0;
+    }
+
+    /* Table Styles */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0 24px 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    th, td {
+      border: 1px solid var(--border-subtle);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #FAF8F5;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    tr:hover td {
+      background: #FFFDF9;
+    }
+
+    /* Page Box Cards (For the 18 pages) */
+    .page-card {
+      background: #FAFAF8;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--rust-primary);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .page-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .page-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .page-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #FFF;
+      background: var(--rust-primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .conclusion-box {
+      background: var(--bg-amber-soft);
+      border: 1px solid #F3D9A2;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #92400E;
+    }
+
+    /* Print Styles */
+    @media print {
+      body { padding: 0; background: #FFF; }
+      .top-nav-bar, .sticky-sidebar { display: none; }
+      .container { max-width: 100%; }
+      .doc-content { border: none; box-shadow: none; padding: 0; }
+      .page-card { page-break-inside: avoid; margin-bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    <!-- Top Nav Navigation Bar -->
+    <div class="top-nav-bar">
+      <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGY BLUEPRINT</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">🌐 白皮書首頁</a>
+        <a href="ceo_strategic_plan.html" class="nav-btn active">📊 CEO 策略報告 (全本)</a>
+        <a href="gantt_chart_2027.html" class="nav-btn">📅 全專案甘特圖</a>
+        <a href="organization_resources.html" class="nav-btn">👥 組織與資源配置</a>
+        <a href="inventory_discovery.html" class="nav-btn">📋 職能與設備盤點</a>
+      </div>
+    </div>
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <h1 class="main-title">2027 年 IT 策略與投資計畫 (向執行長與經營團隊報告)<br><span>整合運用・智能營運 (商業決策、資本治理與營運韌性全景全本)</span></h1>
+      <p class="main-lead">
+        本計畫專為集團執行長（CEO）、營運長（COO）、財務長（CFO）與事業單位主管撰寫。以「商業決策、營收成長、毛利保衛、營運韌性、資安風險與法遵投資回報」為主軸，將 IT 技術全面轉化為支撐跨國 4 大生產基地、7,500 萬件成衣履約之核心戰略資產。
+      </p>
+      <div class="leadership-strip">
+        <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
+          <span>計劃主持：</span><strong>周文津 副總 (Executive Sponsor)</strong>
+        </div>
+        <div class="chip" style="border-left: 3px solid var(--rust-primary);">
+          <span>執行負責：</span><strong>Howard Liao Ph.D. (Lead Architect & Advisor)</strong>
+        </div>
+        <div class="chip">
+          <span>文件編號：</span><strong>RSI-BOD-2027-STRAT-001 (Board Confidential)</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Two-Column Layout -->
+    <div class="doc-layout">
+      <!-- Left Sticky Sidebar Navigator -->
+      <aside class="sticky-sidebar">
+        <div class="sidebar-heading">📑 報告章節導覽</div>
+        <ul class="sidebar-menu">
+          <li class="sidebar-item"><a href="#sec-preface" class="sidebar-link">壹、待確認假設與十大決策</a></li>
+          <li class="sidebar-item"><a href="#sec-deck" class="sidebar-link">貳、18 頁 CEO 簡報詳解</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-1" class="sidebar-link">P1. 執行摘要與決策請求</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-2" class="sidebar-link">P2. 策略與 IT 對齊地圖</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-3" class="sidebar-link">P3. 外部趨勢與法規驅動</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-4" class="sidebar-link">P4. IT 現況健康度總覽</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-5" class="sidebar-link">P5. 技術債、風險與不投後果</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-6" class="sidebar-link">P6. 2027 願景與五大支柱</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-7" class="sidebar-link">P7. 支柱一：數位成長與客戶</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-8" class="sidebar-link">P8. 支柱二：AI數據與自動化</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-9" class="sidebar-link">P9. 支柱三：資安韌性與法遵</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-10" class="sidebar-link">P10. 支柱四：雲端平台FinOps</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-11" class="sidebar-link">P11. 支柱五：IT治理人才價值</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-12" class="sidebar-link">P12. 專案投資組合排序</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-13" class="sidebar-link">P13. AI場景ROI與治理模型</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-14" class="sidebar-link">P14. 資安營運韌性風險熱圖</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-15" class="sidebar-link">P15. 預算與三種投資情境</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-16" class="sidebar-link">P16. 組織人力供應商策略</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-17" class="sidebar-link">P17. CEO KPI 與季度路線圖</a></li>
+          <li class="sidebar-item" style="padding-left: 10px;"><a href="#page-18" class="sidebar-link">P18. CEO 決策與下一步</a></li>
+          <li class="sidebar-item"><a href="#sec-decision-sheet" class="sidebar-link">參、一頁式 CEO 決策審核表</a></li>
+          <li class="sidebar-item"><a href="#sec-portfolio" class="sidebar-link">肆、25 項專案全景總表</a></li>
+          <li class="sidebar-item"><a href="#sec-budget" class="sidebar-link">伍、預算表與三情境分析</a></li>
+          <li class="sidebar-item"><a href="#sec-kpi" class="sidebar-link">陸、CEO 關鍵績效儀表板</a></li>
+          <li class="sidebar-item"><a href="#sec-roadmap" class="sidebar-link">柒、四季平準化路線圖</a></li>
+          <li class="sidebar-item"><a href="#sec-risks" class="sidebar-link">捌、企業級風險登錄表</a></li>
+          <li class="sidebar-item"><a href="#sec-appendices" class="sidebar-link">玖、附錄：問卷與訪談題庫</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Document Content -->
+      <main class="doc-content">
+        <!-- Section 1 -->
+        <section id="sec-preface">
+          <h2>壹、 待確認關鍵假設與十大管理決策問題</h2>
+          <p>
+            本規劃係以「高階經理人 ＋ 資深企業架構師」雙重視角編制，所有數據均基於跨國成衣製造業之實務經驗建立基準模型；後續在實施落地過程中，嚴格遵循「動態滾動式修正（Rolling Forecast）」機制。
+          </p>
+
+          <h3>一、 關鍵規劃假設清冊 (Baseline Hypotheses Register)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 110px;">類別</th>
+                  <th style="width: 140px;">關鍵項目</th>
+                  <th style="width: 180px;">2027 基準假設值</th>
+                  <th>業務衝擊與敏感度分析</th>
+                  <th style="width: 160px;">驗證窗口 / 來源</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>業務規模</strong></td>
+                  <td>集團年出貨成衣量</td>
+                  <td><strong>7,500 萬件 (Pcs)</strong></td>
+                  <td>每變動 1,000 萬件，影響單件數位成本 (DCPG) 約 ±13%</td>
+                  <td>業務副總 / 營運管理處</td>
+                </tr>
+                <tr>
+                  <td><strong>生產版圖</strong></td>
+                  <td>海外跨國生產基地</td>
+                  <td><strong>4 大基地</strong> (台北、隆安、金邊、中爪哇)</td>
+                  <td>跨國專線、海纜波動與在地邊緣離線自律之硬性依賴</td>
+                  <td>海外營運總經理室</td>
+                </tr>
+                <tr>
+                  <td><strong>授權規模</strong></td>
+                  <td>軟體與資安席位</td>
+                  <td><strong>2,500 席</strong> (400核心 + 2,100現場幹部)</td>
+                  <td>嚴格採 FinOps 分層授權，防範無差別採購膨脹</td>
+                  <td>人資處 / 軟體資產管理</td>
+                </tr>
+                <tr>
+                  <td><strong>基準預算</strong></td>
+                  <td>Pillar I 數位底座總額</td>
+                  <td><strong>$640,000 USD (約 NT$ 2,016 萬)</strong></td>
+                  <td>嚴格鎖定 55% Run / 25% Grow / 20% Transform 結構</td>
+                  <td>財務長 (CFO) / 預算委員會</td>
+                </tr>
+                <tr>
+                  <td><strong>硬性回報</strong></td>
+                  <td>空運包機違約對沖</td>
+                  <td><strong>每年防禦 2 次包機 (約省 NT$ 1,500 萬)</strong></td>
+                  <td>成衣缺料或脫拍一次包機罰款高達 $15萬~$30萬 USD</td>
+                  <td>供應鏈物流處 / 生管部</td>
+                </tr>
+                <tr>
+                  <td><strong>原物料成本</strong></td>
+                  <td>布料損耗率降低</td>
+                  <td><strong>降低 1.0% ～ 1.2% (省 NT$ 2,200 萬)</strong></td>
+                  <td>布料佔成衣總成本 65%，MDM 統一與 CAD 提升效益極高</td>
+                  <td>大貨採購處 / 裁剪研發部</td>
+                </tr>
+                <tr>
+                  <td><strong>合規法域</strong></td>
+                  <td>東南亞跨境數據主權</td>
+                  <td><strong>越南 Decree 53 與印尼 PDP 法規</strong></td>
+                  <td>敏感人事薪資數據「在地邊緣留存」，去機敏特徵才回傳總部</td>
+                  <td>集團法務室 / 跨國律師</td>
+                </tr>
+                <tr>
+                  <td><strong>客戶稽核</strong></td>
+                  <td>頂級品牌 IP 無菌室</td>
+                  <td><strong>ISO/IEC 27001 與 ABAC 實體隔離</strong></td>
+                  <td>嚴防 Nike、Lululemon 等大客戶版型與 Tech Pack 交叉洩漏</td>
+                  <td>業務處各大品牌專案小組</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>二、 建議 CEO 與經營管理團隊確認的十大決策問題</h3>
+          <ol>
+            <li><strong>【資本審批策略】</strong> 董事會本次審批，是以<strong>方案 A（二千萬級全面躍升版，約 NT$ 2,016 萬 / 2,500 席）</strong> 作為主力單一提案，或是將<strong>方案 B（精實核心啟動版，約 NT$ 980 萬 / 總部與隆安 400 席）</strong> 列為防禦備案？</li>
+            <li><strong>【財務對沖回報數據窗口】</strong> 本計畫以「年防禦 2 次空運包機違約（省 NT$ 1,500 萬）」與「布料損耗降低 1.2%（省 NT$ 2,200 萬）」作為 14～16 個月現金回本之論據，CEO 是否同意指派財務長與生管處長提供近三年歷史實際罰款數據完成最終校核？</li>
+            <li><strong>【跨國現況盤點行政公文】</strong> 是否同意於下週由執行長（CEO）與計劃主持人（周副總）共同聯名發布《2027 集團數位基線與技術資產盤點公文》，定調為「培育升級與設備補助換新依據」，破除海外同仁戒心？</li>
+            <li><strong>【海外各廠第一推動窗口】</strong> 越南隆安、柬埔寨金邊與印尼中爪哇三地，CEO 屬意由哪位海外高階幹部出任各基地盤點與實施之「總協調人」？</li>
+            <li><strong>【4-Gate 門禁特許審批權限】</strong> 為根絕未齊套盲目上線之窩工拆線，前端實施 4-Gate 硬性攔截；針對現場急件，CEO 是否同意核定<strong>「緊急特許放行權限鎖定為海外廠長 ＋ 周副總雙簽」</strong>，並在系統中標註為紅色風險工單列管？</li>
+            <li><strong>【越南旗艦示範廠集中攻堅】</strong> 本計畫排程於 Q2（4～6月）將跨國資源全力集中於「越南隆安旗艦廠」打通門禁與 72h 離線自律，CEO 是否支持要求事業部排開該廠非必要大型參訪與異動？</li>
+            <li><strong>【內部 16～18 人編制與人才來源】</strong> 內部 5 大小組核心編制，針對關鍵架構職缺（Databricks 架構師、Camunda 架構師），CEO 傾向授權外部市場挖角引進，或優先由現有種子同仁送原廠認證培訓？</li>
+            <li><strong>【Q2 駐廠敏捷突擊隊外派政策】** 為消弭現場老廠長抵制，總部規劃指派 1 位架構師 ＋ 1 位資深 IE 駐廠 60 天並肩作戰，CEO 是否在跨國出差、外派津貼與現地調度上給予行政綠色通道支持？</li>
+            <li><strong>【原廠企業合約整併談判授權】</strong> 全集團現有微軟 M365 與防毒軟體即將到期，CEO 是否授權執行團隊於 Q4 提前啟動大單整併談判，將 2,500 席改採分層授權以實現維運成本降低 8%～12%？</li>
+            <li><strong>【東南亞跨境數據主權合規背書】</strong> 針對越南 Decree 53 與印尼 PDP 法規之「人事數據本地存儲、去機敏特徵串流總部」架構，CEO 是否核定由法務主管於 30 天內出具正式合規確認備忘錄？</li>
+          </ol>
+        </section>
+
+        <hr>
+
+        <!-- Section 2: 18 Pages Detailed Content -->
+        <section id="sec-deck">
+          <h2>貳、 18 頁 CEO 簡報逐頁詳細內容 (Executive Slides)</h2>
+
+          <!-- Page 1 -->
+          <div class="page-card" id="page-1">
+            <div class="page-card-header">
+              <span class="page-card-title">第 1 頁：執行摘要與 CEO 決策請求</span>
+              <span class="page-badge">SLIDE 01 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>2027 年 IT 投資不再是買硬體的資訊支出，而是集團實現「毛利保衛、斷網韌性與 AI 規模化」的戰略資本；以 NT$ 2,016 萬基準預算，預估於第 14～16 個月實現全額現金回本，全面支撐全球 7,500 萬件成衣準時交付。
+            </div>
+            <h4>簡報正文內容：</h4>
+            <ul>
+              <li><strong>2027 總體戰略願景</strong>：「整合運用・智能營運」——以數位底座守護跨國製造韌性，以數據中台驅動精準履約。</li>
+              <li><strong>三大核心商業成果</strong>：每年節省現金流 NT$ 3,700 萬；海外廠區 48～72h 斷網離線自律；4-Gate 門禁釋放 15%～25% 工時。</li>
+              <li><strong>總投資預算</strong>：$640,000 USD（約 NT$ 2,016 萬），嚴格依 Gartner 模型配置為 55% Run / 25% Grow / 20% Transform；單件成衣成本 (DCPG) 僅約 NT$ 0.27。</li>
+              <li><strong>若不投資之三大致命業務風險</strong>：海纜頻繁斷網停產損失鉅額空運費、大客戶資安稽核遭降級砍單、跨廠料號混亂造成數億呆料。</li>
+            </ul>
+            <p><strong>建議圖表：</strong>Executive Bento Grid ＋ Gartner 55/25/20 甜甜圈圓餅圖 ＋ DCPG 成本對比圖。</p>
+            <p><strong>CEO 講稿重點：</strong>強調 NT$ 0.27 單件成本、防禦兩次空運包機即回本、今日請求核定三大事項。</p>
+          </div>
+
+          <!-- Page 2 -->
+          <div class="page-card" id="page-2">
+            <div class="page-card-header">
+              <span class="page-card-title">第 2 頁：公司策略與 IT 對齊地圖</span>
+              <span class="page-badge">SLIDE 02 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>IT 策略 100% 映射集團 2027 五大商業目標，每一項技術交付皆由業務高管（Business Owner）共同扛起成敗責任。
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>集團 2027 戰略目標</th>
+                    <th>對應 IT 核心能力</th>
+                    <th>對應落盤專案群</th>
+                    <th>商業量化 KPI</th>
+                    <th>高階業務 Owner</th>
+                    <th>IT 執行 Owner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>OTD 達 98.5%</strong></td>
+                    <td>物料鏈路透明與海運監控</td>
+                    <td>Control Tower + Flink 預警</td>
+                    <td>交期違約罰款降低 80%</td>
+                    <td>採購副總 / 供應鏈處長</td>
+                    <td>數據架構組長</td>
+                  </tr>
+                  <tr>
+                    <td><strong>毛利率提升 1.5%</strong></td>
+                    <td>產前齊套硬性攔截與排產</td>
+                    <td>4-Gate 門禁 + OR-Tools 排線</td>
+                    <td>換線達標率 85%、拆工降 50%</td>
+                    <td>生產副總 / 各廠總廠長</td>
+                    <td>營運流程架構師</td>
+                  </tr>
+                  <tr>
+                    <td><strong>降低布料損耗</strong></td>
+                    <td>主數據統一與 CAD 馬克最佳化</td>
+                    <td>Profisee MDM + 30TB 湖倉</td>
+                    <td>布損降 1.2% (省 NT$ 2,200萬)</td>
+                    <td>研發副總 / 裁剪部主管</td>
+                    <td>數據治理主管</td>
+                  </tr>
+                  <tr>
+                    <td><strong>海外新廠快速複製</strong></td>
+                    <td>48~72h 離線邊緣與交鑰匙樣板</td>
+                    <td>SD-WAN HA + 車間邊緣 K3s</td>
+                    <td>次廠上線縮至 3 個月、斷網零停機</td>
+                    <td>海外副總 / 擴建負責人</td>
+                    <td>基礎設施主管</td>
+                  </tr>
+                  <tr>
+                    <td><strong>大客戶信任與搶單</strong></td>
+                    <td>品牌 IP 無菌室與 24/7 資安</td>
+                    <td>Entra ID ABAC + CrowdStrike</td>
+                    <td>客戶資安/ESG 驗廠 100% 通過</td>
+                    <td>業務副總 / 品牌總監</td>
+                    <td>資安長 (CISO)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表：</strong>策略對齊階梯圖（Strategy Cascade Diagram）。</p>
+            <p><strong>CEO 講稿重點：</strong>杜絕 IT 自嗨，每項專案業務副總共同掛帥，技術完全映射毛利與交付。</p>
+          </div>
+
+          <!-- Page 3 -->
+          <div class="page-card" id="page-3">
+            <div class="page-card-header">
+              <span class="page-card-title">第 3 頁：2027 外部趨勢、競爭與法遵驅動因素</span>
+              <span class="page-badge">SLIDE 03 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>面對東南亞數據主權法規收緊與品牌客戶供應鏈資安極致要求，2027 年合規與韌性是接單的「門票」，而非「加分項」。
+            </div>
+            <h4>直接相關法規驅動：</h4>
+            <ul>
+              <li><strong>越南《網絡安全法》(Decree 53/2022)</strong>：人事數據本地存儲，敏感數據留存隆安邊緣節點。</li>
+              <li><strong>印尼《個人數據保護法》(PDP 2024)</strong>：罰款高達營收 2%，印尼新廠實施實體隔離與本地金鑰。</li>
+              <li><strong>品牌客戶供應鏈資安稽核 (Nike/Lululemon)</strong>：要求 24/7 SOC 監控、MFA 100% 與獨立災備稽核。</li>
+              <li><strong>歐盟數位產品護照 (DPP)</strong>：成衣單件碳足跡與布料履歷，Databricks 串接車間電錶蒸氣數據。</li>
+            </ul>
+            <p><strong>建議圖表：</strong>外部威脅與法規雷達圖。</p>
+            <p><strong>CEO 講稿重點：</strong>法規本地化是硬指標，架構已預先合規，確保信源全球未來五年順暢接單。</p>
+          </div>
+
+          <!-- Page 4 -->
+          <div class="page-card" id="page-4">
+            <div class="page-card-header">
+              <span class="page-card-title">第 4 頁：IT 現況健康度總覽</span>
+              <span class="page-badge">SLIDE 04 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>現況呈現「業務單點系統建置尚可，但跨廠串聯斷點多、資安防護存在夜間真空、車間高度依賴外網」之脆弱平衡，必須在 2027 年全面補強。
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>能力維度</th>
+                    <th>現況成熟度</th>
+                    <th>現存差距 (Gaps)</th>
+                    <th>業務衝擊</th>
+                    <th>2027 目標</th>
+                    <th>改善處方</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>數位業務應用</td>
+                    <td>2.8 (Amber)</td>
+                    <td>產前條件未齊套無硬性阻擋</td>
+                    <td>車縫拆線窩工，換線效率僅 60%</td>
+                    <td>4.2 (Green)</td>
+                    <td>4-Gate 產前門禁 + Camunda 8</td>
+                  </tr>
+                  <tr>
+                    <td>雲端與基礎設施</td>
+                    <td>2.5 (Amber)</td>
+                    <td>主機過保，專線依賴單一海纜</td>
+                    <td>海纜中斷時現場條碼計工即停擺</td>
+                    <td>4.5 (Green)</td>
+                    <td>總部雙活 + SD-WAN HA 雙機</td>
+                  </tr>
+                  <tr>
+                    <td>資料與分析平台</td>
+                    <td>2.0 (Red)</td>
+                    <td>同布不同號，報表靠人工作帳</td>
+                    <td>跨廠庫存無法調撥，呆料高</td>
+                    <td>4.0 (Green)</td>
+                    <td>Databricks 30TB 湖倉 + MDM</td>
+                  </tr>
+                  <tr>
+                    <td>資安與營運韌性</td>
+                    <td>2.2 (Red)</td>
+                    <td>傳統防毒難防勒索，夜間無 SOC</td>
+                    <td>勒索停產風險極高，無 WORM 備份</td>
+                    <td>4.6 (Green)</td>
+                    <td>CrowdStrike 24/7 MDR + Zerto</td>
+                  </tr>
+                  <tr>
+                    <td>AI 與知識管理</td>
+                    <td>1.5 (Red)</td>
+                    <td>同仁零星私用外部 AI，無管控</td>
+                    <td>客戶機敏 Tech Pack 存在外洩風險</td>
+                    <td>3.8 (Green)</td>
+                    <td>Portkey 網關 + 工藝 RAG 庫</td>
+                  </tr>
+                  <tr>
+                    <td>IT 組織與治理</td>
+                    <td>2.6 (Amber)</td>
+                    <td>海外 IT 屬地主義，無標準 SOP</td>
+                    <td>戰略無法貫徹，關鍵系統依賴個人</td>
+                    <td>4.0 (Green)</td>
+                    <td>5 大小組 (16~18人) + 4週盤點</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表：</strong>六角形能力成熟度雷達圖（現況紅橘色 vs. 2027 目標綠色）。</p>
+            <p><strong>CEO 講稿重點：</strong>點出數據中台、資安韌性與 AI 治理為三大紅色軟肋，2027 全面升級至 4.0 以上。</p>
+          </div>
+
+          <!-- Page 5 to 18 Summary Placeholders with rich content -->
+          <div class="page-card" id="page-5">
+            <div class="page-card-header">
+              <span class="page-card-title">第 5 頁：關鍵技術債、風險與不投資後果</span>
+              <span class="page-badge">SLIDE 05 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>累積之技術債已逼近臨界點；不投資將直接導致海外產線突發停機、空運違約罰款與核心數據遭勒索銷毀。
+            </div>
+            <p>列管十大重大技術債：R1過保Dell主機、R2海纜斷網停擺、R3缺乏WORM防勒索、R4原副料同料不同號、R5產前未齊盲目上線、R6軟體過度授權、R7員工私用Shadow AI、R8關鍵技術個人依賴、R9東南亞數據違規、R10資料庫災備未達標。</p>
+            <p><strong>建議圖表：</strong>5x5 風險矩陣熱圖。</p>
+            <p><strong>CEO 講稿重點：</strong>十項技術債隨時引發停工，2027 專案將極高與災難級風險完全清零。</p>
+          </div>
+
+          <div class="page-card" id="page-6">
+            <div class="page-card-header">
+              <span class="page-card-title">第 6 頁：2027 IT 願景與五大策略支柱</span>
+              <span class="page-badge">SLIDE 06 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>以可治理 AI、可信資料、具韌性邊緣與精實成本，支撐集團 2027 年營收擴展與毛利保衛。
+            </div>
+            <p><strong>願景宣示：</strong>「整合運用・智能營運：以數位底座守護跨國製造韌性，以數據中台驅動精準履約，以安全 AI 賦能全球工藝傳承。」</p>
+            <p>五大支柱：支柱一 數位成長與客戶信任、支柱二 AI 數據與超自動化、支柱三 資安韌性與法遵、支柱四 雲端平台與 FinOps、支柱五 IT 治理與人才生態。</p>
+            <p><strong>建議圖表：</strong>五柱神殿架構圖。</p>
+          </div>
+
+          <div class="page-card" id="page-7">
+            <div class="page-card-header">
+              <span class="page-card-title">第 7 頁：策略支柱一——數位成長與客戶體驗</span>
+              <span class="page-badge">SLIDE 07 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>透過品牌數據無菌室捍衛客戶資產，以數位產品護照搶佔歐盟永續訂單。
+            </div>
+            <p>核心專案：品牌 IP 數據無菌室 (ABAC 隔離)、ESG 單件成衣碳足跡追溯 (DPP)、大客戶即時履約 API。協助業務部爭取歐盟機能服大單，年營收支撐力 5%~8%。</p>
+            <p><strong>建議圖表：</strong>無菌室實體隔絕圖 ＋ DPP 數據流向圖。</p>
+          </div>
+
+          <div class="page-card" id="page-8">
+            <div class="page-card-header">
+              <span class="page-card-title">第 8 頁：策略支柱二——AI、資料與流程自動化</span>
+              <span class="page-badge">SLIDE 08 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>以 30TB 湖倉建立全集團單一真理，以 Agentic AI 貫通生管與做工轉譯，釋放 15%～25% 工時。
+            </div>
+            <p>Top 5 AI 場景：UC-1 多國語工藝 RAG 庫、UC-2 PCD 提前 72h 缺料預警、UC-3 車縫線平衡模擬、UC-4 生管跟單 Agent、UC-5 報關拋單機器人。</p>
+            <p><strong>建議圖表：</strong>商業價值 x 複雜度四象限氣泡圖。</p>
+          </div>
+
+          <div class="page-card" id="page-9">
+            <div class="page-card-header">
+              <span class="page-card-title">第 9 頁：策略支柱三——資安韌性、隱私與法遵</span>
+              <span class="page-badge">SLIDE 09 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>以 NIST CSF 2.0 打造 24/7 縱深防禦，確保海纜斷網時 48～72h 自主生產，復原能力達國際標竿。
+            </div>
+            <p>核心配置：CrowdStrike 24/7 MDR、Zerto CDP 秒級複製、S3 WORM 不可篡改備份、48~72h 離線邊緣主機。達成 Tier-1 RPO<15m / RTO<2h。</p>
+            <p><strong>建議圖表：</strong>NIST 六功能防護環形圖 ＋ 48~72h 離線邊緣雙軌時序圖。</p>
+          </div>
+
+          <div class="page-card" id="page-10">
+            <div class="page-card-header">
+              <span class="page-card-title">第 10 頁：策略支柱四——雲端、核心平台與工程效能</span>
+              <span class="page-badge">SLIDE 10 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>以總部雙活、海外車間邊緣與 FinOps 成本治理，實現架構現代化與維運降本 8%～12%。
+            </div>
+            <p>落實系統 6R 汰換策略，結合分層授權（400 核心 + 2,100 現場）與 Serverless 彈性計算，實質降低可控維運成本 8%~12%。</p>
+            <p><strong>建議圖表：</strong>系統 6R 處置優先矩陣 ＋ FinOps 成本瀑布圖。</p>
+          </div>
+
+          <div class="page-card" id="page-11">
+            <div class="page-card-header">
+              <span class="page-card-title">第 11 頁：策略支柱五——IT 治理、人才與供應商價值</span>
+              <span class="page-badge">SLIDE 11 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>內部精實編制 16～18 人掌握主導權，外部借力原廠與 SI 突擊隊，以最高人力槓桿支撐營運。
+            </div>
+            <p>內部 5 大小組（雲端、身分、數據、流程、OT），推行「駐廠敏捷突擊隊」駐隆安廠 60 天，化解老廠長抵制。</p>
+            <p><strong>建議圖表：</strong>組織矩陣雷達 ＋ 內外部協同生態圖。</p>
+          </div>
+
+          <div class="page-card" id="page-12">
+            <div class="page-card-header">
+              <span class="page-card-title">第 12 頁：2027 專案投資組合與優先排序</span>
+              <span class="page-badge">SLIDE 12 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>全年度 25 項專案經科學權重評分，聚焦資源於高價值與必做項目。
+            </div>
+            <p>評分依據商業價值 (30%)、風險降低 (25%)、策略對齊 (20%) 等權重，確立 P1 必做項目（CrowdStrike、SD-WAN、4-Gate 門禁、Zerto、湖倉、MDM）。</p>
+            <p><strong>建議圖表：</strong>投資價值 x 執行難度四象限圖。</p>
+          </div>
+
+          <div class="page-card" id="page-13">
+            <div class="page-card-header">
+              <span class="page-card-title">第 13 頁：AI Use Case、ROI 與治理模型</span>
+              <span class="page-badge">SLIDE 13 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>建構符合 ISO/IEC 42001 之企業級 AI 框架，確保 Agentic AI 在安全沙盒下運作。
+            </div>
+            <p>設 AI 委員會月審、Portkey 專利自動遮罩、Human-in-the-loop 雙簽寫入 MES。控管每月 $4,000 USD Token 預算，年工時釋放價值達 $90 萬美元 (ROI 1:20)。</p>
+            <p><strong>建議圖表：</strong>企業級 AI 治理架構圖。</p>
+          </div>
+
+          <div class="page-card" id="page-14">
+            <div class="page-card-header">
+              <span class="page-card-title">第 14 頁：資安與營運韌性風險熱圖</span>
+              <span class="page-badge">SLIDE 14 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>建立董事會級 KRI 預警指標，將十項重大系統性風險完全收斂至綠色受控區間。
+            </div>
+            <p>覆蓋勒索病毒 (24/7 MDR)、海纜中斷 (Edge IPC)、專利外洩 (ABAC)、資料庫損毀 (Zerto)。保證斷網 3 天正常生產。</p>
+            <p><strong>建議圖表：</strong>改善前後動態風險熱圖收斂軌跡。</p>
+          </div>
+
+          <div class="page-card" id="page-15">
+            <div class="page-card-header">
+              <span class="page-card-title">第 15 頁：2027 預算與三種投資情境</span>
+              <span class="page-badge">SLIDE 15 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>提供三種情境；推薦方案 A（二千萬級）以極低單件成本（NT$ 0.27）換取最高回報與國際合規。
+            </div>
+            <p>推薦方案 A：$640k USD（約 NT$ 2,016 萬），2,500 席全覆蓋，年省 NT$ 3,700 萬，14.8 個月回本。備選方案 B：$310k USD，鎖定總部與隆安廠。</p>
+            <p><strong>建議圖表：</strong>三情境成本效益長條圖 ＋ 預算壓力測試瀑布圖。</p>
+          </div>
+
+          <div class="page-card" id="page-16">
+            <div class="page-card-header">
+              <span class="page-card-title">第 16 頁：IT 組織、人力與供應商策略</span>
+              <span class="page-badge">SLIDE 16 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>確立內部 16～18 人核心編制與外部四大戰略 Support，發揮最高資本槓桿。
+            </div>
+            <p>外部結合微軟/Databricks 原廠顧問、SI 駐廠實施隊 (6~8人)、CrowdStrike 24/7 MDR 與研華在地維保。</p>
+            <p><strong>建議圖表：</strong>組織樹狀圖 ＋ 內外部資源協同矩陣。</p>
+          </div>
+
+          <div class="page-card" id="page-17">
+            <div class="page-card-header">
+              <span class="page-card-title">第 17 頁：CEO KPI 儀表板與 2027 季度路線圖</span>
+              <span class="page-badge">SLIDE 17 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>提供 CEO 五大維度 13 項可稽核指標，全年度 25 項專案排開連假與春節封網，平準化推進。
+            </div>
+            <p>排開 2 月春節封網（停工10天）與東南亞節慶。四季平準推進：Q1 總部築底 ➔ Q2 隆安示範 ➔ Q3 柬印複製 ➔ Q4 集團全面驗收。</p>
+            <p><strong>建議圖表：</strong>KPI 儀表板卡片 ＋ 四季彩色甘特里程碑進度條。</p>
+          </div>
+
+          <div class="page-card" id="page-18">
+            <div class="page-card-header">
+              <span class="page-card-title">第 18 頁：CEO 決策事項與下一步行動計畫</span>
+              <span class="page-badge">SLIDE 18 / 18</span>
+            </div>
+            <div class="conclusion-box">
+              🎯 <strong>核心結論：</strong>計畫完備、數據扎實、風險受控；建請執行長今日核定五大決策，啟動未來 30/60/90 天計畫。
+            </div>
+            <p>五大決策請求：核定策略方向、核准方案 A 預算 (NT$ 2,016 萬)、指定業務 Owner、核定 4-Gate 雙簽特許權、授權簽發盤點公文。啟動 30-60-90 天推進。</p>
+            <p><strong>建議圖表：</strong>CEO 簽核 Decision Card ＋ 30-60-90 水平推進看板。</p>
+          </div>
+        </section>
+
+        <hr>
+
+        <!-- Section 3: Decision Sheet -->
+        <section id="sec-decision-sheet">
+          <h2>參、 一頁式 CEO 決策審核表 (One-Page CEO Decision Sheet)</h2>
+          <div style="background:#FFFBF5; border:2px solid var(--border-strong); border-radius:var(--radius-md); padding:24px; font-size:0.85rem; line-height:1.7;">
+            <div style="text-align:center; font-family:var(--font-serif); font-size:1.5rem; font-weight:700; color:var(--text-charcoal); margin-bottom:12px; border-bottom:2px solid var(--border-subtle); padding-bottom:8px;">
+              信源全球 (RSI) · 2027 IT 策略與投資計畫 CEO 決策審核表
+            </div>
+            <p><strong>專案名稱：</strong>2027 集團 IT 策略與數位底座營運計畫 ｜ <strong>計劃主持：</strong>周文津 副總 ｜ <strong>執行負責：</strong>Howard Liao Ph.D.</p>
+            <p><strong>報告日期：</strong>2026 年 9 月 17 日 ｜ <strong>機密等級：</strong>極機密 (Board Confidential)</p>
+            <hr style="margin:14px 0;">
+
+            <h4 style="color:var(--rust-primary);">【建議核定事項】</h4>
+            <p>☑ <strong>決策一：策略總體願景</strong> —— 同意以「整合運用・智能營運」為 2027 年度 IT 策略主軸，聚焦五大支柱與四大製造痛點。</p>
+            <p>☑ <strong>決策二：2027 年度投資預算方案</strong> —— 核定採納【方案 A：集團全面躍升版】，年度基準預算 $640,000 USD (約合 NT$ 2,016 萬)。(嚴格鎖定 55% Run / 25% Grow / 20% Transform，單件成衣數位成本 NT$ 0.27 / 件)。</p>
+            <p>☑ <strong>決策三：成衣車間 4-Gate 產前門禁特許審批機制</strong> —— 同意實施前端硬性攔截；急件應急特許通行權限核定為【海外總廠長 ＋ 周文津 副總】雙簽。</p>
+            <p>☑ <strong>決策四：全集團現況盤點公文簽發</strong> —— 授權下週由 CEO 與 周副總 聯名發布《2027 數位基線健康檢查與職能設備盤點公文》。</p>
+            <p>☑ <strong>決策五：駐廠敏捷突擊隊 (Forward-Deployed Crew) 派駐政策</strong> —— 核定 Q2 派駐 1 位架構師 ＋ 1 位資深 IE 駐點越南隆安廠 60 天，給予必要行政綠色通道。</p>
+
+            <hr style="margin:14px 0;">
+            <h4 style="color:var(--rust-primary);">【財務承諾與對沖效益查核】</h4>
+            <ul>
+              <li>每年防禦 2 次跨國空運包機延遲違約：<strong>年省現金流 NT$ 1,500 萬</strong></li>
+              <li>布料損耗率降低 1.0%～1.2% (MDM 統一與 CAD 提升)：<strong>年省採購現金流 NT$ 2,200 萬</strong></li>
+              <li>預期靜態投資回本期 (Payback Period)：<strong>第 14 ～ 16 個月實現全額現金回收 (ROI 1:3.84)</strong></li>
+              <li>核心系統高可用保證：Tier-1 系統 RPO &lt; 15 分鐘、RTO &lt; 2 小時；海外廠 48~72h 斷網離線自治</li>
+            </ul>
+
+            <div style="margin-top:24px; border-top:1.5px dashed var(--border-subtle); padding-top:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+              <div>
+                <strong>執行長簽核：</strong> _____________________________
+              </div>
+              <div>
+                <strong>核定日期：</strong> 2026 年 _____ 月 _____ 日
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr>
+
+        <!-- Section 4: Project Portfolio -->
+        <section id="sec-portfolio">
+          <h2>肆、 2027 專案投資組合總表 (25 項全景矩陣與綜合評分)</h2>
+          <p>全年度 25 項專案經「商業價值 (30%) ＋ 風險降低 (25%) ＋ 策略對齊 (20%) ＋ 可行性 (15%) ＋ 見效時間 (10%)」科學權重加權評分：</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:70px;">編號</th>
+                  <th>專案名稱</th>
+                  <th style="width:80px;">資本屬性</th>
+                  <th style="width:90px;">預估成本</th>
+                  <th>預期效益 (ROI / 成果)</th>
+                  <th style="width:70px;">評分</th>
+                  <th style="width:90px;">優先級</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>P1-6</td><td><strong>CrowdStrike 24/7 MDR 資安託管</strong></td><td>55% Run</td><td>$100,000</td><td>800 台關鍵端點 15 分鐘隔離、0 勒索</td><td><strong>95.8</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P1-8</td><td><strong>SD-WAN HA 雙機與車間邊緣主機</strong></td><td>55% Run</td><td>$72,000</td><td>4 廠雙軌線路 HA + 48~72h 離線自律</td><td><strong>93.0</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P1-7</td><td><strong>Zerto CDP 秒級連續複製與 WORM</strong></td><td>55% Run</td><td>$68,000</td><td>Tier-1 RPO&lt;15m, RTO&lt;2h，國際合規</td><td><strong>92.8</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P2-3</td><td><strong>Ready-to-Sew 4-Gate 產前門禁</strong></td><td>20% Trans</td><td>$50,000</td><td>換線達標率升至 85%、拆工返修 -50%</td><td><strong>91.9</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P4-3</td><td><strong>車間 OT 實體隔離與離線自律</strong></td><td>55% Run</td><td>$40,000</td><td>車間 OT 隔離 + 48~72h 斷網離線生產</td><td><strong>91.5</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P1-3</td><td><strong>Databricks 30TB 企業湖倉中台</strong></td><td>25% Grow</td><td>$115,000</td><td>4 廠 CDC 即時串流 + 集團單一真理</td><td><strong>88.5</strong></td><td><strong>P1 (推薦)</strong></td></tr>
+                <tr><td>P3-1</td><td><strong>Flink PCD 提前 72h 缺料預警</strong></td><td>20% Trans</td><td>$42,000</td><td>裁剪前 72h 缺料預警，省包機 NT$1500萬</td><td><strong>88.3</strong></td><td><strong>P1 (推薦)</strong></td></tr>
+                <tr><td>P1-1</td><td><strong>API 管理 (Kong 雙活與邊緣節點)</strong></td><td>55% Run</td><td>$52,000</td><td>總部雙活 + 3 廠邊緣，統一 API 治理</td><td><strong>88.0</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P1-2</td><td><strong>身分治理 (Entra ID + Vault 金鑰)</strong></td><td>55% Run</td><td>$105,000</td><td>2,500 席分層 SSO + 核心金鑰輪替</td><td><strong>88.0</strong></td><td><strong>P1 (必做)</strong></td></tr>
+                <tr><td>P3-6</td><td><strong>知識中台 (多國語工藝 RAG 庫)</strong></td><td>20% Trans</td><td>$48,000</td><td>英中手冊轉譯越柬印，做工檢索+70%</td><td><strong>87.0</strong></td><td><strong>P1 (推薦)</strong></td></tr>
+                <tr><td>P2-2</td><td><strong>物料鏈路 (Control Tower 物料流)</strong></td><td>25% Grow</td><td>$40,000</td><td>供應商 ETA 監控與海運風險預警</td><td><strong>87.0</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P1-4</td><td><strong>資料治理 (Profisee MDM 企業版)</strong></td><td>25% Grow</td><td>$80,000</td><td>原副料號去重，布損降 1.2% (省NT$2200萬)</td><td><strong>86.8</strong></td><td><strong>P1 (推薦)</strong></td></tr>
+                <tr><td>P4-5</td><td><strong>特種設備 (無縫貼合溫壓 IoT 監控)</strong></td><td>25% Grow</td><td>$55,000</td><td>印尼基地高頻溫壓監控，防大貨脫膠</td><td><strong>86.5</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P1-5</td><td><strong>AI 治理 (Portkey / LiteLLM Proxy)</strong></td><td>20% Trans</td><td>$48,000</td><td>多模型路由 + 專利遮罩 + Token 治理</td><td><strong>84.8</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P4-2</td><td><strong>運算設施 (總部 GPU + 海外 K3s)</strong></td><td>20% Trans</td><td>$65,000</td><td>總部 4x GPU 叢集 + 4 廠輕量推論</td><td><strong>83.8</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P4-4</td><td><strong>數據採集 (Impinj RFID 產線計工)</strong></td><td>25% Grow</td><td>$50,000</td><td>吊掛產線即時計工，在製品精準透明</td><td><strong>82.8</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P3-5</td><td><strong>AI 代理人 (生管跟單協同 Agent)</strong></td><td>20% Trans</td><td>$60,000</td><td>跨語言跟單問答，釋放 15~25% 工時</td><td><strong>82.5</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P2-1</td><td><strong>訂單履約 (Camunda 8 流程編排)</strong></td><td>25% Grow</td><td>$45,000</td><td>訂單至出貨 9 大工序端到端可視化</td><td><strong>82.0</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P2-4</td><td><strong>IE 流程 (GSDCost + 技能矩陣)</strong></td><td>25% Grow</td><td>$35,000</td><td>標準工時庫打通，線上效率即時核算</td><td><strong>82.0</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P3-3</td><td><strong>交期預測 (XGBoost 完工風險預估)</strong></td><td>20% Trans</td><td>$45,000</td><td>工單剩餘工時與 OTD 延遲精準預測</td><td><strong>80.8</strong></td><td><strong>P3 (次要)</strong></td></tr>
+                <tr><td>P3-2</td><td><strong>數據分析 (Power BI 跨廠中控台)</strong></td><td>55% Run</td><td>$30,000</td><td>集團產量、效率、損耗即時戰情</td><td><strong>80.5</strong></td><td><strong>P2 (建議)</strong></td></tr>
+                <tr><td>P4-1</td><td><strong>設備整合 (AGV / 自動模板機串接)</strong></td><td>25% Grow</td><td>$45,000</td><td>模板機自動派單計工與裁片超市聯動</td><td><strong>80.3</strong></td><td><strong>P3 (次要)</strong></td></tr>
+                <tr><td>P3-4</td><td><strong>線平衡排程 (OR-Tools 動態模擬)</strong></td><td>20% Trans</td><td>$55,000</td><td>瓶頸站數學尋優，線平衡率提升至95%</td><td><strong>79.8</strong></td><td><strong>P3 (次要)</strong></td></tr>
+                <tr><td>P2-5</td><td><strong>營運協同 (Flowable BPM 跨部協同)</strong></td><td>55% Run</td><td>$25,000</td><td>行政簽核延伸至產銷異常自動派工</td><td><strong>79.5</strong></td><td><strong>P3 (次要)</strong></td></tr>
+                <tr><td>P3-7</td><td><strong>流程自動化 (RPA 報關拋單機器人)</strong></td><td>55% Run</td><td>$20,000</td><td>報關與採購自動拋單，人為錯誤降至 0</td><td><strong>78.3</strong></td><td><strong>P3 (次要)</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <hr>
+
+        <!-- Section 5: Budget & Scenarios -->
+        <section id="sec-budget">
+          <h2>伍、 Run / Grow / Transform 預算表與三種情境</h2>
+          <p>
+            全集團 2,500 席企業級規格基準，總基準年預算 <strong>$640,000 USD (約合 NT$ 2,016 萬)</strong>，經加權嚴格契合 <strong>55% Run / 25% Grow / 20% Transform</strong> 法定平衡。
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>領域項目</th>
+                  <th>推薦工具</th>
+                  <th>基準年預算 (USD / TWD)</th>
+                  <th>55% Run (維運)</th>
+                  <th>25% Grow (擴展)</th>
+                  <th>20% Transform (轉型)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>API Management</td><td>Kong Enterprise + OpenAPI</td><td>$52,000 (NT$ 163.8萬)</td><td>$36,400 (70%)</td><td>$15,600 (30%)</td><td>$0 (0%)</td></tr>
+                <tr><td>Access Governance</td><td>Entra ID P2/F-SKU + Vault</td><td>$105,000 (NT$ 330.8萬)</td><td>$73,500 (70%)</td><td>$10,500 (10%)</td><td>$21,000 (20%)</td></tr>
+                <tr><td>Enterprise Data Layer</td><td>Databricks Enterprise Delta Lake</td><td>$115,000 (NT$ 362.3萬)</td><td>$23,000 (20%)</td><td>$46,000 (40%)</td><td>$46,000 (40%)</td></tr>
+                <tr><td>Data Governance</td><td>Profisee MDM Enterprise + Atlan</td><td>$80,000 (NT$ 252.0萬)</td><td>$28,000 (35%)</td><td>$36,000 (45%)</td><td>$16,000 (20%)</td></tr>
+                <tr><td>AI Governance</td><td>Portkey / LiteLLM Proxy + LangSmith</td><td>$48,000 (NT$ 151.2萬)</td><td>$4,800 (10%)</td><td>$9,600 (20%)</td><td>$33,600 (70%)</td></tr>
+                <tr><td>Cybersecurity</td><td>CrowdStrike 24/7 MDR + ZTNA</td><td>$100,000 (NT$ 315.0萬)</td><td>$85,000 (85%)</td><td>$10,000 (10%)</td><td>$5,000 (5%)</td></tr>
+                <tr><td>Backup / DR / BCP</td><td>Zerto CDP + AWS S3 Glacier WORM</td><td>$68,000 (NT$ 214.2萬)</td><td>$54,400 (80%)</td><td>$13,600 (20%)</td><td>$0 (0%)</td></tr>
+                <tr><td>Network Architecture</td><td>Fortinet Secure SD-WAN HA + 8台IPC</td><td>$72,000 (NT$ 226.8萬)</td><td>$46,900 (65.1%)</td><td>$18,700 (26.0%)</td><td>$6,400 (8.9%)</td></tr>
+                <tr style="background:#FAF8F5; font-weight:800;">
+                  <td colspan="2">Pillar I 數位底座年度總計</td>
+                  <td style="color:var(--rust-primary);">$640,000 (NT$ 2,016萬)</td>
+                  <td>$352,000 (55.0%)</td>
+                  <td>$160,000 (25.0%)</td>
+                  <td>$128,000 (20.0%)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <hr>
+
+        <!-- Section 6: Appendices -->
+        <section id="sec-appendices">
+          <h2>玖、 附錄：資料蒐集清單、系統盤點問卷與訪談題庫</h2>
+          <h3>附錄一：現況資料蒐集清冊 (Data Collection Checklist)</h3>
+          <ul>
+            <li>近三年「跨國空運違約罰款明細表」（財務部對接）。</li>
+            <li>近兩年大貨「布料採購金額與實際損耗率（Fabric Loss %）統計表」（採購處對接）。</li>
+            <li>全集團微軟 M365、防毒軟體、虛擬化軟體之現行合約清冊（資產管理對接）。</li>
+            <li>各機房伺服器配置與過保狀態清單（系統工程組對接）。</li>
+            <li>東南亞專線合約頻寬與斷線日誌（網路工程組對接）。</li>
+            <li>車間自動裁床、模板機、吊掛線之廠牌型號與協定清單（工務部對接）。</li>
+          </ul>
+
+          <h3>附錄二：管理層成熟度訪談題庫 (COO / CFO / 廠長)</h3>
+          <p><strong>A. 對 營運長 / 生產副總 (COO)：</strong> 產前缺料停工拆線頻率有多高？若實施 4-Gate 門禁，現場最大反彈會在哪裡？『廠長+副總雙簽緊急特許』能否平衡管理與彈性？</p>
+          <p><strong>B. 對 財務長 (CFO)：</strong> 全年空運包機費用總額多少？若能提前 72h 預警消滅這筆支出，財務部是否認同列為 IT 硬性回收？對方案 A 與方案 B 的現金流排程建議？</p>
+          <p><strong>C. 對 海外各廠總廠長：</strong> 海纜中斷時現場哪些機台會卡住？組長看英文/中文 Tech Pack 最常誤解什麼？若派駐突擊隊 60 天，現場最希望幫忙打通什麼？</p>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Page Footer -->
+    <footer class="page-footer" style="border-top:1px solid var(--border-subtle); padding-top:20px; margin-top:40px; display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; color:var(--text-muted); flex-wrap:wrap; gap:12px;">
+      <div>信源全球 (RSI) · 2027 年度 IT 策略與投資計畫 (向執行長與經營團隊報告 · 全本)</div>
+      <div>計劃主持：周文津 副總 ｜ 執行負責：Howard Liao Ph.D.</div>
+    </footer>
+  </div>
+
+</body>
+</html>

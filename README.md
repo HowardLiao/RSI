@@ -2,6 +2,7 @@
 > **年度總體定位**：整合運用・智能營運 (Integration & Intelligent Operations)  
 > **計劃主持人**：周文津 副總 (Executive Sponsor) ｜ **執行負責人**：Howard Liao Ph.D. (Lead Architect & C-Level Advisor)  
 > **線上即時戰情白皮書**：[https://howardliao.github.io/RSI/](https://howardliao.github.io/RSI/)  
+> **CEO 策略與投資計畫全本報告**：[https://howardliao.github.io/RSI/ceo_strategic_plan.html](https://howardliao.github.io/RSI/ceo_strategic_plan.html)  
 > **全年度 25 項專案甘特圖**：[https://howardliao.github.io/RSI/gantt_chart_2027.html](https://howardliao.github.io/RSI/gantt_chart_2027.html)  
 > **組織職能與內外部資源配置**：[https://howardliao.github.io/RSI/organization_resources.html](https://howardliao.github.io/RSI/organization_resources.html)  
 > **技術職能與設備盤點手冊 (SOP+5大表單)**：[https://howardliao.github.io/RSI/inventory_discovery.html](https://howardliao.github.io/RSI/inventory_discovery.html)
