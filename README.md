@@ -21,11 +21,10 @@
 2. **🔍 全網頁即時內容搜尋 (Global Page Search Engine)**：
    - 支援鍵盤快捷鍵 `⌘K`、`Ctrl+K` 或 `/` 一鍵呼叫全域搜尋
    - 跨章節即時高亮匹配（`<mark>`），點擊即平滑滾動並發出「米蘭金橘光脈衝」外框定位
-3. **🏛️ 2027 四大主架構深層拆解**：
-   - 數位底座與治理（8 大關鍵領域）
-   - 營運流程整合（5 端到端流）
-   - 智能營運與決策（7 智能應用項）
-   - 智慧製造與數位設備（5 設備與邊緣項）
+3. **🏛️ 2027 四大主架構與實務工具推薦 (Pillar I 預算量化估算)**：
+   - **Pillar I 數位底座（8 大關鍵領域）全面標記實戰工具**：Kong Enterprise、Microsoft Entra ID + Vault + SPIFFE、Databricks Delta Lake、Profisee MDM、Portkey + Guardrails AI、CrowdStrike + Cloudflare ZTNA、Zerto + Veeam WORM、Fortinet SD-WAN + Aruba。
+   - **依 Using 規模用量預估預算**：基於跨國 4 廠區約 2,500 席授權、15 台核心 VM、50TB 湖倉量化試算，Pillar I 總計年預算約 **$560,000 ～ $780,000 USD / 年**（中位數約 **NT$ 2,100 萬**）。
+
 4. **📊 戰略圖表與現場演算引擎**：
    - 2025–2027 IT 資本重心轉移堆疊圖
    - 核心製造 KPI 效益提升預測對比圖 (P&L 財務映射)
