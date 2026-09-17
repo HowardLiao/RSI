@@ -4046,6 +4046,44 @@
       if (document.getElementById("calcLossSam")) document.getElementById("calcLossSam").innerText = lossSam + " min";
     }
 
+    
+    // =========================================================================
+    // 7. EXHAUSTIVE DOM TRANSLATION ENGINE (107 STRINGS FULL COVERAGE)
+    // =========================================================================
+    const fullTranslationPairs = [["全專案甘特圖", "2027 Project Gantt"], ["組織與資源配置", "Organization & Resources"], ["職能與設備盤點", "Skills & Asset Discovery"], ["搜尋全站藍圖...", "Search Blueprint... ⌘K"], ["線平衡動態演算", "Line Balance Simulation"], ["RSI Global Enterprise · 跨國製造數據治理、營運韌性與智能營運架構藍圖", "RSI Global Enterprise · Cross-Border Data Governance, Operational Resilience & Intelligent Operations Blueprint"], ["4 大", "4 Strategic"], ["25 項", "25 Digital"], ["2025 建置系統", "2025 System Build"], ["2026 補齊流程", "2026 Connectivity"], ["2027 整合運用與智能營運", "2027 Intelligent Operations"], ["戰略轉型", "Strategic Transition"], ["2027 的重點不是增加更多單點系統，而是讓既有資訊能力形成跨流程、跨廠區、跨系統的實質營運效益。", "The priority for 2027 is not accumulating more siloed software, but synthesizing existing capabilities into tangible cross-process, multi-plant, and cross-system operational value."], ["🖨️ 列印匯報版面", "🖨️ Print Executive Deck"], ["營運韌性", "Operational Resilience"], ["建立東南亞跨國邊緣離線自治能力與零信任資安縱深防禦，確保 Tier-1 生產核心具備不可篡改備份與可稽核復原力。", "Building cross-border edge autonomy across Southeast Asian plants with Zero Trust defense in depth, ensuring Tier-1 manufacturing cores possess immutable backups and auditable resilience."], ["AI 規模化", "AI at Scale & Agentic AI"], ["全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。", "Deploying Agentic AI across customer service, PMC scheduling, multilingual Tech Pack RAG, and IE workflows, upgrading passive queries into proactive collaborative execution agents."], ["資料可信任", "Data Trustworthiness"], ["建立企業單一真實資料來源（Single Source of Truth），統一主數據 MDM 定義，實行嚴謹存取控制與資料生命週期稽核。", "Establishing an enterprise Single Source of Truth (SSOT), unifying Master Data (MDM) taxonomy, and enforcing rigorous ABAC access controls and data lifecycle audits."], ["成本可控化", "Cost Governance & FinOps"], ["落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。", "Enforcing Cloud & Infrastructure FinOps, consolidating duplicated software licenses, and modernizing platforms to convert operational overhead into growth capital."], ["三大核心財務與效能承諾指標", "Three Core Financial & Operational Commitments"], ["可控 IT 維運成本降幅 (FinOps & Consolidation)", "Controllable IT Run Cost Reduction (FinOps & Consolidation)"], ["透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與基礎架構現代化，實質降低可控 IT Run Cost 8–12%。", "Substantively cut controllable IT Run Costs by 8–12% through FinOps instance optimization, unattached disk purge, redundant license consolidation, and architecture modernization."], ["特定核心流程工時釋放 (Agentic AI Empowerment)", "Core Process Labor Hour Release (Agentic AI Empowerment)"], ["透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。", "Targeting a 15–25% labor hour release across customer service, PMC order tracking, Tech Pack translation (RAG), and industrial engineering via Agentic AI workflows."], ["Tier-1 系統災難復原與資安合規 (Auditable RTO/RPO)", "Tier-1 DR & Compliance Assurance (Auditable RTO/RPO)"], ["核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。", "Elevating core manufacturing systems to international high-availability standards, reducing Tier-1 RTO to <2 hours and RPO to <15 minutes with verified auditability."], ["系統建置與基礎完善", "System Establishment & Infrastructure Solidification"], ["流程完善與資訊即時化", "Workflow Completion & Real-Time Telemetry"], ["整合運用與智能營運", "Integrated Synergies & Intelligent Operations"], ["2025–2027 IT 資源配置重心轉移", "2025–2027 IT Capital Resource Allocation Shift"], ["資源從單點軟硬體採購移轉至「數據整合與智能決策」", "Strategic pivot from isolated software/hardware purchasing to unified data integration and decision intelligence."], ["動態分析", "Dynamic Analytics"], ["關鍵製造 KPI 效益提升預測 (2025 vs 2027)", "Core Manufacturing KPI Improvement Projections (2025 vs 2027)"], ["成衣製造核心財務與交付指標對比", "Benchmark comparison across garment manufacturing financial and delivery KPIs."], ["P&L 映射", "P&L Mapping"], ["2027 智能營運與 AI 應用權重規劃", "2027 Intelligent Operations & AI Workload Distribution"], ["以可信、務實的三階階梯式實踐推動 AI 落地", "Pragmatic 3-stage phased roadmap driving applied AI on factory floors."], ["AI 戰略", "AI Strategy"], ["四大主架構關鍵任務覆蓋分佈", "Four Pillars Mission-Critical Coverage Distribution"], ["25 項核心功能之系統健全度與整備規劃", "Architectural health index and readiness score across all 25 subdomains."], ["架構雷達", "Architecture Radar"], ["車縫工段技能矩陣成熟度 (Worker Skill Index)", "Worker Skill Matrix Index (Worker Skill Index)"], ["50% (大量新手換線)", "50% (Novice Changeover)"], ["75% (常態作業)", "75% (Standard Baseline)"], ["100% (多技能熟手)", "100% (Cross-Skilled Elite)"], ["裁片超市特工齊套率 (Sewing Ready Ratio)", "Supermarket Trims & Parts Readiness Ratio"], ["50% (缺特工件等待)", "50% (Starved Waiting)"], ["75% (局部補料)", "75% (Partial Staging)"], ["100% (全裁片齊套)", "100% (Fully Staged)"], ["預估車縫線平衡率", "Estimated Line Balance Rate"], ["車間綜合效率 (OEE)", "Overall Equipment Effectiveness (OEE)"], ["單組標準日產能", "Standard Daily Line Output"], ["節拍瓶頸等待損失 (SAM)", "Takt Waiting Loss (SAM Loss)"], ["全球廠區邊緣節點動態狀態 (Live Heartbeat Telemetry)", "Global Plant Edge Node Live Telemetry & Heartbeat"], ["⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)", "⚡ Simulate Subsea Cable Cut Drill"], ["⚡ 雙向增量同步 (Delta Sync Engine Active)", "⚡ Bi-directional Delta Sync Engine Active"], ["Vietnam Hub (燈塔示範廠)", "Vietnam Hub (Lighthouse Demo Plant)"], ["邊緣模式", "Edge Mode"], ["離線可用容限", "Offline Autonomy"], ["MES 延遲", "MES Latency"], ["12 ms (本地)", "12 ms (Local Edge)"], ["待同步佇列", "Sync Queue"], ["0 件 (已同步)", "0 Items (In Sync)"], ["Cambodia Plant (針織運動)", "Cambodia Plant (Knit & Sportswear)"], ["18 ms (本地)", "18 ms (Local Edge)"], ["14 件 (同步中)", "14 Items (Syncing)"], ["Indonesia Plant (無縫貼合)", "Indonesia Plant (Seamless Bonding)"], ["公網狀態", "WAN Status"], ["海纜波動 · 本地自治", "Subsea Outage · Local Autonomous"], ["128 件 (快取安全)", "128 Items (Safe Cache)"], ["治理核心", "Governance Core"], ["API 閘道", "API Gateway"], ["AI 運算叢集", "AI Compute Cluster"], ["安全防禦", "Cyber Defense"], ["點選下方卡片切換主架構，或即時檢索項目：", "Select an architectural pillar below or search subdomains in real time:"], ["數位底座與治理", "Digital Foundation & Governance"], ["8 大關鍵領域", "8 Core Modules"], ["營運流程整合", "Operational Process Integration"], ["5 端到端流", "5 End-to-End Flows"], ["智能營運與決策", "Intelligent Operations & Decision"], ["7 智能應用項", "7 AI & Analytics Areas"], ["智慧製造與設備", "Smart Manufacturing & Equipment"], ["5 設備與邊緣項", "5 Shopfloor OT Areas"], ["四大架構串聯之層級價值鏈", "Architectural Layered Value Chain"], ["整體邏輯可理解為由基底硬體向決策支援遞進，解決「不同系統、流程、資料與設備是否能在共同架構下真正整合」之挑戰。", "Vertical progression from physical substrate up to executive AI decision support, solving the fundamental challenge of unifying siloed systems and telemetry under one architecture."], ["基礎設備與資料層", "1. Infrastructure & Data"], ["API / 服務介接", "2. API & Service Mediation"], ["端到端營運履約", "3. End-to-End Fulfillment"], ["即時透明看板", "4. Real-Time Telemetry"], ["主動異常辨識", "5. Automated Exception Detection"], ["模擬與決策輔助", "6. Simulation & Decision"], ["AI Copilot 協同", "7. Autonomous Agentic AI"], ["架構遞進邏輯：", "Architectural Progression Hierarchy:"], ["門禁一：BOM 與原副料全數齊套 (WMS)", "Gate 1: BOM & Trims 100% Ready (WMS)"], ["主布縮率已檢測完畢、色號批次相符、副料已入裁片超市", "Fabric shrinkage lab-tested, shade lots matched, trims 100% staged in supermarket."], ["門禁二：工藝包與工序標準確認 (Tech Pack / IE)", "Gate 2: Tech Pack & Standard Sealed (IE / CAD)"], ["最新客審工藝包就緒、標準工時 SAM 確認、針距與針種規範確立", "Client-approved Tech Pack confirmed, SAM values validated, needle pitch and SPI standardized."], ["門禁三：MQP 產前樣與做工樣確認 (Quality)", "Gate 3: MQP Pre-Production Golden Sample Approved (QA)"], ["PP 會議結論已簽核、品管封樣件確認、特殊部位做工無異議", "PP meeting minutes signed off, golden sample sealed by QA, critical seam construction approved."], ["門禁四：裁剪配套與特殊工序完成 (Sewing Ready)", "Gate 4: Cut Parts & Special Processes Staged (Supermarket)"], ["自動裁床拉布完成、印花/繡花/熱壓等特工件全數歸入裁片超市", "Automated cutting completed, printing/embroidery/bonding sub-assemblies 100% verified in supermarket."], ["RSI 信源集團 · 2027 IT 營運計畫與戰略藍圖", "RSI Global Enterprise · 2027 IT Operational Plan & Strategic Blueprint"], ["計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D.", "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D."], ["整合運用與智能營運 (Integration & Intelligent Operations) · 專為高階經營團隊設計", "Integration & Intelligent Operations · Formulated Exclusively for Executive Leadership"]];
+    const zhToEnMap = new Map();
+    const enToZhMap = new Map();
+    fullTranslationPairs.forEach(([zh, en]) => {
+      zhToEnMap.set(zh, en);
+      enToZhMap.set(en, zh);
+    });
+
+    function applyFullPageTranslation(targetLang) {
+      const map = (targetLang === 'en') ? zhToEnMap : enToZhMap;
+      const walk = (node) => {
+        if (node.nodeType === 3) {
+          const txt = node.textContent.trim();
+          if (map.has(txt)) {
+            node.textContent = node.textContent.replace(txt, map.get(txt));
+          }
+        } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE'].includes(node.tagName)) {
+          if (node.placeholder && map.has(node.placeholder)) {
+            node.placeholder = map.get(node.placeholder);
+          }
+          if (node.children.length === 0) {
+            const directText = node.innerText ? node.innerText.trim() : '';
+            if (map.has(directText)) {
+              node.innerText = map.get(directText);
+              return;
+            }
+          }
+          Array.from(node.childNodes).forEach(walk);
+        }
+      };
+      walk(document.body);
+    }
+
+
     function setLanguage(lang) {
       currentLang = (lang === 'en') ? 'en' : 'zh';
       const dict = i18n_bilingual[currentLang];
@@ -4240,6 +4278,7 @@
       renderAdvice();
       calculateGateStatus();
       updateIESimulation();
+      applyFullPageTranslation(currentLang);
 
       // Search Modal Input placeholder
       const sInput = document.getElementById("searchModalInput");
