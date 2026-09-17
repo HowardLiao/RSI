@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 2027 IT 組織技術職能與內外部資源配置藍圖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FBFBFA;
+      --bg-card: #FFFFFF;
+      --bg-warm-tint: #F5F2EB;
+      --bg-amber-soft: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #DE5814;
+      --amber-gold: #D97706;
+      --green-run: #0D9488;
+      --blue-grow: #2563EB;
+      --purple-trans: #9333EA;
+      --text-charcoal: #1E1E24;
+      --text-body: #4A4A52;
+      --text-muted: #7A7A85;
+      --border-subtle: #E8E5DF;
+      --border-strong: #D5D0C5;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 2px 8px rgba(30, 30, 36, 0.04);
+      --shadow-md: 0 8px 24px rgba(30, 30, 36, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      position: relative;
+      min-height: 100vh;
+      padding: 30px 24px;
+    }
+
+    /* Watermark Overlay */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'%3E%3Ctext x='20' y='90' fill='%23A83212' font-family='sans-serif' font-size='18' font-weight='bold' letter-spacing='2' transform='rotate(-25 150 90)'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Top Navigation Links */
+    .top-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-btn:hover {
+      border-color: var(--rust-primary);
+      color: var(--rust-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+    }
+
+    /* Header */
+    .masthead {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 24px;
+      margin-bottom: 30px;
+    }
+    .main-title {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .main-title span {
+      color: var(--rust-primary);
+      font-style: italic;
+    }
+    .main-lead {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      max-width: 950px;
+    }
+    .leadership-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .chip strong {
+      color: var(--text-charcoal);
+      margin-left: 4px;
+    }
+
+    /* Section Headers */
+    .section-title-wrap {
+      margin-top: 36px;
+      margin-bottom: 20px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .sec-h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .sec-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--rust-primary);
+      background: rgba(168, 50, 18, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Ratio / Leverage Bento Cards */
+    .bento-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 860px) {
+      .bento-grid-2 { grid-template-columns: 1fr; }
+    }
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .bento-card.internal { border-left: 5px solid var(--green-run); }
+    .bento-card.external { border-left: 5px solid var(--blue-grow); }
+    .bento-h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bento-stat {
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: var(--font-serif);
+      color: var(--rust-primary);
+      margin: 8px 0;
+    }
+    .bento-stat span {
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+    .bento-p {
+      font-size: 0.84rem;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+
+    /* Squads Grid (Internal 5 Squads) */
+    .squads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .squad-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .squad-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .squad-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+    .squad-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-charcoal);
+    }
+    .squad-headcount {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #FFF;
+      background: var(--green-run);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .role-list {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+    .role-item {
+      font-size: 0.8rem;
+      color: var(--text-charcoal);
+      margin-bottom: 8px;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .role-item::before {
+      content: "•";
+      color: var(--rust-primary);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    .role-title {
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .role-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 1px;
+    }
+    .tech-stack-tag {
+      background: var(--bg-warm-tint);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      color: var(--text-body);
+      padding: 1px 6px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* External Support Table */
+    .external-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 30px;
+    }
+    .ext-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .ext-table th {
+      background: #FAF8F5;
+      padding: 12px 14px;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1.5px solid var(--border-subtle);
+      color: var(--text-charcoal);
+    }
+    .ext-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-body);
+      vertical-align: top;
+    }
+    .ext-table tr:hover td {
+      background: #FFFDF9;
+    }
+    .partner-badge {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: #FFF;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .badge-vendor { background: #2563EB; }
+    .badge-si { background: #D97706; }
+    .badge-soc { background: #DC2626; }
+    .badge-telco { background: #0D9488; }
+
+    /* RACI Matrix */
+    .raci-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 30px;
+    }
+    .raci-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+    }
+    .raci-table th, .raci-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .raci-table th {
+      background: #FAF8F5;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .raci-task {
+      text-align: left !important;
+      font-weight: 600;
+      color: var(--text-charcoal);
+      width: 320px;
+    }
+    .badge-r { background: #DBEAFE; color: #1E40AF; font-weight: 800; padding: 2px 6px; border-radius: 3px; font-family: var(--font-mono); }
+    .badge-a { background: #FEE2E2; color: #991B1B; font-weight: 800; padding: 2px 6px; border-radius: 3px; font-family: var(--font-mono); }
+    .badge-c { background: #FEF3C7; color: #92400E; font-weight: 800; padding: 2px 6px; border-radius: 3px; font-family: var(--font-mono); }
+    .badge-i { background: #F3F4F6; color: #4B5563; font-weight: 800; padding: 2px 6px; border-radius: 3px; font-family: var(--font-mono); }
+
+    /* Footer */
+    .page-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 20px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    <!-- Top Nav Navigation Bar -->
+    <div class="top-nav-bar">
+      <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGY BLUEPRINT</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">🌐 回白皮書首頁</a>
+        <a href="gantt_chart_2027.html" class="nav-btn">📅 2027 全專案甘特圖</a>
+        <a href="organization_resources.html" class="nav-btn active">👥 組織職能與資源配置</a>
+      </div>
+    </div>
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <h1 class="main-title">2027 IT 組織技術職能與內外部資源配置藍圖<br><span>整合運用・智能營運 (雙軌賦能架構)</span></h1>
+      <p class="main-lead">
+        確立「內部核心掌控（Core Competency）＋ 外部專業支援（Strategic Partner Support）」雙軌推進體系。內部精實編制 16～18 人專注於架構主導、業務流程整合、主數據治理與車間落地；外部借力一級軟體原廠、SI 駐廠實施隊與 24/7 MDR 全託管資安，以二千萬級預算撬動頂級戰力。
+      </p>
+      <div class="leadership-strip">
+        <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
+          <span>計劃主持：</span><strong>周文津 副總</strong>
+        </div>
+        <div class="chip" style="border-left: 3px solid var(--rust-primary);">
+          <span>執行負責：</span><strong>Howard Liao Ph.D.</strong>
+        </div>
+        <div class="chip">
+          <span>適用範疇：</span><strong>台北營運總部 ＋ 越/柬/印 4 大跨國基地 (2,500 席)</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Section 1: Resource Philosophy & Leverage -->
+    <div class="bento-grid-2">
+      <div class="bento-card internal">
+        <div class="bento-h3">🏛️ 內部核心團隊 (Internal Squads)</div>
+        <div class="bento-stat">16 ～ 18 <span>位專職技術幹部</span></div>
+        <p class="bento-p">
+          <strong>職責定位：架構主導、流程梳理、數據治理與跨廠指揮。</strong><br>
+          內部不養龐大底層代碼編程人員，專注於掌握成衣車間業務邏輯、Ready-to-Sew 4-Gate 產前門禁、Profisee MDM 主數據標準與 4 基地 2,500 席身分權限，對全集團系統穩定負最終責任。
+        </p>
+      </div>
+
+      <div class="bento-card external">
+        <div class="bento-h3">🤝 外部戰略夥伴 (External Support)</div>
+        <div class="bento-stat">4 <span>大專業外部後盾</span></div>
+        <p class="bento-p">
+          <strong>職責定位：頂級架構顧問、專案實施突擊隊、24/7 SOC 託管與海外維保。</strong><br>
+          借力微軟與 Databricks 原廠架構顧問避免架構走偏；引入 SI 團隊在 Q2 隆安攻堅與 Q3 柬/印複製高峰期駐廠；委託 CrowdStrike 專家提供全年無休 24/7 防勒索處置。
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Internal 5 Squads -->
+    <div class="section-title-wrap">
+      <h2 class="sec-h2">內部 5 大技術職能小組詳細職責編制 (16～18 人)</h2>
+      <span class="sec-tag">精實高效 · 跨國矩陣</span>
+    </div>
+
+    <div class="squads-grid">
+      <!-- Squad 1 -->
+      <div class="squad-card">
+        <div class="squad-header">
+          <div class="squad-name">1. 雲端與基礎設施維運組</div>
+          <span class="squad-headcount">3 人編制</span>
+        </div>
+        <ul class="role-list">
+          <li class="role-item">
+            <span class="role-title">雲端與 API 架構師 (1人)</span>
+            <span class="role-desc">負責 Kong Gateway 總部雙活與海外 3 廠邊緣節點高可用性、API 頻寬治理與微服務路由。</span>
+            <span class="tech-stack-tag">Kong, OpenAPI, AWS, Nginx</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">網路與 SD-WAN 工程師 (1人)</span>
+            <span class="role-desc">掌管 Fortinet 4 基地雙軌 SD-WAN、Aruba Wi-Fi 6 車間漫遊與跨國海纜中斷自動線路倒換。</span>
+            <span class="tech-stack-tag">Fortinet, SD-WAN, Aruba</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">系統與備份工程師 (1人)</span>
+            <span class="role-desc">維運 12~16 台核心生產 VM、Zerto 秒級 CDP 連續保護與 AWS S3 Glacier WORM 不可篡改備份。</span>
+            <span class="tech-stack-tag">Zerto, Veeam, VMware, S3</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Squad 2 -->
+      <div class="squad-card">
+        <div class="squad-header">
+          <div class="squad-name">2. 身分治理與資訊安全組</div>
+          <span class="squad-headcount">2 人編制</span>
+        </div>
+        <ul class="role-list">
+          <li class="role-item">
+            <span class="role-title">身分與存取安全工程師 (1人)</span>
+            <span class="role-desc">落實全集團 2,500 席 Microsoft Entra ID P2/F-SKU 分層 SSO、Vault 動態金鑰輪替與 Agent 沙盒。</span>
+            <span class="tech-stack-tag">Entra ID, Vault, SPIFFE/SPIRE</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">SecOps 資安維運分析師 (1人)</span>
+            <span class="role-desc">跨國端點安全監控、Tenable 弱點掃描排查、對接 CrowdStrike 24/7 MDR 聯防與 Cloudflare ZTNA。</span>
+            <span class="tech-stack-tag">CrowdStrike, ZTNA, Tenable</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Squad 3 -->
+      <div class="squad-card">
+        <div class="squad-header">
+          <div class="squad-name">3. 數據架構與中台治理組</div>
+          <span class="squad-headcount">3 人編制</span>
+        </div>
+        <ul class="role-list">
+          <li class="role-item">
+            <span class="role-title">企業數據架構師 (1人)</span>
+            <span class="role-desc">主導 Databricks Delta Lake 30TB+ 企業湖倉架構、Debezium 4 廠 CDC 即時串流與 Kafka 事件管道。</span>
+            <span class="tech-stack-tag">Databricks, Spark, Kafka, CDC</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">MDM 主數據治理專員 (1人)</span>
+            <span class="role-desc">以 Profisee MDM 梳理跨廠原副料、款號編碼（消除同料不同號），設定 SAM>0 與 PCD 自動品質門禁。</span>
+            <span class="tech-stack-tag">Profisee MDM, Atlan Catalog</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">BI 戰情看板工程師 (1人)</span>
+            <span class="role-desc">打造 Power BI 與 Superset 集團戰情看板，整合產量、效率、損耗與交期跨流程指標。</span>
+            <span class="tech-stack-tag">Power BI, Apache Superset, SQL</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Squad 4 -->
+      <div class="squad-card">
+        <div class="squad-header">
+          <div class="squad-name">4. 營運流程與 AI 應用組</div>
+          <span class="squad-headcount">3 人編制</span>
+        </div>
+        <ul class="role-list">
+          <li class="role-item">
+            <span class="role-title">營運流程架構師 (1人)</span>
+            <span class="role-desc">主導 Camunda 8 端到端履約流程編排，負責 Ready-to-Sew 4-Gate 產前門禁硬性攔截引擎實作。</span>
+            <span class="tech-stack-tag">Camunda 8, Flowable, BPMN</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">AI / RAG 研發工程師 (1人)</span>
+            <span class="role-desc">建置 Portkey 多模型路由、Qdrant 向量檢索與多國語（英中越柬印）Tech Pack 知識庫問答。</span>
+            <span class="tech-stack-tag">Portkey, Qdrant, LangGraph, LLM</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">生管與 IE 系統整合師 (1人)</span>
+            <span class="role-desc">整合 GSDCost 標準工時庫與技能矩陣，協同開發 Google OR-Tools 線平衡人機配置動態模擬器。</span>
+            <span class="tech-stack-tag">OR-Tools, GSDCost, Python</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Squad 5 -->
+      <div class="squad-card">
+        <div class="squad-header">
+          <div class="squad-name">5. 智慧製造與海外車間 OT 組</div>
+          <span class="squad-headcount">5 ～ 7 人 (含海外幹部)</span>
+        </div>
+        <ul class="role-list">
+          <li class="role-item">
+            <span class="role-title">總部 OT 物聯網整合專家 (1人)</span>
+            <span class="role-desc">規範 Kepware OPC-UA 與 EMQX MQTT 通訊協定，打通自動拉布機、自動裁床、模板機與 MES。</span>
+            <span class="tech-stack-tag">Kepware, EMQX, MQTT, Modbus</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">越南隆安示範廠 IT/OT 幹部 (2人)</span>
+            <span class="role-desc">隆安燈塔示範廠現地駐點，主責車間邊緣主機維運、4-Gate 實體閘門攔截與 72h 離線自治演練。</span>
+            <span class="tech-stack-tag">K3s, SQLite, Advantech IPC</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">柬埔寨金邊廠 IT 幹部 (1人)</span>
+            <span class="role-desc">金邊針織運動廠現地維運，負責產線 Impinj RFID 讀寫器、條碼計工採集與 48h 離線自主運作。</span>
+            <span class="tech-stack-tag">RFID, Barcode, Edge Gateway</span>
+          </li>
+          <li class="role-item">
+            <span class="role-title">印尼中爪哇廠 IT 幹部 (1人)</span>
+            <span class="role-desc">印尼新基地駐點，主責無縫/熱壓貼合高頻溫壓 IoT 感測訊號採集，防範大貨脫膠品質異常。</span>
+            <span class="tech-stack-tag">IoT Sensor, Edge AI, Python</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 3: External Support Matrix -->
+    <div class="section-title-wrap">
+      <h2 class="sec-h2">外部戰略支援夥伴與技術 Support 範疇 (External Partners)</h2>
+      <span class="sec-tag">借力原廠 · 高峰突擊</span>
+    </div>
+
+    <div class="external-table-wrap">
+      <table class="ext-table">
+        <thead>
+          <tr>
+            <th style="width: 220px;">夥伴類別與品牌</th>
+            <th style="width: 180px;">外部支援角色</th>
+            <th>技術 Support 核心範疇</th>
+            <th style="width: 240px;">帶給信源的實質價值</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="partner-badge badge-vendor">原廠架構諮詢</span><br>
+              <strong>Microsoft / Databricks / Profisee</strong>
+            </td>
+            <td>
+              • 原廠首席架構師 (CSA)<br>
+              • 數據平台專業顧問<br>
+              • MDM 實施專家
+            </td>
+            <td>
+              • 全集團 2,500 席 Entra ID 授權分層審核與條件式存取原則確認。<br>
+              • Databricks 30TB Delta Lake 跨國 CDC 串流調優與湖倉效能壓榨。<br>
+              • Profisee MDM 原副料主數據去重演算法與自動門禁規則調優。
+            </td>
+            <td>
+              借力國際頂級原廠實戰經驗，<strong>避免架構走彎路</strong>，確保技術具備 5 年以上跨國擴展性。
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="partner-badge badge-si">系統整合商 (SI)</span><br>
+              <strong>專業製造業 SI 駐廠隊</strong><br>
+              <span style="font-size:0.7rem; color:var(--text-muted);">(高峰期派駐 6～8 人)</span>
+            </td>
+            <td>
+              • SI 專案經理 (PM) 1人<br>
+              • Camunda 流程工程師 2人<br>
+              • OT 工業物聯網工程師 2人<br>
+              • K3s 邊緣容器架構師 1人
+            </td>
+            <td>
+              • 將 Ready-to-Sew 4-Gate 產前門禁與現場 MES/ERP 進行深層接口封裝。<br>
+              • 派駐<strong>越南隆安旗艦廠</strong>現場調校自動裁床、模板機與吊掛系統採集。<br>
+              • 實施 8 台研華工業邊緣主機 K3s 容器化與 SQLite 離線差分快取部署。
+            </td>
+            <td>
+              在 <strong>Q2 隆安攻堅與 Q3 柬/印複製高峰期</strong> 提供強大開發火力，專案上線後退場，免去長期人事沉沒成本。
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="partner-badge badge-soc">24/7 資安外包</span><br>
+              <strong>CrowdStrike Falcon Complete</strong><br>
+              <span style="font-size:0.7rem; color:var(--text-muted);">(全託管 MDR 服務)</span>
+            </td>
+            <td>
+              • 原廠威脅獵捕小組<br>
+              • SOC 事件應變專家 (IR)<br>
+              • 惡意程式逆向分析師
+            </td>
+            <td>
+              • <strong>全年 365 天 24/7 遠端全託管</strong>，監控全球 800 台關鍵伺服器與管理端點。<br>
+              • 勒索病毒或未知威脅發生時，<strong>原廠專家 15 分鐘內主動隔離撲滅</strong>。<br>
+              • 定期出具符合國際運動品牌（Nike, Lululemon 等）標準的資安稽核報告。
+            </td>
+            <td>
+              <strong>省下自建 24 小時三班倒 SOC 團隊的數千萬元開銷</strong>，補齊海外廠夜間與假日的資安真空防護。
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="partner-badge badge-telco">電信與硬體保修</span><br>
+              <strong>跨國電信商 + 研華科技</strong><br>
+              <span style="font-size:0.7rem; color:var(--text-muted);">(VNPT, Viettel, Advantech)</span>
+            </td>
+            <td>
+              • 電信專線 SLA 支援組<br>
+              • 研華海外在地備品小組
+            </td>
+            <td>
+              • 監控東南亞國際海纜與海外 MPLS/互聯網線路，突發斷網自動線路倒換。<br>
+              • 提供車間邊緣主機（Edge IPC）<strong>在地 3 年次工作日（NBD）備品直接更換</strong>。
+            </td>
+            <td>
+              保障海外偏遠廠區（如西寧、中爪哇）在硬體故障時<strong>能在 24 小時內取得替換備品</strong>，維護生產不中斷。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 4: RACI Governance Matrix -->
+    <div class="section-title-wrap">
+      <h2 class="sec-h2">內外部權責劃分原則 (RACI Governance Matrix)</h2>
+      <span class="sec-tag">權責清晰 · 杜絕推諉</span>
+    </div>
+
+    <div class="raci-table-wrap">
+      <table class="raci-table">
+        <thead>
+          <tr>
+            <th class="raci-task">關鍵專案生命週期工作任務 (Tasks)</th>
+            <th>周副總 / 執行長</th>
+            <th>內部 IT/IE 團隊</th>
+            <th>原廠架構顧問</th>
+            <th>外部 SI 實施隊</th>
+            <th>海外廠產線主管</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="raci-task">1. 戰略投資目標、55/25/20 預算與重大里程碑審批</td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">2. 數位底座技術選型、微服務架構與安全性標準訂定</td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">3. Ready-to-Sew 4-Gate 產前門禁業務邏輯與放行規則確立</td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">4. 跨系統 API 接口封裝、K3s 邊緣部署與現場機台串接代碼實作</td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">5. 跨廠原副料、款號 MDM 主數據去重與清洗規則訂定</td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">6. 越南隆安示範廠 72h 斷網離線自主生產實戰演練與驗收</td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">7. 全球端點 24/7 威脅監控、勒索病毒主動防禦與事件撲滅</td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-r">R (CrowdStrike)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+          </tr>
+          <tr>
+            <td class="raci-task">8. 年底全集團 2,500 席上線驗收、可控維運降本 8~12% 審查</td>
+            <td><span class="badge-a">A (當責)</span></td>
+            <td><span class="badge-r">R (負責)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+            <td><span class="badge-i">I (通知)</span></td>
+            <td><span class="badge-c">C (諮詢)</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding: 10px 14px; font-size: 0.72rem; color: var(--text-muted); background: #FAF8F5;">
+        <strong>標註說明：</strong> 
+        <span class="badge-a">A (Accountable)</span> 當責者（最終審批與決策） · 
+        <span class="badge-r">R (Responsible)</span> 執行負責者（實體落地推動） · 
+        <span class="badge-c">C (Consulted)</span> 被諮詢者（提供專業反饋） · 
+        <span class="badge-i">I (Informed)</span> 被通知者（接收進度通報）
+      </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer class="page-footer">
+      <div>信源全球 (RSI) · 2027 年度 IT 組織職能與內外部資源配置藍圖</div>
+      <div>計劃主持：周文津 副總 ｜ 執行負責：Howard Liao Ph.D.</div>
+    </footer>
+  </div>
+
+</body>
+</html>
