@@ -1863,12 +1863,12 @@
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       box-shadow: 0 10px 30px rgba(45, 30, 20, 0.15);
-      z-index: 99999;
+      z-index: 999999 !important;
       padding: 6px;
       display: none;
     }
     .lang-dropdown-menu.open {
-      display: block;
+      display: block !important;
       animation: fadeInMenu 0.15s ease-out;
     }
     @keyframes fadeInMenu {
@@ -1910,20 +1910,20 @@
     .search-modal-backdrop {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(15, 23, 42, 0.6);
       backdrop-filter: blur(8px);
-      z-index: 100000;
-      display: flex;
+      z-index: 1000000 !important;
+      display: none;
       align-items: flex-start;
       justify-content: center;
       padding-top: 12vh;
       opacity: 0;
-      pointer-events: none;
       transition: opacity 0.2s ease;
     }
     .search-modal-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
+      display: flex !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
     }
     .search-modal-card {
       background: #FFFFFF;
@@ -2027,7 +2027,7 @@
 
           <!-- 2. Refined Milan Dropdown Language Picker -->
           <div class="executive-lang-picker" id="langPickerWrap">
-            <button class="lang-picker-toggle" onclick="toggleLangDropdown(event)">
+            <button type="button" class="lang-picker-toggle" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" style="cursor:pointer; user-select:none;">
               <span style="font-size: 0.95rem;">🌐</span>
               <span id="currentLangDisplay">🇹🇼 繁體中文</span>
               <span style="font-size: 0.65rem; color: var(--text-muted); margin-left: 2px;">▼</span>
@@ -3507,8 +3507,162 @@
 };
     let currentLang = 'zh';
 
+    // =========================================================================
+    // 1. EXECUTIVE LANGUAGE DROPDOWN CONTROLLER
+    // =========================================================================
+    const langDisplayMap = {
+      zh: "🇹🇼 繁體中文",
+      en: "🇬🇧 English",
+      ja: "🇯🇵 日本語",
+      vi: "🇻🇳 Tiếng Việt",
+      km: "🇰🇭 ភាសាខ្មែរ",
+      id: "🇮🇩 Indonesia"
+    };
+
+    function toggleLangDropdown(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu) {
+        menu.classList.toggle("open");
+      }
+    }
+
+    function selectLang(lang) {
+      setLanguage(lang);
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu) menu.classList.remove("open");
+    }
+
+    // Global document click to close dropdown when clicking outside
+    document.addEventListener("click", function(e) {
+      const wrap = document.getElementById("langPickerWrap");
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu && wrap && !wrap.contains(e.target)) {
+        menu.classList.remove("open");
+      }
+    });
+
+    // =========================================================================
+    // 2. COMMAND PALETTE SEARCH MODAL (Cmd+K / Search Button)
+    // =========================================================================
+    function openSearchModal() {
+      const modal = document.getElementById("searchModalBackdrop");
+      const input = document.getElementById("searchModalInput");
+      if (modal) {
+        modal.classList.add("open");
+        setTimeout(() => {
+          if (input) {
+            input.focus();
+            input.select();
+          }
+        }, 50);
+      }
+    }
+
+    function closeSearchModal() {
+      const modal = document.getElementById("searchModalBackdrop");
+      if (modal) modal.classList.remove("open");
+    }
+
+    function closeSearchModalOnBackdrop(e) {
+      if (e && e.target.id === "searchModalBackdrop") {
+        closeSearchModal();
+      }
+    }
+
+    function runModalSearch() {
+      const input = document.getElementById("searchModalInput");
+      const container = document.getElementById("searchModalResults");
+      if (!input || !container) return;
+
+      const q = input.value.trim().toLowerCase();
+      if (q === "") {
+        container.innerHTML = `
+          <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.85rem;">
+            輸入關鍵字即刻檢索全站（支援四大主架構、25 項企業工具、投資模型、門禁規則與海外邊緣監控）
+          </div>`;
+        return;
+      }
+
+      const matches = [];
+
+      // A. Search in globalSearchIndex
+      if (typeof globalSearchIndex !== 'undefined') {
+        globalSearchIndex.forEach(item => {
+          const title = item.title;
+          const text = (item.text || '').toLowerCase();
+          if (title.toLowerCase().includes(q) || text.includes(q)) {
+            matches.push({
+              targetId: item.targetId,
+              cat: (item.cat && (item.cat[currentLang] || item.cat.zh)) || '架構',
+              title: title,
+              snippet: getHighlightedSnippet(item.text, q)
+            });
+          }
+        });
+      }
+
+      // B. Search in pillarsData items
+      if (typeof pillarsData !== 'undefined') {
+        pillarsData.forEach(pillar => {
+          pillar.items.forEach(it => {
+            const combined = (it.title + ' ' + (it.desc || '') + ' ' + (it.tag || '') + ' ' + (it.tools || '')).toLowerCase();
+            if (combined.includes(q)) {
+              matches.push({
+                targetId: 'pillars',
+                cat: pillar.title,
+                title: `${it.title} (${it.tag})`,
+                snippet: getHighlightedSnippet(it.desc + ' ' + (it.tools || ''), q)
+              });
+            }
+          });
+        });
+      }
+
+      if (matches.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.85rem;">
+            查無相符內容 (No matches found for "${q}")，請嘗試其他關鍵字。
+          </div>`;
+      } else {
+        container.innerHTML = `
+          <div class="search-result-header" style="display:flex; justify-content:space-between; padding:8px 12px; border-bottom:1px solid #E2E8F0; font-size:0.75rem; font-weight:700; color:var(--rust-primary);">
+            <span>全站搜尋結果 (${matches.length})</span>
+            <span style="color:var(--text-muted); font-weight:normal;">ESC 鍵關閉</span>
+          </div>
+          ${matches.map(m => `
+            <div class="search-result-item" onclick="jumpFromModal('${m.targetId}')" style="padding:10px 14px; border-bottom:1px solid #F1F5F9; cursor:pointer; transition:background 0.15s ease;">
+              <div class="search-result-title" style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); display:flex; align-items:center; gap:8px;">
+                <span class="search-result-badge" style="background:#FFF3EB; color:var(--rust-primary); padding:2px 6px; border-radius:4px; font-size:0.68rem;">${m.cat}</span>
+                ${m.title}
+              </div>
+              <div class="search-result-snippet" style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; line-height:1.4;">${m.snippet}</div>
+            </div>
+          `).join('')}
+        `;
+      }
+    }
+
+    function jumpFromModal(targetId) {
+      closeSearchModal();
+      jumpToSearchResult(targetId);
+    }
+
+
+
     function setLanguage(lang) {
       currentLang = lang;
+
+      // Update Executive Dropdown Display
+      const disp = document.getElementById("currentLangDisplay");
+      if (disp && langDisplayMap[lang]) disp.innerText = langDisplayMap[lang];
+      document.querySelectorAll(".lang-option").forEach(opt => opt.classList.remove("active"));
+      const activeOpt = document.getElementById(`opt-${lang}`);
+      if (activeOpt) activeOpt.classList.add("active");
+
       
       // Update All Language Buttons
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -3567,7 +3721,7 @@
     ];
 
     function runGlobalSearch() {
-      openSearchModal(); return; const input = document.getElementById("globalPageSearchInput");
+      openSearchModal(); return;
       const clearBtn = document.getElementById("clearGlobalSearchBtn");
       const dropdown = document.getElementById("globalSearchResultsDropdown");
       if (!input || !dropdown) return;
@@ -3656,7 +3810,7 @@
     }
 
     function clearGlobalSearch() {
-      openSearchModal(); return; const input = document.getElementById("globalPageSearchInput");
+      openSearchModal(); return;
       const dropdown = document.getElementById("globalSearchResultsDropdown");
       const clearBtn = document.getElementById("clearGlobalSearchBtn");
       if (input) input.value = "";
@@ -3681,7 +3835,7 @@
     document.addEventListener("keydown", (e) => {
       if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
         e.preventDefault();
-        openSearchModal(); return; const input = document.getElementById("globalPageSearchInput");
+        openSearchModal(); return;
         if (input) {
           input.focus();
           input.select();
