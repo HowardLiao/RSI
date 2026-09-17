@@ -2054,24 +2054,13 @@
             </button>
             <div class="lang-dropdown-menu" id="langDropdownMenu">
               <div class="lang-option active" id="opt-zh" onclick="selectLang('zh')">
-                <span>🇹🇼</span> <span>繁體中文</span> <span class="site-tag">台北總部</span>
+                <span>🇹🇼</span> <span>繁體中文</span> <span class="site-tag">總部標準</span>
               </div>
               <div class="lang-option" id="opt-en" onclick="selectLang('en')">
-                <span>🇬🇧</span> <span>English</span> <span class="site-tag">Global</span>
-              </div>
-              <div class="lang-option" id="opt-ja" onclick="selectLang('ja')">
-                <span>🇯🇵</span> <span>日本語</span> <span class="site-tag">品質標準</span>
-              </div>
-              <div class="lang-option" id="opt-vi" onclick="selectLang('vi')">
-                <span>🇻🇳</span> <span>Tiếng Việt</span> <span class="site-tag">隆安主力廠</span>
-              </div>
-              <div class="lang-option" id="opt-km" onclick="selectLang('km')">
-                <span>🇰🇭</span> <span>ភាសាខ្មែរ</span> <span class="site-tag">金邊廠</span>
-              </div>
-              <div class="lang-option" id="opt-id" onclick="selectLang('id')">
-                <span>🇮🇩</span> <span>Indonesia</span> <span class="site-tag">中爪哇廠</span>
+                <span>🇬🇧</span> <span>Global English</span> <span class="site-tag">Executive</span>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -2862,187 +2851,1072 @@
 
   <script>
     // Data Models
-    const timelineData = {
-      2025: {
-        stage: "Phase 1 · Foundation",
-        title: "系統建置與基礎完善 (把系統建起來)",
-        desc: "各功能系統逐步建立，串聯生產、研發、品管、IE、倉儲、BI、RPA、IoT、自動化及資訊安全等基礎能力，奠定集團數位化營運之硬底層。",
-        gap: null,
-        pill: "奠基期 · Infrastructure Establishment"
+    
+
+
+    // =========================================================================
+    // PLAN A: HIGH-EXECUTIVE BILINGUAL SYSTEM (🇹🇼 繁體中文 ｜ 🇬🇧 GLOBAL ENGLISH)
+    // =========================================================================
+
+    const langDisplayMap = {
+      zh: "🇹🇼 繁體中文",
+      en: "🇬🇧 Global English"
+    };
+
+    // 1. Comprehensive Bilingual Dictionary for All UI Elements
+    const i18n_bilingual = {
+      zh: {
+        // Navigation Anchor Pills
+        navInvest: "2027 投資主軸與預算",
+        navEvo: "三年演進軌跡 (2025–2027)",
+        navAnalytics: "戰略數據與圖表",
+        navEdge: "跨國邊緣離線自治",
+        navPillars: "四大主架構 (Four Pillars)",
+        navLogic: "價值鏈層級邏輯",
+        navGate: "Ready-to-Sew 產前門禁",
+        navRecom: "6 大高管升級建議",
+        
+        // Masthead & Leadership
+        mainTitle: "2027 IT 營運計畫架構討論<br><span class=\"accent\">整合運用・智能營運</span>",
+        lead: "以信源全球跨國成衣製造為藍本，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。",
+        sponsorChip: "<span>計劃主持：</span> <strong>周文津 副總</strong>",
+        authorChip: "<span>執行負責：</span> <strong>Howard Liao Ph.D.</strong>",
+        leadershipTitle: "<span>周文津 副總 <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">計劃主持人</span></span><span style=\"color: var(--border-subtle);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">執行負責人</span></span>",
+        metric1Lbl: "核心戰略主架構",
+        metric2Lbl: "數位子領域清單",
+        metric3Lbl: "海外邊緣離線自治",
+        searchBtnText: "搜尋全站藍圖... ⌘K",
+        searchPlaceholder: "輸入關鍵字檢索四大柱、25專案、門禁規則與投資模型... [ ⌘K ]",
+        printBtnText: "列印匯報版面",
+        
+        // Section 1: Investment & Budget
+        investEyebrow: "Strategic Investment & Capital Governance · C-Level Strategy",
+        investTitle: "2027 IT 投資主軸與資本配置治理",
+        investDesc: "2027 年 IT 投資主軸為「營運韌性、AI 規模化、資料可信任、成本可控化」；預計將 IT 預算配置為 55% Run、25% Grow、20% Transform。透過 FinOps、授權整併與架構現代化降低維運成本，由 Agentic AI 驅動工時釋放，並使 Tier-1 核心復原力達到國際可稽核水準。",
+        cardResilienceTitle: "營運韌性",
+        cardResilienceSub: "Operational Resilience",
+        cardResilienceDesc: "建立東南亞跨國邊緣離線自治能力與零信任資安縱深防禦，確保 Tier-1 生產核心具備不可篡改備份與可稽核復原力。",
+        cardAiTitle: "AI 規模化",
+        cardAiSub: "AI at Scale & Agentic AI",
+        cardAiDesc: "全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。",
+        cardDataTitle: "資料可信任",
+        cardDataSub: "Data Trustworthiness",
+        cardDataDesc: "建立企業單一真實資料來源（SSOT），統一主數據 MDM 定義，實行嚴謹 ABAC 存取控制與資料生命週期稽核。",
+        cardCostTitle: "成本可控化",
+        cardCostSub: "Cost Governance & FinOps",
+        cardCostDesc: "落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。",
+        
+        budgetTitle: "2027 IT 預算配置模型 (Gartner R-G-T)",
+        budgetPillRun: "● 55% Run (維運穩固)",
+        budgetPillGrow: "● 25% Grow (業務增長)",
+        budgetPillTrans: "● 20% Transform (創新躍升)",
+        commitmentsTitle: "三大核心財務與效能承諾指標",
+        commit1Title: "可控 IT 維運成本降幅 (FinOps & Consolidation)",
+        commit1Desc: "透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與架構現代化，實質降低可控 IT Run Cost 8–12%。",
+        commit2Title: "特定核心流程工時釋放 (Agentic AI Empowerment)",
+        commit2Desc: "透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。",
+        commit3Title: "Tier-1 系統災難復原與資安合規 (Auditable RTO/RPO)",
+        commit3Desc: "核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。",
+        
+        // Section 2: Evolution
+        evoEyebrow: "Strategic Evolution Timeline",
+        evoTitle: "2025～2027 IT 發展演進軌跡",
+        evoDesc: "三年演進階段界定清晰：由底層工具落地，推進至流程連貫，最終在 2027 年收斂至數據治理與智能代理支援。",
+        
+        // Section 3: Visual Analytics
+        analyticsEyebrow: "Executive Visual Analytics",
+        analyticsTitle: "戰略數據與動態圖表分析",
+        analyticsDesc: "運用多維度可視化量化模型，清晰展示 IT 資本配置權重移轉、製造成效量化預測及 AI 應用梯隊佈局。",
+        
+        // Section 4: IE Simulation
+        ieEyebrow: "Interactive IE Simulation Engine",
+        ieTitle: "IE 車縫線平衡與產能即時動態演算器",
+        ieDesc: "動態調整在線技工熟練度與物料齊套率，即時模擬換線學習曲線、線平衡率（Line Balance Rate）與單線日產出成效。",
+        sliderSkillLbl: "車縫工段技能矩陣成熟度 (Worker Skill Index)",
+        sliderReadyLbl: "裁片超市特工齊套率 (Sewing Ready Ratio)",
+        ieMetric1Lbl: "預估車縫線平衡率",
+        ieMetric2Lbl: "車間綜合效率 (OEE)",
+        ieMetric3Lbl: "單組標準日產能",
+        ieMetric4Lbl: "節拍瓶頸等待損失 (SAM)",
+        
+        // Section 5: Edge Resilience
+        edgeEyebrow: "Hybrid Edge Resilience Monitor",
+        edgeTitle: "信源跨國廠區邊緣韌性與連線遙測 (動態監控)",
+        edgeDesc: "落實 Edge Survivability 邊緣離線自治架構：東南亞海外廠區即便海底電纜中斷，現場 MES、裁床與吊掛依然具備 48～72 小時離線生產能力。",
+        edgeStatusLive: "⚡ 雙向增量同步 (Delta Sync Engine Active)",
+        edgePullBtn: "🔌 模擬海纜中斷 (Pull Cable)",
+        edgeRestoreBtn: "⚡ 恢復海纜通訊 (Restore Network)",
+        
+        // Section 6: Four Pillars
+        pillarsEyebrow: "Core Architectural Pillars",
+        pillarsTitle: "2027 四大主架構深層拆解",
+        pillarsDesc: "以數位底座為基、營運流程為經緯、智慧硬體為感知、智能決策為頂層樞紐，構築端到端數位韌性。",
+        pillarTab1: "Pillar I · 數位底座與治理",
+        pillarTab2: "Pillar II · 營運流程整合",
+        pillarTab3: "Pillar III · 智能營運與決策",
+        pillarTab4: "Pillar IV · 智慧製造與設備",
+        
+        // Section 7: Hierarchy Value Chain
+        logicEyebrow: "Architectural Hierarchy & Value Flow",
+        logicTitle: "四大架構串聯之層級價值鏈",
+        logicDesc: "展示由底層基礎設施至頂層 AI 協同之逐層支撐邏輯，體現數據如何轉化為高階營運價值。",
+        
+        // Section 8: Ready-to-Sew 4-Gate
+        gateEyebrow: "Ready-to-Sew Interactive Simulator",
+        gateTitle: "Ready-to-Sew（上線門禁檢核）模擬器",
+        gateDesc: "成衣車縫現場最忌『料件未齊盲目上線』。透過 4 道剛性門禁硬性鎖定，達標率 100% 始准排產發料。",
+        gate1Lbl: "Gate 1 · 原副料齊套檢核 (BOM & Trims Ready)",
+        gate1Sub: "大貨主布、彈性織帶、拉鍊、車線已全數到廠並經檢驗合格入庫。",
+        gate2Lbl: "Gate 2 · 工藝包與版型鎖定 (Tech Pack & CAD Sealed)",
+        gate2Sub: "最新版做工標準手冊、縫紉針距、馬克排料圖已完成核准無爭議。",
+        gate3Lbl: "Gate 3 · MQP 產前樣品封樣 (Pre-Production Approval)",
+        gate3Sub: "產前會議 (PP Meeting) 召開完畢，首件樣衣經品管與買家簽字封樣。",
+        gate4Lbl: "Gate 4 · 裁片超市特工齊套 (Supermarket Buffer Ready)",
+        gate4Sub: "自動裁床精準裁切，高難度貼合與特殊工序半成品已 100% 入線邊超市。",
+        
+        // Section 9: 6 Recommendations
+        recomEyebrow: "Strategic Value Augmentation",
+        recomTitle: "國際 IT 主管 6 大關鍵升級節點",
+        recomDesc: "立足 RSI 信源全球功能性運動服與泳裝跨國製造版圖，向董事會與事業部提供兼具技術韌性與業務損益之深化對策。",
+        
+        footerText: "計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D."
       },
-      2026: {
-        stage: "Phase 2 · Connectivity",
-        title: "流程完善與資訊即時化・AI運用研究 (把流程補完整)",
-        desc: "補齊跨系統與跨作業流程斷點，強化 MES 工序架構、行動化、生產資訊即時收集、用料全流程、BPM、BI、ML／RAG 與智能設備整合。",
-        gap: "標註：部分跨系統端到端流程、全用料閉環與進階 AI 研究為當年度需加強之未竟事宜。",
-        pill: "連通期 · Workflow & Real-Time Sync"
-      },
-      2027: {
-        stage: "Phase 3 · Intelligence",
-        title: "整合運用與智能營運 (整合運用與決策輔助)",
-        desc: "將既有系統、流程、資料、設備及 AI 能力整合運用，逐步由單純資料呈現走向異常管理、預測分析、決策支援與 AI Agent 協同，全面形成高階營運戰略價值。",
-        gap: null,
-        pill: "躍升期 · Integrated Intelligent Operations"
+      en: {
+        // Navigation Anchor Pills
+        navInvest: "Investment & Budget",
+        navEvo: "Evolution (2025–2027)",
+        navAnalytics: "Strategic Analytics",
+        navEdge: "Global Edge Autonomy",
+        navPillars: "The Four Pillars",
+        navLogic: "Value Chain Hierarchy",
+        navGate: "Ready-to-Sew Gate",
+        navRecom: "6 Executive Principles",
+        
+        // Masthead & Leadership
+        mainTitle: "2027 IT Strategic Operational Plan<br><span class=\"accent\">Integration & Intelligent Operations</span>",
+        lead: "Formulated for RSI Global Enterprise: Evolving from siloed deployments into data governance, edge resilience, agentic AI collaboration, and intelligent decision manufacturing.",
+        sponsorChip: "<span>PROJECT SPONSOR:</span> <strong>VP Wen-Chin Chou</strong>",
+        authorChip: "<span>EXECUTIVE LEAD:</span> <strong>Howard Liao Ph.D.</strong>",
+        leadershipTitle: "<span>VP Wen-Chin Chou <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">Project Sponsor</span></span><span style=\"color: var(--border-subtle);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">Executive Lead</span></span>",
+        metric1Lbl: "Strategic Pillars",
+        metric2Lbl: "Digital Subdomains",
+        metric3Lbl: "Edge Survivability",
+        searchBtnText: "Search Blueprint... ⌘K",
+        searchPlaceholder: "Search 4 pillars, 25 projects, 4-Gate rules and financial ROI... [ ⌘K ]",
+        printBtnText: "Print Executive Layout",
+        
+        // Section 1: Investment & Budget
+        investEyebrow: "Strategic Investment & Capital Governance · C-Level Strategy",
+        investTitle: "2027 IT Strategic Investment & Capital Allocation Governance",
+        investDesc: "The 2027 IT investment thesis centers on 'Operational Resilience, AI at Scale, Data Trustworthiness, and Cost Governance', calibrating budget into 55% Run, 25% Grow, and 20% Transform. Through FinOps, license tiering, and architecture modernization, controllable run costs decline, while Agentic AI releases high-value labor hours, ensuring Tier-1 recoverability meets international audit standards.",
+        cardResilienceTitle: "Resilience",
+        cardResilienceSub: "Operational Resilience",
+        cardResilienceDesc: "Establishing cross-border edge autonomy across Southeast Asian plants with Zero Trust defense in depth, ensuring Tier-1 manufacturing cores possess immutable backups and auditable resilience.",
+        cardAiTitle: "AI at Scale",
+        cardAiSub: "AI at Scale & Agentic AI",
+        cardAiDesc: "Deploying Agentic AI across customer service, PMC scheduling, multilingual Tech Pack RAG, and IE workflows, upgrading passive queries into proactive collaborative execution agents.",
+        cardDataTitle: "Data Trust",
+        cardDataSub: "Data Trustworthiness",
+        cardDataDesc: "Instituting an enterprise Single Source of Truth (SSOT), unifying Master Data (MDM) taxonomy, and enforcing rigorous ABAC access controls and data lifecycle audits.",
+        cardCostTitle: "Cost Governance",
+        cardCostSub: "Cost Governance & FinOps",
+        cardCostDesc: "Enforcing Cloud & Infrastructure FinOps, consolidating duplicated software licenses, and modernizing platforms to convert operational overhead into growth capital.",
+        
+        budgetTitle: "2027 IT Budget Allocation Model (Gartner R-G-T)",
+        budgetPillRun: "● 55% Run (Baseline Stability)",
+        budgetPillGrow: "● 25% Grow (Business Growth)",
+        budgetPillTrans: "● 20% Transform (Strategic Leap)",
+        commitmentsTitle: "Three Core Financial & Operational Commitments",
+        commit1Title: "Controllable IT Run Cost Reduction (FinOps & Consolidation)",
+        commit1Desc: "Substantively cut controllable IT Run Costs by 8–12% through FinOps instance optimization, unattached disk purge, redundant license consolidation, and architecture modernization.",
+        commit2Title: "Core Process Labor Release (Agentic AI Empowerment)",
+        commit2Desc: "Targeting a 15–25% labor hour release across customer service, PMC order tracking, Tech Pack translation (RAG), and industrial engineering via Agentic AI workflows.",
+        commit3Title: "Tier-1 DR & Compliance Assurance (Auditable RTO/RPO)",
+        commit3Desc: "Elevating core manufacturing systems to international high-availability standards, reducing Tier-1 RTO to <2 hours and RPO to <15 minutes with verified auditability.",
+        
+        // Section 2: Evolution
+        evoEyebrow: "Strategic Evolution Timeline",
+        evoTitle: "2025–2027 IT Strategic Evolution Journey",
+        evoDesc: "Three clearly demarcated milestones: from foundational tool rollout, to integrated process flow, culminating in 2027 with unified data governance and intelligent AI agent support.",
+        
+        // Section 3: Visual Analytics
+        analyticsEyebrow: "Executive Visual Analytics",
+        analyticsTitle: "Strategic Data & Interactive Analytics",
+        analyticsDesc: "Leveraging multi-dimensional visual analytics to demonstrate capital allocation shifts, manufacturing KPI improvements, and progressive AI tier deployments.",
+        
+        // Section 4: IE Simulation
+        ieEyebrow: "Interactive IE Simulation Engine",
+        ieTitle: "IE Sewing Line Balancing & Dynamic Output Simulator",
+        ieDesc: "Dynamically adjust worker skill index and trims readiness to simulate learning curves, line balancing rates, and single-line daily output in real time.",
+        sliderSkillLbl: "Worker Skill Matrix Index (Worker Skill Index)",
+        sliderReadyLbl: "Supermarket Trims & Parts Readiness Ratio",
+        ieMetric1Lbl: "Estimated Line Balance Rate",
+        ieMetric2Lbl: "Overall Equipment Effectiveness (OEE)",
+        ieMetric3Lbl: "Standard Daily Line Output",
+        ieMetric4Lbl: "Takt Waiting Loss (SAM Loss)",
+        
+        // Section 5: Edge Resilience
+        edgeEyebrow: "Hybrid Edge Resilience Monitor",
+        edgeTitle: "RSI Cross-Border Plant Edge Resilience & Live Telemetry",
+        edgeDesc: "Implementing an Edge Survivability architecture: Southeast Asian plants sustain 48–72 hours of autonomous shopfloor production even during international subsea cable outages.",
+        edgeStatusLive: "⚡ Bi-directional Delta Sync Engine Active",
+        edgePullBtn: "🔌 Simulate Subsea Cable Cut (Pull Cable)",
+        edgeRestoreBtn: "⚡ Restore Network Telemetry",
+        
+        // Section 6: Four Pillars
+        pillarsEyebrow: "Core Architectural Pillars",
+        pillarsTitle: "Deep Architectural Decomposition of 4 Pillars",
+        pillarsDesc: "Anchored in a digital foundation, structured across business workflows, sensed through smart shopfloor edge, and orchestrated via intelligent executive decision platforms.",
+        pillarTab1: "Pillar I · Digital Foundation & Governance",
+        pillarTab2: "Pillar II · Operational Process Integration",
+        pillarTab3: "Pillar III · Intelligent Operations & Decision",
+        pillarTab4: "Pillar IV · Smart Manufacturing & Equipment",
+        
+        // Section 7: Hierarchy Value Chain
+        logicEyebrow: "Architectural Hierarchy & Value Flow",
+        logicTitle: "Architectural Layered Value Chain",
+        logicDesc: "Illustrating the vertical dependency ladder from physical infra up to executive AI collaboration, showcasing how raw telemetry transforms into business value.",
+        
+        // Section 8: Ready-to-Sew 4-Gate
+        gateEyebrow: "Ready-to-Sew Interactive Simulator",
+        gateTitle: "Ready-to-Sew (Pre-Production Gate Control) Simulator",
+        gateDesc: "Garment manufacturing strictly prohibits 'launching production without complete trims'. Enforced by 4 rigid gates; only 100% readiness authorizes MES work orders.",
+        gate1Lbl: "Gate 1 · BOM & Trims 100% Ready",
+        gate1Sub: "Main fabrics, elastic bands, zippers, and threads fully delivered, inspected, and racked in warehouse.",
+        gate2Lbl: "Gate 2 · Tech Pack & CAD Sealed",
+        gate2Sub: "Latest sewing workmanship standards, SPI stitches, and marker layout fully approved without ambiguity.",
+        gate3Lbl: "Gate 3 · MQP Pre-Production Sample Approval",
+        gate3Sub: "Pre-Production Meeting (PP Meeting) completed; golden sample signed off by QA and client auditors.",
+        gate4Lbl: "Gate 4 · Cut Parts & Special Attachments in Supermarket",
+        gate4Sub: "Automated cutting completed; high-difficulty bonding and sub-assembly parts 100% buffered in line-side supermarket.",
+        
+        // Section 9: 6 Recommendations
+        recomEyebrow: "Strategic Value Augmentation",
+        recomTitle: "6 Strategic Transformation Nodes from Global IT Leadership",
+        recomDesc: "Grounding in RSI's global sportswear and swimwear manufacturing landscape, delivering dual technical resilience and business P&L strategies to the Board of Directors.",
+        
+        footerText: "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D."
       }
     };
 
+
+
+    // 2. Bilingual Timeline Data
+    const timelineData = {
+      2025: {
+        zh: {
+          stage: "Phase 1 · Foundation",
+          title: "系統建置與基礎完善 (把系統建起來)",
+          desc: "各功能系統逐步建立，串聯生產、研發、品管、IE、倉儲、BI、RPA、IoT、自動化及資訊安全等基礎能力，奠定集團數位化營運之硬底層。",
+          gap: null,
+          pill: "奠基期 · Infrastructure Establishment"
+        },
+        en: {
+          stage: "Phase 1 · Foundation",
+          title: "System Establishment & Infrastructure Solidification",
+          desc: "Progressive deployment of functional systems covering production, R&D, QA, IE, WMS, BI, RPA, IoT, and cybersecurity, establishing the digital bedrock.",
+          gap: null,
+          pill: "Foundation Phase · Infrastructure"
+        }
+      },
+      2026: {
+        zh: {
+          stage: "Phase 2 · Connectivity",
+          title: "流程完善與資訊即時化・AI運用研究 (把流程補完整)",
+          desc: "補齊跨系統與跨作業流程斷點，強化 MES 工序架構、行動化、生產資訊即時收集、用料全流程、BPM、BI、ML／RAG 與智能設備整合。",
+          gap: "標註：部分跨系統端到端流程、全用料閉環與進階 AI 研究為當年度需加強之未竟事宜。",
+          pill: "連通期 · Workflow & Real-Time Sync"
+        },
+        en: {
+          stage: "Phase 2 · Connectivity",
+          title: "Workflow Completion & Real-Time Telemetry · Applied AI Research",
+          desc: "Bridging cross-system process gaps, enhancing MES operational hierarchy, mobile capture, end-to-end material traceability, BPM workflows, and initial RAG/ML integration.",
+          gap: "Notice: Certain end-to-end workflows and advanced AI pilots remained active work-in-progress during this period.",
+          pill: "Connectivity Phase · Real-Time Sync"
+        }
+      },
+      2027: {
+        zh: {
+          stage: "Phase 3 · Intelligence",
+          title: "整合運用與智能營運 (整合運用與決策輔助)",
+          desc: "將既有系統、流程、資料、設備及 AI 能力整合運用，逐步由單純資料呈現走向異常管理、預測分析、決策支援與 AI Agent 協同，全面形成高階營運戰略價值。",
+          gap: null,
+          pill: "躍升期 · Integrated Intelligent Operations"
+        },
+        en: {
+          stage: "Phase 3 · Intelligence",
+          title: "Integrated Synergies & Intelligent Operations",
+          desc: "Unifying legacy systems, data pipelines, shopfloor edge, and Agentic AI to evolve from raw dashboards into proactive exception management, predictive analytics, and executive decision intelligence.",
+          gap: null,
+          pill: "Ascension Phase · Intelligent Operations"
+        }
+      }
+    };
+
+    // 3. Bilingual 6 Executive Advice Data
+    const adviceData = [
+      {
+        num: "01",
+        pill: "Business P&L & Hedging",
+        zh: {
+          title: "商業價值與硬性財務對沖矩陣",
+          desc: "架構直接錨定跨國成衣 4 大核心 KPI：OTD（準時交貨率）、Line Balancing（線平衡率）、Fabric Yield（布料利用率）及 WIP 水位。將軟性工時釋放具體轉化為「空運包機違約金對沖（年防禦2次=省NT$1,500萬）」與「大貨布損降1.2%（年省NT$2,200萬）」，使 IT 投資在第 14.8 個月實現純現金回本。",
+          metric: "🎯 財務硬回報：年節省現金流 NT$ 3,700 萬 · 靜態回收期 14~16 個月 · ROI 1:3.8"
+        },
+        en: {
+          title: "Business Value & Hard Dollar Hedging Matrix",
+          desc: "Directly anchored in 4 garment manufacturing KPIs: OTD, Line Balancing, Fabric Yield, and WIP levels. Translating labor release into hard dollar savings: 'Air Freight Avoidance (2 saves/year = NT$ 15M)' and 'Fabric Loss Cut by 1.2% (NT$ 22M/year)', achieving full cash payback within 14.8 months.",
+          metric: "🎯 Financial Return: Annual cash savings NT$ 37M · Payback Period 14.8 months · ROI 1:3.84"
+        }
+      },
+      {
+        num: "02",
+        pill: "Survivability & Sovereignty",
+        zh: {
+          title: "跨國離線自治與東南亞數據主權",
+          desc: "現場 MES、RFID 採集與自動裁床具備 48～72 小時離線自主生產能力，抵禦海底電纜波動。同時嚴格合規越南《網絡安全法》(Decree 53) 與印尼《個人數據保護法》(PDP)：海外員工個資與生產日誌優先儲存於境內邊緣資料庫，僅去機敏特徵數據回傳台北總部。",
+          metric: "🛡️ 韌性與法規：100% 斷網零停機 · 零跨國法規觸法罰款風險"
+        },
+        en: {
+          title: "Cross-Border Edge Autonomy & SE Asian Data Sovereignty",
+          desc: "Shopfloor MES, RFID collection, and cutting rooms sustain 48–72h autonomous operation against subsea cable cuts. Strictly complies with Vietnam Cybersecurity Law (Decree 53) and Indonesia PDP: local PII and plant logs reside on in-country edge nodes, streaming only anonymized telemetry to Taipei HQ.",
+          metric: "🛡️ Resilience & Compliance: 100% Zero-Outage during network cuts · Zero compliance penalties"
+        }
+      },
+      {
+        num: "03",
+        pill: "4-Gate & Override SOP",
+        zh: {
+          title: "Ready-to-Sew 門禁與人性化特許審批",
+          desc: "前端硬性落實 4-Gate 產前門禁（BOM齊套 + CAD馬克 + Tech Pack + 特工半成品入超市），根除盲目上線拆工。針對現場應急需求增設「廠長與副總雙簽緊急特許通行機制（Override SOP）」，允許 85% 齊套有條件投產但系統標註為紅色風險工單，兼顧制度剛性與現場彈性。",
+          metric: "⚙️ 現場成效：首日換線效率 +35% · 拆工返修 -50% · 消除車間組織阻力 80%"
+        },
+        en: {
+          title: "Ready-to-Sew 4-Gate Control & Executive Override SOP",
+          desc: "Enforcing 4 rigid pre-production gates (BOM readiness + CAD marker + Tech Pack + Supermarket parts) to eradicate premature line feeding. Supplemented with an 'Executive Override SOP' (dual sign-off by Plant Director and VP Chou) allowing conditional 85% launch tagged as Red Risk Work Orders.",
+          metric: "⚙️ Shopfloor Impact: First-day changeover efficiency +35% · Rework -50% · Zero organizational friction"
+        }
+      },
+      {
+        num: "04",
+        pill: "AI Phased & Brand Clean Room",
+        zh: {
+          title: "AI 三階階梯與品牌客戶 IP 無菌室",
+          desc: "AI 遵循務實梯隊：① 規則異常預警 ➔ ② 多國語 Tech Pack RAG 知識庫 ➔ ③ 人機配置動態排線 Agent。落實 ISO/IEC 27001:2022 數據無菌室：以 Entra ID ABAC 實體隔離 Nike 與 Lululemon 版型資產，並以 Portkey 建立機敏圖資外洩防護，兼顧歐盟數位產品護照 (DPP) 單件碳足跡追溯。",
+          metric: "🤖 資安與效率：技術手冊檢索提效 70% · 品牌客戶資安驗廠通過率 100%"
+        },
+        en: {
+          title: "Pragmatic 3-Stage AI Roadmap & Brand IP Clean Room",
+          desc: "AI follows a proven ladder: ① Rule-based alerts ➔ ② Multilingual Tech Pack RAG ➔ ③ Agentic line balancing. Implements an ISO/IEC 27001 Brand Clean Room with Entra ID ABAC to isolate Nike and Lululemon CAD assets, paired with Portkey AI guardrails and EU Digital Product Passport (DPP) tracking.",
+          metric: "🤖 Security & AI: Manual search time -70% · 100% Brand client security audit pass rate"
+        }
+      },
+      {
+        num: "05",
+        pill: "IT & OT Governance",
+        zh: {
+          title: "IT 與 OT 權責邊界與敏捷突擊隊",
+          desc: "總部 IT 掌管雲端中台、資安堡壘與資料標準（建跑道）；海外工廠 OT 掌管現場機台通訊、工位屏與感測維護（開賽車）。Q2 由總部派遣「IT/IE 敏捷突擊隊」駐點越南隆安示範廠 60 天，與第一線幹部同甘共苦調校演算法，徹底消滅總部與車間的對立。",
+          metric: "🤝 組織協同：現場工單即時回饋率 99.8% · 跨國專案落地阻力消弭"
+        },
+        en: {
+          title: "IT & OT Governance Boundaries & Forward-Deployed Crew",
+          desc: "HQ IT governs cloud platforms, cyber defense, and data standards (Building the Track); Overseas OT governs shopfloor PLC telemetry, IPCs, and sensor maintenance (Driving the Car). In Q2, HQ dispatches a Forward-Deployed Crew to Long An Demo Plant for 60 days to co-engineer algorithms with frontline teams.",
+          metric: "🤝 Synergy: Real-time telemetry feedback rate 99.8% · Zero cultural pushback on rollout"
+        }
+      },
+      {
+        num: "06",
+        pill: "Lighthouse Rollout",
+        zh: {
+          title: "1+N 燈塔示範廠與全集團複製標準",
+          desc: "以越南隆安廠作為數位轉型燈塔（Lighthouse Plant），集中火力打通「4-Gate 產前門禁 ➔ 裁片超市 ➔ 智能吊掛 ➔ 48h 離線邊緣」，驗證成熟後封裝為標準容器化開箱映像檔（K3s + EMQX + 本地 SQLite/DuckDB），Q3 快速複製至柬埔寨金邊廠與印尼中爪哇廠。",
+          metric: "🚀 擴張效能：海外新廠數位化上線週期縮短 60% · 跨廠營運管理成本下降 25%"
+        },
+        en: {
+          title: "1+N Lighthouse Demonstration & Turnkey Replication",
+          desc: "Focusing initial deployment on Vietnam Long An Hub as the Lighthouse Plant to perfect '4-Gate Control ➔ Supermarket Buffer ➔ Smart Hanging ➔ 48h Offline Edge'. Once validated, packaged into a turnkey containerized appliance (K3s + EMQX + DuckDB) for rapid Q3 rollout to Cambodia and Indonesia.",
+          metric: "🚀 Scalability: Overseas plant onboarding cycle -60% · Cross-plant governance overhead -25%"
+        }
+      }
+    ];
+
+
+
+    // 4. Bilingual Four Pillars & 25 Projects Data
     const pillarsData = [
       {
-        title: "數位底座與治理",
-        en: "Digital Foundation & Governance",
-        position: "定位：建立未來系統整合、資料運用及 AI 發展所需的共同底層架構與治理規則。",
-        desc: "2027 不再只將資訊安全、網路或系統穩定視為單一基礎設施工作，而是進一步建立企業級的資料交換、存取、治理及 AI 管理能力，使不同系統與新應用能在一致規則下運作。",
+        zh: {
+          title: "數位底座與治理",
+          position: "定位：建立未來系統整合、資料運用及 AI 發展所需的共同底層架構與治理規則。",
+          desc: "2027 不再只將資訊安全、網路或系統穩定視為單一基礎設施工作，而是進一步建立企業級的資料交換、存取、治理及 AI 管理能力，使不同系統與新應用能在一致規則下運作。"
+        },
+        en: {
+          title: "Digital Foundation & Governance",
+          position: "Mandate: Establish universal foundational architecture and governance rules for cross-system integration, data utilization, and enterprise AI.",
+          desc: "In 2027, infrastructure elevates beyond basic uptime into enterprise-wide API mediation, Zero Trust access, 30TB Lakehouse SSOT, and AI guardrails under strict unified policies."
+        },
         items: [
           {
-                    "title": "API Management",
-                    "tag": "API 管理機制",
-                    "desc": "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES、WMS、供應商與跨境物聯網的高頻 API 路由、限流與零信任安全監控。",
-                    "tools": "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise",
-                    "sizing": "台北總部雙活高可用核心網關 + 3 海外廠邊緣 Kong 叢集 + 2,500 席跨系統 API 吞吐治理",
-                    "budgetUSD": "$52,000 USD / 年 (約 $45k～$60k)",
-                    "budgetTWD": "約 NT$ 164 萬 / 年",
-                    "rgtCategory": "70% Run ($36.4k) / 30% Grow ($15.6k)"
+            id: "p1-1",
+            zh: {
+              title: "API Management",
+              tag: "API 管理機制",
+              desc: "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES、WMS、供應商與跨境物聯網的高頻 API 路由、限流與零信任安全監控。",
+              tools: "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise",
+              sizing: "台北總部雙活高可用核心網關 + 3 海外廠邊緣 Kong 叢集 + 2,500 席跨系統 API 吞吐治理",
+              budgetUSD: "$52,000 USD / 年 (約 $45k～$60k)",
+              budgetTWD: "約 NT$ 164 萬 / 年",
+              rgtCategory: "70% Run ($36.4k) / 30% Grow ($15.6k)"
+            },
+            en: {
+              title: "API Management & Gateway",
+              tag: "API Mediation",
+              desc: "Universal governance for cross-system API exchange spanning ERP, MES, WMS, suppliers, and IoT with high-throughput routing, rate-limiting, and Zero Trust telemetry.",
+              tools: "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise",
+              sizing: "Taipei HQ Active-Active Core Gateway + 3 Overseas Edge Kong Clusters + 2,500-seat API throughput",
+              budgetUSD: "$52,000 USD / Year (Range $45k–$60k)",
+              budgetTWD: "approx. NT$ 1.64M / Year",
+              rgtCategory: "70% Run ($36.4k) / 30% Grow ($15.6k)"
+            }
           },
           {
-                    "title": "Access Governance",
-                    "tag": "存取治理與身分",
-                    "desc": "建立全集團 2,500 席分層身分 SSO (跨國幹部 P2 + 現場幹部 F-SKU) + HashiCorp Vault 核心 DB 動態金鑰輪替 + SPIFFE/SPIRE AI Agent 身分沙盒授權。",
-                    "tools": "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE",
-                    "sizing": "全集團 2,500 席分層身分 SSO + 跨廠核心 DB 動態金鑰輪替 + AI Agent 身分沙盒",
-                    "budgetUSD": "$105,000 USD / 年 (約 $95k～$118k)",
-                    "budgetTWD": "約 NT$ 331 萬 / 年",
-                    "rgtCategory": "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"
+            id: "p1-2",
+            zh: {
+              title: "Access Governance",
+              tag: "存取治理與身分",
+              desc: "建立全集團 2,500 席分層身分 SSO (跨國幹部 P2 + 現場幹部 F-SKU) + HashiCorp Vault 核心 DB 動態金鑰輪替 + SPIFFE/SPIRE AI Agent 身分沙盒授權。",
+              tools: "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE",
+              sizing: "全集團 2,500 席分層身分 SSO + 跨廠核心 DB 動態金鑰輪替 + AI Agent 身分沙盒",
+              budgetUSD: "$105,000 USD / 年 (約 $95k～$118k)",
+              budgetTWD: "約 NT$ 331 萬 / 年",
+              rgtCategory: "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"
+            },
+            en: {
+              title: "Access Governance & Identity",
+              tag: "Zero Trust IAM",
+              desc: "Group-wide 2,500-seat tiered SSO (M365 P2 for knowledge workers + F-SKU for shopfloor) + Vault dynamic credential rotation + SPIFFE/SPIRE sandboxing for AI agents.",
+              tools: "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE",
+              sizing: "Group-wide 2,500 tiered SSO seats + Cross-plant DB dynamic secret rotation + AI agent sandboxing",
+              budgetUSD: "$105,000 USD / Year (Range $95k–$118k)",
+              budgetTWD: "approx. NT$ 3.31M / Year",
+              rgtCategory: "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"
+            }
           },
           {
-                    "title": "Enterprise Data Layer",
-                    "tag": "企業資料層",
-                    "desc": "建立跨 ERP、MES、WMS、自動化設備之單一真實數據來源（SSOT），以 Databricks Delta Lake 構建 4 廠即時 CDC 串流、30TB+ 企業湖倉與即時運算中台。",
-                    "tools": "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka",
-                    "sizing": "4 海外廠 CDC 實時串流 + 30TB+ 企業湖倉儲存 + 2,500 席按需查詢運算中台節點",
-                    "budgetUSD": "$115,000 USD / 年 (約 $100k～$130k)",
-                    "budgetTWD": "約 NT$ 362 萬 / 年",
-                    "rgtCategory": "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"
+            id: "p1-3",
+            zh: {
+              title: "Enterprise Data Layer",
+              tag: "企業資料層",
+              desc: "建立跨 ERP、MES、WMS、自動化設備之單一真實數據來源（SSOT），以 Databricks Delta Lake 構建 4 廠即時 CDC 串流、30TB+ 企業湖倉與即時運算中台。",
+              tools: "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka",
+              sizing: "4 海外廠 CDC 實時串流 + 30TB+ 企業湖倉儲存 + 2,500 席按需查詢運算中台節點",
+              budgetUSD: "$115,000 USD / 年 (約 $100k～$130k)",
+              budgetTWD: "約 NT$ 362 萬 / 年",
+              rgtCategory: "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"
+            },
+            en: {
+              title: "Enterprise Data Lakehouse Layer",
+              tag: "Data SSOT",
+              desc: "Single Source of Truth (SSOT) unifying ERP, MES, WMS, and IoT streams via Databricks Delta Lake, establishing a 30TB+ Lakehouse with 4-plant real-time CDC pipelines.",
+              tools: "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka",
+              sizing: "4-plant real-time CDC streaming + 30TB+ enterprise Lakehouse storage + on-demand compute engine",
+              budgetUSD: "$115,000 USD / Year (Range $100k–$130k)",
+              budgetTWD: "approx. NT$ 3.62M / Year",
+              rgtCategory: "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"
+            }
           },
           {
-                    "title": "Data Governance",
-                    "tag": "資料治理與標準",
-                    "desc": "建立核心主數據定義、Source of Truth、資料品質門禁及共用標準，清洗全球布料、副料、款號與工序 SAM 數據，消除跨廠同料不同號與數據孤島。",
-                    "tools": "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations 自動門禁",
-                    "sizing": "2,500 席資料存取 + 全球原副料/款號主數據清洗 + 自動品質門禁 (SAM>0, PCD檢核)",
-                    "budgetUSD": "$80,000 USD / 年 (約 $70k～$92k)",
-                    "budgetTWD": "約 NT$ 252 萬 / 年",
-                    "rgtCategory": "35% Run ($28.0k) / 45% Grow ($36.0k) / 20% Transform ($16.0k)"
+            id: "p1-4",
+            zh: {
+              title: "Data Governance",
+              tag: "資料治理與標準",
+              desc: "建立核心主數據定義、Source of Truth、資料品質門禁及共用標準，清洗全球布料、副料、款號與工序 SAM 數據，消除跨廠同料不同號與數據孤島。",
+              tools: "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations 自動門禁",
+              sizing: "全集團 2,500 席共用主數據目錄 + 50 萬筆跨廠原物料清洗 + 核心數據品質稽核",
+              budgetUSD: "$80,000 USD / 年 (約 $70k～$92k)",
+              budgetTWD: "約 NT$ 252 萬 / 年",
+              rgtCategory: "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"
+            },
+            en: {
+              title: "Data Governance & Master Data",
+              tag: "MDM & Quality",
+              desc: "Master Data Management (MDM) establishing unified taxonomy for fabrics, trims, style codes, and SAM operations, eliminating cross-border part number discrepancies.",
+              tools: "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations Quality Gates",
+              sizing: "2,500-seat shared data catalog + 500,000 cleaned material records + automated quality gate audits",
+              budgetUSD: "$80,000 USD / Year (Range $70k–$92k)",
+              budgetTWD: "approx. NT$ 2.52M / Year",
+              rgtCategory: "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"
+            }
           },
           {
-                    "title": "AI Governance",
-                    "tag": "AI 治理與監控",
-                    "desc": "建立 AI 工具、模型、Agent、資料存取與提示詞審計之治理機制，透過 Portkey 統一調度多模型、嚴控月均 Token 預算並自動遮蔽品牌客戶 Tech Pack 機敏機密。",
-                    "tools": "Portkey Enterprise / LiteLLM Proxy + Guardrails AI + LangSmith",
-                    "sizing": "2,500 席 AI 調用管制 + 月均 1,000 萬 Tokens 配額治理 + Tech Pack 提示詞專利遮罩",
-                    "budgetUSD": "$48,000 USD / 年 (約 $40k～$56k)",
-                    "budgetTWD": "約 NT$ 151 萬 / 年",
-                    "rgtCategory": "10% Run ($4.8k) / 20% Grow ($9.6k) / 70% Transform ($33.6k)"
+            id: "p1-5",
+            zh: {
+              title: "AI Governance",
+              tag: "AI 治理與管理機制",
+              desc: "建立符合 ISO/IEC 42001 之企業級安全沙盒：控管 Token 消耗、動態過濾品牌機敏圖資（Tech Pack 遮罩）、記錄 Agent 決策軌跡與紅隊防護。",
+              tools: "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3",
+              sizing: "全集團 400 位核心幹部 Copilot 訪問安全沙盒 + 每月 $4,000 USD Token 消耗配額監控治理",
+              budgetUSD: "$48,000 USD / 年 (約 $40k～$55k)",
+              budgetTWD: "約 NT$ 151 萬 / 年",
+              rgtCategory: "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"
+            },
+            en: {
+              title: "AI Governance & Guardrails",
+              tag: "AI Sandboxing",
+              desc: "ISO/IEC 42001 compliant enterprise AI gateway: token budgeting, automated PII/CAD masking, decision audit trails, prompt injection shielding, and human-in-the-loop oversight.",
+              tools: "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3",
+              sizing: "400 knowledge worker Copilot sandbox + $4,000/mo token consumption governance",
+              budgetUSD: "$48,000 USD / Year (Range $40k–$55k)",
+              budgetTWD: "approx. NT$ 1.51M / Year",
+              rgtCategory: "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"
+            }
           },
           {
-                    "title": "Cybersecurity",
-                    "tag": "資安與弱點管理",
-                    "desc": "持續強化跨國端點防護、弱點掃描與供應鏈資安意識，實施 CrowdStrike 24/7 全託管 MDR/SOC 聯防與 Cloudflare 零信任 ZTNA，防禦勒索軟體與跨境威脅。",
-                    "tools": "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare One (ZTNA) + Tenable.io",
-                    "sizing": "全集團 2,500 席零信任存取 + 800 台核心伺服器/管理端點 24/7 MDR 託管防勒索",
-                    "budgetUSD": "$100,000 USD / 年 (約 $88k～$115k)",
-                    "budgetTWD": "約 NT$ 315 萬 / 年",
-                    "rgtCategory": "85% Run ($85.0k) / 10% Grow ($10.0k) / 5% Transform ($5.0k)"
+            id: "p1-6",
+            zh: {
+              title: "Cybersecurity",
+              tag: "資訊安全全面防禦",
+              desc: "建立零信任架構、端點偵測、OT 車間網路實體隔離及 24/7 全託管威脅獵捕，確保海外廠區遭遇勒索病毒時具備 15 分鐘內主動隔離與反制能力。",
+              tools: "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA",
+              sizing: "全集團 2,500 個端點覆蓋 (400 核心 PC + 800 車間終端 + 8x Edge IPC + 機房伺服器) + 24/7 MDR 原廠專家監控",
+              budgetUSD: "$100,000 USD / 年 (約 $85k～$115k)",
+              budgetTWD: "約 NT$ 315 萬 / 年",
+              rgtCategory: "80% Run ($80.0k) / 20% Grow ($20.0k)"
+            },
+            en: {
+              title: "Cybersecurity & 24/7 MDR",
+              tag: "Zero Trust Defense",
+              desc: "Zero Trust Architecture with 24/7 managed detection and response (MDR), OT subnet air-gapping, and automated isolation within 15 minutes against ransomware incursions.",
+              tools: "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA",
+              sizing: "2,500 enterprise endpoints (400 PCs + 800 plant terminals + 8x Edge IPCs + servers) + 24/7 SOC hunt",
+              budgetUSD: "$100,000 USD / Year (Range $85k–$115k)",
+              budgetTWD: "approx. NT$ 3.15M / Year",
+              rgtCategory: "80% Run ($80.0k) / 20% Grow ($20.0k)"
+            }
           },
           {
-                    "title": "Backup / DR / BCP",
-                    "tag": "營運持續管理",
-                    "desc": "由單純異地備份躍升為營運持續與秒級復原能力管理，配置 Zerto 連續資料保護與不可篡改 WORM 儲存，達成 Tier-1 核心生產系統 RPO<15m / RTO<2h 國際稽核標準。",
-                    "tools": "Zerto Enterprise CDP + Veeam Backup & Replication + AWS S3 Glacier Object Lock (WORM)",
-                    "sizing": "12~16 台核心生產 VM 秒級連續複製 + 30TB WORM 不可篡改備份冷儲存槽",
-                    "budgetUSD": "$68,000 USD / 年 (約 $60k～$78k)",
-                    "budgetTWD": "約 NT$ 214 萬 / 年",
-                    "rgtCategory": "80% Run ($54.4k) / 20% Grow ($13.6k)"
+            id: "p1-7",
+            zh: {
+              title: "Backup, DR & BCP",
+              tag: "備份、災備與營運持續",
+              desc: "建立防勒索 WORM 不可篡改備份、Tier-1 核心生產秒級複製與異地快速切換，確保當機時 RPO < 15 分鐘、RTO < 2 小時，通過外部國際審計。",
+              tools: "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (WORM 不可篡改)",
+              sizing: "台北與 3 海外廠 Tier-1 核心 MES/DB (共 20TB) 實時 CDP 異地熱備 + 50TB 雲端 WORM 封存",
+              budgetUSD: "$68,000 USD / 年 (約 $60k～$78k)",
+              budgetTWD: "約 NT$ 214 萬 / 年",
+              rgtCategory: "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"
+            },
+            en: {
+              title: "Backup, DR & Business Continuity",
+              tag: "Ransomware CDP",
+              desc: "Immutable WORM backups and sub-second Continuous Data Protection (CDP) with cross-border failover, guaranteeing RPO < 15m and RTO < 2h for Tier-1 manufacturing cores.",
+              tools: "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (WORM)",
+              sizing: "20TB Tier-1 MES/DB hot replication across Taipei and 3 plants + 50TB immutable cloud archive",
+              budgetUSD: "$68,000 USD / Year (Range $60k–$78k)",
+              budgetTWD: "approx. NT$ 2.14M / Year",
+              rgtCategory: "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"
+            }
           },
           {
-                    "title": "Network Architecture",
-                    "tag": "跨廠整合架構",
-                    "desc": "建立支援工廠即時邊緣計算、IoT 感測、AGV 漫遊與跨廠整合之穩定基礎架構，配置雙軌 SD-WAN 與車間邊緣主機，保障海外各廠 48~72 小時離線自主生產韌性。",
-                    "tools": "Fortinet Secure SD-WAN (高可用雙機) + Aruba Wi-Fi 6 + 研華 (Advantech) 工業邊緣主機",
-                    "sizing": "4 海外生產基地 SD-WAN 多線路控制器 (HA) + 8 台車間邊緣離線主機維護與硬體攤提",
-                    "budgetUSD": "$72,000 USD / 年 (約 $62k～$82k)",
-                    "budgetTWD": "約 NT$ 227 萬 / 年",
-                    "rgtCategory": "65% Run ($46.9k) / 26% Grow ($18.7k) / 9% Transform ($6.4k)"
+            id: "p1-8",
+            zh: {
+              title: "Network & Infra",
+              tag: "網路與基礎設施現代化",
+              desc: "建立跨國軟體定義廣域網（SD-WAN）、海外機房雙活備援，並部署車間工業級邊緣主機，確保外部海底電纜中斷時現場具備 48~72h 離線自主運轉能力。",
+              tools: "Fortinet Secure SD-WAN (HA 雙機) + 8x 研華工業級邊緣 IPC (K3s 容器叢集)",
+              sizing: "台北總部 + 越南、柬埔寨、印尼 4 廠雙軌專線整合 + 8 台車間工業邊緣伺服器",
+              budgetUSD: "$72,000 USD / 年 (約 $62k～$82k)",
+              budgetTWD: "約 NT$ 227 萬 / 年",
+              rgtCategory: "65% Run ($46.7k) / 35% Grow ($25.3k)"
+            },
+            en: {
+              title: "Network & SD-WAN Infrastructure",
+              tag: "Hybrid Edge Infra",
+              desc: "Cross-border Secure SD-WAN with dual-link failover and ruggedized Advantech industrial IPCs, sustaining 48–72 hours of shopfloor edge autonomy during subsea cable cuts.",
+              tools: "Fortinet Secure SD-WAN (HA) + 8x Advantech Industrial Edge IPCs (K3s)",
+              sizing: "4-site SD-WAN mesh (Taipei, Vietnam, Cambodia, Indonesia) + 8x shopfloor edge servers",
+              budgetUSD: "$72,000 USD / Year (Range $62k–$82k)",
+              budgetTWD: "approx. NT$ 2.27M / Year",
+              rgtCategory: "65% Run ($46.7k) / 35% Grow ($25.3k)"
+            }
           }
-]
-      },
-      {
-        title: "營運流程整合",
-        en: "Operational Process Integration",
-        position: "定位：將 2025～2026 已建立的各功能系統與作業流程，進一步串成端到端的營運流程。",
-        desc: "核心目標不是增加孤島系統，而是降低目前跨系統、跨部門仍需靠人工收集、整理、轉換、通知及手動追蹤的繁複人工作業。",
-        items: [
-          { tag: "Fulfillment", title: "Production Fulfillment Management", desc: "整合訂單、物料、產前、排程、裁剪、特工、Sewing Ready、車縫及出貨，形成完整訂單履約生命週期。" },
-          { tag: "Supply Chain", title: "Material Flow & Risk Management", desc: "由 BOM、採購、供應商交期、ETD/ETA、WMS、MQP、配料、發料、耗用到餘料，建立全閉環物料流與風險預警。" },
-          { tag: "Milestone", title: "Pre-production Workflow", desc: "整合 PP 會議、MQP、馬克圖、做工樣板等產前條件，以預計裁剪 (PCD)/上線時間倒排管理任務完成度。" },
-          { tag: "Industrial Eng", title: "IE Digital Process", desc: "由標準 Operation 工序、SAM 工時、員工技能矩陣、設備人機配置、平衡率到現場效率，形成數位閉環改善。" },
-          { tag: "BPM", title: "Enterprise Workflow Integration", desc: "將 BPM 由行政簽核延伸至生產異常與營運變更流程，使跨部門協同與決策具備可追溯性。" }
         ]
       },
       {
-        title: "智能營運與決策",
-        en: "Intelligent Operations & Decision Support",
-        position: "定位：由『資訊呈現』進一步發展至『異常辨識、預測分析(待確認)、決策支援與 AI 協作』。",
-        desc: "2027 不以單純增加 BI 看板或零散 AI 專案為目標，而是要求智能工具真正進入現場營運流程，實質減少人員比對與人工作業負擔。",
+        zh: {
+          title: "營運流程整合",
+          position: "定位：打破系統孤島，實現由訂單至出貨的端到端即時資訊流與嚴謹門禁管理。",
+          desc: "貫穿業務訂單、物料供應鏈、產前技術、車間生產及例外處理，確保產前條件具備才上線，降低停工窩工與做工返修損失。"
+        },
+        en: {
+          title: "Operational Process Integration",
+          position: "Mandate: Eliminate operational silos, achieving end-to-end real-time data orchestration and rigorous pre-production gate enforcement.",
+          desc: "Seamlessly connecting sales orders, supply chain, technical packs, sewing lines, and exception handling to eradicate premature line feeding and changeover losses."
+        },
         items: [
-          { tag: "Alert Engine", title: "Exception Management", desc: "由系統自動過濾並主動辨識物料缺口、產前延遲、品質異常、產能脫拍及交期風險，落實例外管理。" },
-          { tag: "Analytics", title: "Production & Material Analytics", desc: "整合車縫節拍、裁片損耗、返工率與人均效率等全維度數據，進行深度根本原因交叉分析。" },
-          { tag: "Predictive", title: "Capacity / Completion Forecast", desc: "依工單剩餘量、歷史效率學習曲線、在線人力與物料齊套狀態，動態預估完工日與延誤風險。" },
-          { tag: "Simulation", title: "IE Optimization & Simulation", desc: "結合工藝工序、技能矩陣、人機配置與瓶頸工位，在電腦端進行新單換線線平衡數位模擬。" },
-          { tag: "AI Copilot", title: "AI Agent (生管/IE 助手)", desc: "逐步發展 Production Control Agent 與 IE Copilot，協助多系統數據自動綜整與決策諮詢。" },
-          { tag: "Knowledge", title: "Enterprise Knowledge / RAG", desc: "建立品牌客戶 Tech Pack、做工手冊、特殊貼合工藝規範及標準 SOP 的自然語言語義檢索問答庫。" },
-          { tag: "Tooling", title: "RPA / BI 定位調整", desc: "RPA 與 BI 看板由『年度主題』重新回歸為日常輔助流程自動化與高管洞察之底層常態工具。" }
+          {
+            id: "p2-1",
+            zh: {
+              title: "Order Fulfillment & Tracking",
+              tag: "訂單交付追蹤",
+              desc: "建立業務訂單至海外工廠生產排程之即時追蹤機制，掌握工單即時進度與交期偏差。",
+              tools: "Camunda 8 BPM + Temporal 流程編排引擎",
+              sizing: "跨 4 廠年生產 7,500 萬件成衣之工單生命週期狀態流轉監控",
+              budgetUSD: "納入總體流程現代化項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "50% Run / 50% Grow"
+            },
+            en: {
+              title: "Order Fulfillment & Lifecycle Tracking",
+              tag: "Order Lifecycle",
+              desc: "End-to-end orchestration connecting sales orders to overseas factory production schedules, tracking real-time work order velocity and delivery variance.",
+              tools: "Camunda 8 BPM + Temporal Workflow Orchestration",
+              sizing: "Full lifecycle tracking for 75 million garment pieces annually across 4 overseas plants",
+              budgetUSD: "Allocated within Process Modernization",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "50% Run / 50% Grow"
+            }
+          },
+          {
+            id: "p2-2",
+            zh: {
+              title: "Material Flow & WMS",
+              tag: "用料全流程管理",
+              desc: "整合大貨布料採購、進廠檢驗、倉庫儲位、自動拉布裁剪至裁片超市之條碼/RFID 閉環管理。",
+              tools: "SAP WMS 整合 + Zebra 工業級條碼/RFID 手持機",
+              sizing: "全集團 4 座主原副料倉庫與 12 座車間線邊超市即時庫存盤點",
+              budgetUSD: "納入供應鏈現代化項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "60% Run / 40% Grow"
+            },
+            en: {
+              title: "Material Flow & WMS Traceability",
+              tag: "Material Loop",
+              desc: "Unified traceability linking bulk fabric sourcing, inbound lab inspection, bin location, automated spreading/cutting, to cut-piece supermarket buffers.",
+              tools: "SAP WMS Integration + Zebra Rugged RFID Handheld Terminals",
+              sizing: "Real-time inventory tracking for 4 central raw-material warehouses and 12 line-side supermarkets",
+              budgetUSD: "Allocated within Supply Chain Modernization",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "60% Run / 40% Grow"
+            }
+          },
+          {
+            id: "p2-3",
+            zh: {
+              title: "Ready-to-Sew 4-Gate",
+              tag: "產前門禁管制機制",
+              desc: "落實 4 道硬性門禁：BOM 齊套、Tech Pack 工藝、MQP 封樣、特工半成品超市，未達標自動鎖死排程。",
+              tools: "自研產前門禁規則引擎 (Node.js/Python) + 廠長/副總雙簽特許 SOP",
+              sizing: "覆蓋全集團 80 條成衣車縫線之日常換線開線檢核",
+              budgetUSD: "納入流程治理項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "40% Run / 60% Grow"
+            },
+            en: {
+              title: "Ready-to-Sew 4-Gate Control",
+              tag: "Pre-Production Gate",
+              desc: "4 rigid pre-production gates: BOM completeness, Tech Pack approval, MQP golden sample, and supermarket staging; system automatically locks line feeding if incomplete.",
+              tools: "Custom 4-Gate Rule Engine (Node/Python) + Executive Override SOP",
+              sizing: "Mandatory daily changeover authorization across 80 sewing lines group-wide",
+              budgetUSD: "Allocated within Governance Framework",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "40% Run / 60% Grow"
+            }
+          },
+          {
+            id: "p2-4",
+            zh: {
+              title: "IE & Line Balancing",
+              tag: "工程工時與線平衡",
+              desc: "標準工時 (SAM) 與車縫工位技能矩陣聯動，動態演算線平衡率，消滅在線節拍瓶頸。",
+              tools: "GSDCost 工時系統 + ProModel 車間排線動態演算模組",
+              sizing: "集團 1,200 位車工技能矩陣與 80 條車縫線平衡率即時最佳化",
+              budgetUSD: "納入製造工程項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "30% Run / 70% Grow"
+            },
+            en: {
+              title: "Industrial Engineering & Line Balancing",
+              tag: "IE Optimization",
+              desc: "Dynamic linking of standard allowed minutes (SAM) with sewing operator skill matrices, calculating real-time line balancing to eradicate bottleneck takt losses.",
+              tools: "GSDCost Standard Data + ProModel Line Balancing Engine",
+              sizing: "Skill matrix tracking for 1,200 sewing operators across 80 lines",
+              budgetUSD: "Allocated within Manufacturing Engineering",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "30% Run / 70% Grow"
+            }
+          },
+          {
+            id: "p2-5",
+            zh: {
+              title: "Exception Management",
+              tag: "跨廠異常預警引擎",
+              desc: "監控採購交期（ETA）與計畫裁剪日（PCD），提前 72 小時主動推播缺料或品質異常預警。",
+              tools: "Apache Flink CEP 複雜事件處理 + 企業微信 / Teams 即時機器人",
+              sizing: "每日處理 10 萬筆跨廠供應鏈事件串流與 72h 前瞻預警",
+              budgetUSD: "納入異常監控項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "20% Run / 80% Transform"
+            },
+            en: {
+              title: "Cross-Plant Exception Management",
+              tag: "Flink CEP Engine",
+              desc: "Continuous monitoring of procurement ETA versus Planned Cut Dates (PCD), proactively triggering automated warning alerts 72 hours in advance of potential line stoppages.",
+              tools: "Apache Flink Complex Event Processing (CEP) + Microsoft Teams Bot",
+              sizing: "Real-time processing of 100,000 daily supply chain event streams across 4 plants",
+              budgetUSD: "Allocated within Event Streaming Infrastructure",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "20% Run / 80% Transform"
+            }
+          }
         ]
       },
       {
-        title: "智慧製造與數位基礎設備",
-        en: "Smart Manufacturing & Digital Infrastructure",
-        position: "定位：建立支援智慧製造、即時資料收集及 AI 應用所需的硬體、運算、網路與邊緣設備整合能力。",
-        desc: "硬體不再獨立視為零散採購，而應全面納入集團數位架構，使機台產生的第一手訊號能被 MES、數據湖及 AI 模型直接消化運用。",
+        zh: {
+          title: "智能營運與決策",
+          position: "定位：自「資料事後呈現」邁向「預測分析、異常介入與 Agentic AI 輔助決策」。",
+          desc: "建構多維度指標體系、排程動態演算與多國語工藝 RAG 助手，釋放 15%～25% 核心流程工時。"
+        },
+        en: {
+          title: "Intelligent Operations & Decision",
+          position: "Mandate: Evolve from retrospective dashboards into predictive forecasting, automated intervention, and Agentic AI collaboration.",
+          desc: "Constructing multi-dimensional metrics, material simulation engines, and multilingual Tech Pack RAG to release 15%–25% of core process labor hours."
+        },
         items: [
-          { tag: "Robotics", title: "Smart Equipment Integration", desc: "整合 AGV 搬運車、自動拉布機、自動裁床、裁片超市、電腦模板機、吊掛線與包裝設備至 MES 資料層。" },
-          { tag: "Compute", title: "AI / Computing Infrastructure", desc: "建置 AI 伺服器、邊緣 GPU 節點、High-IOPS 儲存集、Model Serving 及私有化 Agent 執行安全沙盒。" },
-          { tag: "OT Network", title: "Network & Edge Infrastructure", desc: "優化廠區骨幹、車間工業級 Wi-Fi、OT 工控網路隔離、Edge Gateway 邊緣閘道及斷網離線備援機制。" },
-          { tag: "Shopfloor IoT", title: "Production Data Collection", desc: "廣泛導入 RFID 工票卡、高階 Barcode、車台感應器 (IoT Sensor) 與機台運轉訊號即時擷取。" },
-          { tag: "Integration", title: "Equipment Architecture Convergence", desc: "消除軟硬體界限，將各廠特工機、吊掛系統及樓宇 BMS 能源監控納入統一協定（MQTT/Modbus/REST）。" }
+          {
+            id: "p3-1",
+            zh: {
+              title: "BI & Analytics Platform",
+              tag: "商業智慧中台",
+              desc: "建立全集團統一之經營管理看板，提供多廠多維度毛利、效率、品質與能耗交叉分析。",
+              tools: "Power BI Embedded + Apache Superset 自助分析平台",
+              sizing: "總部與各廠 150 位管理幹部即時決策調閱權限",
+              budgetUSD: "納入數據平台項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "60% Run / 40% Grow"
+            },
+            en: {
+              title: "Enterprise BI & Analytics Platform",
+              tag: "BI & Dashboards",
+              desc: "Unified executive analytics portal delivering multi-plant cross-dimensional analysis of gross margins, OEE, rework rates, and energy consumption.",
+              tools: "Microsoft Power BI Embedded + Apache Superset Self-Service Analytics",
+              sizing: "Real-time executive decision access for 150 group-wide managers",
+              budgetUSD: "Allocated within Data Platform",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "60% Run / 40% Grow"
+            }
+          },
+          {
+            id: "p3-2",
+            zh: {
+              title: "Delivery Predictive Modeling",
+              tag: "交期預測與風險模型",
+              desc: "結合歷史工期、海關清關週期與季節天氣數據，訓練交期延遲預測模型，提前識別違約風險。",
+              tools: "Python XGBoost / LightGBM + Databricks MLflow",
+              sizing: "每年預測 1,500 個大貨訂單款號之出貨達成率",
+              budgetUSD: "納入智慧演算法項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "30% Grow / 70% Transform"
+            },
+            en: {
+              title: "Delivery Predictive Modeling",
+              tag: "ML Delivery Risk",
+              desc: "Machine learning models synthesizing historical throughput, customs clearing cycles, and port logistics to forecast delivery slippage and prevent freight penalties.",
+              tools: "Python XGBoost / LightGBM + Databricks MLflow",
+              sizing: "Annual predictive modeling across 1,500 production style orders",
+              budgetUSD: "Allocated within Applied AI Algorithms",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "30% Grow / 70% Transform"
+            }
+          },
+          {
+            id: "p3-3",
+            zh: {
+              title: "Material Simulation Engine",
+              tag: "物料排程模擬器",
+              desc: "針對大貨布料縮水率、門幅公差與換線損失進行排程演算，提供最佳裁剪與發料組合方案。",
+              tools: "Google OR-Tools 線性規劃求解器 + 自研成衣排料算力模組",
+              sizing: "每日演算 4 廠裁片排產組合，降低大貨布損 1.0%~1.2%",
+              budgetUSD: "納入排料最佳化項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "20% Run / 80% Transform"
+            },
+            en: {
+              title: "Material Planning Simulation Engine",
+              tag: "OR Cut Planning",
+              desc: "Mathematical optimization solver factoring in fabric shrinkage, width variance, and changeover costs to recommend optimal marker layout and cut nesting.",
+              tools: "Google OR-Tools Linear Solver + Proprietary Garment Nesting Algorithms",
+              sizing: "Daily cut planning optimization across 4 plants, cutting fabric loss by 1.2%",
+              budgetUSD: "Allocated within Material Optimization",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "20% Run / 80% Transform"
+            }
+          },
+          {
+            id: "p3-4",
+            zh: {
+              title: "Domain-Specific Agentic AI",
+              tag: "領域型智慧代理人",
+              desc: "針對生管排程諮詢、做工難點診斷與客戶交期跟單，構建具備主動行動能力的智慧 Agent 群。",
+              tools: "LangGraph / AutoGen 多代理人框架 + 本地部署 vLLM",
+              sizing: "釋放 400 位核心幹部 15%~25% 特定重複性作業工時",
+              budgetUSD: "納入 AI 創新項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "10% Grow / 90% Transform"
+            },
+            en: {
+              title: "Domain-Specific Agentic AI",
+              tag: "Agentic Workflows",
+              desc: "Specialized collaborative AI agents for PMC scheduling inquiries, sewing bottleneck diagnosis, and automated order status reporting with tool-calling capabilities.",
+              tools: "LangGraph / AutoGen Multi-Agent Framework + Local vLLM Inference",
+              sizing: "Releasing 15%–25% repetitive labor hours across 400 core managers",
+              budgetUSD: "Allocated within AI Innovation",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "10% Grow / 90% Transform"
+            }
+          },
+          {
+            id: "p3-5",
+            zh: {
+              title: "Multilingual Tech Pack RAG",
+              tag: "多國語工藝 RAG 庫",
+              desc: "解析品牌英文/繁中 Tech Pack 技術包，建立向量庫，支援越文、高棉語與印尼文車間術語即時查詢。",
+              tools: "Qdrant 向量資料庫 + LlamaIndex + 深度微調成衣專屬 Embedding",
+              sizing: "建置 10 萬份工藝規範與疵點圖鑑之跨國多語即時檢索庫",
+              budgetUSD: "納入知識中台項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "20% Grow / 80% Transform"
+            },
+            en: {
+              title: "Multilingual Tech Pack RAG Knowledge Base",
+              tag: "Tech Pack RAG",
+              desc: "Vectorized parsing of brand Tech Packs in English/Chinese, enabling instant semantic search and translation into Vietnamese, Khmer, and Indonesian shopfloor sewing terms.",
+              tools: "Qdrant Vector DB + LlamaIndex + Fine-tuned Garment Sewing Embeddings",
+              sizing: "Indexing 100,000 workmanship standards and defect catalogs for cross-border lookup",
+              budgetUSD: "Allocated within Knowledge Management",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "20% Grow / 80% Transform"
+            }
+          },
+          {
+            id: "p3-6",
+            zh: {
+              title: "Intelligent Document Processing",
+              tag: "單證智能辨識 (OCR)",
+              desc: "自動解析供應商發票、裝箱單 (Packing List) 與原物料檢驗報告 (COA)，自動檢核並拋單至系統。",
+              tools: "PaddleOCR + LayoutLMv3 結構化文檔擷取模型",
+              sizing: "每月自動化處理 3 萬份跨國進出口與採購報關單證",
+              budgetUSD: "納入自動化工程項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "50% Run / 50% Grow"
+            },
+            en: {
+              title: "Intelligent Document Processing (IDP & OCR)",
+              tag: "Automated OCR",
+              desc: "Automated extraction and validation of supplier invoices, packing lists, and fabric Certificate of Analysis (COA) reports, posting directly into ERP with zero human error.",
+              tools: "PaddleOCR + LayoutLMv3 Visual Document Extraction Model",
+              sizing: "Automated monthly ingestion of 30,000 cross-border shipping and customs documents",
+              budgetUSD: "Allocated within Process Automation",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "50% Run / 50% Grow"
+            }
+          },
+          {
+            id: "p3-7",
+            zh: {
+              title: "Dynamic Executive Dashboards",
+              tag: "高管動態決策戰情室",
+              desc: "將跨國 4 廠產能利用率、財務損益、人均產值與資安風險熱圖聚合於單一大屏，支援鑽取與例外介入。",
+              tools: "Next.js + Apache ECharts + Tailwind CSS 自研即時大屏",
+              sizing: "集團董事會與周副總等高管指揮中心實時遙測大屏",
+              budgetUSD: "納入戰情室系統項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "40% Run / 60% Grow"
+            },
+            en: {
+              title: "Dynamic Executive Decision Dashboards",
+              tag: "Executive Cockpit",
+              desc: "Aggregating capacity utilization, P&L variances, labor productivity, and cybersecurity risk heatmaps across 4 plants onto an interactive executive war room interface.",
+              tools: "Next.js + Apache ECharts + Tailwind CSS Real-Time Telemetry Cockpit",
+              sizing: "Executive Command Center displays for the Board of Directors and VP Chou",
+              budgetUSD: "Allocated within War Room Infrastructure",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "40% Run / 60% Grow"
+            }
+          }
+        ]
+      },
+      {
+        zh: {
+          title: "智慧製造與設備",
+          position: "定位：推動現場設備聯網化、通訊標準化、感知自動化與邊緣離線自律運轉。",
+          desc: "消除紙本工票與隨身碟拷貝，打造高可靠的物聯網感知邊界與工業邊緣計算節點。"
+        },
+        en: {
+          title: "Smart Manufacturing & Equipment",
+          position: "Mandate: Drive shopfloor machine connectivity, protocol standardization, automated sensing, and resilient offline edge autonomy.",
+          desc: "Eliminating paper bundles and USB manual transfers, establishing a ruggedized IoT perimeter and industrial edge nodes."
+        },
+        items: [
+          {
+            id: "p4-1",
+            zh: {
+              title: "Machine Communication Gateway",
+              tag: "機台通訊協定整合",
+              desc: "統一採集自動裁床、電腦車機、自動模板機與燙壓機之 PLC 訊號，消除串口協定孤島。",
+              tools: "PTC Kepware OPC-UA 伺服器 + EMQX 工業級 MQTT Broker",
+              sizing: "全集團 1,500 台自動化成衣機台與溫控設備即時數據擷取",
+              budgetUSD: "納入 OT 物聯網項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "60% Run / 40% Grow"
+            },
+            en: {
+              title: "Machine Communication & Protocol Gateway",
+              tag: "OPC-UA / MQTT",
+              desc: "Standardized PLC telemetry extraction from automatic cutters, CNC sewing stations, template tackers, and heat presses, bridging proprietary industrial protocols.",
+              tools: "PTC Kepware OPC-UA Server + EMQX Industrial MQTT Broker",
+              sizing: "Real-time telemetry ingestion across 1,500 automated garment machines and heat presses",
+              budgetUSD: "Allocated within OT IoT Infrastructure",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "60% Run / 40% Grow"
+            }
+          },
+          {
+            id: "p4-2",
+            zh: {
+              title: "Real-Time RFID WIP Tracking",
+              tag: "RFID 智慧吊掛與在製品追蹤",
+              desc: "車縫吊掛線與分揀站點全工位 RFID 感應，實現單件成衣流動即時定位與個人計件工資秒級計算。",
+              tools: "Impinj Speedway RFID 讀寫器 + 研華工業觸控工位屏",
+              sizing: "覆蓋海外 3 廠 80 條吊掛生產線與 2,000 個讀寫感應節點",
+              budgetUSD: "納入吊掛自動化項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "50% Run / 50% Grow"
+            },
+            en: {
+              title: "Real-Time RFID WIP & Smart Hanger Tracking",
+              tag: "RFID WIP Flow",
+              desc: "Comprehensive RFID station integration across smart hanging systems and sorting gates, tracking single-piece flow and calculating piece-rate wages in sub-seconds.",
+              tools: "Impinj Speedway RFID Readers + Advantech Rugged Touch Terminal Displays",
+              sizing: "Tracking across 80 hanging lines and 2,000 read-points across 3 overseas plants",
+              budgetUSD: "Allocated within Smart Hanging Automation",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "50% Run / 50% Grow"
+            }
+          },
+          {
+            id: "p4-3",
+            zh: {
+              title: "Industrial Edge Computing",
+              tag: "車間工業邊緣節點 (IPC)",
+              desc: "各廠車間部署工業級無風扇邊緣主機，本地快取生產排程與 MES 交易，確保外部斷網時持續運轉 72 小時。",
+              tools: "研華 / Moxa 工業電腦 + K3s 輕量化容器 + 本地 DuckDB 快取",
+              sizing: "海外 3 廠共配置 8 組車間邊緣叢集節點 (具備雙機熱備援)",
+              budgetUSD: "納入邊緣韌性項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "40% Run / 60% Grow"
+            },
+            en: {
+              title: "Industrial Edge Computing Units (IPC)",
+              tag: "Edge IPC Autonomy",
+              desc: "Deploying rugged fanless industrial PCs on plant floors, caching schedules and transaction logs locally to sustain 72 hours of uninterrupted production during ISP outages.",
+              tools: "Advantech / Moxa Rugged IPCs + K3s Lightweight Kubernetes + Embedded DuckDB",
+              sizing: "8 edge cluster nodes deployed across 3 overseas plants with hardware HA failover",
+              budgetUSD: "Allocated within Edge Resilience Infrastructure",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "40% Run / 60% Grow"
+            }
+          },
+          {
+            id: "p4-4",
+            zh: {
+              title: "Shopfloor Vision Inspection",
+              tag: "車間視覺 AI 瑕疵檢測",
+              desc: "裁片印花定位與車縫針距疵點自動辨識，利用邊緣相機進行初檢，減少人為品檢漏網之魚。",
+              tools: "YOLOv10 / TensorRT 輕量視覺模型 + 工業相機",
+              sizing: "隆安示範廠率先試點 4 條無縫運動服貼合與印花品質初檢",
+              budgetUSD: "納入智慧品管項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "20% Grow / 80% Transform"
+            },
+            en: {
+              title: "Shopfloor Vision AI Quality Inspection",
+              tag: "Computer Vision QA",
+              desc: "Automated computer vision detection of print registration errors, fabric flaws, and stitching pitch deviations at high-speed workstations, eliminating manual inspection escapes.",
+              tools: "YOLOv10 / TensorRT Embedded Vision Models + Basler Industrial Cameras",
+              sizing: "Initial pilot across 4 seamless bonding and printing lines at Long An Demo Plant",
+              budgetUSD: "Allocated within Smart QA Automation",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "20% Grow / 80% Transform"
+            }
+          },
+          {
+            id: "p4-5",
+            zh: {
+              title: "Predictive Maintenance",
+              tag: "設備預防性維護 (PdM)",
+              desc: "監控自動裁床刀頭振動、熱壓貼合機溫度曲線與馬達電流，提前預警機械故障與磨耗。",
+              tools: "振動感測器 (Accelerometer) + InfluxDB 時序資料庫 + 異常警示模組",
+              sizing: "海外 4 廠共 32 台主力自動裁床與貼合設備之主動維修告警",
+              budgetUSD: "納入設備運維項目",
+              budgetTWD: "依專案範圍分配",
+              rgtCategory: "30% Run / 70% Transform"
+            },
+            en: {
+              title: "Equipment Predictive Maintenance (PdM)",
+              tag: "Vibration & Thermal PdM",
+              desc: "Continuous telemetry monitoring of cutting blade vibration, thermal bonding curves, and motor draw, generating proactive maintenance orders prior to mechanical breakdown.",
+              tools: "Industrial Accelerometers + InfluxDB Time-Series DB + Automated Anomaly Engine",
+              sizing: "Proactive condition-based monitoring for 32 heavy automatic cutting and bonding machines",
+              budgetUSD: "Allocated within Equipment Lifecycle Governance",
+              budgetTWD: "Project-based allocation",
+              rgtCategory: "30% Run / 70% Transform"
+            }
+          }
         ]
       }
     ];
 
+
+
+    // 5. Bilingual Rendering Methods
+    let currentLang = 'zh';
     let currentPillarIndex = 0;
+    let currentTimelineYear = 2027;
 
     function renderTimeline(year) {
-      const data = timelineData[year];
+      currentTimelineYear = year;
+      const dataObj = timelineData[year];
+      if (!dataObj) return;
+      const data = dataObj[currentLang] || dataObj.zh;
       const card = document.getElementById("timelineDetailCard");
+      if (!card) return;
       card.innerHTML = `
         <span class="detail-pill">${data.pill}</span>
-        <h3 class="detail-heading">${year} 年度：${data.title}</h3>
+        <h3 class="detail-heading">${year} ${currentLang === 'en' ? 'Fiscal Year' : '年度'}：${data.title}</h3>
         <p class="detail-text">${data.desc}</p>
-        ${data.gap ? `<div class="gap-notice">⚠️ <strong>重點關注：</strong> ${data.gap}</div>` : ''}
+        ${data.gap ? `<div class="gap-notice">⚠️ <strong>${currentLang === 'en' ? 'Critical Focus:' : '重點關注：'}</strong> ${data.gap}</div>` : ''}
       `;
     }
 
     function switchTimeline(year, btn) {
       document.querySelectorAll(".timeline-tab-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+      if (btn) btn.classList.add("active");
       renderTimeline(year);
     }
 
     function renderPillar(index) {
       currentPillarIndex = index;
-      const pillar = pillarsData[index];
+      const pData = pillarsData[index];
+      if (!pData) return;
+      const pInfo = pData[currentLang] || pData.zh;
       const view = document.getElementById("pillarExpandedView");
+      if (!view) return;
       
-      let itemsHtml = pillar.items.map(item => `
+      let itemsHtml = pData.items.map(itWrapper => {
+        const item = itWrapper[currentLang] || itWrapper.zh;
+        return `
         <div class="scope-item-card" data-search="${item.title} ${item.desc} ${item.tag} ${item.tools || ''}">
           <div class="scope-tag">${item.tag}</div>
           <div class="scope-title">${item.title}</div>
@@ -3050,528 +3924,331 @@
           ${item.tools ? `
             <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-subtle);">
               <div style="font-size: 0.82rem; font-weight: 700; color: var(--rust-primary); margin-bottom: 6px;">
-                🛠️ 實戰工具推薦：<span style="color: var(--text-charcoal); font-weight: 600;">${item.tools}</span>
+                🛠️ ${currentLang === 'en' ? 'Production Stack:' : '實戰工具推薦：'}<span style="color: var(--text-charcoal); font-weight: 600;">${item.tools}</span>
               </div>
               <div style="background: var(--bg-warm-tint); border-left: 3px solid var(--orange-vibrant); padding: 8px 12px; border-radius: 0 4px 4px 0; font-size: 0.78rem; color: var(--text-body); line-height: 1.55;">
-                <div style="font-weight: 700; color: var(--rust-primary); margin-bottom: 3px;">💰 規模用量預算預估 (Using Sizing)：</div>
-                <div style="margin-bottom: 3px;"><strong>規模基準：</strong>${item.sizing}</div>
-                <div><strong>預估年預算：</strong><span style="color: var(--rust-primary); font-weight: 700;">${item.budgetUSD}</span> <span style="color: var(--text-muted);">(${item.budgetTWD})</span> · <span style="font-weight: 600; color: #475569;">${item.rgtCategory}</span></div>
+                <div style="font-weight: 700; color: var(--rust-primary); margin-bottom: 3px;">💰 ${currentLang === 'en' ? 'Budget & Capacity Sizing:' : '規模用量預算預估 (Using Sizing)：'}</div>
+                <div style="margin-bottom: 3px;"><strong>${currentLang === 'en' ? 'Sizing Sizing:' : '規模基準：'}</strong>${item.sizing}</div>
+                <div><strong>${currentLang === 'en' ? 'Est. Annual Budget:' : '預估年預算：'}</strong><span style="color: var(--rust-primary); font-weight: 700;">${item.budgetUSD}</span> <span style="color: var(--text-muted);">(${item.budgetTWD})</span></div>
+                <div style="margin-top: 4px; font-size: 0.73rem; color: #4338CA; font-weight: 600;">📊 ${currentLang === 'en' ? 'R-G-T Categorization:' : 'RGT 屬性劃分：'}${item.rgtCategory}</div>
               </div>
             </div>
           ` : ''}
         </div>
-      `).join('');
-
-      let budgetSummaryBanner = '';
-      if (index === 0) {
-        budgetSummaryBanner = `
-          <div style="background: linear-gradient(135deg, #FFFDFB 0%, #FAF6EE 100%); border: 1px solid var(--border-subtle); border-left: 4px solid var(--rust-primary); padding: 20px 24px; border-radius: var(--radius-sm); margin-bottom: 24px; box-shadow: var(--shadow-sm);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
-              <div style="font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--text-charcoal);">
-                💰 Pillar I 數位底座【全集團 2,500 席】二千萬級年預算試算總覽 (Enterprise Sizing Budget)</span>
-            <span style="font-size: 1.15rem; font-weight: 800; color: var(--rust-primary);">
-              基準總計：$640,000 USD / 年 <span style="font-size: 0.85rem; color: var(--text-muted);">(約 NT$ 2,016 萬 / 年)</span>
-            </span>
-          </div>
-          <p class="budget-summary-desc">
-            依據信源全球（台北總部 + 越南、柬埔寨、印尼各廠區）<strong>【全集團 2,500 席】</strong>知識工作者與現場幹部規模進行企業級完整配置（覆蓋 Entra ID 分層 SSO、CrowdStrike 24/7 MDR 全託管、30TB+ Databricks 湖倉、Profisee MDM 主數據中台、Zerto CDP 秒級災備與 4 廠雙軌 SD-WAN 邊緣自治）。經加權計算精確符合 <strong>55% Run ($352k USD / NT$ 1,109 萬)</strong>、<strong>25% Grow ($160k USD / NT$ 504 萬)</strong>、<strong>20% Transform ($128k USD / NT$ 403 萬)</strong>。單件成衣數位成本 (DCPG) 僅 <strong>$0.0085 USD (約 NT$ 0.27 / 件，不到三毛錢)</strong>。指標後續將依各廠導入進度採動態滾動式修正。
-            </div>
-          </div>
-        `;
-      }
+      `;
+      }).join('');
 
       view.innerHTML = `
-        <div class="pillar-header-group">
-          <div>
-            <div class="pillar-main-title">Pillar ${['I','II','III','IV'][index]} · ${pillar.title}</div>
-            <div class="pillar-main-en">${pillar.en}</div>
-          </div>
-          <div style="font-size: 0.85rem; color: var(--text-muted); font-style: italic;">
-            架構覆蓋範疇：共 ${pillar.items.length} 大核心模組
-          </div>
+        <div class="pillar-banner">
+          <div class="pillar-banner-title">${pInfo.title}</div>
+          <div class="pillar-banner-en">${pInfo.title}</div>
+          <p class="pillar-banner-position">${pInfo.position}</p>
+          <p class="pillar-banner-desc">${pInfo.desc}</p>
         </div>
-        <div class="pillar-intent-card">
-          <strong>${pillar.position}</strong><br>
-          ${pillar.desc}
-        </div>
-        ${budgetSummaryBanner}
-        <div class="scope-items-container" id="scopeItemsContainer">
+        <div class="scope-grid">
           ${itemsHtml}
         </div>
       `;
     }
 
-    function switchPillar(index, card) {
-      document.querySelectorAll(".pillar-nav-card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
+    function switchPillar(index, btn) {
+      document.querySelectorAll(".pillar-tab").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
       renderPillar(index);
-      filterScopeItems();
     }
 
-    function filterScopeItems() {
-      const query = document.getElementById("scopeSearch").value.toLowerCase().trim();
-      const cards = document.querySelectorAll(".scope-item-card");
-      cards.forEach(card => {
-        const text = card.getAttribute("data-search").toLowerCase();
-        if (query === "" || text.includes(query)) {
-          card.style.display = "flex";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    }
-
-    // Gate Simulator
-    function toggleGate(id) {
-      const el = document.getElementById(id);
-      el.checked = !el.checked;
-      calculateGateStatus();
+    function renderAdvice() {
+      const container = document.querySelector(".executive-advice-grid");
+      if (!container) return;
+      container.innerHTML = adviceData.map(ad => {
+        const adInfo = ad[currentLang] || ad.zh;
+        return `
+        <div class="advice-card">
+          <div class="advice-card-number">${ad.num}</div>
+          <div class="advice-title">
+            ${adInfo.title}
+            <span class="advice-pill">${ad.pill}</span>
+          </div>
+          <p class="advice-desc">${adInfo.desc}</p>
+          <div class="advice-metric-box">${adInfo.metric}</div>
+        </div>
+      `;
+      }).join('');
     }
 
     function calculateGateStatus() {
-      const g1 = document.getElementById("gateBOM").checked;
-      const g2 = document.getElementById("gateTechPack").checked;
-      const g3 = document.getElementById("gateMQP").checked;
-      const g4 = document.getElementById("gateCut").checked;
+      const g1 = document.getElementById("gateBOM") ? document.getElementById("gateBOM").checked : true;
+      const g2 = document.getElementById("gateTechPack") ? document.getElementById("gateTechPack").checked : true;
+      const g3 = document.getElementById("gateMQP") ? document.getElementById("gateMQP").checked : false;
+      const g4 = document.getElementById("gateCut") ? document.getElementById("gateCut").checked : true;
 
       const resultBox = document.getElementById("simResultBox");
       const icon = document.getElementById("simIcon");
       const title = document.getElementById("simTitle");
       const desc = document.getElementById("simDesc");
+      if (!resultBox || !icon || !title || !desc) return;
 
       if (g1 && g2 && g3 && g4) {
         resultBox.className = "sim-result-box cleared";
         icon.textContent = "✅";
-        title.textContent = "條件齊套 · 放行排程發料上線";
-        desc.textContent = "所有 4 大產前門禁檢核通過！物料、工藝、樣板與半成品全數就緒，MES 准予開線，預期達成 100% 首日換線效率！";
+        title.textContent = currentLang === 'en' 
+          ? "All 4 Gates Cleared · Authorized for Line Production" 
+          : "條件齊套 · 放行排程發料上線";
+        desc.textContent = currentLang === 'en'
+          ? "All 4 pre-production criteria passed! Raw materials, Tech Pack standards, MQP sample, and supermarket cut parts are 100% ready. MES authorizes work orders, targeting 100% first-day line efficiency!"
+          : "所有 4 大產前門禁檢核通過！物料、工藝、樣板與半成品全數就緒，MES 准予開線，預期達成 100% 首日換線效率！";
       } else {
         resultBox.className = "sim-result-box blocked";
         icon.textContent = "⛔";
-        title.textContent = "門禁攔截 · 嚴禁盲目上線";
-        
+        title.textContent = currentLang === 'en'
+          ? "Gate Blocked · Line Feeding Strictly Intercepted"
+          : "門禁攔截 · 嚴禁盲目上線";
+
         let reasons = [];
-        if (!g1) reasons.push("物料原副料未齊套");
-        if (!g2) reasons.push("工藝包 Tech Pack 未確立");
-        if (!g3) reasons.push("MQP 產前樣品未封樣");
-        if (!g4) reasons.push("裁片或特工件未入超市");
-        
-        desc.innerHTML = `系統主動攔截阻擋！未符條件：<strong>${reasons.join("、")}</strong>。生管排程已自動凍結，避免現場拆線停工窩工。`;
+        if (currentLang === 'en') {
+          if (!g1) reasons.push("BOM & Trims Incomplete");
+          if (!g2) reasons.push("Tech Pack & CAD Unapproved");
+          if (!g3) reasons.push("MQP Golden Sample Unsealed");
+          if (!g4) reasons.push("Supermarket Sub-Assemblies Not Staged");
+          desc.innerHTML = `Automated gate interception! Missing criteria: <strong>${reasons.join(", ")}</strong>. MES schedule frozen to prevent shopfloor changeover disruption.`;
+        } else {
+          if (!g1) reasons.push("物料原副料未齊套");
+          if (!g2) reasons.push("工藝包 Tech Pack 未確立");
+          if (!g3) reasons.push("MQP 產前樣品未封樣");
+          if (!g4) reasons.push("裁片或特工件未入超市");
+          desc.innerHTML = `系統主動攔截阻擋！未符條件：<strong>${reasons.join("、")}</strong>。生管排程已自動凍結，避免現場拆線停工窩工。`;
+        }
       }
     }
 
-    // Dynamic IE Simulation Calculator
     function updateIESimulation() {
-      const skill = parseInt(document.getElementById("skillSlider").value, 10);
-      const ready = parseInt(document.getElementById("readySlider").value, 10);
-      
-      document.getElementById("skillValDisplay").innerText = skill + "%";
-      document.getElementById("readyValDisplay").innerText = ready + "%";
-      
-      // Calculations
+      const skillInput = document.getElementById("skillSlider");
+      const readyInput = document.getElementById("readySlider");
+      if (!skillInput || !readyInput) return;
+
+      const skill = parseInt(skillInput.value, 10);
+      const ready = parseInt(readyInput.value, 10);
+
+      const skillDisp = document.getElementById("skillValDisplay");
+      const readyDisp = document.getElementById("readyValDisplay");
+      if (skillDisp) skillDisp.innerText = skill + "%";
+      if (readyDisp) readyDisp.innerText = ready + "%";
+
       const lineBalance = (70 + (skill * 0.2) + (ready * 0.1)).toFixed(1);
       const efficiency = ((skill * 0.55) + (ready * 0.42)).toFixed(1);
       const baseOutput = 1000;
       const dailyOutput = Math.round(baseOutput * (efficiency / 70));
       const lossSam = Math.max(2.5, (30 - (skill * 0.18) - (ready * 0.12))).toFixed(1);
+
+      if (document.getElementById("calcLineBalance")) document.getElementById("calcLineBalance").innerText = lineBalance + "%";
+      if (document.getElementById("calcOEE")) document.getElementById("calcOEE").innerText = efficiency + "%";
+      if (document.getElementById("calcDailyOutput")) document.getElementById("calcDailyOutput").innerText = dailyOutput.toLocaleString() + (currentLang === 'en' ? " Pcs" : " 件");
+      if (document.getElementById("calcLossSam")) document.getElementById("calcLossSam").innerText = lossSam + " min";
+    }
+
+    function setLanguage(lang) {
+      currentLang = (lang === 'en') ? 'en' : 'zh';
+      const dict = i18n_bilingual[currentLang];
+
+      // Update Dropdown Header Display
+      const disp = document.getElementById("currentLangDisplay");
+      if (disp && langDisplayMap[currentLang]) disp.innerText = langDisplayMap[currentLang];
+      document.querySelectorAll(".lang-option").forEach(opt => opt.classList.remove("active"));
+      const activeOpt = document.getElementById(`opt-${currentLang}`);
+      if (activeOpt) activeOpt.classList.add("active");
+
+      // Update Top Nav Items
+      if (document.getElementById('nav-invest')) document.getElementById('nav-invest').innerText = dict.navInvest;
+      if (document.getElementById('nav-evo')) document.getElementById('nav-evo').innerText = dict.navEvo;
+      if (document.getElementById('nav-analytics')) document.getElementById('nav-analytics').innerText = dict.navAnalytics;
+      if (document.getElementById('nav-edge')) document.getElementById('nav-edge').innerText = dict.navEdge;
+      if (document.getElementById('nav-pillars')) document.getElementById('nav-pillars').innerText = dict.navPillars;
+      if (document.getElementById('nav-logic')) document.getElementById('nav-logic').innerText = dict.navLogic;
+      if (document.getElementById('nav-gate')) document.getElementById('nav-gate').innerText = dict.navGate;
+      if (document.getElementById('nav-recom')) document.getElementById('nav-recom').innerText = dict.navRecom;
+
+      // Update Masthead & Leadership
+      if (document.getElementById('t-mainTitle')) document.getElementById('t-mainTitle').innerHTML = dict.mainTitle;
+      if (document.getElementById('t-lead')) document.getElementById('t-lead').innerHTML = dict.lead;
+      if (document.getElementById('t-sponsorChip')) document.getElementById('t-sponsorChip').innerHTML = dict.sponsorChip;
+      if (document.getElementById('t-authorChip')) document.getElementById('t-authorChip').innerHTML = dict.authorChip;
+      if (document.getElementById('t-leadershipTitle')) document.getElementById('t-leadershipTitle').innerHTML = dict.leadershipTitle;
+      if (document.getElementById('t-metric1Lbl')) document.getElementById('t-metric1Lbl').innerText = dict.metric1Lbl;
+      if (document.getElementById('t-metric2Lbl')) document.getElementById('t-metric2Lbl').innerText = dict.metric2Lbl;
+      if (document.getElementById('t-metric3Lbl')) document.getElementById('t-metric3Lbl').innerText = dict.metric3Lbl;
+
+      // Update Investment Section
+      if (document.getElementById('t-investEyebrow')) document.getElementById('t-investEyebrow').innerText = dict.investEyebrow;
+      if (document.getElementById('t-investTitle')) document.getElementById('t-investTitle').innerText = dict.investTitle;
+      if (document.getElementById('t-investDesc')) document.getElementById('t-investDesc').innerText = dict.investDesc;
       
-      document.getElementById("calcLineBalance").innerText = lineBalance + "%";
-      document.getElementById("calcEfficiency").innerText = efficiency + "%";
-      document.getElementById("calcDailyOutput").innerText = dailyOutput.toLocaleString() + " 件";
-      document.getElementById("calcLossSam").innerText = lossSam + " min";
+      // Update 4 Investment Focus Cards
+      const focusCards = document.querySelectorAll('.investment-framework-grid .strategy-focus-card');
+      if (focusCards.length >= 4) {
+        focusCards[0].querySelector('h3').innerText = dict.cardResilienceTitle;
+        focusCards[0].querySelector('.en-sub').innerText = dict.cardResilienceSub;
+        focusCards[0].querySelector('p').innerText = dict.cardResilienceDesc;
+
+        focusCards[1].querySelector('h3').innerText = dict.cardAiTitle;
+        focusCards[1].querySelector('.en-sub').innerText = dict.cardAiSub;
+        focusCards[1].querySelector('p').innerText = dict.cardAiDesc;
+
+        focusCards[2].querySelector('h3').innerText = dict.cardDataTitle;
+        focusCards[2].querySelector('.en-sub').innerText = dict.cardDataSub;
+        focusCards[2].querySelector('p').innerText = dict.cardDataDesc;
+
+        focusCards[3].querySelector('h3').innerText = dict.cardCostTitle;
+        focusCards[3].querySelector('.en-sub').innerText = dict.cardCostSub;
+        focusCards[3].querySelector('p').innerText = dict.cardCostDesc;
+      }
+
+      if (document.getElementById('t-budgetTitle')) document.getElementById('t-budgetTitle').innerText = dict.budgetTitle;
+      const budgetLegend = document.getElementById('t-budgetLegend');
+      if (budgetLegend) {
+        budgetLegend.innerHTML = `
+          <span class="budget-pill" style="background:#E2E8F0; color:#334155;">${dict.budgetPillRun}</span>
+          <span class="budget-pill" style="background:#DBEAFE; color:#1E40AF;">${dict.budgetPillGrow}</span>
+          <span class="budget-pill" style="background:#F3E8FF; color:#6B21A8;">${dict.budgetPillTrans}</span>
+        `;
+      }
+
+      // Update 3 Commitments Cards
+      const commitTitle = document.querySelector('.metric-highlight-card h4');
+      if (commitTitle) commitTitle.innerText = dict.commitmentsTitle;
+      const commitItems = document.querySelectorAll('.metric-highlight-card .metric-stat-item');
+      if (commitItems.length >= 3) {
+        commitItems[0].querySelector('.metric-stat-label').innerText = dict.commit1Title;
+        commitItems[0].querySelector('.metric-stat-sub').innerText = dict.commit1Desc;
+        commitItems[1].querySelector('.metric-stat-label').innerText = dict.commit2Title;
+        commitItems[1].querySelector('.metric-stat-sub').innerText = dict.commit2Desc;
+        commitItems[2].querySelector('.metric-stat-label').innerText = dict.commit3Title;
+        commitItems[2].querySelector('.metric-stat-sub').innerText = dict.commit3Desc;
+      }
+
+      // Update Evolution Section Eyebrow & Title
+      const evoSection = document.getElementById('evolution');
+      if (evoSection) {
+        const eb = evoSection.querySelector('.section-eyebrow');
+        const tit = evoSection.querySelector('.section-title');
+        const desc = evoSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.evoEyebrow;
+        if (tit) tit.innerText = dict.evoTitle;
+        if (desc) desc.innerText = dict.evoDesc;
+      }
+
+      // Update Visual Analytics Section
+      const anaSection = document.getElementById('visual-analytics');
+      if (anaSection) {
+        const eb = anaSection.querySelector('.section-eyebrow');
+        const tit = anaSection.querySelector('.section-title');
+        const desc = anaSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.analyticsEyebrow;
+        if (tit) tit.innerText = dict.analyticsTitle;
+        if (desc) desc.innerText = dict.analyticsDesc;
+      }
+
+      // Update IE Simulation Section
+      const ieSection = document.getElementById('dynamic-sim');
+      if (ieSection) {
+        const eb = ieSection.querySelector('.section-eyebrow');
+        const tit = ieSection.querySelector('.section-title');
+        const desc = ieSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.ieEyebrow;
+        if (tit) tit.innerText = dict.ieTitle;
+        if (desc) desc.innerText = dict.ieDesc;
+        const sliders = ieSection.querySelectorAll('.sim-slider-group label span:first-child');
+        if (sliders.length >= 2) {
+          sliders[0].innerText = dict.sliderSkillLbl;
+          sliders[1].innerText = dict.sliderReadyLbl;
+        }
+        const simKpis = ieSection.querySelectorAll('.sim-kpi-card .sim-kpi-lbl');
+        if (simKpis.length >= 4) {
+          simKpis[0].innerText = dict.ieMetric1Lbl;
+          simKpis[1].innerText = dict.ieMetric2Lbl;
+          simKpis[2].innerText = dict.ieMetric3Lbl;
+          simKpis[3].innerText = dict.ieMetric4Lbl;
+        }
+      }
+
+      // Update Edge Resilience Section
+      const edgeSection = document.getElementById('factory-monitor');
+      if (edgeSection) {
+        const eb = edgeSection.querySelector('.section-eyebrow');
+        const tit = edgeSection.querySelector('.section-title');
+        const desc = edgeSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.edgeEyebrow;
+        if (tit) tit.innerText = dict.edgeTitle;
+        if (desc) desc.innerText = dict.edgeDesc;
+      }
+
+      // Update 4 Pillars Section Headers
+      const pillarsSection = document.getElementById('pillars');
+      if (pillarsSection) {
+        const eb = pillarsSection.querySelector('.section-eyebrow');
+        const tit = pillarsSection.querySelector('.section-title');
+        const desc = pillarsSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.pillarsEyebrow;
+        if (tit) tit.innerText = dict.pillarsTitle;
+        if (desc) desc.innerText = dict.pillarsDesc;
+
+        const tabs = pillarsSection.querySelectorAll('.pillar-tab');
+        if (tabs.length >= 4) {
+          tabs[0].querySelector('.pillar-tab-title').innerText = dict.pillarTab1;
+          tabs[1].querySelector('.pillar-tab-title').innerText = dict.pillarTab2;
+          tabs[2].querySelector('.pillar-tab-title').innerText = dict.pillarTab3;
+          tabs[3].querySelector('.pillar-tab-title').innerText = dict.pillarTab4;
+        }
+      }
+
+      // Update Ready-to-Sew Gate Section
+      const gateSection = document.getElementById('simulator');
+      if (gateSection) {
+        const eb = gateSection.querySelector('.section-eyebrow');
+        const tit = gateSection.querySelector('.section-title');
+        const desc = gateSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.gateEyebrow;
+        if (tit) tit.innerText = dict.gateTitle;
+        if (desc) desc.innerText = dict.gateDesc;
+
+        const gateItems = gateSection.querySelectorAll('.gate-check-item');
+        if (gateItems.length >= 4) {
+          gateItems[0].querySelector('.gate-check-title').innerText = dict.gate1Lbl;
+          gateItems[0].querySelector('.gate-check-desc').innerText = dict.gate1Sub;
+          gateItems[1].querySelector('.gate-check-title').innerText = dict.gate2Lbl;
+          gateItems[1].querySelector('.gate-check-desc').innerText = dict.gate2Sub;
+          gateItems[2].querySelector('.gate-check-title').innerText = dict.gate3Lbl;
+          gateItems[2].querySelector('.gate-check-desc').innerText = dict.gate3Sub;
+          gateItems[3].querySelector('.gate-check-title').innerText = dict.gate4Lbl;
+          gateItems[3].querySelector('.gate-check-desc').innerText = dict.gate4Sub;
+        }
+      }
+
+      // Update 6 Recommendations Section
+      const recomSection = document.getElementById('recommendations');
+      if (recomSection) {
+        const eb = recomSection.querySelector('.section-eyebrow');
+        const tit = recomSection.querySelector('.section-title');
+        const desc = recomSection.querySelector('.section-description');
+        if (eb) eb.innerText = dict.recomEyebrow;
+        if (tit) tit.innerText = dict.recomTitle;
+        if (desc) desc.innerText = dict.recomDesc;
+      }
+
+      // Re-render Dynamic Components
+      renderTimeline(currentTimelineYear);
+      renderPillar(currentPillarIndex);
+      renderAdvice();
+      calculateGateStatus();
+      updateIESimulation();
+
+      // Search Modal Input placeholder
+      const sInput = document.getElementById("searchModalInput");
+      if (sInput) sInput.placeholder = dict.searchPlaceholder;
     }
 
-    // Chart.js Visualizations Setup (Milan Warm Amber Palette)
-    function initCharts() {
-      // Budget Chart (55% Run, 25% Grow, 20% Transform)
-      const ctxBudget = document.getElementById('budgetDoughnutChart');
-      if (ctxBudget) {
-        new Chart(ctxBudget, {
-          type: 'doughnut',
-          data: {
-            labels: ['Run (55%)', 'Grow (25%)', 'Transform (20%)'],
-            datasets: [{
-              data: [55, 25, 20],
-              backgroundColor: ['#CBD5E1', '#D97706', '#A83212'],
-              borderWidth: 2,
-              borderColor: '#FFF'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            cutout: '68%'
-          }
-        });
-      }
 
-      const colorRust = '#A83212';
-      const colorOrange = '#DE5814';
-      const colorAmber = '#D97706';
-      const colorSlate = '#64748B';
-      const colorCharcoal = '#232931';
-      const colorLightGrey = '#E2E8F0';
 
-      // Chart 1: 3-Year Strategic Shift (Stacked / Grouped Bar)
-      const ctxShift = document.getElementById('shiftChart');
-      if (ctxShift) {
-        new Chart(ctxShift, {
-          type: 'bar',
-          data: {
-            labels: ['2025 奠基期', '2026 完善期', '2027 智能期'],
-            datasets: [
-              {
-                label: '單點硬體設備採購',
-                data: [45, 25, 12],
-                backgroundColor: '#CBD5E1'
-              },
-              {
-                label: '流程與 MES 整合',
-                data: [35, 45, 28],
-                backgroundColor: colorAmber
-              },
-              {
-                label: '數據治理與 API 底座',
-                data: [15, 20, 32],
-                backgroundColor: colorOrange
-              },
-              {
-                label: '智能決策與 AI 協同',
-                data: [5, 10, 28],
-                backgroundColor: colorRust
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } },
-              tooltip: {
-                callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}% 權重` }
-              }
-            },
-            scales: {
-              x: { stacked: true, grid: { display: false } },
-              y: { stacked: true, max: 100, ticks: { callback: v => v + '%' } }
-            }
-          }
-        });
-      }
-
-      // Chart 2: Manufacturing KPI Impact
-      const ctxKpi = document.getElementById('kpiChart');
-      if (ctxKpi) {
-        new Chart(ctxKpi, {
-          type: 'bar',
-          data: {
-            labels: ['準時交貨率 OTD', '換線工時損失率', '布料損耗率', '產前異常事前攔截'],
-            datasets: [
-              {
-                label: '2025 現況基準',
-                data: [88.5, 28.0, 5.8, 35.0],
-                backgroundColor: '#94A3B8'
-              },
-              {
-                label: '2027 目標預期 (2027 Target)',
-                data: [98.2, 10.5, 4.1, 94.0],
-                backgroundColor: colorOrange
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } }
-            },
-            scales: {
-              y: { ticks: { callback: v => v + '%' } }
-            }
-          }
-        });
-      }
-
-      // Chart 3: AI Maturity Distribution (Doughnut)
-      const ctxAi = document.getElementById('aiDistributionChart');
-      if (ctxAi) {
-        new Chart(ctxAi, {
-          type: 'doughnut',
-          data: {
-            labels: [
-              '階段一：規則型預警 (Quick-Win)',
-              '階段二：成衣工藝 RAG 助手 (知識沉澱)',
-              '階段三：IE/生管 Copilot (人機協同)'
-            ],
-            datasets: [{
-              data: [45, 35, 20],
-              backgroundColor: [colorAmber, colorOrange, colorRust],
-              borderWidth: 2,
-              borderColor: '#FFF'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } }
-            }
-          }
-        });
-      }
-
-      // Chart 4: Four Pillars Coverage (Radar)
-      const ctxRadar = document.getElementById('pillarsRadarChart');
-      if (ctxRadar) {
-        new Chart(ctxRadar, {
-          type: 'radar',
-          data: {
-            labels: ['API & 治理', '端到端履約', '物料閉環', '主動異常辨識', 'IE 模擬優化', '邊緣離線自治', '自動設備整合'],
-            datasets: [
-              {
-                label: '2025 基礎現況',
-                data: [40, 50, 45, 30, 35, 40, 50],
-                borderColor: '#94A3B8',
-                backgroundColor: 'rgba(148, 163, 184, 0.2)',
-                pointBackgroundColor: '#94A3B8'
-              },
-              {
-                label: '2027 整合目標',
-                data: [95, 92, 90, 88, 85, 95, 92],
-                borderColor: colorRust,
-                backgroundColor: 'rgba(168, 50, 18, 0.25)',
-                pointBackgroundColor: colorRust
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } }
-            },
-            scales: {
-              r: {
-                suggestedMin: 0,
-                suggestedMax: 100,
-                ticks: { display: false }
-              }
-            }
-          }
-        });
-      }
-    }
-
-    // Init
-    
-    // Global 6-Language Dictionary
-    const i18n_6lang = {
-    "zh": {
-        "navInvest": "2027 投資主軸與預算",
-        "investEyebrow": "Strategic Investment & Capital Governance · C-Level Strategy",
-        "investTitle": "2027 IT 投資主軸與資本配置治理",
-        "investDesc": "2027 年 IT 投資主軸為「營運韌性、AI 規模化、資料可信任、成本可控化」；預計將 IT 預算配置為 55% Run、25% Grow、20% Transform。透過 FinOps、授權整併與基礎架構現代化降低維運成本，由 Agentic AI 驅動工時釋放，並使 Tier-1 核心復原力達到國際可稽核水準。",
-        "budgetTitle": "2027 IT 預算配置模型 (Gartner R-G-T)",
-        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run (維運穩固)</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow (業務增長)</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform (創新躍升)</span>",
-        "navEvo": "發展演進 (2025–2027)",
-        "navAnalytics": "戰略數據與動態圖表",
-        "navEdge": "跨國海外廠區邊緣韌性",
-        "navPillars": "四大主架構 (Four Pillars)",
-        "navLogic": "價值鏈與層級邏輯",
-        "navGate": "Ready-to-Sew 產前門禁模擬",
-        "navRecom": "國際 IT 主管 6 大深化建議",
-        "mainTitle": "2027 IT 營運計畫架構討論<br><span class=\"accent\">整合運用・智能營運</span>",
-        "lead": "以信源全球跨國成衣製造為藍本，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。",
-        "authorSub": "",
-        "authorTitle": "C-Level IT & Digital Architect · 跨國製造數據治理與智能營運戰略主持人",
-        "metric1Lbl": "核心戰略主架構",
-        "metric2Lbl": "數位子領域清單",
-        "metric3Lbl": "海外邊緣離線自治",
-        "searchPlaceholder": "全網頁搜尋... (Search page)",
-        "sponsorChip": "<span>計劃主持：</span> <strong>周文津 副總</strong>",
-        "authorChip": "<span>執行負責：</span> <strong>Howard Liao Ph.D.</strong>",
-        "leadershipTitle": "<span>周文津 副總 <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">(計劃主持人)</span></span><span style=\"color: var(--border-accent);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);\">(執行負責人)</span></span>",
-        "footerAuthor": "計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D."
-    },
-    "en": {
-        "navInvest": "Investment & Budget",
-        "investEyebrow": "Strategic Investment & Capital Governance · C-Level Strategy",
-        "investTitle": "2027 IT Strategic Investment & Capital Governance",
-        "investDesc": "2027 IT Investment Pillars: Operational Resilience, AI at Scale, Data Trustworthiness, and Cost Governance. Budget allocated as 55% Run, 25% Grow, 20% Transform. Reducing controllable Run Cost by 8–12% via FinOps, liberating 15–25% labor hours via Agentic AI, and elevating Tier-1 RTO/RPO to auditable standards.",
-        "budgetTitle": "2027 Budget Allocation Model (Gartner R-G-T)",
-        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run (Baseline)</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow (Expansion)</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform (Innovation)</span>",
-        "navEvo": "Evolution (2025–2027)",
-        "navAnalytics": "Visual Analytics",
-        "navEdge": "Global Edge Resilience",
-        "navPillars": "The Four Pillars",
-        "navLogic": "Value Chain Hierarchy",
-        "navGate": "Ready-to-Sew Simulator",
-        "navRecom": "6 Executive Principles",
-        "mainTitle": "2027 IT Strategic Operational Plan<br><span class=\"accent\">Integration · Intelligent Operations</span>",
-        "lead": "Formulated for RSI Global Enterprise: Transitioning from siloed setups to data governance, edge survivability, and predictive AI collaboration.",
-        "authorSub": "",
-        "authorTitle": "C-Level IT & Digital Architect · Global Manufacturing Data Governance & Intelligent Operations Lead",
-        "metric1Lbl": "Strategic Pillars",
-        "metric2Lbl": "Digital Subdomains",
-        "metric3Lbl": "Edge Survivability",
-        "searchPlaceholder": "Search entire page... [ ⌘K ]",
-        "sponsorChip": "<span>SPONSOR:</span> <strong>VP Wen-Chin Chou</strong>",
-        "authorChip": "<span>EXECUTIVE LEAD:</span> <strong>Howard Liao Ph.D.</strong>",
-        "leadershipTitle": "<span>VP Wen-Chin Chou <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">(Project Sponsor)</span></span><span style=\"color: var(--border-accent);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);\">(Executive Lead)</span></span>",
-        "footerAuthor": "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D."
-    },
-    "ja": {
-        "navInvest": "投資方針・予算配分",
-        "investEyebrow": "Strategic Investment & Capital Governance · C-Level Strategy",
-        "investTitle": "2027年 IT投資主軸と資本配分ガバナンス",
-        "investDesc": "2027年IT投資主軸：「運用レジリエンス、AIの大規模化、信頼できるデータ、コスト統制」。IT予算配分は55% Run、25% Grow、20% Transform。FinOpsと基盤近代化によりRun Costを8–12%削減、Agentic AIにより特定業務工数を15–25%削減、Tier-1システムのRTO/RPOを監査対応水準へ向上。",
-        "budgetTitle": "2027年 IT予算配分モデル (Gartner R-G-T)",
-        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run (基盤維持)</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow (事業成長)</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform (革新転換)</span>",
-        "navEvo": "発展経緯 (2025–2027)",
-        "navAnalytics": "戦略データ分析",
-        "navEdge": "グローバル自律運用",
-        "navPillars": "4大アーキテクチャ",
-        "navLogic": "バリューチェーン階層",
-        "navGate": "投入前ゲート管理",
-        "navRecom": "幹部向け6大深化提言",
-        "mainTitle": "2027年 IT事業計画と戦略構想<br><span class=\"accent\">統合運用・インテリジェント経営</span>",
-        "lead": "RSI信源グローバルの多国籍縫製製造モデルに基づき、個別導入からデータ統制、エッジ自律、予測型AI協調への飛躍。",
-        "authorSub": "",
-        "authorTitle": "C-Level IT & デジタル最高アーキテクト · グローバル製造データガバナンス及びスマート運用責任者",
-        "metric1Lbl": "核心戦略主架構",
-        "metric2Lbl": "デジタル領域項目",
-        "metric3Lbl": "オフライン自律稼働",
-        "searchPlaceholder": "ページ内全文検索... [ ⌘K ]",
-        "sponsorChip": "<span>統括責任者：</span> <strong>周文津 副社長</strong>",
-        "authorChip": "<span>執行責任者：</span> <strong>Howard Liao Ph.D.</strong>",
-        "leadershipTitle": "<span>周文津 副社長 <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">(プロジェクト統括)</span></span><span style=\"color: var(--border-accent);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);\">(執行責任者)</span></span>",
-        "footerAuthor": "プロジェクト統括：周文津 副社長 ｜ 執行責任者：Howard Liao Ph.D."
-    },
-    "vi": {
-        "navInvest": "Đầu tư & Ngân sách",
-        "investEyebrow": "Chiến lược Đầu tư & Phân bổ Vốn · C-Level Strategy",
-        "investTitle": "Trụ cột Đầu tư CNTT & Quản trị Phân bổ Vốn 2027",
-        "investDesc": "Trụ cột đầu tư CNTT 2027: Khả năng Phục hồi Vận hành, Quy mô hóa AI, Dữ liệu Đáng tin cậy, Kiểm soát Chi phí. Ngân sách phân bổ: 55% Run, 25% Grow, 20% Transform. Giảm 8–12% Run Cost qua FinOps, giải phóng 15–25% giờ công nhờ Agentic AI, đưa RTO/RPO hệ thống Tier-1 đạt chuẩn kiểm toán.",
-        "budgetTitle": "Mô hình Phân bổ Ngân sách CNTT 2027 (Gartner R-G-T)",
-        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform</span>",
-        "navEvo": "Lộ trình (2025–2027)",
-        "navAnalytics": "Phân tích Chiến lược",
-        "navEdge": "Khả năng Tự trị Biên",
-        "navPillars": "Bốn Trụ cột Kiến trúc",
-        "navLogic": "Chuỗi Giá trị",
-        "navGate": "Kiểm soát Ready-to-Sew",
-        "navRecom": "6 Kiến nghị Cấp cao",
-        "mainTitle": "Kế hoạch Vận hành CNTT 2027<br><span class=\"accent\">Tích hợp Vận hành · Chuyển đổi Thông minh</span>",
-        "lead": "Xây dựng dựa trên mô hình sản xuất may mặc đa quốc gia của RSI: Chuyển từ xây dựng đơn lẻ sang quản trị dữ liệu, tự trị biên và ra quyết định thông minh.",
-        "authorSub": "",
-        "authorTitle": "C-Level IT & Digital Architect · Quản trị Dữ liệu Sản xuất & Vận hành Thông minh Đa quốc gia",
-        "metric1Lbl": "Trụ cột Chiến lược",
-        "metric2Lbl": "Lĩnh vực Kỹ thuật số",
-        "metric3Lbl": "Tự trị Biên Ngoại tuyến",
-        "searchPlaceholder": "Tìm kiếm toàn trang... [ ⌘K ]",
-        "sponsorChip": "<span>Chủ nhiệm:</span> <strong>Phó TGĐ Chu Văn Tân (Wen-Chin Chou)</strong>",
-        "authorChip": "<span>Điều hành:</span> <strong>Howard Liao Ph.D.</strong>",
-        "leadershipTitle": "<span>Phó TGĐ Chu Văn Tân <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">(Chủ nhiệm Dự án)</span></span><span style=\"color: var(--border-accent);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);\">(Phụ trách Điều hành)</span></span>",
-        "footerAuthor": "Chủ nhiệm Dự án: Phó TGĐ Chu Văn Tân (Wen-Chin Chou) | Phụ trách Điều hành: Howard Liao Ph.D."
-    },
-    "km": {
-        "navInvest": "ការវិនិយោគ និងថវិកា",
-        "investEyebrow": "យុទ្ធសាស្ត្រវិនិយោគ និងការបែងចែកទុន · C-Level Strategy",
-        "investTitle": "សសរស្តម្ភវិនិយោគ IT ឆ្នាំ 2027 និងអភិបាលកិច្ចទុន",
-        "investDesc": "សសរស្តម្ភវិនិយោគ IT ឆ្នាំ 2027៖ ភាពធន់នៃប្រតិបត្តិការ ការពង្រីក AI ទិន្នន័យគួរឱ្យទុកចិត្ត និងការគ្រប់គ្រងចំណាយ។ ថវិកាបែងចែក៖ 55% Run, 25% Grow, 20% Transform។ កាត់បន្ថយ Run Cost 8–12% តាមរយៈ FinOps រំដោះម៉ោងការងារ 15–25% តាមរយៈ Agentic AI និងបង្កើន Tier-1 RTO/RPO ដល់កម្រិតសវនកម្ម។",
-        "budgetTitle": "គំរូបែងចែកថវិកា IT ឆ្នាំ 2027 (Gartner R-G-T)",
-        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform</span>",
-        "navEvo": "ការវិវត្តន៍ (2025–2027)",
-        "navAnalytics": "ការវិភាគយុទ្ធសាស្ត្រ",
-        "navEdge": "ភាពធន់នៃបណ្តាញរោងចក្រ",
-        "navPillars": "សសរស្តម្ភធំៗទាំង ៤",
-        "navLogic": "ឋានានុក្រមតម្លៃ",
-        "navGate": "ការត្រួតពិនិត្យ Ready-to-Sew",
-        "navRecom": "អនុសាសន៍សំខាន់ៗ ៦",
-        "mainTitle": "ផែនការប្រតិបត្តិការ IT ឆ្នាំ 2027<br><span class=\"accent\">ការធ្វើសមាហរណកម្ម · ប្រតិបត្តិការឆ្លាតវៃ</span>",
-        "lead": "បង្កើតឡើងសម្រាប់សហគ្រាសសកល RSI៖ ផ្លាស់ប្តូរពីប្រព័ន្ធដាច់ដោយឡែក ទៅជាអភិបាលកិច្ចទិន្នន័យ ភាពធន់នៃបណ្តាញ និងការសម្រេចចិត្តឆ្លាតវៃ។",
-        "authorSub": "",
-        "authorTitle": "C-Level IT & Digital Architect · អភិបាលកិច្ចទិន្នន័យផលិតកម្ម និងប្រតិបត្តិការឆ្លាតវៃពហុជាតិ",
-        "metric1Lbl": "សសរស្តម្ភយុទ្ធសាស្ត្រ",
-        "metric2Lbl": "បញ្ជីផ្នែកឌីជីថល",
-        "metric3Lbl": "ប្រតិបត្តិការស្វយ័ត",
-        "searchPlaceholder": "ស្វែងរកទំព័រទាំងមូល... [ ⌘K ]",
-        "sponsorChip": "<span>ប្រធានគម្រោង៖</span> <strong>អនុប្រធាន Wen-Chin Chou</strong>",
-        "authorChip": "<span>ប្រតិបត្តិ៖</span> <strong>Howard Liao Ph.D.</strong>",
-        "leadershipTitle": "<span>អនុប្រធាន Wen-Chin Chou <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">(ប្រធានគម្រោង)</span></span><span style=\"color: var(--border-accent);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);\">(អ្នកទទួលខុសត្រូវប្រតិបត្តិ)</span></span>",
-        "footerAuthor": "ប្រធានគម្រោង៖ អនុប្រធាន Wen-Chin Chou | អ្នកទទួលខុសត្រូវប្រតិបត្តិ៖ Howard Liao Ph.D."
-    },
-    "id": {
-        "navInvest": "Investasi & Anggaran",
-        "investEyebrow": "Strategi Investasi & Tata Kelola Modal · C-Level Strategy",
-        "investTitle": "Pilar Investasi TI & Tata Kelola Alokasi Modal 2027",
-        "investDesc": "Pilar Investasi TI 2027: Ketahanan Operasional, Skala AI, Kepercayaan Data, Tata Kelola Biaya. Anggaran dialokasikan: 55% Run, 25% Grow, 20% Transform. Menurunkan Run Cost 8–12% via FinOps, membebaskan 15–25% jam kerja via Agentic AI, dan meningkatkan RTO/RPO Tier-1 ke standar audit.",
-        "budgetTitle": "Model Alokasi Anggaran TI 2027 (Gartner R-G-T)",
-        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform</span>",
-        "navEvo": "Evolusi (2025–2027)",
-        "navAnalytics": "Analisis Strategis",
-        "navEdge": "Ketahanan Edge Global",
-        "navPillars": "Empat Pilar Arsitektur",
-        "navLogic": "Hierarki Rantai Nilai",
-        "navGate": "Gerbang Ready-to-Sew",
-        "navRecom": "6 Rekomendasi Eksekutif",
-        "mainTitle": "Rencana Operasional TI 2027<br><span class=\"accent\">Integrasi Operasional · Operasi Cerdas</span>",
-        "lead": "Dirancang untuk manufaktur garmen multinasional RSI Global: Bertransisi dari sistem terisolasi ke tata kelola data, ketahanan mandiri luring, dan kolaborasi keputusan AI.",
-        "authorSub": "",
-        "authorTitle": "C-Level IT & Digital Architect · Tata Kelola Data Manufaktur & Operasi Cerdas Multinasional",
-        "metric1Lbl": "Pilar Strategis",
-        "metric2Lbl": "Subdomain Digital",
-        "metric3Lbl": "Ketahanan Mandiri Luring",
-        "searchPlaceholder": "Cari seluruh halaman... [ ⌘K ]",
-        "sponsorChip": "<span>Pimpinan Proyek:</span> <strong>VP Wen-Chin Chou</strong>",
-        "authorChip": "<span>Penanggung Jawab:</span> <strong>Howard Liao Ph.D.</strong>",
-        "leadershipTitle": "<span>VP Wen-Chin Chou <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">(Pimpinan Proyek)</span></span><span style=\"color: var(--border-accent);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--rust-primary);\">(Penanggung Jawab Eksekutif)</span></span>",
-        "footerAuthor": "Pimpinan Proyek: VP Wen-Chin Chou | Penanggung Jawab Eksekutif: Howard Liao Ph.D."
-    }
-};
-    let currentLang = 'zh';
-
-    // =========================================================================
-    // 1. EXECUTIVE LANGUAGE DROPDOWN CONTROLLER
-    // =========================================================================
-    const langDisplayMap = {
-      zh: "🇹🇼 繁體中文",
-      en: "🇬🇧 English",
-      ja: "🇯🇵 日本語",
-      vi: "🇻🇳 Tiếng Việt",
-      km: "🇰🇭 ភាសាខ្មែរ",
-      id: "🇮🇩 Indonesia"
-    };
-
-    function toggleLangDropdown(e) {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      const menu = document.getElementById("langDropdownMenu");
-      if (menu) {
-        menu.classList.toggle("open");
-      }
-    }
-
-    function selectLang(lang) {
-      setLanguage(lang);
-      const menu = document.getElementById("langDropdownMenu");
-      if (menu) menu.classList.remove("open");
-    }
-
-    // Global document click to close dropdown when clicking outside
-    document.addEventListener("click", function(e) {
-      const wrap = document.getElementById("langPickerWrap");
-      const menu = document.getElementById("langDropdownMenu");
-      if (menu && wrap && !wrap.contains(e.target)) {
-        menu.classList.remove("open");
-      }
-    });
-
-    // =========================================================================
-    // 2. COMMAND PALETTE SEARCH MODAL (Cmd+K / Search Button)
-    // =========================================================================
+    // 6. Search Helpers
     function openSearchModal() {
       const modal = document.getElementById("searchModalBackdrop");
       const input = document.getElementById("searchModalInput");
@@ -3606,279 +4283,91 @@
       if (q === "") {
         container.innerHTML = `
           <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.85rem;">
-            輸入關鍵字即刻檢索全站（支援四大主架構、25 項企業工具、投資模型、門禁規則與海外邊緣監控）
+            ${currentLang === 'en' 
+              ? 'Enter keywords to search all 4 pillars, 25 projects, 4-Gate rules and financial ROI...' 
+              : '輸入關鍵字即刻檢索全站（支援四大主架構、25 項企業工具、投資模型、門禁規則與海外邊緣監控）'}
           </div>`;
         return;
       }
 
       const matches = [];
-
-      // A. Search in globalSearchIndex
-      if (typeof globalSearchIndex !== 'undefined') {
-        globalSearchIndex.forEach(item => {
-          const title = item.title;
-          const text = (item.text || '').toLowerCase();
-          if (title.toLowerCase().includes(q) || text.includes(q)) {
+      pillarsData.forEach((pillar, pIdx) => {
+        const pInfo = pillar[currentLang] || pillar.zh;
+        pillar.items.forEach(itWrap => {
+          const it = itWrap[currentLang] || itWrap.zh;
+          const fullText = (it.title + " " + it.tag + " " + it.desc + " " + it.tools + " " + it.sizing).toLowerCase();
+          if (fullText.includes(q)) {
             matches.push({
-              targetId: item.targetId,
-              cat: (item.cat && (item.cat[currentLang] || item.cat.zh)) || '架構',
-              title: title,
-              snippet: getHighlightedSnippet(item.text, q)
+              title: it.title + " (" + it.tag + ")",
+              pillarTitle: pInfo.title,
+              snippet: it.desc,
+              pIdx: pIdx
             });
           }
         });
-      }
-
-      // B. Search in pillarsData items
-      if (typeof pillarsData !== 'undefined') {
-        pillarsData.forEach(pillar => {
-          pillar.items.forEach(it => {
-            const combined = (it.title + ' ' + (it.desc || '') + ' ' + (it.tag || '') + ' ' + (it.tools || '')).toLowerCase();
-            if (combined.includes(q)) {
-              matches.push({
-                targetId: 'pillars',
-                cat: pillar.title,
-                title: `${it.title} (${it.tag})`,
-                snippet: getHighlightedSnippet(it.desc + ' ' + (it.tools || ''), q)
-              });
-            }
-          });
-        });
-      }
+      });
 
       if (matches.length === 0) {
         container.innerHTML = `
           <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.85rem;">
-            查無相符內容 (No matches found for "${q}")，請嘗試其他關鍵字。
+            ${currentLang === 'en' ? 'No matching items found for "' + q + '"' : '查無符合「' + q + '」之項目'}
           </div>`;
-      } else {
-        container.innerHTML = `
-          <div class="search-result-header" style="display:flex; justify-content:space-between; padding:8px 12px; border-bottom:1px solid #E2E8F0; font-size:0.75rem; font-weight:700; color:var(--rust-primary);">
-            <span>全站搜尋結果 (${matches.length})</span>
-            <span style="color:var(--text-muted); font-weight:normal;">ESC 鍵關閉</span>
-          </div>
-          ${matches.map(m => `
-            <div class="search-result-item" onclick="jumpFromModal('${m.targetId}')" style="padding:10px 14px; border-bottom:1px solid #F1F5F9; cursor:pointer; transition:background 0.15s ease;">
-              <div class="search-result-title" style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); display:flex; align-items:center; gap:8px;">
-                <span class="search-result-badge" style="background:#FFF3EB; color:var(--rust-primary); padding:2px 6px; border-radius:4px; font-size:0.68rem;">${m.cat}</span>
-                ${m.title}
-              </div>
-              <div class="search-result-snippet" style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; line-height:1.4;">${m.snippet}</div>
-            </div>
-          `).join('')}
-        `;
-      }
-    }
-
-    function jumpFromModal(targetId) {
-      closeSearchModal();
-      jumpToSearchResult(targetId);
-    }
-
-
-
-    function setLanguage(lang) {
-      currentLang = lang;
-
-      // Update Executive Dropdown Display
-      const disp = document.getElementById("currentLangDisplay");
-      if (disp && langDisplayMap[lang]) disp.innerText = langDisplayMap[lang];
-      document.querySelectorAll(".lang-option").forEach(opt => opt.classList.remove("active"));
-      const activeOpt = document.getElementById(`opt-${lang}`);
-      if (activeOpt) activeOpt.classList.add("active");
-
-      
-      // Update All Language Buttons
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = document.getElementById(`btn-${lang}`);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      const dict = i18n_6lang[lang] || i18n_6lang.zh;
-
-      // Update Nav Items
-      if (document.getElementById('nav-invest')) document.getElementById('nav-invest').innerText = dict.navInvest || '2027 投資主軸與預算';
-      if (document.getElementById('nav-evo')) document.getElementById('nav-evo').innerText = dict.navEvo || '發展演進';
-      if (document.getElementById('nav-analytics')) document.getElementById('nav-analytics').innerText = dict.navAnalytics || '戰略數據圖表';
-      if (document.getElementById('nav-edge')) document.getElementById('nav-edge').innerText = dict.navEdge || '海外邊緣韌性';
-      if (document.getElementById('nav-pillars')) document.getElementById('nav-pillars').innerText = dict.navPillars || '四大主架構';
-      if (document.getElementById('nav-logic')) document.getElementById('nav-logic').innerText = dict.navLogic || '價值鏈邏輯';
-      if (document.getElementById('nav-gate')) document.getElementById('nav-gate').innerText = dict.navGate || 'Ready-to-Sew 門禁';
-      if (document.getElementById('nav-recom')) document.getElementById('nav-recom').innerText = dict.navRecom || '6 大高管建議';
-
-      // Update Masthead & Leadership
-      if (document.getElementById('t-mainTitle')) document.getElementById('t-mainTitle').innerHTML = dict.mainTitle;
-      if (document.getElementById('t-lead')) document.getElementById('t-lead').innerHTML = dict.lead;
-      if (document.getElementById('t-sponsorChip')) document.getElementById('t-sponsorChip').innerHTML = dict.sponsorChip;
-      if (document.getElementById('t-authorChip')) document.getElementById('t-authorChip').innerHTML = dict.authorChip;
-      if (document.getElementById('t-leadershipTitle')) document.getElementById('t-leadershipTitle').innerHTML = dict.leadershipTitle;
-      if (document.getElementById('t-footerAuthor')) document.getElementById('t-footerAuthor').innerHTML = dict.footerAuthor;
-      if (document.getElementById('t-metric1Lbl')) document.getElementById('t-metric1Lbl').innerText = dict.metric1Lbl;
-      if (document.getElementById('t-metric2Lbl')) document.getElementById('t-metric2Lbl').innerText = dict.metric2Lbl;
-      if (document.getElementById('t-metric3Lbl')) document.getElementById('t-metric3Lbl').innerText = dict.metric3Lbl;
-
-      // Update Investment Section
-      if (document.getElementById('t-investEyebrow')) document.getElementById('t-investEyebrow').innerText = dict.investEyebrow || 'Strategic Investment & Capital Governance';
-      if (document.getElementById('t-investTitle')) document.getElementById('t-investTitle').innerText = dict.investTitle || '2027 IT 投資主軸與資本配置治理';
-      if (document.getElementById('t-investDesc')) document.getElementById('t-investDesc').innerText = dict.investDesc;
-      if (document.getElementById('t-budgetTitle')) document.getElementById('t-budgetTitle').innerText = dict.budgetTitle || '2027 IT 預算配置模型';
-      if (document.getElementById('t-budgetLegend')) document.getElementById('t-budgetLegend').innerHTML = dict.budgetLegend;
-
-      // Update Search Placeholder
-      const searchInput = document.getElementById('globalPageSearchInput');
-      if (searchInput && dict.searchPlaceholder) searchInput.placeholder = dict.searchPlaceholder;
-
-      // Re-render sub-components
-      if (typeof renderPillar === 'function') renderPillar(currentPillarIndex || 0);
-    }
-
-    // Global Search Index across all original sections
-    const globalSearchIndex = [
-      { targetId: 'invest-framework', cat: { zh: '投資主軸', en: 'Investment', ja: '投資主軸', vi: 'Đầu tư', km: 'ការវិនិយោគ', id: 'Investasi' }, title: '2027 IT 投資四大主軸 (營運韌性、AI 規模化、資料可信任、成本可控化)', text: '營運韌性 operational resilience 運用レジリエンス AI 規模化 agentic ai 大規模化 資料可信任 data trustworthiness 信頼できるデータ 成本可控化 cost governance finops 55% run 25% grow 20% transform 預算配置 資本治理 run cost 8-12% 工時釋放 15-25% rto rpo tier-1 可稽核' },
-      { targetId: 'evolution', cat: { zh: '發展演進', en: 'Evolution', ja: '発展経緯', vi: 'Lộ trình', km: 'ការវិវត្តន៍', id: 'Evolusi' }, title: '2025～2027 IT 發展演進軌跡 (2025 奠基 ➔ 2026 連通 ➔ 2027 智能營運)', text: '2025 系統建置與基礎完善 2026 流程完善與資訊即時化 2027 整合運用與智能營運 異常管理 預測分析 決策支援 AI Agent' },
-      { targetId: 'visual-analytics', cat: { zh: '戰略圖表', en: 'Analytics', ja: '戦略データ', vi: 'Phân tích', km: 'ការវិភាគ', id: 'Analisis' }, title: '戰略數據與動態圖表 (資本重心轉移、KPI 效益提升預測、AI 梯隊權重、覆蓋雷達)', text: 'OTD 準時交貨率 98.2% 換線工時損失 10.5% 布料損耗 4.1% 產前異常攔截 94% 規則型預警 工藝 RAG 助手 IE 生管 Copilot' },
-      { targetId: 'dynamic-sim', cat: { zh: '現場演算', en: 'Simulation', ja: '現場演算', vi: 'Mô phỏng', km: 'ការពិសោធន៍', id: 'Simulasi' }, title: 'IE 車縫線平衡與產能即時動態演算器', text: '技能矩陣成熟度 齊套率 線平衡率 OEE 標準日產能 SAM 瓶頸等待損失' },
-      { targetId: 'factory-monitor', cat: { zh: '海外邊緣', en: 'Edge', ja: 'エッジ監視', vi: 'Biên Tự trị', km: 'បណ្តាញស្វយ័ត', id: 'Edge Global' }, title: '信源跨國廠區邊緣韌性心跳儀表 (越南、柬埔寨、印尼、台北)', text: '越南隆安主力廠 燈塔示範廠 柬埔寨金邊廠 印尼中爪哇廠 台北營運總部 Local Autonomous 72 Hours 48 Hours Delta Sync 斷網離線自治' },
-      { targetId: 'pillars', cat: { zh: '四大主架構', en: 'Four Pillars', ja: '4大主架構', vi: '4 Trụ cột', km: '៤ សសរស្តម្ភ', id: '4 Pilar' }, title: '2027 四大主架構深層拆解 (數位底座、營運流程、智能決策、智慧製造)', text: 'API Management Kong Access Governance Entra ID Vault SPIFFE Data Layer Databricks Delta Lake MDM Atlan AI Governance Guardrails Cybersecurity CrowdStrike EDR BCP DR Veeam SD-WAN Fortinet Production Fulfillment Camunda Material Flow WMS Ready-to-Sew 4-Gate IE GSDCost BPM Flowable Flink CEP Analytics Power BI Forecast XGBoost Simulation OR-Tools Agent LangGraph RAG Qdrant Smart Equipment EMQX MQTT Edge AI vLLM Moxa RFID Impinj' },
-      { targetId: 'logic-flow', cat: { zh: '層次邏輯', en: 'Hierarchy', ja: '階層論理', vi: 'Chuỗi Giá trị', km: 'ឋានានុក្រម', id: 'Hierarki' }, title: '四大架構串聯之層級價值鏈 (Infrastructure ➔ Integration ➔ Process ➔ Visibility ➔ Exception ➔ Decision ➔ Agent)', text: 'Infrastructure Data Integration Process Visibility Exception Decision Agent 數位底座 營運流程 智能決策 智慧製造' },
-      { targetId: 'simulator', cat: { zh: '產前門禁', en: 'Gate Simulator', ja: '投入前ゲート', vi: 'Cổng Kiểm soát', km: 'ច្រកត្រួតពិនិត្យ', id: 'Gerbang Pra-Produksi' }, title: 'Ready-to-Sew（上線門禁檢核）模擬器 (4-Gate 規則)', text: 'Gate 1 BOM 齊套 Gate 2 Tech Pack 工藝標準 Gate 3 MQP 產前樣封樣 Gate 4 裁片特工件入超市 門禁攔截 嚴禁盲目上線' },
-      { targetId: 'recommendations', cat: { zh: '高管提言', en: 'Executive Advice', ja: '幹部提言', vi: 'Kiến nghị Cấp cao', km: 'អនុសាសន៍', id: 'Rekomendasi' }, title: '國際 IT 主管 6 大關鍵升級節點', text: '商業價值對齊矩陣 P&L 跨國邊緣離線自治 Edge Survivability Ready-to-Sew 門禁 Gate Control AI 三階階梯 IT 與 OT 權責邊界 1+N 燈塔示範廠 Lighthouse Rollout' }
-    ];
-
-    function runGlobalSearch() {
-      openSearchModal(); return;
-      const clearBtn = document.getElementById("clearGlobalSearchBtn");
-      const dropdown = document.getElementById("globalSearchResultsDropdown");
-      if (!input || !dropdown) return;
-
-      const q = input.value.trim().toLowerCase();
-      if (q === "") {
-        clearBtn.style.display = "none";
-        dropdown.style.display = "none";
         return;
       }
 
-      clearBtn.style.display = "inline-block";
-      const matches = [];
-
-      // 1. Search sections index
-      globalSearchIndex.forEach(item => {
-        const cat = item.cat[currentLang] || item.cat.zh;
-        const kw = (item.title + ' ' + item.text).toLowerCase();
-        if (kw.includes(q)) {
-          matches.push({
-            targetId: item.targetId,
-            cat: cat,
-            title: item.title,
-            snippet: getHighlightedSnippet(item.text, q)
-          });
-        }
-      });
-
-      // 2. Search 4 Pillars items
-      if (typeof pillarsData !== 'undefined') {
-        pillarsData.forEach(pillar => {
-          pillar.items.forEach(it => {
-            const text = (it.title + ' ' + it.desc + ' ' + it.tag).toLowerCase();
-            if (text.includes(q)) {
-              matches.push({
-                targetId: 'pillars',
-                cat: pillar.title,
-                title: `${it.title} (${it.tag})`,
-                snippet: getHighlightedSnippet(it.desc, q)
-              });
-            }
-          });
-        });
-      }
-
-      // Render Dropdown
-      if (matches.length === 0) {
-        dropdown.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 14px;">
-          無相符結果 (No matches found for "${q}").
-        </div>`;
-      } else {
-        dropdown.innerHTML = `
-          <div class="search-result-header">
-            <span>全網頁搜尋匹配 (${matches.length})</span>
-            <span style="font-size: 0.68rem; color: var(--text-muted);">ESC 鍵關閉</span>
-          </div>
-          ${matches.slice(0, 10).map(m => `
-            <div class="search-result-item" onclick="jumpToSearchResult('${m.targetId}')">
-              <div class="search-result-title">
-                <span class="search-result-badge">${m.cat}</span>
-                ${m.title}
-              </div>
-              <div class="search-result-snippet">${m.snippet}</div>
-            </div>
-          `).join('')}
-          ${matches.length > 10 ? `<div style="text-align:center; font-size:0.72rem; color:var(--text-muted); padding-top:4px;">...尚有 ${matches.length - 10} 個項目，請精準輸入關鍵字</div>` : ''}
-        `;
-      }
-
-      dropdown.style.display = "block";
+      container.innerHTML = matches.map(m => `
+        <div class="search-result-item" onclick="switchPillar(${m.pIdx}, document.querySelectorAll('.pillar-tab')[${m.pIdx}]); closeSearchModal(); location.href='#pillars';">
+          <div class="result-cat">${m.pillarTitle}</div>
+          <div class="result-title">${m.title}</div>
+          <div class="result-snippet">${m.snippet}</div>
+        </div>
+      `).join('');
     }
 
-    function getHighlightedSnippet(fullText, query) {
-      const idx = fullText.toLowerCase().indexOf(query.toLowerCase());
-      let snippet = "";
-      if (idx !== -1) {
-        const start = Math.max(0, idx - 25);
-        const end = Math.min(fullText.length, idx + query.length + 45);
-        snippet = (start > 0 ? "..." : "") + fullText.substring(start, end) + (end < fullText.length ? "..." : "");
-      } else {
-        snippet = fullText.substring(0, 70) + "...";
-      }
-
-      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      return snippet.replace(regex, '<mark>$1</mark>');
-    }
-
-    function clearGlobalSearch() {
-      openSearchModal(); return;
-      const dropdown = document.getElementById("globalSearchResultsDropdown");
-      const clearBtn = document.getElementById("clearGlobalSearchBtn");
-      if (input) input.value = "";
-      if (dropdown) dropdown.style.display = "none";
-      if (clearBtn) clearBtn.style.display = "none";
-    }
-
-    function jumpToSearchResult(targetId) {
-      const el = document.getElementById(targetId);
-      const dropdown = document.getElementById("globalSearchResultsDropdown");
-      if (dropdown) dropdown.style.display = "none";
-
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        el.classList.remove('pulse-highlight');
-        void el.offsetWidth;
-        el.classList.add('pulse-highlight');
-      }
-    }
-
-    // Keyboard Shortcuts: Cmd+K / Ctrl+K / '/' to focus, Esc to close
-    document.addEventListener("keydown", (e) => {
-      if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+    function toggleLangDropdown(e) {
+      if (e) {
         e.preventDefault();
-        openSearchModal(); return;
-        if (input) {
-          input.focus();
-          input.select();
-        }
-      } else if (e.key === "Escape") {
-        closeSearchModal(); clearGlobalSearch();
+        e.stopPropagation();
+      }
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu) {
+        menu.classList.toggle("open");
+      }
+    }
+
+    function selectLang(lang) {
+      setLanguage(lang);
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu) menu.classList.remove("open");
+    }
+
+    document.addEventListener("click", function(e) {
+      const wrap = document.getElementById("langPickerWrap");
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu && wrap && !wrap.contains(e.target)) {
+        menu.classList.remove("open");
       }
     });
 
-    // Click outside to close dropdown
-    document.addEventListener("click", (e) => {
-      const container = document.querySelector(".global-search-container");
-      const dropdown = document.getElementById("globalSearchResultsDropdown");
-      if (container && !container.contains(e.target) && dropdown) {
-        dropdown.style.display = "none";
+    document.addEventListener("keydown", function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        openSearchModal();
+      }
+      if (e.key === "Escape") {
+        closeSearchModal();
+        const menu = document.getElementById("langDropdownMenu");
+        if (menu) menu.classList.remove("open");
+      }
+      if (e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+        e.preventDefault();
+        openSearchModal();
       }
     });
+
 
     window.addEventListener("DOMContentLoaded", () => {
+      setLanguage("zh");
       renderTimeline(2027);
       renderPillar(0);
       calculateGateStatus();
