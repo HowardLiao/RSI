@@ -9,6 +9,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
   
   <!-- Chart.js for High-Precision Executive Visualizations -->
@@ -37,7 +38,7 @@
       --text-light: #9CA3AF;
       
       --font-serif: 'Cormorant Garamond', 'Noto Serif TC', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', 'Noto Sans Khmer', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --shadow-sm: 0 1px 3px rgba(45, 30, 20, 0.05);
       --shadow-md: 0 4px 16px -2px rgba(45, 30, 20, 0.07);
       --shadow-lg: 0 12px 30px -4px rgba(45, 30, 20, 0.1);
@@ -1266,6 +1267,177 @@
         font-size: 2.2rem;
       }
     }
+
+    /* 6-Language Switcher Group */
+    .lang-switcher-group {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-warm-tint);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 3px;
+      gap: 2px;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 4px 10px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 18px;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-charcoal);
+    }
+
+    .lang-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      box-shadow: 0 1px 4px rgba(168, 50, 18, 0.3);
+    }
+
+    /* Global Search Bar Styling */
+    .global-search-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .global-search-input-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--bg-warm-tint);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 4px 14px;
+      gap: 8px;
+      transition: all 0.25s ease;
+      width: 230px;
+    }
+
+    .global-search-input-wrap:focus-within {
+      background: #FFF;
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 3px rgba(222, 88, 20, 0.12);
+      width: 290px;
+    }
+
+    .global-search-input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--text-charcoal);
+      width: 100%;
+    }
+
+    .global-search-shortcut {
+      font-size: 0.65rem;
+      background: #E2E8F0;
+      color: var(--text-muted);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .global-search-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 460px;
+      max-height: 460px;
+      overflow-y: auto;
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      padding: 12px;
+    }
+
+    .search-result-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-result-item {
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border-bottom: 1px dashed rgba(0,0,0,0.06);
+      transition: all 0.15s ease;
+    }
+
+    .search-result-item:hover {
+      background: var(--bg-warm-tint);
+      border-color: var(--orange-vibrant);
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+
+    .search-result-badge {
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--bg-amber-soft);
+      color: var(--rust-primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-right: 6px;
+    }
+
+    .search-result-title {
+      font-weight: 700;
+      color: var(--text-charcoal);
+      font-size: 0.86rem;
+      margin-bottom: 3px;
+    }
+
+    .search-result-snippet {
+      font-size: 0.76rem;
+      color: var(--text-body);
+      line-height: 1.4;
+    }
+
+    .search-result-snippet mark {
+      background: #FDE68A;
+      color: #92400E;
+      padding: 0 2px;
+      font-weight: 700;
+      border-radius: 2px;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(222, 88, 20, 0.7); outline: 3px solid var(--orange-vibrant); }
+      50% { box-shadow: 0 0 0 10px rgba(222, 88, 20, 0); outline: 3px solid var(--orange-vibrant); }
+      100% { box-shadow: 0 0 0 0 rgba(222, 88, 20, 0); outline: none; }
+    }
+
+    .pulse-highlight {
+      animation: pulseGlow 2.5s ease-out;
+    }
+
   </style>
 </head>
 <body>
@@ -1282,33 +1454,33 @@
           <span>●</span> 2027 C-LEVEL OPERATIONAL ARCHITECTURE
         </div>
         <div class="author-chip">
-          <span>STRATEGIC ARCHITECT:</span> <strong>Howard Liao Ph.D.</strong> (廖倫豪 博士)
+          <span>STRATEGIC ARCHITECT:</span> <strong>Howard Liao Ph.D.</strong>
         </div>
       </div>
 
       <div class="masthead-title-block">
         <div>
-          <h1 class="masthead-title">
+          <h1 class="masthead-title" id="t-mainTitle">
             2027 IT 營運計畫架構討論<br>
             <span class="accent">整合運用・智能營運</span>
           </h1>
         </div>
         <div>
-          <p class="masthead-lead">
+          <p class="masthead-lead" id="t-lead">
             以信源全球跨國成衣製造為藍本，由 <strong>Howard Liao Ph.D.</strong> 統籌架構升級分析，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。
           </p>
         </div>
       </div>
 
       <nav class="masthead-nav">
-        <a href="#evolution" class="active">發展演進 (2025–2027)</a>
-        <a href="#visual-analytics">戰略數據與動態圖表</a>
+        <a href="#evolution" class="active" id="nav-evo">發展演進 (2025–2027)</a>
+        <a href="#visual-analytics" id="nav-analytics">戰略數據與動態圖表</a>
         <a href="#dynamic-sim">線平衡動態演算</a>
-        <a href="#factory-monitor">跨國海外廠區邊緣韌性</a>
-        <a href="#pillars">四大主架構 (Four Pillars)</a>
-        <a href="#logic-flow">價值鏈與層級邏輯</a>
-        <a href="#simulator">Ready-to-Sew 產前門禁模擬</a>
-        <a href="#recommendations">國際 IT 主管 6 大深化建議</a>
+        <a href="#factory-monitor" id="nav-edge">跨國海外廠區邊緣韌性</a>
+        <a href="#pillars" id="nav-pillars">四大主架構 (Four Pillars)</a>
+        <a href="#logic-flow" id="nav-logic">價值鏈與層級邏輯</a>
+        <a href="#simulator" id="nav-gate">Ready-to-Sew 產前門禁模擬</a>
+        <a href="#recommendations" id="nav-recom">國際 IT 主管 6 大深化建議</a>
       </nav>
     </div>
   </header>
@@ -1320,22 +1492,22 @@
       <div class="author-profile-info">
         <div class="author-seal">HL</div>
         <div>
-          <div class="author-name-text">Howard Liao Ph.D. <span style="font-size: 1rem; font-weight: 500; color: var(--rust-primary);">(廖倫豪 博士)</span></div>
-          <div class="author-title-text">C-Level IT & Digital Architect · 跨國製造數據治理與智能營運戰略主持人</div>
+          <div class="author-name-text" id="t-authorName">Howard Liao Ph.D. <span style="font-size: 1rem; font-weight: 500; color: var(--rust-primary);" id="t-authorSub"></span></div>
+          <div class="author-title-text" id="t-authorTitle">C-Level IT & Digital Architect · 跨國製造數據治理與智能營運戰略主持人</div>
         </div>
       </div>
       <div class="author-metrics-summary">
         <div class="metric-pill-item">
           <div class="metric-pill-num">4 大</div>
-          <div class="metric-pill-lbl">核心戰略主架構</div>
+          <div class="metric-pill-lbl" id="t-metric1Lbl">核心戰略主架構</div>
         </div>
         <div class="metric-pill-item">
           <div class="metric-pill-num">25 項</div>
-          <div class="metric-pill-lbl">數位子領域清單</div>
+          <div class="metric-pill-lbl" id="t-metric2Lbl">數位子領域清單</div>
         </div>
         <div class="metric-pill-item">
           <div class="metric-pill-num">48~72h</div>
-          <div class="metric-pill-lbl">海外邊緣離線自治</div>
+          <div class="metric-pill-lbl" id="t-metric3Lbl">海外邊緣離線自治</div>
         </div>
       </div>
     </div>
@@ -1945,7 +2117,7 @@
     <div class="footer-inner">
       <div>
         <div class="footer-brand">RSI 信源集團 · 2027 IT 營運計畫與戰略藍圖</div>
-        <div class="footer-author-signature">規劃主持與戰略主導：Howard Liao Ph.D. (廖倫豪 博士)</div>
+        <div class="footer-author-signature">規劃主持與戰略主導：Howard Liao Ph.D.</div>
         <div class="footer-copy" style="margin-top: 6px;">整合運用與智能營運 (Integration & Intelligent Operations) · 專為高階經營團隊設計</div>
       </div>
       <div style="font-size: 0.82rem; color: var(--text-muted); text-align: right;">
@@ -2333,6 +2505,292 @@
     }
 
     // Init
+    
+    // Global 6-Language Dictionary
+    const i18n_6lang = {
+    "zh": {
+        "navEvo": "發展演進 (2025–2027)",
+        "navAnalytics": "戰略數據與動態圖表",
+        "navEdge": "跨國海外廠區邊緣韌性",
+        "navPillars": "四大主架構 (Four Pillars)",
+        "navLogic": "價值鏈與層級邏輯",
+        "navGate": "Ready-to-Sew 產前門禁模擬",
+        "navRecom": "國際 IT 主管 6 大深化建議",
+        "mainTitle": "2027 IT 營運計畫架構討論<br><span class=\"accent\">整合運用・智能營運</span>",
+        "lead": "以信源全球跨國成衣製造為藍本，由 <strong>Howard Liao Ph.D.</strong> 統籌架構升級分析，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。",
+        "authorSub": "",
+        "authorTitle": "C-Level IT & Digital Architect · 跨國製造數據治理與智能營運戰略主持人",
+        "metric1Lbl": "核心戰略主架構",
+        "metric2Lbl": "數位子領域清單",
+        "metric3Lbl": "海外邊緣離線自治",
+        "searchPlaceholder": "全網頁搜尋... (Search page)"
+    },
+    "en": {
+        "navEvo": "Evolution (2025–2027)",
+        "navAnalytics": "Visual Analytics",
+        "navEdge": "Global Edge Resilience",
+        "navPillars": "The Four Pillars",
+        "navLogic": "Value Chain Hierarchy",
+        "navGate": "Ready-to-Sew Simulator",
+        "navRecom": "6 Executive Principles",
+        "mainTitle": "2027 IT Strategic Operational Plan<br><span class=\"accent\">Integration · Intelligent Operations</span>",
+        "lead": "Formulated for RSI Global Enterprise by <strong>Howard Liao Ph.D.</strong>: Transitioning from siloed setups to data governance, edge survivability, and predictive AI collaboration.",
+        "authorSub": "",
+        "authorTitle": "C-Level IT & Digital Architect · Global Manufacturing Data Governance & Intelligent Operations Lead",
+        "metric1Lbl": "Strategic Pillars",
+        "metric2Lbl": "Digital Subdomains",
+        "metric3Lbl": "Edge Survivability",
+        "searchPlaceholder": "Search entire page... [ ⌘K ]"
+    },
+    "ja": {
+        "navEvo": "発展経緯 (2025–2027)",
+        "navAnalytics": "戦略データ分析",
+        "navEdge": "グローバル自律運用",
+        "navPillars": "4大アーキテクチャ",
+        "navLogic": "バリューチェーン階層",
+        "navGate": "投入前ゲート管理",
+        "navRecom": "幹部向け6大深化提言",
+        "mainTitle": "2027年 IT事業計画と戦略構想<br><span class=\"accent\">統合運用・インテリジェント経営</span>",
+        "lead": "RSI信源グローバルの多国籍縫製製造モデルに基づき、<strong>Howard Liao Ph.D.</strong> が策定：個別導入からデータ統制、エッジ自律、予測型AI協調への飛躍。",
+        "authorSub": "",
+        "authorTitle": "C-Level IT & デジタル最高アーキテクト · グローバル製造データガバナンス及びスマート運用責任者",
+        "metric1Lbl": "核心戦略主架構",
+        "metric2Lbl": "デジタル領域項目",
+        "metric3Lbl": "オフライン自律稼働",
+        "searchPlaceholder": "ページ内全文検索... [ ⌘K ]"
+    },
+    "vi": {
+        "navEvo": "Lộ trình (2025–2027)",
+        "navAnalytics": "Phân tích Chiến lược",
+        "navEdge": "Khả năng Tự trị Biên",
+        "navPillars": "Bốn Trụ cột Kiến trúc",
+        "navLogic": "Chuỗi Giá trị",
+        "navGate": "Kiểm soát Ready-to-Sew",
+        "navRecom": "6 Kiến nghị Cấp cao",
+        "mainTitle": "Kế hoạch Vận hành CNTT 2027<br><span class=\"accent\">Tích hợp Vận hành · Chuyển đổi Thông minh</span>",
+        "lead": "Xây dựng dựa trên mô hình sản xuất may mặc đa quốc gia của RSI, do <strong>Howard Liao Ph.D.</strong> chủ trì quy hoạch kiến trúc: chuyển từ xây dựng đơn lẻ sang quản trị dữ liệu, tự trị biên và ra quyết định thông minh.",
+        "authorSub": "",
+        "authorTitle": "C-Level IT & Digital Architect · Quản trị Dữ liệu Sản xuất & Vận hành Thông minh Đa quốc gia",
+        "metric1Lbl": "Trụ cột Chiến lược",
+        "metric2Lbl": "Lĩnh vực Kỹ thuật số",
+        "metric3Lbl": "Tự trị Biên Ngoại tuyến",
+        "searchPlaceholder": "Tìm kiếm toàn trang... [ ⌘K ]"
+    },
+    "km": {
+        "navEvo": "ការវិវត្តន៍ (2025–2027)",
+        "navAnalytics": "ការវិភាគយុទ្ធសាស្ត្រ",
+        "navEdge": "ភាពធន់នៃបណ្តាញរោងចក្រ",
+        "navPillars": "សសរស្តម្ភធំៗទាំង ៤",
+        "navLogic": "ឋានានុក្រមតម្លៃ",
+        "navGate": "ការត្រួតពិនិត្យ Ready-to-Sew",
+        "navRecom": "អនុសាសន៍សំខាន់ៗ ៦",
+        "mainTitle": "ផែនការប្រតិបត្តិការ IT ឆ្នាំ 2027<br><span class=\"accent\">ការធ្វើសមាហរណកម្ម · ប្រតិបត្តិការឆ្លាតវៃ</span>",
+        "lead": "បង្កើតឡើងសម្រាប់សហគ្រាសសកល RSI ដោយ <strong>Howard Liao Ph.D.</strong>៖ ផ្លាស់ប្តូរពីប្រព័ន្ធដាច់ដោយឡែក ទៅជាអភិបាលកិច្ចទិន្នន័យ ភាពធន់នៃបណ្តាញ និងការសម្រេចចិត្តឆ្លាតវៃ។",
+        "authorSub": "",
+        "authorTitle": "C-Level IT & Digital Architect · អភិបាលកិច្ចទិន្នន័យផលិតកម្ម និងប្រតិបត្តិការឆ្លាតវៃពហុជាតិ",
+        "metric1Lbl": "សសរស្តម្ភយុទ្ធសាស្ត្រ",
+        "metric2Lbl": "បញ្ជីផ្នែកឌីជីថល",
+        "metric3Lbl": "ប្រតិបត្តិការស្វយ័ត",
+        "searchPlaceholder": "ស្វែងរកទំព័រទាំងមូល... [ ⌘K ]"
+    },
+    "id": {
+        "navEvo": "Evolusi (2025–2027)",
+        "navAnalytics": "Analisis Strategis",
+        "navEdge": "Ketahanan Edge Global",
+        "navPillars": "Empat Pilar Arsitektur",
+        "navLogic": "Hierarki Rantai Nilai",
+        "navGate": "Gerbang Ready-to-Sew",
+        "navRecom": "6 Rekomendasi Eksekutif",
+        "mainTitle": "Rencana Operasional TI 2027<br><span class=\"accent\">Integrasi Operasional · Operasi Cerdas</span>",
+        "lead": "Dirancang untuk manufaktur garmen multinasional RSI Global oleh <strong>Howard Liao Ph.D.</strong>: Bertransisi dari sistem terisolasi ke tata kelola data, ketahanan mandiri luring, dan kolaborasi keputusan AI.",
+        "authorSub": "",
+        "authorTitle": "C-Level IT & Digital Architect · Tata Kelola Data Manufaktur & Operasi Cerdas Multinasional",
+        "metric1Lbl": "Pilar Strategis",
+        "metric2Lbl": "Subdomain Digital",
+        "metric3Lbl": "Ketahanan Mandiri Luring",
+        "searchPlaceholder": "Cari seluruh halaman... [ ⌘K ]"
+    }
+};
+    let currentLang = 'zh';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      
+      // Update Buttons
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById(`btn-${lang}`);
+      if (btn) btn.classList.add('active');
+
+      const dict = i18n_6lang[lang] || i18n_6lang.zh;
+
+      // Update Nav
+      if (document.getElementById('nav-evo')) document.getElementById('nav-evo').innerText = dict.navEvo;
+      if (document.getElementById('nav-analytics')) document.getElementById('nav-analytics').innerText = dict.navAnalytics;
+      if (document.getElementById('nav-edge')) document.getElementById('nav-edge').innerText = dict.navEdge;
+      if (document.getElementById('nav-pillars')) document.getElementById('nav-pillars').innerText = dict.navPillars;
+      if (document.getElementById('nav-logic')) document.getElementById('nav-logic').innerText = dict.navLogic;
+      if (document.getElementById('nav-gate')) document.getElementById('nav-gate').innerText = dict.navGate;
+      if (document.getElementById('nav-recom')) document.getElementById('nav-recom').innerText = dict.navRecom;
+
+      // Update Masthead & Author
+      if (document.getElementById('t-mainTitle')) document.getElementById('t-mainTitle').innerHTML = dict.mainTitle;
+      if (document.getElementById('t-lead')) document.getElementById('t-lead').innerHTML = dict.lead;
+      if (document.getElementById('t-authorSub')) document.getElementById('t-authorSub').innerText = dict.authorSub;
+      if (document.getElementById('t-authorTitle')) document.getElementById('t-authorTitle').innerText = dict.authorTitle;
+      if (document.getElementById('t-metric1Lbl')) document.getElementById('t-metric1Lbl').innerText = dict.metric1Lbl;
+      if (document.getElementById('t-metric2Lbl')) document.getElementById('t-metric2Lbl').innerText = dict.metric2Lbl;
+      if (document.getElementById('t-metric3Lbl')) document.getElementById('t-metric3Lbl').innerText = dict.metric3Lbl;
+
+      const searchInput = document.getElementById('globalPageSearchInput');
+      if (searchInput) searchInput.placeholder = dict.searchPlaceholder;
+    }
+
+    // Global Search Index across all original sections
+    const globalSearchIndex = [
+      { targetId: 'evolution', cat: { zh: '發展演進', en: 'Evolution', ja: '発展経緯', vi: 'Lộ trình', km: 'ការវិវត្តន៍', id: 'Evolusi' }, title: '2025～2027 IT 發展演進軌跡 (2025 奠基 ➔ 2026 連通 ➔ 2027 智能營運)', text: '2025 系統建置與基礎完善 2026 流程完善與資訊即時化 2027 整合運用與智能營運 異常管理 預測分析 決策支援 AI Agent' },
+      { targetId: 'visual-analytics', cat: { zh: '戰略圖表', en: 'Analytics', ja: '戦略データ', vi: 'Phân tích', km: 'ការវិភាគ', id: 'Analisis' }, title: '戰略數據與動態圖表 (資本重心轉移、KPI 效益提升預測、AI 梯隊權重、覆蓋雷達)', text: 'OTD 準時交貨率 98.2% 換線工時損失 10.5% 布料損耗 4.1% 產前異常攔截 94% 規則型預警 工藝 RAG 助手 IE 生管 Copilot' },
+      { targetId: 'dynamic-sim', cat: { zh: '現場演算', en: 'Simulation', ja: '現場演算', vi: 'Mô phỏng', km: 'ការពិសោធន៍', id: 'Simulasi' }, title: 'IE 車縫線平衡與產能即時動態演算器', text: '技能矩陣成熟度 齊套率 線平衡率 OEE 標準日產能 SAM 瓶頸等待損失' },
+      { targetId: 'factory-monitor', cat: { zh: '海外邊緣', en: 'Edge', ja: 'エッジ監視', vi: 'Biên Tự trị', km: 'បណ្តាញស្វយ័ត', id: 'Edge Global' }, title: '信源跨國廠區邊緣韌性心跳儀表 (越南、柬埔寨、印尼、台北)', text: '越南隆安主力廠 燈塔示範廠 柬埔寨金邊廠 印尼中爪哇廠 台北營運總部 Local Autonomous 72 Hours 48 Hours Delta Sync 斷網離線自治' },
+      { targetId: 'pillars', cat: { zh: '四大主架構', en: 'Four Pillars', ja: '4大主架構', vi: '4 Trụ cột', km: '៤ សសរស្តម្ភ', id: '4 Pilar' }, title: '2027 四大主架構深層拆解 (數位底座、營運流程、智能決策、智慧製造)', text: 'API Management Kong Access Governance Entra ID Vault SPIFFE Data Layer Databricks Delta Lake MDM Atlan AI Governance Guardrails Cybersecurity CrowdStrike EDR BCP DR Veeam SD-WAN Fortinet Production Fulfillment Camunda Material Flow WMS Ready-to-Sew 4-Gate IE GSDCost BPM Flowable Flink CEP Analytics Power BI Forecast XGBoost Simulation OR-Tools Agent LangGraph RAG Qdrant Smart Equipment EMQX MQTT Edge AI vLLM Moxa RFID Impinj' },
+      { targetId: 'logic-flow', cat: { zh: '層次邏輯', en: 'Hierarchy', ja: '階層論理', vi: 'Chuỗi Giá trị', km: 'ឋានានុក្រម', id: 'Hierarki' }, title: '四大架構串聯之層級價值鏈 (Infrastructure ➔ Integration ➔ Process ➔ Visibility ➔ Exception ➔ Decision ➔ Agent)', text: 'Infrastructure Data Integration Process Visibility Exception Decision Agent 數位底座 營運流程 智能決策 智慧製造' },
+      { targetId: 'simulator', cat: { zh: '產前門禁', en: 'Gate Simulator', ja: '投入前ゲート', vi: 'Cổng Kiểm soát', km: 'ច្រកត្រួតពិនិត្យ', id: 'Gerbang Pra-Produksi' }, title: 'Ready-to-Sew（上線門禁檢核）模擬器 (4-Gate 規則)', text: 'Gate 1 BOM 齊套 Gate 2 Tech Pack 工藝標準 Gate 3 MQP 產前樣封樣 Gate 4 裁片特工件入超市 門禁攔截 嚴禁盲目上線' },
+      { targetId: 'recommendations', cat: { zh: '高管提言', en: 'Executive Advice', ja: '幹部提言', vi: 'Kiến nghị Cấp cao', km: 'អនុសាសន៍', id: 'Rekomendasi' }, title: '國際 IT 主管 6 大關鍵升級節點', text: '商業價值對齊矩陣 P&L 跨國邊緣離線自治 Edge Survivability Ready-to-Sew 門禁 Gate Control AI 三階階梯 IT 與 OT 權責邊界 1+N 燈塔示範廠 Lighthouse Rollout' }
+    ];
+
+    function runGlobalSearch() {
+      const input = document.getElementById("globalPageSearchInput");
+      const clearBtn = document.getElementById("clearGlobalSearchBtn");
+      const dropdown = document.getElementById("globalSearchResultsDropdown");
+      if (!input || !dropdown) return;
+
+      const q = input.value.trim().toLowerCase();
+      if (q === "") {
+        clearBtn.style.display = "none";
+        dropdown.style.display = "none";
+        return;
+      }
+
+      clearBtn.style.display = "inline-block";
+      const matches = [];
+
+      // 1. Search sections index
+      globalSearchIndex.forEach(item => {
+        const cat = item.cat[currentLang] || item.cat.zh;
+        const kw = (item.title + ' ' + item.text).toLowerCase();
+        if (kw.includes(q)) {
+          matches.push({
+            targetId: item.targetId,
+            cat: cat,
+            title: item.title,
+            snippet: getHighlightedSnippet(item.text, q)
+          });
+        }
+      });
+
+      // 2. Search 4 Pillars items
+      if (typeof pillarsData !== 'undefined') {
+        pillarsData.forEach(pillar => {
+          pillar.items.forEach(it => {
+            const text = (it.title + ' ' + it.desc + ' ' + it.tag).toLowerCase();
+            if (text.includes(q)) {
+              matches.push({
+                targetId: 'pillars',
+                cat: pillar.title,
+                title: `${it.title} (${it.tag})`,
+                snippet: getHighlightedSnippet(it.desc, q)
+              });
+            }
+          });
+        });
+      }
+
+      // Render Dropdown
+      if (matches.length === 0) {
+        dropdown.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 14px;">
+          無相符結果 (No matches found for "${q}").
+        </div>`;
+      } else {
+        dropdown.innerHTML = `
+          <div class="search-result-header">
+            <span>全網頁搜尋匹配 (${matches.length})</span>
+            <span style="font-size: 0.68rem; color: var(--text-muted);">ESC 鍵關閉</span>
+          </div>
+          ${matches.slice(0, 10).map(m => `
+            <div class="search-result-item" onclick="jumpToSearchResult('${m.targetId}')">
+              <div class="search-result-title">
+                <span class="search-result-badge">${m.cat}</span>
+                ${m.title}
+              </div>
+              <div class="search-result-snippet">${m.snippet}</div>
+            </div>
+          `).join('')}
+          ${matches.length > 10 ? `<div style="text-align:center; font-size:0.72rem; color:var(--text-muted); padding-top:4px;">...尚有 ${matches.length - 10} 個項目，請精準輸入關鍵字</div>` : ''}
+        `;
+      }
+
+      dropdown.style.display = "block";
+    }
+
+    function getHighlightedSnippet(fullText, query) {
+      const idx = fullText.toLowerCase().indexOf(query.toLowerCase());
+      let snippet = "";
+      if (idx !== -1) {
+        const start = Math.max(0, idx - 25);
+        const end = Math.min(fullText.length, idx + query.length + 45);
+        snippet = (start > 0 ? "..." : "") + fullText.substring(start, end) + (end < fullText.length ? "..." : "");
+      } else {
+        snippet = fullText.substring(0, 70) + "...";
+      }
+
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return snippet.replace(regex, '<mark>$1</mark>');
+    }
+
+    function clearGlobalSearch() {
+      const input = document.getElementById("globalPageSearchInput");
+      const dropdown = document.getElementById("globalSearchResultsDropdown");
+      const clearBtn = document.getElementById("clearGlobalSearchBtn");
+      if (input) input.value = "";
+      if (dropdown) dropdown.style.display = "none";
+      if (clearBtn) clearBtn.style.display = "none";
+    }
+
+    function jumpToSearchResult(targetId) {
+      const el = document.getElementById(targetId);
+      const dropdown = document.getElementById("globalSearchResultsDropdown");
+      if (dropdown) dropdown.style.display = "none";
+
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.classList.remove('pulse-highlight');
+        void el.offsetWidth;
+        el.classList.add('pulse-highlight');
+      }
+    }
+
+    // Keyboard Shortcuts: Cmd+K / Ctrl+K / '/' to focus, Esc to close
+    document.addEventListener("keydown", (e) => {
+      if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+        e.preventDefault();
+        const input = document.getElementById("globalPageSearchInput");
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      } else if (e.key === "Escape") {
+        clearGlobalSearch();
+      }
+    });
+
+    // Click outside to close dropdown
+    document.addEventListener("click", (e) => {
+      const container = document.querySelector(".global-search-container");
+      const dropdown = document.getElementById("globalSearchResultsDropdown");
+      if (container && !container.contains(e.target) && dropdown) {
+        dropdown.style.display = "none";
+      }
+    });
+
     window.addEventListener("DOMContentLoaded", () => {
       renderTimeline(2027);
       renderPillar(0);
