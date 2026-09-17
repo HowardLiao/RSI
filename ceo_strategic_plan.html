@@ -1010,6 +1010,536 @@
         <hr>
 
         <!-- Section 6: Appendices -->
+        
+        <!-- Section 6: KPI Balanced Scorecard -->
+        <section id="sec-kpi">
+          <h2>陸、 2027 CEO 關鍵績效指標儀表板 (CEO Balanced Scorecard)</h2>
+          <p>
+            本儀表板專供執行長（CEO）與董事會按季審查，涵蓋「商業價值、營運效率、交付品質、資安韌性、財務治理」五大維度共 13 項可稽核量化指標：
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 50px;">項次</th>
+                  <th style="width: 110px;">評估維度</th>
+                  <th style="width: 220px;">關鍵 KPI 名稱</th>
+                  <th style="width: 100px;">2026 基線</th>
+                  <th style="width: 110px;">2027 目標</th>
+                  <th>計算公式與度量標準</th>
+                  <th style="width: 140px;">數據來源系統</th>
+                  <th style="width: 110px;">權責主管</th>
+                  <th style="width: 80px;">頻率</th>
+                  <th>未達標之糾偏機制</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><strong>商業價值</strong></td>
+                  <td><strong>每年硬性現金流節省額</strong></td>
+                  <td>NT$ 0 元</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">NT$ 3,700 萬</td>
+                  <td>空運罰款降低額 + 布料損耗減少 1.2% 之現金折算</td>
+                  <td>財務 ERP + 大貨採購帳</td>
+                  <td>財務長 / 採購副總</td>
+                  <td>每季</td>
+                  <td>檢討 4-Gate 漏放工單並追究責任</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><strong>商業價值</strong></td>
+                  <td><strong>投資靜態現金回本期</strong></td>
+                  <td>無評估</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">14 ～ 16 個月</td>
+                  <td>總資本投入 ($640k) ÷ (年硬性現金節省額 ÷ 12)</td>
+                  <td>集團財務總帳</td>
+                  <td>財務長 / 執行負責人</td>
+                  <td>每半年</td>
+                  <td>啟動 FinOps 凍結次要專案支出</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><strong>商業價值</strong></td>
+                  <td><strong>單件成衣數位成本 (DCPG)</strong></td>
+                  <td>NT$ 0.45 / 件</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">NT$ 0.27 / 件</td>
+                  <td>IT 總預算 (NT$ 2,016萬) ÷ 集團年出貨量 (7,500萬件)</td>
+                  <td>出貨清冊 + IT 財報</td>
+                  <td>執行負責人 / 營運處</td>
+                  <td>每年</td>
+                  <td>嚴控非必要 SaaS 帳號採購</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td><strong>營運效率</strong></td>
+                  <td><strong>車縫換線首日生產達標率</strong></td>
+                  <td>60.5%</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">85.0% (▲35%)</td>
+                  <td>換線首日實際產出 (Pcs) ÷ 該款標準 SAM 日產能</td>
+                  <td>MES 工序採集系統</td>
+                  <td>生產副總 / 各廠總廠長</td>
+                  <td>每月</td>
+                  <td>IE 小組駐廠調校技能與機台配置</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td><strong>營運效率</strong></td>
+                  <td><strong>車縫拆工返修率 (Rework)</strong></td>
+                  <td>4.8%</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">2.4% (▼50%)</td>
+                  <td>車縫拆線返工件數 ÷ 總上線投產件數</td>
+                  <td>品管 QA 檢驗日報</td>
+                  <td>品保處長 / 各廠廠長</td>
+                  <td>每週</td>
+                  <td>凍結工藝異常款號並召開品質會議</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td><strong>交付品質</strong></td>
+                  <td><strong>產前 4-Gate 門禁放行率</strong></td>
+                  <td>0% (傳統事後補料)</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">100% (無例外硬鎖)</td>
+                  <td>四道閘門 100% 齊套通過件數 ÷ 總投產批次</td>
+                  <td>4-Gate 產前門禁系統</td>
+                  <td>生管部處長 / 產前組長</td>
+                  <td>每週</td>
+                  <td>未齊套擅自投產者扣罰現場績效</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td><strong>交付品質</strong></td>
+                  <td><strong>集團準時交貨率 (OTD)</strong></td>
+                  <td>94.2%</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">98.5% 以上</td>
+                  <td>準時離廠交付訂單件數 ÷ 當月總合約訂單件數</td>
+                  <td>WMS 出貨單與海關提單</td>
+                  <td>業務副總 / 供應鏈處長</td>
+                  <td>每月</td>
+                  <td>提前 72h 啟動替代產線產能調度</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td><strong>資安韌性</strong></td>
+                  <td><strong>海外廠斷網離線自主生產</strong></td>
+                  <td>< 2 小時 (斷網即卡)</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">48 ～ 72 小時</td>
+                  <td>拔網線實測車間 MES、裁床與 RFID 正常運轉時長</td>
+                  <td>車間邊緣 IPC 監控日誌</td>
+                  <td>網路主管 / 海外 IT 幹部</td>
+                  <td>每半年</td>
+                  <td>擴充本地邊緣 DuckDB 快取空間</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td><strong>資安韌性</strong></td>
+                  <td><strong>Tier-1 核心系統災備 RPO/RTO</strong></td>
+                  <td>RPO 24h / RTO 48h</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">RPO<15m / RTO<2h</td>
+                  <td>災難復原演練之資料遺失時間上限與服務恢復耗時</td>
+                  <td>Zerto CDP 複製狀態審計</td>
+                  <td>資安長 (CISO) / 系統組長</td>
+                  <td>每半年</td>
+                  <td>調高複製頻寬與自動容錯切換配置</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td><strong>資安韌性</strong></td>
+                  <td><strong>重大勒索病毒與資料外洩</strong></td>
+                  <td>1 件 (曾遭未遂嘗試)</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">0 件 (Zero Breach)</td>
+                  <td>造成業務中斷或資料外洩之重大資安通報事件數</td>
+                  <td>CrowdStrike 24/7 MDR SOC</td>
+                  <td>資安長 (CISO)</td>
+                  <td>每月</td>
+                  <td>立即拔線隔離並由原廠 IR 介入</td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td><strong>工時釋放</strong></td>
+                  <td><strong>Agentic AI 特定流程工時釋放</strong></td>
+                  <td>0%</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">15% ～ 25%</td>
+                  <td>AI 接管客服追單、生管料號比對與翻譯節省之總工時</td>
+                  <td>人資工時打卡 + 系統 Log</td>
+                  <td>營運副總 / AI 研發組長</td>
+                  <td>每季</td>
+                  <td>重構 RAG 知識庫提示詞提升準確率</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td><strong>治理合規</strong></td>
+                  <td><strong>國際品牌客戶資安/ESG 驗廠</strong></td>
+                  <td>85% (附帶改善項)</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">100% (零缺失通過)</td>
+                  <td>Nike, Lululemon 等大客戶稽核通過次數 ÷ 總稽核次數</td>
+                  <td>品牌客戶官方審查評定表</td>
+                  <td>業務總監 / 資安長</td>
+                  <td>每季</td>
+                  <td>限期 14 天內完成補強與自查報告</td>
+                </tr>
+                <tr>
+                  <td>13</td>
+                  <td><strong>財務治理</strong></td>
+                  <td><strong>可控 IT 維運成本 (Run Cost) 降幅</strong></td>
+                  <td>0%</td>
+                  <td style="color:var(--rust-primary); font-weight:800;">▼ 8% ～ 12%</td>
+                  <td>(2026 可控 Run 支出 - 2027 實際支出) ÷ 2026 支出</td>
+                  <td>財務 IT 預算實績表</td>
+                  <td>執行負責人 / 財務長</td>
+                  <td>每季</td>
+                  <td>強制收回閒置 60 天以上軟體帳號</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <hr>
+
+        <!-- Section 7: Quarterly Roadmap -->
+        <section id="sec-roadmap">
+          <h2>柒、 2027 Q1–Q4 四季平準化路線圖與里程碑管理 (Quarterly Roadmap)</h2>
+          <p>
+            本時程嚴格排開 2027 跨國年節假日（2月春節與越南 Tet 停工10天封網期、3月印尼開齋節、4月柬埔寨新年、9月越國慶與 10月亡人節），確保四季推進平準化且不衝擊現場大貨生產：
+          </p>
+
+          <!-- Q1 -->
+          <div class="page-card" style="border-left-color: var(--green-run); margin-bottom: 20px;">
+            <div class="page-card-header">
+              <span class="page-card-title">第一季 (Q1: 2027/01/04 ～ 03/31) · 總部築底與前置期</span>
+              <span class="page-badge" style="background: var(--green-run);">15 項專案啟動</span>
+            </div>
+            <p><strong>🎯 季度核心目標：</strong>打造堅固總部數位中樞，建立雙活網關與身分治理，排開 2 月春節封網。</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">階段劃分</th>
+                    <th>核心推進任務與交付成果</th>
+                    <th style="width: 220px;">排假與封網管制條款</th>
+                    <th style="width: 160px;">執行負責組別</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1月 (20 工作天)</strong></td>
+                    <td>P1-1 總部雙活 Kong 網關進場、P1-2 Entra ID 400 核心幹部 SSO 規劃、P1-6 CrowdStrike 24/7 MDR 啟動部署。</td>
+                    <td>排除 1/1~1/3 元旦連假；海外廠區展開車間網路探勘。</td>
+                    <td>雲端架構組 / 資安維運組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2月 (14 工作天)</strong></td>
+                    <td>執行非生產機房線路改造與虛擬化升級；P1-3 Databricks 湖倉架構設計；P2-2 物料流 Control Tower 需求凍結。</td>
+                    <td><span style="color:#DC2626; font-weight:800;">🛑 2/5～2/14 春節與越南 Tet 停工10天</span>：嚴格實施系統封網 (Code Freeze)，禁止核心異動。</td>
+                    <td>全體內部小組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>3月 (22 工作天)</strong></td>
+                    <td>P1-7 Zerto CDP 秒級災備上線；P1-8 Fortinet 總部與隆安雙軌 SD-WAN 實測；P2-3 4-Gate 產前門禁規格確認。</td>
+                    <td>排開 3/9~3/12 印尼開齋節；年後海外廠區全員復工。</td>
+                    <td>系統組 / 營運流程組</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="conclusion-box" style="background:#F0FDF4; border-color:#86EFAC; color:#14532D;">
+              🏁 <strong>Q1 里程碑檢核點 (Gate 1 · 3月底) ＆ CEO 決策事項：</strong><br>
+              • 檢核驗收：總部雙活網關、400 幹部 SSO 與 Zerto 秒級連續複製全面就緒。<br>
+              • CEO 決策請求：審查 4 週現況盤點總結報告，正式核定 Q2 派駐越南隆安敏捷突擊隊名單與差旅預算。
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="page-card" style="border-left-color: var(--orange-vibrant); margin-bottom: 20px;">
+            <div class="page-card-header">
+              <span class="page-card-title">第二季 (Q2: 2027/04/01 ～ 06/30) · 越南隆安示範攻堅期</span>
+              <span class="page-badge" style="background: var(--orange-vibrant);">24 項專案攻堅</span>
+            </div>
+            <p><strong>🎯 季度核心目標：</strong>集中跨國火力於「越南隆安旗艦示範廠」，打通 4-Gate 門禁與 72h 離線自律，淬煉交鑰匙樣板。</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">階段劃分</th>
+                    <th>核心推進任務與交付成果</th>
+                    <th style="width: 220px;">排假與封網管制條款</th>
+                    <th style="width: 160px;">執行負責組別</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>4月 (18 工作天)</strong></td>
+                    <td>P2-3 Ready-to-Sew 4-Gate 門禁引擎試點；P4-3 隆安車間 OT 實體隔離；P3-1 Flink 提前 72h 缺料預警上線。</td>
+                    <td>排開 4/2~4/5 清明連假；<span style="color:#DC2626; font-weight:700;">避開 4/13~4/16 柬埔寨新年停工週</span>。</td>
+                    <td>產前技術組 / 流計算組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>5月 (20 工作天)</strong></td>
+                    <td>駐廠敏捷突擊隊駐隆安廠現場調校；P4-1 自動裁床與模板機訊號接入 MES；P3-6 多國語工藝 RAG 庫上線試運行。</td>
+                    <td>排開 5/1 勞動節與越南南方解放日連假；夏季大貨上線。</td>
+                    <td>駐廠敏捷突擊隊 / 知識中台組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6月 (21 工作天)</strong></td>
+                    <td>實施隆安廠實體「拔網線 72h 離線自主生產演練」；P3-2 Power BI 隆安戰情看板投產；P2-5 跨部派工 BPM 驗收。</td>
+                    <td>排開 6/18~6/20 端午連假；隆安燈塔示範廠完整收官。</td>
+                    <td>海外 OT 組 / BI 報表組</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="conclusion-box" style="background:#FFF7ED; border-color:#FDBA74; color:#7C2D12;">
+              🏁 <strong>Q2 里程碑檢核點 (Gate 2 · 6月底) ＆ CEO 決策事項：</strong><br>
+              • 檢核驗收：隆安示範廠 4-Gate 門禁換線效率達標 85%、72h 斷網離線零停機驗收通過。<br>
+              • CEO 決策請求：現地視察隆安成果，正式核定將「開箱即用交鑰匙樣板」推廣複製至柬埔寨金邊與印尼中爪哇。
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="page-card" style="border-left-color: var(--blue-grow); margin-bottom: 20px;">
+            <div class="page-card-header">
+              <span class="page-card-title">第三季 (Q3: 2027/07/01 ～ 09/30) · 柬印新廠複製與湖倉貫通期</span>
+              <span class="page-badge" style="background: var(--blue-grow);">23 項專案推廣</span>
+            </div>
+            <p><strong>🎯 季度核心目標：</strong>善用暑期無長假之製造黃金期，金邊與中爪哇新廠複製，全集團 30TB 湖倉中台與 MDM 主數據貫通。</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">階段劃分</th>
+                    <th>核心推進任務與交付成果</th>
+                    <th style="width: 220px;">排假與封網管制條款</th>
+                    <th style="width: 160px;">執行負責組別</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>7月 (22 工作天)</strong></td>
+                    <td>柬埔寨金邊廠 48h 離線邊緣主機部署；印尼中爪哇基地溫壓 IoT 感測網關安裝；P1-3 Databricks 30TB 湖倉聯通。</td>
+                    <td><strong>全球生產平穩黃金期 (無大型國定長假)</strong>，全力擴展。</td>
+                    <td>數據工程組 / 海外 OT 組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>8月 (22 工作天)</strong></td>
+                    <td>P1-4 Profisee MDM 全球原副料去重清洗完成；P4-4 金邊廠吊掛線 Impinj RFID 讀寫器計工全面投產。</td>
+                    <td>排開 8/17 印尼國慶日；秋冬裝大貨出貨高峰。</td>
+                    <td>數據治理組 / 物聯傳感組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>9月 (20 工作天)</strong></td>
+                    <td>柬埔寨與印尼基地交鑰匙複製驗收；P3-6 多國語 RAG 知識庫導入越/高棉/印尼語現地問答；P1-7 跨國災備實戰切換演練。</td>
+                    <td>排開 9/2 越南國慶與 9/24~9/26 中秋連假。</td>
+                    <td>知識中台組 / 系統維運組</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="conclusion-box" style="background:#EFF6FF; border-color:#93C5FD; color:#1E3A8A;">
+              🏁 <strong>Q3 里程碑檢核點 (Gate 3 · 9月底) ＆ CEO 決策事項：</strong><br>
+              • 檢核驗收：金邊廠與中爪哇廠 100% 具備斷網離線自律；全集團原副料號統一，同料不同號問題徹底消除。<br>
+              • CEO 決策請求：審查跨國庫存調撥效益與料號清洗進度，授權 Q4 啟動全自研 Agentic AI 投產與微軟 EA 原廠續約談判。
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="page-card" style="border-left-color: var(--purple-trans); margin-bottom: 20px;">
+            <div class="page-card-header">
+              <span class="page-card-title">第四季 (Q4: 2027/10/01 ～ 12/31) · 集團全面驗收與智能投產期</span>
+              <span class="page-badge" style="background: var(--purple-trans);">12 項專案收官</span>
+            </div>
+            <p><strong>🎯 季度核心目標：</strong>Agentic AI 生管跟單、OR-Tools 動態線平衡人機排程全面投產；全集團 2,500 席年度總驗收與維運降本審計。</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">階段劃分</th>
+                    <th>核心推進任務與交付成果</th>
+                    <th style="width: 220px;">排假與封網管制條款</th>
+                    <th style="width: 160px;">執行負責組別</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>10月 (19 工作天)</strong></td>
+                    <td>P3-5 Agentic AI 生管跟單代理人上線試運行；P3-3 XGBoost 完工交期風險預估模型投產；P1-4 MDM 品質門禁常態化。</td>
+                    <td>排開 10/8~10/10 雙十國慶連假；排開 10 月中旬柬埔寨亡人節。</td>
+                    <td>Agent 研發組 / 演算法組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>11月 (21 工作天)</strong></td>
+                    <td>P3-4 Google OR-Tools 動態線平衡人機配置模擬器全面運作；P4-5 印尼貼合基地溫壓品質指紋閉環驗收。</td>
+                    <td>排開 11 月下旬柬埔寨送水節；感恩節與雙 11 海外交貨高峰。</td>
+                    <td>智能 IE 組 / 自動化工藝組</td>
+                  </tr>
+                  <tr>
+                    <td><strong>12月 (22 工作天)</strong></td>
+                    <td>全集團 2,500 席 24/7 MDR 紅藍資安對抗實戰演練；年度維運 Run Cost 降本 8%～12% 與工時釋放 15%～25% 財務認列。</td>
+                    <td>12/31 集團年終決算；完成全年度資產盤點複核。</td>
+                    <td>全體內部與外部小組</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="conclusion-box" style="background:#FAF5FF; border-color:#D8B4FE; color:#581C87;">
+              🏁 <strong>Q4 終局里程碑檢核點 (Gate 4 · 12月底) ＆ CEO 決策事項：</strong><br>
+              • 檢核驗收：25 項專案 100% 交付上線；財務認列年省現金流 NT$ 3,700 萬；Tier-1 系統通過國際外部資安審查。<br>
+              • CEO 決策請求：核准 2027 年度 IT 專案全案結案報告，對表現優異之內部小組與外部夥伴頒發集團年度創新獎。
+            </div>
+          </div>
+        </section>
+
+        <hr>
+
+        <!-- Section 8: Enterprise Risk Register -->
+        <section id="sec-risks">
+          <h2>捌、 企業級風險登錄表與全套應對矩陣 (Enterprise Risk Register)</h2>
+          <p>
+            全面辨識 2027 集團面臨之十大重大技術、營運、法規與政治風險，設定嚴密之預防、偵測、應變復原方案與應對預算：
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 60px;">編號</th>
+                  <th style="width: 140px;">風險情境描述</th>
+                  <th style="width: 100px;">衝擊範疇</th>
+                  <th style="width: 50px;">機率</th>
+                  <th style="width: 50px;">衝擊</th>
+                  <th style="width: 70px;">等級</th>
+                  <th>核心預防與偵測控制 (Preventive/Detective)</th>
+                  <th>應變與業務復原方案 (Recovery / BCP)</th>
+                  <th style="width: 80px;">應對預算</th>
+                  <th style="width: 60px;">殘餘</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>RSK-01</strong></td>
+                  <td><strong>海纜中斷致海外廠停產</strong></td>
+                  <td>越/柬/印生產線</td>
+                  <td>極高</td>
+                  <td>極高</td>
+                  <td><span class="page-badge" style="background:#B91C1C;">Critical</span></td>
+                  <td>Fortinet 雙軌 SD-WAN (專線+寬頻+4G)；車間配置 8 台研華工業邊緣主機。</td>
+                  <td>自動切換 Edge 本地 DuckDB 快取，維持 48~72h 離線生產；連線復原 Delta 雙向同步。</td>
+                  <td>$72,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-02</strong></td>
+                  <td><strong>勒索病毒將全廠資料加密</strong></td>
+                  <td>全球伺服器端點</td>
+                  <td>中</td>
+                  <td>災難</td>
+                  <td><span class="page-badge" style="background:#B91C1C;">Critical</span></td>
+                  <td>CrowdStrike 24/7 MDR 全託管；移除本機管理員權限；全集團強制 MFA。</td>
+                  <td>原廠專家 15 分鐘主動隔離；Zerto 秒級回復感染前 5 秒；AWS S3 WORM 離線還原。</td>
+                  <td>$100,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-03</strong></td>
+                  <td><strong>客戶 Tech Pack 專利外洩</strong></td>
+                  <td>大品牌合約商譽</td>
+                  <td>高</td>
+                  <td>災難</td>
+                  <td><span class="page-badge" style="background:#B91C1C;">Critical</span></td>
+                  <td>Entra ID ABAC 屬性無菌室隔離；Portkey 提示詞專利自動遮罩；DLP 阻斷。</td>
+                  <td>立即註銷洩密憑證；保留 Audit Trail 作為法律證據；啟動客戶緊急合規溝通。</td>
+                  <td>$48,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-04</strong></td>
+                  <td><strong>老廠長抵制 4-Gate 門禁</strong></td>
+                  <td>隆安/金邊車間</td>
+                  <td>高</td>
+                  <td>高</td>
+                  <td><span class="page-badge" style="background:#EA580C;">High</span></td>
+                  <td>增設「廠長+副總雙簽緊急特許放行 (Override SOP)」；派駐突擊隊駐廠 60 天。</td>
+                  <td>系統標記紅色風險工單追蹤返修責任；成果榮譽歸功現場廠長，化解對立。</td>
+                  <td>$20,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-05</strong></td>
+                  <td><strong>原副料跨廠同料不同號</strong></td>
+                  <td>呆料與採購資金</td>
+                  <td>極高</td>
+                  <td>中</td>
+                  <td><span class="page-badge" style="background:#EA580C;">High</span></td>
+                  <td>Profisee MDM 主數據清洗去重；導入 Great Expectations 自動品質門禁。</td>
+                  <td>建立全球統一編碼字典；未經 MDM 審核通過之新料號系統強制禁止採購下單。</td>
+                  <td>$80,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-06</strong></td>
+                  <td><strong>違反東南亞數據主權法規</strong></td>
+                  <td>海外營運合法性</td>
+                  <td>中</td>
+                  <td>高</td>
+                  <td><span class="page-badge" style="background:#EA580C;">High</span></td>
+                  <td>敏感人事薪資數據「在地邊緣留存」；去機敏特徵特徵才串流回台北湖倉。</td>
+                  <td>聘請跨國合規律師審查數據流動拓撲架構，出具正式當地法律合規意見書備查。</td>
+                  <td>$15,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-07</strong></td>
+                  <td><strong>核心伺服器過保突發損壞</strong></td>
+                  <td>總部/越南 MES</td>
+                  <td>高</td>
+                  <td>高</td>
+                  <td><span class="page-badge" style="background:#EA580C;">High</span></td>
+                  <td>淘汰老舊 Dell R740；全面虛擬化叢集化 (VMware)；vSAN 雙重儲存容錯。</td>
+                  <td>備援主機秒級接管；VM 於 5 分鐘內自動重啟；硬體享有原廠 3 年 NBD 在地保固。</td>
+                  <td>$68,000</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-08</strong></td>
+                  <td><strong>軟體授權膨脹預算失控</strong></td>
+                  <td>集團年度維運費</td>
+                  <td>高</td>
+                  <td>中</td>
+                  <td><span class="page-badge" style="background:#D97706;">Medium</span></td>
+                  <td>嚴格採分層授權 (400 核心 + 2,100 現場)；Databricks 採 Serverless 按需計費。</td>
+                  <td>每月稽核帳號活躍度；未登入 60 天自動回收重配；超額授權請購一律系統駁回。</td>
+                  <td>$0 (制度)</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-09</strong></td>
+                  <td><strong>AI 模型出現嚴重工藝幻覺</strong></td>
+                  <td>車間工序與規格</td>
+                  <td>中</td>
+                  <td>中</td>
+                  <td><span class="page-badge" style="background:#D97706;">Medium</span></td>
+                  <td>建立 RAG 人工覆核機制；上下文範圍限縮於官方手冊；設置溫度係數 < 0.2。</td>
+                  <td>設置停損門檻（幻覺率 > 3% 自動降級為精確關鍵字搜尋），禁止 AI 自主變更參數。</td>
+                  <td>$0 (制度)</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+                <tr>
+                  <td><strong>RSK-10</strong></td>
+                  <td><strong>關鍵技術人員離職斷層</strong></td>
+                  <td>系統持續維運力</td>
+                  <td>中</td>
+                  <td>高</td>
+                  <td><span class="page-badge" style="background:#D97706;">Medium</span></td>
+                  <td>內部 5 大小組落實雙人備援；架構代碼化 (IaC) 並撰寫完整操作 Runbook。</td>
+                  <td>核心模組由外部微軟/Databricks 原廠顧問共同維護，杜絕單點個人知識黑箱。</td>
+                  <td>$0 (制度)</td>
+                  <td><span style="color:#047857; font-weight:700;">Low</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
         <section id="sec-appendices">
           <h2>玖、 附錄：資料蒐集清單、系統盤點問卷與訪談題庫</h2>
           <h3>附錄一：現況資料蒐集清冊 (Data Collection Checklist)</h3>
