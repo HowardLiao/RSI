@@ -2059,7 +2059,12 @@
               <div class="lang-option" id="opt-en" onclick="selectLang('en')">
                 <span>🇬🇧</span> <span>Global English</span> <span class="site-tag">Executive</span>
               </div>
+              <div class="lang-option" id="opt-vi" onclick="selectLang('vi')">
+                <span>🇻🇳</span> <span>Tiếng Việt</span> <span class="site-tag">Nhà máy Long An</span>
+              </div>
             </div>
+          </div>
+          </div>
           </div>
           </div>
         </div>
@@ -2858,15 +2863,79 @@
     // PLAN A: HIGH-EXECUTIVE BILINGUAL SYSTEM (🇹🇼 繁體中文 ｜ 🇬🇧 GLOBAL ENGLISH)
     // =========================================================================
 
+    // =========================================================================
+    // MULTILINGUAL TRILINGUAL SYSTEM (ZH 🇹🇼 | EN 🇬🇧 | VI 🇻🇳)
+    // =========================================================================
+
     const langDisplayMap = {
       zh: "🇹🇼 繁體中文",
-      en: "🇬🇧 Global English"
+      en: "🇬🇧 Global English",
+      vi: "🇻🇳 Tiếng Việt"
     };
 
-    // 1. Comprehensive Bilingual Dictionary for All UI Elements
-    const i18n_bilingual = {
+    const fullTranslationTriplets = [["全專案甘特圖", "2027 Project Gantt", "Biểu đồ Gantt Toàn bộ Dự án"], ["組織與資源配置", "Organization & Resources", "Cơ cấu Tổ chức & Phân bổ Nguồn lực"], ["職能與設備盤點", "Skills & Asset Discovery", "Kiểm kê Năng lực & Thiết bị CNTT"], ["搜尋全站藍圖...", "Search Blueprint... ⌘K", "Tìm kiếm Toàn bộ Bản đồ... ⌘K"], ["線平衡動態演算", "Line Balance Simulation", "Mô phỏng Cân bằng Chuyền May"], ["RSI Global Enterprise · 跨國製造數據治理、營運韌性與智能營運架構藍圖", "RSI Global Enterprise · Cross-Border Data Governance, Operational Resilience & Intelligent Operations Blueprint", "RSI Global Enterprise · Quản trị Dữ liệu Sản xuất Đa quốc gia, Phục hồi Vận hành & Bản đồ Vận hành Thông minh"], ["4 大", "4 Strategic", "4 Trụ cột"], ["25 項", "25 Digital", "25 Phân hệ"], ["2025 建置系統", "2025 System Build", "2025 Xây dựng Hệ thống"], ["2026 補齊流程", "2026 Connectivity", "2026 Hoàn thiện Quy trình"], ["2027 整合運用與智能營運", "2027 Intelligent Operations", "2027 Tích hợp & Vận hành Thông minh"], ["戰略轉型", "Strategic Transition", "Chuyển đổi Chiến lược"], ["2027 的重點不是增加更多單點系統，而是讓既有資訊能力形成跨流程、跨廠區、跨系統的實質營運效益。", "The priority for 2027 is not accumulating more siloed software, but synthesizing existing capabilities into tangible cross-process, multi-plant, and cross-system operational value.", "Trọng tâm năm 2027 không phải là bổ sung thêm phần mềm đơn lẻ, mà là kết nối năng lực thông tin hiện có để tạo ra hiệu quả vận hành thực chất giữa các quy trình, nhà máy và hệ thống."], ["🖨️ 列印匯報版面", "🖨️ Print Executive Deck", "🖨️ In Báo cáo Ban Giám đốc"], ["營運韌性", "Operational Resilience", "Khả năng Phục hồi Vận hành"], ["建立東南亞跨國邊緣離線自治能力與零信任資安縱深防禦，確保 Tier-1 生產核心具備不可篡改備份與可稽核復原力。", "Building cross-border edge autonomy across Southeast Asian plants with Zero Trust defense in depth, ensuring Tier-1 manufacturing cores possess immutable backups and auditable resilience.", "Thiết lập khả năng tự trị biên ngoại tuyến cho các nhà máy Đông Nam Á và phòng thủ chuyên sâu Zero Trust, đảm bảo lõi sản xuất Tier-1 có bản sao lưu bất biến và khả năng phục hồi được kiểm toán."], ["AI 規模化", "AI at Scale & Agentic AI", "Quy mô hóa AI & Agentic AI"], ["全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。", "Deploying Agentic AI across customer service, PMC scheduling, multilingual Tech Pack RAG, and IE workflows, upgrading passive queries into proactive collaborative execution agents.", "Triển khai Agentic AI xuyên suốt dịch vụ khách hàng, kế hoạch sản xuất (PMC), kho tri thức tiêu chuẩn may Tech Pack (RAG) và quy trình kỹ thuật IE, nâng cấp tra cứu thụ động thành trợ lý thực thi chủ động."], ["資料可信任", "Data Trustworthiness", "Dữ liệu Đáng tin cậy"], ["建立企業單一真實資料來源（Single Source of Truth），統一主數據 MDM 定義，實行嚴謹存取控制與資料生命週期稽核。", "Establishing an enterprise Single Source of Truth (SSOT), unifying Master Data (MDM) taxonomy, and enforcing rigorous ABAC access controls and data lifecycle audits.", "Thiết lập Nguồn dữ liệu Chân lý Duy nhất (SSOT), thống nhất định nghĩa dữ liệu chủ MDM, thực thi kiểm soát truy cập ABAC nghiêm ngặt và kiểm toán vòng đời dữ liệu."], ["成本可控化", "Cost Governance & FinOps", "Kiểm soát Chi phí & FinOps"], ["落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。", "Enforcing Cloud & Infrastructure FinOps, consolidating duplicated software licenses, and modernizing platforms to convert operational overhead into growth capital.", "Thực thi FinOps đám mây và hạ tầng, hợp nhất bản quyền phần mềm và hiện đại hóa kiến trúc để chuyển đổi chi phí vận hành thành vốn đầu tư tăng trưởng."], ["三大核心財務與效能承諾指標", "Three Core Financial & Operational Commitments", "Ba Chỉ số Cam kết Tài chính & Hiệu năng Cốt lõi"], ["可控 IT 維運成本降幅 (FinOps & Consolidation)", "Controllable IT Run Cost Reduction (FinOps & Consolidation)", "Mức giảm Chi phí Vận hành CNTT Kiểm soát được (FinOps & Hợp nhất)"], ["透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與基礎架構現代化，實質降低可控 IT Run Cost 8–12%。", "Substantively cut controllable IT Run Costs by 8–12% through FinOps instance optimization, unattached disk purge, redundant license consolidation, and architecture modernization.", "Cắt giảm thực chất 8–12% chi phí vận hành CNTT kiểm soát được thông qua tối ưu hóa tài nguyên đám mây FinOps, dọn dẹp tài nguyên nhàn rỗi, hợp nhất giấy phép trùng lặp và hiện đại hóa hạ tầng."], ["特定核心流程工時釋放 (Agentic AI Empowerment)", "Core Process Labor Hour Release (Agentic AI Empowerment)", "Giải phóng Giờ công Quy trình Cốt lõi (Trợ lực từ Agentic AI)"], ["透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。", "Targeting a 15–25% labor hour release across customer service, PMC order tracking, Tech Pack translation (RAG), and industrial engineering via Agentic AI workflows.", "Mục tiêu giải phóng 15–25% giờ công tác nghiệp thông qua việc ứng dụng Agentic AI vào CS, theo dõi tiến độ đơn hàng PMC, tra cứu kỹ thuật Tech Pack và quy trình IE may mặc."], ["Tier-1 系統災難復原與資安合規 (Auditable RTO/RPO)", "Tier-1 DR & Compliance Assurance (Auditable RTO/RPO)", "Khôi phục Thảm họa Hệ thống Tier-1 & Tuân thủ An ninh mạng (RTO/RPO Có thể Kiểm toán)"], ["核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。", "Elevating core manufacturing systems to international high-availability standards, reducing Tier-1 RTO to <2 hours and RPO to <15 minutes with verified auditability.", "Hệ thống sản xuất cốt lõi đạt tiêu chuẩn sẵn sàng cao quốc tế, nâng khả năng phục hồi an ninh mạng và chỉ số RTO/RPO của hệ thống Tier-1 lên mức kiểm toán bên ngoài chấp thuận."], ["系統建置與基礎完善", "System Establishment & Infrastructure Solidification", "Xây dựng Hệ thống & Hoàn thiện Nền tảng"], ["流程完善與資訊即時化", "Workflow Completion & Real-Time Telemetry", "Hoàn thiện Quy trình & Đo lường Thời gian thực"], ["整合運用與智能營運", "Integrated Synergies & Intelligent Operations", "Tích hợp Ứng dụng & Vận hành Thông minh"], ["2025–2027 IT 資源配置重心轉移", "2025–2027 IT Capital Resource Allocation Shift", "Chuyển dịch Trọng tâm Phân bổ Nguồn lực CNTT 2025–2027"], ["資源從單點軟硬體採購移轉至「數據整合與智能決策」", "Strategic pivot from isolated software/hardware purchasing to unified data integration and decision intelligence.", "Chuyển đổi từ mua sắm phần cứng/phần mềm đơn lẻ sang Tích hợp Dữ liệu và Ra quyết định Thông minh."], ["動態分析", "Dynamic Analytics", "Phân tích Động"], ["關鍵製造 KPI 效益提升預測 (2025 vs 2027)", "Core Manufacturing KPI Improvement Projections (2025 vs 2027)", "Dự báo Cải thiện Hiệu quả KPI Sản xuất Cốt lõi (2025 so với 2027)"], ["成衣製造核心財務與交付指標對比", "Benchmark comparison across garment manufacturing financial and delivery KPIs.", "So sánh đối chiếu các chỉ số tài chính và giao hàng trọng yếu trong may mặc."], ["P&L 映射", "P&L Mapping", "Ánh xạ P&L"], ["2027 智能營運與 AI 應用權重規劃", "2027 Intelligent Operations & AI Workload Distribution", "Quy hoạch Tỷ trọng Ứng dụng AI & Vận hành Thông minh 2027"], ["以可信、務實的三階階梯式實踐推動 AI 落地", "Pragmatic 3-stage phased roadmap driving applied AI on factory floors.", "Thúc đẩy triển khai AI theo lộ trình 3 giai đoạn thực tế và tin cậy."], ["AI 戰略", "AI Strategy", "Chiến lược AI"], ["四大主架構關鍵任務覆蓋分佈", "Four Pillars Mission-Critical Coverage Distribution", "Phân bổ Mức độ Hoàn thành Nhiệm vụ Trọng yếu của 4 Trụ cột"], ["25 項核心功能之系統健全度與整備規劃", "Architectural health index and readiness score across all 25 subdomains.", "Độ hoàn thiện hệ thống và quy hoạch sẵn sàng của 25 phân hệ chức năng."], ["架構雷達", "Architecture Radar", "Radar Kiến trúc"], ["車縫工段技能矩陣成熟度 (Worker Skill Index)", "Worker Skill Matrix Index (Worker Skill Index)", "Chỉ số Trưởng thành Ma trận Kỹ năng Công nhân May"], ["50% (大量新手換線)", "50% (Novice Changeover)", "50% (Đổi mã hàng nhiều công nhân mới)"], ["75% (常態作業)", "75% (Standard Baseline)", "75% (Tác nghiệp tiêu chuẩn)"], ["100% (多技能熟手)", "100% (Cross-Skilled Elite)", "100% (Thợ may đa năng lành nghề)"], ["裁片超市特工齊套率 (Sewing Ready Ratio)", "Supermarket Trims & Parts Readiness Ratio", "Tỷ lệ Đồng bộ Bán thành phẩm Siêu thị Bán thành phẩm"], ["50% (缺特工件等待)", "50% (Starved Waiting)", "50% (Chờ bán thành phẩm công đoạn phụ)"], ["75% (局部補料)", "75% (Partial Staging)", "75% (Cấp phát một phần)"], ["100% (全裁片齊套)", "100% (Fully Staged)", "100% (Đầy đủ 100% bán thành phẩm)"], ["預估車縫線平衡率", "Estimated Line Balance Rate", "Tỷ lệ Cân bằng Chuyền May Dự tính"], ["車間綜合效率 (OEE)", "Overall Equipment Effectiveness (OEE)", "Hiệu suất Thiết bị Toàn diện Nhà xưởng (OEE)"], ["單組標準日產能", "Standard Daily Line Output", "Năng suất Ngày Tiêu chuẩn Mỗi Chuyền"], ["節拍瓶頸等待損失 (SAM)", "Takt Waiting Loss (SAM Loss)", "Tổn thất Chờ đợi Nút thắt Nhịp độ (SAM Loss)"], ["全球廠區邊緣節點動態狀態 (Live Heartbeat Telemetry)", "Global Plant Edge Node Live Telemetry & Heartbeat", "Trạng thái Hoạt động Node Biên Nhà máy Toàn cầu (Live Heartbeat)"], ["⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)", "⚡ Simulate Subsea Cable Cut Drill", "⚡ Diễn tập Ngắt Cáp quang Biển Đột xuất (Simulate Cut)"], ["⚡ 雙向增量同步 (Delta Sync Engine Active)", "⚡ Bi-directional Delta Sync Engine Active", "⚡ Động cơ Đồng bộ Tăng dần Hai chiều Đang hoạt động"], ["Vietnam Hub (燈塔示範廠)", "Vietnam Hub (Lighthouse Demo Plant)", "Vietnam Hub (Nhà máy Ngọn hải đăng Long An)"], ["邊緣模式", "Edge Mode", "Chế độ Biên"], ["離線可用容限", "Offline Autonomy", "Thời gian Tự trị Ngoại tuyến"], ["MES 延遲", "MES Latency", "Độ trễ MES"], ["12 ms (本地)", "12 ms (Local Edge)", "12 ms (Cục bộ)"], ["待同步佇列", "Sync Queue", "Hàng đợi Đồng bộ"], ["0 件 (已同步)", "0 Items (In Sync)", "0 kiện (Đã đồng bộ)"], ["Cambodia Plant (針織運動)", "Cambodia Plant (Knit & Sportswear)", "Nhà máy Campuchia (Đồ thể thao Dệt kim)"], ["18 ms (本地)", "18 ms (Local Edge)", "18 ms (Cục bộ)"], ["14 件 (同步中)", "14 Items (Syncing)", "14 kiện (Đang đồng bộ)"], ["Indonesia Plant (無縫貼合)", "Indonesia Plant (Seamless Bonding)", "Nhà máy Indonesia (Ép dán Không đường may)"], ["公網狀態", "WAN Status", "Trạng thái Mạng diện rộng (WAN)"], ["海纜波動 · 本地自治", "Subsea Outage · Local Autonomous", "Cáp biển gián đoạn · Tự trị cục bộ"], ["128 件 (快取安全)", "128 Items (Safe Cache)", "128 kiện (Bộ nhớ đệm an toàn)"], ["治理核心", "Governance Core", "Lõi Quản trị"], ["API 閘道", "API Gateway", "Cổng API Gateway"], ["AI 運算叢集", "AI Compute Cluster", "Cụm Tính toán AI"], ["安全防禦", "Cyber Defense", "Phòng thủ An ninh mạng"], ["點選下方卡片切換主架構，或即時檢索項目：", "Select an architectural pillar below or search subdomains in real time:", "Nhấp vào thẻ bên dưới để chuyển đổi trụ cột hoặc tìm kiếm phân hệ:"], ["數位底座與治理", "Digital Foundation & Governance", "Nền tảng Số & Quản trị CNTT"], ["8 大關鍵領域", "8 Core Modules", "8 Phân hệ Cốt lõi"], ["營運流程整合", "Operational Process Integration", "Tích hợp Quy trình Vận hành"], ["5 端到端流", "5 End-to-End Flows", "5 Dòng chảy Đầu-cuối"], ["智能營運與決策", "Intelligent Operations & Decision", "Vận hành Thông minh & Ra Quyết định"], ["7 智能應用項", "7 AI & Analytics Areas", "7 Hạng mục AI & Phân tích"], ["智慧製造與設備", "Smart Manufacturing & Equipment", "Sản xuất Thông minh & Thiết bị"], ["5 設備與邊緣項", "5 Shopfloor OT Areas", "5 Hạng mục OT & Thiết bị Biên"], ["四大架構串聯之層級價值鏈", "Architectural Layered Value Chain", "Chuỗi Giá trị Phân tầng Kết nối Bốn Trụ cột"], ["整體邏輯可理解為由基底硬體向決策支援遞進，解決「不同系統、流程、資料與設備是否能在共同架構下真正整合」之挑戰。", "Vertical progression from physical substrate up to executive AI decision support, solving the fundamental challenge of unifying siloed systems and telemetry under one architecture.", "Logic phân tầng tiến triển từ phần cứng cơ sở lên hỗ trợ ra quyết định, giải quyết thách thức liệu các hệ thống, quy trình, dữ liệu và thiết bị có thể tích hợp thực chất trong một kiến trúc chung."], ["基礎設備與資料層", "1. Infrastructure & Data", "1. Hạ tầng Thiết bị & Dữ liệu"], ["API / 服務介接", "2. API & Service Mediation", "2. Kết nối API & Dịch vụ"], ["端到端營運履約", "3. End-to-End Fulfillment", "3. Thực thi Vận hành Đầu-cuối"], ["即時透明看板", "4. Real-Time Telemetry", "4. Bảng điều khiển Thời gian thực"], ["主動異常辨識", "5. Automated Exception Detection", "5. Nhận diện Bất thường Chủ động"], ["模擬與決策輔助", "6. Simulation & Decision", "6. Mô phỏng & Trợ giúp Ra Quyết định"], ["AI Copilot 協同", "7. Autonomous Agentic AI", "7. Trợ lý AI Đồng hành (Agentic AI)"], ["架構遞進邏輯：", "Architectural Progression Hierarchy:", "Logic Tiến triển Kiến trúc:"], ["門禁一：BOM 與原副料全數齊套 (WMS)", "Gate 1: BOM & Trims 100% Ready (WMS)", "Cổng 1: BOM & Nguyên phụ liệu Đồng bộ 100% (WMS)"], ["主布縮率已檢測完畢、色號批次相符、副料已入裁片超市", "Fabric shrinkage lab-tested, shade lots matched, trims 100% staged in supermarket.", "Độ co vải chính đã kiểm nghiệm, lô màu đồng nhất, phụ liệu đã nhập siêu thị bán thành phẩm."], ["門禁二：工藝包與工序標準確認 (Tech Pack / IE)", "Gate 2: Tech Pack & Standard Sealed (IE / CAD)", "Cổng 2: Tiêu chuẩn Tài liệu Kỹ thuật Tech Pack & IE (IE / CAD)"], ["最新客審工藝包就緒、標準工時 SAM 確認、針距與針種規範確立", "Client-approved Tech Pack confirmed, SAM values validated, needle pitch and SPI standardized.", "Tài liệu kỹ thuật khách hàng phê duyệt sẵn sàng, định mức SAM xác nhận, mật độ mũi chỉ SPI chuẩn hóa."], ["門禁三：MQP 產前樣與做工樣確認 (Quality)", "Gate 3: MQP Pre-Production Golden Sample Approved (QA)", "Cổng 3: Phê duyệt Áo mẫu Đầu chuyền MQP (QA / QC)"], ["PP 會議結論已簽核、品管封樣件確認、特殊部位做工無異議", "PP meeting minutes signed off, golden sample sealed by QA, critical seam construction approved.", "Biên bản họp triển khai PP ký duyệt, mẫu niêm phong QA hoàn tất, vị trí may đặc thù không còn vướng mắc."], ["門禁四：裁剪配套與特殊工序完成 (Sewing Ready)", "Gate 4: Cut Parts & Special Processes Staged (Supermarket)", "Cổng 4: Bán thành phẩm Cắt & Công đoạn Phụ hoàn tất (Sewing Ready)"], ["自動裁床拉布完成、印花/繡花/熱壓等特工件全數歸入裁片超市", "Automated cutting completed, printing/embroidery/bonding sub-assemblies 100% verified in supermarket.", "Máy trải/cắt tự động hoàn thành, bán thành phẩm in/thêu/ép nhiệt đã đồng bộ vào siêu thị."], ["RSI 信源集團 · 2027 IT 營運計畫與戰略藍圖", "RSI Global Enterprise · 2027 IT Operational Plan & Strategic Blueprint", "Tập đoàn RSI · Kế hoạch Vận hành CNTT & Bản đồ Chiến lược 2027"], ["計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D.", "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D.", "Chủ trì Kế hoạch: Phó Tổng GĐ Chu Văn Tân | Phụ trách Thực thi: Howard Liao Ph.D."], ["整合運用與智能營運 (Integration & Intelligent Operations) · 專為高階經營團隊設計", "Integration & Intelligent Operations · Formulated Exclusively for Executive Leadership", "Tích hợp Ứng dụng & Vận hành Thông minh · Thiết kế Chuyên biệt cho Ban Lãnh đạo Cấp cao"]];
+
+    const transMap = {
+      zh_to_en: new Map(),
+      zh_to_vi: new Map(),
+      en_to_zh: new Map(),
+      en_to_vi: new Map(),
+      vi_to_zh: new Map(),
+      vi_to_en: new Map()
+    };
+
+    fullTranslationTriplets.forEach(([zh, en, vi]) => {
+      transMap.zh_to_en.set(zh, en);
+      transMap.zh_to_vi.set(zh, vi);
+      transMap.en_to_zh.set(en, zh);
+      transMap.en_to_vi.set(en, vi);
+      transMap.vi_to_zh.set(vi, zh);
+      transMap.vi_to_en.set(vi, en);
+    });
+
+    function getTranslationMap(fromLang, toLang) {
+      if (fromLang === toLang) return null;
+      const key = `${fromLang}_to_${toLang}`;
+      return transMap[key] || null;
+    }
+
+    let previousLang = 'zh';
+
+    function applyFullPageTranslation(targetLang) {
+      if (previousLang === targetLang) return;
+      const map = getTranslationMap(previousLang, targetLang);
+      if (!map) {
+        previousLang = targetLang;
+        return;
+      }
+
+      const walk = (node) => {
+        if (node.nodeType === 3) {
+          const txt = node.textContent.trim();
+          if (map.has(txt)) {
+            node.textContent = node.textContent.replace(txt, map.get(txt));
+          }
+        } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE'].includes(node.tagName)) {
+          if (node.placeholder && map.has(node.placeholder)) {
+            node.placeholder = map.get(node.placeholder);
+          }
+          if (node.children.length === 0) {
+            const directText = node.innerText ? node.innerText.trim() : '';
+            if (map.has(directText)) {
+              node.innerText = map.get(directText);
+              return;
+            }
+          }
+          Array.from(node.childNodes).forEach(walk);
+        }
+      };
+      walk(document.body);
+      previousLang = targetLang;
+    }
+
+    // 2. Comprehensive Trilingual UI Dictionary
+    const i18n_multilingual = {
       zh: {
-        // Navigation Anchor Pills
         navInvest: "2027 投資主軸與預算",
         navEvo: "三年演進軌跡 (2025–2027)",
         navAnalytics: "戰略數據與圖表",
@@ -2875,8 +2944,6 @@
         navLogic: "價值鏈層級邏輯",
         navGate: "Ready-to-Sew 產前門禁",
         navRecom: "6 大高管升級建議",
-        
-        // Masthead & Leadership
         mainTitle: "2027 IT 營運計畫架構討論<br><span class=\"accent\">整合運用・智能營運</span>",
         lead: "以信源全球跨國成衣製造為藍本，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。",
         sponsorChip: "<span>計劃主持：</span> <strong>周文津 副總</strong>",
@@ -2888,8 +2955,6 @@
         searchBtnText: "搜尋全站藍圖... ⌘K",
         searchPlaceholder: "輸入關鍵字檢索四大柱、25專案、門禁規則與投資模型... [ ⌘K ]",
         printBtnText: "列印匯報版面",
-        
-        // Section 1: Investment & Budget
         investEyebrow: "Strategic Investment & Capital Governance · C-Level Strategy",
         investTitle: "2027 IT 投資主軸與資本配置治理",
         investDesc: "2027 年 IT 投資主軸為「營運韌性、AI 規模化、資料可信任、成本可控化」；預計將 IT 預算配置為 55% Run、25% Grow、20% Transform。透過 FinOps、授權整併與架構現代化降低維運成本，由 Agentic AI 驅動工時釋放，並使 Tier-1 核心復原力達到國際可稽核水準。",
@@ -2901,34 +2966,27 @@
         cardAiDesc: "全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。",
         cardDataTitle: "資料可信任",
         cardDataSub: "Data Trustworthiness",
-        cardDataDesc: "建立企業單一真實資料來源（SSOT），統一主數據 MDM 定義，實行嚴謹 ABAC 存取控制與資料生命週期稽核。",
+        cardDataDesc: "建立企業單一真實資料來源（Single Source of Truth），統一主數據 MDM 定義，實行嚴謹存取控制與資料生命週期稽核。",
         cardCostTitle: "成本可控化",
         cardCostSub: "Cost Governance & FinOps",
         cardCostDesc: "落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。",
-        
         budgetTitle: "2027 IT 預算配置模型 (Gartner R-G-T)",
         budgetPillRun: "● 55% Run (維運穩固)",
         budgetPillGrow: "● 25% Grow (業務增長)",
         budgetPillTrans: "● 20% Transform (創新躍升)",
         commitmentsTitle: "三大核心財務與效能承諾指標",
         commit1Title: "可控 IT 維運成本降幅 (FinOps & Consolidation)",
-        commit1Desc: "透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與架構現代化，實質降低可控 IT Run Cost 8–12%。",
+        commit1Desc: "透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與基礎架構現代化，實質降低可控 IT Run Cost 8–12%。",
         commit2Title: "特定核心流程工時釋放 (Agentic AI Empowerment)",
         commit2Desc: "透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。",
         commit3Title: "Tier-1 系統災難復原與資安合規 (Auditable RTO/RPO)",
         commit3Desc: "核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。",
-        
-        // Section 2: Evolution
         evoEyebrow: "Strategic Evolution Timeline",
         evoTitle: "2025～2027 IT 發展演進軌跡",
         evoDesc: "三年演進階段界定清晰：由底層工具落地，推進至流程連貫，最終在 2027 年收斂至數據治理與智能代理支援。",
-        
-        // Section 3: Visual Analytics
         analyticsEyebrow: "Executive Visual Analytics",
         analyticsTitle: "戰略數據與動態圖表分析",
         analyticsDesc: "運用多維度可視化量化模型，清晰展示 IT 資本配置權重移轉、製造成效量化預測及 AI 應用梯隊佈局。",
-        
-        // Section 4: IE Simulation
         ieEyebrow: "Interactive IE Simulation Engine",
         ieTitle: "IE 車縫線平衡與產能即時動態演算器",
         ieDesc: "動態調整在線技工熟練度與物料齊套率，即時模擬換線學習曲線、線平衡率（Line Balance Rate）與單線日產出成效。",
@@ -2938,16 +2996,12 @@
         ieMetric2Lbl: "車間綜合效率 (OEE)",
         ieMetric3Lbl: "單組標準日產能",
         ieMetric4Lbl: "節拍瓶頸等待損失 (SAM)",
-        
-        // Section 5: Edge Resilience
         edgeEyebrow: "Hybrid Edge Resilience Monitor",
         edgeTitle: "信源跨國廠區邊緣韌性與連線遙測 (動態監控)",
         edgeDesc: "落實 Edge Survivability 邊緣離線自治架構：東南亞海外廠區即便海底電纜中斷，現場 MES、裁床與吊掛依然具備 48～72 小時離線生產能力。",
         edgeStatusLive: "⚡ 雙向增量同步 (Delta Sync Engine Active)",
         edgePullBtn: "🔌 模擬海纜中斷 (Pull Cable)",
         edgeRestoreBtn: "⚡ 恢復海纜通訊 (Restore Network)",
-        
-        // Section 6: Four Pillars
         pillarsEyebrow: "Core Architectural Pillars",
         pillarsTitle: "2027 四大主架構深層拆解",
         pillarsDesc: "以數位底座為基、營運流程為經緯、智慧硬體為感知、智能決策為頂層樞紐，構築端到端數位韌性。",
@@ -2955,13 +3009,9 @@
         pillarTab2: "Pillar II · 營運流程整合",
         pillarTab3: "Pillar III · 智能營運與決策",
         pillarTab4: "Pillar IV · 智慧製造與設備",
-        
-        // Section 7: Hierarchy Value Chain
         logicEyebrow: "Architectural Hierarchy & Value Flow",
         logicTitle: "四大架構串聯之層級價值鏈",
         logicDesc: "展示由底層基礎設施至頂層 AI 協同之逐層支撐邏輯，體現數據如何轉化為高階營運價值。",
-        
-        // Section 8: Ready-to-Sew 4-Gate
         gateEyebrow: "Ready-to-Sew Interactive Simulator",
         gateTitle: "Ready-to-Sew（上線門禁檢核）模擬器",
         gateDesc: "成衣車縫現場最忌『料件未齊盲目上線』。透過 4 道剛性門禁硬性鎖定，達標率 100% 始准排產發料。",
@@ -2973,16 +3023,12 @@
         gate3Sub: "產前會議 (PP Meeting) 召開完畢，首件樣衣經品管與買家簽字封樣。",
         gate4Lbl: "Gate 4 · 裁片超市特工齊套 (Supermarket Buffer Ready)",
         gate4Sub: "自動裁床精準裁切，高難度貼合與特殊工序半成品已 100% 入線邊超市。",
-        
-        // Section 9: 6 Recommendations
         recomEyebrow: "Strategic Value Augmentation",
         recomTitle: "國際 IT 主管 6 大關鍵升級節點",
         recomDesc: "立足 RSI 信源全球功能性運動服與泳裝跨國製造版圖，向董事會與事業部提供兼具技術韌性與業務損益之深化對策。",
-        
         footerText: "計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D."
       },
       en: {
-        // Navigation Anchor Pills
         navInvest: "Investment & Budget",
         navEvo: "Evolution (2025–2027)",
         navAnalytics: "Strategic Analytics",
@@ -2991,8 +3037,6 @@
         navLogic: "Value Chain Hierarchy",
         navGate: "Ready-to-Sew Gate",
         navRecom: "6 Executive Principles",
-        
-        // Masthead & Leadership
         mainTitle: "2027 IT Strategic Operational Plan<br><span class=\"accent\">Integration & Intelligent Operations</span>",
         lead: "Formulated for RSI Global Enterprise: Evolving from siloed deployments into data governance, edge resilience, agentic AI collaboration, and intelligent decision manufacturing.",
         sponsorChip: "<span>PROJECT SPONSOR:</span> <strong>VP Wen-Chin Chou</strong>",
@@ -3004,8 +3048,6 @@
         searchBtnText: "Search Blueprint... ⌘K",
         searchPlaceholder: "Search 4 pillars, 25 projects, 4-Gate rules and financial ROI... [ ⌘K ]",
         printBtnText: "Print Executive Layout",
-        
-        // Section 1: Investment & Budget
         investEyebrow: "Strategic Investment & Capital Governance · C-Level Strategy",
         investTitle: "2027 IT Strategic Investment & Capital Allocation Governance",
         investDesc: "The 2027 IT investment thesis centers on 'Operational Resilience, AI at Scale, Data Trustworthiness, and Cost Governance', calibrating budget into 55% Run, 25% Grow, and 20% Transform. Through FinOps, license tiering, and architecture modernization, controllable run costs decline, while Agentic AI releases high-value labor hours, ensuring Tier-1 recoverability meets international audit standards.",
@@ -3021,7 +3063,6 @@
         cardCostTitle: "Cost Governance",
         cardCostSub: "Cost Governance & FinOps",
         cardCostDesc: "Enforcing Cloud & Infrastructure FinOps, consolidating duplicated software licenses, and modernizing platforms to convert operational overhead into growth capital.",
-        
         budgetTitle: "2027 IT Budget Allocation Model (Gartner R-G-T)",
         budgetPillRun: "● 55% Run (Baseline Stability)",
         budgetPillGrow: "● 25% Grow (Business Growth)",
@@ -3033,18 +3074,12 @@
         commit2Desc: "Targeting a 15–25% labor hour release across customer service, PMC order tracking, Tech Pack translation (RAG), and industrial engineering via Agentic AI workflows.",
         commit3Title: "Tier-1 DR & Compliance Assurance (Auditable RTO/RPO)",
         commit3Desc: "Elevating core manufacturing systems to international high-availability standards, reducing Tier-1 RTO to <2 hours and RPO to <15 minutes with verified auditability.",
-        
-        // Section 2: Evolution
         evoEyebrow: "Strategic Evolution Timeline",
         evoTitle: "2025–2027 IT Strategic Evolution Journey",
         evoDesc: "Three clearly demarcated milestones: from foundational tool rollout, to integrated process flow, culminating in 2027 with unified data governance and intelligent AI agent support.",
-        
-        // Section 3: Visual Analytics
         analyticsEyebrow: "Executive Visual Analytics",
         analyticsTitle: "Strategic Data & Interactive Analytics",
         analyticsDesc: "Leveraging multi-dimensional visual analytics to demonstrate capital allocation shifts, manufacturing KPI improvements, and progressive AI tier deployments.",
-        
-        // Section 4: IE Simulation
         ieEyebrow: "Interactive IE Simulation Engine",
         ieTitle: "IE Sewing Line Balancing & Dynamic Output Simulator",
         ieDesc: "Dynamically adjust worker skill index and trims readiness to simulate learning curves, line balancing rates, and single-line daily output in real time.",
@@ -3054,16 +3089,12 @@
         ieMetric2Lbl: "Overall Equipment Effectiveness (OEE)",
         ieMetric3Lbl: "Standard Daily Line Output",
         ieMetric4Lbl: "Takt Waiting Loss (SAM Loss)",
-        
-        // Section 5: Edge Resilience
         edgeEyebrow: "Hybrid Edge Resilience Monitor",
         edgeTitle: "RSI Cross-Border Plant Edge Resilience & Live Telemetry",
         edgeDesc: "Implementing an Edge Survivability architecture: Southeast Asian plants sustain 48–72 hours of autonomous shopfloor production even during international subsea cable outages.",
         edgeStatusLive: "⚡ Bi-directional Delta Sync Engine Active",
         edgePullBtn: "🔌 Simulate Subsea Cable Cut (Pull Cable)",
         edgeRestoreBtn: "⚡ Restore Network Telemetry",
-        
-        // Section 6: Four Pillars
         pillarsEyebrow: "Core Architectural Pillars",
         pillarsTitle: "Deep Architectural Decomposition of 4 Pillars",
         pillarsDesc: "Anchored in a digital foundation, structured across business workflows, sensed through smart shopfloor edge, and orchestrated via intelligent executive decision platforms.",
@@ -3071,13 +3102,9 @@
         pillarTab2: "Pillar II · Operational Process Integration",
         pillarTab3: "Pillar III · Intelligent Operations & Decision",
         pillarTab4: "Pillar IV · Smart Manufacturing & Equipment",
-        
-        // Section 7: Hierarchy Value Chain
         logicEyebrow: "Architectural Hierarchy & Value Flow",
         logicTitle: "Architectural Layered Value Chain",
         logicDesc: "Illustrating the vertical dependency ladder from physical infra up to executive AI collaboration, showcasing how raw telemetry transforms into business value.",
-        
-        // Section 8: Ready-to-Sew 4-Gate
         gateEyebrow: "Ready-to-Sew Interactive Simulator",
         gateTitle: "Ready-to-Sew (Pre-Production Gate Control) Simulator",
         gateDesc: "Garment manufacturing strictly prohibits 'launching production without complete trims'. Enforced by 4 rigid gates; only 100% readiness authorizes MES work orders.",
@@ -3089,19 +3116,106 @@
         gate3Sub: "Pre-Production Meeting (PP Meeting) completed; golden sample signed off by QA and client auditors.",
         gate4Lbl: "Gate 4 · Cut Parts & Special Attachments in Supermarket",
         gate4Sub: "Automated cutting completed; high-difficulty bonding and sub-assembly parts 100% buffered in line-side supermarket.",
-        
-        // Section 9: 6 Recommendations
         recomEyebrow: "Strategic Value Augmentation",
         recomTitle: "6 Strategic Transformation Nodes from Global IT Leadership",
         recomDesc: "Grounding in RSI's global sportswear and swimwear manufacturing landscape, delivering dual technical resilience and business P&L strategies to the Board of Directors.",
-        
         footerText: "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D."
+      },
+      vi: {
+        navInvest: "Đầu tư & Ngân sách",
+        navEvo: "Lộ trình Phát triển (2025–2027)",
+        navAnalytics: "Phân tích Dữ liệu Chiến lược",
+        navEdge: "Khả năng Tự trị Biên Ngoại tuyến",
+        navPillars: "Bốn Trụ cột Kiến trúc (Four Pillars)",
+        navLogic: "Chuỗi Giá trị Phân tầng",
+        navGate: "Cổng Kiểm soát Ready-to-Sew",
+        navRecom: "6 Khuyến nghị Cấp cao",
+        mainTitle: "2027 Kế hoạch Vận hành CNTT & Chuyển đổi Số<br><span class=\"accent\">Tích hợp Ứng dụng · Vận hành Thông minh</span>",
+        lead: "Được thiết kế dựa trên mô hình sản xuất may mặc thể thao đa quốc gia của RSI Global: Chuyển dịch từ các ứng dụng đơn lẻ sang quản trị dữ liệu, tự trị biên, phối hợp Agentic AI và ra quyết định thông minh.",
+        sponsorChip: "<span>CHỦ TRÌ KẾ HOẠCH:</span> <strong>Phó Tổng GĐ Chu Văn Tân</strong>",
+        authorChip: "<span>PHỤ TRÁCH THỰC THI:</span> <strong>Howard Liao Ph.D.</strong>",
+        leadershipTitle: "<span>Phó Tổng GĐ Chu Văn Tân <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">Chủ trì Kế hoạch</span></span><span style=\"color: var(--border-subtle);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">Phụ trách Thực thi</span></span>",
+        metric1Lbl: "Trụ cột Chiến lược",
+        metric2Lbl: "Phân hệ Số hóa",
+        metric3Lbl: "Tự trị Biên Ngoại tuyến",
+        searchBtnText: "Tìm kiếm Toàn bộ Bản đồ... ⌘K",
+        searchPlaceholder: "Nhập từ khóa tìm kiếm 4 trụ cột, 25 dự án, quy tắc 4-Gate và hiệu quả tài chính... [ ⌘K ]",
+        printBtnText: "In Báo cáo Ban Giám đốc",
+        investEyebrow: "Chiến lược Đầu tư & Quản trị Phân bổ Vốn · C-Level Strategy",
+        investTitle: "Trụ cột Đầu tư CNTT 2027 & Quản trị Phân bổ Vốn",
+        investDesc: "Trọng tâm đầu tư CNTT năm 2027 xoay quanh 'Phục hồi Vận hành, Quy mô hóa AI, Dữ liệu Đáng tin cậy, Kiểm soát Chi phí', phân bổ ngân sách 55% Run, 25% Grow, 20% Transform. Thông qua FinOps, phân tầng giấy phép và hiện đại hóa kiến trúc, chi phí vận hành giảm substantively, giải phóng giờ công nhờ Agentic AI, nâng năng lực khôi phục Tier-1 đạt chuẩn kiểm toán quốc tế.",
+        cardResilienceTitle: "Phục hồi Vận hành",
+        cardResilienceSub: "Operational Resilience",
+        cardResilienceDesc: "Thiết lập khả năng tự trị biên ngoại tuyến cho các nhà máy Đông Nam Á và phòng thủ chuyên sâu Zero Trust, đảm bảo lõi sản xuất Tier-1 có bản sao lưu bất biến và khả năng phục hồi được kiểm toán.",
+        cardAiTitle: "Quy mô hóa AI",
+        cardAiSub: "AI at Scale & Agentic AI",
+        cardAiDesc: "Triển khai Agentic AI xuyên suốt dịch vụ khách hàng, kế hoạch sản xuất (PMC), kho tri thức tiêu chuẩn may Tech Pack (RAG) và quy trình kỹ thuật IE, nâng cấp tra cứu thụ động thành trợ lý thực thi chủ động.",
+        cardDataTitle: "Dữ liệu Đáng tin cậy",
+        cardDataSub: "Data Trustworthiness",
+        cardDataDesc: "Thiết lập Nguồn dữ liệu Chân lý Duy nhất (SSOT), thống nhất định nghĩa dữ liệu chủ MDM, thực thi kiểm soát truy cập ABAC nghiêm ngặt và kiểm toán vòng đời dữ liệu.",
+        cardCostTitle: "Kiểm soát Chi phí",
+        cardCostSub: "Cost Governance & FinOps",
+        cardCostDesc: "Thực thi FinOps đám mây và hạ tầng, hợp nhất bản quyền phần mềm và hiện đại hóa kiến trúc để chuyển đổi chi phí vận hành thành vốn đầu tư tăng trưởng.",
+        budgetTitle: "Mô hình Phân bổ Ngân sách CNTT 2027 (Gartner R-G-T)",
+        budgetPillRun: "● 55% Run (Vận hành Ổn định)",
+        budgetPillGrow: "● 25% Grow (Mở rộng Kinh doanh)",
+        budgetPillTrans: "● 20% Transform (Đột phá Chiến lược)",
+        commitmentsTitle: "Ba Chỉ số Cam kết Tài chính & Hiệu năng Cốt lõi",
+        commit1Title: "Mức giảm Chi phí Vận hành CNTT Kiểm soát được (FinOps & Hợp nhất)",
+        commit1Desc: "Cắt giảm thực chất 8–12% chi phí vận hành CNTT kiểm soát được thông qua tối ưu hóa tài nguyên đám mây FinOps, dọn dẹp tài nguyên nhàn rỗi, hợp nhất giấy phép trùng lặp và hiện đại hóa hạ tầng.",
+        commit2Title: "Giải phóng Giờ công Quy trình Cốt lõi (Trợ lực từ Agentic AI)",
+        commit2Desc: "Mục tiêu giải phóng 15–25% giờ công tác nghiệp thông qua việc ứng dụng Agentic AI vào CS, theo dõi tiến độ đơn hàng PMC, tra cứu kỹ thuật Tech Pack và quy trình IE may mặc.",
+        commit3Title: "Khôi phục Thảm họa Hệ thống Tier-1 & Tuân thủ An ninh mạng (RTO/RPO Có thể Kiểm toán)",
+        commit3Desc: "Hệ thống sản xuất cốt lõi đạt tiêu chuẩn sẵn sàng cao quốc tế, nâng khả năng phục hồi an ninh mạng và chỉ số RTO/RPO của hệ thống Tier-1 lên mức kiểm toán bên ngoài chấp thuận.",
+        evoEyebrow: "Strategic Evolution Timeline",
+        evoTitle: "Lộ trình Phát triển Chiến lược CNTT 2025–2027",
+        evoDesc: "Ba giai đoạn phát triển rõ ràng: từ triển khai công cụ nền tảng, hoàn thiện quy trình liên thông, đến năm 2027 hội tụ vào quản trị dữ liệu và hỗ trợ ra quyết định thông minh.",
+        analyticsEyebrow: "Executive Visual Analytics",
+        analyticsTitle: "Phân tích Dữ liệu Chiến lược & Biểu đồ Tương tác",
+        analyticsDesc: "Sử dụng mô hình định lượng trực quan đa chiều để minh họa sự dịch chuyển trọng tâm phân bổ vốn, dự báo cải thiện KPI sản xuất và phân tầng triển khai ứng dụng AI.",
+        ieEyebrow: "Interactive IE Simulation Engine",
+        ieTitle: "Bộ Mô phỏng Cân bằng Chuyền May & Năng suất Động (IE Engine)",
+        ieDesc: "Điều chỉnh động chỉ số kỹ năng công nhân may và tỷ lệ đồng bộ phụ liệu để mô phỏng đường cong học tập, tỷ lệ cân bằng chuyền và sản lượng thực tế theo thời gian thực.",
+        sliderSkillLbl: "Chỉ số Trưởng thành Ma trận Kỹ năng Công nhân May",
+        sliderReadyLbl: "Tỷ lệ Đồng bộ Bán thành phẩm Siêu thị Bán thành phẩm",
+        ieMetric1Lbl: "Tỷ lệ Cân bằng Chuyền May Dự tính",
+        ieMetric2Lbl: "Hiệu suất Thiết bị Toàn diện Nhà xưởng (OEE)",
+        ieMetric3Lbl: "Năng suất Ngày Tiêu chuẩn Mỗi Chuyền",
+        ieMetric4Lbl: "Tổn thất Chờ đợi Nút thắt Nhịp độ (SAM Loss)",
+        edgeEyebrow: "Hybrid Edge Resilience Monitor",
+        edgeTitle: "Đo lường Khả năng Tự trị Biên Nhà máy Hải ngoại RSI (Live Telemetry)",
+        edgeDesc: "Thực thi kiến trúc Edge Survivability: Các nhà máy Đông Nam Á duy trì 48–72 giờ sản xuất liên tục tại xưởng ngay cả khi cáp quang biển quốc tế bị gián đoạn.",
+        edgeStatusLive: "⚡ Động cơ Đồng bộ Tăng dần Hai chiều Đang hoạt động",
+        edgePullBtn: "🔌 Diễn tập Ngắt Cáp quang Biển (Pull Cable)",
+        edgeRestoreBtn: "⚡ Khôi phục Kết nối Viễn thông",
+        pillarsEyebrow: "Core Architectural Pillars",
+        pillarsTitle: "Bóc tách Chuyên sâu Bốn Trụ cột Kiến trúc 2027",
+        pillarsDesc: "Lấy nền tảng số làm gốc, quy trình vận hành làm trục dọc, thiết bị thông minh làm cảm biến và ra quyết định thông minh làm buồng lái chỉ huy.",
+        pillarTab1: "Trụ cột I · Nền tảng Số & Quản trị",
+        pillarTab2: "Trụ cột II · Tích hợp Quy trình Vận hành",
+        pillarTab3: "Trụ cột III · Vận hành Thông minh & Ra Quyết định",
+        pillarTab4: "Trụ cột IV · Sản xuất Thông minh & Thiết bị",
+        logicEyebrow: "Architectural Hierarchy & Value Flow",
+        logicTitle: "Chuỗi Giá trị Phân tầng Kết nối Bốn Trụ cột",
+        logicDesc: "Thể hiện logic nâng đỡ từng tầng từ hạ tầng phần cứng cơ sở đến trí tuệ nhân tạo cấp cao, minh chứng cách thức chuyển hóa dữ liệu thành giá trị vận hành.",
+        gateEyebrow: "Ready-to-Sew Interactive Simulator",
+        gateTitle: "Mô phỏng Cổng Kiểm soát Ready-to-Sew Trước khi Lên Chuyền",
+        gateDesc: "Trong ngành may mặc tối kỵ việc 'thiếu nguyên phụ liệu mà vẫn cố lên chuyền'. Thực thi cứng 4 cổng kiểm soát; chỉ khi đạt chuẩn 100% mới cho phép cấp phát đơn hàng sản xuất.",
+        gate1Lbl: "Cổng 1 · Đồng bộ Nguyên Phụ liệu (BOM & Trims Ready)",
+        gate1Sub: "Vải chính, thun co giãn, khóa kéo, chỉ may đã nhập kho đầy đủ và kiểm nghiệm đạt chuẩn.",
+        gate2Lbl: "Cổng 2 · Khóa Tài liệu Kỹ thuật & Rập (Tech Pack & CAD Sealed)",
+        gate2Sub: "Tài liệu hướng dẫn may mới nhất, mật độ mũi chỉ SPI và sơ đồ giác mẫu đã duyệt hoàn tất.",
+        gate3Lbl: "Cổng 3 · Phê duyệt Áo mẫu MQP (Pre-Production Approval)",
+        gate3Sub: "Họp triển khai PP Meeting hoàn tất, áo mẫu đầu chuyền được QC và khách hàng niêm phong.",
+        gate4Lbl: "Cổng 4 · Bán thành phẩm Cắt & Ép dán Sẵn sàng (Supermarket Ready)",
+        gate4Sub: "Cắt vải chính xác, các chi tiết in/thêu/ép dán kỹ thuật cao đã đồng bộ 100% vào siêu thị chuyền.",
+        recomEyebrow: "Strategic Value Augmentation",
+        recomTitle: "6 Khuyến nghị Nâng cấp Chiến lược từ Lãnh đạo CNTT Quốc tế",
+        recomDesc: "Bám sát bản đồ sản xuất đồ thể thao và đồ bơi toàn cầu của RSI, đệ trình Hội đồng Quản trị các giải pháp kết hợp độ bền vững công nghệ và hiệu quả tài chính.",
+        footerText: "Chủ trì Kế hoạch: Phó Tổng GĐ Chu Văn Tân ｜ Phụ trách Thực thi: Howard Liao Ph.D."
       }
     };
 
-
-
-    // 2. Bilingual Timeline Data
     const timelineData = {
       2025: {
         zh: {
@@ -3117,7 +3231,8 @@
           desc: "Progressive deployment of functional systems covering production, R&D, QA, IE, WMS, BI, RPA, IoT, and cybersecurity, establishing the digital bedrock.",
           gap: null,
           pill: "Foundation Phase · Infrastructure"
-        }
+        },
+        vi: {"stage": "Giai đoạn 1 · Nền tảng", "title": "Xây dựng Hệ thống & Hoàn thiện Nền tảng (Thiết lập Hệ thống)", "desc": "Từng bước xây dựng các hệ thống chức năng, kết nối năng lực cơ bản về sản xuất, R&D, quản lý chất lượng, IE, kho vận, BI, RPA, IoT, tự động hóa và an toàn thông tin, đặt nền móng số hóa vững chắc.", "gap": null, "pill": "Giai đoạn Đặt nền móng · Infrastructure"}
       },
       2026: {
         zh: {
@@ -3133,7 +3248,8 @@
           desc: "Bridging cross-system process gaps, enhancing MES operational hierarchy, mobile capture, end-to-end material traceability, BPM workflows, and initial RAG/ML integration.",
           gap: "Notice: Certain end-to-end workflows and advanced AI pilots remained active work-in-progress during this period.",
           pill: "Connectivity Phase · Real-Time Sync"
-        }
+        },
+        vi: {"stage": "Giai đoạn 2 · Kết nối", "title": "Hoàn thiện Quy trình & Đo lường Thời gian thực · Nghiên cứu Ứng dụng AI", "desc": "Bù đắp các điểm đứt gãy quy trình liên hệ thống, củng cố cấu trúc công đoạn MES, thu thập dữ liệu di động, quản lý vòng đời nguyên phụ liệu khép kín, tích hợp BPM, BI, ML/RAG và thiết bị thông minh.", "gap": "Ghi chú: Một số quy trình đầu-cuối liên hệ thống và ứng dụng AI nâng cao tiếp tục được hoàn thiện trong năm.", "pill": "Giai đoạn Kết nối · Real-Time Sync"}
       },
       2027: {
         zh: {
@@ -3149,11 +3265,11 @@
           desc: "Unifying legacy systems, data pipelines, shopfloor edge, and Agentic AI to evolve from raw dashboards into proactive exception management, predictive analytics, and executive decision intelligence.",
           gap: null,
           pill: "Ascension Phase · Intelligent Operations"
-        }
+        },
+        vi: {"stage": "Giai đoạn 3 · Trí tuệ hóa", "title": "Tích hợp Ứng dụng & Vận hành Thông minh (Tích hợp & Trợ giúp Ra quyết định)", "desc": "Tích hợp toàn diện các hệ thống, quy trình, dữ liệu, thiết bị và năng lực AI hiện có; chuyển dịch từ hiển thị dữ liệu thuần túy sang quản lý bất thường, phân tích dự báo, hỗ trợ ra quyết định và phối hợp Agentic AI.", "gap": null, "pill": "Giai đoạn Đột phá · Intelligent Operations"}
       }
     };
 
-    // 3. Bilingual 6 Executive Advice Data
     const adviceData = [
       {
         num: "01",
@@ -3167,7 +3283,8 @@
           title: "Business Value & Hard Dollar Hedging Matrix",
           desc: "Directly anchored in 4 garment manufacturing KPIs: OTD, Line Balancing, Fabric Yield, and WIP levels. Translating labor release into hard dollar savings: 'Air Freight Avoidance (2 saves/year = NT$ 15M)' and 'Fabric Loss Cut by 1.2% (NT$ 22M/year)', achieving full cash payback within 14.8 months.",
           metric: "🎯 Financial Return: Annual cash savings NT$ 37M · Payback Period 14.8 months · ROI 1:3.84"
-        }
+        },
+        vi: {"num": "01", "pill": "Business P&L & Hedging", "title": "Ma trận Giá trị Doanh nghiệp & Phòng ngừa Rủi ro Tài chính Thực chất", "desc": "Kiến trúc bám sát 4 KPI cốt lõi của ngành may mặc đa quốc gia: OTD (Tỷ lệ giao hàng đúng hạn), Line Balancing (Cân bằng chuyền), Fabric Yield (Định mức sử dụng vải) và mức tồn bán thành phẩm WIP. Chuyển hóa giờ công thành giá trị tiền mặt thực tế: 'Phòng ngừa tiền phạt bao chuyến máy bay khẩn cấp (2 lần/năm = tiết kiệm 15 triệu TWD)' và 'Giảm 1.2% hao hụt vải chính (tiết kiệm 22 triệu TWD/năm)', giúp hoàn vốn đầu tư CNTT sau 14.8 tháng.", "metric": "🎯 Hiệu quả tài chính thực chất: Tiết kiệm 37 triệu TWD dòng tiền/năm · Thời gian hoàn vốn 14.8 tháng · ROI 1:3.84"}
       },
       {
         num: "02",
@@ -3181,7 +3298,8 @@
           title: "Cross-Border Edge Autonomy & SE Asian Data Sovereignty",
           desc: "Shopfloor MES, RFID collection, and cutting rooms sustain 48–72h autonomous operation against subsea cable cuts. Strictly complies with Vietnam Cybersecurity Law (Decree 53) and Indonesia PDP: local PII and plant logs reside on in-country edge nodes, streaming only anonymized telemetry to Taipei HQ.",
           metric: "🛡️ Resilience & Compliance: 100% Zero-Outage during network cuts · Zero compliance penalties"
-        }
+        },
+        vi: {"num": "02", "pill": "Survivability & Sovereignty", "title": "Khả năng Tự trị Biên Ngoại tuyến & Chủ quyền Dữ liệu Đông Nam Á", "desc": "Hệ thống MES tại xưởng, quét mã RFID và máy cắt tự động duy trì 48–72 giờ vận hành tự trị khi đứt cáp quang biển quốc tế. Đồng thời tuân thủ nghiêm ngặt Luật An ninh mạng Việt Nam (Nghị định 53/2022/NĐ-CP) và Luật Bảo vệ Dữ liệu Cá nhân Indonesia (PDP): dữ liệu cá nhân nhân viên và nhật ký sản xuất được lưu trữ ưu tiên tại máy chủ biên trong nước, chỉ truyền dữ liệu đo lường đã ẩn danh về Tổng bộ Đài Bắc.", "metric": "🛡️ Độ bền vững & Tuân thủ: 100% không ngừng trệ khi đứt mạng · Loại bỏ hoàn toàn rủi ro vi phạm pháp lý"}
       },
       {
         num: "03",
@@ -3195,7 +3313,8 @@
           title: "Ready-to-Sew 4-Gate Control & Executive Override SOP",
           desc: "Enforcing 4 rigid pre-production gates (BOM readiness + CAD marker + Tech Pack + Supermarket parts) to eradicate premature line feeding. Supplemented with an 'Executive Override SOP' (dual sign-off by Plant Director and VP Chou) allowing conditional 85% launch tagged as Red Risk Work Orders.",
           metric: "⚙️ Shopfloor Impact: First-day changeover efficiency +35% · Rework -50% · Zero organizational friction"
-        }
+        },
+        vi: {"num": "03", "pill": "4-Gate & Override SOP", "title": "Cổng Kiểm soát Ready-to-Sew & Quy trình Phê duyệt Đặc cách Linh hoạt", "desc": "Thực thi cứng 4 cổng kiểm soát trước sản xuất (BOM đồng bộ + Sơ đồ giác mẫu CAD + Tiêu chuẩn may Tech Pack + Bán thành phẩm siêu thị sẵn sàng) nhằm triệt tiêu tình trạng lên chuyền thiếu phụ liệu rồi phải tháo chỉ sửa hàng. Bổ sung 'Quy trình Đặc cách Khẩn cấp (Override SOP)' với chữ ký số kép của Giám đốc Nhà máy và Phó Tổng GĐ Chu Văn Tân, cho phép đơn hàng gấp đạt 85% đồng bộ được vào chuyền nhưng tự động gắn cờ Rủi ro Đỏ để truy cứu trách nhiệm.", "metric": "⚙️ Hiệu quả tại xưởng: Hiệu suất ngày đầu đổi mã hàng +35% · Tỷ lệ tháo chỉ sửa hàng -50% · Triệt tiêu 80% rào cản tổ chức"}
       },
       {
         num: "04",
@@ -3209,7 +3328,8 @@
           title: "Pragmatic 3-Stage AI Roadmap & Brand IP Clean Room",
           desc: "AI follows a proven ladder: ① Rule-based alerts ➔ ② Multilingual Tech Pack RAG ➔ ③ Agentic line balancing. Implements an ISO/IEC 27001 Brand Clean Room with Entra ID ABAC to isolate Nike and Lululemon CAD assets, paired with Portkey AI guardrails and EU Digital Product Passport (DPP) tracking.",
           metric: "🤖 Security & AI: Manual search time -70% · 100% Brand client security audit pass rate"
-        }
+        },
+        vi: {"num": "04", "pill": "AI Phased & Brand Clean Room", "title": "Lộ trình AI 3 Giai đoạn & Phòng Sạch Bảo mật Bản quyền Thương hiệu", "desc": "Ứng dụng AI theo 3 bước thực tế: ① Cảnh báo bất thường theo quy tắc ➔ ② Kho tri thức may mặc Tech Pack đa ngôn ngữ (RAG) ➔ ③ Trợ lý Agentic AI tối ưu bố trí chuyền may. Thiết lập Phòng sạch Dữ liệu theo ISO/IEC 27001:2022: sử dụng Entra ID ABAC cô lập vật lý bản quyền rập 3D CAD của Nike và Lululemon, kết hợp cổng kiểm soát Portkey ngăn chặn rò rỉ hình ảnh kỹ thuật mật và hỗ trợ Hộ chiếu Sản phẩm Số (DPP) của EU.", "metric": "🤖 Bảo mật & Hiệu năng: Tăng tốc 70% tra cứu tiêu chuẩn may · 100% vượt qua kiểm toán bảo mật của khách hàng thương hiệu"}
       },
       {
         num: "05",
@@ -3223,7 +3343,8 @@
           title: "IT & OT Governance Boundaries & Forward-Deployed Crew",
           desc: "HQ IT governs cloud platforms, cyber defense, and data standards (Building the Track); Overseas OT governs shopfloor PLC telemetry, IPCs, and sensor maintenance (Driving the Car). In Q2, HQ dispatches a Forward-Deployed Crew to Long An Demo Plant for 60 days to co-engineer algorithms with frontline teams.",
           metric: "🤝 Synergy: Real-time telemetry feedback rate 99.8% · Zero cultural pushback on rollout"
-        }
+        },
+        vi: {"num": "05", "pill": "IT & OT Governance", "title": "Phân định Ranh giới Trách nhiệm IT/OT & Đội Đặc nhiệm Tinh nhuệ", "desc": "Tổng bộ IT quản lý nền tảng đám mây trung tâm, pháo đài an ninh mạng và chuẩn mực dữ liệu (Xây dựng Đường đua); Khối OT tại nhà máy hải ngoại quản lý giao tiếp máy móc, màn hình hiển thị vị trí thao tác và bảo trì cảm biến (Lái Xe Đua). Quý 2 Tổng bộ điều động 'Đội Đặc nhiệm IT/IE' cắm chốt tại Nhà máy Long An 60 ngày để cùng cán bộ chuyền may tinh chỉnh thuật toán thực tế, xóa bỏ định kiến giữa IT và xưởng may.", "metric": "🤝 Phối hợp tổ chức: Tỷ lệ phản hồi lệnh sản xuất thời gian thực đạt 99.8% · Xóa bỏ rào cản triển khai"}
       },
       {
         num: "06",
@@ -3237,650 +3358,13 @@
           title: "1+N Lighthouse Demonstration & Turnkey Replication",
           desc: "Focusing initial deployment on Vietnam Long An Hub as the Lighthouse Plant to perfect '4-Gate Control ➔ Supermarket Buffer ➔ Smart Hanging ➔ 48h Offline Edge'. Once validated, packaged into a turnkey containerized appliance (K3s + EMQX + DuckDB) for rapid Q3 rollout to Cambodia and Indonesia.",
           metric: "🚀 Scalability: Overseas plant onboarding cycle -60% · Cross-plant governance overhead -25%"
-        }
+        },
+        vi: {"num": "06", "pill": "Lighthouse Rollout", "title": "Nhà máy Ngọn Hải đăng 1+N & Tiêu chuẩn Nhân rộng Toàn Tập đoàn", "desc": "Lấy Nhà máy Long An Việt Nam làm ngọn hải đăng chuyển đổi số (Lighthouse Plant), tập trung hoàn thiện chuỗi 'Cổng 4-Gate ➔ Siêu thị bán thành phẩm ➔ Chuyền treo thông minh ➔ Máy chủ biên tự trị 48h'. Sau khi nghiệm thu sẽ đóng gói thành bộ thiết bị container hóa chuẩn mực (K3s + EMQX + DuckDB cục bộ) để quý 3 nhân rộng nhanh chóng sang Nhà máy Phnom Penh Campuchia và Trung Java Indonesia.", "metric": "🚀 Tốc độ mở rộng: Rút ngắn 60% chu kỳ số hóa nhà máy mới · Giảm 25% chi phí quản trị liên nhà máy"}
       }
     ];
 
+    const pillarsData = [{"zh": {"title": "數位底座與治理", "position": "定位：建立未來系統整合、資料運用及 AI 發展所需的共同底層架構與治理規則。", "desc": "2027 不再只將資訊安全、網路或系統穩定視為單一基礎設施工作，而是進一步建立企業級的資料交換、存取、治理及 AI 管理能力，使不同系統與新應用能在一致規則下運作。"}, "en": {"title": "Digital Foundation & Governance", "position": "Mandate: Establish universal foundational architecture and governance rules for cross-system integration, data utilization, and enterprise AI.", "desc": "In 2027, infrastructure elevates beyond basic uptime into enterprise-wide API mediation, Zero Trust access, 30TB Lakehouse SSOT, and AI guardrails under strict unified policies."}, "items": [{"id": "p1-1", "zh": {"title": "API Management", "tag": "API 管理機制", "desc": "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES、WMS、供應商與跨境物聯網的高頻 API 路由、限流與零信任安全監控。", "tools": "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise", "sizing": "台北總部雙活高可用核心網關 + 3 海外廠邊緣 Kong 叢集 + 2,500 席跨系統 API 吞吐治理", "budgetUSD": "$52,000 USD / 年 (約 $45k～$60k)", "budgetTWD": "約 NT$ 164 萬 / 年", "rgtCategory": "70% Run ($36.4k) / 30% Grow ($15.6k)"}, "en": {"title": "API Management & Gateway", "tag": "API Mediation", "desc": "Universal governance for cross-system API exchange spanning ERP, MES, WMS, suppliers, and IoT with high-throughput routing, rate-limiting, and Zero Trust telemetry.", "tools": "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise", "sizing": "Taipei HQ Active-Active Core Gateway + 3 Overseas Edge Kong Clusters + 2,500-seat API throughput", "budgetUSD": "$52,000 USD / Year (Range $45k–$60k)", "budgetTWD": "approx. NT$ 1.64M / Year", "rgtCategory": "70% Run ($36.4k) / 30% Grow ($15.6k)"}, "vi": {"id": "p1-1", "title": "Quản trị & Cổng API (API Management)", "tag": "Cổng API Doanh nghiệp", "desc": "Thiết lập cơ chế quản lý tập trung cho việc trao đổi dữ liệu giữa các hệ thống ERP, MES, WMS, nhà cung cấp và thiết bị IoT với thông lượng cao, giới hạn tốc độ và giám sát an ninh Zero Trust.", "tools": "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise", "sizing": "Cổng lõi Active-Active độ sẵn sàng cao tại Tổng bộ Đài Bắc + Cụm Kong biên tại 3 nhà máy hải ngoại + Quản trị 2,500 vị trí truy cập", "budgetUSD": "$52,000 USD / Năm (Khoảng $45k～$60k)", "budgetTWD": "Khoảng 1.64 triệu TWD / Năm", "rgtCategory": "70% Run ($36.4k) / 30% Grow ($15.6k)"}}, {"id": "p1-2", "zh": {"title": "Access Governance", "tag": "存取治理與身分", "desc": "建立全集團 2,500 席分層身分 SSO (跨國幹部 P2 + 現場幹部 F-SKU) + HashiCorp Vault 核心 DB 動態金鑰輪替 + SPIFFE/SPIRE AI Agent 身分沙盒授權。", "tools": "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE", "sizing": "全集團 2,500 席分層身分 SSO + 跨廠核心 DB 動態金鑰輪替 + AI Agent 身分沙盒", "budgetUSD": "$105,000 USD / 年 (約 $95k～$118k)", "budgetTWD": "約 NT$ 331 萬 / 年", "rgtCategory": "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"}, "en": {"title": "Access Governance & Identity", "tag": "Zero Trust IAM", "desc": "Group-wide 2,500-seat tiered SSO (M365 P2 for knowledge workers + F-SKU for shopfloor) + Vault dynamic credential rotation + SPIFFE/SPIRE sandboxing for AI agents.", "tools": "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE", "sizing": "Group-wide 2,500 tiered SSO seats + Cross-plant DB dynamic secret rotation + AI agent sandboxing", "budgetUSD": "$105,000 USD / Year (Range $95k–$118k)", "budgetTWD": "approx. NT$ 3.31M / Year", "rgtCategory": "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"}, "vi": {"id": "p1-2", "title": "Quản trị Danh tính & Quyền Truy cập (Access Governance)", "tag": "Định danh Zero Trust", "desc": "Thiết lập hệ thống đăng nhập một lần (SSO) phân tầng cho 2,500 tài khoản (cán bộ quản lý dùng M365 P2 + công nhân xưởng dùng F-SKU) + Luân chuyển khóa động DB cốt lõi bằng HashiCorp Vault + Phân quyền Agentic AI an toàn.", "tools": "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE", "sizing": "2,500 vị trí SSO phân tầng toàn tập đoàn + Luân chuyển mật mã cơ sở dữ liệu tự động + Cô lập an toàn cho AI Agent", "budgetUSD": "$105,000 USD / Năm (Khoảng $95k～$118k)", "budgetTWD": "Khoảng 3.31 triệu TWD / Năm", "rgtCategory": "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"}}, {"id": "p1-3", "zh": {"title": "Enterprise Data Layer", "tag": "企業資料層", "desc": "建立跨 ERP、MES、WMS、自動化設備之單一真實數據來源（SSOT），以 Databricks Delta Lake 構建 4 廠即時 CDC 串流、30TB+ 企業湖倉與即時運算中台。", "tools": "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka", "sizing": "4 海外廠 CDC 實時串流 + 30TB+ 企業湖倉儲存 + 2,500 席按需查詢運算中台節點", "budgetUSD": "$115,000 USD / 年 (約 $100k～$130k)", "budgetTWD": "約 NT$ 362 萬 / 年", "rgtCategory": "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"}, "en": {"title": "Enterprise Data Lakehouse Layer", "tag": "Data SSOT", "desc": "Single Source of Truth (SSOT) unifying ERP, MES, WMS, and IoT streams via Databricks Delta Lake, establishing a 30TB+ Lakehouse with 4-plant real-time CDC pipelines.", "tools": "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka", "sizing": "4-plant real-time CDC streaming + 30TB+ enterprise Lakehouse storage + on-demand compute engine", "budgetUSD": "$115,000 USD / Year (Range $100k–$130k)", "budgetTWD": "approx. NT$ 3.62M / Year", "rgtCategory": "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"}, "vi": {"id": "p1-3", "title": "Tầng Hồ Dữ liệu Doanh nghiệp (Enterprise Data Lakehouse)", "tag": "Dữ liệu Chân lý Duy nhất (SSOT)", "desc": "Xây dựng Nguồn Dữ liệu Chân lý Duy nhất (SSOT) liên kết ERP, MES, WMS và thiết bị tự động hóa; triển khai luồng dữ liệu CDC thời gian thực, hồ dữ liệu 30TB+ trên Databricks Delta Lake.", "tools": "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka", "sizing": "Luồng CDC thời gian thực từ 4 nhà máy + Dung lượng lưu trữ hồ dữ liệu 30TB+ + Nút điện toán phân tích theo yêu cầu", "budgetUSD": "$115,000 USD / Năm (Khoảng $100k～$130k)", "budgetTWD": "Khoảng 3.62 triệu TWD / Năm", "rgtCategory": "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"}}, {"id": "p1-4", "zh": {"title": "Data Governance", "tag": "資料治理與標準", "desc": "建立核心主數據定義、Source of Truth、資料品質門禁及共用標準，清洗全球布料、副料、款號與工序 SAM 數據，消除跨廠同料不同號與數據孤島。", "tools": "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations 自動門禁", "sizing": "全集團 2,500 席共用主數據目錄 + 50 萬筆跨廠原物料清洗 + 核心數據品質稽核", "budgetUSD": "$80,000 USD / 年 (約 $70k～$92k)", "budgetTWD": "約 NT$ 252 萬 / 年", "rgtCategory": "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"}, "en": {"title": "Data Governance & Master Data", "tag": "MDM & Quality", "desc": "Master Data Management (MDM) establishing unified taxonomy for fabrics, trims, style codes, and SAM operations, eliminating cross-border part number discrepancies.", "tools": "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations Quality Gates", "sizing": "2,500-seat shared data catalog + 500,000 cleaned material records + automated quality gate audits", "budgetUSD": "$80,000 USD / Year (Range $70k–$92k)", "budgetTWD": "approx. NT$ 2.52M / Year", "rgtCategory": "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"}, "vi": {"id": "p1-4", "title": "Quản trị Dữ liệu Chủ (Data Governance & MDM)", "tag": "Dữ liệu Chủ & Chất lượng", "desc": "Thống nhất định nghĩa dữ liệu chủ, chuẩn mực dữ liệu và cổng kiểm soát chất lượng; làm sạch dữ liệu mã vải, phụ liệu, mã hàng và định mức SAM, xóa bỏ tình trạng 'cùng loại vải khác mã số' giữa các nhà máy.", "tools": "Profisee MDM Enterprise + Atlan Data Catalog + Cổng kiểm tra tự động Great Expectations", "sizing": "Danh mục dữ liệu dùng chung cho 2,500 vị trí + Làm sạch 500,000 bản ghi nguyên phụ liệu + Kiểm toán chất lượng tự động", "budgetUSD": "$80,000 USD / Năm (Khoảng $70k～$92k)", "budgetTWD": "Khoảng 2.52 triệu TWD / Năm", "rgtCategory": "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"}}, {"id": "p1-5", "zh": {"title": "AI Governance", "tag": "AI 治理與管理機制", "desc": "建立符合 ISO/IEC 42001 之企業級安全沙盒：控管 Token 消耗、動態過濾品牌機敏圖資（Tech Pack 遮罩）、記錄 Agent 決策軌跡與紅隊防護。", "tools": "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3", "sizing": "全集團 400 位核心幹部 Copilot 訪問安全沙盒 + 每月 $4,000 USD Token 消耗配額監控治理", "budgetUSD": "$48,000 USD / 年 (約 $40k～$55k)", "budgetTWD": "約 NT$ 151 萬 / 年", "rgtCategory": "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"}, "en": {"title": "AI Governance & Guardrails", "tag": "AI Sandboxing", "desc": "ISO/IEC 42001 compliant enterprise AI gateway: token budgeting, automated PII/CAD masking, decision audit trails, prompt injection shielding, and human-in-the-loop oversight.", "tools": "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3", "sizing": "400 knowledge worker Copilot sandbox + $4,000/mo token consumption governance", "budgetUSD": "$48,000 USD / Year (Range $40k–$55k)", "budgetTWD": "approx. NT$ 1.51M / Year", "rgtCategory": "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"}, "vi": {"id": "p1-5", "title": "Quản trị Rủi ro & An toàn AI (AI Governance & Guardrails)", "tag": "Vùng đệm An toàn AI", "desc": "Xây dựng khung quản trị AI chuẩn ISO/IEC 42001: giám sát ngân sách Token, che chắn tự động hình ảnh kỹ thuật mật (Tech Pack CAD), ghi nhật ký vết quyết định của Agent và kiểm thử xâm nhập.", "tools": "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3", "sizing": "Vùng đệm an toàn cho 400 cán bộ sử dụng Copilot + Hạn ngạch chi phí Token $4,000 USD/tháng", "budgetUSD": "$48,000 USD / Năm (Khoảng $40k～$55k)", "budgetTWD": "Khoảng 1.51 triệu TWD / Năm", "rgtCategory": "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"}}, {"id": "p1-6", "zh": {"title": "Cybersecurity", "tag": "資訊安全全面防禦", "desc": "建立零信任架構、端點偵測、OT 車間網路實體隔離及 24/7 全託管威脅獵捕，確保海外廠區遭遇勒索病毒時具備 15 分鐘內主動隔離與反制能力。", "tools": "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA", "sizing": "全集團 2,500 個端點覆蓋 (400 核心 PC + 800 車間終端 + 8x Edge IPC + 機房伺服器) + 24/7 MDR 原廠專家監控", "budgetUSD": "$100,000 USD / 年 (約 $85k～$115k)", "budgetTWD": "約 NT$ 315 萬 / 年", "rgtCategory": "80% Run ($80.0k) / 20% Grow ($20.0k)"}, "en": {"title": "Cybersecurity & 24/7 MDR", "tag": "Zero Trust Defense", "desc": "Zero Trust Architecture with 24/7 managed detection and response (MDR), OT subnet air-gapping, and automated isolation within 15 minutes against ransomware incursions.", "tools": "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA", "sizing": "2,500 enterprise endpoints (400 PCs + 800 plant terminals + 8x Edge IPCs + servers) + 24/7 SOC hunt", "budgetUSD": "$100,000 USD / Year (Range $85k–$115k)", "budgetTWD": "approx. NT$ 3.15M / Year", "rgtCategory": "80% Run ($80.0k) / 20% Grow ($20.0k)"}, "vi": {"id": "p1-6", "title": "An toàn Thông tin & Giám sát 24/7 (Cybersecurity & MDR)", "tag": "Phòng thủ Chuyên sâu Zero Trust", "desc": "Thiết lập kiến trúc Zero Trust, dò quét mã độc đầu cuối, cách ly vật lý mạng xưởng OT và dịch vụ MDR săn lùng mối đe dọa 24/7, đảm bảo cô lập mã độc tống tiền trong vòng 15 phút tại các xưởng hải ngoại.", "tools": "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA", "sizing": "Bảo vệ 2,500 điểm cuối (400 PC văn phòng + 800 máy trạm xưởng + 8 máy tính biên IPC + máy chủ) + Chuyên gia trực chiến 24/7", "budgetUSD": "$100,000 USD / Năm (Khoảng $85k～$115k)", "budgetTWD": "Khoảng 3.15 triệu TWD / Năm", "rgtCategory": "80% Run ($80.0k) / 20% Grow ($20.0k)"}}, {"id": "p1-7", "zh": {"title": "Backup, DR & BCP", "tag": "備份、災備與營運持續", "desc": "建立防勒索 WORM 不可篡改備份、Tier-1 核心生產秒級複製與異地快速切換，確保當機時 RPO < 15 分鐘、RTO < 2 小時，通過外部國際審計。", "tools": "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (WORM 不可篡改)", "sizing": "台北與 3 海外廠 Tier-1 核心 MES/DB (共 20TB) 實時 CDP 異地熱備 + 50TB 雲端 WORM 封存", "budgetUSD": "$68,000 USD / 年 (約 $60k～$78k)", "budgetTWD": "約 NT$ 214 萬 / 年", "rgtCategory": "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"}, "en": {"title": "Backup, DR & Business Continuity", "tag": "Ransomware CDP", "desc": "Immutable WORM backups and sub-second Continuous Data Protection (CDP) with cross-border failover, guaranteeing RPO < 15m and RTO < 2h for Tier-1 manufacturing cores.", "tools": "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (WORM)", "sizing": "20TB Tier-1 MES/DB hot replication across Taipei and 3 plants + 50TB immutable cloud archive", "budgetUSD": "$68,000 USD / Year (Range $60k–$78k)", "budgetTWD": "approx. NT$ 2.14M / Year", "rgtCategory": "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"}, "vi": {"id": "p1-7", "title": "Sao lưu, Khôi phục Thảm họa & Duy trì Vận hành (Backup, DR & BCP)", "tag": "Sao lưu Bất biến & Khôi phục Tức thì", "desc": "Thiết lập cơ chế sao lưu WORM không thể bị mã độc can thiệp, sao chép dữ liệu sản xuất Tier-1 theo thời gian thực (CDP) và chuyển mạch dự phòng nhanh, đảm bảo RPO < 15 phút, RTO < 2 giờ đạt chuẩn kiểm toán quốc tế.", "tools": "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (Lưu trữ Bất biến WORM)", "sizing": "Sao lưu nóng tức thì 20TB cơ sở dữ liệu MES/DB Tier-1 giữa Đài Bắc và 3 nhà máy + 50TB lưu trữ bất biến đám mây", "budgetUSD": "$68,000 USD / Năm (Khoảng $60k～$78k)", "budgetTWD": "Khoảng 2.14 triệu TWD / Năm", "rgtCategory": "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"}}, {"id": "p1-8", "zh": {"title": "Network & Infra", "tag": "網路與基礎設施現代化", "desc": "建立跨國軟體定義廣域網（SD-WAN）、海外機房雙活備援，並部署車間工業級邊緣主機，確保外部海底電纜中斷時現場具備 48~72h 離線自主運轉能力。", "tools": "Fortinet Secure SD-WAN (HA 雙機) + 8x 研華工業級邊緣 IPC (K3s 容器叢集)", "sizing": "台北總部 + 越南、柬埔寨、印尼 4 廠雙軌專線整合 + 8 台車間工業邊緣伺服器", "budgetUSD": "$72,000 USD / 年 (約 $62k～$82k)", "budgetTWD": "約 NT$ 227 萬 / 年", "rgtCategory": "65% Run ($46.7k) / 35% Grow ($25.3k)"}, "en": {"title": "Network & SD-WAN Infrastructure", "tag": "Hybrid Edge Infra", "desc": "Cross-border Secure SD-WAN with dual-link failover and ruggedized Advantech industrial IPCs, sustaining 48–72 hours of shopfloor edge autonomy during subsea cable cuts.", "tools": "Fortinet Secure SD-WAN (HA) + 8x Advantech Industrial Edge IPCs (K3s)", "sizing": "4-site SD-WAN mesh (Taipei, Vietnam, Cambodia, Indonesia) + 8x shopfloor edge servers", "budgetUSD": "$72,000 USD / Year (Range $62k–$82k)", "budgetTWD": "approx. NT$ 2.27M / Year", "rgtCategory": "65% Run ($46.7k) / 35% Grow ($25.3k)"}, "vi": {"id": "p1-8", "title": "Hiện đại hóa Hạ tầng Mạng & SD-WAN (Network & Infra)", "tag": "Hạ tầng Biên Hỗn hợp", "desc": "Xây dựng mạng diện rộng định nghĩa bằng phần mềm (SD-WAN) dự phòng kênh đôi và triển khai máy tính biên công nghiệp tại phân xưởng, duy trì 48~72h sản xuất tự trị khi đứt cáp quang biển quốc tế.", "tools": "Fortinet Secure SD-WAN (Dự phòng HA) + 8 cụm máy tính công nghiệp Advantech IPC (K3s)", "sizing": "Tích hợp đường truyền đôi cho Tổng bộ và 3 nhà máy Việt Nam, Campuchia, Indonesia + 8 máy chủ biên công nghiệp", "budgetUSD": "$72,000 USD / Năm (Khoảng $62k～$82k)", "budgetTWD": "Khoảng 2.27 triệu TWD / Năm", "rgtCategory": "65% Run ($46.7k) / 35% Grow ($25.3k)"}}], "vi": {"title": "Nền tảng Số & Quản trị CNTT", "position": "Định vị: Xây dựng kiến trúc hạ tầng dùng chung và quy tắc quản trị bắt buộc cho tích hợp hệ thống, khai thác dữ liệu và phát triển AI.", "desc": "Năm 2027, hạ tầng CNTT không chỉ đơn thuần là an toàn mạng hay độ ổn định máy chủ, mà nâng tầm thành năng lực trao đổi dữ liệu doanh nghiệp, kiểm soát truy cập phân tầng, hồ dữ liệu 30TB và quản trị rủi ro AI."}}, {"zh": {"title": "營運流程整合", "position": "定位：打破系統孤島，實現由訂單至出貨的端到端即時資訊流與嚴謹門禁管理。", "desc": "貫穿業務訂單、物料供應鏈、產前技術、車間生產及例外處理，確保產前條件具備才上線，降低停工窩工與做工返修損失。"}, "en": {"title": "Operational Process Integration", "position": "Mandate: Eliminate operational silos, achieving end-to-end real-time data orchestration and rigorous pre-production gate enforcement.", "desc": "Seamlessly connecting sales orders, supply chain, technical packs, sewing lines, and exception handling to eradicate premature line feeding and changeover losses."}, "items": [{"id": "p2-1", "zh": {"title": "Order Fulfillment & Tracking", "tag": "訂單交付追蹤", "desc": "建立業務訂單至海外工廠生產排程之即時追蹤機制，掌握工單即時進度與交期偏差。", "tools": "Camunda 8 BPM + Temporal 流程編排引擎", "sizing": "跨 4 廠年生產 7,500 萬件成衣之工單生命週期狀態流轉監控", "budgetUSD": "納入總體流程現代化項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "50% Run / 50% Grow"}, "en": {"title": "Order Fulfillment & Lifecycle Tracking", "tag": "Order Lifecycle", "desc": "End-to-end orchestration connecting sales orders to overseas factory production schedules, tracking real-time work order velocity and delivery variance.", "tools": "Camunda 8 BPM + Temporal Workflow Orchestration", "sizing": "Full lifecycle tracking for 75 million garment pieces annually across 4 overseas plants", "budgetUSD": "Allocated within Process Modernization", "budgetTWD": "Project-based allocation", "rgtCategory": "50% Run / 50% Grow"}, "vi": {"id": "p2-1", "title": "Theo dõi Vòng đời Đơn hàng (Order Fulfillment & Tracking)", "tag": "Theo dõi Đơn hàng", "desc": "Thiết lập cơ chế theo dõi thời gian thực từ đơn hàng kinh doanh đến kế hoạch sản xuất tại xưởng may hải ngoại, nắm bắt kịp thời tiến độ và độ lệch ngày giao hàng.", "tools": "Camunda 8 BPM + Động cơ điều phối quy trình Temporal", "sizing": "Giám sát trạng thái vòng đời lệnh sản xuất cho 75 triệu sản phẩm may mặc/năm tại 4 nhà máy", "budgetUSD": "Nằm trong dự án Hiện đại hóa Quy trình", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "50% Run / 50% Grow"}}, {"id": "p2-2", "zh": {"title": "Material Flow & WMS", "tag": "用料全流程管理", "desc": "整合大貨布料採購、進廠檢驗、倉庫儲位、自動拉布裁剪至裁片超市之條碼/RFID 閉環管理。", "tools": "SAP WMS 整合 + Zebra 工業級條碼/RFID 手持機", "sizing": "全集團 4 座主原副料倉庫與 12 座車間線邊超市即時庫存盤點", "budgetUSD": "納入供應鏈現代化項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "60% Run / 40% Grow"}, "en": {"title": "Material Flow & WMS Traceability", "tag": "Material Loop", "desc": "Unified traceability linking bulk fabric sourcing, inbound lab inspection, bin location, automated spreading/cutting, to cut-piece supermarket buffers.", "tools": "SAP WMS Integration + Zebra Rugged RFID Handheld Terminals", "sizing": "Real-time inventory tracking for 4 central raw-material warehouses and 12 line-side supermarkets", "budgetUSD": "Allocated within Supply Chain Modernization", "budgetTWD": "Project-based allocation", "rgtCategory": "60% Run / 40% Grow"}, "vi": {"id": "p2-2", "title": "Quản lý Luân chuyển Nguyên Phụ liệu (Material Flow & WMS)", "tag": "Quy trình Khép kín Nguyên vật liệu", "desc": "Tích hợp quản lý mã vạch/RFID từ khâu mua vải chính, kiểm định nhập xưởng, vị trí kho, trải vải/cắt tự động đến siêu thị bán thành phẩm chuyền may.", "tools": "Tích hợp SAP WMS + Thiết bị đọc mã vạch/RFID cầm tay Zebra chuyên dụng", "sizing": "Kiểm kê tồn kho thời gian thực cho 4 kho nguyên phụ liệu chính và 12 siêu thị bán thành phẩm chuyền may", "budgetUSD": "Nằm trong dự án Hiện đại hóa Chuỗi cung ứng", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "60% Run / 40% Grow"}}, {"id": "p2-3", "zh": {"title": "Ready-to-Sew 4-Gate", "tag": "產前門禁管制機制", "desc": "落實 4 道硬性門禁：BOM 齊套、Tech Pack 工藝、MQP 封樣、特工半成品超市，未達標自動鎖死排程。", "tools": "自研產前門禁規則引擎 (Node.js/Python) + 廠長/副總雙簽特許 SOP", "sizing": "覆蓋全集團 80 條成衣車縫線之日常換線開線檢核", "budgetUSD": "納入流程治理項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "40% Run / 60% Grow"}, "en": {"title": "Ready-to-Sew 4-Gate Control", "tag": "Pre-Production Gate", "desc": "4 rigid pre-production gates: BOM completeness, Tech Pack approval, MQP golden sample, and supermarket staging; system automatically locks line feeding if incomplete.", "tools": "Custom 4-Gate Rule Engine (Node/Python) + Executive Override SOP", "sizing": "Mandatory daily changeover authorization across 80 sewing lines group-wide", "budgetUSD": "Allocated within Governance Framework", "budgetTWD": "Project-based allocation", "rgtCategory": "40% Run / 60% Grow"}, "vi": {"id": "p2-3", "title": "Cổng Kiểm soát Ready-to-Sew 4-Gate", "tag": "Kiểm soát Cổng Trước Sản xuất", "desc": "Thực thi nghiêm ngặt 4 cổng kiểm soát: BOM đồng bộ, Tiêu chuẩn Tech Pack, Áo mẫu MQP niêm phong, Bán thành phẩm siêu thị sẵn sàng; hệ thống tự động khóa kế hoạch nếu chưa đạt chuẩn.", "tools": "Động cơ quy tắc 4-Gate tự phát triển + Quy trình Phê duyệt Đặc cách Song trùng (Override SOP)", "sizing": "Áp dụng kiểm tra đổi mã hàng hàng ngày cho 80 chuyền may trên toàn tập đoàn", "budgetUSD": "Nằm trong dự án Quản trị Quy trình", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "40% Run / 60% Grow"}}, {"id": "p2-4", "zh": {"title": "IE & Line Balancing", "tag": "工程工時與線平衡", "desc": "標準工時 (SAM) 與車縫工位技能矩陣聯動，動態演算線平衡率，消滅在線節拍瓶頸。", "tools": "GSDCost 工時系統 + ProModel 車間排線動態演算模組", "sizing": "集團 1,200 位車工技能矩陣與 80 條車縫線平衡率即時最佳化", "budgetUSD": "納入製造工程項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "30% Run / 70% Grow"}, "en": {"title": "Industrial Engineering & Line Balancing", "tag": "IE Optimization", "desc": "Dynamic linking of standard allowed minutes (SAM) with sewing operator skill matrices, calculating real-time line balancing to eradicate bottleneck takt losses.", "tools": "GSDCost Standard Data + ProModel Line Balancing Engine", "sizing": "Skill matrix tracking for 1,200 sewing operators across 80 lines", "budgetUSD": "Allocated within Manufacturing Engineering", "budgetTWD": "Project-based allocation", "rgtCategory": "30% Run / 70% Grow"}, "vi": {"id": "p2-4", "title": "Kỹ thuật Công nghiệp & Cân bằng Chuyền (IE & Line Balancing)", "tag": "Tối ưu hóa Kỹ thuật IE", "desc": "Liên kết định mức thời gian tiêu chuẩn (SAM) với ma trận kỹ năng công nhân may, tính toán cân bằng chuyền động nhằm triệt tiêu nút thắt nhịp độ.", "tools": "Hệ thống định mức GSDCost + Module mô phỏng cân bằng chuyền ProModel", "sizing": "Tối ưu hóa ma trận kỹ năng cho 1,200 thợ may và tỷ lệ cân bằng cho 80 chuyền may theo thời gian thực", "budgetUSD": "Nằm trong dự án Kỹ thuật May mặc", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "30% Run / 70% Grow"}}, {"id": "p2-5", "zh": {"title": "Exception Management", "tag": "跨廠異常預警引擎", "desc": "監控採購交期（ETA）與計畫裁剪日（PCD），提前 72 小時主動推播缺料或品質異常預警。", "tools": "Apache Flink CEP 複雜事件處理 + 企業微信 / Teams 即時機器人", "sizing": "每日處理 10 萬筆跨廠供應鏈事件串流與 72h 前瞻預警", "budgetUSD": "納入異常監控項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "20% Run / 80% Transform"}, "en": {"title": "Cross-Plant Exception Management", "tag": "Flink CEP Engine", "desc": "Continuous monitoring of procurement ETA versus Planned Cut Dates (PCD), proactively triggering automated warning alerts 72 hours in advance of potential line stoppages.", "tools": "Apache Flink Complex Event Processing (CEP) + Microsoft Teams Bot", "sizing": "Real-time processing of 100,000 daily supply chain event streams across 4 plants", "budgetUSD": "Allocated within Event Streaming Infrastructure", "budgetTWD": "Project-based allocation", "rgtCategory": "20% Run / 80% Transform"}, "vi": {"id": "p2-5", "title": "Quản lý & Cảnh báo Ngoại lệ (Exception Management)", "tag": "Động cơ Cảnh báo Sớm Flink", "desc": "Giám sát ngày giao hàng dự kiến (ETA) của nhà cung ứng và ngày kế hoạch cắt (PCD), tự động phát cảnh báo thiếu phụ liệu trước 72 giờ.", "tools": "Xử lý sự kiện phức tạp Apache Flink CEP + Bot thông báo Microsoft Teams", "sizing": "Xử lý luồng 100,000 sự kiện chuỗi cung ứng mỗi ngày và cảnh báo sớm 72h cho 4 nhà máy", "budgetUSD": "Nằm trong dự án Giám sát Ngoại lệ", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "20% Run / 80% Transform"}}], "vi": {"title": "Tích hợp Quy trình Vận hành", "position": "Định vị: Phá vỡ ốc đảo hệ thống, đạt được dòng thông tin thời gian thực từ lúc nhận đơn hàng đến khi xuất hàng và kiểm soát cổng nghiêm ngặt.", "desc": "Kết nối xuyên suốt từ đơn hàng kinh doanh, chuỗi cung ứng nguyên vật liệu, kỹ thuật trước sản xuất, chuyền may đến xử lý ngoại lệ, đảm bảo đủ điều kiện mới cho vào chuyền, giảm thiểu tổn thất tháo chỉ sửa hàng."}}, {"zh": {"title": "智能營運與決策", "position": "定位：自「資料事後呈現」邁向「預測分析、異常介入與 Agentic AI 輔助決策」。", "desc": "建構多維度指標體系、排程動態演算與多國語工藝 RAG 助手，釋放 15%～25% 核心流程工時。"}, "en": {"title": "Intelligent Operations & Decision", "position": "Mandate: Evolve from retrospective dashboards into predictive forecasting, automated intervention, and Agentic AI collaboration.", "desc": "Constructing multi-dimensional metrics, material simulation engines, and multilingual Tech Pack RAG to release 15%–25% of core process labor hours."}, "items": [{"id": "p3-1", "zh": {"title": "BI & Analytics Platform", "tag": "商業智慧中台", "desc": "建立全集團統一之經營管理看板，提供多廠多維度毛利、效率、品質與能耗交叉分析。", "tools": "Power BI Embedded + Apache Superset 自助分析平台", "sizing": "總部與各廠 150 位管理幹部即時決策調閱權限", "budgetUSD": "納入數據平台項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "60% Run / 40% Grow"}, "en": {"title": "Enterprise BI & Analytics Platform", "tag": "BI & Dashboards", "desc": "Unified executive analytics portal delivering multi-plant cross-dimensional analysis of gross margins, OEE, rework rates, and energy consumption.", "tools": "Microsoft Power BI Embedded + Apache Superset Self-Service Analytics", "sizing": "Real-time executive decision access for 150 group-wide managers", "budgetUSD": "Allocated within Data Platform", "budgetTWD": "Project-based allocation", "rgtCategory": "60% Run / 40% Grow"}, "vi": {"id": "p3-1", "title": "Nền tảng Trí tuệ Doanh nghiệp (BI & Analytics Platform)", "tag": "Trung tâm Báo cáo BI", "desc": "Thiết lập bảng điều khiển quản trị kinh doanh thống nhất toàn tập đoàn, cung cấp phân tích chéo đa chiều về biên lợi nhuận, hiệu suất OEE, chất lượng và năng lượng giữa các nhà máy.", "tools": "Power BI Embedded + Nền tảng phân tích tự phục vụ Apache Superset", "sizing": "Quyền truy cập ra quyết định thời gian thực cho 150 cán bộ quản lý Tổng bộ và các nhà máy", "budgetUSD": "Nằm trong dự án Nền tảng Dữ liệu", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "60% Run / 40% Grow"}}, {"id": "p3-2", "zh": {"title": "Delivery Predictive Modeling", "tag": "交期預測與風險模型", "desc": "結合歷史工期、海關清關週期與季節天氣數據，訓練交期延遲預測模型，提前識別違約風險。", "tools": "Python XGBoost / LightGBM + Databricks MLflow", "sizing": "每年預測 1,500 個大貨訂單款號之出貨達成率", "budgetUSD": "納入智慧演算法項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "30% Grow / 70% Transform"}, "en": {"title": "Delivery Predictive Modeling", "tag": "ML Delivery Risk", "desc": "Machine learning models synthesizing historical throughput, customs clearing cycles, and port logistics to forecast delivery slippage and prevent freight penalties.", "tools": "Python XGBoost / LightGBM + Databricks MLflow", "sizing": "Annual predictive modeling across 1,500 production style orders", "budgetUSD": "Allocated within Applied AI Algorithms", "budgetTWD": "Project-based allocation", "rgtCategory": "30% Grow / 70% Transform"}, "vi": {"id": "p3-2", "title": "Mô hình Dự báo Rủi ro Giao hàng (Delivery Predictive Modeling)", "tag": "Dự báo Học máy Rủi ro", "desc": "Kết hợp thời gian sản xuất lịch sử, chu kỳ thông quan hải quan và dữ liệu thời tiết cảng biển để huấn luyện mô hình dự báo trễ hạn giao hàng, phòng ngừa tiền phạt vận chuyển hàng không.", "tools": "Thuật toán Python XGBoost / LightGBM + Databricks MLflow", "sizing": "Dự báo tỷ lệ đạt tiến độ giao hàng cho 1,500 mã hàng sản xuất đại trà mỗi năm", "budgetUSD": "Nằm trong dự án Thuật toán Trí tuệ", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "30% Grow / 70% Transform"}}, {"id": "p3-3", "zh": {"title": "Material Simulation Engine", "tag": "物料排程模擬器", "desc": "針對大貨布料縮水率、門幅公差與換線損失進行排程演算，提供最佳裁剪與發料組合方案。", "tools": "Google OR-Tools 線性規劃求解器 + 自研成衣排料算力模組", "sizing": "每日演算 4 廠裁片排產組合，降低大貨布損 1.0%~1.2%", "budgetUSD": "納入排料最佳化項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "20% Run / 80% Transform"}, "en": {"title": "Material Planning Simulation Engine", "tag": "OR Cut Planning", "desc": "Mathematical optimization solver factoring in fabric shrinkage, width variance, and changeover costs to recommend optimal marker layout and cut nesting.", "tools": "Google OR-Tools Linear Solver + Proprietary Garment Nesting Algorithms", "sizing": "Daily cut planning optimization across 4 plants, cutting fabric loss by 1.2%", "budgetUSD": "Allocated within Material Optimization", "budgetTWD": "Project-based allocation", "rgtCategory": "20% Run / 80% Transform"}, "vi": {"id": "p3-3", "title": "Động cơ Mô phỏng Kế hoạch Cắt Vải (Material Simulation Engine)", "tag": "Tối ưu hóa Giác mẫu & Cắt vải", "desc": "Tính toán kế hoạch cắt dựa trên độ co giãn vải, dung sai khổ vải và chi phí đổi mã hàng, đưa ra phương án tối ưu kết hợp sơ đồ giác mẫu và cấp phát vải.", "tools": "Bộ giải quy hoạch tuyến tính Google OR-Tools + Thuật toán giác mẫu may mặc độc quyền", "sizing": "Tối ưu hóa kế hoạch cắt vải hàng ngày cho 4 nhà máy, giảm 1.0%~1.2% hao hụt vải chính", "budgetUSD": "Nằm trong dự án Tiết kiệm Vải", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "20% Run / 80% Transform"}}, {"id": "p3-4", "zh": {"title": "Domain-Specific Agentic AI", "tag": "領域型智慧代理人", "desc": "針對生管排程諮詢、做工難點診斷與客戶交期跟單，構建具備主動行動能力的智慧 Agent 群。", "tools": "LangGraph / AutoGen 多代理人框架 + 本地部署 vLLM", "sizing": "釋放 400 位核心幹部 15%~25% 特定重複性作業工時", "budgetUSD": "納入 AI 創新項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "10% Grow / 90% Transform"}, "en": {"title": "Domain-Specific Agentic AI", "tag": "Agentic Workflows", "desc": "Specialized collaborative AI agents for PMC scheduling inquiries, sewing bottleneck diagnosis, and automated order status reporting with tool-calling capabilities.", "tools": "LangGraph / AutoGen Multi-Agent Framework + Local vLLM Inference", "sizing": "Releasing 15%–25% repetitive labor hours across 400 core managers", "budgetUSD": "Allocated within AI Innovation", "budgetTWD": "Project-based allocation", "rgtCategory": "10% Grow / 90% Transform"}, "vi": {"id": "p3-4", "title": "Trợ lý Trí tuệ Nhân tạo Chuyên ngành (Domain-Specific Agentic AI)", "tag": "Trợ lý Tác nghiệp Agentic", "desc": "Xây dựng các cụm Agent có khả năng hành động chủ động phục vụ tư vấn kế hoạch sản xuất, chẩn đoán khó khăn kỹ thuật may và tự động cập nhật tiến độ đơn hàng.", "tools": "Khung đa tác tử LangGraph / AutoGen + Mô hình suy luận cục bộ vLLM", "sizing": "Giải phóng 15%~25% giờ công tác nghiệp lặp lại cho 400 cán bộ cốt lõi", "budgetUSD": "Nằm trong dự án Đổi mới Sáng tạo AI", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "10% Grow / 90% Transform"}}, {"id": "p3-5", "zh": {"title": "Multilingual Tech Pack RAG", "tag": "多國語工藝 RAG 庫", "desc": "解析品牌英文/繁中 Tech Pack 技術包，建立向量庫，支援越文、高棉語與印尼文車間術語即時查詢。", "tools": "Qdrant 向量資料庫 + LlamaIndex + 深度微調成衣專屬 Embedding", "sizing": "建置 10 萬份工藝規範與疵點圖鑑之跨國多語即時檢索庫", "budgetUSD": "納入知識中台項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "20% Grow / 80% Transform"}, "en": {"title": "Multilingual Tech Pack RAG Knowledge Base", "tag": "Tech Pack RAG", "desc": "Vectorized parsing of brand Tech Packs in English/Chinese, enabling instant semantic search and translation into Vietnamese, Khmer, and Indonesian shopfloor sewing terms.", "tools": "Qdrant Vector DB + LlamaIndex + Fine-tuned Garment Sewing Embeddings", "sizing": "Indexing 100,000 workmanship standards and defect catalogs for cross-border lookup", "budgetUSD": "Allocated within Knowledge Management", "budgetTWD": "Project-based allocation", "rgtCategory": "20% Grow / 80% Transform"}, "vi": {"id": "p3-5", "title": "Kho Tri thức May mặc Đa ngôn ngữ (Multilingual Tech Pack RAG)", "tag": "Kho Tri thức Kỹ thuật RAG", "desc": "Phân tích tài liệu kỹ thuật Tech Pack tiếng Anh/Hoa của thương hiệu, xây dựng kho véc-tơ hỗ trợ tra cứu thuật ngữ may mặc bằng tiếng Việt, tiếng Khmer và tiếng Indonesia ngay tại xưởng.", "tools": "Cơ sở dữ liệu véc-tơ Qdrant + LlamaIndex + Tinh chỉnh Embedding chuyên ngành may", "sizing": "Lập chỉ mục tra cứu cho 100,000 quy chuẩn công nghệ may và danh mục lỗi ngoại quan", "budgetUSD": "Nằm trong dự án Quản trị Tri thức", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "20% Grow / 80% Transform"}}, {"id": "p3-6", "zh": {"title": "Intelligent Document Processing", "tag": "單證智能辨識 (OCR)", "desc": "自動解析供應商發票、裝箱單 (Packing List) 與原物料檢驗報告 (COA)，自動檢核並拋單至系統。", "tools": "PaddleOCR + LayoutLMv3 結構化文檔擷取模型", "sizing": "每月自動化處理 3 萬份跨國進出口與採購報關單證", "budgetUSD": "納入自動化工程項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "50% Run / 50% Grow"}, "en": {"title": "Intelligent Document Processing (IDP & OCR)", "tag": "Automated OCR", "desc": "Automated extraction and validation of supplier invoices, packing lists, and fabric Certificate of Analysis (COA) reports, posting directly into ERP with zero human error.", "tools": "PaddleOCR + LayoutLMv3 Visual Document Extraction Model", "sizing": "Automated monthly ingestion of 30,000 cross-border shipping and customs documents", "budgetUSD": "Allocated within Process Automation", "budgetTWD": "Project-based allocation", "rgtCategory": "50% Run / 50% Grow"}, "vi": {"id": "p3-6", "title": "Xử lý Chứng từ Thông minh (IDP & OCR)", "tag": "Nhận dạng Chứng từ Tự động", "desc": "Tự động phân tích hóa đơn nhà cung cấp, bảng kê đóng gói (Packing List) và biên bản kiểm nghiệm vải (COA), đối soát và nhập tự động vào hệ thống ERP.", "tools": "PaddleOCR + Mô hình trích xuất tài liệu cấu trúc LayoutLMv3", "sizing": "Xử lý tự động 30,000 chứng từ xuất nhập khẩu và hải quan xuyên biên giới mỗi tháng", "budgetUSD": "Nằm trong dự án Tự động hóa Quy trình", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "50% Run / 50% Grow"}}, {"id": "p3-7", "zh": {"title": "Dynamic Executive Dashboards", "tag": "高管動態決策戰情室", "desc": "將跨國 4 廠產能利用率、財務損益、人均產值與資安風險熱圖聚合於單一大屏，支援鑽取與例外介入。", "tools": "Next.js + Apache ECharts + Tailwind CSS 自研即時大屏", "sizing": "集團董事會與周副總等高管指揮中心實時遙測大屏", "budgetUSD": "納入戰情室系統項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "40% Run / 60% Grow"}, "en": {"title": "Dynamic Executive Decision Dashboards", "tag": "Executive Cockpit", "desc": "Aggregating capacity utilization, P&L variances, labor productivity, and cybersecurity risk heatmaps across 4 plants onto an interactive executive war room interface.", "tools": "Next.js + Apache ECharts + Tailwind CSS Real-Time Telemetry Cockpit", "sizing": "Executive Command Center displays for the Board of Directors and VP Chou", "budgetUSD": "Allocated within War Room Infrastructure", "budgetTWD": "Project-based allocation", "rgtCategory": "40% Run / 60% Grow"}, "vi": {"id": "p3-7", "title": "Bảng Điều khiển Tác chiến Ban Giám đốc (Dynamic Executive Dashboards)", "tag": "Buồng lái Chỉ huy Điều hành", "desc": "Tổng hợp tỷ lệ huy động công suất 4 nhà máy, biến động P&L, năng suất lao động và bản đồ nhiệt rủi ro an ninh mạng lên màn hình tác chiến tương tác.", "tools": "Next.js + Apache ECharts + Giao diện bảng điều khiển thời gian thực Tailwind CSS", "sizing": "Màn hình tác chiến điều hành trực tiếp cho Hội đồng Quản trị và Phó Tổng GĐ Chu Văn Tân", "budgetUSD": "Nằm trong dự án Phòng Tác chiến", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "40% Run / 60% Grow"}}], "vi": {"title": "Vận hành Thông minh & Ra Quyết định", "position": "Định vị: Chuyển dịch từ 'Báo cáo số liệu quá khứ' sang 'Phân tích dự báo, can thiệp ngoại lệ và hỗ trợ ra quyết định bằng Agentic AI'.", "desc": "Xây dựng hệ thống chỉ số đa chiều, động cơ mô phỏng kế hoạch cắt may và trợ lý tra cứu Tech Pack đa ngôn ngữ, giải phóng 15%～25% giờ công quy trình cốt lõi."}}, {"zh": {"title": "智慧製造與設備", "position": "定位：推動現場設備聯網化、通訊標準化、感知自動化與邊緣離線自律運轉。", "desc": "消除紙本工票與隨身碟拷貝，打造高可靠的物聯網感知邊界與工業邊緣計算節點。"}, "en": {"title": "Smart Manufacturing & Equipment", "position": "Mandate: Drive shopfloor machine connectivity, protocol standardization, automated sensing, and resilient offline edge autonomy.", "desc": "Eliminating paper bundles and USB manual transfers, establishing a ruggedized IoT perimeter and industrial edge nodes."}, "items": [{"id": "p4-1", "zh": {"title": "Machine Communication Gateway", "tag": "機台通訊協定整合", "desc": "統一採集自動裁床、電腦車機、自動模板機與燙壓機之 PLC 訊號，消除串口協定孤島。", "tools": "PTC Kepware OPC-UA 伺服器 + EMQX 工業級 MQTT Broker", "sizing": "全集團 1,500 台自動化成衣機台與溫控設備即時數據擷取", "budgetUSD": "納入 OT 物聯網項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "60% Run / 40% Grow"}, "en": {"title": "Machine Communication & Protocol Gateway", "tag": "OPC-UA / MQTT", "desc": "Standardized PLC telemetry extraction from automatic cutters, CNC sewing stations, template tackers, and heat presses, bridging proprietary industrial protocols.", "tools": "PTC Kepware OPC-UA Server + EMQX Industrial MQTT Broker", "sizing": "Real-time telemetry ingestion across 1,500 automated garment machines and heat presses", "budgetUSD": "Allocated within OT IoT Infrastructure", "budgetTWD": "Project-based allocation", "rgtCategory": "60% Run / 40% Grow"}, "vi": {"id": "p4-1", "title": "Cổng Giao thức Kết nối Máy móc (Machine Communication Gateway)", "tag": "Giao thức OPC-UA / MQTT", "desc": "Thu thập tín hiệu PLC chuẩn hóa từ máy trải vải tự động, máy may điện tử, máy may rập tự động và máy ép nhiệt, xóa bỏ ốc đảo giao thức nối tiếp.", "tools": "Máy chủ PTC Kepware OPC-UA + Máy chủ thông điệp công nghiệp EMQX MQTT Broker", "sizing": "Trích xuất dữ liệu thời gian thực từ 1,500 thiết bị may tự động và máy kiểm soát nhiệt độ", "budgetUSD": "Nằm trong dự án IoT Công nghiệp", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "60% Run / 40% Grow"}}, {"id": "p4-2", "zh": {"title": "Real-Time RFID WIP Tracking", "tag": "RFID 智慧吊掛與在製品追蹤", "desc": "車縫吊掛線與分揀站點全工位 RFID 感應，實現單件成衣流動即時定位與個人計件工資秒級計算。", "tools": "Impinj Speedway RFID 讀寫器 + 研華工業觸控工位屏", "sizing": "覆蓋海外 3 廠 80 條吊掛生產線與 2,000 個讀寫感應節點", "budgetUSD": "納入吊掛自動化項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "50% Run / 50% Grow"}, "en": {"title": "Real-Time RFID WIP & Smart Hanger Tracking", "tag": "RFID WIP Flow", "desc": "Comprehensive RFID station integration across smart hanging systems and sorting gates, tracking single-piece flow and calculating piece-rate wages in sub-seconds.", "tools": "Impinj Speedway RFID Readers + Advantech Rugged Touch Terminal Displays", "sizing": "Tracking across 80 hanging lines and 2,000 read-points across 3 overseas plants", "budgetUSD": "Allocated within Smart Hanging Automation", "budgetTWD": "Project-based allocation", "rgtCategory": "50% Run / 50% Grow"}, "vi": {"id": "p4-2", "title": "Theo dõi Chuyền Treo Thông minh & Bán thành phẩm RFID (Real-Time RFID WIP)", "tag": "Dòng chảy Bán thành phẩm RFID", "desc": "Cảm biến RFID tại tất cả các trạm chuyền treo và phân loại, định vị dòng chảy áo may từng chiếc và tính lương sản phẩm chính xác theo giây.", "tools": "Đầu đọc RFID Impinj Speedway + Màn hình cảm ứng công nghiệp Advantech tại vị trí thao tác", "sizing": "Áp dụng cho 80 chuyền may và 2,000 điểm đọc ghi RFID tại 3 nhà máy hải ngoại", "budgetUSD": "Nằm trong dự án Tự động hóa Chuyền treo", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "50% Run / 50% Grow"}}, {"id": "p4-3", "zh": {"title": "Industrial Edge Computing", "tag": "車間工業邊緣節點 (IPC)", "desc": "各廠車間部署工業級無風扇邊緣主機，本地快取生產排程與 MES 交易，確保外部斷網時持續運轉 72 小時。", "tools": "研華 / Moxa 工業電腦 + K3s 輕量化容器 + 本地 DuckDB 快取", "sizing": "海外 3 廠共配置 8 組車間邊緣叢集節點 (具備雙機熱備援)", "budgetUSD": "納入邊緣韌性項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "40% Run / 60% Grow"}, "en": {"title": "Industrial Edge Computing Units (IPC)", "tag": "Edge IPC Autonomy", "desc": "Deploying rugged fanless industrial PCs on plant floors, caching schedules and transaction logs locally to sustain 72 hours of uninterrupted production during ISP outages.", "tools": "Advantech / Moxa Rugged IPCs + K3s Lightweight Kubernetes + Embedded DuckDB", "sizing": "8 edge cluster nodes deployed across 3 overseas plants with hardware HA failover", "budgetUSD": "Allocated within Edge Resilience Infrastructure", "budgetTWD": "Project-based allocation", "rgtCategory": "40% Run / 60% Grow"}, "vi": {"id": "p4-3", "title": "Máy tính Biên Công nghiệp Phân xưởng (Industrial Edge Computing Units)", "tag": "Máy tính Biên Tự trị IPC", "desc": "Triển khai máy tính công nghiệp không quạt tại xưởng may, lưu đệm cục bộ kế hoạch sản xuất và giao dịch MES, đảm bảo duy trì 72 giờ sản xuất khi đứt mạng ngoài.", "tools": "Máy tính công nghiệp Advantech / Moxa + K3s Kubernetes gọn nhẹ + Cơ sở dữ liệu nhúng DuckDB", "sizing": "Trang bị 8 cụm máy chủ biên công nghiệp cho 3 nhà máy hải ngoại (hỗ trợ dự phòng kép)", "budgetUSD": "Nằm trong dự án Phục hồi Biên", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "40% Run / 60% Grow"}}, {"id": "p4-4", "zh": {"title": "Shopfloor Vision Inspection", "tag": "車間視覺 AI 瑕疵檢測", "desc": "裁片印花定位與車縫針距疵點自動辨識，利用邊緣相機進行初檢，減少人為品檢漏網之魚。", "tools": "YOLOv10 / TensorRT 輕量視覺模型 + 工業相機", "sizing": "隆安示範廠率先試點 4 條無縫運動服貼合與印花品質初檢", "budgetUSD": "納入智慧品管項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "20% Grow / 80% Transform"}, "en": {"title": "Shopfloor Vision AI Quality Inspection", "tag": "Computer Vision QA", "desc": "Automated computer vision detection of print registration errors, fabric flaws, and stitching pitch deviations at high-speed workstations, eliminating manual inspection escapes.", "tools": "YOLOv10 / TensorRT Embedded Vision Models + Basler Industrial Cameras", "sizing": "Initial pilot across 4 seamless bonding and printing lines at Long An Demo Plant", "budgetUSD": "Allocated within Smart QA Automation", "budgetTWD": "Project-based allocation", "rgtCategory": "20% Grow / 80% Transform"}, "vi": {"id": "p4-4", "title": "Kiểm tra Lỗi May bằng Thị giác AI (Shopfloor Vision Inspection)", "tag": "Thị giác Máy tính AI QA", "desc": "Tự động nhận diện độ lệch định vị hình in và lỗi mật độ mũi may, sử dụng camera biên để sơ kiểm, hạn chế tối đa sai sót lọt lỗi do kiểm tra thủ công.", "tools": "Mô hình thị giác gọn nhẹ YOLOv10 / TensorRT + Camera công nghiệp Basler", "sizing": "Thử nghiệm thí điểm trên 4 chuyền may đồ thể thao không đường may và in ấn tại Nhà máy Long An", "budgetUSD": "Nằm trong dự án Quản trị Chất lượng Thông minh", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "20% Grow / 80% Transform"}}, {"id": "p4-5", "zh": {"title": "Predictive Maintenance", "tag": "設備預防性維護 (PdM)", "desc": "監控自動裁床刀頭振動、熱壓貼合機溫度曲線與馬達電流，提前預警機械故障與磨耗。", "tools": "振動感測器 (Accelerometer) + InfluxDB 時序資料庫 + 異常警示模組", "sizing": "海外 4 廠共 32 台主力自動裁床與貼合設備之主動維修告警", "budgetUSD": "納入設備運維項目", "budgetTWD": "依專案範圍分配", "rgtCategory": "30% Run / 70% Transform"}, "en": {"title": "Equipment Predictive Maintenance (PdM)", "tag": "Vibration & Thermal PdM", "desc": "Continuous telemetry monitoring of cutting blade vibration, thermal bonding curves, and motor draw, generating proactive maintenance orders prior to mechanical breakdown.", "tools": "Industrial Accelerometers + InfluxDB Time-Series DB + Automated Anomaly Engine", "sizing": "Proactive condition-based monitoring for 32 heavy automatic cutting and bonding machines", "budgetUSD": "Allocated within Equipment Lifecycle Governance", "budgetTWD": "Project-based allocation", "rgtCategory": "30% Run / 70% Transform"}, "vi": {"id": "p4-5", "title": "Bảo trì Dự đoán Thiết bị (Equipment Predictive Maintenance)", "tag": "Bảo trì Dự đoán Rung động & Nhiệt", "desc": "Giám sát độ rung đầu dao máy cắt tự động, đường cong nhiệt máy ép nhiệt và dòng điện động cơ, phát cảnh báo sớm hư hỏng và hao mòn cơ khí.", "tools": "Cảm biến gia tốc rung động + Cơ sở dữ liệu chuỗi thời gian InfluxDB + Module cảnh báo", "sizing": "Giám sát tình trạng chủ động cho 32 máy cắt tự động và máy ép dán chủ lực tại 4 nhà máy", "budgetUSD": "Nằm trong dự án Vận hành Thiết bị", "budgetTWD": "Phân bổ theo phạm vi dự án", "rgtCategory": "30% Run / 70% Transform"}}], "vi": {"title": "Sản xuất Thông minh & Thiết bị", "position": "Định vị: Thúc đẩy kết nối thiết bị phân xưởng, chuẩn hóa giao thức, cảm biến tự động và vận hành tự trị biên ngoại tuyến.", "desc": "Xóa bỏ phiếu công việc giấy và sao chép USB thủ công, thiết lập vành đai cảm biến IoT công nghiệp và các node tính toán biên có độ bền cao."}}];
 
-
-    // 4. Bilingual Four Pillars & 25 Projects Data
-    const pillarsData = [
-      {
-        zh: {
-          title: "數位底座與治理",
-          position: "定位：建立未來系統整合、資料運用及 AI 發展所需的共同底層架構與治理規則。",
-          desc: "2027 不再只將資訊安全、網路或系統穩定視為單一基礎設施工作，而是進一步建立企業級的資料交換、存取、治理及 AI 管理能力，使不同系統與新應用能在一致規則下運作。"
-        },
-        en: {
-          title: "Digital Foundation & Governance",
-          position: "Mandate: Establish universal foundational architecture and governance rules for cross-system integration, data utilization, and enterprise AI.",
-          desc: "In 2027, infrastructure elevates beyond basic uptime into enterprise-wide API mediation, Zero Trust access, 30TB Lakehouse SSOT, and AI guardrails under strict unified policies."
-        },
-        items: [
-          {
-            id: "p1-1",
-            zh: {
-              title: "API Management",
-              tag: "API 管理機制",
-              desc: "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES、WMS、供應商與跨境物聯網的高頻 API 路由、限流與零信任安全監控。",
-              tools: "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise",
-              sizing: "台北總部雙活高可用核心網關 + 3 海外廠邊緣 Kong 叢集 + 2,500 席跨系統 API 吞吐治理",
-              budgetUSD: "$52,000 USD / 年 (約 $45k～$60k)",
-              budgetTWD: "約 NT$ 164 萬 / 年",
-              rgtCategory: "70% Run ($36.4k) / 30% Grow ($15.6k)"
-            },
-            en: {
-              title: "API Management & Gateway",
-              tag: "API Mediation",
-              desc: "Universal governance for cross-system API exchange spanning ERP, MES, WMS, suppliers, and IoT with high-throughput routing, rate-limiting, and Zero Trust telemetry.",
-              tools: "Kong Enterprise Gateway + OpenAPI 3.0 + Postman Enterprise",
-              sizing: "Taipei HQ Active-Active Core Gateway + 3 Overseas Edge Kong Clusters + 2,500-seat API throughput",
-              budgetUSD: "$52,000 USD / Year (Range $45k–$60k)",
-              budgetTWD: "approx. NT$ 1.64M / Year",
-              rgtCategory: "70% Run ($36.4k) / 30% Grow ($15.6k)"
-            }
-          },
-          {
-            id: "p1-2",
-            zh: {
-              title: "Access Governance",
-              tag: "存取治理與身分",
-              desc: "建立全集團 2,500 席分層身分 SSO (跨國幹部 P2 + 現場幹部 F-SKU) + HashiCorp Vault 核心 DB 動態金鑰輪替 + SPIFFE/SPIRE AI Agent 身分沙盒授權。",
-              tools: "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE",
-              sizing: "全集團 2,500 席分層身分 SSO + 跨廠核心 DB 動態金鑰輪替 + AI Agent 身分沙盒",
-              budgetUSD: "$105,000 USD / 年 (約 $95k～$118k)",
-              budgetTWD: "約 NT$ 331 萬 / 年",
-              rgtCategory: "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"
-            },
-            en: {
-              title: "Access Governance & Identity",
-              tag: "Zero Trust IAM",
-              desc: "Group-wide 2,500-seat tiered SSO (M365 P2 for knowledge workers + F-SKU for shopfloor) + Vault dynamic credential rotation + SPIFFE/SPIRE sandboxing for AI agents.",
-              tools: "Microsoft Entra ID P2 / Frontline + HashiCorp Vault Enterprise + SPIFFE/SPIRE",
-              sizing: "Group-wide 2,500 tiered SSO seats + Cross-plant DB dynamic secret rotation + AI agent sandboxing",
-              budgetUSD: "$105,000 USD / Year (Range $95k–$118k)",
-              budgetTWD: "approx. NT$ 3.31M / Year",
-              rgtCategory: "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"
-            }
-          },
-          {
-            id: "p1-3",
-            zh: {
-              title: "Enterprise Data Layer",
-              tag: "企業資料層",
-              desc: "建立跨 ERP、MES、WMS、自動化設備之單一真實數據來源（SSOT），以 Databricks Delta Lake 構建 4 廠即時 CDC 串流、30TB+ 企業湖倉與即時運算中台。",
-              tools: "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka",
-              sizing: "4 海外廠 CDC 實時串流 + 30TB+ 企業湖倉儲存 + 2,500 席按需查詢運算中台節點",
-              budgetUSD: "$115,000 USD / 年 (約 $100k～$130k)",
-              budgetTWD: "約 NT$ 362 萬 / 年",
-              rgtCategory: "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"
-            },
-            en: {
-              title: "Enterprise Data Lakehouse Layer",
-              tag: "Data SSOT",
-              desc: "Single Source of Truth (SSOT) unifying ERP, MES, WMS, and IoT streams via Databricks Delta Lake, establishing a 30TB+ Lakehouse with 4-plant real-time CDC pipelines.",
-              tools: "Databricks Enterprise (Delta Lake) + Debezium CDC + Confluent Apache Kafka",
-              sizing: "4-plant real-time CDC streaming + 30TB+ enterprise Lakehouse storage + on-demand compute engine",
-              budgetUSD: "$115,000 USD / Year (Range $100k–$130k)",
-              budgetTWD: "approx. NT$ 3.62M / Year",
-              rgtCategory: "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"
-            }
-          },
-          {
-            id: "p1-4",
-            zh: {
-              title: "Data Governance",
-              tag: "資料治理與標準",
-              desc: "建立核心主數據定義、Source of Truth、資料品質門禁及共用標準，清洗全球布料、副料、款號與工序 SAM 數據，消除跨廠同料不同號與數據孤島。",
-              tools: "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations 自動門禁",
-              sizing: "全集團 2,500 席共用主數據目錄 + 50 萬筆跨廠原物料清洗 + 核心數據品質稽核",
-              budgetUSD: "$80,000 USD / 年 (約 $70k～$92k)",
-              budgetTWD: "約 NT$ 252 萬 / 年",
-              rgtCategory: "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"
-            },
-            en: {
-              title: "Data Governance & Master Data",
-              tag: "MDM & Quality",
-              desc: "Master Data Management (MDM) establishing unified taxonomy for fabrics, trims, style codes, and SAM operations, eliminating cross-border part number discrepancies.",
-              tools: "Profisee MDM Enterprise + Atlan Data Catalog + Great Expectations Quality Gates",
-              sizing: "2,500-seat shared data catalog + 500,000 cleaned material records + automated quality gate audits",
-              budgetUSD: "$80,000 USD / Year (Range $70k–$92k)",
-              budgetTWD: "approx. NT$ 2.52M / Year",
-              rgtCategory: "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"
-            }
-          },
-          {
-            id: "p1-5",
-            zh: {
-              title: "AI Governance",
-              tag: "AI 治理與管理機制",
-              desc: "建立符合 ISO/IEC 42001 之企業級安全沙盒：控管 Token 消耗、動態過濾品牌機敏圖資（Tech Pack 遮罩）、記錄 Agent 決策軌跡與紅隊防護。",
-              tools: "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3",
-              sizing: "全集團 400 位核心幹部 Copilot 訪問安全沙盒 + 每月 $4,000 USD Token 消耗配額監控治理",
-              budgetUSD: "$48,000 USD / 年 (約 $40k～$55k)",
-              budgetTWD: "約 NT$ 151 萬 / 年",
-              rgtCategory: "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"
-            },
-            en: {
-              title: "AI Governance & Guardrails",
-              tag: "AI Sandboxing",
-              desc: "ISO/IEC 42001 compliant enterprise AI gateway: token budgeting, automated PII/CAD masking, decision audit trails, prompt injection shielding, and human-in-the-loop oversight.",
-              tools: "Portkey AI Enterprise Gateway + LangSmith + Llama-Guard 3",
-              sizing: "400 knowledge worker Copilot sandbox + $4,000/mo token consumption governance",
-              budgetUSD: "$48,000 USD / Year (Range $40k–$55k)",
-              budgetTWD: "approx. NT$ 1.51M / Year",
-              rgtCategory: "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"
-            }
-          },
-          {
-            id: "p1-6",
-            zh: {
-              title: "Cybersecurity",
-              tag: "資訊安全全面防禦",
-              desc: "建立零信任架構、端點偵測、OT 車間網路實體隔離及 24/7 全託管威脅獵捕，確保海外廠區遭遇勒索病毒時具備 15 分鐘內主動隔離與反制能力。",
-              tools: "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA",
-              sizing: "全集團 2,500 個端點覆蓋 (400 核心 PC + 800 車間終端 + 8x Edge IPC + 機房伺服器) + 24/7 MDR 原廠專家監控",
-              budgetUSD: "$100,000 USD / 年 (約 $85k～$115k)",
-              budgetTWD: "約 NT$ 315 萬 / 年",
-              rgtCategory: "80% Run ($80.0k) / 20% Grow ($20.0k)"
-            },
-            en: {
-              title: "Cybersecurity & 24/7 MDR",
-              tag: "Zero Trust Defense",
-              desc: "Zero Trust Architecture with 24/7 managed detection and response (MDR), OT subnet air-gapping, and automated isolation within 15 minutes against ransomware incursions.",
-              tools: "CrowdStrike Falcon Complete (24/7 MDR) + Cloudflare Enterprise ZTNA",
-              sizing: "2,500 enterprise endpoints (400 PCs + 800 plant terminals + 8x Edge IPCs + servers) + 24/7 SOC hunt",
-              budgetUSD: "$100,000 USD / Year (Range $85k–$115k)",
-              budgetTWD: "approx. NT$ 3.15M / Year",
-              rgtCategory: "80% Run ($80.0k) / 20% Grow ($20.0k)"
-            }
-          },
-          {
-            id: "p1-7",
-            zh: {
-              title: "Backup, DR & BCP",
-              tag: "備份、災備與營運持續",
-              desc: "建立防勒索 WORM 不可篡改備份、Tier-1 核心生產秒級複製與異地快速切換，確保當機時 RPO < 15 分鐘、RTO < 2 小時，通過外部國際審計。",
-              tools: "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (WORM 不可篡改)",
-              sizing: "台北與 3 海外廠 Tier-1 核心 MES/DB (共 20TB) 實時 CDP 異地熱備 + 50TB 雲端 WORM 封存",
-              budgetUSD: "$68,000 USD / 年 (約 $60k～$78k)",
-              budgetTWD: "約 NT$ 214 萬 / 年",
-              rgtCategory: "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"
-            },
-            en: {
-              title: "Backup, DR & Business Continuity",
-              tag: "Ransomware CDP",
-              desc: "Immutable WORM backups and sub-second Continuous Data Protection (CDP) with cross-border failover, guaranteeing RPO < 15m and RTO < 2h for Tier-1 manufacturing cores.",
-              tools: "Zerto Enterprise CDP + AWS S3 Glacier Object Lock (WORM)",
-              sizing: "20TB Tier-1 MES/DB hot replication across Taipei and 3 plants + 50TB immutable cloud archive",
-              budgetUSD: "$68,000 USD / Year (Range $60k–$78k)",
-              budgetTWD: "approx. NT$ 2.14M / Year",
-              rgtCategory: "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"
-            }
-          },
-          {
-            id: "p1-8",
-            zh: {
-              title: "Network & Infra",
-              tag: "網路與基礎設施現代化",
-              desc: "建立跨國軟體定義廣域網（SD-WAN）、海外機房雙活備援，並部署車間工業級邊緣主機，確保外部海底電纜中斷時現場具備 48~72h 離線自主運轉能力。",
-              tools: "Fortinet Secure SD-WAN (HA 雙機) + 8x 研華工業級邊緣 IPC (K3s 容器叢集)",
-              sizing: "台北總部 + 越南、柬埔寨、印尼 4 廠雙軌專線整合 + 8 台車間工業邊緣伺服器",
-              budgetUSD: "$72,000 USD / 年 (約 $62k～$82k)",
-              budgetTWD: "約 NT$ 227 萬 / 年",
-              rgtCategory: "65% Run ($46.7k) / 35% Grow ($25.3k)"
-            },
-            en: {
-              title: "Network & SD-WAN Infrastructure",
-              tag: "Hybrid Edge Infra",
-              desc: "Cross-border Secure SD-WAN with dual-link failover and ruggedized Advantech industrial IPCs, sustaining 48–72 hours of shopfloor edge autonomy during subsea cable cuts.",
-              tools: "Fortinet Secure SD-WAN (HA) + 8x Advantech Industrial Edge IPCs (K3s)",
-              sizing: "4-site SD-WAN mesh (Taipei, Vietnam, Cambodia, Indonesia) + 8x shopfloor edge servers",
-              budgetUSD: "$72,000 USD / Year (Range $62k–$82k)",
-              budgetTWD: "approx. NT$ 2.27M / Year",
-              rgtCategory: "65% Run ($46.7k) / 35% Grow ($25.3k)"
-            }
-          }
-        ]
-      },
-      {
-        zh: {
-          title: "營運流程整合",
-          position: "定位：打破系統孤島，實現由訂單至出貨的端到端即時資訊流與嚴謹門禁管理。",
-          desc: "貫穿業務訂單、物料供應鏈、產前技術、車間生產及例外處理，確保產前條件具備才上線，降低停工窩工與做工返修損失。"
-        },
-        en: {
-          title: "Operational Process Integration",
-          position: "Mandate: Eliminate operational silos, achieving end-to-end real-time data orchestration and rigorous pre-production gate enforcement.",
-          desc: "Seamlessly connecting sales orders, supply chain, technical packs, sewing lines, and exception handling to eradicate premature line feeding and changeover losses."
-        },
-        items: [
-          {
-            id: "p2-1",
-            zh: {
-              title: "Order Fulfillment & Tracking",
-              tag: "訂單交付追蹤",
-              desc: "建立業務訂單至海外工廠生產排程之即時追蹤機制，掌握工單即時進度與交期偏差。",
-              tools: "Camunda 8 BPM + Temporal 流程編排引擎",
-              sizing: "跨 4 廠年生產 7,500 萬件成衣之工單生命週期狀態流轉監控",
-              budgetUSD: "納入總體流程現代化項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "50% Run / 50% Grow"
-            },
-            en: {
-              title: "Order Fulfillment & Lifecycle Tracking",
-              tag: "Order Lifecycle",
-              desc: "End-to-end orchestration connecting sales orders to overseas factory production schedules, tracking real-time work order velocity and delivery variance.",
-              tools: "Camunda 8 BPM + Temporal Workflow Orchestration",
-              sizing: "Full lifecycle tracking for 75 million garment pieces annually across 4 overseas plants",
-              budgetUSD: "Allocated within Process Modernization",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "50% Run / 50% Grow"
-            }
-          },
-          {
-            id: "p2-2",
-            zh: {
-              title: "Material Flow & WMS",
-              tag: "用料全流程管理",
-              desc: "整合大貨布料採購、進廠檢驗、倉庫儲位、自動拉布裁剪至裁片超市之條碼/RFID 閉環管理。",
-              tools: "SAP WMS 整合 + Zebra 工業級條碼/RFID 手持機",
-              sizing: "全集團 4 座主原副料倉庫與 12 座車間線邊超市即時庫存盤點",
-              budgetUSD: "納入供應鏈現代化項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "60% Run / 40% Grow"
-            },
-            en: {
-              title: "Material Flow & WMS Traceability",
-              tag: "Material Loop",
-              desc: "Unified traceability linking bulk fabric sourcing, inbound lab inspection, bin location, automated spreading/cutting, to cut-piece supermarket buffers.",
-              tools: "SAP WMS Integration + Zebra Rugged RFID Handheld Terminals",
-              sizing: "Real-time inventory tracking for 4 central raw-material warehouses and 12 line-side supermarkets",
-              budgetUSD: "Allocated within Supply Chain Modernization",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "60% Run / 40% Grow"
-            }
-          },
-          {
-            id: "p2-3",
-            zh: {
-              title: "Ready-to-Sew 4-Gate",
-              tag: "產前門禁管制機制",
-              desc: "落實 4 道硬性門禁：BOM 齊套、Tech Pack 工藝、MQP 封樣、特工半成品超市，未達標自動鎖死排程。",
-              tools: "自研產前門禁規則引擎 (Node.js/Python) + 廠長/副總雙簽特許 SOP",
-              sizing: "覆蓋全集團 80 條成衣車縫線之日常換線開線檢核",
-              budgetUSD: "納入流程治理項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "40% Run / 60% Grow"
-            },
-            en: {
-              title: "Ready-to-Sew 4-Gate Control",
-              tag: "Pre-Production Gate",
-              desc: "4 rigid pre-production gates: BOM completeness, Tech Pack approval, MQP golden sample, and supermarket staging; system automatically locks line feeding if incomplete.",
-              tools: "Custom 4-Gate Rule Engine (Node/Python) + Executive Override SOP",
-              sizing: "Mandatory daily changeover authorization across 80 sewing lines group-wide",
-              budgetUSD: "Allocated within Governance Framework",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "40% Run / 60% Grow"
-            }
-          },
-          {
-            id: "p2-4",
-            zh: {
-              title: "IE & Line Balancing",
-              tag: "工程工時與線平衡",
-              desc: "標準工時 (SAM) 與車縫工位技能矩陣聯動，動態演算線平衡率，消滅在線節拍瓶頸。",
-              tools: "GSDCost 工時系統 + ProModel 車間排線動態演算模組",
-              sizing: "集團 1,200 位車工技能矩陣與 80 條車縫線平衡率即時最佳化",
-              budgetUSD: "納入製造工程項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "30% Run / 70% Grow"
-            },
-            en: {
-              title: "Industrial Engineering & Line Balancing",
-              tag: "IE Optimization",
-              desc: "Dynamic linking of standard allowed minutes (SAM) with sewing operator skill matrices, calculating real-time line balancing to eradicate bottleneck takt losses.",
-              tools: "GSDCost Standard Data + ProModel Line Balancing Engine",
-              sizing: "Skill matrix tracking for 1,200 sewing operators across 80 lines",
-              budgetUSD: "Allocated within Manufacturing Engineering",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "30% Run / 70% Grow"
-            }
-          },
-          {
-            id: "p2-5",
-            zh: {
-              title: "Exception Management",
-              tag: "跨廠異常預警引擎",
-              desc: "監控採購交期（ETA）與計畫裁剪日（PCD），提前 72 小時主動推播缺料或品質異常預警。",
-              tools: "Apache Flink CEP 複雜事件處理 + 企業微信 / Teams 即時機器人",
-              sizing: "每日處理 10 萬筆跨廠供應鏈事件串流與 72h 前瞻預警",
-              budgetUSD: "納入異常監控項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "20% Run / 80% Transform"
-            },
-            en: {
-              title: "Cross-Plant Exception Management",
-              tag: "Flink CEP Engine",
-              desc: "Continuous monitoring of procurement ETA versus Planned Cut Dates (PCD), proactively triggering automated warning alerts 72 hours in advance of potential line stoppages.",
-              tools: "Apache Flink Complex Event Processing (CEP) + Microsoft Teams Bot",
-              sizing: "Real-time processing of 100,000 daily supply chain event streams across 4 plants",
-              budgetUSD: "Allocated within Event Streaming Infrastructure",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "20% Run / 80% Transform"
-            }
-          }
-        ]
-      },
-      {
-        zh: {
-          title: "智能營運與決策",
-          position: "定位：自「資料事後呈現」邁向「預測分析、異常介入與 Agentic AI 輔助決策」。",
-          desc: "建構多維度指標體系、排程動態演算與多國語工藝 RAG 助手，釋放 15%～25% 核心流程工時。"
-        },
-        en: {
-          title: "Intelligent Operations & Decision",
-          position: "Mandate: Evolve from retrospective dashboards into predictive forecasting, automated intervention, and Agentic AI collaboration.",
-          desc: "Constructing multi-dimensional metrics, material simulation engines, and multilingual Tech Pack RAG to release 15%–25% of core process labor hours."
-        },
-        items: [
-          {
-            id: "p3-1",
-            zh: {
-              title: "BI & Analytics Platform",
-              tag: "商業智慧中台",
-              desc: "建立全集團統一之經營管理看板，提供多廠多維度毛利、效率、品質與能耗交叉分析。",
-              tools: "Power BI Embedded + Apache Superset 自助分析平台",
-              sizing: "總部與各廠 150 位管理幹部即時決策調閱權限",
-              budgetUSD: "納入數據平台項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "60% Run / 40% Grow"
-            },
-            en: {
-              title: "Enterprise BI & Analytics Platform",
-              tag: "BI & Dashboards",
-              desc: "Unified executive analytics portal delivering multi-plant cross-dimensional analysis of gross margins, OEE, rework rates, and energy consumption.",
-              tools: "Microsoft Power BI Embedded + Apache Superset Self-Service Analytics",
-              sizing: "Real-time executive decision access for 150 group-wide managers",
-              budgetUSD: "Allocated within Data Platform",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "60% Run / 40% Grow"
-            }
-          },
-          {
-            id: "p3-2",
-            zh: {
-              title: "Delivery Predictive Modeling",
-              tag: "交期預測與風險模型",
-              desc: "結合歷史工期、海關清關週期與季節天氣數據，訓練交期延遲預測模型，提前識別違約風險。",
-              tools: "Python XGBoost / LightGBM + Databricks MLflow",
-              sizing: "每年預測 1,500 個大貨訂單款號之出貨達成率",
-              budgetUSD: "納入智慧演算法項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "30% Grow / 70% Transform"
-            },
-            en: {
-              title: "Delivery Predictive Modeling",
-              tag: "ML Delivery Risk",
-              desc: "Machine learning models synthesizing historical throughput, customs clearing cycles, and port logistics to forecast delivery slippage and prevent freight penalties.",
-              tools: "Python XGBoost / LightGBM + Databricks MLflow",
-              sizing: "Annual predictive modeling across 1,500 production style orders",
-              budgetUSD: "Allocated within Applied AI Algorithms",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "30% Grow / 70% Transform"
-            }
-          },
-          {
-            id: "p3-3",
-            zh: {
-              title: "Material Simulation Engine",
-              tag: "物料排程模擬器",
-              desc: "針對大貨布料縮水率、門幅公差與換線損失進行排程演算，提供最佳裁剪與發料組合方案。",
-              tools: "Google OR-Tools 線性規劃求解器 + 自研成衣排料算力模組",
-              sizing: "每日演算 4 廠裁片排產組合，降低大貨布損 1.0%~1.2%",
-              budgetUSD: "納入排料最佳化項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "20% Run / 80% Transform"
-            },
-            en: {
-              title: "Material Planning Simulation Engine",
-              tag: "OR Cut Planning",
-              desc: "Mathematical optimization solver factoring in fabric shrinkage, width variance, and changeover costs to recommend optimal marker layout and cut nesting.",
-              tools: "Google OR-Tools Linear Solver + Proprietary Garment Nesting Algorithms",
-              sizing: "Daily cut planning optimization across 4 plants, cutting fabric loss by 1.2%",
-              budgetUSD: "Allocated within Material Optimization",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "20% Run / 80% Transform"
-            }
-          },
-          {
-            id: "p3-4",
-            zh: {
-              title: "Domain-Specific Agentic AI",
-              tag: "領域型智慧代理人",
-              desc: "針對生管排程諮詢、做工難點診斷與客戶交期跟單，構建具備主動行動能力的智慧 Agent 群。",
-              tools: "LangGraph / AutoGen 多代理人框架 + 本地部署 vLLM",
-              sizing: "釋放 400 位核心幹部 15%~25% 特定重複性作業工時",
-              budgetUSD: "納入 AI 創新項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "10% Grow / 90% Transform"
-            },
-            en: {
-              title: "Domain-Specific Agentic AI",
-              tag: "Agentic Workflows",
-              desc: "Specialized collaborative AI agents for PMC scheduling inquiries, sewing bottleneck diagnosis, and automated order status reporting with tool-calling capabilities.",
-              tools: "LangGraph / AutoGen Multi-Agent Framework + Local vLLM Inference",
-              sizing: "Releasing 15%–25% repetitive labor hours across 400 core managers",
-              budgetUSD: "Allocated within AI Innovation",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "10% Grow / 90% Transform"
-            }
-          },
-          {
-            id: "p3-5",
-            zh: {
-              title: "Multilingual Tech Pack RAG",
-              tag: "多國語工藝 RAG 庫",
-              desc: "解析品牌英文/繁中 Tech Pack 技術包，建立向量庫，支援越文、高棉語與印尼文車間術語即時查詢。",
-              tools: "Qdrant 向量資料庫 + LlamaIndex + 深度微調成衣專屬 Embedding",
-              sizing: "建置 10 萬份工藝規範與疵點圖鑑之跨國多語即時檢索庫",
-              budgetUSD: "納入知識中台項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "20% Grow / 80% Transform"
-            },
-            en: {
-              title: "Multilingual Tech Pack RAG Knowledge Base",
-              tag: "Tech Pack RAG",
-              desc: "Vectorized parsing of brand Tech Packs in English/Chinese, enabling instant semantic search and translation into Vietnamese, Khmer, and Indonesian shopfloor sewing terms.",
-              tools: "Qdrant Vector DB + LlamaIndex + Fine-tuned Garment Sewing Embeddings",
-              sizing: "Indexing 100,000 workmanship standards and defect catalogs for cross-border lookup",
-              budgetUSD: "Allocated within Knowledge Management",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "20% Grow / 80% Transform"
-            }
-          },
-          {
-            id: "p3-6",
-            zh: {
-              title: "Intelligent Document Processing",
-              tag: "單證智能辨識 (OCR)",
-              desc: "自動解析供應商發票、裝箱單 (Packing List) 與原物料檢驗報告 (COA)，自動檢核並拋單至系統。",
-              tools: "PaddleOCR + LayoutLMv3 結構化文檔擷取模型",
-              sizing: "每月自動化處理 3 萬份跨國進出口與採購報關單證",
-              budgetUSD: "納入自動化工程項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "50% Run / 50% Grow"
-            },
-            en: {
-              title: "Intelligent Document Processing (IDP & OCR)",
-              tag: "Automated OCR",
-              desc: "Automated extraction and validation of supplier invoices, packing lists, and fabric Certificate of Analysis (COA) reports, posting directly into ERP with zero human error.",
-              tools: "PaddleOCR + LayoutLMv3 Visual Document Extraction Model",
-              sizing: "Automated monthly ingestion of 30,000 cross-border shipping and customs documents",
-              budgetUSD: "Allocated within Process Automation",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "50% Run / 50% Grow"
-            }
-          },
-          {
-            id: "p3-7",
-            zh: {
-              title: "Dynamic Executive Dashboards",
-              tag: "高管動態決策戰情室",
-              desc: "將跨國 4 廠產能利用率、財務損益、人均產值與資安風險熱圖聚合於單一大屏，支援鑽取與例外介入。",
-              tools: "Next.js + Apache ECharts + Tailwind CSS 自研即時大屏",
-              sizing: "集團董事會與周副總等高管指揮中心實時遙測大屏",
-              budgetUSD: "納入戰情室系統項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "40% Run / 60% Grow"
-            },
-            en: {
-              title: "Dynamic Executive Decision Dashboards",
-              tag: "Executive Cockpit",
-              desc: "Aggregating capacity utilization, P&L variances, labor productivity, and cybersecurity risk heatmaps across 4 plants onto an interactive executive war room interface.",
-              tools: "Next.js + Apache ECharts + Tailwind CSS Real-Time Telemetry Cockpit",
-              sizing: "Executive Command Center displays for the Board of Directors and VP Chou",
-              budgetUSD: "Allocated within War Room Infrastructure",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "40% Run / 60% Grow"
-            }
-          }
-        ]
-      },
-      {
-        zh: {
-          title: "智慧製造與設備",
-          position: "定位：推動現場設備聯網化、通訊標準化、感知自動化與邊緣離線自律運轉。",
-          desc: "消除紙本工票與隨身碟拷貝，打造高可靠的物聯網感知邊界與工業邊緣計算節點。"
-        },
-        en: {
-          title: "Smart Manufacturing & Equipment",
-          position: "Mandate: Drive shopfloor machine connectivity, protocol standardization, automated sensing, and resilient offline edge autonomy.",
-          desc: "Eliminating paper bundles and USB manual transfers, establishing a ruggedized IoT perimeter and industrial edge nodes."
-        },
-        items: [
-          {
-            id: "p4-1",
-            zh: {
-              title: "Machine Communication Gateway",
-              tag: "機台通訊協定整合",
-              desc: "統一採集自動裁床、電腦車機、自動模板機與燙壓機之 PLC 訊號，消除串口協定孤島。",
-              tools: "PTC Kepware OPC-UA 伺服器 + EMQX 工業級 MQTT Broker",
-              sizing: "全集團 1,500 台自動化成衣機台與溫控設備即時數據擷取",
-              budgetUSD: "納入 OT 物聯網項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "60% Run / 40% Grow"
-            },
-            en: {
-              title: "Machine Communication & Protocol Gateway",
-              tag: "OPC-UA / MQTT",
-              desc: "Standardized PLC telemetry extraction from automatic cutters, CNC sewing stations, template tackers, and heat presses, bridging proprietary industrial protocols.",
-              tools: "PTC Kepware OPC-UA Server + EMQX Industrial MQTT Broker",
-              sizing: "Real-time telemetry ingestion across 1,500 automated garment machines and heat presses",
-              budgetUSD: "Allocated within OT IoT Infrastructure",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "60% Run / 40% Grow"
-            }
-          },
-          {
-            id: "p4-2",
-            zh: {
-              title: "Real-Time RFID WIP Tracking",
-              tag: "RFID 智慧吊掛與在製品追蹤",
-              desc: "車縫吊掛線與分揀站點全工位 RFID 感應，實現單件成衣流動即時定位與個人計件工資秒級計算。",
-              tools: "Impinj Speedway RFID 讀寫器 + 研華工業觸控工位屏",
-              sizing: "覆蓋海外 3 廠 80 條吊掛生產線與 2,000 個讀寫感應節點",
-              budgetUSD: "納入吊掛自動化項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "50% Run / 50% Grow"
-            },
-            en: {
-              title: "Real-Time RFID WIP & Smart Hanger Tracking",
-              tag: "RFID WIP Flow",
-              desc: "Comprehensive RFID station integration across smart hanging systems and sorting gates, tracking single-piece flow and calculating piece-rate wages in sub-seconds.",
-              tools: "Impinj Speedway RFID Readers + Advantech Rugged Touch Terminal Displays",
-              sizing: "Tracking across 80 hanging lines and 2,000 read-points across 3 overseas plants",
-              budgetUSD: "Allocated within Smart Hanging Automation",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "50% Run / 50% Grow"
-            }
-          },
-          {
-            id: "p4-3",
-            zh: {
-              title: "Industrial Edge Computing",
-              tag: "車間工業邊緣節點 (IPC)",
-              desc: "各廠車間部署工業級無風扇邊緣主機，本地快取生產排程與 MES 交易，確保外部斷網時持續運轉 72 小時。",
-              tools: "研華 / Moxa 工業電腦 + K3s 輕量化容器 + 本地 DuckDB 快取",
-              sizing: "海外 3 廠共配置 8 組車間邊緣叢集節點 (具備雙機熱備援)",
-              budgetUSD: "納入邊緣韌性項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "40% Run / 60% Grow"
-            },
-            en: {
-              title: "Industrial Edge Computing Units (IPC)",
-              tag: "Edge IPC Autonomy",
-              desc: "Deploying rugged fanless industrial PCs on plant floors, caching schedules and transaction logs locally to sustain 72 hours of uninterrupted production during ISP outages.",
-              tools: "Advantech / Moxa Rugged IPCs + K3s Lightweight Kubernetes + Embedded DuckDB",
-              sizing: "8 edge cluster nodes deployed across 3 overseas plants with hardware HA failover",
-              budgetUSD: "Allocated within Edge Resilience Infrastructure",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "40% Run / 60% Grow"
-            }
-          },
-          {
-            id: "p4-4",
-            zh: {
-              title: "Shopfloor Vision Inspection",
-              tag: "車間視覺 AI 瑕疵檢測",
-              desc: "裁片印花定位與車縫針距疵點自動辨識，利用邊緣相機進行初檢，減少人為品檢漏網之魚。",
-              tools: "YOLOv10 / TensorRT 輕量視覺模型 + 工業相機",
-              sizing: "隆安示範廠率先試點 4 條無縫運動服貼合與印花品質初檢",
-              budgetUSD: "納入智慧品管項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "20% Grow / 80% Transform"
-            },
-            en: {
-              title: "Shopfloor Vision AI Quality Inspection",
-              tag: "Computer Vision QA",
-              desc: "Automated computer vision detection of print registration errors, fabric flaws, and stitching pitch deviations at high-speed workstations, eliminating manual inspection escapes.",
-              tools: "YOLOv10 / TensorRT Embedded Vision Models + Basler Industrial Cameras",
-              sizing: "Initial pilot across 4 seamless bonding and printing lines at Long An Demo Plant",
-              budgetUSD: "Allocated within Smart QA Automation",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "20% Grow / 80% Transform"
-            }
-          },
-          {
-            id: "p4-5",
-            zh: {
-              title: "Predictive Maintenance",
-              tag: "設備預防性維護 (PdM)",
-              desc: "監控自動裁床刀頭振動、熱壓貼合機溫度曲線與馬達電流，提前預警機械故障與磨耗。",
-              tools: "振動感測器 (Accelerometer) + InfluxDB 時序資料庫 + 異常警示模組",
-              sizing: "海外 4 廠共 32 台主力自動裁床與貼合設備之主動維修告警",
-              budgetUSD: "納入設備運維項目",
-              budgetTWD: "依專案範圍分配",
-              rgtCategory: "30% Run / 70% Transform"
-            },
-            en: {
-              title: "Equipment Predictive Maintenance (PdM)",
-              tag: "Vibration & Thermal PdM",
-              desc: "Continuous telemetry monitoring of cutting blade vibration, thermal bonding curves, and motor draw, generating proactive maintenance orders prior to mechanical breakdown.",
-              tools: "Industrial Accelerometers + InfluxDB Time-Series DB + Automated Anomaly Engine",
-              sizing: "Proactive condition-based monitoring for 32 heavy automatic cutting and bonding machines",
-              budgetUSD: "Allocated within Equipment Lifecycle Governance",
-              budgetTWD: "Project-based allocation",
-              rgtCategory: "30% Run / 70% Transform"
-            }
-          }
-        ]
-      }
-    ];
-
-
-
-    // 5. Bilingual Rendering Methods
     let currentLang = 'zh';
     let currentPillarIndex = 0;
     let currentTimelineYear = 2027;
@@ -3892,11 +3376,15 @@
       const data = dataObj[currentLang] || dataObj.zh;
       const card = document.getElementById("timelineDetailCard");
       if (!card) return;
+      
+      const yearLabel = currentLang === 'en' ? 'Fiscal Year' : (currentLang === 'vi' ? 'Năm Tài chính' : '年度');
+      const focusLabel = currentLang === 'en' ? 'Critical Focus:' : (currentLang === 'vi' ? 'Trọng tâm Lưu ý:' : '重點關注：');
+      
       card.innerHTML = `
         <span class="detail-pill">${data.pill}</span>
-        <h3 class="detail-heading">${year} ${currentLang === 'en' ? 'Fiscal Year' : '年度'}：${data.title}</h3>
+        <h3 class="detail-heading">${year} ${yearLabel}：${data.title}</h3>
         <p class="detail-text">${data.desc}</p>
-        ${data.gap ? `<div class="gap-notice">⚠️ <strong>${currentLang === 'en' ? 'Critical Focus:' : '重點關注：'}</strong> ${data.gap}</div>` : ''}
+        ${data.gap ? `<div class="gap-notice">⚠️ <strong>${focusLabel}</strong> ${data.gap}</div>` : ''}
       `;
     }
 
@@ -3914,6 +3402,12 @@
       const view = document.getElementById("pillarExpandedView");
       if (!view) return;
       
+      const lblStack = currentLang === 'en' ? 'Production Stack:' : (currentLang === 'vi' ? 'Công nghệ Triển khai:' : '實戰工具推薦：');
+      const lblSizingHead = currentLang === 'en' ? 'Budget & Capacity Sizing:' : (currentLang === 'vi' ? 'Quy mô Định mức & Ngân sách:' : '規模用量預算預估 (Using Sizing)：');
+      const lblSizing = currentLang === 'en' ? 'Sizing Basis:' : (currentLang === 'vi' ? 'Quy mô Tiêu chuẩn:' : '規模基準：');
+      const lblBudget = currentLang === 'en' ? 'Est. Annual Budget:' : (currentLang === 'vi' ? 'Ngân sách Dự toán/Năm:' : '預估年預算：');
+      const lblRgt = currentLang === 'en' ? 'R-G-T Categorization:' : (currentLang === 'vi' ? 'Phân loại Thuộc tính R-G-T:' : 'RGT 屬性劃分：');
+
       let itemsHtml = pData.items.map(itWrapper => {
         const item = itWrapper[currentLang] || itWrapper.zh;
         return `
@@ -3924,13 +3418,13 @@
           ${item.tools ? `
             <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-subtle);">
               <div style="font-size: 0.82rem; font-weight: 700; color: var(--rust-primary); margin-bottom: 6px;">
-                🛠️ ${currentLang === 'en' ? 'Production Stack:' : '實戰工具推薦：'}<span style="color: var(--text-charcoal); font-weight: 600;">${item.tools}</span>
+                🛠️ ${lblStack}<span style="color: var(--text-charcoal); font-weight: 600;">${item.tools}</span>
               </div>
               <div style="background: var(--bg-warm-tint); border-left: 3px solid var(--orange-vibrant); padding: 8px 12px; border-radius: 0 4px 4px 0; font-size: 0.78rem; color: var(--text-body); line-height: 1.55;">
-                <div style="font-weight: 700; color: var(--rust-primary); margin-bottom: 3px;">💰 ${currentLang === 'en' ? 'Budget & Capacity Sizing:' : '規模用量預算預估 (Using Sizing)：'}</div>
-                <div style="margin-bottom: 3px;"><strong>${currentLang === 'en' ? 'Sizing Sizing:' : '規模基準：'}</strong>${item.sizing}</div>
-                <div><strong>${currentLang === 'en' ? 'Est. Annual Budget:' : '預估年預算：'}</strong><span style="color: var(--rust-primary); font-weight: 700;">${item.budgetUSD}</span> <span style="color: var(--text-muted);">(${item.budgetTWD})</span></div>
-                <div style="margin-top: 4px; font-size: 0.73rem; color: #4338CA; font-weight: 600;">📊 ${currentLang === 'en' ? 'R-G-T Categorization:' : 'RGT 屬性劃分：'}${item.rgtCategory}</div>
+                <div style="font-weight: 700; color: var(--rust-primary); margin-bottom: 3px;">💰 ${lblSizingHead}</div>
+                <div style="margin-bottom: 3px;"><strong>${lblSizing}</strong>${item.sizing}</div>
+                <div><strong>${lblBudget}</strong><span style="color: var(--rust-primary); font-weight: 700;">${item.budgetUSD}</span> <span style="color: var(--text-muted);">(${item.budgetTWD})</span></div>
+                <div style="margin-top: 4px; font-size: 0.73rem; color: #4338CA; font-weight: 600;">📊 ${lblRgt}${item.rgtCategory}</div>
               </div>
             </div>
           ` : ''}
@@ -3991,27 +3485,39 @@
       if (g1 && g2 && g3 && g4) {
         resultBox.className = "sim-result-box cleared";
         icon.textContent = "✅";
-        title.textContent = currentLang === 'en' 
-          ? "All 4 Gates Cleared · Authorized for Line Production" 
-          : "條件齊套 · 放行排程發料上線";
-        desc.textContent = currentLang === 'en'
-          ? "All 4 pre-production criteria passed! Raw materials, Tech Pack standards, MQP sample, and supermarket cut parts are 100% ready. MES authorizes work orders, targeting 100% first-day line efficiency!"
-          : "所有 4 大產前門禁檢核通過！物料、工藝、樣板與半成品全數就緒，MES 准予開線，預期達成 100% 首日換線效率！";
+        if (currentLang === 'en') {
+          title.textContent = "All 4 Gates Cleared · Authorized for Line Production";
+          desc.textContent = "All 4 pre-production criteria passed! Raw materials, Tech Pack standards, MQP sample, and supermarket cut parts are 100% ready. MES authorizes work orders, targeting 100% first-day line efficiency!";
+        } else if (currentLang === 'vi') {
+          title.textContent = "Đồng bộ 4 Cổng · Cho phép Lên Chuyền & Cấp phát Đơn hàng";
+          desc.textContent = "Tất cả 4 cổng kiểm soát trước sản xuất đã kiểm tra hoàn tất! Nguyên phụ liệu, quy chuẩn Tech Pack, áo mẫu MQP và bán thành phẩm siêu thị sẵn sàng 100%. MES phê duyệt mở chuyền, hướng tới 100% hiệu suất ngày đầu đổi mã hàng!";
+        } else {
+          title.textContent = "條件齊套 · 放行排程發料上線";
+          desc.textContent = "所有 4 大產前門禁檢核通過！物料、工藝、樣板與半成品全數就緒，MES 准予開線，預期達成 100% 首日換線效率！";
+        }
       } else {
         resultBox.className = "sim-result-box blocked";
         icon.textContent = "⛔";
-        title.textContent = currentLang === 'en'
-          ? "Gate Blocked · Line Feeding Strictly Intercepted"
-          : "門禁攔截 · 嚴禁盲目上線";
 
-        let reasons = [];
         if (currentLang === 'en') {
+          title.textContent = "Gate Blocked · Line Feeding Strictly Intercepted";
+          let reasons = [];
           if (!g1) reasons.push("BOM & Trims Incomplete");
           if (!g2) reasons.push("Tech Pack & CAD Unapproved");
           if (!g3) reasons.push("MQP Golden Sample Unsealed");
           if (!g4) reasons.push("Supermarket Sub-Assemblies Not Staged");
           desc.innerHTML = `Automated gate interception! Missing criteria: <strong>${reasons.join(", ")}</strong>. MES schedule frozen to prevent shopfloor changeover disruption.`;
+        } else if (currentLang === 'vi') {
+          title.textContent = "Chặn Cổng Kiểm soát · Nghiêm cấm Lên Chuyền khi Chưa Đủ Chuẩn";
+          let reasons = [];
+          if (!g1) reasons.push("Nguyên phụ liệu BOM chưa đồng bộ");
+          if (!g2) reasons.push("Tài liệu kỹ thuật Tech Pack chưa xác lập");
+          if (!g3) reasons.push("Áo mẫu MQP chưa niêm phong");
+          if (!g4) reasons.push("Bán thành phẩm chưa nhập siêu thị");
+          desc.innerHTML = `Hệ thống chủ động chặn lại! Điều kiện chưa đạt: <strong>${reasons.join("、")}</strong>. Kế hoạch MES đã tự động đóng băng để tránh tháo chỉ sửa hàng tại xưởng.`;
         } else {
+          title.textContent = "門禁攔截 · 嚴禁盲目上線";
+          let reasons = [];
           if (!g1) reasons.push("物料原副料未齊套");
           if (!g2) reasons.push("工藝包 Tech Pack 未確立");
           if (!g3) reasons.push("MQP 產前樣品未封樣");
@@ -4040,53 +3546,17 @@
       const dailyOutput = Math.round(baseOutput * (efficiency / 70));
       const lossSam = Math.max(2.5, (30 - (skill * 0.18) - (ready * 0.12))).toFixed(1);
 
+      const unitOutput = currentLang === 'en' ? ' Pcs' : (currentLang === 'vi' ? ' chiếc' : ' 件');
+
       if (document.getElementById("calcLineBalance")) document.getElementById("calcLineBalance").innerText = lineBalance + "%";
       if (document.getElementById("calcOEE")) document.getElementById("calcOEE").innerText = efficiency + "%";
-      if (document.getElementById("calcDailyOutput")) document.getElementById("calcDailyOutput").innerText = dailyOutput.toLocaleString() + (currentLang === 'en' ? " Pcs" : " 件");
+      if (document.getElementById("calcDailyOutput")) document.getElementById("calcDailyOutput").innerText = dailyOutput.toLocaleString() + unitOutput;
       if (document.getElementById("calcLossSam")) document.getElementById("calcLossSam").innerText = lossSam + " min";
     }
 
-    
-    // =========================================================================
-    // 7. EXHAUSTIVE DOM TRANSLATION ENGINE (107 STRINGS FULL COVERAGE)
-    // =========================================================================
-    const fullTranslationPairs = [["全專案甘特圖", "2027 Project Gantt"], ["組織與資源配置", "Organization & Resources"], ["職能與設備盤點", "Skills & Asset Discovery"], ["搜尋全站藍圖...", "Search Blueprint... ⌘K"], ["線平衡動態演算", "Line Balance Simulation"], ["RSI Global Enterprise · 跨國製造數據治理、營運韌性與智能營運架構藍圖", "RSI Global Enterprise · Cross-Border Data Governance, Operational Resilience & Intelligent Operations Blueprint"], ["4 大", "4 Strategic"], ["25 項", "25 Digital"], ["2025 建置系統", "2025 System Build"], ["2026 補齊流程", "2026 Connectivity"], ["2027 整合運用與智能營運", "2027 Intelligent Operations"], ["戰略轉型", "Strategic Transition"], ["2027 的重點不是增加更多單點系統，而是讓既有資訊能力形成跨流程、跨廠區、跨系統的實質營運效益。", "The priority for 2027 is not accumulating more siloed software, but synthesizing existing capabilities into tangible cross-process, multi-plant, and cross-system operational value."], ["🖨️ 列印匯報版面", "🖨️ Print Executive Deck"], ["營運韌性", "Operational Resilience"], ["建立東南亞跨國邊緣離線自治能力與零信任資安縱深防禦，確保 Tier-1 生產核心具備不可篡改備份與可稽核復原力。", "Building cross-border edge autonomy across Southeast Asian plants with Zero Trust defense in depth, ensuring Tier-1 manufacturing cores possess immutable backups and auditable resilience."], ["AI 規模化", "AI at Scale & Agentic AI"], ["全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。", "Deploying Agentic AI across customer service, PMC scheduling, multilingual Tech Pack RAG, and IE workflows, upgrading passive queries into proactive collaborative execution agents."], ["資料可信任", "Data Trustworthiness"], ["建立企業單一真實資料來源（Single Source of Truth），統一主數據 MDM 定義，實行嚴謹存取控制與資料生命週期稽核。", "Establishing an enterprise Single Source of Truth (SSOT), unifying Master Data (MDM) taxonomy, and enforcing rigorous ABAC access controls and data lifecycle audits."], ["成本可控化", "Cost Governance & FinOps"], ["落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。", "Enforcing Cloud & Infrastructure FinOps, consolidating duplicated software licenses, and modernizing platforms to convert operational overhead into growth capital."], ["三大核心財務與效能承諾指標", "Three Core Financial & Operational Commitments"], ["可控 IT 維運成本降幅 (FinOps & Consolidation)", "Controllable IT Run Cost Reduction (FinOps & Consolidation)"], ["透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與基礎架構現代化，實質降低可控 IT Run Cost 8–12%。", "Substantively cut controllable IT Run Costs by 8–12% through FinOps instance optimization, unattached disk purge, redundant license consolidation, and architecture modernization."], ["特定核心流程工時釋放 (Agentic AI Empowerment)", "Core Process Labor Hour Release (Agentic AI Empowerment)"], ["透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。", "Targeting a 15–25% labor hour release across customer service, PMC order tracking, Tech Pack translation (RAG), and industrial engineering via Agentic AI workflows."], ["Tier-1 系統災難復原與資安合規 (Auditable RTO/RPO)", "Tier-1 DR & Compliance Assurance (Auditable RTO/RPO)"], ["核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。", "Elevating core manufacturing systems to international high-availability standards, reducing Tier-1 RTO to <2 hours and RPO to <15 minutes with verified auditability."], ["系統建置與基礎完善", "System Establishment & Infrastructure Solidification"], ["流程完善與資訊即時化", "Workflow Completion & Real-Time Telemetry"], ["整合運用與智能營運", "Integrated Synergies & Intelligent Operations"], ["2025–2027 IT 資源配置重心轉移", "2025–2027 IT Capital Resource Allocation Shift"], ["資源從單點軟硬體採購移轉至「數據整合與智能決策」", "Strategic pivot from isolated software/hardware purchasing to unified data integration and decision intelligence."], ["動態分析", "Dynamic Analytics"], ["關鍵製造 KPI 效益提升預測 (2025 vs 2027)", "Core Manufacturing KPI Improvement Projections (2025 vs 2027)"], ["成衣製造核心財務與交付指標對比", "Benchmark comparison across garment manufacturing financial and delivery KPIs."], ["P&L 映射", "P&L Mapping"], ["2027 智能營運與 AI 應用權重規劃", "2027 Intelligent Operations & AI Workload Distribution"], ["以可信、務實的三階階梯式實踐推動 AI 落地", "Pragmatic 3-stage phased roadmap driving applied AI on factory floors."], ["AI 戰略", "AI Strategy"], ["四大主架構關鍵任務覆蓋分佈", "Four Pillars Mission-Critical Coverage Distribution"], ["25 項核心功能之系統健全度與整備規劃", "Architectural health index and readiness score across all 25 subdomains."], ["架構雷達", "Architecture Radar"], ["車縫工段技能矩陣成熟度 (Worker Skill Index)", "Worker Skill Matrix Index (Worker Skill Index)"], ["50% (大量新手換線)", "50% (Novice Changeover)"], ["75% (常態作業)", "75% (Standard Baseline)"], ["100% (多技能熟手)", "100% (Cross-Skilled Elite)"], ["裁片超市特工齊套率 (Sewing Ready Ratio)", "Supermarket Trims & Parts Readiness Ratio"], ["50% (缺特工件等待)", "50% (Starved Waiting)"], ["75% (局部補料)", "75% (Partial Staging)"], ["100% (全裁片齊套)", "100% (Fully Staged)"], ["預估車縫線平衡率", "Estimated Line Balance Rate"], ["車間綜合效率 (OEE)", "Overall Equipment Effectiveness (OEE)"], ["單組標準日產能", "Standard Daily Line Output"], ["節拍瓶頸等待損失 (SAM)", "Takt Waiting Loss (SAM Loss)"], ["全球廠區邊緣節點動態狀態 (Live Heartbeat Telemetry)", "Global Plant Edge Node Live Telemetry & Heartbeat"], ["⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)", "⚡ Simulate Subsea Cable Cut Drill"], ["⚡ 雙向增量同步 (Delta Sync Engine Active)", "⚡ Bi-directional Delta Sync Engine Active"], ["Vietnam Hub (燈塔示範廠)", "Vietnam Hub (Lighthouse Demo Plant)"], ["邊緣模式", "Edge Mode"], ["離線可用容限", "Offline Autonomy"], ["MES 延遲", "MES Latency"], ["12 ms (本地)", "12 ms (Local Edge)"], ["待同步佇列", "Sync Queue"], ["0 件 (已同步)", "0 Items (In Sync)"], ["Cambodia Plant (針織運動)", "Cambodia Plant (Knit & Sportswear)"], ["18 ms (本地)", "18 ms (Local Edge)"], ["14 件 (同步中)", "14 Items (Syncing)"], ["Indonesia Plant (無縫貼合)", "Indonesia Plant (Seamless Bonding)"], ["公網狀態", "WAN Status"], ["海纜波動 · 本地自治", "Subsea Outage · Local Autonomous"], ["128 件 (快取安全)", "128 Items (Safe Cache)"], ["治理核心", "Governance Core"], ["API 閘道", "API Gateway"], ["AI 運算叢集", "AI Compute Cluster"], ["安全防禦", "Cyber Defense"], ["點選下方卡片切換主架構，或即時檢索項目：", "Select an architectural pillar below or search subdomains in real time:"], ["數位底座與治理", "Digital Foundation & Governance"], ["8 大關鍵領域", "8 Core Modules"], ["營運流程整合", "Operational Process Integration"], ["5 端到端流", "5 End-to-End Flows"], ["智能營運與決策", "Intelligent Operations & Decision"], ["7 智能應用項", "7 AI & Analytics Areas"], ["智慧製造與設備", "Smart Manufacturing & Equipment"], ["5 設備與邊緣項", "5 Shopfloor OT Areas"], ["四大架構串聯之層級價值鏈", "Architectural Layered Value Chain"], ["整體邏輯可理解為由基底硬體向決策支援遞進，解決「不同系統、流程、資料與設備是否能在共同架構下真正整合」之挑戰。", "Vertical progression from physical substrate up to executive AI decision support, solving the fundamental challenge of unifying siloed systems and telemetry under one architecture."], ["基礎設備與資料層", "1. Infrastructure & Data"], ["API / 服務介接", "2. API & Service Mediation"], ["端到端營運履約", "3. End-to-End Fulfillment"], ["即時透明看板", "4. Real-Time Telemetry"], ["主動異常辨識", "5. Automated Exception Detection"], ["模擬與決策輔助", "6. Simulation & Decision"], ["AI Copilot 協同", "7. Autonomous Agentic AI"], ["架構遞進邏輯：", "Architectural Progression Hierarchy:"], ["門禁一：BOM 與原副料全數齊套 (WMS)", "Gate 1: BOM & Trims 100% Ready (WMS)"], ["主布縮率已檢測完畢、色號批次相符、副料已入裁片超市", "Fabric shrinkage lab-tested, shade lots matched, trims 100% staged in supermarket."], ["門禁二：工藝包與工序標準確認 (Tech Pack / IE)", "Gate 2: Tech Pack & Standard Sealed (IE / CAD)"], ["最新客審工藝包就緒、標準工時 SAM 確認、針距與針種規範確立", "Client-approved Tech Pack confirmed, SAM values validated, needle pitch and SPI standardized."], ["門禁三：MQP 產前樣與做工樣確認 (Quality)", "Gate 3: MQP Pre-Production Golden Sample Approved (QA)"], ["PP 會議結論已簽核、品管封樣件確認、特殊部位做工無異議", "PP meeting minutes signed off, golden sample sealed by QA, critical seam construction approved."], ["門禁四：裁剪配套與特殊工序完成 (Sewing Ready)", "Gate 4: Cut Parts & Special Processes Staged (Supermarket)"], ["自動裁床拉布完成、印花/繡花/熱壓等特工件全數歸入裁片超市", "Automated cutting completed, printing/embroidery/bonding sub-assemblies 100% verified in supermarket."], ["RSI 信源集團 · 2027 IT 營運計畫與戰略藍圖", "RSI Global Enterprise · 2027 IT Operational Plan & Strategic Blueprint"], ["計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D.", "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D."], ["整合運用與智能營運 (Integration & Intelligent Operations) · 專為高階經營團隊設計", "Integration & Intelligent Operations · Formulated Exclusively for Executive Leadership"]];
-    const zhToEnMap = new Map();
-    const enToZhMap = new Map();
-    fullTranslationPairs.forEach(([zh, en]) => {
-      zhToEnMap.set(zh, en);
-      enToZhMap.set(en, zh);
-    });
-
-    function applyFullPageTranslation(targetLang) {
-      const map = (targetLang === 'en') ? zhToEnMap : enToZhMap;
-      const walk = (node) => {
-        if (node.nodeType === 3) {
-          const txt = node.textContent.trim();
-          if (map.has(txt)) {
-            node.textContent = node.textContent.replace(txt, map.get(txt));
-          }
-        } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE'].includes(node.tagName)) {
-          if (node.placeholder && map.has(node.placeholder)) {
-            node.placeholder = map.get(node.placeholder);
-          }
-          if (node.children.length === 0) {
-            const directText = node.innerText ? node.innerText.trim() : '';
-            if (map.has(directText)) {
-              node.innerText = map.get(directText);
-              return;
-            }
-          }
-          Array.from(node.childNodes).forEach(walk);
-        }
-      };
-      walk(document.body);
-    }
-
-
     function setLanguage(lang) {
-      currentLang = (lang === 'en') ? 'en' : 'zh';
-      const dict = i18n_bilingual[currentLang];
+      currentLang = ['zh', 'en', 'vi'].includes(lang) ? lang : 'zh';
+      const dict = i18n_multilingual[currentLang] || i18n_multilingual.zh;
 
       // Update Dropdown Header Display
       const disp = document.getElementById("currentLangDisplay");
@@ -4278,6 +3748,8 @@
       renderAdvice();
       calculateGateStatus();
       updateIESimulation();
+
+      // Exhaustive DOM Tree Translation
       applyFullPageTranslation(currentLang);
 
       // Search Modal Input placeholder
@@ -4285,9 +3757,7 @@
       if (sInput) sInput.placeholder = dict.searchPlaceholder;
     }
 
-
-
-    // 6. Search Helpers
+    // 6. Search Modal Helpers
     function openSearchModal() {
       const modal = document.getElementById("searchModalBackdrop");
       const input = document.getElementById("searchModalInput");
@@ -4324,7 +3794,9 @@
           <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.85rem;">
             ${currentLang === 'en' 
               ? 'Enter keywords to search all 4 pillars, 25 projects, 4-Gate rules and financial ROI...' 
-              : '輸入關鍵字即刻檢索全站（支援四大主架構、25 項企業工具、投資模型、門禁規則與海外邊緣監控）'}
+              : (currentLang === 'vi' 
+                ? 'Nhập từ khóa tìm kiếm 4 trụ cột, 25 dự án, quy tắc 4-Gate và hiệu quả tài chính...'
+                : '輸入關鍵字即刻檢索全站（支援四大主架構、25 項企業工具、投資模型、門禁規則與海外邊緣監控）')}
           </div>`;
         return;
       }
@@ -4349,7 +3821,7 @@
       if (matches.length === 0) {
         container.innerHTML = `
           <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.85rem;">
-            ${currentLang === 'en' ? 'No matching items found for "' + q + '"' : '查無符合「' + q + '」之項目'}
+            ${currentLang === 'en' ? 'No matching items found for "' + q + '"' : (currentLang === 'vi' ? 'Không tìm thấy kết quả nào cho "' + q + '"' : '查無符合「' + q + '」之項目')}
           </div>`;
         return;
       }
@@ -4403,7 +3875,6 @@
         openSearchModal();
       }
     });
-
 
     window.addEventListener("DOMContentLoaded", () => {
       setLanguage("zh");
