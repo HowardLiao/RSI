@@ -2871,82 +2871,82 @@
           {
                     "title": "API Management",
                     "tag": "API 管理機制",
-                    "desc": "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES 與供應商 API 路由與頻寬管制。",
-                    "tools": "Kong Gateway (OSS / Cloud) + OpenAPI 3.0 + Postman",
-                    "sizing": "台北總部核心網關 + 3 海外廠邊緣 Kong 節點 + 200 席調用",
-                    "budgetUSD": "$14,000 USD / 年 (約 $11k～$16k)",
-                    "budgetTWD": "約 NT$ 44 萬 / 年",
-                    "rgtCategory": "70% Run ($9.8k) / 30% Grow ($4.2k)"
+                    "desc": "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES、WMS 與供應商 API 吞吐與頻寬管制。",
+                    "tools": "Kong Gateway (Enterprise / Cloud) + OpenAPI 3.0 + Postman",
+                    "sizing": "台北總部核心網關 + 3 海外廠邊緣節點 + 2,500 席跨系統 API 吞吐治理",
+                    "budgetUSD": "$28,000 USD / 年 (約 $24k～$32k)",
+                    "budgetTWD": "約 NT$ 88 萬 / 年",
+                    "rgtCategory": "70% Run ($19.6k) / 30% Grow ($8.4k)"
           },
           {
                     "title": "Access Governance",
                     "tag": "存取治理與身分",
-                    "desc": "建立不同系統、資料、使用者及 AI Agent 的存取權限控管原則，落實動態金鑰與 Agent 身分沙盒。",
-                    "tools": "Microsoft Entra ID (P2) + HashiCorp Vault + SPIFFE/SPIRE",
-                    "sizing": "最多 200 席跨國幹部 SSO + 核心 DB 動態金鑰 + AI Agent 身分沙盒",
-                    "budgetUSD": "$24,000 USD / 年 (約 $20k～$28k)",
-                    "budgetTWD": "約 NT$ 76 萬 / 年",
-                    "rgtCategory": "70% Run ($16.8k) / 10% Grow ($2.4k) / 20% Transform ($4.8k)"
+                    "desc": "建立全集團 2,500 席分層身分 SSO (400 核心幹部 + 2,100 現場幹部) + 核心 DB 動態金鑰 + AI Agent 身分沙盒。",
+                    "tools": "Microsoft Entra ID (分層: 400 P2/E3 + 2,100 Frontline F-SKU) + Vault + SPIFFE",
+                    "sizing": "全集團 2,500 席分層 SSO + 核心 DB 動態金鑰 + AI Agent 沙盒",
+                    "budgetUSD": "$52,000 USD / 年 (約 $45k～$58k)",
+                    "budgetTWD": "約 NT$ 164 萬 / 年",
+                    "rgtCategory": "70% Run ($36.4k) / 10% Grow ($5.2k) / 20% Transform ($10.4k)"
           },
           {
                     "title": "Enterprise Data Layer",
                     "tag": "企業資料層",
-                    "desc": "逐步建立跨系統可共同使用的企業資料層，支援近即時生產串流分析與跨廠湖倉查詢。",
+                    "desc": "逐步建立跨系統可共同使用的企業資料層，支援 4 廠近即時生產 CDC 串流與 25TB 湖倉查詢。",
                     "tools": "Databricks Serverless (Delta Lake) + Debezium CDC + Apache Kafka",
-                    "sizing": "4 廠 CDC 串流 + 10TB 湖倉儲存 + 200 席彈性按需查詢節點",
-                    "budgetUSD": "$28,000 USD / 年 (約 $24k～$34k)",
-                    "budgetTWD": "約 NT$ 88 萬 / 年",
-                    "rgtCategory": "20% Run ($5.6k) / 40% Grow ($11.2k) / 40% Transform ($11.2k)"
+                    "sizing": "4 廠 CDC 串流 + 25TB 企業湖倉 + 2,500 席按需查詢運算節點",
+                    "budgetUSD": "$56,000 USD / 年 (約 $48k～$64k)",
+                    "budgetTWD": "約 NT$ 176 萬 / 年",
+                    "rgtCategory": "20% Run ($11.2k) / 40% Grow ($22.4k) / 40% Transform ($22.4k)"
           },
           {
                     "title": "Data Governance",
                     "tag": "資料治理與標準",
                     "desc": "建立核心資料定義、Source of Truth、資料品質及共用 Key／狀態標準，消除各廠同布不同號亂象。",
-                    "tools": "Profisee MDM (Starter) + Atlan Data Catalog + Great Expectations",
-                    "sizing": "200 席存取 + 全球原副料/款號主數據清洗 + 自動品質門禁",
-                    "budgetUSD": "$20,000 USD / 年 (約 $16k～$24k)",
-                    "budgetTWD": "約 NT$ 63 萬 / 年",
-                    "rgtCategory": "35% Run ($7.0k) / 45% Grow ($9.0k) / 20% Transform ($4.0k)"
+                    "tools": "Profisee MDM + Atlan Data Catalog + Great Expectations",
+                    "sizing": "2,500 席存取 + 全球原副料/款號主數據清洗 + 自動品質門禁",
+                    "budgetUSD": "$40,000 USD / 年 (約 $35k～$46k)",
+                    "budgetTWD": "約 NT$ 126 萬 / 年",
+                    "rgtCategory": "35% Run ($14.0k) / 45% Grow ($18.0k) / 20% Transform ($8.0k)"
           },
           {
                     "title": "AI Governance",
                     "tag": "AI 治理與監控",
                     "desc": "建立 AI 工具、模型、Agent、資料存取、監控及稽核之治理機制，管制 Token 預算並遮蔽 Tech Pack 機敏內容。",
                     "tools": "Portkey / LiteLLM Proxy + Guardrails AI + LangSmith",
-                    "sizing": "200 席 AI 調用管制 + 月均 200 萬 Tokens + Tech Pack 提示詞機敏遮罩",
-                    "budgetUSD": "$12,000 USD / 年 (約 $9k～$15k)",
-                    "budgetTWD": "約 NT$ 38 萬 / 年",
-                    "rgtCategory": "10% Run ($1.2k) / 20% Grow ($2.4k) / 70% Transform ($8.4k)"
+                    "sizing": "2,500 席 AI 調用管制 + 月均 500 萬 Tokens + Tech Pack 提示詞機敏遮罩",
+                    "budgetUSD": "$24,000 USD / 年 (約 $20k～$28k)",
+                    "budgetTWD": "約 NT$ 76 萬 / 年",
+                    "rgtCategory": "10% Run ($2.4k) / 20% Grow ($4.8k) / 70% Transform ($16.8k)"
           },
           {
                     "title": "Cybersecurity",
                     "tag": "資安與弱點管理",
                     "desc": "持續強化資安防護、弱點管理、端點安全與跨國人員資安意識，實施 24/7 EDR 託管防勒索威脅。",
-                    "tools": "CrowdStrike Falcon (EDR/XDR) + Cloudflare One (ZTNA) + Tenable.io",
-                    "sizing": "最多 200 席核心端點/伺服器 24/7 EDR 託管 + 零信任遠端存取與弱檢",
-                    "budgetUSD": "$28,000 USD / 年 (約 $24k～$34k)",
-                    "budgetTWD": "約 NT$ 88 萬 / 年",
-                    "rgtCategory": "85% Run ($23.8k) / 10% Grow ($2.8k) / 5% Transform ($1.4k)"
+                    "tools": "CrowdStrike Falcon (EDR: 600 核心終端與工控伺服器) + Cloudflare One (2,500 席 ZTNA)",
+                    "sizing": "全集團 2,500 席零信任存取 + 600 台核心伺服器/管理端點 24/7 EDR 託管與弱檢",
+                    "budgetUSD": "$50,000 USD / 年 (約 $42k～$58k)",
+                    "budgetTWD": "約 NT$ 158 萬 / 年",
+                    "rgtCategory": "85% Run ($42.5k) / 10% Grow ($5.0k) / 5% Transform ($2.5k)"
           },
           {
                     "title": "Backup / DR / BCP",
                     "tag": "營運持續管理",
                     "desc": "由單純備份進一步提升至營運持續與復原能力管理，達成 Tier-1 系統 RPO < 15m / RTO < 2h 之國際稽核標準。",
                     "tools": "Zerto (Tier-1 CDP) + Veeam Backup + AWS S3 Glacier Object Lock (WORM)",
-                    "sizing": "6~8 台核心生產 VM 秒級連續複製 + 15TB WORM 不可篡改備份槽",
-                    "budgetUSD": "$16,000 USD / 年 (約 $13k～$20k)",
-                    "budgetTWD": "約 NT$ 50 萬 / 年",
-                    "rgtCategory": "80% Run ($12.8k) / 20% Grow ($3.2k)"
+                    "sizing": "8~12 台核心生產 VM 秒級連續複製 + 30TB WORM 不可篡改備份槽",
+                    "budgetUSD": "$34,000 USD / 年 (約 $28k～$40k)",
+                    "budgetTWD": "約 NT$ 107 萬 / 年",
+                    "rgtCategory": "80% Run ($27.2k) / 20% Grow ($6.8k)"
           },
           {
                     "title": "Network Architecture",
                     "tag": "跨廠整合架構",
                     "desc": "建立支援工廠即時資訊、IoT、AI 與跨廠整合之穩定基礎架構，保障海外廠 48~72 小時離線自主運轉能力。",
                     "tools": "Fortinet Secure SD-WAN + Aruba Wi-Fi 6 + 研華 (Advantech) 工業邊緣主機",
-                    "sizing": "4 基地 SD-WAN 多線路控制器 + 4 台車間邊緣離線主機維護與硬體攤提",
-                    "budgetUSD": "$18,000 USD / 年 (約 $15k～$22k)",
-                    "budgetTWD": "約 NT$ 57 萬 / 年",
-                    "rgtCategory": "61% Run ($11.0k) / 27% Grow ($4.8k) / 12% Transform ($2.2k)"
+                    "sizing": "4 基地 SD-WAN 多線路控制器 + 8 台車間邊緣離線主機維護與硬體攤提",
+                    "budgetUSD": "$36,000 USD / 年 (約 $30k～$42k)",
+                    "budgetTWD": "約 NT$ 113 萬 / 年",
+                    "rgtCategory": "63% Run ($22.7k) / 26% Grow ($9.4k) / 11% Transform ($3.9k)"
           }
 ]
       },
