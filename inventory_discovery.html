@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 2027 現有技術職能與資通設備盤點實施手冊 (SOP 與 5 大標準表單)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FBFBFA;
+      --bg-card: #FFFFFF;
+      --bg-warm-tint: #F5F2EB;
+      --bg-amber-soft: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #DE5814;
+      --amber-gold: #D97706;
+      --green-run: #0D9488;
+      --blue-grow: #2563EB;
+      --purple-trans: #9333EA;
+      --text-charcoal: #1E1E24;
+      --text-body: #4A4A52;
+      --text-muted: #7A7A85;
+      --border-subtle: #E8E5DF;
+      --border-strong: #D5D0C5;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 2px 8px rgba(30, 30, 36, 0.04);
+      --shadow-md: 0 8px 24px rgba(30, 30, 36, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      position: relative;
+      min-height: 100vh;
+      padding: 30px 24px;
+    }
+
+    /* Watermark Overlay */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'%3E%3Ctext x='20' y='90' fill='%23A83212' font-family='sans-serif' font-size='18' font-weight='bold' letter-spacing='2' transform='rotate(-25 150 90)'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Top Navigation Links */
+    .top-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-btn:hover {
+      border-color: var(--rust-primary);
+      color: var(--rust-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+    }
+
+    /* Masthead */
+    .masthead {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .main-title {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .main-title span {
+      color: var(--rust-primary);
+      font-style: italic;
+    }
+    .main-lead {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      max-width: 1000px;
+    }
+    .leadership-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .chip strong {
+      color: var(--text-charcoal);
+      margin-left: 4px;
+    }
+
+    /* Process 4-Stage Banner */
+    .sop-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sop-h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sop-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 860px) {
+      .sop-steps { grid-template-columns: 1fr 1fr; }
+    }
+    .sop-step-box {
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      position: relative;
+    }
+    .sop-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #FFF;
+      background: var(--rust-primary);
+      padding: 1px 6px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .sop-step-title {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .sop-step-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Forms Interactive Switcher */
+    .forms-section {
+      margin-bottom: 36px;
+    }
+    .form-tabs-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+    .form-tab-btn {
+      background: var(--bg-warm-tint);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-body);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      font-family: var(--font-sans);
+    }
+    .form-tab-btn:hover {
+      background: var(--bg-card);
+      color: var(--rust-primary);
+      border-color: var(--rust-primary);
+    }
+    .form-tab-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Form Card Container */
+    .form-display-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 22px;
+    }
+    .form-header-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      border-bottom: 1px dashed var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .form-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .form-target {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      background: rgba(168, 50, 18, 0.08);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .form-desc {
+      font-size: 0.82rem;
+      color: var(--text-body);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* Table Styles */
+    .table-responsive {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    .data-table {
+      width: 100%;
+      min-width: 1100px;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 9px 12px;
+    }
+    .data-table th {
+      background: #FAF8F5;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      text-align: left;
+    }
+    .data-table tr:hover td {
+      background: #FFFDF9;
+    }
+    .badge-score {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+    }
+    .score-5 { background: #D1FAE5; color: #047857; }
+    .score-4 { background: #E0E7FF; color: #4338CA; }
+    .score-3 { background: #FEF3C7; color: #B45309; }
+    .score-2 { background: #FFEDD5; color: #C2410C; }
+    .score-1 { background: #FEE2E2; color: #B91C1C; }
+
+    /* Audit & Output Bento Grid */
+    .bento-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    @media (max-width: 860px) {
+      .bento-grid-2 { grid-template-columns: 1fr; }
+    }
+    .bento-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .bento-box.audit { border-left: 4px solid var(--amber-gold); }
+    .bento-box.deliverable { border-left: 4px solid var(--blue-grow); }
+    .bento-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .item-list {
+      list-style: none;
+    }
+    .item-row {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      margin-bottom: 10px;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .item-row::before {
+      content: "•";
+      color: var(--rust-primary);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 20px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media print {
+      body { padding: 0; background: #FFF; }
+      .top-nav-bar, .form-tabs-bar { display: none; }
+      .container { max-width: 100%; }
+      .table-responsive { border: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    <!-- Top Nav Navigation Bar -->
+    <div class="top-nav-bar">
+      <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGY BLUEPRINT</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">🌐 回白皮書首頁</a>
+        <a href="gantt_chart_2027.html" class="nav-btn">📅 2027 全專案甘特圖</a>
+        <a href="organization_resources.html" class="nav-btn">👥 組織與資源配置</a>
+        <a href="inventory_discovery.html" class="nav-btn active">📋 職能與設備盤點</a>
+      </div>
+    </div>
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <h1 class="main-title">2027 跨國資訊技術／管理職能與資通設備盤點實施體系<br><span>健全基線・科學對帳・精準賦能 (SOP 實施手冊與 5 大標準表單)</span></h1>
+      <p class="main-lead">
+        針對信源全球跨國製造版圖（台北營運總部 ＋ 越南隆安/西寧、柬埔寨金邊、印尼中爪哇），建立「標準化表單收集 ＋ 網路自動探勘對帳 ＋ 現場視訊抽查」三道防弊門禁。杜絕憑空瞎填與虛報黑數，精準獲取 2,500 席真實技術盲點、設備老化與軟體授權浪費數據。
+      </p>
+      <div class="leadership-strip">
+        <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
+          <span>計劃主持：</span><strong>周文津 副總</strong>
+        </div>
+        <div class="chip" style="border-left: 3px solid var(--rust-primary);">
+          <span>執行負責：</span><strong>Howard Liao Ph.D.</strong>
+        </div>
+        <div class="chip">
+          <span>實施週期：</span><strong>為期 4 週 (啟動宣導 ➔ 自評複核 ➔ 工具對帳 ➔ 高階呈報)</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- SOP 4-Stage Banner -->
+    <div class="sop-banner">
+      <div class="sop-h3">📌 盤點推動標準作業程序 (SOP 4-Stage Discovery Timeline)</div>
+      <div class="sop-steps">
+        <div class="sop-step-box">
+          <span class="sop-step-num">第 1 週 · 啟動宣導</span>
+          <div class="sop-step-title">高管公文定調賦能</div>
+          <div class="sop-step-desc">由周副總發布正式公文，定調為「培訓升級與老舊設備更換預算依據」，消除基層戒備心；指派海外各廠盤點窗口。</div>
+        </div>
+        <div class="sop-step-box">
+          <span class="sop-step-num">第 2 週 · 表單填寫</span>
+          <div class="sop-step-title">下發 5 大標準表單</div>
+          <div class="sop-step-desc">總部與海外人員填寫線上自評表，由直屬主管進行 1~5 分客觀複核（拒絕全員灌水），軟硬體資產同步填寫底冊。</div>
+        </div>
+        <div class="sop-step-box">
+          <span class="sop-step-num">第 3 週 · 工具對帳</span>
+          <div class="sop-step-title">網段掃描與視訊抽查</div>
+          <div class="sop-step-desc">網管執行 Nmap/Tenable 實體網路存活掃描，背對背對帳；執行負責人跨國視訊抽查機房與拔網線測試。</div>
+        </div>
+        <div class="sop-step-box">
+          <span class="sop-step-num">第 4 週 · 成果呈報</span>
+          <div class="sop-step-title">產出 3 大高階決策件</div>
+          <div class="sop-step-desc">產出《技術技能熱力圖》、《技術債與斷網風險清冊》、《FinOps 授權降本建議書》，直接支撐二千萬預算分配。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forms Section: Tabbed Switcher -->
+    <section class="forms-section">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+        <h2 style="font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: var(--text-charcoal);">
+          📋 5 大標準化盤點表單（點選頁籤檢視完整欄位與範例）
+        </h2>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">支援同仁線上填報與主管審核標準格式</span>
+      </div>
+
+      <div class="form-tabs-bar">
+        <button class="form-tab-btn active" onclick="switchFormTab('form1')">表單一：IT/OT 技術職能自評表</button>
+        <button class="form-tab-btn" onclick="switchFormTab('form2')">表單二：管理與跨國協同職能表</button>
+        <button class="form-tab-btn" onclick="switchFormTab('form3')">表單三：伺服器/VM/雲端資產表</button>
+        <button class="form-tab-btn" onclick="switchFormTab('form4')">表單四：車間 OT 邊緣與機台表</button>
+        <button class="form-tab-btn" onclick="switchFormTab('form5')">表單五：應用系統與 SaaS 授權表</button>
+      </div>
+
+      <!-- Form Card Container -->
+      <div class="form-display-card" id="formDisplayCard">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Bottom Bento Grid: Audit & Deliverables -->
+    <div class="bento-grid-2">
+      <!-- Box 1: Audit Controls -->
+      <div class="bento-box audit">
+        <div class="bento-title">🛡️ 三道防弊對帳與現場稽核機制 (Anti-Cheat & Validation)</div>
+        <ul class="item-list">
+          <li class="item-row">
+            <strong>全網段工具自動探勘與資產表「背對背對帳」：</strong><br>
+            以 Nmap/Tenable 掃描實體在線 IP/MAC，對比同仁人工填報清單，查核是否存在「已報廢未除帳」或「私接之影子伺服器（Shadow Server）」。
+          </li>
+          <li class="item-row">
+            <strong>跨國隨機視訊「開箱抽查」機房與機櫃：</strong><br>
+            由執行負責人視訊連線海外 IT 幹部鏡頭，隨機抽檢 3 處機櫃標籤、UPS 電池及交換器跳線，確認環境真實妥善率。
+          </li>
+          <li class="item-row">
+            <strong>車間邊緣主機「拔網線實測」離線自主能力：</strong><br>
+            現地實地拔除外網光纖，驗證裁床、拉布機、模板機與 RFID 計工是否能繼續運轉 48～72 小時，杜絕虛報離線能力。
+          </li>
+        </ul>
+      </div>
+
+      <!-- Box 2: Executive Deliverables -->
+      <div class="bento-box deliverable">
+        <div class="bento-title">📊 盤點完成後之 3 大高階決策交付物 (C-Level Outcomes)</div>
+        <ul class="item-list">
+          <li class="item-row">
+            <strong>《全集團 IT/OT 專業技能熱力圖 (Competency Heatmap)》：</strong><br>
+            以紅黃綠色標示內部在 Kong、Entra ID、Databricks、Profisee、Camunda、K3s 的成熟度，明確指出哪些自建、哪些需外部 SI 駐廠。
+          </li>
+          <li class="item-row">
+            <strong>《資通架構技術債與斷網風險清冊 (Risk Register)》：</strong><br>
+            列管過保硬體（如 Dell R740）、停止支援 OS（Windows 2016）及斷網即停擺設備，正當化 2027 邊緣主機與 Zerto 災備預算。
+          </li>
+          <li class="item-row">
+            <strong>《2027 軟體授權 FinOps 降本具體提議書》：</strong><br>
+            揪出「高額進階帳號僅收信」的閒置帳號，具體落實 2,500 席分層授權（400 核心幹部 ＋ 2,100 現場幹部），具體實現 Run Cost 降低 8%～12%。
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer class="page-footer">
+      <div>信源全球 (RSI) · 2027 年度 IT 組織職能與資通設備現況盤點實施體系</div>
+      <div>計劃主持：周文津 副總 ｜ 執行負責：Howard Liao Ph.D.</div>
+    </footer>
+  </div>
+
+  <script>
+    const formsData = {
+      form1: {
+        title: "表單一：IT/OT 核心技術職能盤點表 (Technical Competency Inventory)",
+        target: "填寫對象：台北總部全體 IT/IE 人員、海外各廠資訊/OT/自動化工程師",
+        desc: "採用 1~5 級制客觀自評（1:無概念、2:基礎概念、3:獨立維運、4:進階排錯、5:架構專家），直屬主管需嚴格複核以消除水分，作為 2027 跨國培訓與外部 SI 資源引進依據。",
+        headers: ["工號/姓名", "所屬廠區", "專業領域", "具體技術/工具項目", "自評等級", "實務年資", "代表專案實績", "持有原廠證照", "主管複核", "主管評語與培訓建議"],
+        rows: [
+          ["RSI-1082 陳大明", "越南隆安旗艦廠", "車間 OT 物聯網", "Kepware OPC-UA / 模板機 Modbus 訊號採集", "<span class='badge-score score-3'>3 (獨立維運)</span>", "2 年", "隆安廠自動拉布機訊號接入 MES", "無 (欲考 AWS SAA)", "<span class='badge-score score-3'>3</span>", "實作熱忱高，建議下半年送原廠容器訓"],
+          ["RSI-1045 林志豪", "台北營運總部", "身分治理與資安", "Microsoft Entra ID / 條件式存取 / 網域", "<span class='badge-score score-4'>4 (進階排錯)</span>", "5 年", "集團 1,200 帳號混合雲 AD 同步建置", "Microsoft SC-300", "<span class='badge-score score-4'>4</span>", "技術成熟，可擔綱 2027 分層 SSO 主責"],
+          ["RSI-2011 索昆提", "柬埔寨金邊廠", "網路與邊緣系統", "Fortinet 防火牆 / 工業交換器 / 4G 備援", "<span class='badge-score score-3'>3 (獨立維運)</span>", "3 年", "金邊二廠車間 Aruba Wi-Fi 6 佈線工程", "CCNA", "<span class='badge-score score-3'>3</span>", "現場反應敏捷，需加強英文技術溝通"],
+          ["RSI-3008 蘇哈托", "印尼中爪哇廠", "工業自動化與感測", "Moxa 溫壓 IoT 網關 / Python 數據擷取", "<span class='badge-score score-2'>2 (基礎概念)</span>", "1 年", "無縫熱壓貼合機台溫控感應測試", "無", "<span class='badge-score score-2'>2</span>", "新進同仁，建議指派總部資深專家一對一帶教"],
+          ["RSI-1019 廖雅婷", "台北營運總部", "數據架構與中台", "SQL Server / Databricks Delta Lake / CDC", "<span class='badge-score score-3'>3 (獨立維運)</span>", "4 年", "供應鏈每日訂單進度 ETL 排程開發", "Azure DP-203", "<span class='badge-score score-4'>4</span>", "具備湖倉思維，可作為 30TB 數據中台主將"]
+        ]
+      },
+      form2: {
+        title: "表單二：IT 管理與跨國專案協同職能盤點表 (Management & Synergy)",
+        target: "填寫對象：各組課長、專案負責人 (PM)、海外廠部資訊主管",
+        desc: "評估幹部在跨國外語溝通、PMP 甘特圖控管、成衣工藝製程理解（BOM/SAM/PCD）、外部廠商管理與災難決策能力。",
+        headers: ["工號/姓名", "職稱/單位", "跨國外語溝通", "專案管理 (PMP)", "成衣業務理解", "外部廠商管理", "危機應變 (BCP)", "綜合評定", "管理職能重點佐證"],
+        rows: [
+          ["RSI-1008 黃建國", "總部系統課長", "<span class='badge-score score-4'>4 (流利商務)</span>", "<span class='badge-score score-4'>4 (精通WBS)</span>", "<span class='badge-score score-3'>3 (熟稔生管)</span>", "<span class='badge-score score-4'>4 (合約控管)</span>", "<span class='badge-score score-4'>4 (冷靜決策)</span>", "<span class='badge-score score-4'>優良</span>", "能以英文主持海外跨廠技術會議，具備大局觀"],
+          ["RSI-2001 阮文雄", "越南廠 IT 主管", "<span class='badge-score score-3'>3 (日常英文)</span>", "<span class='badge-score score-3'>3 (進度追蹤)</span>", "<span class='badge-score score-5'>5 (極熟車間)</span>", "<span class='badge-score score-2'>2 (依賴總部)</span>", "<span class='badge-score score-4'>4 (現地解決)</span>", "<span class='badge-score score-3'>良好</span>", "深入理解成衣車縫瓶頸，能弭平產線與資訊代溝"],
+          ["RSI-1033 張美玲", "總部流程 PM", "<span class='badge-score score-4'>4 (流利英文)</span>", "<span class='badge-score score-5'>5 (PMP證照)</span>", "<span class='badge-score score-4'>4 (通曉產前)</span>", "<span class='badge-score score-3'>3 (對接順暢)</span>", "<span class='badge-score score-3'>3 (按SOP應處)</span>", "<span class='badge-score score-4'>優良</span>", "掌管 4-Gate 產前門禁時程，執行力與溝通力極強"]
+        ]
+      },
+      form3: {
+        title: "表單三：跨國伺服器、虛擬化與災備儲存資源盤點表 (Infrastructure Inventory)",
+        target: "填寫對象：總部系統工程師、海外廠伺服器管理員（需附 vCenter / 雲端清冊）",
+        desc: "清查全集團實體伺服器、VMware 虛擬機與雲端主機之負載率、過保狀態及 RPO/RTO 災備水準，為 2027 Zerto 與雲地混合配置提供依據。",
+        headers: ["資產標籤", "所在地點", "架構型態", "規格 (CPU/RAM/Disk)", "作業系統版本", "承載核心業務", "平均負載", "原廠保固", "現有災備方式", "2027 建議處置"],
+        rows: [
+          ["SRV-VN-01", "越南隆安 機房", "實體機 (Dell R740)", "32C / 128G / 4TB SSD", "VMware ESXi 7.0u3", "隆安現場 MES 資料庫", "CPU 45% / RAM 80%", "<span class='badge-score score-1'>已過保 (2024到期)</span>", "Veeam 本地每日差異備份", "建議淘汰更新，納入 Zerto CDP 秒級災備"],
+          ["SRV-TP-03", "台北總部 機房", "虛擬機 (VM)", "16C / 64G / 2TB", "Windows Server 2016", "供應鏈採購管理系統", "CPU 80% / 磁碟剩15%", "<span class='badge-score score-2'>OS即將停止支援</span>", "每日本地快照", "資料結構遷移至 Databricks 30TB 湖倉中台"],
+          ["CLD-AWS-01", "AWS 新加坡區", "EC2 (t3.xlarge)", "4 vCPU / 16G RAM", "Ubuntu 22.04 LTS", "品牌客戶訂單 EDI 轉檔", "CPU 8% (高度閒置)", "隨付計費", "AWS S3 跨區快照", "納入 FinOps 治理，降規為 t3.medium 節省成本"],
+          ["SRV-KH-02", "柬埔寨金邊 機房", "實體機 (HP DL380)", "16C / 64G / 2TB", "Windows Server 2019", "金邊廠 WMS 倉儲資料庫", "CPU 35% / RAM 55%", "<span class='badge-score score-3'>保固至 2027/08</span>", "本地每週完整備份", "增設雙軌異地同步，強化備份不可篡改性"]
+        ]
+      },
+      form4: {
+        title: "表單四：車間 OT 工業物聯網與邊緣設備盤點表 (Shopfloor OT & Edge)",
+        target: "填寫對象：各海外廠工務主管、機修組長、車間 IT 幹部",
+        desc: "清查現場自動裁床、模板機、吊掛 RFID 與邊緣主機的通訊介面，重點檢驗『海底電纜斷網時現場機台能否自主生產 48~72 小時』。",
+        headers: ["設備編號", "廠區與車間位置", "設備類別", "品牌型號", "通訊協定", "介接機台", "外部斷網能否自主生產？", "設備年資", "妥善率", "備品現況"],
+        rows: [
+          ["EDG-VN-01", "越南隆安 裁剪車間", "工業邊緣主機", "研華 ARK-2250", "RS-485 / Modbus", "奔馬自動裁床、拉布機", "<span class='badge-score score-1'>否 (斷網即卡住停擺)</span>", "3 年", "良好", "0 台 (無備品，極度危險)"],
+          ["IOT-KH-03", "柬埔寨金邊 車縫一廠", "RFID 讀寫器", "Impinj R420", "RJ45 網線 / PoE", "吊掛產線分揀計工站", "<span class='badge-score score-3'>受限 (可暫存200筆)</span>", "2 年", "優良", "1 台備品在庫"],
+          ["SMR-ID-02", "印尼中爪哇 貼合車間", "溫壓 IoT 感測網關", "Moxa ioLogik", "MQTT / Wi-Fi", "特種無縫熱壓貼合機台", "<span class='badge-score score-5'>能 (本地記憶卡快取)</span>", "1 年", "優良", "2 組備品在庫"],
+          ["EDG-VN-04", "越南西寧 模板車間", "工業觸控一體機", "研華 PPC-3150", "TCP/IP 乙太網", "自動模板機 20 台集控", "<span class='badge-score score-2'>否 (依賴總部資料庫)</span>", "4 年", "偶發重開機", "0 台 (需儘速納入升級)"]
+        ]
+      },
+      form5: {
+        title: "表單五：企業應用系統、SaaS 授權與影子 IT 盤點表 (Applications & Shadow IT)",
+        target: "填寫對象：總部軟體資產管理員、生管主管、採購主管、海外總經理室",
+        desc: "落實 FinOps，揪出『買了昂貴進階授權卻只拿來收信』的浪費，以及各海外廠未經報備私自採購之『影子 IT (Shadow IT)』。",
+        headers: ["系統名稱", "供應商/原廠", "部署模式", "購買授權數", "活躍使用人數", "授權版本規格", "年合約費用 (TWD/USD)", "到期日", "現場痛點與浪費分析"],
+        rows: [
+          ["Microsoft 365", "台灣微軟", "公有雲 SaaS", "1,200 席", "650 人常態使用", "高級企業版 (E3/P2)", "約 NT$ 620 萬 / 年", "2027/06/30", "嚴重過度授權：車間幹部不需全套 E3，改採 Frontline F-SKU 可省百萬"],
+          ["傳統端點防毒", "某知名資安商", "地端主控台", "800 台", "610 台在線", "端點防毒版", "約 NT$ 95 萬 / 年", "2027/03/31", "無法防禦新形態勒索病毒，且海外假日無人值守，建議直升 CrowdStrike MDR"],
+          ["某國外雲端排班", "未報備外部廠商", "海外信用卡扣款", "150 帳號", "120 人活躍", "團隊版 SaaS", "約 $4,500 USD / 年", "每月自動扣款", "【影子 IT 風險】金邊廠私下租用，員工個資在未知公有雲，無資安稽核防護"],
+          ["舊版排程 Excel 巨集", "同仁自行編寫", "個人電腦 本機", "無限制", "5 位生管人員", "VBA 腳本程式", "0 元 (高維護風險)", "無到期日", "核心公式僅原作者理解，無法與 MES 即時對接，存在嚴重人員離職單點風險"]
+        ]
+      }
+    };
+
+    function switchFormTab(formKey) {
+      document.querySelectorAll('.form-tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const data = formsData[formKey];
+      if (!data) return;
+
+      const container = document.getElementById('formDisplayCard');
+      container.innerHTML = `
+        <div class="form-header-meta">
+          <div>
+            <h3 class="form-title">${data.title}</h3>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:3px;">信源全球 2027 IT 營運計畫 · 標準化盤點表冊</p>
+          </div>
+          <span class="form-target">${data.target}</span>
+        </div>
+        <p class="form-desc">💡 <strong>填寫指引與原則：</strong>${data.desc}</p>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                ${data.headers.map(h => `<th>${h}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${data.rows.map(r => `
+                <tr>
+                  ${r.map(cell => `<td>${cell}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Initialize Form 1
+    switchFormTab('form1');
+  </script>
+</body>
+</html>

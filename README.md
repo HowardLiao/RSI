@@ -3,7 +3,8 @@
 > **計劃主持人**：周文津 副總 (Executive Sponsor) ｜ **執行負責人**：Howard Liao Ph.D. (Lead Architect & C-Level Advisor)  
 > **線上即時戰情白皮書**：[https://howardliao.github.io/RSI/](https://howardliao.github.io/RSI/)  
 > **全年度 25 項專案甘特圖**：[https://howardliao.github.io/RSI/gantt_chart_2027.html](https://howardliao.github.io/RSI/gantt_chart_2027.html)  
-> **組織職能與內外部資源配置**：[https://howardliao.github.io/RSI/organization_resources.html](https://howardliao.github.io/RSI/organization_resources.html)
+> **組織職能與內外部資源配置**：[https://howardliao.github.io/RSI/organization_resources.html](https://howardliao.github.io/RSI/organization_resources.html)  
+> **現有技術職能與資通設備盤點實施手冊**：[https://howardliao.github.io/RSI/inventory_discovery.html](https://howardliao.github.io/RSI/inventory_discovery.html)
 
 ---
 
