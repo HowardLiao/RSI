@@ -1438,6 +1438,73 @@
       animation: pulseGlow 2.5s ease-out;
     }
 
+
+    /* 2027 Investment Framework Section */
+    .investment-hero-panel {
+      background: linear-gradient(135deg, #FFFDFB 0%, #FAF5ED 100%);
+      border: 1px solid var(--border-subtle);
+      border-top: 4px solid var(--rust-primary);
+      border-radius: var(--radius-md);
+      padding: 36px;
+      margin-bottom: 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .invest-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    .invest-pillar-card {
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .invest-pillar-card:hover {
+      border-color: var(--orange-vibrant);
+      transform: translateY(-2px);
+    }
+
+    .invest-pillar-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .invest-pillar-title {
+      font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: var(--text-charcoal); margin-bottom: 4px;
+    }
+    .invest-pillar-en {
+      font-size: 0.72rem; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 8px;
+    }
+    .invest-pillar-desc { font-size: 0.84rem; color: var(--text-body); line-height: 1.55; }
+
+    .budget-kpi-split {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 28px;
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 28px;
+      align-items: center;
+    }
+
+    .budget-chart-side { display: flex; flex-direction: column; align-items: center; }
+    .budget-canvas-wrap { width: 230px; height: 230px; position: relative; margin-bottom: 12px; }
+    .budget-legend-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .budget-pill { font-size: 0.74rem; padding: 4px 10px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+
+    .kpi-commitments-side { display: flex; flex-direction: column; gap: 14px; }
+    .commit-card { background: #FAF8F5; border-left: 4px solid var(--orange-vibrant); padding: 14px 18px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .commit-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .commit-title { font-weight: 700; color: var(--text-charcoal); font-size: 0.92rem; }
+    .commit-stat { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; color: var(--rust-primary); }
+    .commit-desc { font-size: 0.83rem; color: var(--text-body); line-height: 1.5; }
+
   </style>
 </head>
 <body>
@@ -1473,7 +1540,8 @@
       </div>
 
       <nav class="masthead-nav">
-        <a href="#evolution" class="active" id="nav-evo">發展演進 (2025–2027)</a>
+        <a href="#invest-framework" class="active" id="nav-invest">2027 投資主軸與預算</a>
+        <a href="#evolution" id="nav-evo">發展演進 (2025–2027)</a>
         <a href="#visual-analytics" id="nav-analytics">戰略數據與動態圖表</a>
         <a href="#dynamic-sim">線平衡動態演算</a>
         <a href="#factory-monitor" id="nav-edge">跨國海外廠區邊緣韌性</a>
@@ -1531,6 +1599,102 @@
         <button onclick="window.print()" style="background: transparent; border: 1px solid var(--rust-primary); color: var(--rust-primary); padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
           🖨️ 列印匯報版面
         </button>
+      </div>
+    </div>
+
+    <!-- Section: 2027 IT 投資主軸與資本配置治理 -->
+    <section id="invest-framework" class="section-header">
+      <div class="section-eyebrow" id="t-investEyebrow">Strategic Investment & Capital Governance · C-Level Strategy</div>
+      <h2 class="section-title" id="t-investTitle">2027 IT 投資主軸與資本配置治理</h2>
+      <p class="section-description" id="t-investDesc">
+        2027 年 IT 投資主軸為「營運韌性、AI 規模化、資料可信任、成本可控化」；預計將 IT 預算配置為 55% Run、25% Grow、20% Transform。透過 FinOps、授權整併與基礎架構現代化降低維運成本，由 Agentic AI 驅動工時釋放，並使 Tier-1 核心復原力達到國際可稽核水準。
+      </p>
+    </section>
+
+    <div class="investment-hero-panel">
+      <div class="invest-pillars-grid" id="investPillarsContainer">
+        <!-- 4 Investment Pillars Bento Grid -->
+        <div class="invest-pillar-card">
+          <div class="invest-pillar-icon">🛡️</div>
+          <div class="invest-pillar-title">營運韌性</div>
+          <div class="invest-pillar-en">Operational Resilience</div>
+          <div class="invest-pillar-desc">
+            建立東南亞跨國邊緣離線自治能力與零信任資安縱深防禦，確保 Tier-1 生產核心具備不可篡改備份與可稽核復原力。
+          </div>
+        </div>
+        <div class="invest-pillar-card">
+          <div class="invest-pillar-icon">🤖</div>
+          <div class="invest-pillar-title">AI 規模化</div>
+          <div class="invest-pillar-en">AI at Scale & Agentic AI</div>
+          <div class="invest-pillar-desc">
+            全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。
+          </div>
+        </div>
+        <div class="invest-pillar-card">
+          <div class="invest-pillar-icon">💎</div>
+          <div class="invest-pillar-title">資料可信任</div>
+          <div class="invest-pillar-en">Data Trustworthiness</div>
+          <div class="invest-pillar-desc">
+            建立企業單一真實資料來源（Single Source of Truth），統一主數據 MDM 定義，實行嚴謹存取控制與資料生命週期稽核。
+          </div>
+        </div>
+        <div class="invest-pillar-card">
+          <div class="invest-pillar-icon">⚖️</div>
+          <div class="invest-pillar-title">成本可控化</div>
+          <div class="invest-pillar-en">Cost Governance & FinOps</div>
+          <div class="invest-pillar-desc">
+            落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。
+          </div>
+        </div>
+      </div>
+
+      <div class="budget-kpi-split">
+        <div class="budget-chart-side">
+          <div style="font-weight: 700; color: var(--text-charcoal); font-size: 1rem; margin-bottom: 8px;" id="t-budgetTitle">
+            2027 IT 預算配置模型 (Gartner R-G-T)
+          </div>
+          <div class="budget-canvas-wrap">
+            <canvas id="budgetDoughnutChart"></canvas>
+          </div>
+          <div class="budget-legend-pills" id="t-budgetLegend">
+            <span class="budget-pill" style="background:#E2E8F0; color:#334155;">● 55% Run (維運穩固)</span>
+            <span class="budget-pill" style="background:#FEF3C7; color:#92400E;">● 25% Grow (業務增長)</span>
+            <span class="budget-pill" style="background:#FEE2E2; color:#991B1B;">● 20% Transform (創新躍升)</span>
+          </div>
+        </div>
+
+        <div class="kpi-commitments-side" id="commitmentsContainer">
+          <div style="font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: var(--text-charcoal); margin-bottom: 4px;">
+            三大核心財務與效能承諾指標
+          </div>
+          <div class="commit-card">
+            <div class="commit-card-head">
+              <span class="commit-title">可控 IT 維運成本降幅 (FinOps & Consolidation)</span>
+              <span class="commit-stat">▼ 8% ～ 12%</span>
+            </div>
+            <div class="commit-desc">
+              透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與基礎架構現代化，實質降低可控 IT Run Cost 8–12%。
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-card-head">
+              <span class="commit-title">特定核心流程工時釋放 (Agentic AI Empowerment)</span>
+              <span class="commit-stat">▲ 15% ～ 25%</span>
+            </div>
+            <div class="commit-desc">
+              透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。
+            </div>
+          </div>
+          <div class="commit-card">
+            <div class="commit-card-head">
+              <span class="commit-title">Tier-1 系統災難復原與資安合規 (Auditable RTO/RPO)</span>
+              <span class="commit-stat">RPO&lt;15m · RTO&lt;2h</span>
+            </div>
+            <div class="commit-desc">
+              核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2347,6 +2511,29 @@
 
     // Chart.js Visualizations Setup (Milan Warm Amber Palette)
     function initCharts() {
+      // Budget Chart (55% Run, 25% Grow, 20% Transform)
+      const ctxBudget = document.getElementById('budgetDoughnutChart');
+      if (ctxBudget) {
+        new Chart(ctxBudget, {
+          type: 'doughnut',
+          data: {
+            labels: ['Run (55%)', 'Grow (25%)', 'Transform (20%)'],
+            datasets: [{
+              data: [55, 25, 20],
+              backgroundColor: ['#CBD5E1', '#D97706', '#A83212'],
+              borderWidth: 2,
+              borderColor: '#FFF'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            cutout: '68%'
+          }
+        });
+      }
+
       const colorRust = '#A83212';
       const colorOrange = '#DE5814';
       const colorAmber = '#D97706';
@@ -2509,6 +2696,12 @@
     // Global 6-Language Dictionary
     const i18n_6lang = {
     "zh": {
+        "navInvest": "2027 投資主軸與預算",
+        "investEyebrow": "Strategic Investment & Capital Governance · C-Level Strategy",
+        "investTitle": "2027 IT 投資主軸與資本配置治理",
+        "investDesc": "2027 年 IT 投資主軸為「營運韌性、AI 規模化、資料可信任、成本可控化」；預計將 IT 預算配置為 55% Run、25% Grow、20% Transform。透過 FinOps、授權整併與基礎架構現代化降低維運成本，由 Agentic AI 驅動工時釋放，並使 Tier-1 核心復原力達到國際可稽核水準。",
+        "budgetTitle": "2027 IT 預算配置模型 (Gartner R-G-T)",
+        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run (維運穩固)</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow (業務增長)</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform (創新躍升)</span>",
         "navEvo": "發展演進 (2025–2027)",
         "navAnalytics": "戰略數據與動態圖表",
         "navEdge": "跨國海外廠區邊緣韌性",
@@ -2530,6 +2723,12 @@
         "footerAuthor": "計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D."
     },
     "en": {
+        "navInvest": "Investment & Budget",
+        "investEyebrow": "Strategic Investment & Capital Governance · C-Level Strategy",
+        "investTitle": "2027 IT Strategic Investment & Capital Governance",
+        "investDesc": "2027 IT Investment Pillars: Operational Resilience, AI at Scale, Data Trustworthiness, and Cost Governance. Budget allocated as 55% Run, 25% Grow, 20% Transform. Reducing controllable Run Cost by 8–12% via FinOps, liberating 15–25% labor hours via Agentic AI, and elevating Tier-1 RTO/RPO to auditable standards.",
+        "budgetTitle": "2027 Budget Allocation Model (Gartner R-G-T)",
+        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run (Baseline)</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow (Expansion)</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform (Innovation)</span>",
         "navEvo": "Evolution (2025–2027)",
         "navAnalytics": "Visual Analytics",
         "navEdge": "Global Edge Resilience",
@@ -2551,6 +2750,12 @@
         "footerAuthor": "Project Sponsor: VP Wen-Chin Chou | Executive Lead: Howard Liao Ph.D."
     },
     "ja": {
+        "navInvest": "投資方針・予算配分",
+        "investEyebrow": "Strategic Investment & Capital Governance · C-Level Strategy",
+        "investTitle": "2027年 IT投資主軸と資本配分ガバナンス",
+        "investDesc": "2027年IT投資主軸：「運用レジリエンス、AIの大規模化、信頼できるデータ、コスト統制」。IT予算配分は55% Run、25% Grow、20% Transform。FinOpsと基盤近代化によりRun Costを8–12%削減、Agentic AIにより特定業務工数を15–25%削減、Tier-1システムのRTO/RPOを監査対応水準へ向上。",
+        "budgetTitle": "2027年 IT予算配分モデル (Gartner R-G-T)",
+        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run (基盤維持)</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow (事業成長)</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform (革新転換)</span>",
         "navEvo": "発展経緯 (2025–2027)",
         "navAnalytics": "戦略データ分析",
         "navEdge": "グローバル自律運用",
@@ -2572,6 +2777,12 @@
         "footerAuthor": "プロジェクト統括：周文津 副社長 ｜ 執行責任者：Howard Liao Ph.D."
     },
     "vi": {
+        "navInvest": "Đầu tư & Ngân sách",
+        "investEyebrow": "Chiến lược Đầu tư & Phân bổ Vốn · C-Level Strategy",
+        "investTitle": "Trụ cột Đầu tư CNTT & Quản trị Phân bổ Vốn 2027",
+        "investDesc": "Trụ cột đầu tư CNTT 2027: Khả năng Phục hồi Vận hành, Quy mô hóa AI, Dữ liệu Đáng tin cậy, Kiểm soát Chi phí. Ngân sách phân bổ: 55% Run, 25% Grow, 20% Transform. Giảm 8–12% Run Cost qua FinOps, giải phóng 15–25% giờ công nhờ Agentic AI, đưa RTO/RPO hệ thống Tier-1 đạt chuẩn kiểm toán.",
+        "budgetTitle": "Mô hình Phân bổ Ngân sách CNTT 2027 (Gartner R-G-T)",
+        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform</span>",
         "navEvo": "Lộ trình (2025–2027)",
         "navAnalytics": "Phân tích Chiến lược",
         "navEdge": "Khả năng Tự trị Biên",
@@ -2593,6 +2804,12 @@
         "footerAuthor": "Chủ nhiệm Dự án: Phó TGĐ Chu Văn Tân (Wen-Chin Chou) | Phụ trách Điều hành: Howard Liao Ph.D."
     },
     "km": {
+        "navInvest": "ការវិនិយោគ និងថវិកា",
+        "investEyebrow": "យុទ្ធសាស្ត្រវិនិយោគ និងការបែងចែកទុន · C-Level Strategy",
+        "investTitle": "សសរស្តម្ភវិនិយោគ IT ឆ្នាំ 2027 និងអភិបាលកិច្ចទុន",
+        "investDesc": "សសរស្តម្ភវិនិយោគ IT ឆ្នាំ 2027៖ ភាពធន់នៃប្រតិបត្តិការ ការពង្រីក AI ទិន្នន័យគួរឱ្យទុកចិត្ត និងការគ្រប់គ្រងចំណាយ។ ថវិកាបែងចែក៖ 55% Run, 25% Grow, 20% Transform។ កាត់បន្ថយ Run Cost 8–12% តាមរយៈ FinOps រំដោះម៉ោងការងារ 15–25% តាមរយៈ Agentic AI និងបង្កើន Tier-1 RTO/RPO ដល់កម្រិតសវនកម្ម។",
+        "budgetTitle": "គំរូបែងចែកថវិកា IT ឆ្នាំ 2027 (Gartner R-G-T)",
+        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform</span>",
         "navEvo": "ការវិវត្តន៍ (2025–2027)",
         "navAnalytics": "ការវិភាគយុទ្ធសាស្ត្រ",
         "navEdge": "ភាពធន់នៃបណ្តាញរោងចក្រ",
@@ -2614,6 +2831,12 @@
         "footerAuthor": "ប្រធានគម្រោង៖ អនុប្រធាន Wen-Chin Chou | អ្នកទទួលខុសត្រូវប្រតិបត្តិ៖ Howard Liao Ph.D."
     },
     "id": {
+        "navInvest": "Investasi & Anggaran",
+        "investEyebrow": "Strategi Investasi & Tata Kelola Modal · C-Level Strategy",
+        "investTitle": "Pilar Investasi TI & Tata Kelola Alokasi Modal 2027",
+        "investDesc": "Pilar Investasi TI 2027: Ketahanan Operasional, Skala AI, Kepercayaan Data, Tata Kelola Biaya. Anggaran dialokasikan: 55% Run, 25% Grow, 20% Transform. Menurunkan Run Cost 8–12% via FinOps, membebaskan 15–25% jam kerja via Agentic AI, dan meningkatkan RTO/RPO Tier-1 ke standar audit.",
+        "budgetTitle": "Model Alokasi Anggaran TI 2027 (Gartner R-G-T)",
+        "budgetLegend": "<span class=\"budget-pill\" style=\"background:#E2E8F0; color:#334155;\">● 55% Run</span><span class=\"budget-pill\" style=\"background:#FEF3C7; color:#92400E;\">● 25% Grow</span><span class=\"budget-pill\" style=\"background:#FEE2E2; color:#991B1B;\">● 20% Transform</span>",
         "navEvo": "Evolusi (2025–2027)",
         "navAnalytics": "Analisis Strategis",
         "navEdge": "Ketahanan Edge Global",
@@ -2648,6 +2871,12 @@
       const dict = i18n_6lang[lang] || i18n_6lang.zh;
 
       // Update Nav
+            if (document.getElementById('nav-invest')) document.getElementById('nav-invest').innerText = dict.navInvest;
+      if (document.getElementById('t-investEyebrow')) document.getElementById('t-investEyebrow').innerText = dict.investEyebrow;
+      if (document.getElementById('t-investTitle')) document.getElementById('t-investTitle').innerText = dict.investTitle;
+      if (document.getElementById('t-investDesc')) document.getElementById('t-investDesc').innerText = dict.investDesc;
+      if (document.getElementById('t-budgetTitle')) document.getElementById('t-budgetTitle').innerText = dict.budgetTitle;
+      if (document.getElementById('t-budgetLegend')) document.getElementById('t-budgetLegend').innerHTML = dict.budgetLegend;
       if (document.getElementById('nav-evo')) document.getElementById('nav-evo').innerText = dict.navEvo;
       if (document.getElementById('nav-analytics')) document.getElementById('nav-analytics').innerText = dict.navAnalytics;
       if (document.getElementById('nav-edge')) document.getElementById('nav-edge').innerText = dict.navEdge;
@@ -2675,6 +2904,7 @@
 
     // Global Search Index across all original sections
     const globalSearchIndex = [
+      { targetId: 'invest-framework', cat: { zh: '投資主軸', en: 'Investment', ja: '投資主軸', vi: 'Đầu tư', km: 'ការវិនិយោគ', id: 'Investasi' }, title: '2027 IT 投資四大主軸 (營運韌性、AI 規模化、資料可信任、成本可控化)', text: '營運韌性 operational resilience 運用レジリエンス AI 規模化 agentic ai 大規模化 資料可信任 data trustworthiness 信頼できるデータ 成本可控化 cost governance finops 55% run 25% grow 20% transform 預算配置 資本治理 run cost 8-12% 工時釋放 15-25% rto rpo tier-1 可稽核' },
       { targetId: 'evolution', cat: { zh: '發展演進', en: 'Evolution', ja: '発展経緯', vi: 'Lộ trình', km: 'ការវិវត្តន៍', id: 'Evolusi' }, title: '2025～2027 IT 發展演進軌跡 (2025 奠基 ➔ 2026 連通 ➔ 2027 智能營運)', text: '2025 系統建置與基礎完善 2026 流程完善與資訊即時化 2027 整合運用與智能營運 異常管理 預測分析 決策支援 AI Agent' },
       { targetId: 'visual-analytics', cat: { zh: '戰略圖表', en: 'Analytics', ja: '戦略データ', vi: 'Phân tích', km: 'ការវិភាគ', id: 'Analisis' }, title: '戰略數據與動態圖表 (資本重心轉移、KPI 效益提升預測、AI 梯隊權重、覆蓋雷達)', text: 'OTD 準時交貨率 98.2% 換線工時損失 10.5% 布料損耗 4.1% 產前異常攔截 94% 規則型預警 工藝 RAG 助手 IE 生管 Copilot' },
       { targetId: 'dynamic-sim', cat: { zh: '現場演算', en: 'Simulation', ja: '現場演算', vi: 'Mô phỏng', km: 'ការពិសោធន៍', id: 'Simulasi' }, title: 'IE 車縫線平衡與產能即時動態演算器', text: '技能矩陣成熟度 齊套率 線平衡率 OEE 標準日產能 SAM 瓶頸等待損失' },

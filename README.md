@@ -3,20 +3,21 @@
 
 > **計劃主持人**：周文津 副總 (Project Sponsor: VP Wen-Chin Chou)  
 > **執行負責人**：Howard Liao Ph.D. (Executive Lead & Director)  
-> **發行版本**：Version 4.2 · C-Level Executive Blueprint (Multilingual & Global Search)  
+> **發行版本**：Version 4.3 · C-Level Executive Blueprint (Multilingual & Global Search)  
 > **線上即時互動戰情網頁**：[https://howardliao.github.io/RSI/](https://howardliao.github.io/RSI/)
 
 ---
 
-## 🌟 核心功能與最新升級亮點 (Version 4.0)
+## 🌟 核心功能與最新升級亮點 (Version 4.3)
 
-1. **🌐 6 國語言即時切換架構 (6-Language Dynamic Engine)**：
-   - 🇹🇼 **繁體中文 (ZH-TW)**：台北總部決策標準語系
-   - 🇬🇧 **English (EN)**：國際品牌客戶與跨國溝通
-   - 🇯🇵 **日本語 (JA)**：日系高階品質標準
-   - 🇻🇳 **Tiếng Việt (VI)**：越南隆安/西寧主力燈塔示範廠
-   - 🇰🇭 **ភាសាខ្មែរ (KM)**：柬埔寨金邊廠產線（支援 Google Noto Sans Khmer 專屬字型）
-   - 🇮🇩 **Bahasa Indonesia (ID)**：印尼中爪哇無縫貼合新基地
+1. **🏛️ 2027 IT 投資主軸與資本配置治理**：
+   - **4 大投資主軸**：營運韌性、AI 規模化、資料可信任、成本可控化
+   - **55/25/20 預算配置模型 (Gartner R-G-T)**：55% Run (維運穩固)、25% Grow (業務增長)、20% Transform (創新躍升)
+   - **3 大核心財務與效能承諾**：
+     - 透過 FinOps、授權整併與架構現代化降低可控 IT Run Cost **8–12%**
+     - 透過 Agentic AI 導入客服、營運、知識管理及工程流程釋放 **15–25%** 特定作業工時
+     - 將 Tier-1 核心系統 RTO/RPO 與資安復原力提升至**國際可稽核水準** (RPO < 15m, RTO < 2h)
+
 2. **🔍 全網頁即時內容搜尋 (Global Page Search Engine)**：
    - 支援鍵盤快捷鍵 `⌘K`、`Ctrl+K` 或 `/` 一鍵呼叫全域搜尋
    - 跨章節即時高亮匹配（`<mark>`），點擊即平滑滾動並發出「米蘭金橘光脈衝」外框定位
