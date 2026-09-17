@@ -705,6 +705,7 @@
           </div>
 
           <!-- Page 5 to 18 Summary Placeholders with rich content -->
+          <!-- Page 5 -->
           <div class="page-card" id="page-5">
             <div class="page-card-header">
               <span class="page-card-title">第 5 頁：關鍵技術債、風險與不投資後果</span>
@@ -713,36 +714,225 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>累積之技術債已逼近臨界點；不投資將直接導致海外產線突發停機、空運違約罰款與核心數據遭勒索銷毀。
             </div>
-            <p>列管十大重大技術債：R1過保Dell主機、R2海纜斷網停擺、R3缺乏WORM防勒索、R4原副料同料不同號、R5產前未齊盲目上線、R6軟體過度授權、R7員工私用Shadow AI、R8關鍵技術個人依賴、R9東南亞數據違規、R10資料庫災備未達標。</p>
-            <p><strong>建議圖表：</strong>5x5 風險矩陣熱圖。</p>
-            <p><strong>CEO 講稿重點：</strong>十項技術債隨時引發停工，2027 專案將極高與災難級風險完全清零。</p>
+            <h4>全集團十大重大技術債與營運風險清冊：</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 60px;">編號</th>
+                    <th style="width: 150px;">技術債 / 風險項目</th>
+                    <th style="width: 55px;">機率</th>
+                    <th style="width: 55px;">衝擊</th>
+                    <th>財務 / 營運 / 法遵後果</th>
+                    <th>2027 建議處置處方</th>
+                    <th>不投資或延後之後果</th>
+                    <th style="width: 90px;">負責人</th>
+                    <th style="width: 75px;">容忍期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>R1</strong></td>
+                    <td><strong>核心伺服器過保</strong> (Dell R740)</td>
+                    <td>高</td><td>極高</td>
+                    <td>主機板損壞無備品更換，現場 MES 停擺 3～5 天</td>
+                    <td>淘汰老舊硬體，導入虛擬化叢集與 Zerto CDP</td>
+                    <td>單日停工損失 $4.5 萬美元，交期大延遲</td>
+                    <td>系統組長</td><td>2027/Q2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R2</strong></td>
+                    <td><strong>海外海纜斷網停擺</strong></td>
+                    <td>極高</td><td>高</td>
+                    <td>外部斷網時車間無法讀單與計工，產線卡死</td>
+                    <td>部署 8 台研華車間工業邊緣主機，實現 48~72h 自治</td>
+                    <td>每年因突發斷網損失逾 120 小時有效工時</td>
+                    <td>網路組長</td><td>2027/Q2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R3</strong></td>
+                    <td><strong>缺乏防勒索 WORM</strong></td>
+                    <td>中</td><td>災難</td>
+                    <td>勒索病毒將檔案加密，且備份槽同步遭銷毀</td>
+                    <td>AWS S3 Glacier WORM 對象鎖定 + 24/7 MDR</td>
+                    <td>遭勒索數千萬元或業務歷史數據永久遺失</td>
+                    <td>資安長</td><td>2027/Q1</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R4</strong></td>
+                    <td><strong>原副料同料不同號</strong></td>
+                    <td>極高</td><td>中</td>
+                    <td>各廠料號混亂，總部無法調撥庫存，重複採購</td>
+                    <td>導入 Profisee MDM 企業版進行全球料號清洗</td>
+                    <td>庫存資金積壓數千萬元，呆料報廢率增 2%</td>
+                    <td>治理主管</td><td>2027/Q3</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R5</strong></td>
+                    <td><strong>產前未齊盲目上線</strong></td>
+                    <td>高</td><td>高</td>
+                    <td>車縫線頻繁拆線返修、物料等待窩工，效率崩跌</td>
+                    <td>上線 Ready-to-Sew 4-Gate 硬性門禁與特許 SOP</td>
+                    <td>首日換線效率持續低迷於 60%，工時浪費 30%</td>
+                    <td>產前主管</td><td>2027/Q2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R6</strong></td>
+                    <td><strong>軟體過度授權浪費</strong></td>
+                    <td>高</td><td>中</td>
+                    <td>作業員配置高級全功能帳號，每年虛耗數百萬</td>
+                    <td>實施 FinOps 分層授權（400 核心 + 2,100 現場）</td>
+                    <td>每年白白流失 NT$ 300～400 萬維運現金</td>
+                    <td>資產主管</td><td>2027/Q4</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R7</strong></td>
+                    <td><strong>員工私用 Shadow AI</strong></td>
+                    <td>高</td><td>高</td>
+                    <td>將客戶未公開 Tech Pack 上傳免費 AI，專利外洩</td>
+                    <td>搭建 Portkey 模型網關 + 專利機敏內容即時遮罩</td>
+                    <td>面臨品牌客戶天價商業洩密求償與訂單撤銷</td>
+                    <td>AI組長</td><td>2027/Q2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R8</strong></td>
+                    <td><strong>關鍵技術單人依賴</strong></td>
+                    <td>中</td><td>高</td>
+                    <td>核心代碼無文檔、巨集公式僅一人看懂，離職即癱</td>
+                    <td>建立 Enterprise RAG 知識庫與標準 API 文檔</td>
+                    <td>人員異動造成系統無人能修，營運中斷</td>
+                    <td>營運主管</td><td>2027/Q3</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R9</strong></td>
+                    <td><strong>東南亞數據法規違規</strong></td>
+                    <td>中</td><td>高</td>
+                    <td>違反越南 Decree 53 與印尼 PDP 本地化存儲要求</td>
+                    <td>人事薪資在地邊緣留存，僅去機敏特徵串流總部</td>
+                    <td>面臨當地政府高額罰款甚至廠區斷網行政處分</td>
+                    <td>法務主管</td><td>2027/Q1</td>
+                  </tr>
+                  <tr>
+                    <td><strong>R10</strong></td>
+                    <td><strong>資料庫災備未達標</strong></td>
+                    <td>高</td><td>高</td>
+                    <td>當機時資料遺失 24 小時，復原需耗費 2 天人工補單</td>
+                    <td>升級為 Zerto 秒級複製（RPO<15m, RTO<2h）</td>
+                    <td>產線資料混亂，出貨單證脫勾無法報關出運</td>
+                    <td>架構主管</td><td>2027/Q2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表形式：</strong>5x5 風險矩陣熱圖（橫軸發生機率、縱軸業務衝擊）。</p>
+            <p><strong>CEO 講稿重點：</strong>① 這十項技術債隨時會引發產線停工，傳統壞了再修的思維會讓包機罰款超過系統價格；② 2027 計畫將極高與災難級風險完全清零；③ 請 CEO 確認將此十項列為 2027 年度必除清單。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定將上述十項技術債之消除納入各廠廠長 2027 KPI。</p>
           </div>
 
+          <!-- Page 6 -->
           <div class="page-card" id="page-6">
             <div class="page-card-header">
               <span class="page-card-title">第 6 頁：2027 IT 願景與五大策略支柱</span>
               <span class="page-badge">SLIDE 06 / 18</span>
             </div>
             <div class="conclusion-box">
-              🎯 <strong>核心結論：</strong>以可治理 AI、可信資料、具韌性邊緣與精實成本，支撐集團 2027 年營收擴展與毛利保衛。
+              🎯 <strong>核心結論：</strong>以「可治理的 AI、可信任的資料、具韌性的跨國邊緣與精實成本架構」，全面支撐信源全球 2027 年營收擴展與毛利保衛。
             </div>
-            <p><strong>願景宣示：</strong>「整合運用・智能營運：以數位底座守護跨國製造韌性，以數據中台驅動精準履約，以安全 AI 賦能全球工藝傳承。」</p>
-            <p>五大支柱：支柱一 數位成長與客戶信任、支柱二 AI 數據與超自動化、支柱三 資安韌性與法遵、支柱四 雲端平台與 FinOps、支柱五 IT 治理與人才生態。</p>
-            <p><strong>建議圖表：</strong>五柱神殿架構圖。</p>
+            <p><strong>2027 集團 IT 總體願景：</strong>「整合運用・智能營運：以數位底座守護跨國製造韌性，以數據中台驅動精準履約，以安全 AI 賦能全球工藝傳承。」</p>
+            <h4>五大策略支柱詳細對齊矩陣：</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">策略支柱</th>
+                    <th style="width: 180px;">商業目的</th>
+                    <th>2027 成果目標</th>
+                    <th>主要能力建設</th>
+                    <th style="width: 140px;">對應 CEO KPI</th>
+                    <th style="width: 110px;">業務 Owner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>支柱一：數位成長與客戶信任</strong></td>
+                    <td>深化大客戶合作，確立信源頂級機能服製造領先地位</td>
+                    <td>品牌資安驗廠 100% 通過、取得歐盟機能服永續大單</td>
+                    <td>品牌 IP 數據無菌室 (ABAC 隔離)、ESG 單件成衣碳足跡追溯 (DPP)</td>
+                    <td>客戶驗廠通過率 100%、營收成長 5%~8%</td>
+                    <td>業務副總 / 品牌總監</td>
+                  </tr>
+                  <tr>
+                    <td><strong>支柱二：AI 數據與超自動化</strong></td>
+                    <td>消除跨廠數據孤島與同料不同號，釋放關鍵作業工時</td>
+                    <td>全集團單一真理 (SSOT)、工時釋放 15%~25%、降低布損 1.2%</td>
+                    <td>Databricks 30TB 湖倉中台、Profisee MDM 清洗、多國語工藝 RAG 庫</td>
+                    <td>年省現金流 NT$ 3,700 萬、工時釋放 18%</td>
+                    <td>營運副總 / 採購副總</td>
+                  </tr>
+                  <tr>
+                    <td><strong>支柱三：資安韌性與法遵</strong></td>
+                    <td>落實跨國零信任防護，確保海外廠海纜斷網時正常生產</td>
+                    <td>海外廠 48~72h 離線自律、Tier-1 RPO<15m, RTO<2h、0 勒索</td>
+                    <td>CrowdStrike 24/7 MDR 全託管、Zerto 秒級災備、東南亞數據主權邊緣</td>
+                    <td>斷網零停機、重大資安事件 0 件</td>
+                    <td>資安長 (CISO)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>支柱四：雲端平台與 FinOps</strong></td>
+                    <td>架構現代化與伺服器雙活，終結雲端與軟體無序浪費</td>
+                    <td>可控 IT 維運成本降 8%~12%、核心主機 100% 保固覆蓋</td>
+                    <td>總部雙活 Kong、Fortinet 雙軌 SD-WAN HA、FinOps 分層授權管理</td>
+                    <td>Run Cost 降幅 8%~12%、DCPG NT$ 0.27</td>
+                    <td>財務長 / 架構主管</td>
+                  </tr>
+                  <tr>
+                    <td><strong>支柱五：IT 治理與人才生態</strong></td>
+                    <td>精實內部編制，以高資本槓桿撬動國際頂級原廠戰力</td>
+                    <td>內部 5 大小組 (16~18人) 掌握核心、駐廠突擊隊消弭推動阻力</td>
+                    <td>RACI 治理矩陣、原廠 CSA 顧問對齊、製造業 SI 駐廠實施隊</td>
+                    <td>專案按期交付率 95% 以上</td>
+                    <td>計劃主持 周副總</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表形式：</strong>五柱神殿架構圖（底層數位基礎設施 ➔ 支撐五大支柱 ➔ 托起頂層集團商業價值）。</p>
+            <p><strong>CEO 講稿重點：</strong>① 五大支柱與集團營運目標緊密鎖定；② 不為技術而技術，專注把工藝標準化與知識化；③ 是一套進可攻退可守的戰略體系。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定五大支柱作為 2027 年度經營方針之一環。</p>
           </div>
 
+          <!-- Page 7 -->
           <div class="page-card" id="page-7">
             <div class="page-card-header">
               <span class="page-card-title">第 7 頁：策略支柱一——數位成長與客戶體驗</span>
               <span class="page-badge">SLIDE 07 / 18</span>
             </div>
             <div class="conclusion-box">
-              🎯 <strong>核心結論：</strong>透過品牌數據無菌室捍衛客戶資產，以數位產品護照搶佔歐盟永續訂單。
+              🎯 <strong>核心結論：</strong>透過品牌數據無菌室捍衛客戶資產，以數位產品護照搶佔歐盟永續訂單，讓 IT 成為業務端搶單的最強背書。
             </div>
-            <p>核心專案：品牌 IP 數據無菌室 (ABAC 隔離)、ESG 單件成衣碳足跡追溯 (DPP)、大客戶即時履約 API。協助業務部爭取歐盟機能服大單，年營收支撐力 5%~8%。</p>
-            <p><strong>建議圖表：</strong>無菌室實體隔絕圖 ＋ DPP 數據流向圖。</p>
+            <h4>核心專案建設與交付成果：</h4>
+            <ul>
+              <li><strong>專案 1-A：品牌 IP 數據無菌室 (Brand Clean Room)</strong>：基於 Microsoft Entra ID 實施屬性存取控制 (ABAC)，將 Nike、Lululemon、Under Armour 各大品牌的 3D CAD、排料馬克圖與工藝參數進行實體隔離，對齊 ISO/IEC 27001:2022，杜絕代工競品交叉刺探。</li>
+              <li><strong>專案 1-B：ESG 單件成衣碳足跡追溯引擎 (Digital Product Passport, DPP)</strong>：串聯車間工業電錶、蒸氣流量計與布料履歷，Databricks 自動產出單件成衣 Scope 3 碳足跡數據，直通歐盟 DPP 法規要求。</li>
+              <li><strong>專案 1-C：大客戶訂單即時透明履約 API (Client Portal EDI)</strong>：透過 Kong Enterprise Gateway 開放加密 API 接口，讓國際品牌採購端直接即時調閱生產履約進度與 QA 檢驗報告。</li>
+            </ul>
+            <h4>商業量化成效：</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>量化指標</th><th>2026 現況</th><th>2027 目標</th><th>商業價值轉換</th></tr></thead>
+                <tbody>
+                  <tr><td>品牌客戶年度資安驗廠通過率</td><td>85% (附帶改善項)</td><td><strong>100% 零缺失通過</strong></td><td>消除因資安缺失遭品牌降級或暫停配單風險</td></tr>
+                  <tr><td>歐盟市場高毛利機能服訂單佔比</td><td>12.5%</td><td><strong>18.0% 以上</strong></td><td>以 DPP 綠色產品護照打敗東南亞競爭對手</td></tr>
+                  <tr><td>品牌客戶訂單進度查詢人工作業時間</td><td>平均 24 小時回覆</td><td><strong>API 即時毫秒級查詢</strong></td><td>大幅降低業務跟單人員人手對帳與溝通負擔</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表形式：</strong>無菌室實體隔絕架構圖 ＋ DPP 數位產品護照數據流向圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 大品牌驗廠資安具有一票否決權，無菌室是接旗艦款訂單的前提；② DPP 碳足跡模組是打敗同業的綠色武器。</p>
+            <p><strong>待確認決策事項：</strong>請業務副總確認將無菌室與 DPP 能力納入 2027 大客戶提案標配。</p>
           </div>
 
+          <!-- Page 8 -->
           <div class="page-card" id="page-8">
             <div class="page-card-header">
               <span class="page-card-title">第 8 頁：策略支柱二——AI、資料與流程自動化</span>
@@ -751,10 +941,74 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>以 30TB 湖倉建立全集團單一真理，以 Agentic AI 貫通生管與做工轉譯，釋放 15%～25% 工時。
             </div>
-            <p>Top 5 AI 場景：UC-1 多國語工藝 RAG 庫、UC-2 PCD 提前 72h 缺料預警、UC-3 車縫線平衡模擬、UC-4 生管跟單 Agent、UC-5 報關拋單機器人。</p>
-            <p><strong>建議圖表：</strong>商業價值 x 複雜度四象限氣泡圖。</p>
+            <h4>企業數據中台策略 (30TB Delta Lake + Profisee MDM)：</h4>
+            <p>以 Databricks Delta Lake 建立跨 ERP、MES、WMS 的企業湖倉，透過 Debezium 實現 4 廠 CDC 實時串流；Profisee MDM 建立全球原副料對照去重模型，強制設定「SAM > 0、PCD > 下單日」之自動品質門禁。</p>
+            <h4>Top 5 AI / 自動化 Use Case 優先矩陣：</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 50px;">編號</th>
+                    <th style="width: 170px;">Use Case 名稱</th>
+                    <th>對應業務痛點</th>
+                    <th>預估效益 (ROI)</th>
+                    <th style="width: 70px;">敏感度</th>
+                    <th style="width: 70px;">複雜度</th>
+                    <th style="width: 70px;">優先序</th>
+                    <th style="width: 90px;">業務 Owner</th>
+                    <th style="width: 90px;">採用模式</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>UC-1</strong></td>
+                    <td><strong>Tech Pack 多國語工藝 RAG 庫</strong></td>
+                    <td>外文技術手冊第一線看不懂，做工理解錯誤導致大量拆線返修</td>
+                    <td>做工手冊檢索提效 70%、拆工返修降低 30%</td>
+                    <td>中</td><td>中</td><td><strong>P1 (第1序)</strong></td>
+                    <td>研發處長</td><td>Pilot ➔ 正式</td>
+                  </tr>
+                  <tr>
+                    <td><strong>UC-2</strong></td>
+                    <td><strong>PCD 提前 72h 缺料主動預警</strong></td>
+                    <td>供應商 ETA 延遲無人發現，排產當天才知缺料停工窩工</td>
+                    <td>提前 72h 預警，消滅停工，年省包機 NT$ 1,500 萬</td>
+                    <td>高</td><td>中</td><td><strong>P1 (第1序)</strong></td>
+                    <td>生管處長</td><td>正式投產</td>
+                  </tr>
+                  <tr>
+                    <td><strong>UC-3</strong></td>
+                    <td><strong>IE 車縫線平衡人機排線模擬</strong></td>
+                    <td>換線排人機配比靠經驗，瓶頸站等待損失嚴重</td>
+                    <td>線平衡率自 88% 提升至 95% 以上</td>
+                    <td>低</td><td>高</td><td><strong>P2 (第2序)</strong></td>
+                    <td>總部 IE 總監</td><td>隆安 Pilot</td>
+                  </tr>
+                  <tr>
+                    <td><strong>UC-4</strong></td>
+                    <td><strong>Agentic AI 生管跟單代理人</strong></td>
+                    <td>跟單客服跨多系統人手謄寫，耗費大量重複工時</td>
+                    <td>釋放生管與客服 20% 特定工時 (年效益 $90 萬美元)</td>
+                    <td>高</td><td>高</td><td><strong>P2 (第2序)</strong></td>
+                    <td>營業處長</td><td>沙盒 ➔ Pilot</td>
+                  </tr>
+                  <tr>
+                    <td><strong>UC-5</strong></td>
+                    <td><strong>RPA 進出口報關拋單機器人</strong></td>
+                    <td>跨國貨運單據繁瑣，人工抄寫比對易漏帳出錯</td>
+                    <td>報關處理時間縮短 80%，零人為錯誤</td>
+                    <td>中</td><td>低</td><td><strong>P3 (第3序)</strong></td>
+                    <td>關務主管</td><td>正式投產</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表形式：</strong>商業價值 x 執行複雜度四象限氣泡圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 前兩項為立竿見影 Quick Win；② 多語手冊翻譯直接解決跨國溝通誤解；③ 全數設定人工作業覆核門禁。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定 Q2 啟動 UC-1 與 UC-2 之正式投產。</p>
           </div>
 
+          <!-- Page 9 -->
           <div class="page-card" id="page-9">
             <div class="page-card-header">
               <span class="page-card-title">第 9 頁：策略支柱三——資安韌性、隱私與法遵</span>
@@ -763,10 +1017,26 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>以 NIST CSF 2.0 打造 24/7 縱深防禦，確保海纜斷網時 48～72h 自主生產，復原能力達國際標竿。
             </div>
-            <p>核心配置：CrowdStrike 24/7 MDR、Zerto CDP 秒級複製、S3 WORM 不可篡改備份、48~72h 離線邊緣主機。達成 Tier-1 RPO<15m / RTO<2h。</p>
-            <p><strong>建議圖表：</strong>NIST 六功能防護環形圖 ＋ 48~72h 離線邊緣雙軌時序圖。</p>
+            <h4>以 NIST CSF 2.0 全面落盤六大功能矩陣：</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>NIST 功能</th><th>能力建設項目</th><th>實作機制與工具</th><th>達成水準 (SLA / 目標)</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Govern (治理)</strong></td><td>資安權責與合規治理</td><td>制定東南亞跨境數據邊緣留存規範與供應鏈安全政策</td><td>對齊 ISO 27001:2022、越南 Decree 53、印尼 PDP</td></tr>
+                  <tr><td><strong>Identify (識別)</strong></td><td>全資產探勘與漏洞盤查</td><td>Tenable.io 弱點掃描 + SBOM 軟體清單 + PQC 密碼學盤點</td><td>未知影子資產清零、加密資產清冊 100% 建立</td></tr>
+                  <tr><td><strong>Protect (保護)</strong></td><td>零信任身分與車間隔離</td><td>Microsoft Entra ID 分層 SSO + 4 廠車間 OT 網路實體隔離</td><td>2,500 席 MFA 覆蓋率 100%、拔網線 48~72h 自主生產</td></tr>
+                  <tr><td><strong>Detect (偵測)</strong></td><td>24/7 全天候威脅監控</td><td>CrowdStrike Falcon Complete (原廠 MDR SOC 託管)</td><td>覆蓋 800 台關鍵伺服器與端點，威脅檢出率 99.9%</td></tr>
+                  <tr><td><strong>Respond (應變)</strong></td><td>快速處置與事件遏阻</td><td>CrowdStrike 原廠專屬獵捕小組 + 事件應變小組 (IR)</td><td><strong>重大威脅 15 分鐘內主動隔離撲滅</strong></td></tr>
+                  <tr><td><strong>Recover (復原)</strong></td><td>秒級災難復原與不可篡改</td><td>Zerto CDP 秒級連續複製 + AWS S3 Glacier WORM 冷儲存</td><td><strong>Tier-1 系統 RPO < 15 分鐘、RTO < 2 小時</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>建議圖表形式：</strong>NIST 六功能防護環形圖 ＋ 48~72h 離線邊緣雙軌時序圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 原廠 24/7 MDR 補齊夜間真空，省千萬自建成本；② WORM 備份具不可篡改特性；③ 取得國際資安險最優承保。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定年度災難復原實戰切換演練排程 (Q3)。</p>
           </div>
 
+          <!-- Page 10 -->
           <div class="page-card" id="page-10">
             <div class="page-card-header">
               <span class="page-card-title">第 10 頁：策略支柱四——雲端、核心平台與工程效能</span>
@@ -775,10 +1045,28 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>以總部雙活、海外車間邊緣與 FinOps 成本治理，實現架構現代化與維運降本 8%～12%。
             </div>
-            <p>落實系統 6R 汰換策略，結合分層授權（400 核心 + 2,100 現場）與 Serverless 彈性計算，實質降低可控維運成本 8%~12%。</p>
-            <p><strong>建議圖表：</strong>系統 6R 處置優先矩陣 ＋ FinOps 成本瀑布圖。</p>
+            <h4>核心系統 6R 現代化處置清冊：</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>6R 策略</th><th>處置系統項目</th><th>執行方式與架構轉型</th><th>業務成效</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Retain (保留優化)</strong></td><td>核心 MES 工序資料庫</td><td>優化 SQL Server 索引，建立雙主高可用叢集</td><td>維持現場操作穩定，零學習成本</td></tr>
+                  <tr><td><strong>Rehost (虛擬化平移)</strong></td><td>總部過保實體機之輔助系統</td><td>P2V 平移遷移至 VMware 叢集環境</td><td>消除老舊伺服器主機板故障斷件風險</td></tr>
+                  <tr><td><strong>Replatform (容器化)</strong></td><td>車間邊緣數據採集服務</td><td>容器化遷移至車間 8 台研華邊緣主機 (K3s)</td><td>實現 48~72h 離線自主運轉與 Delta 同步</td></tr>
+                  <tr><td><strong>Refactor (雲端重構)</strong></td><td>集團數據分析與戰情報表</td><td>重構為 Databricks 30TB 湖倉中台</td><td>跨廠查詢提效 10 倍，實現 CDC 實時串流</td></tr>
+                  <tr><td><strong>Replace (商用替換)</strong></td><td>地端老舊防毒與紙本簽核</td><td>替換為 CrowdStrike MDR 與 Flowable BPM</td><td>消除勒索威脅，實現跨部門異常派工自動化</td></tr>
+                  <tr><td><strong>Retire (除役下線)</strong></td><td>Windows 2016 與各廠影子 SaaS</td><td>資料匯出歸檔後，正式關機除役下線</td><td>年省數十萬元老舊系統延伸維護費</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h4>FinOps 成本治理效益：</h4>
+            <p>2,500 席改採分層授權 (400 核心 + 2,100 現場)，搭配 Databricks Serverless 非生產時段自動關機，實質降低可控維運費用 <strong>8% ～ 12% (年省約 NT$ 380 萬)</strong>。</p>
+            <p><strong>建議圖表形式：</strong>系統 6R 處置優先矩陣 ＋ FinOps 成本瀑布圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 以分層治理消除過度授權；② 總部是大腦、車間是靈巧的手腳；③ 確保系統兼具彈性與成本可控。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定下半年各老舊系統除役 (Retire) 之時間表。</p>
           </div>
 
+          <!-- Page 11 -->
           <div class="page-card" id="page-11">
             <div class="page-card-header">
               <span class="page-card-title">第 11 頁：策略支柱五——IT 治理、人才與供應商價值</span>
@@ -787,10 +1075,22 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>內部精實編制 16～18 人掌握主導權，外部借力原廠與 SI 突擊隊，以最高人力槓桿支撐營運。
             </div>
-            <p>內部 5 大小組（雲端、身分、數據、流程、OT），推行「駐廠敏捷突擊隊」駐隆安廠 60 天，化解老廠長抵制。</p>
-            <p><strong>建議圖表：</strong>組織矩陣雷達 ＋ 內外部協同生態圖。</p>
+            <h4>內部 5 大專業小組 (16~18 人) 編制：</h4>
+            <ul>
+              <li><strong>雲端與基礎設施組 (3人)</strong>：Kong 雙活架構師、Fortinet SD-WAN 工程師、Zerto 系統工程師。</li>
+              <li><strong>身分治理與資安組 (2人)</strong>：Entra ID 身分工程師、CrowdStrike SecOps 維運師。</li>
+              <li><strong>數據中台與治理組 (3人)</strong>：Databricks 數據架構師、Profisee MDM 專員、BI 戰情工程師。</li>
+              <li><strong>營運流程與 AI 組 (3人)</strong>：Camunda 流程架構師、Portkey/Qdrant AI 工程師、IE 系統整合師。</li>
+              <li><strong>車間 OT 整合組 (5~7人)</strong>：總部 OT 專家 1 人 ＋ 越南隆安 2 人、柬埔寨 1 人、印尼 1 人 (海外駐點幹部)。</li>
+            </ul>
+            <h4>Build / Buy / Partner 原則與駐廠突擊隊：</h4>
+            <p>信源獨家排程與門禁自研 (Build)，成熟基礎設施採商用 (Buy)，尖峰實施與夜班 SOC 委外 (Partner)。Q2 派駐 1 架構師 + 1 資深 IE 駐隆安廠 60 天並肩作戰，化解現場老廠長抵制。</p>
+            <p><strong>建議圖表形式：</strong>組織架構樹狀圖 ＋ 內外部協同生態矩陣圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 不養臃腫團隊，內部 16~18 人牢抓核心；② 突擊隊深入車間消弭阻力，成果歸功現場。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 授權年度外派駐廠差旅與激勵津貼預算。</p>
           </div>
 
+          <!-- Page 12 -->
           <div class="page-card" id="page-12">
             <div class="page-card-header">
               <span class="page-card-title">第 12 頁：2027 專案投資組合與優先排序</span>
@@ -799,10 +1099,14 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>全年度 25 項專案經科學權重評分，聚焦資源於高價值與必做項目。
             </div>
-            <p>評分依據商業價值 (30%)、風險降低 (25%)、策略對齊 (20%) 等權重，確立 P1 必做項目（CrowdStrike、SD-WAN、4-Gate 門禁、Zerto、湖倉、MDM）。</p>
-            <p><strong>建議圖表：</strong>投資價值 x 執行難度四象限圖。</p>
+            <p>評分標準：商業價值 (30%) + 風險降低 (25%) + 策略對齊 (20%) + 可行性 (15%) + 見效時間 (10%)。詳見下文【肆、2027 專案投資組合總表】之 25 項完整大表。</p>
+            <p><strong>優先順位亮點：</strong>P1 必做專案（CrowdStrike MDR 95.8分、SD-WAN 邊緣 93.0分、Zerto 災備 92.8分、4-Gate 門禁 91.9分、湖倉中台 88.5分、MDM 治理 86.8分）。</p>
+            <p><strong>建議圖表形式：</strong>投資價值 x 執行難度四象限圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 必做項目消除致命風險；② 數據專案直接貢獻 NT$ 3,700 萬現金回收。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核准專案優先排序與資源調配順位。</p>
           </div>
 
+          <!-- Page 13 -->
           <div class="page-card" id="page-13">
             <div class="page-card-header">
               <span class="page-card-title">第 13 頁：AI Use Case、ROI 與治理模型</span>
@@ -811,10 +1115,19 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>建構符合 ISO/IEC 42001 之企業級 AI 框架，確保 Agentic AI 在安全沙盒下運作。
             </div>
-            <p>設 AI 委員會月審、Portkey 專利自動遮罩、Human-in-the-loop 雙簽寫入 MES。控管每月 $4,000 USD Token 預算，年工時釋放價值達 $90 萬美元 (ROI 1:20)。</p>
-            <p><strong>建議圖表：</strong>企業級 AI 治理架構圖。</p>
+            <h4>治理架構與成本效益控管：</h4>
+            <ul>
+              <li><strong>AI 指導委員會</strong>：由周副總掛帥，月審 AI 專案商業價值與倫理。</li>
+              <li><strong>安全網關與專利遮罩</strong>：全域通過 Portkey 網關，自動遮蔽品牌客戶 Tech Pack 專利與商標。</li>
+              <li><strong>成本與回報模型</strong>：每人月均限額 50 萬 Tokens，月度總支出控管於 $4,000 USD (年 $48,000 USD)；400 位核心幹部釋放 18% 工時，年價值 $90 萬美元 (ROI 1:20)。</li>
+              <li><strong>停損紅線機制</strong>：回答工藝規範之幻覺率大於 3% 即刻降級；單任務 Token 超支 150% 自動斷鎖。</li>
+            </ul>
+            <p><strong>建議圖表形式：</strong>企業級 AI 治理架構流向圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 前置專利濾網嚴防洩密；② 每月嚴控 Token 預算，不讓算力成為無底洞。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定成立集團 AI 治理委員會並擔任榮譽指導。</p>
           </div>
 
+          <!-- Page 14 -->
           <div class="page-card" id="page-14">
             <div class="page-card-header">
               <span class="page-card-title">第 14 頁：資安與營運韌性風險熱圖</span>
@@ -823,10 +1136,14 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>建立董事會級 KRI 預警指標，將十項重大系統性風險完全收斂至綠色受控區間。
             </div>
-            <p>覆蓋勒索病毒 (24/7 MDR)、海纜中斷 (Edge IPC)、專利外洩 (ABAC)、資料庫損毀 (Zerto)。保證斷網 3 天正常生產。</p>
-            <p><strong>建議圖表：</strong>改善前後動態風險熱圖收斂軌跡。</p>
+            <p>詳見下文【捌、企業級風險登錄表】之 RSK-01 至 RSK-10 十大重大風險情境完整對策大表。</p>
+            <p><strong>風險防禦重點：</strong>勒索病毒 (24/7 MDR)、海纜中斷 (Edge IPC 48~72h 自治)、專利外洩 (ABAC 無菌室)、資料庫損毀 (Zerto 秒級災備)。</p>
+            <p><strong>建議圖表形式：</strong>改善前後動態風險熱圖收斂軌跡圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 海外斷網依然能連續生產三天；② 絕不因網路問題讓客戶訂單跳票。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 審批資安風險殘餘容忍度標準。</p>
           </div>
 
+          <!-- Page 15 -->
           <div class="page-card" id="page-15">
             <div class="page-card-header">
               <span class="page-card-title">第 15 頁：2027 預算與三種投資情境</span>
@@ -835,10 +1152,19 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>提供三種情境；推薦方案 A（二千萬級）以極低單件成本（NT$ 0.27）換取最高回報與國際合規。
             </div>
-            <p>推薦方案 A：$640k USD（約 NT$ 2,016 萬），2,500 席全覆蓋，年省 NT$ 3,700 萬，14.8 個月回本。備選方案 B：$310k USD，鎖定總部與隆安廠。</p>
-            <p><strong>建議圖表：</strong>三情境成本效益長條圖 ＋ 預算壓力測試瀑布圖。</p>
+            <h4>三種預算情境對比：</h4>
+            <ul>
+              <li><strong>方案 A：集團全面躍升版 (推薦首選)</strong>：$640k USD (約 NT$ 2,016 萬)，2,500 席全覆蓋，年省 NT$ 3,700 萬，14.8 個月回本。</li>
+              <li><strong>方案 B：精實核心啟動版 (備選彈性)</strong>：$310k USD (約 NT$ 980 萬)，400 席，鎖定總部與隆安示範廠，柬印次年推廣。</li>
+              <li><strong>方案 C：高速擴張領先版 (擴張備選)</strong>：$920k USD (約 NT$ 2,898 萬)，覆蓋外部供應鏈與全自動 AGV 邊緣調度。</li>
+            </ul>
+            <p>詳見下文【伍、Run/Grow/Transform 預算表與三情境分析】之完整大表。</p>
+            <p><strong>建議圖表形式：</strong>三情境成本效益對比長條圖 ＋ 預算壓力測試瀑布圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 方案 A 是精算甜蜜點；② 每件成衣 NT$ 0.27 換取兩萬人產線零中斷保障。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 與 CFO 核定採納方案 A 為 2027 正式投資額度。</p>
           </div>
 
+          <!-- Page 16 -->
           <div class="page-card" id="page-16">
             <div class="page-card-header">
               <span class="page-card-title">第 16 頁：IT 組織、人力與供應商策略</span>
@@ -847,10 +1173,13 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>確立內部 16～18 人核心編制與外部四大戰略 Support，發揮最高資本槓桿。
             </div>
-            <p>外部結合微軟/Databricks 原廠顧問、SI 駐廠實施隊 (6~8人)、CrowdStrike 24/7 MDR 與研華在地維保。</p>
-            <p><strong>建議圖表：</strong>組織樹狀圖 ＋ 內外部資源協同矩陣。</p>
+            <p>外部戰略夥伴：微軟/Databricks 原廠 CSA 顧問、SI 駐廠實施隊 (6~8人)、CrowdStrike 24/7 MDR 全託管、電信專線與研華在地 3 年 NBD 維保。</p>
+            <p><strong>建議圖表形式：</strong>組織樹狀圖 ＋ 內外部資源協同矩陣圖。</p>
+            <p><strong>CEO 講稿重點：</strong>① 內部掌握大腦，重體力活與夜班值班交外部夥伴；② 避免長期養大批工程師之包袱。</p>
+            <p><strong>待確認決策事項：</strong>請人資主管對接現有同仁職能盤點與關鍵空缺招募。</p>
           </div>
 
+          <!-- Page 17 -->
           <div class="page-card" id="page-17">
             <div class="page-card-header">
               <span class="page-card-title">第 17 頁：CEO KPI 儀表板與 2027 季度路線圖</span>
@@ -859,10 +1188,13 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>提供 CEO 五大維度 13 項可稽核指標，全年度 25 項專案排開連假與春節封網，平準化推進。
             </div>
-            <p>排開 2 月春節封網（停工10天）與東南亞節慶。四季平準推進：Q1 總部築底 ➔ Q2 隆安示範 ➔ Q3 柬印複製 ➔ Q4 集團全面驗收。</p>
-            <p><strong>建議圖表：</strong>KPI 儀表板卡片 ＋ 四季彩色甘特里程碑進度條。</p>
+            <p>詳見下文【陸、CEO 關鍵績效指標儀表板】與【柒、2027 Q1–Q4 四季平準化路線圖】之完整大表。</p>
+            <p><strong>建議圖表形式：</strong>KPI 儀表板卡片 ＋ 四季彩色甘特里程碑進度條。</p>
+            <p><strong>CEO 講稿重點：</strong>① 排開趕貨旺季與跨國節慶；② 季度設明確 Gate，達標才撥下期款。</p>
+            <p><strong>待確認決策事項：</strong>請 CEO 核定季度決策檢查會議 (Steering Meeting) 排程。</p>
           </div>
 
+          <!-- Page 18 -->
           <div class="page-card" id="page-18">
             <div class="page-card-header">
               <span class="page-card-title">第 18 頁：CEO 決策事項與下一步行動計畫</span>
@@ -871,14 +1203,29 @@
             <div class="conclusion-box">
               🎯 <strong>核心結論：</strong>計畫完備、數據扎實、風險受控；建請執行長今日核定五大決策，啟動未來 30/60/90 天計畫。
             </div>
-            <p>五大決策請求：核定策略方向、核准方案 A 預算 (NT$ 2,016 萬)、指定業務 Owner、核定 4-Gate 雙簽特許權、授權簽發盤點公文。啟動 30-60-90 天推進。</p>
-            <p><strong>建議圖表：</strong>CEO 簽核 Decision Card ＋ 30-60-90 水平推進看板。</p>
+            <h4>今日請執行長暨經營團隊核定之五大決策：</h4>
+            <ol>
+              <li><strong>策略總體方向</strong>：核定「整合運用・智能營運」為 2027 IT 年度總體戰略主軸。</li>
+              <li><strong>年度投資預算</strong>：核准【方案 A：集團全面躍升版】，年度基準預算 $640,000 USD (約 NT$ 2,016 萬)。</li>
+              <li><strong>業務負責人指派</strong>：指定採購處長、生產副總、研發處長、海外廠長擔任共同業務 Owner。</li>
+              <li><strong>門禁特許權限</strong>：核定 Ready-to-Sew 4-Gate 緊急特許通行採【海外廠長 ＋ 周副總雙簽】機制。</li>
+              <li><strong>盤點公文簽發</strong>：授權下週由 CEO 與 周副總 聯名簽發《2027 數位基線健康檢查公文》。</li>
+            </ol>
+            <h4>未來 30 / 60 / 90 天具體行動計畫：</h4>
+            <ul>
+              <li><strong>未來 30 天</strong>：發布現況盤點公文，啟動 4 週跨國 IT/OT 普查；啟動微軟/CrowdStrike 原廠大單前期意向談判。</li>
+              <li><strong>未來 60 天</strong>：產出《職能熱力圖》、《技術債清冊》與《FinOps 方案》；完成總部雙活與 Zerto 災備詳細 RFP。</li>
+              <li><strong>未來 90 天</strong>：外部 SI 駐廠實施隊簽約進場動工；啟動 4 廠雙軌 SD-WAN 採購與海外工業邊緣主機驗收。</li>
+            </ul>
+            <p><strong>建議圖表形式：</strong>CEO 簽核 Decision Card ＋ 30-60-90 水平推進看板。</p>
+            <p><strong>CEO 講稿重點：</strong>① 信源具備世界級製造實力，現在需要世界級數位神經系統；② 保證年底交出零停機與省千萬現金之成績單。</p>
+            <p><strong>待確認決策事項：</strong>請執行長於決策審核表簽署確認。</p>
           </div>
+        </section>
         </section>
 
         <hr>
 
-        <!-- Section 3: Decision Sheet -->
         <section id="sec-decision-sheet">
           <h2>參、 一頁式 CEO 決策審核表 (One-Page CEO Decision Sheet)</h2>
           <div style="background:#FFFBF5; border:2px solid var(--border-strong); border-radius:var(--radius-md); padding:24px; font-size:0.85rem; line-height:1.7;">
@@ -1540,22 +1887,289 @@
         </section>
 
 
+        <!-- Section 9: Comprehensive Appendices -->
         <section id="sec-appendices">
-          <h2>玖、 附錄：資料蒐集清單、系統盤點問卷與訪談題庫</h2>
-          <h3>附錄一：現況資料蒐集清冊 (Data Collection Checklist)</h3>
-          <ul>
-            <li>近三年「跨國空運違約罰款明細表」（財務部對接）。</li>
-            <li>近兩年大貨「布料採購金額與實際損耗率（Fabric Loss %）統計表」（採購處對接）。</li>
-            <li>全集團微軟 M365、防毒軟體、虛擬化軟體之現行合約清冊（資產管理對接）。</li>
-            <li>各機房伺服器配置與過保狀態清單（系統工程組對接）。</li>
-            <li>東南亞專線合約頻寬與斷線日誌（網路工程組對接）。</li>
-            <li>車間自動裁床、模板機、吊掛線之廠牌型號與協定清單（工務部對接）。</li>
-          </ul>
+          <h2>玖、 附錄：資料蒐集清單、系統盤點問卷與訪談題庫 (Exhaustive Appendices)</h2>
+          <p>
+            本附錄提供集團啟動 2027 IT 策略落地與現況盤點所需之「全套實體工具底冊」，包含 10 大類資料蒐集清冊、25 題完整盤點線上問卷標準題目，以及針對 5 類高階主管之近 30 題深度訪談題庫：
+          </p>
 
-          <h3>附錄二：管理層成熟度訪談題庫 (COO / CFO / 廠長)</h3>
-          <p><strong>A. 對 營運長 / 生產副總 (COO)：</strong> 產前缺料停工拆線頻率有多高？若實施 4-Gate 門禁，現場最大反彈會在哪裡？『廠長+副總雙簽緊急特許』能否平衡管理與彈性？</p>
-          <p><strong>B. 對 財務長 (CFO)：</strong> 全年空運包機費用總額多少？若能提前 72h 預警消滅這筆支出，財務部是否認同列為 IT 硬性回收？對方案 A 與方案 B 的現金流排程建議？</p>
-          <p><strong>C. 對 海外各廠總廠長：</strong> 海纜中斷時現場哪些機台會卡住？組長看英文/中文 Tech Pack 最常誤解什麼？若派駐突擊隊 60 天，現場最希望幫忙打通什麼？</p>
+          <!-- Appendix 1 -->
+          <h3>附錄一：現況資料蒐集清冊 (Data Collection Checklist)</h3>
+          <p>本清冊列管集團各權責部門需於啟動第 1 週內提供之歷史經營、財務與技術數據底稿：</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 50px;">項次</th>
+                  <th style="width: 140px;">資料類別</th>
+                  <th style="width: 220px;">具體報表 / 資料名稱</th>
+                  <th>調取之關鍵資料欄位</th>
+                  <th style="width: 100px;">歷史涵蓋年限</th>
+                  <th style="width: 120px;">對接部門</th>
+                  <th>專案分析用途與價值</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><strong>出貨與違約</strong></td>
+                  <td>跨國空運包機違約罰款明細表</td>
+                  <td>出貨日期、款號、目的地、原定交期、實際交期、空運費用、違約罰款金額、延遲根本原因歸屬</td>
+                  <td>近 3 年 (2024~2026)</td>
+                  <td>財務部 / 供應鏈處</td>
+                  <td>核算空運防禦對沖模型 (NT$ 1,500萬) 之歷史基線</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><strong>原物料損耗</strong></td>
+                  <td>大貨布料採購與耗用月報表</td>
+                  <td>廠區、訂單號、BOM 預估碼長、實際拉布裁剪耗用碼長、裁損率、餘料庫存、退布金額</td>
+                  <td>近 2 年 (2025~2026)</td>
+                  <td>採購處 / 裁剪研發部</td>
+                  <td>核算降低布損 1.2% (NT$ 2,200萬) 現金流節省之驗證基準</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><strong>車間生產效率</strong></td>
+                  <td>各廠各線換線首日生產日報</td>
+                  <td>廠區、產線別、款號、標準 SAM、換線首日實際產出 (Pcs)、線平衡率、首日效率 (%)、換線停機時數</td>
+                  <td>近 1 年 (2026)</td>
+                  <td>IE 工程處 / 生管部</td>
+                  <td>評估 Ready-to-Sew 4-Gate 產前門禁對於提升換線達標率之效益</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td><strong>品質與返修</strong></td>
+                  <td>車縫成衣檢驗與拆工返修日報</td>
+                  <td>廠區、工段、疵點代碼、返工件數、拆線返工耗用工時、主要瑕疵部位 (做工錯誤/尺寸偏差/跳針)</td>
+                  <td>近 1 年 (2026)</td>
+                  <td>品保處 (QA/QC)</td>
+                  <td>驗證多國語 Tech Pack 工藝 RAG 庫降低做工誤解返修之目標</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td><strong>軟體資產授權</strong></td>
+                  <td>集團軟體與 SaaS 採購合約清冊</td>
+                  <td>軟體名稱、原廠/代理商、採購授權數 (Licenses)、目前啟用數、版本規格、年租賃/維護費、合約到期日</td>
+                  <td>現行有效合約</td>
+                  <td>資產管理 / 資訊處</td>
+                  <td>執行 FinOps 授權整併與分層治理 (Run Cost 降低 8%~12%)</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td><strong>伺服器與雲端</strong></td>
+                  <td>機房主機與雲端帳單資源清冊</td>
+                  <td>主機名稱、實體/VM/雲端、規格 (CPU/RAM/Disk)、部署系統、購買年份、原廠保固到期日、平均承載率</td>
+                  <td>現況完整清冊</td>
+                  <td>系統組 / 雲端維運組</td>
+                  <td>清查過保伺服器與影子雲端資源，評估 Zerto 災備容量</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td><strong>網路與電信</strong></td>
+                  <td>跨國專線合約與斷線日誌 (Log)</td>
+                  <td>廠區、電信商、線路型態 (MPLS/VPN/寬頻)、簽約頻寬、月租費、海纜中斷次數、累計斷網中斷時長</td>
+                  <td>近 2 年 (2025~2026)</td>
+                  <td>網路通訊組</td>
+                  <td>規劃 Fortinet 雙軌 SD-WAN 與 48~72h 離線邊緣主機規格</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td><strong>車間設備通訊</strong></td>
+                  <td>自動化生產機台連線能力清單</td>
+                  <td>機台類別 (裁床/模板機/吊掛)、廠牌型號、控制器型號、通訊介面 (RS-485/以太網/無)、支援通訊協定</td>
+                  <td>現役機台普查</td>
+                  <td>工務部 / 海外 OT 組</td>
+                  <td>規劃 Kepware OPC-UA 與 EMQX MQTT 邊緣採集架構</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td><strong>人事與薪資</strong></td>
+                  <td>跨國員工帳號與系統權限清冊</td>
+                  <td>員工工號、姓名、廠區、職稱、主管、使用系統清單、是否需存取總部 ERP、是否經手客戶機敏圖資</td>
+                  <td>現況在職名冊</td>
+                  <td>人資處 (HR)</td>
+                  <td>設計 Microsoft Entra ID P2 / Frontline 分層 SSO 授權矩陣</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td><strong>客戶資安稽核</strong></td>
+                  <td>品牌客戶年度資安驗廠缺失清單</td>
+                  <td>客戶品牌、稽核年份、查核標準、缺失項目 (MFA不足/備份未演練/權限未隔離)、限期改善承諾書</td>
+                  <td>近 2 年 (2025~2026)</td>
+                  <td>業務處 / 資安組</td>
+                  <td>直接對齊品牌 IP 數據無菌室 (ABAC) 與 24/7 MDR 防護驗收</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Appendix 2 -->
+          <h3>附錄二：全集團資通系統與設備盤點問卷完整題目 (25 題全套)</h3>
+          <p>
+            本問卷設計供各海外廠區系統管理員、車間 IT 幹部與部門主管填寫，題目涵蓋 5 大模組，可直接轉錄為線上表單 (Microsoft Forms / Google Forms) 下發：
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 60px;">題號</th>
+                  <th style="width: 120px;">模組分類</th>
+                  <th>問卷題目與填寫說明</th>
+                  <th style="width: 120px;">題型</th>
+                  <th>選項內容 / 評估指標</th>
+                  <th style="width: 80px;">必填性質</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Q01</td><td>基本識別</td><td>填報人基本資料與負責單位</td><td>文字填答</td><td>工號、中文姓名、英文姓名、所屬廠區 (台北/隆安/西寧/金邊/中爪哇)、部門、職稱、電子郵件、聯絡電話</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q02</td><td>基本識別</td><td>您目前在集團主要負責之業務核心職責</td><td>單選題</td><td>A. 伺服器與系統維運 ｜ B. 網路與通訊安全 ｜ C. 車間 OT 與自動化 ｜ D. ERP/生管系統 ｜ E. 綜合管理</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q03</td><td>基本識別</td><td>您在現有崗位之實務經驗年資</td><td>單選題</td><td>A. 未滿 1 年 ｜ B. 1～3 年 ｜ C. 3～5 年 ｜ D. 5～10 年 ｜ E. 10 年以上</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q04</td><td>基本識別</td><td>您日常使用的公務電腦作業系統與型態</td><td>單選題</td><td>A. 公司配發筆電 ｜ B. 公司配發桌機 ｜ C. 車間共用機台電腦 ｜ D. 自備筆電 (BYOD)</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q05</td><td>伺服器運算</td><td>您所管理的實體伺服器目前原廠硬體保固狀態</td><td>單選題</td><td>A. 全數在原廠保固內 ｜ B. 部分主機已過保 ｜ C. 全數主機均已過保 ｜ D. 不清楚保固狀況</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q06</td><td>伺服器運算</td><td>請列舉您單位所負責之實體主機與虛擬機清單</td><td>表格填寫</td><td>需詳列：資產編號、廠牌型號、CPU 核心數、RAM 容量、磁碟空間、作業系統版本 (如: Win 2016, ESXi 7.0)</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q07</td><td>伺服器運算</td><td>您機房主機平日之平均 CPU 與記憶體資源承載率</td><td>單選題</td><td>A. 負載極高 (常態 > 80%) ｜ B. 負載適中 (40%~80%) ｜ C. 負載極低 (< 20%，高度閒置) ｜ D. 無監控數據</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q08</td><td>伺服器運算</td><td>您所屬廠區是否有使用公有雲運算 (如 AWS/Azure/GCP)？</td><td>單選題</td><td>A. 有，且由總部統一管轄 ｜ B. 有，由廠區自行刷卡採購 ｜ C. 完全無使用公有雲 ｜ D. 不清楚</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q09</td><td>伺服器運算</td><td>承上題，若有使用雲端，是否有設定閒置自動關機或成本告警？</td><td>單選題</td><td>A. 有完善 FinOps 監控 ｜ B. 僅固定每月扣款，無主動監控 ｜ C. 無使用 ｜ D. 不清楚</td><td>選填</td>
+                </tr>
+                <tr>
+                  <td>Q10</td><td>車間 OT 物聯</td><td>車間自動裁床、拉布機、模板機目前與系統之連線現況</td><td>單選題</td><td>A. 已透過網路線/串口全面即時連線 MES ｜ B. 僅部分機台連線 ｜ C. 完全人工拿隨身碟 (USB) 拷貝檔案 ｜ D. 無自動化機台</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q11</td><td>車間 OT 物聯</td><td><strong>【核心斷網檢驗】</strong>當外部國際海底電纜中斷時，車間現場能否繼續生產？</td><td>單選題</td><td>A. <strong>完全能獨立運轉 48 小時以上</strong> ｜ B. <strong>部分受限 (可暫存半天)</strong> ｜ C. <strong>完全不能 (立即停工卡死)</strong> ｜ D. 未曾測試過</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q12</td><td>車間 OT 物聯</td><td>車間生產現場吊掛線或分揀站點目前使用之計工採集方式</td><td>多選題</td><td>A. Impinj 等 RFID 感應卡 ｜ B. 條碼 (Barcode/QR) 掃描槍 ｜ C. 紙本工票人工打勾 ｜ D. 光電感應計數器</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q13</td><td>車間 OT 物聯</td><td>車間目前是否有部署工業級邊緣電腦 (IPC) 或邊緣網關？</td><td>單選題</td><td>A. 有 (如研華/Moxa 邊緣主機) ｜ B. 使用普通商用 PC 代替 ｜ C. 完全無邊緣主機 ｜ D. 不清楚</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q14</td><td>車間 OT 物聯</td><td>若車間邊緣主機或網路設備損壞，現場是否有足夠的備品可替換？</td><td>單選題</td><td>A. 機房備有全新同型號備品 ｜ B. 有舊機可勉強應急 ｜ C. 完全無備品 (需等待跨國採購數週) ｜ D. 不清楚</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q15</td><td>應用與授權</td><td>您單位日常最頻繁使用的生產營運核心系統有哪些？</td><td>多選題</td><td>A. 核心 MES ｜ B. 總部 ERP ｜ C. WMS 倉儲 ｜ D. CAD/馬克排料 ｜ E. GSDCost 工時 ｜ F. 自行撰寫 Excel 巨集</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q16</td><td>應用與授權</td><td>現場是否有使用同仁「自行撰寫但無人維護之 Excel 巨集/VBA」處理排產？</td><td>單選題</td><td>A. 普遍存在，且高度依賴特定作者 ｜ B. 僅少數非關鍵表單 ｜ C. 完全無，全由系統處理 ｜ D. 不清楚</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q17</td><td>應用與授權</td><td>您廠區目前配發之 Microsoft 365 / Office 帳號日常主要用途為何？</td><td>單選題</td><td>A. 深度使用 Excel/Teams/OneDrive 協同 ｜ B. 僅用來收發外部客戶 Email ｜ C. 幾乎不登入 ｜ D. 未配發帳號</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q18</td><td>應用與授權</td><td>您廠區是否有任何未向總部報備、同仁私下租用之雲端軟體 (Shadow IT)？</td><td>單選題</td><td>A. 有 (如私下租用國外排班/圖庫軟體) ｜ B. 曾有但已停用 ｜ C. 絕對沒有 ｜ D. 不敢確定</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q19</td><td>應用與授權</td><td>各海外廠區對於原副料料號之編碼現況是否有感到困擾？</td><td>單選題</td><td>A. 極度困擾 (各廠同料不同號，無法調撥庫存) ｜ B. 偶爾發生料號衝突 ｜ C. 井然有序，完全統一 ｜ D. 無涉此業務</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q20</td><td>資安與災備</td><td>您電腦與伺服器目前安裝之防毒/端點防護軟體品牌</td><td>單選題</td><td>A. CrowdStrike Falcon ｜ B. 傳統知名防毒軟體 (地端版) ｜ C. 僅 Windows 內建 Defender ｜ D. 完全未安裝防毒</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q21</td><td>資安與災備</td><td>登入公司重要生產與管理系統時，是否有啟用雙因子認證 (MFA)？</td><td>單選題</td><td>A. 100% 全面強制手機/動態碼 MFA ｜ B. 僅總部少數高管啟用 ｜ C. 完全只靠單一密碼登入 ｜ D. 不清楚</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q22</td><td>資安與災備</td><td>重要業務資料庫與生產檔案目前的備份頻率與保存方式</td><td>單選題</td><td>A. 自動每日差異備份且備份至異地 ｜ B. 僅備份在同機房另一顆硬碟 ｜ C. 人工偶爾手動拷貝 ｜ D. 完全無備份</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q23</td><td>資安與災備</td><td>過去一年內，您單位是否有實地演練過「備份檔案還原至備援機台」？</td><td>單選題</td><td>A. 每半年至少實戰演練 1 次 ｜ B. 僅演練過 1 次 ｜ C. 從未演練過還原 (不知能否成功) ｜ D. 不清楚</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q24</td><td>資安與災備</td><td>當海外廠區半夜或假日遭遇勒索病毒入侵時，現場的通報與應變處置 SOP 為何？</td><td>單選題</td><td>A. 有 24 小時 SOC 監控並自動隔離 ｜ B. 等上班時同仁發現再通報總部 ｜ C. 拔掉電源關機 ｜ D. 完全無任何 SOP</td><td>必填</td>
+                </tr>
+                <tr>
+                  <td>Q25</td><td>資安與災備</td><td>您認為目前所屬廠區在資通訊與自動化領域，最迫切需要總部支援的項目</td><td>多選題</td><td>A. 設備汰舊換新 ｜ B. 網路與海纜斷線備援 ｜ C. 專業技術技能培訓 ｜ D. 人力編制擴充 ｜ E. 系統操作簡化</td><td>必填</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Appendix 3 -->
+          <h3>附錄三：管理層成熟度訪談完整題庫 (近 30 題深度訪談大綱)</h3>
+          <p>
+            本訪談題庫專供執行負責人 (Howard Liao Ph.D.) 於啟動階段親自與集團 5 大高階主管群進行一對一面對面或視訊深度對焦：
+          </p>
+
+          <div class="meta-box" style="border-left:4px solid var(--orange-vibrant); margin-bottom:20px;">
+            <h4 style="color:var(--rust-primary);">A. 對 營運長 / 生產副總 (COO / VP of Operations) 之訪談題庫</h4>
+            <p><strong>訪談目的：</strong>摸清車間現場缺料停工痛點、產前門禁政治阻力，確立換線首日達標率與產能釋放目標。</p>
+            <ol>
+              <li>「在過去一年中，海外廠區（隆安、金邊、中爪哇）因『產前條件未齊盲目上線』或『原副料缺料』導致車縫線停工拆線的頻率平均每月發生幾次？每次拆線平均損失多少工時與產能？」</li>
+              <li>「目前車縫換線首日的實際產出效率，相較於標準工時 (SAM) 產能的達成率大約只有六成。您認為造成換線首日效率崩跌的最核心三大原因是什麼？」</li>
+              <li>「若系統實行 Ready-to-Sew 4-Gate 硬性門禁（未達 100% 齊套系統自動鎖死發料），現場老廠長最大的反彈點會是什麼？您認為設計『廠長＋周副總雙簽緊急特許放行 (Override SOP)』是否能有效化解基層對立？」</li>
+              <li>「對於柬埔寨金邊廠與印尼中爪哇新廠，您希望 IT 建立什麼樣的標準樣板，才能讓海外新產線在開箱 3 個月內達到與越南旗艦廠相同的良率與效率？」</li>
+              <li>「如果總部派駐 1 位雲端流程架構師與 1 位資深 IE 駐點越南隆安示範廠 60 天，您期望他們最先幫現場解決哪一個痛點？」</li>
+              <li>「在生產營運的績效指標中，如果 2027 年 IT 能幫您達成『換線首日達標率 85%』與『拆工返修率減半』，您願意在經營會議上共同為這項專案背書嗎？」</li>
+            </ol>
+          </div>
+
+          <div class="meta-box" style="border-left:4px solid var(--rust-primary); margin-bottom:20px;">
+            <h4 style="color:var(--rust-primary);">B. 對 財務長 (CFO) 之訪談題庫</h4>
+            <p><strong>訪談目的：</strong>核實歷史空運包機違約金與布料損耗金額，對齊 14~16 個月現金回本模型，確認 CapEx/OpEx 預算偏好。</p>
+            <ol>
+              <li>「過去三年全集團因為海外交期延誤，實際支付給客戶的跨國空運包機費用與延遲罰款總額大約多少？平均單次包機成本大約落在多少美元？」</li>
+              <li>「如果 2027 年透過 4-Gate 門禁與 Flink 提前 72h 預警，確保每年至少防禦住 2 次空運包機違約（省下約 NT$ 1,500 萬現金），財務部是否認同將此列為 IT 專案的硬性投資回收 (Hard Dollar Savings)？」</li>
+              <li>「大貨布料採購目前佔集團總成本約 65%。如果透過 Profisee MDM 統一全球料號與 CAD 利用率提升，將布損降低 1.0%～1.2%（年省約 NT$ 2,200 萬），這筆採購現金流節省在財務報表上會如何體現？」</li>
+              <li>「針對 2027 年 IT 總預算 $640,000 USD（約 NT$ 2,016 萬），財務部在資本支出 (CapEx) 與營業費用 (OpEx) 上的偏好為何？採 SaaS 與雲端按需訂閱制是否對集團整體稅務與現金流最有利？」</li>
+              <li>「若向董事會提出『方案 A（二千萬級全面躍升版）』與『方案 B（九百萬級精實啟動版）』，財務部在預算審查會上會建議採取何種核批策略？」</li>
+              <li>「對於預估在第 14～16 個月實現全額投資回本（ROI 1:3.84）之計算模型，財務部需要哪些歷史會計憑證作為董事會提案之佐證依據？」</li>
+            </ol>
+          </div>
+
+          <div class="meta-box" style="border-left:4px solid var(--green-run); margin-bottom:20px;">
+            <h4 style="color:var(--green-run);">C. 對 海外各廠總廠長 (Plant Directors · 隆安/西寧/金邊/中爪哇) 之訪談題庫</h4>
+            <p><strong>訪談目的：</strong>了解海外現地斷網真實應急慘況、做工手冊語言障礙，消弭現場對總部 IT 的防禦心理。</p>
+            <ol>
+              <li>「當國際海底電纜中斷、海外工廠對外網路完全斷線時，目前車間的自動裁床、模板機、吊掛線與包裝掃描會發生什麼事？現場師傅通常如何應急？能撐多久不停產？」</li>
+              <li>「隆安、西寧、金邊與中爪哇的第一線組長與品檢人員，在閱讀英文或繁體中文 Tech Pack 做工手冊時，最常在哪些工藝細節上發生誤解而造成整批做錯拆線？」</li>
+              <li>「如果總部建立一套能將 Tech Pack 做工規範自動翻譯成越語、高棉語或印尼語的 AI 知識庫，第一線幹部最希望這套工具以什麼形式呈現（如：手機 App、平板、或列印工票上）？」</li>
+              <li>「過去總部推動新系統時，現場幹部最抱怨或排斥的是什麼？這次 2027 計畫我們要怎麼做，才能讓現場同仁覺得是在『幫他們解決問題』而不是『增加填表負擔』？」</li>
+              <li>「如果總部派駐敏捷突擊隊到工廠現場 60 天，您希望他們直接跟車間哪一位資深幹部對接？您期望雙方如何分工？」</li>
+              <li>「對於 4-Gate 產前門禁，如果遇到品牌大客戶緊急催貨，現場有條件放行（Override）的授權流程，您認為由您與周副總線上雙簽確認，現場操作上是否切實可行？」</li>
+            </ol>
+          </div>
+
+          <div class="meta-box" style="border-left:4px solid var(--blue-grow); margin-bottom:20px;">
+            <h4 style="color:var(--blue-grow);">D. 對 大貨採購處長與供應鏈處長 (VP of Sourcing & Supply Chain) 之訪談題庫</h4>
+            <p><strong>訪談目的：</strong>解決跨廠同料不同號、供應商交期脫拍、庫存無法調撥之供應鏈頑疾。</p>
+            <ol>
+              <li>「目前集團在台灣、越南、柬埔寨與印尼之間，『同一款布料或副料，在各廠 ERP 裡編號不同』的情況有多嚴重？這導致了多少重複採購或無法相互調撥的呆料損失？」</li>
+              <li>「當上游布廠或染整廠通知交期（ETA）延遲時，這項資訊目前通常在幾天內會傳遞到海外工廠生管與裁剪部門？是否存在嚴重的信息時差？」</li>
+              <li>「如果導入供應鏈 Control Tower 與 Flink 異常預警引擎，在預計裁剪日（PCD）前 72 小時自動推播缺料告警，採購團隊是否有足夠的緩衝時間去催料或調撥？」</li>
+              <li>「如果由 IT 主導 Profisee MDM 主數據治理，要求所有新採購原副料必須強制經過 MDM 系統去重審核，採購同仁在日常作業習慣上需要克服哪些障礙？」</li>
+              <li>「對於海外 WMS 倉庫的原副料實物盤點，目前條碼標籤與系統庫存帳目的準確率大約是多少？最常發生帳實不符的原因是什麼？」</li>
+            </ol>
+          </div>
+
+          <div class="meta-box" style="border-left:4px solid var(--purple-trans); margin-bottom:20px;">
+            <h4 style="color:var(--purple-trans);">E. 對 業務副總與品牌客戶總監 (VP of Sales & Brand Directors) 之訪談題庫</h4>
+            <p><strong>訪談目的：</strong>確認大品牌客戶（Nike, Lululemon 等）之資安驗廠紅線、無菌室 ABAC 隔離要求與歐盟 DPP 永續競標痛點。</p>
+            <ol>
+              <li>「在過去兩年中，Nike、Lululemon、Under Armour 或其他國際大品牌客戶在對信源進行年度資安與供應鏈稽核時，最常提出的缺失或改善要求是什麼？」</li>
+              <li>「大品牌客戶在發包最高階機能運動服或無縫貼合新品訂單時，對於代工廠『保護其機敏 CAD 版型與專利工藝不被洩漏給競品』的要求有多嚴格？」</li>
+              <li>「如果我們向客戶展示『信源已導入 Entra ID ABAC 品牌 IP 數據無菌室，Nike 產線人員完全無法接觸 Lululemon 款號資料，並通過 ISO 27001 認證』，這對業務部爭取旗艦款訂單有多大助益？」</li>
+              <li>「歐盟即將實施『數位產品護照 (DPP)』要求提供成衣單件碳足跡。歐洲品牌客戶目前是否已經開始詢問代工廠的碳數據追溯能力？若我們具備此能力，能否轉化為更高的報價或優先配單權？」</li>
+              <li>「業務部日常在跟客戶對接訂單生產履約進度時，平均每天花費多少工時在『手動向海外工廠追問進度再回信給客戶』？若開放客戶安全的 API 查詢 Portal，業務流程能提效多少？」</li>
+            </ol>
+          </div>
         </section>
 
       </main>
