@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 2027 IT 營運計畫全年度 25 項專案甘特圖 (全年度排程 · 排開連假與封網)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FBFBFA;
+      --bg-card: #FFFFFF;
+      --bg-warm-tint: #F5F2EB;
+      --bg-amber-soft: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #DE5814;
+      --amber-gold: #D97706;
+      --green-run: #0D9488;
+      --blue-grow: #2563EB;
+      --purple-trans: #9333EA;
+      --text-charcoal: #1E1E24;
+      --text-body: #4A4A52;
+      --text-muted: #7A7A85;
+      --border-subtle: #E8E5DF;
+      --border-strong: #D5D0C5;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 2px 8px rgba(30, 30, 36, 0.04);
+      --shadow-md: 0 8px 24px rgba(30, 30, 36, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+      padding: 30px 24px;
+    }
+
+    /* Watermark Overlay */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180' viewBox='0 0 300 180'%3E%3Ctext x='20' y='90' fill='%23A83212' font-family='sans-serif' font-size='18' font-weight='bold' letter-spacing='2' transform='rotate(-25 150 90)'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .container {
+      max-width: 1520px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Header */
+    .gantt-header {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+    .header-dateline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .main-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.15;
+    }
+    .main-title span {
+      color: var(--rust-primary);
+      font-style: italic;
+    }
+    .leadership-chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .chip strong {
+      color: var(--text-charcoal);
+      margin-left: 4px;
+    }
+
+    /* Holiday & Freeze Notification Banner */
+    .calendar-notice-banner {
+      background: #FFFBF5;
+      border: 1px solid #F3D9A2;
+      border-left: 5px solid var(--amber-gold);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 0.8rem;
+      color: #78350F;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .notice-icon { font-size: 1.3rem; line-height: 1; }
+    .notice-title { font-weight: 800; margin-bottom: 4px; color: #92400E; }
+
+    /* 4-Quarter Progress Pipeline */
+    .quarter-pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .quarter-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .quarter-card.q1 { border-top: 4px solid var(--green-run); }
+    .quarter-card.q2 { border-top: 4px solid var(--orange-vibrant); }
+    .quarter-card.q3 { border-top: 4px solid var(--blue-grow); }
+    .quarter-card.q4 { border-top: 4px solid var(--purple-trans); }
+    .quarter-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .quarter-stats {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      margin-bottom: 8px;
+    }
+    .quarter-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Control Bar */
+    .control-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .filter-btn {
+      background: var(--bg-warm-tint);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-body);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-btn:hover {
+      background: var(--bg-card);
+      border-color: var(--rust-primary);
+      color: var(--rust-primary);
+    }
+    .filter-btn.active {
+      background: var(--rust-primary);
+      border-color: var(--rust-primary);
+      color: #FFF;
+    }
+    .legend-pills {
+      display: flex;
+      gap: 12px;
+      font-size: 0.75rem;
+      align-items: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    /* Gantt Table Layout */
+    .gantt-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 30px;
+    }
+    .gantt-table {
+      width: 100%;
+      min-width: 1350px;
+      border-collapse: collapse;
+    }
+    .gantt-table th, .gantt-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 8px 8px;
+      font-size: 0.76rem;
+    }
+    .gantt-table th {
+      background: #FAF8F5;
+      font-weight: 700;
+      text-align: center;
+      color: var(--text-charcoal);
+    }
+    .th-info {
+      text-align: left !important;
+      width: 440px;
+      min-width: 440px;
+    }
+    .month-header {
+      width: calc((100% - 440px) / 12);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+    .month-sub {
+      font-size: 0.65rem;
+      font-weight: normal;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+    .freeze-badge {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #DC2626;
+      background: #FEE2E2;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-top: 3px;
+    }
+    .target-badge {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #047857;
+      background: #D1FAE5;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-top: 3px;
+    }
+
+    /* Pillar Group Row */
+    .pillar-group-row td {
+      background: #F4F1EA;
+      font-weight: 800;
+      color: var(--rust-primary);
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Project Row */
+    .project-row:hover {
+      background: #FFFDF9;
+    }
+    .project-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .project-id-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .project-id {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      background: rgba(168, 50, 18, 0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    .project-name {
+      font-weight: 700;
+      color: var(--text-charcoal);
+      font-size: 0.8rem;
+    }
+    .project-stage {
+      font-size: 0.7rem;
+      color: #4338CA;
+      font-weight: 600;
+      background: #EEF2FF;
+      padding: 1px 6px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-top: 2px;
+    }
+    .project-subline {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .cat-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0 5px;
+      border-radius: 3px;
+      color: #FFF;
+    }
+    .cat-run { background: var(--green-run); }
+    .cat-grow { background: var(--blue-grow); }
+    .cat-trans { background: var(--purple-trans); }
+
+    /* Gantt Bar Cell */
+    .gantt-cell {
+      position: relative;
+      padding: 0 !important;
+      background: transparent;
+      height: 44px;
+    }
+    .bar-container {
+      position: absolute;
+      top: 6px; bottom: 6px;
+      left: 0; right: 0;
+      display: flex;
+      align-items: center;
+    }
+    .gantt-bar {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      color: #FFF;
+      font-size: 0.68rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      transition: transform 0.15s ease, filter 0.15s ease;
+      cursor: pointer;
+    }
+    .gantt-bar:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+    .bar-run { background: linear-gradient(90deg, #0D9488, #14B8A6); }
+    .bar-grow { background: linear-gradient(90deg, #2563EB, #3B82F6); }
+    .bar-trans { background: linear-gradient(90deg, #9333EA, #A855F7); }
+
+    /* Footer */
+    .gantt-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media print {
+      body { padding: 0; background: #FFF; }
+      .control-bar, .calendar-notice-banner { display: none; }
+      .container { max-width: 100%; }
+      .gantt-wrapper { border: none; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="gantt-header">
+      <div class="header-dateline">
+        <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGIC ROADMAP</div>
+        <div>CONFIDENTIAL EXECUTIVE SCHEDULE · 12-MONTH FULL-YEAR DEPLOYMENT</div>
+      </div>
+      <div class="title-row">
+        <div>
+          <h1 class="main-title">2027 年度 IT 營運計畫全專案進度甘特圖<br><span>整合運用・智能營運 (全年度 25 項專案平準化推進)</span></h1>
+        </div>
+        <div class="leadership-chips">
+          <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
+            <span>計劃主持：</span><strong>周文津 副總</strong>
+          </div>
+          <div class="chip" style="border-left: 3px solid var(--rust-primary);">
+            <span>執行負責：</span><strong>Howard Liao Ph.D.</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Calendar Notice Banner (Factor in Holidays & Code Freeze) -->
+    <div class="calendar-notice-banner">
+      <div class="notice-icon">📅</div>
+      <div>
+        <div class="notice-title">2027 跨國年節假日、連續假日與封網管制（Code Freeze）排程原則</div>
+        <div>
+          本排程嚴格排除週休二日與跨國連續假日：
+          <strong>2月春節與越南 Tet 年假（2/5~2/14，工廠全停工 10 天）嚴格實施系統封網（Code Freeze）</strong>，禁止核心生產變更；
+          <strong>3月印尼開齋節（3/9~3/12）</strong> 與 <strong>4月中旬柬埔寨新年（4/13~4/16）</strong> 均排開產線停工週；
+          並避開 <strong>9月越南國慶、10月國慶連假與柬埔寨亡人節</strong>。全年度 25 項專案依「<strong>Q1 總部築底 ➔ Q2 隆安燈塔 ➔ Q3 柬印複製 ➔ Q4 全集團驗收</strong>」節奏平準化分佈於 12 個月推進。
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Quarter Pipeline -->
+    <div class="quarter-pipeline">
+      <div class="quarter-card q1">
+        <div class="quarter-title">Q1 · 總部基底成型</div>
+        <div class="quarter-stats">15 項專案啟動 · 排除2月春節封網</div>
+        <div class="quarter-desc">
+          台北總部雙活 Kong 網關、Entra ID 核心 SSO、CrowdStrike 24/7 MDR 託管、Zerto 秒級災備與 SD-WAN HA 雙機骨幹就緒。
+        </div>
+      </div>
+      <div class="quarter-card q2">
+        <div class="quarter-title">Q2 · 越南隆安示範</div>
+        <div class="quarter-stats">24 項專案攻堅 · 避開柬埔寨新年</div>
+        <div class="quarter-desc">
+          越南隆安旗艦廠打通 Ready-to-Sew 4-Gate 產前門禁、72h 斷網離線自律、Camunda 8 履約流與 Flink PCD 提前72h 缺料預警。
+        </div>
+      </div>
+      <div class="quarter-card q3">
+        <div class="quarter-title">Q3 · 柬印新廠複製</div>
+        <div class="quarter-stats">23 項專案推廣 · 暑期黃金無長假期</div>
+        <div class="quarter-desc">
+          將標準樣板交鑰匙複製至柬埔寨金邊與印尼中爪哇基地；貫通 Databricks 30TB 湖倉、Profisee MDM 主數據與多國語 RAG。
+        </div>
+      </div>
+      <div class="quarter-card q4">
+        <div class="quarter-title">Q4 · 全集團驗收</div>
+        <div class="quarter-stats">12 項專案收官 · 智能決策全面投產</div>
+        <div class="quarter-desc">
+          Agentic AI 生管跟單、OR-Tools 動態線平衡人機排程、交期預測全面上線，達成 Run Cost -10%、工時釋放 15~25% 全年驗收。
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Control Bar -->
+    <div class="control-bar">
+      <div class="filter-group">
+        <span class="filter-label">主架構切換：</span>
+        <button class="filter-btn active" onclick="filterPillar('ALL')">全部顯示 (25)</button>
+        <button class="filter-btn" onclick="filterPillar('Pillar I')">Pillar I 數位底座 (8)</button>
+        <button class="filter-btn" onclick="filterPillar('Pillar II')">Pillar II 流程整合 (5)</button>
+        <button class="filter-btn" onclick="filterPillar('Pillar III')">Pillar III 智能決策 (7)</button>
+        <button class="filter-btn" onclick="filterPillar('Pillar IV')">Pillar IV 智慧製造 (5)</button>
+      </div>
+
+      <div class="legend-pills">
+        <div class="legend-item"><div class="legend-dot" style="background: var(--green-run);"></div><span>55% Run (維運穩固 8項)</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--blue-grow);"></div><span>25% Grow (擴展賦能 8項)</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--purple-trans);"></div><span>20% Transform (智能躍升 9項)</span></div>
+      </div>
+    </div>
+
+    <!-- Gantt Chart Main Table -->
+    <div class="gantt-wrapper">
+      <table class="gantt-table" id="ganttTable">
+        <thead>
+          <tr>
+            <th rowspan="2" class="th-info">專案編號 / 專案名稱 / 推進階段 / 負責團隊 / 交付成果</th>
+            <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">Q1 (第一季) · 總部築底</th>
+            <th colspan="3" style="background: #FFF7ED; border-bottom: 2px solid #FDBA74;">Q2 (第二季) · 隆安示範</th>
+            <th colspan="3" style="background: #EFF6FF; border-bottom: 2px solid #93C5FD;">Q3 (第三季) · 柬印複製</th>
+            <th colspan="3" style="background: #FAF5FF; border-bottom: 2px solid #D8B4FE;">Q4 (第四季) · 集團驗收</th>
+          </tr>
+          <tr>
+            <th class="month-header">
+              1月
+              <span class="month-sub">20工作天</span>
+              <span class="month-sub">專案啟動 / 總部架構</span>
+            </th>
+            <th class="month-header">
+              2月
+              <span class="month-sub">14工作天</span>
+              <span class="freeze-badge">🛑 春節封網期 (Code Freeze)</span>
+            </th>
+            <th class="month-header">
+              3月
+              <span class="month-sub">22工作天</span>
+              <span class="month-sub">年後復工 / 總部雙活驗收</span>
+            </th>
+            <th class="month-header">
+              4月
+              <span class="month-sub">18工作天</span>
+              <span class="month-sub">避開柬新年 / 隆安集中上線</span>
+            </th>
+            <th class="month-header">
+              5月
+              <span class="month-sub">20工作天</span>
+              <span class="month-sub">隆安 4-Gate 產前門禁實戰</span>
+            </th>
+            <th class="month-header">
+              6月
+              <span class="month-sub">21工作天</span>
+              <span class="target-badge">🎯 隆安燈塔示範廠完整收官</span>
+            </th>
+            <th class="month-header">
+              7月
+              <span class="month-sub">22工作天</span>
+              <span class="month-sub">柬埔寨/印尼交鑰匙複製啟動</span>
+            </th>
+            <th class="month-header">
+              8月
+              <span class="month-sub">22工作天</span>
+              <span class="month-sub">30TB 湖倉與 MDM 主數據貫通</span>
+            </th>
+            <th class="month-header">
+              9月
+              <span class="month-sub">20工作天</span>
+              <span class="target-badge">🎯 柬印新廠複製驗收 / RAG就緒</span>
+            </th>
+            <th class="month-header">
+              10月
+              <span class="month-sub">19工作天</span>
+              <span class="month-sub">AI Agent 生管跟單試點</span>
+            </th>
+            <th class="month-header">
+              11月
+              <span class="month-sub">21工作天</span>
+              <span class="month-sub">OR-Tools 動態排線全線尋優</span>
+            </th>
+            <th class="month-header">
+              12月
+              <span class="month-sub">22工作天</span>
+              <span class="target-badge">🎯 全集團 2,500 席全面驗收審計</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="ganttBody">
+          <!-- Rows will be injected by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gantt-footer">
+      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫全專案甘特圖 (內部戰略推演，未更新至公開庫)</div>
+      <div>計劃主持：周文津 副總 ｜ 執行負責：Howard Liao Ph.D.</div>
+    </footer>
+  </div>
+
+  <script>
+    const projectsData = [
+    {
+        "id": "P1-1",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "API Management (Kong 雙活架構與跨國邊緣節點)",
+        "cat": "Run",
+        "start": 1,
+        "end": 5,
+        "stage": "Q1 總部雙活建置 ➔ Q2 越/柬/印 3 廠邊緣節點部署",
+        "lead": "雲端架構組",
+        "deliverable": "總部雙活網關 + 3 海外廠邊緣 Kong 叢集，避開2月年假封網",
+        "budget": "$52,000 USD (NT$ 164萬)"
+    },
+    {
+        "id": "P1-2",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "Access Governance (Entra ID 分層 SSO + Vault 金鑰輪替)",
+        "cat": "Run",
+        "start": 1,
+        "end": 6,
+        "stage": "Q1 總部與400幹部 SSO ➔ Q2 2,100第一線現場分層",
+        "lead": "資安身分組",
+        "deliverable": "全集團 2,500 席分層身分 + 核心 DB 動態金鑰 + AI Agent 沙盒",
+        "budget": "$105,000 USD (NT$ 331萬)"
+    },
+    {
+        "id": "P1-3",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "Enterprise Data Layer (Databricks 30TB+ 企業湖倉)",
+        "cat": "Grow",
+        "start": 2,
+        "end": 9,
+        "stage": "Q1 湖倉架構 ➔ Q2 越南CDC ➔ Q3 柬/印資料串流中台",
+        "lead": "數據工程組",
+        "deliverable": "4 廠 CDC 實時串流 + 30TB 湖倉中台 + 按需查詢節點",
+        "budget": "$115,000 USD (NT$ 362萬)"
+    },
+    {
+        "id": "P1-4",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "Data Governance (Profisee MDM 主數據與品質門禁)",
+        "cat": "Grow",
+        "start": 3,
+        "end": 10,
+        "stage": "Q2 物料號清洗 ➔ Q3 跨廠同料編碼統一 ➔ Q4 門禁常態化",
+        "lead": "數據治理組",
+        "deliverable": "原副料/款號主數據清洗 + 自動品質門禁 (SAM>0, PCD檢核)",
+        "budget": "$80,000 USD (NT$ 252萬)"
+    },
+    {
+        "id": "P1-5",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "AI Governance (Portkey / LiteLLM 多模型調度與專利遮罩)",
+        "cat": "Transform",
+        "start": 4,
+        "end": 11,
+        "stage": "Q2 Token管控代理 ➔ Q3 Tech Pack遮罩 ➔ Q4 Agent合規審計",
+        "lead": "AI 架構組",
+        "deliverable": "多模型路由 + 1,000 萬 Token 配額管控 + Tech Pack 專利保護",
+        "budget": "$48,000 USD (NT$ 151萬)"
+    },
+    {
+        "id": "P1-6",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "Cybersecurity (CrowdStrike 24/7 MDR + Cloudflare ZTNA)",
+        "cat": "Run",
+        "start": 1,
+        "end": 12,
+        "stage": "Q1 總部與核心伺服器 ➔ Q2~Q3 海外端點覆蓋 ➔ Q4 紅藍對抗演練",
+        "lead": "資安維運組",
+        "deliverable": "2,500 席 ZTNA 零信任 + 800 台端點 24/7 全託管防勒索",
+        "budget": "$100,000 USD (NT$ 315萬)"
+    },
+    {
+        "id": "P1-7",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "Backup / DR / BCP (Zerto CDP 秒級災備 + S3 WORM)",
+        "cat": "Run",
+        "start": 1,
+        "end": 8,
+        "stage": "Q1 總部核心VM複製 ➔ Q2 越南廠災備 ➔ Q3 柬/印實戰演練",
+        "lead": "系統維運組",
+        "deliverable": "12~16 台核心生產 VM 秒級複製 + 30TB 不可篡改備份 (RPO<15m, RTO<2h)",
+        "budget": "$68,000 USD (NT$ 214萬)"
+    },
+    {
+        "id": "P1-8",
+        "pillar": "Pillar I 數位底座與治理",
+        "name": "Network & Edge (Fortinet SD-WAN HA + 8台車間邊緣主機)",
+        "cat": "Run",
+        "start": 1,
+        "end": 7,
+        "stage": "Q1 總部與隆安雙軌線路 ➔ Q2 金邊/中爪哇部署 ➔ Q3 斷網實測",
+        "lead": "網路通訊組",
+        "deliverable": "4 基地雙軌 SD-WAN HA + 8 台車間工業邊緣主機 (48~72h 自治)",
+        "budget": "$72,000 USD (NT$ 227萬)"
+    },
+    {
+        "id": "P2-1",
+        "pillar": "Pillar II 營運流程整合",
+        "name": "Production Fulfillment (Camunda 8 端到端履約編排)",
+        "cat": "Grow",
+        "start": 3,
+        "end": 9,
+        "stage": "Q2 訂單至裁剪工序 ➔ Q3 車縫/特工至出貨跨廠串聯",
+        "lead": "生管系統組",
+        "deliverable": "訂單至出貨 9 大工序端到端履約可視化與節點阻礙預警",
+        "budget": "$45,000 USD"
+    },
+    {
+        "id": "P2-2",
+        "pillar": "Pillar II 營運流程整合",
+        "name": "Material Flow & Risk (供應鏈 Control Tower 物料流)",
+        "cat": "Grow",
+        "start": 2,
+        "end": 8,
+        "stage": "Q1 原料入庫流 ➔ Q2 國際物流ETA看板 ➔ Q3 裁片發料閉環",
+        "lead": "供應鏈組",
+        "deliverable": "BOM/採購/海運 ETA 與 WMS 庫存即時風險看板，避開2月Tet年假停工",
+        "budget": "$40,000 USD"
+    },
+    {
+        "id": "P2-3",
+        "pillar": "Pillar II 營運流程整合",
+        "name": "Pre-production 4-Gate (Ready-to-Sew 產前門禁引擎)",
+        "cat": "Transform",
+        "start": 3,
+        "end": 9,
+        "stage": "Q2 越南隆安示範上線 ➔ Q3 柬埔寨/印尼廠開箱複製",
+        "lead": "產前技術組",
+        "deliverable": "Gate 1~4 齊套硬性攔截引擎，未達標鎖死發料，提升換線效率35%",
+        "budget": "$50,000 USD"
+    },
+    {
+        "id": "P2-4",
+        "pillar": "Pillar II 營運流程整合",
+        "name": "IE Digital Process (GSDCost 標準工時與技能矩陣串接)",
+        "cat": "Grow",
+        "start": 5,
+        "end": 10,
+        "stage": "Q2 標準工時庫打通 ➔ Q3 車縫技能矩陣串接 ➔ Q4 線平衡核算",
+        "lead": "IE 工程組",
+        "deliverable": "標準工時庫與員工技能矩陣整合，線上效率與人機配比即時核算",
+        "budget": "$35,000 USD"
+    },
+    {
+        "id": "P2-5",
+        "pillar": "Pillar II 營運流程整合",
+        "name": "Enterprise Workflow (Flowable BPM 跨部門營運協同)",
+        "cat": "Run",
+        "start": 2,
+        "end": 7,
+        "stage": "Q1 行政簽核延伸 ➔ Q2 產銷異常派工 ➔ Q3 品質返修流程",
+        "lead": "BPM 開發組",
+        "deliverable": "行政簽核延伸至產銷跨部門異常工單自動派工與 SLA 追蹤",
+        "budget": "$25,000 USD"
+    },
+    {
+        "id": "P3-1",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "Exception Management (Apache Flink CEP 實時預警)",
+        "cat": "Transform",
+        "start": 4,
+        "end": 10,
+        "stage": "Q2 規則引擎上線 ➔ Q3 跨廠即時事件流 ➔ Q4 複合異常關聯",
+        "lead": "流計算組",
+        "deliverable": "PCD 裁剪前 72h 缺料主動預警規則引擎上線，攔截非預期停工",
+        "budget": "$42,000 USD"
+    },
+    {
+        "id": "P3-2",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "Production & Material Analytics (Power BI 跨廠戰情室)",
+        "cat": "Run",
+        "start": 4,
+        "end": 9,
+        "stage": "Q2 隆安廠戰情板 ➔ Q3 跨越柬印總部中控室上線",
+        "lead": "BI 報表組",
+        "deliverable": "Power BI + Superset 跨廠產量、效率、損耗中控大屏",
+        "budget": "$30,000 USD"
+    },
+    {
+        "id": "P3-3",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "Capacity / Completion Forecast (XGBoost 交期完工預估)",
+        "cat": "Transform",
+        "start": 6,
+        "end": 11,
+        "stage": "Q3 歷史數據特徵工程 ➔ Q4 完工交期風險預測模型投產",
+        "lead": "演算法組",
+        "deliverable": "XGBoost 剩餘工時與準時交貨 (OTD) 風險預估模型",
+        "budget": "$45,000 USD"
+    },
+    {
+        "id": "P3-4",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "IE Optimization & Simulation (OR-Tools 線平衡動態模擬)",
+        "cat": "Transform",
+        "start": 7,
+        "end": 12,
+        "stage": "Q3 瓶頸站數學建模 ➔ Q4 人機配置動態模擬排線全面驗收",
+        "lead": "智能 IE 組",
+        "deliverable": "動態人機配置模擬器，自動尋優換線損失最低解，提升平衡率至95%+",
+        "budget": "$55,000 USD"
+    },
+    {
+        "id": "P3-5",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "AI Agent (生管跟單代理人與客訴自動追蹤協同)",
+        "cat": "Transform",
+        "start": 6,
+        "end": 12,
+        "stage": "Q3 生管跟單 Agent 試點 ➔ Q4 跨語系多模態客服協同上線",
+        "lead": "Agent 研發組",
+        "deliverable": "跨系統跨語言生管問答與客訴自動跟催 Agent，釋放15~25%特定工時",
+        "budget": "$60,000 USD"
+    },
+    {
+        "id": "P3-6",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "Enterprise Knowledge / RAG (多國語 Tech Pack 知識庫)",
+        "cat": "Transform",
+        "start": 5,
+        "end": 10,
+        "stage": "Q2 英中工藝手冊解析 ➔ Q3 越/高棉/印尼在地問答上線",
+        "lead": "知識中台組",
+        "deliverable": "Qdrant 語意檢索，英中技術手冊即時轉譯越/高棉/印尼，做工檢索提效70%",
+        "budget": "$48,000 USD"
+    },
+    {
+        "id": "P3-7",
+        "pillar": "Pillar III 智能營運與決策",
+        "name": "RPA 流程自動化 (Power Automate 跨系統行政拋單)",
+        "cat": "Run",
+        "start": 3,
+        "end": 8,
+        "stage": "Q2 報關報驗拋單 ➔ Q3 採購核銷自動化",
+        "lead": "RPA 開發組",
+        "deliverable": "重複性進出口報關與採購拋單機器人上線，消除人工抄寫轉錄",
+        "budget": "$20,000 USD"
+    },
+    {
+        "id": "P4-1",
+        "pillar": "Pillar IV 智慧製造與設備",
+        "name": "Smart Equipment (AGV / 自動模板機與 MES 實時介接)",
+        "cat": "Grow",
+        "start": 4,
+        "end": 11,
+        "stage": "Q2 隆安模板機串接 ➔ Q3 裁片超市AGV聯動 ➔ Q4 中爪哇推廣",
+        "lead": "OT 整合組",
+        "deliverable": "Kepware OPC-UA + EMQX 實現模板機自動派單與裁片計工",
+        "budget": "$45,000 USD"
+    },
+    {
+        "id": "P4-2",
+        "pillar": "Pillar IV 智慧製造與設備",
+        "name": "AI / Computing Infra (總部 vLLM 算力與海外 K3s 輕量邊緣)",
+        "cat": "Transform",
+        "start": 3,
+        "end": 8,
+        "stage": "Q1 硬體選型 ➔ Q2 總部 GPU 叢集 ➔ Q3 4廠邊緣推論節點",
+        "lead": "基礎算力組",
+        "deliverable": "總部 4x GPU 伺服器叢集 + 4 廠 K3s 邊緣推論節點就緒",
+        "budget": "$65,000 USD"
+    },
+    {
+        "id": "P4-3",
+        "pillar": "Pillar IV 智慧製造與設備",
+        "name": "Network & Edge Infra (車間 OT 實體隔離與 48~72h 離線自治)",
+        "cat": "Run",
+        "start": 2,
+        "end": 7,
+        "stage": "Q1 網路隔離規劃 ➔ Q2 隆安離線實測 ➔ Q3 柬/印全覆蓋",
+        "lead": "網路基礎組",
+        "deliverable": "車間 OT 實體隔離 + Moxa/研華邊緣網關 Delta 雙向同步 (100% 斷網零停機)",
+        "budget": "$40,000 USD"
+    },
+    {
+        "id": "P4-4",
+        "pillar": "Pillar IV 智慧製造與設備",
+        "name": "Production Data Collection (RFID 產線讀寫與光電計工)",
+        "cat": "Grow",
+        "start": 3,
+        "end": 10,
+        "stage": "Q2 吊掛 RFID 試點 ➔ Q3 車間光電感測 ➔ Q4 4廠全線計工",
+        "lead": "物聯傳感組",
+        "deliverable": "Impinj RFID 讀寫器 + 產線光電計工 Sensor 實時回傳 MES",
+        "budget": "$50,000 USD"
+    },
+    {
+        "id": "P4-5",
+        "pillar": "Pillar IV 智慧製造與設備",
+        "name": "特種自動化設備整合 (自動裁床/吊掛/印尼無縫貼合監控)",
+        "cat": "Grow",
+        "start": 5,
+        "end": 12,
+        "stage": "Q2 拉布裁床數據 ➔ Q3 印尼貼合基地溫壓IoT ➔ Q4 全年閉環",
+        "lead": "自動化工藝組",
+        "deliverable": "印尼貼合基地溫壓 IoT 監控 + 自動拉布裁床接口，保障大貨零脫膠",
+        "budget": "$55,000 USD"
+    }
+];
+
+    let activeFilter = 'ALL';
+
+    function renderGantt() {
+      const tbody = document.getElementById('ganttBody');
+      tbody.innerHTML = '';
+
+      const pillars = [
+        'Pillar I 數位底座與治理',
+        'Pillar II 營運流程整合',
+        'Pillar III 智能營運與決策',
+        'Pillar IV 智慧製造與設備'
+      ];
+
+      pillars.forEach(pillarName => {
+        if (activeFilter !== 'ALL' && !pillarName.startsWith(activeFilter)) {
+          return;
+        }
+
+        const filteredProjects = projectsData.filter(p => p.pillar === pillarName);
+        if (filteredProjects.length === 0) return;
+
+        // Add Pillar Group Header Row
+        const groupRow = document.createElement('tr');
+        groupRow.className = 'pillar-group-row';
+        groupRow.innerHTML = `<td colspan="13">${pillarName} (${filteredProjects.length} 項專案)</td>`;
+        tbody.appendChild(groupRow);
+
+        // Add Each Project Row
+        filteredProjects.forEach(proj => {
+          const row = document.createElement('tr');
+          row.className = 'project-row';
+
+          const catClass = proj.cat === 'Run' ? 'cat-run' : (proj.cat === 'Grow' ? 'cat-grow' : 'cat-trans');
+          const catName = proj.cat === 'Run' ? '55% Run' : (proj.cat === 'Grow' ? '25% Grow' : '20% Trans');
+          
+          let metaTd = `
+            <td>
+              <div class="project-meta">
+                <div class="project-id-title">
+                  <span class="project-id">${proj.id}</span>
+                  <span class="project-name">${proj.name}</span>
+                  <span class="cat-badge ${catClass}">${catName}</span>
+                </div>
+                <div><span class="project-stage">📍 ${proj.stage}</span></div>
+                <div class="project-subline">
+                  <span>👤 ${proj.lead}</span>
+                  <span>📦 ${proj.deliverable}</span>
+                  <span>💰 ${proj.budget}</span>
+                </div>
+              </div>
+            </td>
+          `;
+
+          // Generate 12 Month Cells
+          let monthTds = '';
+          const barClass = proj.cat === 'Run' ? 'bar-run' : (proj.cat === 'Grow' ? 'bar-grow' : 'bar-trans');
+          
+          for (let m = 1; m <= 12; m++) {
+            if (m >= proj.start && m <= proj.end) {
+              const isFirst = (m === proj.start);
+              const duration = proj.end - proj.start + 1;
+              
+              if (isFirst) {
+                monthTds += `
+                  <td class="gantt-cell" colspan="${duration}" style="padding: 0 4px !important;">
+                    <div class="bar-container">
+                      <div class="gantt-bar ${barClass}" title="${proj.id}: ${proj.name} (${proj.start}月~${proj.end}月, 階段: ${proj.stage})">
+                        ${proj.id} (${proj.start}月~${proj.end}月) · ${proj.stage.split('➔')[0]}
+                      </div>
+                    </div>
+                  </td>
+                `;
+                m += (duration - 1);
+              }
+            } else {
+              monthTds += `<td class="gantt-cell"></td>`;
+            }
+          }
+
+          row.innerHTML = metaTd + monthTds;
+          tbody.appendChild(row);
+        });
+      });
+    }
+
+    function filterPillar(pillarKey) {
+      activeFilter = pillarKey;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGantt();
+    }
+
+    // Initial render
+    renderGantt();
+  </script>
+</body>
+</html>
