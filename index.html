@@ -1661,12 +1661,228 @@
       padding: 12px;
     }
 
+
+    /* Sticky Top Global Bar (Permanently Visible at Very Top) */
+    .sticky-global-bar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 99999;
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--text-charcoal);
+      box-shadow: 0 4px 20px rgba(45, 30, 20, 0.12);
+      padding: 10px 24px;
+    }
+
+    .sticky-global-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .global-brand-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-charcoal);
+    }
+
+    .global-brand-badge {
+      background: var(--bg-amber-soft);
+      color: var(--rust-primary);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      border: 1px solid rgba(168, 50, 18, 0.25);
+    }
+
+    /* 6-Language Switcher Box - Super High Contrast & Prominent */
+    .lang-switcher-box {
+      display: inline-flex;
+      align-items: center;
+      background: #F4F1EA;
+      border: 1.5px solid #C8BFB2;
+      border-radius: 28px;
+      padding: 3px 6px;
+      gap: 3px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .lang-indicator-text {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-charcoal);
+      background: rgba(0,0,0,0.06);
+    }
+
+    .lang-btn.active {
+      background: var(--rust-primary) !important;
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      box-shadow: 0 2px 8px rgba(168, 50, 18, 0.4);
+    }
+
+    /* Global Search Box in Top Bar */
+    .global-search-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .global-search-input-wrap {
+      display: flex;
+      align-items: center;
+      background: #F4F1EA;
+      border: 1.5px solid #C8BFB2;
+      border-radius: 24px;
+      padding: 5px 14px;
+      gap: 8px;
+      width: 240px;
+      transition: all 0.25s ease;
+    }
+
+    .global-search-input-wrap:focus-within {
+      background: #FFF;
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 3px rgba(222, 88, 20, 0.2);
+      width: 310px;
+    }
+
+    .global-search-input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      width: 100%;
+    }
+
+    .global-search-shortcut {
+      font-size: 0.65rem;
+      background: #E2E8F0;
+      color: var(--text-muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .global-search-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 480px;
+      max-height: 480px;
+      overflow-y: auto;
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 100000;
+      padding: 14px;
+    }
+
+    /* Floating Quick Language FAB in Bottom-Right */
+    .floating-lang-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99998;
+      background: #FFFFFF;
+      border: 2px solid var(--rust-primary);
+      border-radius: 30px;
+      box-shadow: 0 6px 24px rgba(45, 30, 20, 0.18);
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .floating-lang-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(168, 50, 18, 0.25);
+    }
+
   </style>
 </head>
 <body>
 
   <!-- Watermark: Howard Liao Ph.D. -->
   <div class="watermark-overlay"></div>
+  <!-- ========================================================================= -->
+  <!-- 1. STICKY TOP GLOBAL BAR: ALWAYS VISIBLE AT TOP (SEARCH & 6-LANGUAGE SWITCHER) -->
+  <!-- ========================================================================= -->
+  <div class="sticky-global-bar">
+    <div class="sticky-global-inner">
+      <div class="global-brand-label">
+        <span style="color: var(--rust-primary); font-size: 1rem;">●</span>
+        <strong>RSI GLOBAL ENTERPRISE</strong> · 2027 IT STRATEGY
+        <span class="global-brand-badge">C-LEVEL BLUEPRINT</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <!-- 全網頁即時搜尋 (Global Page Search) -->
+        <div class="global-search-container">
+          <div class="global-search-input-wrap">
+            <span style="font-size: 0.9rem; color: var(--rust-primary);">🔍</span>
+            <input type="text" id="globalPageSearchInput" placeholder="全網頁搜尋... (Search page)" oninput="runGlobalSearch()" onfocus="runGlobalSearch()">
+            <span class="global-search-shortcut" id="searchKbdShortcut">⌘K</span>
+            <button id="clearGlobalSearchBtn" onclick="clearGlobalSearch()" style="display:none; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.85rem;">✕</button>
+          </div>
+          <div id="globalSearchResultsDropdown" class="global-search-dropdown" style="display:none;"></div>
+        </div>
+
+        <!-- 6 國語言即時切換 (超顯眼置頂切換盒) -->
+        <div class="lang-switcher-box">
+          <span class="lang-indicator-text">🌐 語言 / LANG:</span>
+          <button class="lang-btn active" id="btn-zh" onclick="setLanguage('zh')">🇹🇼 繁中</button>
+          <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">🇬🇧 EN</button>
+          <button class="lang-btn" id="btn-ja" onclick="setLanguage('ja')">🇯🇵 日本語</button>
+          <button class="lang-btn" id="btn-vi" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
+          <button class="lang-btn" id="btn-km" onclick="setLanguage('km')">🇰🇭 ភាសាខ្មែរ</button>
+          <button class="lang-btn" id="btn-id" onclick="setLanguage('id')">🇮🇩 Indonesia</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Masthead Header -->
   <header class="milan-masthead">
@@ -3130,33 +3346,26 @@
     function setLanguage(lang) {
       currentLang = lang;
       
-      // Update Buttons
+      // Update All Language Buttons
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.getElementById(`btn-${lang}`);
-      if (btn) btn.classList.add('active');
+      const activeBtn = document.getElementById(`btn-${lang}`);
+      if (activeBtn) activeBtn.classList.add('active');
 
       const dict = i18n_6lang[lang] || i18n_6lang.zh;
 
-      // Update Nav
-            if (document.getElementById('nav-invest')) document.getElementById('nav-invest').innerText = dict.navInvest;
-      if (document.getElementById('t-investEyebrow')) document.getElementById('t-investEyebrow').innerText = dict.investEyebrow;
-      if (document.getElementById('t-investTitle')) document.getElementById('t-investTitle').innerText = dict.investTitle;
-      if (document.getElementById('t-investDesc')) document.getElementById('t-investDesc').innerText = dict.investDesc;
-      if (document.getElementById('t-budgetTitle')) document.getElementById('t-budgetTitle').innerText = dict.budgetTitle;
-      if (document.getElementById('t-budgetLegend')) document.getElementById('t-budgetLegend').innerHTML = dict.budgetLegend;
-      if (document.getElementById('nav-evo')) document.getElementById('nav-evo').innerText = dict.navEvo;
-      if (document.getElementById('nav-analytics')) document.getElementById('nav-analytics').innerText = dict.navAnalytics;
-      if (document.getElementById('nav-edge')) document.getElementById('nav-edge').innerText = dict.navEdge;
-      if (document.getElementById('nav-pillars')) document.getElementById('nav-pillars').innerText = dict.navPillars;
-      if (document.getElementById('nav-logic')) document.getElementById('nav-logic').innerText = dict.navLogic;
-      if (document.getElementById('nav-gate')) document.getElementById('nav-gate').innerText = dict.navGate;
-      if (document.getElementById('nav-recom')) document.getElementById('nav-recom').innerText = dict.navRecom;
+      // Update Nav Items
+      if (document.getElementById('nav-invest')) document.getElementById('nav-invest').innerText = dict.navInvest || '2027 投資主軸與預算';
+      if (document.getElementById('nav-evo')) document.getElementById('nav-evo').innerText = dict.navEvo || '發展演進';
+      if (document.getElementById('nav-analytics')) document.getElementById('nav-analytics').innerText = dict.navAnalytics || '戰略數據圖表';
+      if (document.getElementById('nav-edge')) document.getElementById('nav-edge').innerText = dict.navEdge || '海外邊緣韌性';
+      if (document.getElementById('nav-pillars')) document.getElementById('nav-pillars').innerText = dict.navPillars || '四大主架構';
+      if (document.getElementById('nav-logic')) document.getElementById('nav-logic').innerText = dict.navLogic || '價值鏈邏輯';
+      if (document.getElementById('nav-gate')) document.getElementById('nav-gate').innerText = dict.navGate || 'Ready-to-Sew 門禁';
+      if (document.getElementById('nav-recom')) document.getElementById('nav-recom').innerText = dict.navRecom || '6 大高管建議';
 
-      // Update Masthead & Author
+      // Update Masthead & Leadership
       if (document.getElementById('t-mainTitle')) document.getElementById('t-mainTitle').innerHTML = dict.mainTitle;
       if (document.getElementById('t-lead')) document.getElementById('t-lead').innerHTML = dict.lead;
-      if (document.getElementById('t-authorSub')) document.getElementById('t-authorSub').innerText = dict.authorSub;
-      if (document.getElementById('t-authorTitle')) document.getElementById('t-authorTitle').innerText = dict.authorTitle;
       if (document.getElementById('t-sponsorChip')) document.getElementById('t-sponsorChip').innerHTML = dict.sponsorChip;
       if (document.getElementById('t-authorChip')) document.getElementById('t-authorChip').innerHTML = dict.authorChip;
       if (document.getElementById('t-leadershipTitle')) document.getElementById('t-leadershipTitle').innerHTML = dict.leadershipTitle;
@@ -3165,8 +3374,19 @@
       if (document.getElementById('t-metric2Lbl')) document.getElementById('t-metric2Lbl').innerText = dict.metric2Lbl;
       if (document.getElementById('t-metric3Lbl')) document.getElementById('t-metric3Lbl').innerText = dict.metric3Lbl;
 
+      // Update Investment Section
+      if (document.getElementById('t-investEyebrow')) document.getElementById('t-investEyebrow').innerText = dict.investEyebrow || 'Strategic Investment & Capital Governance';
+      if (document.getElementById('t-investTitle')) document.getElementById('t-investTitle').innerText = dict.investTitle || '2027 IT 投資主軸與資本配置治理';
+      if (document.getElementById('t-investDesc')) document.getElementById('t-investDesc').innerText = dict.investDesc;
+      if (document.getElementById('t-budgetTitle')) document.getElementById('t-budgetTitle').innerText = dict.budgetTitle || '2027 IT 預算配置模型';
+      if (document.getElementById('t-budgetLegend')) document.getElementById('t-budgetLegend').innerHTML = dict.budgetLegend;
+
+      // Update Search Placeholder
       const searchInput = document.getElementById('globalPageSearchInput');
-      if (searchInput) searchInput.placeholder = dict.searchPlaceholder;
+      if (searchInput && dict.searchPlaceholder) searchInput.placeholder = dict.searchPlaceholder;
+
+      // Re-render sub-components
+      if (typeof renderPillar === 'function') renderPillar(currentPillarIndex || 0);
     }
 
     // Global Search Index across all original sections
