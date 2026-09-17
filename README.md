@@ -23,7 +23,7 @@
    - 跨章節即時高亮匹配（`<mark>`），點擊即平滑滾動並發出「米蘭金橘光脈衝」外框定位
 3. **🏛️ 2027 四大主架構與實務工具推薦 (Pillar I 預算量化估算)**：
    - **Pillar I 數位底座（8 大關鍵領域）全面標記實戰工具**：Kong Enterprise、Microsoft Entra ID + Vault + SPIFFE、Databricks Delta Lake、Profisee MDM、Portkey + Guardrails AI、CrowdStrike + Cloudflare ZTNA、Zerto + Veeam WORM、Fortinet SD-WAN + Aruba。
-   - **依 Using 規模用量預估預算**：基於跨國 4 廠區約 2,500 席授權、15 台核心 VM、50TB 湖倉量化試算，Pillar I 總計年預算約 **$560,000 ～ $780,000 USD / 年**（中位數約 **NT$ 2,100 萬**）。
+   - **依 Using 規模用量預估預算**：依據核心幹部【最多 200 席】精實用量試算，Pillar I 總計年預算約 **$138,000 ～ $200,000 USD / 年**（中位數約 **NT$ 500 萬**，單件成衣數位成本僅不到 NT$ 0.07 / 件）。
 
 4. **📊 戰略圖表與現場演算引擎**：
    - 2025–2027 IT 資本重心轉移堆疊圖
