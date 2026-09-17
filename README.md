@@ -1,8 +1,9 @@
 # RSI Group · 2027 IT 營運計畫架構討論 (Milan Editorial)
 **整合運用・智能營運 — 跨國成衣製造數位轉型戰略藍圖**
 
-> **規劃主持與戰略主導**：Howard Liao Ph.D.  
-> **發行版本**：Version 4.0 · C-Level Executive Blueprint (Multilingual & Global Search)  
+> **計劃主持**：周文津 副總 (Executive Sponsor: VP Wen-Chin Chou)  
+> **戰略架構**：Howard Liao Ph.D. (Strategic Architect)  
+> **發行版本**：Version 4.1 · C-Level Executive Blueprint (Multilingual & Global Search)  
 > **線上即時互動戰情網頁**：[https://howardliao.github.io/RSI/](https://howardliao.github.io/RSI/)
 
 ---
