@@ -2255,6 +2255,88 @@
       </div>
     </div>
 
+    <!-- Interactive FinOps Cash Flow & Payback Simulator -->
+    <div class="dynamic-simulator-box" style="margin-top: 28px; background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-md); padding: 28px; box-shadow: var(--shadow-sm);">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div class="section-eyebrow" style="color:var(--rust-primary); font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;" id="t-finopsEyebrow">
+            Interactive Capital Return Simulator
+          </div>
+          <h3 style="font-family:var(--font-serif); font-size:1.45rem; font-weight:700; color:var(--text-charcoal);" id="t-finopsTitle">
+            💵 2027 硬性財務對沖與投資回收即時試算器 (FinOps ROI Engine)
+          </h3>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-top:4px;" id="t-finopsDesc">
+            基於 2027 年 IT 總預算 $640,000 USD (約 NT$ 2,016 萬)，動態調整「空運包機防禦」與「大貨布損改善」，即時驗證現金流回本速度與 ROI。
+          </p>
+        </div>
+        <div style="background:#FFF8EE; border:1px solid var(--orange-vibrant); border-radius:6px; padding:8px 14px; text-align:right;">
+          <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;" id="t-finopsCapLbl">IT 總投資基準線</div>
+          <div style="font-family:var(--font-mono); font-size:1.15rem; font-weight:800; color:var(--rust-primary);">NT$ 20,160,000</div>
+        </div>
+      </div>
+
+      <div class="sim-slider-row" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px;">
+        <!-- Slider 1 -->
+        <div style="background:#FAF8F5; padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-charcoal);" id="t-lblAirSaves">
+              ✈️ 每年成功防禦海外空運包機違約 (次數)
+            </label>
+            <span id="airSavesValDisplay" style="font-family:var(--font-mono); font-weight:800; color:var(--rust-primary); font-size:1.05rem;">2 次</span>
+          </div>
+          <input type="range" id="airSavesSlider" min="0" max="4" step="1" value="2" oninput="updateFinOpsSimulation()" style="width:100%; accent-color:var(--rust-primary); cursor:pointer;">
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-muted); margin-top:4px;">
+            <span>0 次 (無防禦)</span>
+            <span>2 次 (基準承諾 · 省$500k)</span>
+            <span>4 次 (最高效益)</span>
+          </div>
+        </div>
+
+        <!-- Slider 2 -->
+        <div style="background:#FAF8F5; padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-charcoal);" id="t-lblFabricGain">
+              🧵 大貨布料利用率改善 (MDM+CAD排產)
+            </label>
+            <span id="fabricGainValDisplay" style="font-family:var(--font-mono); font-weight:800; color:#2563EB; font-size:1.05rem;">1.2 %</span>
+          </div>
+          <input type="range" id="fabricGainSlider" min="0" max="2.5" step="0.1" value="1.2" oninput="updateFinOpsSimulation()" style="width:100%; accent-color:#2563EB; cursor:pointer;">
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-muted); margin-top:4px;">
+            <span>0.0% (現狀維持)</span>
+            <span>1.2% (基準目標 · 省$700k)</span>
+            <span>2.5% (極致優化)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Dynamic Output KPIs -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:16px;">
+          <div style="font-size:0.75rem; color:#166534; font-weight:700; text-transform:uppercase; margin-bottom:4px;" id="t-kpiAirSaveLbl">空運違約金對沖節省</div>
+          <div id="dispAirCash" style="font-family:var(--font-mono); font-size:1.35rem; font-weight:800; color:#15803D;">NT$ 15,000,000</div>
+          <div style="font-size:0.7rem; color:#166534; margin-top:3px;" id="dispAirCashSub">約 $476,190 USD / 年</div>
+        </div>
+
+        <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:16px;">
+          <div style="font-size:0.75rem; color:#1E40AF; font-weight:700; text-transform:uppercase; margin-bottom:4px;" id="t-kpiFabricSaveLbl">大貨布料採購現金節省</div>
+          <div id="dispFabricCash" style="font-family:var(--font-mono); font-size:1.35rem; font-weight:800; color:#1D4ED8;">NT$ 22,050,000</div>
+          <div style="font-size:0.7rem; color:#1E40AF; margin-top:3px;" id="dispFabricCashSub">約 $700,000 USD / 年</div>
+        </div>
+
+        <div style="background:#FFF7ED; border:1.5px solid #FDBA74; border-radius:8px; padding:16px;">
+          <div style="font-size:0.75rem; color:#9A3412; font-weight:800; text-transform:uppercase; margin-bottom:4px;" id="t-kpiTotalCashLbl">年總節省現金流 (Hard Dollar)</div>
+          <div id="dispTotalCash" style="font-family:var(--font-mono); font-size:1.45rem; font-weight:900; color:var(--rust-primary);">NT$ 37,050,000</div>
+          <div style="font-size:0.7rem; color:#9A3412; margin-top:3px;" id="dispTotalCashSub">約 $1,176,190 USD / 年</div>
+        </div>
+
+        <div style="background:#FAF5FF; border:1.5px solid #E9D5FF; border-radius:8px; padding:16px;">
+          <div style="font-size:0.75rem; color:#6B21A8; font-weight:700; text-transform:uppercase; margin-bottom:4px;" id="t-kpiPaybackLbl">全額淨投資回收期 (Payback)</div>
+          <div id="dispPaybackMonths" style="font-family:var(--font-mono); font-size:1.45rem; font-weight:900; color:#7E22CE;">14.8 個月</div>
+          <div style="font-size:0.7rem; color:#6B21A8; margin-top:3px;" id="dispRoiRatio">整體投資報酬率 ROI 1 : 3.84</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Section: 2025-2027 Evolution -->
     <section id="evolution" class="section-header">
       <div class="section-eyebrow">Strategic Evolution Timeline</div>
@@ -3748,6 +3830,8 @@
       renderAdvice();
       calculateGateStatus();
       updateIESimulation();
+      updateFinOpsSimulation();
+      initCharts();
 
       // Exhaustive DOM Tree Translation
       applyFullPageTranslation(currentLang);
@@ -3755,6 +3839,268 @@
       // Search Modal Input placeholder
       const sInput = document.getElementById("searchModalInput");
       if (sInput) sInput.placeholder = dict.searchPlaceholder;
+    }
+
+    // =========================================================================
+    // 8. INTERACTIVE EXECUTIVE CHARTS ENGINE (CHART.JS 5 CHARTS TRILINGUAL)
+    // =========================================================================
+    let chartInstances = {};
+
+    const chartI18n = {
+      zh: {
+        budgetLabels: ['55% 維運穩固 (Run)', '25% 業務增長 (Grow)', '20% 創新躍升 (Transform)'],
+        shiftLabels: ['2025 奠基期', '2026 完善期', '2027 智能期'],
+        shiftDs: ['單點硬體設備採購', '流程與 MES 整合', '數據治理與 API 底座', '智能決策與 AI 協同'],
+        kpiLabels: ['準時交貨率 OTD', '換線工時損失率', '布料損耗率', '產前異常事前攔截'],
+        kpiDs: ['2025 現況基準', '2027 目標預期 (Howard Liao 架構)'],
+        aiLabels: ['階段一：規則型預警 (Quick-Win)', '階段二：成衣工藝 RAG 助手 (知識沉澱)', '階段三：IE/生管 Copilot (人機協同)'],
+        radarLabels: ['API & 治理', '端到端履約', '物料閉環', '主動異常辨識', 'IE 模擬優化', '邊緣離線自治', '自動設備整合'],
+        radarDs: ['2025 基礎現況', '2027 整合目標']
+      },
+      en: {
+        budgetLabels: ['55% Baseline (Run)', '25% Growth (Grow)', '20% Innovation (Transform)'],
+        shiftLabels: ['2025 Foundation', '2026 Connectivity', '2027 Intelligence'],
+        shiftDs: ['Hardware & Device CapEx', 'MES & Process Integration', 'Data Lakehouse & APIs', 'Intelligent Decision & AI'],
+        kpiLabels: ['On-Time Delivery OTD', 'Changeover Loss Rate', 'Fabric Waste Rate', 'Pre-Production Interception'],
+        kpiDs: ['2025 As-Is Baseline', '2027 Strategic Target (Howard Liao Ph.D.)'],
+        aiLabels: ['Phase 1: Rule-Based Alerts (Quick-Win)', 'Phase 2: Tech Pack RAG Assistant', 'Phase 3: IE & PMC Copilot'],
+        radarLabels: ['API & Governance', 'E2E Fulfillment', 'Material Loop', 'Active Alerting', 'IE Optimization', 'Edge Autonomy', 'Smart Equipment'],
+        radarDs: ['2025 Baseline', '2027 Target Architecture']
+      },
+      vi: {
+        budgetLabels: ['55% Vận hành (Run)', '25% Mở rộng (Grow)', '20% Đột phá (Transform)'],
+        shiftLabels: ['2025 Nền tảng', '2026 Kết nối', '2027 Trí tuệ hóa'],
+        shiftDs: ['Mua sắm Phần cứng/Thiết bị', 'Tích hợp Quy trình & MES', 'Hồ Dữ liệu & Cổng API', 'Ra quyết định & AI Tác tử'],
+        kpiLabels: ['Giao hàng đúng hạn OTD', 'Tổn thất đổi mã hàng', 'Hao hụt vải chính', 'Chặn lỗi trước sản xuất'],
+        kpiDs: ['2025 Hiện trạng Cơ sở', '2027 Mục tiêu Chiến lược (Howard Liao Ph.D.)'],
+        aiLabels: ['GĐ 1: Cảnh báo theo quy tắc', 'GĐ 2: Trợ lý Tech Pack RAG', 'GĐ 3: Copilot IE & Kế hoạch'],
+        radarLabels: ['API & Quản trị', 'Thực thi Đầu-cuối', 'Khép kín Phụ liệu', 'Nhận diện Bất thường', 'Tối ưu hóa IE', 'Tự trị Biên', 'Tích hợp Thiết bị'],
+        radarDs: ['2025 Hiện trạng', '2027 Kiến trúc Mục tiêu']
+      }
+    };
+
+    function initCharts() {
+      const colorRust = '#A83212';
+      const colorOrange = '#DE5814';
+      const colorAmber = '#D97706';
+      const colorBlue = '#2563EB';
+      const colorPurple = '#9333EA';
+      const colorSlate = '#64748B';
+      const colorLightGrey = '#CBD5E1';
+
+      const lang = chartI18n[currentLang] ? currentLang : 'zh';
+      const t = chartI18n[lang];
+
+      // Destroy old instances if re-initializing
+      Object.keys(chartInstances).forEach(k => {
+        if (chartInstances[k]) chartInstances[k].destroy();
+      });
+
+      // 1. Budget Doughnut Chart
+      const ctxBudget = document.getElementById('budgetDoughnutChart');
+      if (ctxBudget) {
+        chartInstances.budget = new Chart(ctxBudget, {
+          type: 'doughnut',
+          data: {
+            labels: t.budgetLabels,
+            datasets: [{
+              data: [352000, 160000, 128000],
+              backgroundColor: ['#64748B', '#2563EB', '#9333EA'],
+              borderWidth: 2,
+              borderColor: '#FFFFFF'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    const valUSD = ctx.raw.toLocaleString();
+                    const valTWD = (ctx.raw * 31.5).toLocaleString();
+                    return ` ${ctx.label}: $${valUSD} USD (NT$ ${valTWD})`;
+                  }
+                }
+              }
+            },
+            cutout: '62%'
+          }
+        });
+      }
+
+      // 2. 3-Year Strategic Shift Chart
+      const ctxShift = document.getElementById('shiftChart');
+      if (ctxShift) {
+        chartInstances.shift = new Chart(ctxShift, {
+          type: 'bar',
+          data: {
+            labels: t.shiftLabels,
+            datasets: [
+              { label: t.shiftDs[0], data: [45, 25, 12], backgroundColor: colorLightGrey },
+              { label: t.shiftDs[1], data: [35, 45, 28], backgroundColor: colorAmber },
+              { label: t.shiftDs[2], data: [15, 20, 32], backgroundColor: colorOrange },
+              { label: t.shiftDs[3], data: [5, 10, 28], backgroundColor: colorRust }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } },
+              tooltip: {
+                callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${ctx.raw}%` }
+              }
+            },
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, max: 100, ticks: { callback: v => v + '%' } }
+            }
+          }
+        });
+      }
+
+      // 3. Manufacturing KPI Impact Chart
+      const ctxKpi = document.getElementById('kpiChart');
+      if (ctxKpi) {
+        chartInstances.kpi = new Chart(ctxKpi, {
+          type: 'bar',
+          data: {
+            labels: t.kpiLabels,
+            datasets: [
+              { label: t.kpiDs[0], data: [88.5, 28.0, 5.8, 35.0], backgroundColor: '#94A3B8' },
+              { label: t.kpiDs[1], data: [98.2, 10.5, 4.1, 94.0], backgroundColor: colorOrange }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } }
+            },
+            scales: {
+              y: { ticks: { callback: v => v + '%' } }
+            }
+          }
+        });
+      }
+
+      // 4. AI Maturity Distribution Chart
+      const ctxAi = document.getElementById('aiDistributionChart');
+      if (ctxAi) {
+        chartInstances.ai = new Chart(ctxAi, {
+          type: 'doughnut',
+          data: {
+            labels: t.aiLabels,
+            datasets: [{
+              data: [45, 35, 20],
+              backgroundColor: [colorAmber, colorOrange, colorRust],
+              borderWidth: 2,
+              borderColor: '#FFF'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } }
+            },
+            cutout: '58%'
+          }
+        });
+      }
+
+      // 5. Four Pillars Coverage Radar Chart
+      const ctxRadar = document.getElementById('pillarsRadarChart');
+      if (ctxRadar) {
+        chartInstances.radar = new Chart(ctxRadar, {
+          type: 'radar',
+          data: {
+            labels: t.radarLabels,
+            datasets: [
+              {
+                label: t.radarDs[0],
+                data: [40, 50, 45, 30, 35, 40, 50],
+                borderColor: '#94A3B8',
+                backgroundColor: 'rgba(148, 163, 184, 0.2)',
+                pointBackgroundColor: '#94A3B8'
+              },
+              {
+                label: t.radarDs[1],
+                data: [95, 92, 90, 88, 85, 95, 92],
+                borderColor: colorRust,
+                backgroundColor: 'rgba(168, 50, 18, 0.25)',
+                pointBackgroundColor: colorRust
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } } }
+            },
+            scales: {
+              r: {
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+
+// 9. Interactive FinOps Cash Flow Simulation
+    function updateFinOpsSimulation() {
+      const airInput = document.getElementById("airSavesSlider");
+      const fabricInput = document.getElementById("fabricGainSlider");
+      if (!airInput || !fabricInput) return;
+
+      const airSaves = parseInt(airInput.value, 10);
+      const fabricGain = parseFloat(fabricInput.value);
+
+      const airSavesDisp = document.getElementById("airSavesValDisplay");
+      const fabricGainDisp = document.getElementById("fabricGainValDisplay");
+      if (airSavesDisp) {
+        airSavesDisp.innerText = airSaves + (currentLang === 'en' ? " saves" : (currentLang === 'vi' ? " lần" : " 次"));
+      }
+      if (fabricGainDisp) {
+        fabricGainDisp.innerText = fabricGain.toFixed(1) + " %";
+      }
+
+      // Calculations:
+      // Base: 1 air freight save = NT$ 7,500,000 (US$ 238,095)
+      // 1.2% fabric gain = NT$ 22,050,000 (US$ 700,000) -> 1% = NT$ 18,375,000
+      const airCashSaved = airSaves * 7500000;
+      const fabricCashSaved = Math.round(fabricGain * 18375000);
+      const totalCashSaved = airCashSaved + fabricCashSaved;
+
+      const totalCap = 20160000; // NT$ 20.16M
+      let paybackMonths = totalCashSaved > 0 ? (totalCap / totalCashSaved * 12).toFixed(1) : "99+";
+      let roi = totalCashSaved > 0 ? (totalCashSaved / totalCap).toFixed(2) : "0.00";
+
+      if (document.getElementById("dispAirCash")) {
+        document.getElementById("dispAirCash").innerText = "NT$ " + airCashSaved.toLocaleString();
+        document.getElementById("dispAirCashSub").innerText = "approx. $" + Math.round(airCashSaved / 31.5).toLocaleString() + " USD / yr";
+      }
+      if (document.getElementById("dispFabricCash")) {
+        document.getElementById("dispFabricCash").innerText = "NT$ " + fabricCashSaved.toLocaleString();
+        document.getElementById("dispFabricCashSub").innerText = "approx. $" + Math.round(fabricCashSaved / 31.5).toLocaleString() + " USD / yr";
+      }
+      if (document.getElementById("dispTotalCash")) {
+        document.getElementById("dispTotalCash").innerText = "NT$ " + totalCashSaved.toLocaleString();
+        document.getElementById("dispTotalCashSub").innerText = "approx. $" + Math.round(totalCashSaved / 31.5).toLocaleString() + " USD / yr";
+      }
+      if (document.getElementById("dispPaybackMonths")) {
+        const unitMo = currentLang === 'en' ? " Months" : (currentLang === 'vi' ? " Tháng" : " 個月");
+        document.getElementById("dispPaybackMonths").innerText = paybackMonths + unitMo;
+      }
+      if (document.getElementById("dispRoiRatio")) {
+        document.getElementById("dispRoiRatio").innerText = (currentLang === 'en' ? "Overall ROI 1 : " : (currentLang === 'vi' ? "Hiệu suất Đầu tư ROI 1 : " : "整體投資報酬率 ROI 1 : ")) + roi;
+      }
     }
 
     // 6. Search Modal Helpers
@@ -3883,6 +4229,8 @@
       calculateGateStatus();
       initCharts();
       updateIESimulation();
+      updateFinOpsSimulation();
+      initCharts();
     });
   </script>
 
