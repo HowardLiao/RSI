@@ -18,24 +18,24 @@
   <style>
     :root {
       --bg-base: #FFFFFF;
-      --bg-surface: #FAFAFA;
+      --bg-surface: #FAFAF9;
       --bg-card: #FFFFFF;
-      --bg-warm-tint: #F4F4F5;
-      --bg-amber-soft: #FFF1F2;
-      --border-subtle: #E4E4E7;
-      --border-accent: #E11D48;
+      --bg-warm-tint: #F5F5F4;
+      --bg-amber-soft: #FFFBEB;
+      --border-subtle: #E7E5E4;
+      --border-accent: #E87524;
 
-      --rust-primary: #E11D48;
-      --rust-hover: #BE123C;
-      --orange-vibrant: #E11D48;
-      --amber-gold: #F59E0B;
-      --citrus-orange: #F97316;
-      --olive-green: #10B981;
+      --rust-primary: #E87524;
+      --rust-hover: #C2410C;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D98B19;
+      --citrus-orange: #F28C28;
+      --olive-green: #D98B19;
 
-      --text-charcoal: #09090B;
-      --text-body: #27272A;
-      --text-muted: #71717A;
-      --text-light: #A1A1AA;
+      --text-charcoal: #1C1917;
+      --text-body: #292524;
+      --text-muted: #57534E;
+      --text-light: #78716C;
 
       --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -65,18 +65,7 @@
     }
 
     /* Fixed Watermark Overlay: Howard Liao Ph.D. */
-    .watermark-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='160' viewBox='0 0 280 160'%3E%3Ctext x='20' y='90' fill='%2371717A' font-family='serif' font-weight='bold' font-size='16' transform='rotate(-25 140 80)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
-      background-repeat: repeat;
-    }
+    .watermark-overlay { display: none !important; }
 
     /* Top Masthead: Milan Editorial Header */
     .milan-masthead {
@@ -167,16 +156,10 @@
 
     .masthead-nav {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px 28px;
+      gap: 24px;
       padding-top: 14px;
-      padding-bottom: 6px;
       border-top: 1px solid var(--border-subtle);
-      margin: 0 auto;
-      width: 100%;
-      text-align: center;
-      flex-wrap: wrap;
+      overflow-x: auto;
     }
 
     .masthead-nav a {
@@ -184,13 +167,11 @@
       text-decoration: none;
       font-size: 0.86rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       position: relative;
       padding-bottom: 6px;
       transition: color 0.2s ease;
       white-space: nowrap;
-      text-align: center;
-      display: inline-block;
     }
 
     .masthead-nav a:hover, .masthead-nav a.active {
@@ -1250,9 +1231,7 @@
         background: #FFF !important;
         color: #000 !important;
       }
-      .watermark-overlay {
-        opacity: 0.08 !important; /* ensure watermark renders nicely on print */
-      }
+      .watermark-overlay { display: none !important; }
       .milan-masthead, .container, .milan-footer {
         padding: 0 !important;
       }
@@ -1987,25 +1966,265 @@
 
   
     /* ==========================================================================
-       MOBILE ERGONOMICS & INTERACTIVE BOTTOM DOCK (ENHANCED 친和度)
+       HIGH-END EXECUTIVE DESIGN SYSTEM & HERO OVERHAUL
        ========================================================================== */
-    .section-title, .section-heading, .masthead-title, .masthead-subtitle {
+    
+    /* Clean Centered Executive Masthead Header */
+    .milan-masthead {
+      background: linear-gradient(180deg, #FFFFFF 0%, #FAFAF9 100%) !important;
+      border-bottom: 1px solid var(--border-subtle) !important;
+      padding: 24px 32px 28px 32px !important;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .masthead-inner {
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+    }
+
+    .masthead-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+      margin-bottom: 32px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .masthead-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #FFFBEB !important;
+      color: #B45309 !important;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      border: 1px solid #FDE68A !important;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+    }
+
+    .executive-top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .executive-top-btn:hover {
+      border-color: #E87524;
+      color: #E87524;
+      background: #FFF7ED;
+      transform: translateY(-1px);
+    }
+
+    /* Redesigned Centered Executive Hero Section */
+    .hero-centered-wrap {
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto 36px auto;
+      padding: 0 16px;
+    }
+
+    .hero-eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF7ED;
+      border: 1px solid #FFEDD5;
+      color: #C2410C;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title-main {
+      font-family: var(--font-sans);
+      font-size: 2.75rem;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--text-charcoal);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .hero-title-accent {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #E87524;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .hero-lead-text {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 760px;
+      margin: 0 auto 24px auto;
+    }
+
+    .hero-attribution-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 9999px;
+      padding: 8px 24px;
+      box-shadow: 0 2px 8px -2px rgba(0,0,0,0.05);
+      margin-bottom: 32px;
+    }
+    .hero-attribution-card .role-item {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .hero-attribution-card strong {
+      color: var(--text-charcoal);
+      font-weight: 800;
+    }
+    .hero-attribution-card .divider-dot {
+      color: #CBD5E1;
+      font-weight: bold;
+    }
+
+    /* 4 C-Level Impact Bento KPI Cards in Hero */
+    .hero-bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1040px;
+      margin: 0 auto 36px auto;
+      text-align: left;
+    }
+
+    .bento-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 16px 20px;
+      box-shadow: 0 2px 6px -1px rgba(0,0,0,0.04);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .bento-card:hover {
+      border-color: #E87524;
+      box-shadow: 0 8px 20px -4px rgba(232, 117, 36, 0.12);
+      transform: translateY(-2px);
+    }
+    .bento-card .bento-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .bento-card .bento-num {
+      font-family: var(--font-mono);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #B45309;
+      text-align: right;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .bento-card .bento-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Centered Segmented Pill Masthead Nav (NO SCROLLBARS) */
+    .masthead-nav {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 8px 10px !important;
+      padding-top: 24px !important;
+      padding-bottom: 0 !important;
+      border-top: 1px solid var(--border-subtle) !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+      overflow: visible !important;
+    }
+
+    .masthead-nav a {
+      color: var(--text-body) !important;
+      text-decoration: none !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.02em !important;
+      padding: 7px 16px !important;
+      border-radius: 9999px !important;
+      background: #FFFFFF !important;
+      border: 1px solid var(--border-subtle) !important;
+      transition: all 0.2s ease !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02) !important;
+    }
+
+    .masthead-nav a:hover {
+      border-color: #E87524 !important;
+      color: #E87524 !important;
+      background: #FFF7ED !important;
+      transform: translateY(-1px) !important;
+    }
+
+    .masthead-nav a.active {
+      background: #E87524 !important;
+      color: #FFFFFF !important;
+      border-color: #E87524 !important;
+      box-shadow: 0 4px 12px rgba(232, 117, 36, 0.25) !important;
+    }
+    .masthead-nav a.active::after {
+      display: none !important;
+    }
+
+    /* Alignment Standards */
+    .section-title, .section-heading, .section-header {
       text-align: center !important;
     }
-    .masthead-meta-row {
-      justify-content: center !important;
-    }
-    .milan-badge, .section-pill {
+    .section-header p, .section-lead {
+      text-align: center !important;
       margin-left: auto !important;
       margin-right: auto !important;
     }
-    
-    .num-align-right, td.num-cell, .metric-value, .stat-number, .kpi-number {
+
+    .num-align-right, td.num-cell, .metric-value, .stat-number, .kpi-number, td:nth-child(n+3) {
       text-align: right !important;
       font-family: var(--font-mono) !important;
       font-weight: 700 !important;
     }
-    
+
     .table-scroll-container {
       width: 100%;
       overflow-x: auto;
@@ -2016,14 +2235,8 @@
       background: #FFFFFF;
       box-shadow: var(--shadow-sm);
     }
-    .table-scroll-container::-webkit-scrollbar {
-      height: 6px;
-    }
-    .table-scroll-container::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
-      border-radius: 4px;
-    }
 
+    /* Mobile Bottom Dock */
     .mobile-bottom-dock {
       display: none;
     }
@@ -2031,6 +2244,27 @@
     @media (max-width: 900px) {
       body {
         padding-bottom: 84px !important;
+      }
+      .milan-masthead {
+        padding: 20px 16px !important;
+      }
+      .hero-title-main {
+        font-size: 1.85rem !important;
+      }
+      .hero-title-accent {
+        font-size: 1.35rem !important;
+      }
+      .hero-bento-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+      .hero-attribution-card {
+        border-radius: 16px !important;
+        padding: 10px 16px !important;
+      }
+      .masthead-top-bar {
+        justify-content: center !important;
+        gap: 8px !important;
       }
 
       .mobile-bottom-dock {
@@ -2050,7 +2284,6 @@
         padding: 4px 6px calc(env(safe-area-inset-bottom, 0px) + 4px) 6px;
         box-sizing: border-box;
       }
-
       .dock-item {
         display: flex;
         flex-direction: column;
@@ -2061,16 +2294,10 @@
         border-radius: 10px;
         padding: 3px 2px;
         transition: all 0.2s ease;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        cursor: pointer;
-      }
-      .dock-item:active {
-        transform: scale(0.92);
       }
       .dock-item.active {
-        color: var(--rust-primary);
-        background: rgba(225, 29, 72, 0.08);
+        color: #E87524;
+        background: #FFF7ED;
         font-weight: 700;
       }
       .dock-icon {
@@ -2081,38 +2308,6 @@
       .dock-label {
         font-size: 0.62rem;
         font-weight: 700;
-        letter-spacing: 0.02em;
-        white-space: nowrap;
-      }
-
-      .mobile-back-to-top {
-        position: fixed;
-        bottom: 78px;
-        right: 16px;
-        width: 38px;
-        height: 38px;
-        background: var(--text-charcoal);
-        color: #FFFFFF;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        z-index: 9980;
-        cursor: pointer;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.25s, transform 0.25s;
-        border: none;
-      }
-      .mobile-back-to-top.visible {
-        opacity: 0.9;
-        pointer-events: auto;
-      }
-      .mobile-back-to-top:active {
-        transform: scale(0.9);
       }
 
       .drawer-overlay {
@@ -2180,50 +2375,35 @@
   <!-- Masthead Header -->
   <header class="milan-masthead">
     <div class="masthead-inner">
+      
+      <!-- Top Bar: Clean Minimalist Executive Styling -->
       <div class="masthead-top-bar">
-        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-          <div style="font-weight: 700; color: var(--text-charcoal); letter-spacing: 0.08em; font-size: 0.85rem;">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span style="font-weight: 800; color: var(--text-charcoal); letter-spacing: 0.08em; font-size: 0.84rem;">
             RSI GLOBAL ENTERPRISE · 2027 STRATEGY
-          </div>
-          <div class="masthead-badge">
-            <span>●</span> 2027 C-LEVEL BLUEPRINT · v7.1.0
-          </div>
+          </span>
+          <span class="masthead-badge">● C-LEVEL BLUEPRINT · v7.2.0</span>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <!-- CEO Strategic Plan Link (Hidden per user request) -->
-
-          <!-- 0. Full-Year Gantt Chart Link Button -->
-          <a href="gantt_chart_2027.html" class="executive-search-btn" style="text-decoration: none; background: #FFF8EE; border-color: var(--orange-vibrant); color: var(--rust-primary);">
-            <span>📅</span>
-            <span style="font-weight: 700;">全專案甘特圖</span>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <!-- Unified Luxury Buttons -->
+          <a href="gantt_chart_2027.html" class="executive-top-btn">
+            <span>📅</span><span>全專案甘特圖</span>
           </a>
-
-          <!-- 0.1. Organization & Resources Link Button -->
-          <a href="organization_resources.html" class="executive-search-btn" style="text-decoration: none; background: #FAF5FF; border-color: #D8B4FE; color: #7E22CE;">
-            <span>👥</span>
-            <span style="font-weight: 700;">組織與資源配置</span>
+          <a href="organization_resources.html" class="executive-top-btn">
+            <span>👥</span><span>組織資源配置</span>
           </a>
-
-          <!-- 0.2. Inventory Discovery Link Button -->
-          <a href="inventory_discovery.html" class="executive-search-btn" style="text-decoration: none; background: #F0FDF4; border-color: #86EFAC; color: #15803D;">
-            <span>📋</span>
-            <span style="font-weight: 700;">職能與設備盤點</span>
+          <a href="inventory_discovery.html" class="executive-top-btn">
+            <span>📋</span><span>職能設備盤點</span>
           </a>
-
-          <!-- 1. Executive Search Trigger Button -->
-          <button class="executive-search-btn" onclick="openSearchModal()">
-            <span style="color: var(--rust-primary);">🔍</span>
-            <span id="t-searchBtnText">搜尋全站藍圖...</span>
-            <kbd>⌘K</kbd>
+          <button class="executive-top-btn" onclick="openSearchModal()">
+            <span style="color: #E87524;">🔍</span><span>搜尋藍圖</span> <kbd style="font-size: 0.65rem; background: #F5F5F4; border-radius: 4px; padding: 1px 4px; border: 1px solid #D6D3D1;">⌘K</kbd>
           </button>
-
-          <!-- 2. Refined Milan Dropdown Language Picker -->
+          
+          <!-- Dropdown Language Picker -->
           <div class="executive-lang-picker" id="langPickerWrap">
-            <button type="button" class="lang-picker-toggle" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" style="cursor:pointer; user-select:none;">
-              <span style="font-size: 0.95rem;">🌐</span>
-              <span id="currentLangDisplay">🇹🇼 繁體中文</span>
-              <span style="font-size: 0.65rem; color: var(--text-muted); margin-left: 2px;">▼</span>
+            <button type="button" class="lang-picker-toggle executive-top-btn" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" style="cursor:pointer;">
+              <span>🌐</span><span id="currentLangDisplay">🇹🇼 繁體中文</span> <span style="font-size: 0.65rem; color: var(--text-muted);">▼</span>
             </button>
             <div class="lang-dropdown-menu" id="langDropdownMenu">
               <div class="lang-option active" id="opt-zh" onclick="selectLang('zh')">
@@ -2237,45 +2417,73 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Centered Majestic Hero Section -->
+      <div class="hero-centered-wrap">
+        <div class="hero-eyebrow-pill">
+          <span>跨國高階機能成衣製造集團 · 2027 數位躍升戰略</span>
+        </div>
+        
+        <h1 class="hero-title-main" id="t-mainTitle">
+          2027 IT 營運計畫架構討論
+        </h1>
+        <span class="hero-title-accent">整合運用・智能營運</span>
+
+        <p class="hero-lead-text" id="t-lead">
+          以信源全球跨國成衣製造為藍本，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。
+        </p>
+
+        <!-- Executive Leadership Attribution Card -->
+        <div class="hero-attribution-card">
+          <div class="role-item">
+            <span>計劃主持：</span> <strong>周文津 副總</strong> <span style="color:#78716C; font-size:0.75rem;">(Executive Sponsor)</span>
           </div>
+          <span class="divider-dot">•</span>
+          <div class="role-item">
+            <span>執行負責：</span> <strong style="color:#C2410C;">Howard Liao Ph.D.</strong> <span style="color:#78716C; font-size:0.75rem;">(Lead Architect & Advisor)</span>
           </div>
+        </div>
+
+        <!-- 4 Big C-Level Impact Bento KPI Cards -->
+        <div class="hero-bento-grid">
+          <div class="bento-card">
+            <div class="bento-label">集團年出貨量</div>
+            <div class="bento-num">7,500 萬件</div>
+            <div class="bento-desc">跨國精準履約交付防禦</div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-label">年硬性現金節省</div>
+            <div class="bento-num">NT$ 3,700 萬</div>
+            <div class="bento-desc">防禦包機 ＋ 布料降損 1.2%</div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-label">投資回本週期</div>
+            <div class="bento-num">14.8 個月</div>
+            <div class="bento-desc">單件成衣成本僅 NT$ 0.27</div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-label">車間斷網離線自律</div>
+            <div class="bento-num">48 ～ 72 小時</div>
+            <div class="bento-desc">研華工業邊緣主機 DuckDB</div>
           </div>
         </div>
       </div>
 
-      <div class="masthead-title-block">
-        <div>
-          <h1 class="masthead-title" id="t-mainTitle">
-            2027 IT 營運計畫架構討論<br>
-            <span class="accent">整合運用・智能營運</span>
-          </h1>
-        </div>
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-            <div class="author-chip" id="t-sponsorChip" style="background:#FFF8EE; border-left:3px solid var(--orange-vibrant); padding: 4px 12px; font-size: 0.78rem;">
-              <span>計劃主持：</span> <strong>周文津 副總</strong>
-            </div>
-            <div class="author-chip" id="t-authorChip" style="padding: 4px 12px; font-size: 0.78rem;">
-              <span>執行負責：</span> <strong>Howard Liao Ph.D.</strong>
-            </div>
-          </div>
-          <p class="masthead-lead" id="t-lead">
-            以信源全球跨國成衣製造為藍本，自「單點建置」躍升為「數據治理、邊緣韌性、AI 協同與智慧決策」之跨國營運藍圖。
-          </p>
-        </div>
-      </div>
-
+      <!-- Centered Segmented Navigation Pills -->
       <nav class="masthead-nav">
         <a href="#invest-framework" class="active" id="nav-invest">2027 投資主軸與預算</a>
         <a href="#evolution" id="nav-evo">發展演進 (2025–2027)</a>
         <a href="#visual-analytics" id="nav-analytics">戰略數據與動態圖表</a>
         <a href="#dynamic-sim">線平衡動態演算</a>
-        <a href="#factory-monitor" id="nav-edge">跨國海外廠區邊緣韌性</a>
+        <a href="#factory-monitor" id="nav-edge">跨國廠區邊緣韌性</a>
         <a href="#pillars" id="nav-pillars">四大主架構 (Four Pillars)</a>
         <a href="#logic-flow" id="nav-logic">價值鏈與層級邏輯</a>
-        <a href="#simulator" id="nav-gate">Ready-to-Sew 產前門禁模擬</a>
-        <a href="#recommendations" id="nav-recom">國際 IT 主管 6 大深化建議</a>
+        <a href="#simulator" id="nav-gate">Ready-to-Sew 產前門禁</a>
+        <a href="#recommendations" id="nav-recom">國際 IT 主管 6 大建議</a>
       </nav>
+
     </div>
   </header>
 
@@ -4053,13 +4261,13 @@
     };
 
     function initCharts() {
-      const colorRust = '#E11D48';
-      const colorOrange = '#E11D48';
-      const colorAmber = '#F59E0B';
-      const colorBlue = '#2563EB';
-      const colorPurple = '#9333EA';
-      const colorSlate = '#64748B';
-      const colorLightGrey = '#CBD5E1';
+      const colorRust = '#C2410C';
+      const colorOrange = '#E87524';
+      const colorAmber = '#D98B19';
+      const colorBlue = '#78716C';
+      const colorPurple = '#B45309';
+      const colorSlate = '#57534E';
+      const colorLightGrey = '#E7E5E4';
 
       const lang = chartI18n[currentLang] ? currentLang : 'zh';
       const t = chartI18n[lang];
@@ -4078,7 +4286,7 @@
             labels: t.budgetLabels,
             datasets: [{
               data: [352000, 160000, 128000],
-              backgroundColor: ['#64748B', '#2563EB', '#9333EA'],
+              backgroundColor: ['#78716C', '#D98B19', '#E87524'],
               borderWidth: 2,
               borderColor: '#FFFFFF'
             }]
@@ -4409,163 +4617,5 @@
 
 
 
-
-  <!-- Floating Mobile Back To Top Button -->
-  <button class="mobile-back-to-top" id="mobileBackToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="回到頂部">
-    ↑
-  </button>
-
-  <!-- Mobile Bottom Interactive Navigation Bar (Dock) -->
-  <nav class="mobile-bottom-dock" id="mobileBottomDock" aria-label="行動端即時導覽列">
-    <a href="#invest-framework" class="dock-item" id="dock-invest" onclick="handleDockClick(event, 'invest-framework')">
-      <span class="dock-icon">🏛️</span>
-      <span class="dock-label">資本配置</span>
-    </a>
-    <a href="#visual-analytics" class="dock-item" id="dock-charts" onclick="handleDockClick(event, 'visual-analytics')">
-      <span class="dock-icon">📈</span>
-      <span class="dock-label">戰情圖表</span>
-    </a>
-    <a href="#factory-monitor" class="dock-item" id="dock-factory" onclick="handleDockClick(event, 'factory-monitor')">
-      <span class="dock-icon">🏭</span>
-      <span class="dock-label">廠區遙測</span>
-    </a>
-    <a href="#dynamic-sim" class="dock-item" id="dock-sim" onclick="handleDockClick(event, 'dynamic-sim')">
-      <span class="dock-icon">⚙️</span>
-      <span class="dock-label">排產演算</span>
-    </a>
-    <a href="#simulator" class="dock-item" id="dock-gate" onclick="handleDockClick(event, 'simulator')">
-      <span class="dock-icon">🚪</span>
-      <span class="dock-label">4-Gate</span>
-    </a>
-    <div class="dock-item" id="dock-menu" onclick="openAllSectionsDrawer()">
-      <span class="dock-icon">📑</span>
-      <span class="dock-label">全域目錄</span>
-    </div>
-  </nav>
-
-  <!-- All Sections Mobile Quick Jump Drawer -->
-  <div class="drawer-overlay" id="mobileDrawerOverlay" onclick="closeAllSectionsDrawer()"></div>
-  <div class="drawer-sheet" id="mobileDrawerSheet">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:12px; margin-bottom:16px;">
-      <div>
-        <h3 style="font-size:1.1rem; font-weight:800; color:var(--text-charcoal); margin:0;">2027 策略藍圖全景目錄</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:2px 0 0 0;">點擊任一章節即可立即平滑跳轉</p>
-      </div>
-      <button onclick="closeAllSectionsDrawer()" style="background:var(--bg-warm-tint); border:none; border-radius:50%; width:30px; height:30px; font-weight:bold; cursor:pointer;">✕</button>
-    </div>
-    <div style="display:grid; grid-template-columns:1fr; gap:8px;">
-      <a href="#invest-framework" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>壹、</span><span>2027 IT 投資主軸與資本配置治理 (55/25/20)</span>
-      </a>
-      <a href="#evolution" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>貳、</span><span>2025～2027 IT 發展演進軌跡 (三年歷程)</span>
-      </a>
-      <a href="#visual-analytics" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>參、</span><span>戰略數據與動態圖表分析 (Chart.js 5大圖表)</span>
-      </a>
-      <a href="#dynamic-sim" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>肆、</span><span>IE 車縫線平衡與產能即時動態演算器</span>
-      </a>
-      <a href="#factory-monitor" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>伍、</span><span>信源跨國廠區邊緣韌性與連線遙測 (4大基地)</span>
-      </a>
-      <a href="#pillars" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>陸、</span><span>2027 四大主架構深層拆解</span>
-      </a>
-      <a href="#logic-flow" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>柒、</span><span>四大架構串聯之層級價值鏈</span>
-      </a>
-      <a href="#simulator" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>捌、</span><span>Ready-to-Sew（上線門禁檢核）模擬器</span>
-      </a>
-      <a href="#recommendations" onclick="closeAllSectionsDrawer()" style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-subtle); text-decoration:none; color:var(--text-charcoal); font-weight:600; font-size:0.88rem;">
-        <span>玖、</span><span>國際 IT 主管 6 大關鍵升級節點</span>
-      </a>
-    </div>
-  </div>
-
-  <script>
-    // Enhanced Tables Ergonomics & Monospace Numbers
-    function enhanceTablesErgonomics() {
-      document.querySelectorAll("table").forEach(function(table) {
-        if (!table.parentElement.classList.contains("table-scroll-container")) {
-          const wrapper = document.createElement("div");
-          wrapper.className = "table-scroll-container";
-          table.parentNode.insertBefore(wrapper, table);
-          wrapper.appendChild(table);
-        }
-        table.querySelectorAll("tbody tr").forEach(function(row) {
-          row.querySelectorAll("td").forEach(function(td) {
-            const txt = td.textContent.trim();
-            if (/^[$¥NT€£]?\s*[\d,.]+(\s*(%|萬|億|人|席|台|小時|h|ms|TB|GB|USD))?$/i.test(txt)) {
-              td.classList.add("num-align-right");
-            }
-          });
-        });
-      });
-    }
-
-    function handleDockClick(e, sectionId) {
-      e.preventDefault();
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-
-    function openAllSectionsDrawer() {
-      document.getElementById('mobileDrawerOverlay').classList.add('open');
-      document.getElementById('mobileDrawerSheet').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeAllSectionsDrawer() {
-      document.getElementById('mobileDrawerOverlay').classList.remove('open');
-      document.getElementById('mobileDrawerSheet').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    function initScrollObserver() {
-      const btt = document.getElementById('mobileBackToTop');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-          btt && btt.classList.add('visible');
-        } else {
-          btt && btt.classList.remove('visible');
-        }
-      }, { passive: true });
-
-      const sectionMap = [
-        { id: 'invest-framework', dockId: 'dock-invest' },
-        { id: 'visual-analytics', dockId: 'dock-charts' },
-        { id: 'factory-monitor', dockId: 'dock-factory' },
-        { id: 'dynamic-sim', dockId: 'dock-sim' },
-        { id: 'simulator', dockId: 'dock-gate' }
-      ];
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const match = sectionMap.find(item => item.id === entry.target.id);
-            if (match) {
-              document.querySelectorAll('.dock-item').forEach(d => d.classList.remove('active'));
-              const activeDock = document.getElementById(match.dockId);
-              if (activeDock) activeDock.classList.add('active');
-            }
-          }
-        });
-      }, { rootMargin: '-20% 0px -60% 0px' });
-
-      sectionMap.forEach(item => {
-        const el = document.getElementById(item.id);
-        if (el) observer.observe(el);
-      });
-    }
-
-    window.addEventListener("DOMContentLoaded", function() {
-      enhanceTablesErgonomics();
-      initScrollObserver();
-    });
-  </script>
 </body>
 </html>
