@@ -2389,7 +2389,133 @@
       display: block;
       margin: 0 auto 16px auto;
     }
-    </style>
+    
+    /* MOBILE DOCK GUARANTEED VISIBILITY & ELEVATION */
+    .mobile-bottom-dock {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        padding-bottom: 88px !important;
+      }
+      .mobile-bottom-dock {
+        display: grid !important;
+        grid-template-columns: repeat(6, 1fr) !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 68px !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-top: 1.5px solid #E7E5E4 !important;
+        box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.12) !important;
+        z-index: 2147483647 !important; /* Maximum possible z-index in browser */
+        padding: 6px 4px calc(env(safe-area-inset-bottom, 0px) + 6px) 4px !important;
+        box-sizing: border-box !important;
+      }
+      .dock-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        color: #57534E !important;
+        border-radius: 10px !important;
+        padding: 3px 2px !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+      }
+      .dock-item:active {
+        transform: scale(0.92) !important;
+      }
+      .dock-item.active {
+        color: #E87524 !important;
+        background: #FFF7ED !important;
+        font-weight: 800 !important;
+      }
+      .dock-icon {
+        font-size: 1.25rem !important;
+        line-height: 1 !important;
+        margin-bottom: 3px !important;
+      }
+      .dock-label {
+        font-size: 0.65rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.02em !important;
+        white-space: nowrap !important;
+      }
+
+      .mobile-back-to-top {
+        position: fixed !important;
+        bottom: 80px !important;
+        right: 16px !important;
+        width: 42px !important;
+        height: 42px !important;
+        background: #1C1917 !important;
+        color: #FFFFFF !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 16px !important;
+        font-weight: 900 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+        z-index: 2147483640 !important;
+        cursor: pointer !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.25s, transform 0.25s !important;
+        border: 1.5px solid #E7E5E4 !important;
+      }
+      .mobile-back-to-top.visible {
+        opacity: 0.95 !important;
+        pointer-events: auto !important;
+      }
+      .mobile-back-to-top:active {
+        transform: scale(0.9) !important;
+      }
+
+      .drawer-overlay {
+        position: fixed !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.55) !important;
+        backdrop-filter: blur(6px) !important;
+        -webkit-backdrop-filter: blur(6px) !important;
+        z-index: 2147483645 !important;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.25s ease !important;
+      }
+      .drawer-overlay.open {
+        display: block !important;
+        opacity: 1 !important;
+      }
+      .drawer-sheet {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: #FFFFFF !important;
+        border-top-left-radius: 24px !important;
+        border-top-right-radius: 24px !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        z-index: 2147483646 !important;
+        transform: translateY(100%) !important;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        padding: 20px 20px calc(env(safe-area-inset-bottom, 0px) + 24px) 20px !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2) !important;
+      }
+      .drawer-sheet.open {
+        transform: translateY(0) !important;
+      }
+    }
+</style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">跳至主要內容區 (Skip to main content)</a>
@@ -4667,5 +4793,132 @@
 
 
 
+
+  <!-- Floating Mobile Back To Top Button -->
+  <button class="mobile-back-to-top" id="mobileBackToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="回到頁首">
+    ↑
+  </button>
+
+  <!-- Mobile Bottom Interactive Navigation Bar (Dock) -->
+  <nav class="mobile-bottom-dock" id="mobileBottomDock" role="navigation" aria-label="手機端底部互動導覽列">
+    <a href="#invest-framework" class="dock-item" id="dock-invest" onclick="handleDockClick(event, 'invest-framework')">
+      <span class="dock-icon">🏛️</span>
+      <span class="dock-label">資本配置</span>
+    </a>
+    <a href="#visual-analytics" class="dock-item" id="dock-charts" onclick="handleDockClick(event, 'visual-analytics')">
+      <span class="dock-icon">📈</span>
+      <span class="dock-label">戰情圖表</span>
+    </a>
+    <a href="#factory-monitor" class="dock-item" id="dock-factory" onclick="handleDockClick(event, 'factory-monitor')">
+      <span class="dock-icon">🏭</span>
+      <span class="dock-label">廠區遙測</span>
+    </a>
+    <a href="#dynamic-sim" class="dock-item" id="dock-sim" onclick="handleDockClick(event, 'dynamic-sim')">
+      <span class="dock-icon">⚙️</span>
+      <span class="dock-label">排產演算</span>
+    </a>
+    <a href="#simulator" class="dock-item" id="dock-gate" onclick="handleDockClick(event, 'simulator')">
+      <span class="dock-icon">🚪</span>
+      <span class="dock-label">4-Gate</span>
+    </a>
+    <div class="dock-item" id="dock-menu" onclick="openAllSectionsDrawer()">
+      <span class="dock-icon">📑</span>
+      <span class="dock-label">全域目錄</span>
+    </div>
+  </nav>
+
+  <!-- All Sections Mobile Quick Jump Drawer (Slide-up Bottom Sheet) -->
+  <div class="drawer-overlay" id="mobileDrawerOverlay" onclick="closeAllSectionsDrawer()"></div>
+  <div class="drawer-sheet" id="mobileDrawerSheet">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E7E5E4; padding-bottom:12px; margin-bottom:16px;">
+      <div>
+        <h3 style="font-size:1.15rem; font-weight:800; color:#1C1917; margin:0;">2027 策略藍圖全景目錄</h3>
+        <p style="font-size:0.75rem; color:#78716C; margin:2px 0 0 0;">點擊任一章節即可立即平滑跳轉</p>
+      </div>
+      <button onclick="closeAllSectionsDrawer()" style="background:#F5F5F4; border:none; border-radius:50%; width:32px; height:32px; font-weight:bold; cursor:pointer; color:#44403C; font-size:14px;">✕</button>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr; gap:8px;">
+      <a href="#invest-framework" onclick="handleDrawerClick(event, 'invest-framework')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">壹、</span><span>2027 IT 投資主軸與資本配置治理 (55/25/20)</span>
+      </a>
+      <a href="#evolution" onclick="handleDrawerClick(event, 'evolution')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">貳、</span><span>2025～2027 IT 發展演進軌跡 (三年歷程)</span>
+      </a>
+      <a href="#visual-analytics" onclick="handleDrawerClick(event, 'visual-analytics')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">參、</span><span>戰略數據與動態圖表分析 (Chart.js 5大圖表)</span>
+      </a>
+      <a href="#dynamic-sim" onclick="handleDrawerClick(event, 'dynamic-sim')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">肆、</span><span>IE 車縫線平衡與產能即時動態演算器</span>
+      </a>
+      <a href="#factory-monitor" onclick="handleDrawerClick(event, 'factory-monitor')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">伍、</span><span>信源跨國廠區邊緣韌性與連線遙測 (4大基地)</span>
+      </a>
+      <a href="#pillars" onclick="handleDrawerClick(event, 'pillars')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">陸、</span><span>2027 四大主架構深層拆解</span>
+      </a>
+      <a href="#logic-flow" onclick="handleDrawerClick(event, 'logic-flow')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">柒、</span><span>四大架構串聯之層級價值鏈</span>
+      </a>
+      <a href="#simulator" onclick="handleDrawerClick(event, 'simulator')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">捌、</span><span>Ready-to-Sew（上線門禁檢核）模擬器</span>
+      </a>
+      <a href="#recommendations" onclick="handleDrawerClick(event, 'recommendations')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
+        <span style="color:#C2410C;">玖、</span><span>國際 IT 主管 6 大關鍵升級節點</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function handleDockClick(e, sectionId) {
+      if (e) e.preventDefault();
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelectorAll('.dock-item').forEach(d => d.classList.remove('active'));
+        const targetDock = document.getElementById('dock-' + sectionId.split('-')[0]);
+        if (targetDock) targetDock.classList.add('active');
+      }
+    }
+
+    function handleDrawerClick(e, sectionId) {
+      if (e) e.preventDefault();
+      closeAllSectionsDrawer();
+      setTimeout(function() {
+        handleDockClick(null, sectionId);
+      }, 150);
+    }
+
+    function openAllSectionsDrawer() {
+      const overlay = document.getElementById('mobileDrawerOverlay');
+      const sheet = document.getElementById('mobileDrawerSheet');
+      if (overlay && sheet) {
+        overlay.classList.add('open');
+        sheet.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeAllSectionsDrawer() {
+      const overlay = document.getElementById('mobileDrawerOverlay');
+      const sheet = document.getElementById('mobileDrawerSheet');
+      if (overlay && sheet) {
+        overlay.classList.remove('open');
+        sheet.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Floating Back to Top Button Logic
+    window.addEventListener('scroll', function() {
+      const btt = document.getElementById('mobileBackToTop');
+      if (btt) {
+        if (window.scrollY > 300) {
+          btt.classList.add('visible');
+        } else {
+          btt.classList.remove('visible');
+        }
+      }
+    }, { passive: true });
+  </script>
 </body>
 </html>
