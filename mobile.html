@@ -5193,6 +5193,125 @@
         }
       }
     }, { passive: true });
-  </script>
+  
+
+
+  // ==========================================================================
+  // ARCHITECTURAL VALUE CHAIN 7-LAYER INTERACTIVE ENGINE
+  // ==========================================================================
+  const valueChainData = [{"step": "01", "tag": "L1 物理邊緣與資料基底", "enTitle": "Infrastructure / Data", "zhTitle": "基礎設備與資料層", "mission": "建構東南亞跨國邊緣離線自治能力與企業單一真實資料來源（SSOT），為全集團營運築起不可中斷之數位底座。", "tech": "• 淘汰老舊 Dell R740 伺服器，導入 VMware vSAN 雙重容錯虛擬化叢集\\n• 海外 4 大基地部署 8 台研華工業邊緣主機 (IPC)，支援 K3s 輕量容器\\n• Databricks 30TB 湖倉中台 (Delta Lake Bronze/Silver/Gold 三層架構)\\n• Profisee MDM 企業版全球主數據去重，配置 Great Expectations 品質門禁", "ot": "• 車間智慧電錶、蒸汽流量計與水錶 IoT 連網，即時採集環境與能源數據\\n• Kepware OPC-UA 與 EMQX MQTT 邊緣採集，直連裁床與模板機控制器\\n• 本地嵌入式 DuckDB 高速快取，支撐海外產線 48～72 小時斷網自律\\n• 全集團原副料唯一編碼字典，徹底消滅跨廠同料不同號與重複採購呆料", "kpis": [{"label": "海外廠斷網離線自主運轉時長", "val": "48 ～ 72 小時"}, {"label": "Tier-1 核心資料庫災備復原點 (RPO)", "val": "< 15 分鐘"}, {"label": "Tier-1 系統災難復原時間 (RTO)", "val": "< 2 小時"}, {"label": "跨廠同料不同號衝突率", "val": "0% (徹底清零)"}, {"label": "湖倉跨國報表同步時效", "val": "24h ➔ 5 分鐘"}], "owner": "雲端基礎架構組長 ＋ 數據治理主管 ＋ 系統維運主管"}, {"step": "02", "tag": "L2 服務匯流與身分邊界", "enTitle": "Integration / Security", "zhTitle": "API / 服務介接與身分整合", "mission": "統一跨國安全通訊標準，實現台北總部雙活與大客戶即時拋單，嚴格恪守東南亞各國數據主權合規邊界。", "tech": "• Kong Enterprise 企業級 API 網關，統一跨廠微服務路由與流量治理\\n• Microsoft Entra ID P2 零信任條件存取 (ABAC) ＋ 全面強制 MFA 雙因子\\n• Fortinet 雙軌 SD-WAN (專線 ＋ 商業寬頻 ＋ 4G/5G 容錯)，智慧動態選路\\n• Portkey AI 模型網關，配置機敏提示詞動態遮罩與 Token 預算控制", "ot": "• 品牌大客戶 (Nike/Lululemon) 3D CAD 與馬克版型實體無菌室隔離\\n• 跨境數據本地化：敏感人事薪資在地邊緣留存，符合越南 Decree 53 與印尼 PDP\\n• 提供大客戶採購端安全加密 EDI API，即時調閱車間生產進度與 QA 報告\\n• 拔除海外本機管理員權限，結合 CrowdStrike Falcon 端點即時防護", "kpis": [{"label": "跨國專線與網路可用性 (SLA)", "val": "≥ 99.95%"}, {"label": "跨廠核心 API 呼叫平均延遲", "val": "< 80 ms"}, {"label": "全集團帳號雙因子認證 (MFA) 覆蓋率", "val": "100% 覆蓋"}, {"label": "國際頂級品牌客戶資安驗廠合格率", "val": "100% 零缺失"}, {"label": "未授權外部連線攔截率", "val": "100% 阻斷"}], "owner": "身分資安組長 (CISO) ＋ 網路通訊組長 ＋ 法務合規顧問"}, {"step": "03", "tag": "L3 業務編排與製造執行", "enTitle": "Process / Manufacturing", "zhTitle": "端到端營運履約流程", "mission": "串聯跨國接單、採購、裁剪、車縫至包裝出運之全價值鏈，消弭跨廠資訊時差、停工待料與換線窩工。", "tech": "• Camunda 8 BPMN 企業級流程引擎，驅動跨系統工作流自動化流轉\\n• 核心 MES 製造執行系統，深度採集工序進度、工時 SAM 與疵點代碼\\n• WMS 條碼與 RFID 智能倉儲，原副料入庫、檢驗、上架與發料精確對齊\\n• RPA 進出口報關拋單機器人，自動比對海關品名代碼與提單數據", "ot": "• 接單 (Order) ➔ 採購 (Sourcing) ➔ 裁剪 (Cutting) ➔ 車縫 (Sewing) ➔ 報關 (Shipping) 貫通\\n• 裁片超市特工齊套檢核，確保裁片、印繡花與熱壓配件 100% 齊套再上線\\n• 跨國生產工藝 GSDCost 標準工時庫比對，確立各款式人機標準作業標準\\n• 現場吊掛線站點 RFID 刷卡即時計工，產出日報與工時自動拋轉總帳", "kpis": [{"label": "集團整體準時交貨率 (OTD)", "val": "≥ 98.5% (基線 94.2%)"}, {"label": "換線首日生產達標率", "val": "60.5% ➔ 85.0% (▲ 35%)"}, {"label": "跨國進出口報關單證處理時長", "val": "大幅縮短 80%"}, {"label": "車間換線等待與拆線返工損失", "val": "工時減少 30%"}, {"label": "WMS 倉庫帳實相符率", "val": "≥ 99.2%"}], "owner": "營運流程架構組長 ＋ 各海外基地總廠長 ＋ 供應鏈物流處長"}, {"step": "04", "tag": "L4 營運遙測與全球可視化", "enTitle": "Visibility / Control Tower", "zhTitle": "即時透明戰情看板", "mission": "打破跨國製造黑盒子，將 4 大基地所有生產節拍、物料在製品與機台狀態化為 CEO 與現場主管的即時戰情。", "tech": "• Power BI 企業級決策戰情儀表板，提供董事會按季審核之可稽核指標\\n• Grafana 機房基礎設施與車間 OT 邊緣即時遙測，微秒級掌握主機負載\\n• 供應鏈 Control Tower 全球控制塔，串接上游布廠出貨與海運船期追蹤\\n• 邊緣即時資料串流管道，將車間 MES 數據低延遲匯聚至台北總部湖倉", "ot": "• 4 大基地（台北、隆安、金邊、中爪哇）產能達成率與目標產出實時並列\\n• 車間各線工段首檢良率、車縫在製品 (WIP) 庫存與瓶頸工位水位透視\\n• 智慧機台稼動率 (OEE) 與故障停機告警，現場看板與手機端同步廣播\\n• 歐盟 DPP 數位產品護照單件成衣 Scope 3 碳足跡動態追蹤大屏", "kpis": [{"label": "車間產出數據實時刷新頻率", "val": "≤ 5 秒 (近即時)"}, {"label": "跨國經營決策報表產出時效", "val": "24h ➔ 5 分鐘"}, {"label": "車間關鍵設備綜合稼動率 (OEE) 可視化", "val": "覆蓋率 100%"}, {"label": "產線瓶頸在製品水位告警響應", "val": "< 3 分鐘"}, {"label": "歐盟 DPP 碳足跡單件追溯覆蓋", "val": "100% 批次"}], "owner": "數據中台組長 ＋ 製造營運處長 ＋ 永續 ESG 專案小組"}, {"step": "05", "tag": "L5 即時流運算與硬性門禁", "enTitle": "Exception / 4-Gate", "zhTitle": "主動異常辨識與門禁", "mission": "由被動事後補救升級為主動事前攔截，以硬性門禁與複雜事件處理 (CEP) 徹底撲滅空運包機違約風險。", "tech": "• Apache Flink 實時流運算引擎，比對上游染整廠 ETA 與預計裁剪日 (PCD)\\n• Ready-to-Sew 4-Gate 產前門禁硬性攔截系統，未齊套自動鎖死發料\\n• Great Expectations 數據品質自動校驗門禁，未經 MDM 審核禁止採購下單\\n• CrowdStrike 24/7 MDR 威脅主動隔離，異常端點 15 分鐘內拔線遏止", "ot": "• PCD 提前 72 小時主動推播缺料告警，提供大貨採購催料與調撥緩衝時效\\n• 門禁雙簽特許流程 (Override SOP)：緊急急件鎖定海外總廠長 ＋ 周副總線上雙簽\\n• 車縫品質疵點率突發超標即時紅燈示警，自動觸發巡檢品管師駐點檢驗\\n• 異地備份不可篡改防禦：AWS S3 Glacier WORM 對象鎖定，防勒索銷毀", "kpis": [{"label": "PCD 缺料主動預警時長", "val": "提前 72 小時"}, {"label": "防禦跨國空運包機違約罰款", "val": "年防 2 次 (省 NT$ 15,000,000)"}, {"label": "Ready-to-Sew 4-Gate 硬鎖放行率", "val": "100% (無漏放)"}, {"label": "重大勒索與資安中斷事件", "val": "0 件 (Zero Breach)"}, {"label": "異常工單責任歸屬追蹤率", "val": "100% 可稽核"}], "owner": "生管處長 ＋ 數據架構組長 ＋ 資安長 (CISO) ＋ 品保處長"}, {"step": "06", "tag": "L6 運籌演算法與動態模擬", "enTitle": "Decision / Line Balance", "zhTitle": "模擬與決策輔助", "mission": "運用數理優化與數位分身模擬，為排線平衡、物料利用與跨廠產能調配提供最佳決策處方。", "tech": "• Google OR-Tools 混合整數線性規劃 (MILP)，求解人機最佳工序配比\\n• IE 車縫線平衡即時動態模擬器，依標準工時與技能矩陣動態平衡節拍\\n• CAD 布料馬克排料利用率演算法，極大化裁剪碼長利用率\\n• FinOps 雲端成本預測模擬器，分層授權動態配置降低維運費用", "ot": "• 換線前預先模擬生產線平衡率，預測潛在節拍瓶頸並建議輔助工位配置\\n• 跨國 4 大基地產能負荷動態模擬，最佳化各廠大單與急單分流配比\\n• 大貨布料利用率提升，結合 MDM 主數據治理將裁損率實質壓低 1.2%\\n• 2,500 席企業軟體分層授權 (400 核心 + 2,100 現場)，降低維運成本 8%~12%", "kpis": [{"label": "車縫排線平衡率 (Line Balance Rate)", "val": "88.0% ➔ 95.0%+"}, {"label": "大貨布料損耗率降低幅度", "val": "降低 1.2% (省 NT$ 22,000,000)"}, {"label": "全集團年硬性現金流節省總額", "val": "NT$ 37,000,000 / 年"}, {"label": "靜態投資現金全額回本期", "val": "14.8 個月 (ROI 1:3.84)"}, {"label": "單件成衣數位成本 (DCPG)", "val": "NT$ 0.27 / 件 (▼ 40%)"}], "owner": "IE 工程總監 ＋ 流程架構師 ＋ 採購副總 ＋ 財務長"}, {"step": "07", "tag": "L7 自主智能體與工藝智庫", "enTitle": "Agent / Autonomous AI", "zhTitle": "AI Copilot 協同與自主代理", "mission": "在 ISO 42001 安全框架下，以自主多智能體傳承跨國工藝智識，自動跟單催料，釋放高階幹部核心工時。", "tech": "• Enterprise RAG 工藝知識庫 (LangChain / LlamaIndex)，限縮溫度係數 < 0.2\\n• Agentic AI 生管追單代理人，自主解析訂單進度並比對物料齊套狀態\\n• 做工規範多國語 (中/英/越/高棉/印尼) 即時轉譯與視覺對比代理\\n• Human-in-the-Loop 雙簽審批機制，禁止 AI 自主變更車間 MES 參數", "ot": "• 第一線組長隨身調閱越語/高棉語 Tech Pack 工藝標準，做工細節零歧義\\n• 智能跟單代理人接管生管向外部布廠/副料廠詢單催料，拋出異常提醒\\n• 車間換線前 AI 自動比對歷史類似款號易錯工藝，生成產前會議備忘錄\\n• 員工禁止私用 Shadow AI，專利圖資強制透過 Portkey 模型網關遮罩", "kpis": [{"label": "做工手冊 (Tech Pack) 檢索提效", "val": "提效 70%"}, {"label": "跨語言誤解引發之拆工返修率", "val": "4.8% ➔ 2.4% (▼ 50%)"}, {"label": "400 核心知識幹部特定工時釋放", "val": "釋放 15% ～ 25%"}, {"label": "Agentic AI 全年淨營運經濟效益", "val": "$900,000 USD (ROI 1:20)"}, {"label": "客戶專利版型與 CAD 外洩事件", "val": "0 件 (Zero Leak)"}], "owner": "AI 研發組長 ＋ 技術研發副總 ＋ 營業副總 ＋ CISO"}];
+  let currentValueChainIndex = 0;
+
+  function switchValueChainStep(index) {
+    if (index < 0 || index >= valueChainData.length) return;
+    currentValueChainIndex = index;
+    const data = valueChainData[index];
+
+    // Update Stepper Visual States
+    for (let i = 0; i < valueChainData.length; i++) {
+      const item = document.getElementById('flow-step-' + i);
+      const conn = document.getElementById('flow-conn-' + i);
+      if (item) {
+        if (i === index) {
+          item.classList.add('active');
+          item.setAttribute('aria-selected', 'true');
+        } else {
+          item.classList.remove('active');
+          item.setAttribute('aria-selected', 'false');
+        }
+      }
+      if (conn) {
+        if (i < index) {
+          conn.classList.add('active');
+        } else {
+          conn.classList.remove('active');
+        }
+      }
+    }
+
+    // Scroll active item into view on mobile
+    const activeItem = document.getElementById('flow-step-' + index);
+    if (activeItem && window.innerWidth <= 768) {
+      activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    // Render Detail Card
+    const container = document.getElementById('valueChainDetailCard');
+    if (!container) return;
+
+    const kpisHtml = data.kpis.map(k => `
+      <div class="vc-kpi-row">
+        <span class="vc-kpi-label">${k.label}</span>
+        <span class="vc-kpi-val">${k.val}</span>
+      </div>
+    `).join('');
+
+    container.innerHTML = `
+      <div class="vc-header">
+        <div class="vc-tag-badge">
+          <span>●</span>
+          <span>${data.tag}</span>
+        </div>
+        <h3 class="vc-title">${data.step}. ${data.enTitle} ｜ ${data.zhTitle}</h3>
+        <p class="vc-mission">${data.mission}</p>
+      </div>
+
+      <div class="vc-grid-cards">
+        <div class="vc-subcard">
+          <div class="vc-subcard-title">
+            <span>🛠️</span><span>核心技術與架構模組 (Core Architecture)</span>
+          </div>
+          <div class="vc-subcard-body">${data.tech}</div>
+        </div>
+
+        <div class="vc-subcard">
+          <div class="vc-subcard-title">
+            <span>🏭</span><span>跨國製造現場對齊 (Shopfloor OT Alignment)</span>
+          </div>
+          <div class="vc-subcard-body">${data.ot}</div>
+        </div>
+
+        <div class="vc-subcard">
+          <div class="vc-subcard-title">
+            <span>📊</span><span>量化關鍵承諾指標 (Quantified SLAs & KPIs)</span>
+          </div>
+          <div>${kpisHtml}</div>
+        </div>
+
+        <div class="vc-subcard">
+          <div class="vc-subcard-title">
+            <span>👤</span><span>當責單位與治理負責人 (Ownership & Governance)</span>
+          </div>
+          <div class="vc-subcard-body" style="font-weight:700; color:#1C1917;">
+            ${data.owner}
+          </div>
+        </div>
+      </div>
+
+      <div class="vc-nav-controls">
+        <button class="vc-btn-nav" onclick="switchValueChainStep(${index - 1})" ${index === 0 ? 'disabled' : ''}>
+          ◀ 上一層級 (${index > 0 ? valueChainData[index - 1].step : '無'})
+        </button>
+
+        <div style="display:flex; align-items:center; gap:6px;">
+          ${valueChainData.map((_, dotIdx) => `
+            <span onclick="switchValueChainStep(${dotIdx})" style="width:8px; height:8px; border-radius:50%; background:${dotIdx === index ? '#E87524' : '#D6D3D1'}; cursor:pointer; transition:all 0.2s;"></span>
+          `).join('')}
+        </div>
+
+        <button class="vc-btn-nav" onclick="switchValueChainStep(${index + 1})" ${index === valueChainData.length - 1 ? 'disabled' : ''}>
+          下一層級 (${index < valueChainData.length - 1 ? valueChainData[index + 1].step : '無'}) ▶
+        </button>
+      </div>
+    `;
+  }
+
+  // Auto initialize on load
+  window.addEventListener("DOMContentLoaded", function() {
+    switchValueChainStep(0);
+  });
+
+
+</script>
 </body>
 </html>
