@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2027 IT 營運計畫架構討論 · RSI 信源全球 · Howard Liao Ph.D.</title>
@@ -2787,6 +2790,19 @@
         font-size: 0.95rem !important;
       }
     }
+
+  @keyframes spinSync {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .delta-sync-interactive-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(232, 117, 36, 0.35);
+  }
+  .delta-sync-interactive-btn:active {
+    transform: translateY(0);
+  }
+
 </style>
 </head>
 <body>
@@ -2830,37 +2846,20 @@
           <span class="masthead-badge">● C-LEVEL BLUEPRINT · v7.2.0</span>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-          <!-- Unified Luxury Buttons -->
-          <a href="gantt_chart_2027.html" class="executive-top-btn">
-            <span>📅</span><span>全專案甘特圖</span>
-          </a>
-          <a href="organization_resources.html" class="executive-top-btn">
-            <span>👥</span><span>組織資源配置</span>
-          </a>
-          <a href="inventory_discovery.html" class="executive-top-btn">
-            <span>📋</span><span>職能設備盤點</span>
-          </a>
-          <button class="executive-top-btn" onclick="openSearchModal()">
-            <span style="color: #E87524;">🔍</span><span>搜尋藍圖</span> <kbd style="font-size: 0.65rem; background: #F5F5F4; border-radius: 4px; padding: 1px 4px; border: 1px solid #D6D3D1;">⌘K</kbd>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border: 2px solid #E87524; color:#C2410C; font-weight:800; cursor:pointer; padding: 8px 16px; border-radius: 9999px;" title="點擊模擬或恢復國際海底電纜通訊">
+            ⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)
           </button>
-          
-          <!-- Dropdown Language Picker -->
-          <div class="executive-lang-picker" id="langPickerWrap">
-            <button type="button" class="lang-picker-toggle executive-top-btn" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" style="cursor:pointer;">
-              <span>🌐</span><span id="currentLangDisplay">🇹🇼 繁體中文</span> <span style="font-size: 0.65rem; color: var(--text-muted);">▼</span>
-            </button>
-            <div class="lang-dropdown-menu" id="langDropdownMenu">
-              <div class="lang-option active" id="opt-zh" onclick="selectLang('zh')">
-                <span>🇹🇼</span> <span>繁體中文</span> <span class="site-tag">總部標準</span>
-              </div>
-              <div class="lang-option" id="opt-en" onclick="selectLang('en')">
-                <span>🇬🇧</span> <span>Global English</span> <span class="site-tag">Executive</span>
-              </div>
-              <div class="lang-option" id="opt-vi" onclick="selectLang('vi')">
-                <span>🇻🇳</span> <span>Tiếng Việt</span> <span class="site-tag">Nhà máy Long An</span>
-              </div>
-            </div>
+          <button id="btnDeltaSync" class="executive-search-btn delta-sync-interactive-btn" onclick="triggerManualDeltaSync()" style="background: #FFF7ED; border: 2px solid #E87524; color: #9A3412; font-weight: 800; cursor: pointer; padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(232, 117, 36, 0.25);" title="點擊立即執行雙向增量同步">
+            <span id="syncSpinIcon" style="font-size: 1.05rem;">⚡</span>
+            <span id="btnDeltaSyncText">雙向增量同步 (Delta Sync Engine Active)</span>
+          </button>
+          <div id="deltaSyncLiveStatus" class="sync-engine-badge" onclick="triggerManualDeltaSync()" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:#F5F5F4; border:1px solid #E7E5E4; padding:6px 14px; border-radius:9999px; font-size:0.75rem; font-weight:700;" title="點擊立即執行同步">
+            <span class="sync-pulse-dot" id="syncPulseDot" style="width:8px; height:8px; border-radius:50%; background:#10B981; display:inline-block;"></span>
+            <span id="deltaSyncStatusText" style="color:#292524;">雙向增量同步引擎運轉中 (Delta Sync Active)</span>
+          </div>
+        </div>
+      </div>
           </div>
         </div>
       </div>
@@ -5547,6 +5546,242 @@
   }
 
 
+
+
+
+  // =========================================================================
+  // VIVID DELTA SYNC ENGINE & MODAL CONTROLLER
+  // =========================================================================
+
+  function closeDeltaSyncModal() {
+    const modal = document.getElementById('deltaSyncToastModal');
+    const backdrop = document.getElementById('deltaSyncModalBackdrop');
+    if (modal) modal.style.display = 'none';
+    if (backdrop) backdrop.style.display = 'none';
+  }
+
+  function triggerManualDeltaSync() {
+    if (isDeltaSyncing) return;
+    isDeltaSyncing = true;
+
+    // Haptic feedback
+    if (navigator.vibrate) {
+      try { navigator.vibrate([40, 60, 40]); } catch(e) {}
+    }
+
+    const modal = document.getElementById('deltaSyncToastModal');
+    const backdrop = document.getElementById('deltaSyncModalBackdrop');
+    const modalTitle = document.getElementById('modalSyncTitle');
+    const modalDesc = document.getElementById('modalSyncDesc');
+    const modalProgress = document.getElementById('modalSyncProgress');
+    const modalIcon = document.getElementById('modalSyncIcon');
+    const btnModalOk = document.getElementById('btnModalCloseOk');
+
+    const s1 = document.getElementById('step1');
+    const s2 = document.getElementById('step2');
+    const s3 = document.getElementById('step3');
+    const s4 = document.getElementById('step4');
+
+    const s1Icon = document.getElementById('step1Icon');
+    const s2Icon = document.getElementById('step2Icon');
+    const s3Icon = document.getElementById('step3Icon');
+    const s4Icon = document.getElementById('step4Icon');
+
+    // Show modal & backdrop
+    if (modal) modal.style.display = 'block';
+    if (backdrop) backdrop.style.display = 'block';
+    if (modalTitle) modalTitle.textContent = 'Delta Sync 雙向增量同步中 (Syncing...)';
+    if (modalDesc) modalDesc.textContent = '正在比對東南亞海外 3 廠 DuckDB WAL 本地異動日誌與台北總部 Delta Lake 湖倉...';
+    if (modalProgress) modalProgress.style.width = '20%';
+    if (modalIcon) {
+      modalIcon.textContent = '🔄';
+      modalIcon.style.animation = 'spinSync 1s infinite linear';
+    }
+    if (btnModalOk) btnModalOk.style.display = 'none';
+
+    // Reset step styles
+    if (s1) { s1.style.opacity = '1'; if (s1Icon) s1Icon.textContent = '⏳'; }
+    if (s2) { s2.style.opacity = '0.5'; if (s2Icon) s2Icon.textContent = '⏳'; }
+    if (s3) { s3.style.opacity = '0.5'; if (s3Icon) s3Icon.textContent = '⏳'; }
+    if (s4) { s4.style.opacity = '0.5'; if (s4Icon) s4Icon.textContent = '⏳'; }
+
+    // Page inline button elements
+    const btnSync = document.getElementById('btnDeltaSync');
+    const btnSyncText = document.getElementById('btnDeltaSyncText');
+    const banner = document.getElementById('telemetryAlertBanner');
+    const statusTxt = document.getElementById('deltaSyncStatusText');
+    const pulseDot = document.getElementById('syncPulseDot');
+
+    const s1Dot = document.getElementById('site1-status-dot');
+    const s1Mode = document.getElementById('site1-mode');
+    const s1Lat = document.getElementById('site1-latency');
+    const s1Queue = document.getElementById('site1-queue');
+
+    const s2Dot = document.getElementById('site2-status-dot');
+    const s2Mode = document.getElementById('site2-mode');
+    const s2Lat = document.getElementById('site2-latency');
+    const s2Queue = document.getElementById('site2-queue');
+
+    const s3Dot = document.getElementById('site3-status-dot');
+    const s3Mode = document.getElementById('site3-mode');
+    const s3Wan = document.getElementById('site3-wan');
+    const s3Queue = document.getElementById('site3-queue');
+
+    const s4Dot = document.getElementById('site4-status-dot');
+    const s4Sec = document.getElementById('site4-security');
+
+    if (btnSyncText) btnSyncText.textContent = '雙向增量同步中 (Syncing...)';
+    if (statusTxt) {
+      statusTxt.textContent = '🔄 雙向增量同步中... 比對 DuckDB WAL 日誌與總部 Delta Lake...';
+      statusTxt.style.color = '#C2410C';
+    }
+    if (pulseDot) pulseDot.style.background = '#E87524';
+
+    // Step 1: 300ms
+    setTimeout(function() {
+      if (modalProgress) modalProgress.style.width = '45%';
+      if (s1Icon) s1Icon.textContent = '✅';
+      if (s2) s2.style.opacity = '1';
+      if (s1Queue) s1Queue.textContent = '120 件 (同步中...)';
+    }, 300);
+
+    // Step 2: 600ms
+    setTimeout(function() {
+      if (modalProgress) modalProgress.style.width = '70%';
+      if (s2Icon) s2Icon.textContent = '✅';
+      if (s3) s3.style.opacity = '1';
+      if (s2Queue) s2Queue.textContent = '64 件 (同步中...)';
+      if (s3Queue) s3Queue.textContent = '180 件 (同步中...)';
+    }, 600);
+
+    // Step 3: 900ms
+    setTimeout(function() {
+      if (modalProgress) modalProgress.style.width = '90%';
+      if (s3Icon) s3Icon.textContent = '✅';
+      if (s4) s4.style.opacity = '1';
+    }, 900);
+
+    // Step 4: 1200ms - Finish
+    setTimeout(function() {
+      isDeltaSyncing = false;
+      isCableCut = false;
+
+      if (modalProgress) modalProgress.style.width = '100%';
+      if (s4Icon) s4Icon.textContent = '✅';
+      if (modalIcon) {
+        modalIcon.textContent = '✅';
+        modalIcon.style.animation = 'none';
+      }
+      if (modalTitle) modalTitle.textContent = '✅ 雙向增量同步完成 (100% In Sync)';
+      if (modalDesc) modalDesc.textContent = '874 筆海外離線車間 MES、RFID 與裁床日誌已成功無損拋轉至台北總部 Databricks 湖倉！全集團 SSOT 單一真理已全量對齊！';
+      if (btnModalOk) btnModalOk.style.display = 'inline-block';
+
+      if (btnSyncText) btnSyncText.textContent = '⚡ 雙向增量同步 (Delta Sync Engine Active)';
+      const btnCut = document.getElementById('btnCableCutSim');
+      if (btnCut) {
+        btnCut.innerHTML = '⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)';
+        btnCut.style.background = '#FFF7ED';
+        btnCut.style.borderColor = '#E87524';
+        btnCut.style.color = '#C2410C';
+      }
+
+      if (statusTxt) {
+        statusTxt.textContent = '🟢 雙向增量同步完成 · 全球 4 大基地 100% 同步 (0 佇列)';
+        statusTxt.style.color = '#15803D';
+      }
+      if (pulseDot) pulseDot.style.background = '#10B981';
+
+      if (s1Dot) s1Dot.className = 'site-status-dot dot-green';
+      if (s1Mode) { s1Mode.textContent = 'Local Autonomous'; s1Mode.style.color = 'var(--olive-green)'; }
+      if (s1Lat) s1Lat.textContent = '12 ms (本地)';
+      if (s1Queue) { s1Queue.textContent = '0 件 (100% 已同步)'; s1Queue.style.color = 'inherit'; }
+
+      if (s2Dot) s2Dot.className = 'site-status-dot dot-green';
+      if (s2Mode) { s2Mode.textContent = 'Local Autonomous'; s2Mode.style.color = 'var(--olive-green)'; }
+      if (s2Lat) s2Lat.textContent = '18 ms (本地)';
+      if (s2Queue) { s2Queue.textContent = '0 件 (100% 已同步)'; s2Queue.style.color = 'inherit'; }
+
+      if (s3Dot) s3Dot.className = 'site-status-dot dot-green';
+      if (s3Mode) { s3Mode.textContent = 'Local Autonomous'; s3Mode.style.color = 'var(--olive-green)'; }
+      if (s3Wan) { s3Wan.textContent = '專線復原 · 雙軌就緒'; s3Wan.style.color = 'var(--olive-green)'; }
+      if (s3Queue) { s3Queue.textContent = '0 件 (100% 已同步)'; s3Queue.style.color = 'inherit'; }
+
+      if (s4Dot) s4Dot.className = 'site-status-dot dot-green';
+      if (s4Sec) { s4Sec.textContent = 'Zero-Trust Active'; s4Sec.style.color = 'inherit'; }
+
+      if (banner) {
+        banner.style.display = 'block';
+        banner.style.background = '#F0FDF4';
+        banner.style.border = '1px solid #BBF7D0';
+        banner.style.color = '#15803D';
+        banner.innerHTML = '✅ <strong>[雙向增量同步完成 (Sync Completed in 1.2s)]</strong> 874 筆海外離線車間 MES、RFID 與裁床日誌已成功無損拋轉至台北總部 Databricks 湖倉！全集團 SSOT 單一真理已全量對齊！';
+      }
+
+      // Auto dismiss modal after 2.8s
+      setTimeout(function() {
+        closeDeltaSyncModal();
+      }, 2800);
+    }, 1200);
+  }
+
+  // Globally bind all click/touch triggers for Delta Sync
+  function bindAllSyncTriggers() {
+    const triggers = document.querySelectorAll('#btnDeltaSync, #deltaSyncLiveStatus, #btnDeltaSyncText, [data-action="delta-sync"]');
+    triggers.forEach(el => {
+      el.style.cursor = 'pointer';
+      el.removeEventListener('click', triggerManualDeltaSync);
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        triggerManualDeltaSync();
+      });
+      el.removeEventListener('touchend', triggerManualDeltaSync);
+      el.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        triggerManualDeltaSync();
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindAllSyncTriggers);
+  } else {
+    bindAllSyncTriggers();
+  }
+
+
 </script>
+
+
+<!-- High-Impact Viewport-Centered Delta Sync Modal & Backdrop -->
+<div id="deltaSyncToastModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2147483647; background: #FFFFFF; border: 2px solid #E87524; border-radius: 16px; box-shadow: 0 20px 45px rgba(0,0,0,0.35); padding: 22px; width: 90%; max-width: 460px; text-align: left; font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans TC', sans-serif;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #F5F5F4; padding-bottom: 8px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span id="modalSyncIcon" style="font-size: 1.4rem; display: inline-block; animation: spinSync 1s infinite linear;">🔄</span>
+      <span style="font-weight: 800; font-size: 1.05rem; color: #9A3412;" id="modalSyncTitle">Delta Sync 雙向增量同步中</span>
+    </div>
+    <button onclick="closeDeltaSyncModal()" style="background: #F5F5F4; border: 1px solid #E7E5E4; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; color: #78716C; padding: 0;">✕</button>
+  </div>
+  <div style="font-size: 0.82rem; color: #44403C; margin-bottom: 12px; line-height: 1.5;" id="modalSyncDesc">
+    正在比對東南亞海外 3 廠 DuckDB WAL 本地異動日誌與台北總部 Delta Lake 湖倉...
+  </div>
+  <!-- Progress Bar -->
+  <div style="width: 100%; height: 8px; background: #F5F5F4; border-radius: 9999px; overflow: hidden; margin-bottom: 14px; border: 1px solid #E7E5E4;">
+    <div id="modalSyncProgress" style="width: 25%; height: 100%; background: linear-gradient(90deg, #E87524, #D98B19); transition: width 0.3s ease;"></div>
+  </div>
+  <!-- Step by Step List -->
+  <div style="font-size: 0.78rem; color: #57534E; display: flex; flex-direction: column; gap: 6px;" id="modalSyncSteps">
+    <div id="step1" style="display: flex; align-items: center; gap: 6px;"><span id="step1Icon">⏳</span> 越南隆安廠：DuckDB WAL 日誌校驗中...</div>
+    <div id="step2" style="display: flex; align-items: center; gap: 6px; opacity: 0.6;"><span id="step2Icon">⏳</span> 柬埔寨金邊廠：14 筆工單封包傳輸中...</div>
+    <div id="step3" style="display: flex; align-items: center; gap: 6px; opacity: 0.6;"><span id="step3Icon">⏳</span> 印尼中爪哇廠：128 筆快取安全佇列對齊...</div>
+    <div id="step4" style="display: flex; align-items: center; gap: 6px; opacity: 0.6;"><span id="step4Icon">⏳</span> 台北總部 Databricks：ACID 事務原子寫入確認...</div>
+  </div>
+  <div style="margin-top: 14px; text-align: center;">
+    <button onclick="closeDeltaSyncModal()" id="btnModalCloseOk" style="display: none; background: #E87524; color: white; font-weight: 800; border: none; padding: 6px 20px; border-radius: 9999px; font-size: 0.8rem; cursor: pointer;">完成並返回儀表板</button>
+  </div>
+</div>
+<div id="deltaSyncModalBackdrop" onclick="closeDeltaSyncModal()" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.45); z-index: 2147483646; backdrop-filter: blur(2px);"></div>
+
 </body>
 </html>
