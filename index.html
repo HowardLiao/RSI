@@ -2528,6 +2528,265 @@
         transform: translateY(0) !important;
       }
     }
+
+    /* ==========================================================================
+       VALUE CHAIN STEPPER 7-LAYER INTERACTIVE STYLES
+       ========================================================================== */
+    .value-flow-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px 8px;
+      margin-bottom: 24px;
+      gap: 6px;
+      user-select: none;
+    }
+    .value-flow-stepper::-webkit-scrollbar {
+      height: 4px;
+    }
+    .value-flow-stepper::-webkit-scrollbar-thumb {
+      background: #E7E5E4;
+      border-radius: 4px;
+    }
+
+    .flow-step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 110px;
+      position: relative;
+      cursor: pointer;
+      padding: 8px 6px;
+      border-radius: 12px;
+      transition: all 0.22s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .flow-step-item:hover {
+      background: #FFF7ED;
+      transform: translateY(-2px);
+    }
+    .flow-step-item:focus-visible {
+      outline: 2px solid #E87524;
+      outline-offset: 2px;
+    }
+
+    .flow-step-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid #D6D3D1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #78716C;
+      margin-bottom: 8px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .flow-step-item:hover .flow-step-circle {
+      border-color: #E87524;
+      color: #E87524;
+    }
+
+    .flow-step-item.active .flow-step-circle {
+      background: #E87524;
+      border-color: #E87524;
+      color: #FFFFFF;
+      transform: scale(1.15);
+      box-shadow: 0 0 0 5px rgba(232, 117, 36, 0.2), 0 4px 12px rgba(232, 117, 36, 0.3);
+    }
+
+    .flow-step-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #1C1917;
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+    .flow-step-sub {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #78716C;
+    }
+    .flow-step-item.active .flow-step-label {
+      color: #E87524;
+    }
+    .flow-step-item.active .flow-step-sub {
+      color: #C2410C;
+      font-weight: 700;
+    }
+
+    .flow-connector {
+      flex: 1;
+      height: 2px;
+      background: #E7E5E4;
+      min-width: 14px;
+      transition: background 0.25s ease;
+    }
+    .flow-connector.active {
+      background: #E87524;
+    }
+
+    /* Detail Card Box */
+    .value-chain-detail-box {
+      background: #FFFFFF;
+      border: 1px solid #E7E5E4;
+      border-radius: 18px;
+      padding: 24px 28px;
+      box-shadow: 0 4px 20px -2px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      animation: fadeInStep 0.24s ease-out;
+    }
+    @keyframes fadeInStep {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .vc-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F5F5F4;
+    }
+    .vc-tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFBEB;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 3px 14px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+    .vc-title {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #1C1917;
+      margin-bottom: 6px;
+    }
+    .vc-mission {
+      font-size: 0.95rem;
+      color: #57534E;
+      line-height: 1.65;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .vc-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .vc-subcard {
+      background: #FAFAF9;
+      border: 1px solid #E7E5E4;
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+    .vc-subcard-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #C2410C;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vc-subcard-body {
+      font-size: 0.82rem;
+      color: #292524;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .vc-kpi-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed #E7E5E4;
+      font-size: 0.8rem;
+    }
+    .vc-kpi-row:last-child {
+      border-bottom: none;
+    }
+    .vc-kpi-label {
+      color: #57534E;
+      font-weight: 600;
+    }
+    .vc-kpi-val {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: #B45309;
+      background: #FFFBEB;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid #FDE68A;
+      text-align: right;
+    }
+
+    .vc-nav-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #F5F5F4;
+    }
+    .vc-btn-nav {
+      background: #FFFFFF;
+      border: 1px solid #D6D3D1;
+      color: #44403C;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .vc-btn-nav:hover:not(:disabled) {
+      border-color: #E87524;
+      color: #E87524;
+      background: #FFF7ED;
+    }
+    .vc-btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .value-chain-detail-box {
+        padding: 16px 14px !important;
+      }
+      .vc-grid-cards {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+      .vc-title {
+        font-size: 1.15rem !important;
+      }
+      .flow-step-item {
+        min-width: 90px !important;
+      }
+      .flow-step-circle {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 0.95rem !important;
+      }
+    }
 </style>
 </head>
 <body>
@@ -3262,62 +3521,64 @@
       </p>
     </section>
 
-    <div class="value-chain-section">
-      <div class="value-flow-stepper">
-        <div class="flow-step-item active">
+        <div class="value-chain-section" id="logic-flow-interactive" role="region" aria-label="四大架構串聯之層級價值鏈互動系統">
+      
+      <!-- Interactive 7-Step Stepper Header -->
+      <div class="value-flow-stepper" role="tablist" aria-label="價值鏈七大層級選擇器">
+        <div class="flow-step-item active" id="flow-step-0" role="tab" tabindex="0" aria-selected="true" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(0)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(0)">
           <div class="flow-step-circle">01</div>
           <div class="flow-step-label">Infrastructure / Data</div>
           <div class="flow-step-sub">基礎設備與資料層</div>
         </div>
-        <div class="flow-connector"></div>
+        <div class="flow-connector" id="flow-conn-0"></div>
 
-        <div class="flow-step-item">
+        <div class="flow-step-item" id="flow-step-1" role="tab" tabindex="0" aria-selected="false" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(1)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(1)">
           <div class="flow-step-circle">02</div>
           <div class="flow-step-label">Integration</div>
           <div class="flow-step-sub">API / 服務介接</div>
         </div>
-        <div class="flow-connector"></div>
+        <div class="flow-connector" id="flow-conn-1"></div>
 
-        <div class="flow-step-item">
+        <div class="flow-step-item" id="flow-step-2" role="tab" tabindex="0" aria-selected="false" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(2)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(2)">
           <div class="flow-step-circle">03</div>
           <div class="flow-step-label">Process</div>
           <div class="flow-step-sub">端到端營運履約</div>
         </div>
-        <div class="flow-connector"></div>
+        <div class="flow-connector" id="flow-conn-2"></div>
 
-        <div class="flow-step-item">
+        <div class="flow-step-item" id="flow-step-3" role="tab" tabindex="0" aria-selected="false" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(3)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(3)">
           <div class="flow-step-circle">04</div>
           <div class="flow-step-label">Visibility</div>
           <div class="flow-step-sub">即時透明看板</div>
         </div>
-        <div class="flow-connector"></div>
+        <div class="flow-connector" id="flow-conn-3"></div>
 
-        <div class="flow-step-item">
+        <div class="flow-step-item" id="flow-step-4" role="tab" tabindex="0" aria-selected="false" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(4)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(4)">
           <div class="flow-step-circle">05</div>
           <div class="flow-step-label">Exception</div>
           <div class="flow-step-sub">主動異常辨識</div>
         </div>
-        <div class="flow-connector"></div>
+        <div class="flow-connector" id="flow-conn-4"></div>
 
-        <div class="flow-step-item">
+        <div class="flow-step-item" id="flow-step-5" role="tab" tabindex="0" aria-selected="false" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(5)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(5)">
           <div class="flow-step-circle">06</div>
           <div class="flow-step-label">Decision</div>
           <div class="flow-step-sub">模擬與決策輔助</div>
         </div>
-        <div class="flow-connector"></div>
+        <div class="flow-connector" id="flow-conn-5"></div>
 
-        <div class="flow-step-item">
+        <div class="flow-step-item" id="flow-step-6" role="tab" tabindex="0" aria-selected="false" aria-controls="valueChainDetailCard" onclick="switchValueChainStep(6)" onkeydown="if(event.key==='Enter'||event.key===' ')switchValueChainStep(6)">
           <div class="flow-step-circle">07</div>
           <div class="flow-step-label">Agent</div>
           <div class="flow-step-sub">AI Copilot 協同</div>
         </div>
       </div>
 
-      <div style="background: #FAFAF8; border: 1px solid var(--border-subtle); padding: 20px 24px; border-radius: var(--radius-sm); font-size: 0.92rem; line-height: 1.6;">
-        <strong style="color: var(--rust-primary);">架構遞進邏輯：</strong>
-        「數位底座與治理」提供資料主數據與合規規則，支撐「營運流程整合」串聯訂單至出貨履約；進一步驅動頂層「智能營運與決策」。
-        而「智慧製造與數位基礎設備」則橫向貫穿三層，提供現場感測、邊緣離線自治與智慧自動化串接。
+      <!-- Dynamic Layer Detail Container -->
+      <div id="valueChainDetailCard" class="value-chain-detail-box" role="tabpanel" aria-live="polite">
+        <!-- Rendered dynamically by switchValueChainStep(index) -->
       </div>
+
     </div>
 
     <!-- Section: Interactive Ready-to-Sew Simulator -->
