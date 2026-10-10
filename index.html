@@ -6162,7 +6162,9 @@
       const pCat = r.getAttribute('data-cat') || '';
       if (catOrPillar === 'all') {
         r.style.display = '';
-      } else if (pPillar.includes(catOrPillar) || pCat === catOrPillar) {
+      } else if (pCat === catOrPillar) {
+        r.style.display = '';
+      } else if (pPillar.startsWith(catOrPillar + ' ')) {
         r.style.display = '';
       } else {
         r.style.display = 'none';
