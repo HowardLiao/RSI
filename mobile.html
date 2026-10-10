@@ -3347,18 +3347,20 @@
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border-color:#E87524; color:#C2410C; font-weight:800; cursor:pointer;" title="點擊模擬或恢復國際海底電纜通訊">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border: 2px solid #E87524; color:#C2410C; font-weight:800; cursor:pointer; padding: 8px 16px; border-radius: 9999px; font-size: 0.85rem;" title="點擊模擬或恢復國際海底電纜通訊">
             ⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)
           </button>
-          <button id="btnDeltaSync" class="executive-search-btn" onclick="triggerManualDeltaSync()" style="background:#FFFFFF; border-color:#D98B19; color:#B45309; font-weight:800; cursor:pointer;" title="點擊立即執行雙向增量同步">
-            🔄 執行雙向增量同步 (Delta Sync Engine)
+          <button id="btnDeltaSync" class="executive-search-btn delta-sync-interactive-btn" onclick="triggerManualDeltaSync()" style="background: #FFF7ED; border: 2px solid #E87524; color: #9A3412; font-weight: 800; cursor: pointer; padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(232, 117, 36, 0.25); font-size: 0.85rem;" title="點擊立即執行雙向增量同步">
+            <span id="syncSpinIcon" style="font-size: 1.1rem;">⚡</span>
+            <span id="btnDeltaSyncText">雙向增量同步 (Delta Sync Engine Active)</span>
           </button>
-          <div id="deltaSyncLiveStatus" class="sync-engine-badge" onclick="triggerManualDeltaSync()" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:#F5F5F4; border:1px solid #E7E5E4; padding:5px 12px; border-radius:9999px; font-size:0.75rem; font-weight:700;" title="點擊立即執行同步">
+          <div id="deltaSyncLiveStatus" class="sync-engine-badge" onclick="triggerManualDeltaSync()" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:#F5F5F4; border:1px solid #E7E5E4; padding:6px 14px; border-radius:9999px; font-size:0.75rem; font-weight:700;" title="點擊立即執行同步">
             <span class="sync-pulse-dot" id="syncPulseDot" style="width:8px; height:8px; border-radius:50%; background:#10B981; display:inline-block;"></span>
-            <span id="deltaSyncStatusText" style="color:#292524;">雙向增量同步引擎運轉中 (Delta Sync Active)</span>
+            <span id="deltaSyncStatusText" style="color:#292524;">即時監控：同步引擎待命就緒</span>
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Live Telemetry Alert Toast -->
@@ -5328,12 +5330,22 @@
 
 
   // =========================================================================
-  // COMPLETE INTERACTIVITY ENGINE: AUDIT & ENHANCEMENT
+  
+
+
+  // =========================================================================
+  // UNIFIED DELTA SYNC ENGINE & TELEMETRY CONTROLLER
   // =========================================================================
 
-  // 1. Factory Edge Telemetry & Delta Sync Engine
   let isCableCut = false;
   let isDeltaSyncing = false;
+
+  function closeDeltaSyncModal() {
+    const modal = document.getElementById('deltaSyncToastModal');
+    const backdrop = document.getElementById('deltaSyncModalBackdrop');
+    if (modal) modal.style.display = 'none';
+    if (backdrop) backdrop.style.display = 'none';
+  }
 
   function toggleCableCutSimulation() {
     isCableCut = !isCableCut;
@@ -5419,151 +5431,6 @@
     if (isDeltaSyncing) return;
     isDeltaSyncing = true;
 
-    const btnSync = document.getElementById('btnDeltaSync');
-    const banner = document.getElementById('telemetryAlertBanner');
-    const statusTxt = document.getElementById('deltaSyncStatusText');
-    const pulseDot = document.getElementById('syncPulseDot');
-
-    const s1Dot = document.getElementById('site1-status-dot');
-    const s1Mode = document.getElementById('site1-mode');
-    const s1Lat = document.getElementById('site1-latency');
-    const s1Queue = document.getElementById('site1-queue');
-
-    const s2Dot = document.getElementById('site2-status-dot');
-    const s2Mode = document.getElementById('site2-mode');
-    const s2Lat = document.getElementById('site2-latency');
-    const s2Queue = document.getElementById('site2-queue');
-
-    const s3Dot = document.getElementById('site3-status-dot');
-    const s3Mode = document.getElementById('site3-mode');
-    const s3Wan = document.getElementById('site3-wan');
-    const s3Queue = document.getElementById('site3-queue');
-
-    const s4Dot = document.getElementById('site4-status-dot');
-    const s4Sec = document.getElementById('site4-security');
-
-    if (btnSync) {
-      btnSync.innerHTML = '🔄 雙向增量同步中 (Syncing...)';
-      btnSync.disabled = true;
-      btnSync.style.opacity = '0.7';
-    }
-    if (statusTxt) {
-      statusTxt.textContent = '🔄 雙向增量同步中... 比對 DuckDB WAL 日誌與總部 Delta Lake...';
-      statusTxt.style.color = '#C2410C';
-    }
-    if (pulseDot) pulseDot.style.background = '#E87524';
-
-    setTimeout(function() {
-      if (s1Queue) s1Queue.textContent = '120 件 (同步中...)';
-      if (s2Queue) s2Queue.textContent = '64 件 (同步中...)';
-      if (s3Queue) s3Queue.textContent = '180 件 (同步中...)';
-    }, 600);
-
-    setTimeout(function() {
-      isDeltaSyncing = false;
-      isCableCut = false;
-
-      if (btnSync) {
-        btnSync.innerHTML = '🔄 執行雙向增量同步 (Delta Sync Engine)';
-        btnSync.disabled = false;
-        btnSync.style.opacity = '1';
-      }
-
-      const btnCut = document.getElementById('btnCableCutSim');
-      if (btnCut) {
-        btnCut.innerHTML = '⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)';
-        btnCut.style.background = '#FFF7ED';
-        btnCut.style.borderColor = '#E87524';
-        btnCut.style.color = '#C2410C';
-      }
-
-      if (statusTxt) {
-        statusTxt.textContent = '🟢 雙向增量同步完成 · 全球 4 大基地 100% 同步 (0 佇列)';
-        statusTxt.style.color = '#15803D';
-      }
-      if (pulseDot) pulseDot.style.background = '#10B981';
-
-      if (s1Dot) s1Dot.className = 'site-status-dot dot-green';
-      if (s1Mode) { s1Mode.textContent = 'Local Autonomous'; s1Mode.style.color = 'var(--olive-green)'; }
-      if (s1Lat) s1Lat.textContent = '12 ms (本地)';
-      if (s1Queue) { s1Queue.textContent = '0 件 (100% 已同步)'; s1Queue.style.color = 'inherit'; }
-
-      if (s2Dot) s2Dot.className = 'site-status-dot dot-green';
-      if (s2Mode) { s2Mode.textContent = 'Local Autonomous'; s2Mode.style.color = 'var(--olive-green)'; }
-      if (s2Lat) s2Lat.textContent = '18 ms (本地)';
-      if (s2Queue) { s2Queue.textContent = '0 件 (100% 已同步)'; s2Queue.style.color = 'inherit'; }
-
-      if (s3Dot) s3Dot.className = 'site-status-dot dot-green';
-      if (s3Mode) { s3Mode.textContent = 'Local Autonomous'; s3Mode.style.color = 'var(--olive-green)'; }
-      if (s3Wan) { s3Wan.textContent = '專線復原 · 雙軌就緒'; s3Wan.style.color = 'var(--olive-green)'; }
-      if (s3Queue) { s3Queue.textContent = '0 件 (100% 已同步)'; s3Queue.style.color = 'inherit'; }
-
-      if (s4Dot) s4Dot.className = 'site-status-dot dot-green';
-      if (s4Sec) { s4Sec.textContent = 'Zero-Trust Active'; s4Sec.style.color = 'inherit'; }
-
-      if (banner) {
-        banner.style.display = 'block';
-        banner.style.background = '#F0FDF4';
-        banner.style.border = '1px solid #BBF7D0';
-        banner.style.color = '#15803D';
-        banner.innerHTML = '✅ <strong>[雙向增量同步完成 (Sync Completed in 1.2s)]</strong> 874 筆海外離線車間 MES、RFID 與裁床日誌已成功無損拋轉至台北總部 Databricks 湖倉！全集團 SSOT 單一真理已全量對齊！';
-      }
-    }, 1200);
-  }
-
-  // 2. Ready-to-Sew 4-Gate Toggle by Row
-  function toggleGate(gateId) {
-    const cb = document.getElementById(gateId);
-    if (cb) {
-      cb.checked = !cb.checked;
-      calculateGateStatus();
-    }
-  }
-
-  // 3. Search & Scope Filtering inside Pillar
-  function filterScopeItems() {
-    const input = document.getElementById('scopeSearch');
-    if (!input) return;
-    const q = input.value.trim().toLowerCase();
-    const container = document.getElementById('pillarExpandedView');
-    if (!container) return;
-    const items = container.querySelectorAll('.subdomain-card, .pillar-module-card, li, .detail-card, tr');
-    items.forEach(el => {
-      if (!q) {
-        el.style.display = '';
-      } else {
-        const match = el.textContent.toLowerCase().includes(q);
-        el.style.display = match ? '' : 'none';
-      }
-    });
-  }
-
-  // 4. Modal Backdrop Closer
-  function closeSearchModalOnBackdrop(event) {
-    if (event.target && event.target.id === 'searchModalBackdrop') {
-      closeSearchModal();
-    }
-  }
-
-
-
-
-
-  // =========================================================================
-  // VIVID DELTA SYNC ENGINE & MODAL CONTROLLER
-  // =========================================================================
-
-  function closeDeltaSyncModal() {
-    const modal = document.getElementById('deltaSyncToastModal');
-    const backdrop = document.getElementById('deltaSyncModalBackdrop');
-    if (modal) modal.style.display = 'none';
-    if (backdrop) backdrop.style.display = 'none';
-  }
-
-  function triggerManualDeltaSync() {
-    if (isDeltaSyncing) return;
-    isDeltaSyncing = true;
-
     // Haptic feedback
     if (navigator.vibrate) {
       try { navigator.vibrate([40, 60, 40]); } catch(e) {}
@@ -5587,7 +5454,7 @@
     const s3Icon = document.getElementById('step3Icon');
     const s4Icon = document.getElementById('step4Icon');
 
-    // Show modal & backdrop
+    // Show modal & backdrop immediately
     if (modal) modal.style.display = 'block';
     if (backdrop) backdrop.style.display = 'block';
     if (modalTitle) modalTitle.textContent = 'Delta Sync 雙向增量同步中 (Syncing...)';
@@ -5599,14 +5466,12 @@
     }
     if (btnModalOk) btnModalOk.style.display = 'none';
 
-    // Reset step styles
     if (s1) { s1.style.opacity = '1'; if (s1Icon) s1Icon.textContent = '⏳'; }
     if (s2) { s2.style.opacity = '0.5'; if (s2Icon) s2Icon.textContent = '⏳'; }
     if (s3) { s3.style.opacity = '0.5'; if (s3Icon) s3Icon.textContent = '⏳'; }
     if (s4) { s4.style.opacity = '0.5'; if (s4Icon) s4Icon.textContent = '⏳'; }
 
-    // Page inline button elements
-    const btnSync = document.getElementById('btnDeltaSync');
+    // Page inline elements
     const btnSyncText = document.getElementById('btnDeltaSyncText');
     const banner = document.getElementById('telemetryAlertBanner');
     const statusTxt = document.getElementById('deltaSyncStatusText');
@@ -5676,7 +5541,7 @@
       if (modalDesc) modalDesc.textContent = '874 筆海外離線車間 MES、RFID 與裁床日誌已成功無損拋轉至台北總部 Databricks 湖倉！全集團 SSOT 單一真理已全量對齊！';
       if (btnModalOk) btnModalOk.style.display = 'inline-block';
 
-      if (btnSyncText) btnSyncText.textContent = '⚡ 雙向增量同步 (Delta Sync Engine Active)';
+      if (btnSyncText) btnSyncText.textContent = '雙向增量同步 (Delta Sync Engine Active)';
       const btnCut = document.getElementById('btnCableCutSim');
       if (btnCut) {
         btnCut.innerHTML = '⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)';
@@ -5717,11 +5582,45 @@
         banner.innerHTML = '✅ <strong>[雙向增量同步完成 (Sync Completed in 1.2s)]</strong> 874 筆海外離線車間 MES、RFID 與裁床日誌已成功無損拋轉至台北總部 Databricks 湖倉！全集團 SSOT 單一真理已全量對齊！';
       }
 
-      // Auto dismiss modal after 2.8s
+      // Auto dismiss modal after 3.2s
       setTimeout(function() {
         closeDeltaSyncModal();
-      }, 2800);
+      }, 3200);
     }, 1200);
+  }
+
+  // 2. Ready-to-Sew 4-Gate Toggle by Row
+  function toggleGate(gateId) {
+    const cb = document.getElementById(gateId);
+    if (cb) {
+      cb.checked = !cb.checked;
+      calculateGateStatus();
+    }
+  }
+
+  // 3. Search & Scope Filtering inside Pillar
+  function filterScopeItems() {
+    const input = document.getElementById('scopeSearch');
+    if (!input) return;
+    const q = input.value.trim().toLowerCase();
+    const container = document.getElementById('pillarExpandedView');
+    if (!container) return;
+    const items = container.querySelectorAll('.subdomain-card, .pillar-module-card, li, .detail-card, tr');
+    items.forEach(el => {
+      if (!q) {
+        el.style.display = '';
+      } else {
+        const match = el.textContent.toLowerCase().includes(q);
+        el.style.display = match ? '' : 'none';
+      }
+    });
+  }
+
+  // 4. Modal Backdrop Closer
+  function closeSearchModalOnBackdrop(event) {
+    if (event.target && event.target.id === 'searchModalBackdrop') {
+      closeSearchModal();
+    }
   }
 
   // Globally bind all click/touch triggers for Delta Sync
@@ -5729,18 +5628,16 @@
     const triggers = document.querySelectorAll('#btnDeltaSync, #deltaSyncLiveStatus, #btnDeltaSyncText, [data-action="delta-sync"]');
     triggers.forEach(el => {
       el.style.cursor = 'pointer';
-      el.removeEventListener('click', triggerManualDeltaSync);
-      el.addEventListener('click', function(e) {
+      el.onclick = function(e) {
         e.preventDefault();
         e.stopPropagation();
         triggerManualDeltaSync();
-      });
-      el.removeEventListener('touchend', triggerManualDeltaSync);
-      el.addEventListener('touchend', function(e) {
+      };
+      el.ontouchend = function(e) {
         e.preventDefault();
         e.stopPropagation();
         triggerManualDeltaSync();
-      });
+      };
     });
   }
 
@@ -5754,11 +5651,14 @@
 </script>
 
 
+
+
+
 <!-- High-Impact Viewport-Centered Delta Sync Modal & Backdrop -->
 <div id="deltaSyncToastModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2147483647; background: #FFFFFF; border: 2px solid #E87524; border-radius: 16px; box-shadow: 0 20px 45px rgba(0,0,0,0.35); padding: 22px; width: 90%; max-width: 460px; text-align: left; font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans TC', sans-serif;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #F5F5F4; padding-bottom: 8px;">
     <div style="display: flex; align-items: center; gap: 8px;">
-      <span id="modalSyncIcon" style="font-size: 1.4rem; display: inline-block; animation: spinSync 1s infinite linear;">🔄</span>
+      <span id="modalSyncIcon" style="font-size: 1.4rem; display: inline-block;">🔄</span>
       <span style="font-weight: 800; font-size: 1.05rem; color: #9A3412;" id="modalSyncTitle">Delta Sync 雙向增量同步中</span>
     </div>
     <button onclick="closeDeltaSyncModal()" style="background: #F5F5F4; border: 1px solid #E7E5E4; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; color: #78716C; padding: 0;">✕</button>
