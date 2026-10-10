@@ -2846,21 +2846,48 @@
           <span class="masthead-badge">● C-LEVEL BLUEPRINT · v7.2.0</span>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border: 2px solid #E87524; color:#C2410C; font-weight:800; cursor:pointer; padding: 8px 16px; border-radius: 9999px;" title="點擊模擬或恢復國際海底電纜通訊">
-            ⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <a href="#wbs-gantt" class="executive-search-btn" style="text-decoration: none; background: #FFF8EE; border: 1.5px solid var(--orange-vibrant); color: var(--rust-primary); font-weight: 800; padding: 6px 14px; border-radius: 9999px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;">
+            <span>📅</span>
+            <span>全專案 WBS 甘特圖</span>
+          </a>
+          <a href="gantt_chart_2027.html" target="_blank" class="executive-search-btn" style="text-decoration: none; background: #FFF; border: 1px solid var(--border-subtle); color: var(--text-charcoal); font-weight: 700; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;" title="在新分頁開啟完整甘特圖">
+            <span>↗</span>
+            <span>獨立全屏甘特圖</span>
+          </a>
+          <a href="organization_resources.html" class="executive-search-btn" style="text-decoration: none; background: #FAF5FF; border: 1px solid #D8B4FE; color: #7E22CE; font-weight: 700; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
+            <span>👥</span>
+            <span>組織與資源配置</span>
+          </a>
+          <a href="inventory_discovery.html" class="executive-search-btn" style="text-decoration: none; background: #F0FDF4; border: 1px solid #86EFAC; color: #15803D; font-weight: 700; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
+            <span>📋</span>
+            <span>職能與設備盤點</span>
+          </a>
+
+          <!-- Search Trigger -->
+          <button class="executive-search-btn" onclick="openSearchModal()" style="padding: 6px 14px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">
+            <span style="color: var(--rust-primary);">🔍</span>
+            <span id="t-searchBtnText">搜尋 ⌘K</span>
           </button>
-          <button id="btnDeltaSync" class="executive-search-btn delta-sync-interactive-btn" onclick="triggerManualDeltaSync()" style="background: #FFF7ED; border: 2px solid #E87524; color: #9A3412; font-weight: 800; cursor: pointer; padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(232, 117, 36, 0.25);" title="點擊立即執行雙向增量同步">
-            <span id="syncSpinIcon" style="font-size: 1.05rem;">⚡</span>
-            <span id="btnDeltaSyncText">雙向增量同步 (Delta Sync Engine Active)</span>
-          </button>
-          <div id="deltaSyncLiveStatus" class="sync-engine-badge" onclick="triggerManualDeltaSync()" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:#F5F5F4; border:1px solid #E7E5E4; padding:6px 14px; border-radius:9999px; font-size:0.75rem; font-weight:700;" title="點擊立即執行同步">
-            <span class="sync-pulse-dot" id="syncPulseDot" style="width:8px; height:8px; border-radius:50%; background:#10B981; display:inline-block;"></span>
-            <span id="deltaSyncStatusText" style="color:#292524;">雙向增量同步引擎運轉中 (Delta Sync Active)</span>
+
+          <!-- Language Picker -->
+          <div class="executive-lang-picker" id="langPickerWrap">
+            <button type="button" class="lang-picker-toggle" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" style="cursor:pointer; user-select:none; padding: 5px 12px; border-radius: 9999px; font-size: 0.75rem;">
+              <span>🌐</span>
+              <span id="currentLangDisplay">🇹🇼 繁體中文 ▼</span>
+            </button>
+            <div class="lang-picker-dropdown" id="langPickerDropdown" style="display:none;">
+              <div class="lang-picker-item selected" onclick="selectLanguage('zh')" id="optLangZh">🇹🇼 繁體中文</div>
+              <div class="lang-picker-item" onclick="selectLanguage('en')" id="optLangEn">🇬🇧 Global English</div>
+              <div class="lang-picker-item" onclick="selectLanguage('vi')" id="optLangVi">🇻🇳 Tiếng Việt</div>
+            </div>
           </div>
+
+          <button onclick="window.print()" class="executive-search-btn" style="padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem;">
+            🖨️ 列印
+          </button>
         </div>
       </div>
-          </div>
         </div>
       </div>
 
@@ -2928,6 +2955,7 @@
         <a href="#pillars" id="nav-pillars">四大主架構 (Four Pillars)</a>
         <a href="#logic-flow" id="nav-logic">價值鏈與層級邏輯</a>
         <a href="#simulator" id="nav-gate">Ready-to-Sew 產前門禁</a>
+        <a href="#wbs-gantt" id="nav-wbs" style="color: var(--rust-primary); font-weight: 800;">📅 2027 WBS 甘特圖</a>
         <a href="#recommendations" id="nav-recom">國際 IT 主管 6 大建議</a>
       </nav>
 
@@ -3663,6 +3691,465 @@
     </div>
 
     <!-- Section: Executive IT Recommendations -->
+    
+    <!-- Section 9: 2027 Project WBS & Gantt Schedule -->
+    <section id="wbs-gantt" class="section-header" style="margin-top: 56px;">
+      <div class="section-eyebrow">Project Work Breakdown Structure & Timeline</div>
+      <h2 class="section-title">2027 全專案 WBS 工作分解結構與實施甘特圖</h2>
+      <p class="section-description">
+        精確排程扣除跨國重大假期（2月春節封網、3月印尼開齋節、4月柬新年），收錄四大主架構 25 項核心專案之 WBS 編號、資本屬性、精確起訖年月日、實質工作天數（Workdays）與交付里程碑。
+      </p>
+    </section>
+
+    <div class="wbs-container" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 28px; margin-bottom: 48px; box-shadow: var(--shadow-sm);">
+      
+      <!-- WBS Control Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-charcoal); margin-right: 4px;">WBS 篩選：</span>
+          <button class="wbs-filter-btn active" onclick="filterWbs('all', this)" style="background: var(--rust-primary); color: #fff; border: 1px solid var(--rust-primary); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">全部 25 項</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Pillar I', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar I (8項)</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Pillar II', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar II (5項)</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Pillar III', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar III (7項)</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Pillar IV', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar IV (5項)</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Run', this)" style="background: var(--bg-card); color: var(--green-run); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Run (基礎)</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Grow', this)" style="background: var(--bg-card); color: var(--blue-grow); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Grow (增長)</button>
+          <button class="wbs-filter-btn" onclick="filterWbs('Transform', this)" style="background: var(--bg-card); color: var(--purple-trans); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Transform (轉型)</button>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <input type="text" id="wbsSearchInput" oninput="searchWbs()" placeholder="搜尋 WBS 代號、專案、負責人..." style="padding: 6px 14px; border: 1px solid var(--border-subtle); border-radius: 9999px; font-size: 0.78rem; outline: none; width: 220px;" />
+          <a href="gantt_chart_2027.html" target="_blank" class="executive-search-btn" style="text-decoration: none; background: #FFF8EE; border: 2px solid var(--orange-vibrant); color: var(--rust-primary); font-weight: 800; padding: 6px 16px; border-radius: 9999px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 6px;" title="開啟獨立跨國甘特圖視窗">
+            <span>📅</span>
+            <span>開啟 25 項全屏互動甘特圖 ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4-Quarter Pipeline Summary Cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 22px;">
+        <div style="background: #FFF; border: 1px solid var(--border-subtle); border-left: 4px solid var(--green-run); border-radius: var(--radius-sm); padding: 14px 16px;">
+          <div style="font-weight: 800; font-size: 0.9rem; color: var(--text-charcoal);">Q1 · 總部基底成型</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin: 3px 0;">2027/01/04 ～ 03/31 ｜ 15 項啟動</div>
+          <div style="font-size: 0.75rem; color: var(--text-body); line-height: 1.4;">雙活 Kong 網關、Entra ID 400 核心幹部 SSO、CrowdStrike MDR 與 Zerto 災備上線。</div>
+        </div>
+        <div style="background: #FFF; border: 1px solid var(--border-subtle); border-left: 4px solid var(--blue-grow); border-radius: var(--radius-sm); padding: 14px 16px;">
+          <div style="font-weight: 800; font-size: 0.9rem; color: var(--text-charcoal);">Q2 · 越南示範驗證</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin: 3px 0;">2027/04/01 ～ 06/30 ｜ 24 項攻堅</div>
+          <div style="font-size: 0.75rem; color: var(--text-body); line-height: 1.4;">隆安燈塔示範廠 4-Gate 產前門禁、72h 離線自主、Camunda 8 履約與 Flink PCD 預警。</div>
+        </div>
+        <div style="background: #FFF; border: 1px solid var(--border-subtle); border-left: 4px solid var(--purple-trans); border-radius: var(--radius-sm); padding: 14px 16px;">
+          <div style="font-weight: 800; font-size: 0.9rem; color: var(--text-charcoal);">Q3 · 柬印新廠複製</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin: 3px 0;">2027/07/01 ～ 09/30 ｜ 23 項推廣</div>
+          <div style="font-size: 0.75rem; color: var(--text-body); line-height: 1.4;">金邊與中爪哇海外基地交鑰匙複製；貫通 Databricks 30TB 湖倉中台與 Tech Pack RAG。</div>
+        </div>
+        <div style="background: #FFF; border: 1px solid var(--border-subtle); border-left: 4px solid var(--amber-gold); border-radius: var(--radius-sm); padding: 14px 16px;">
+          <div style="font-weight: 800; font-size: 0.9rem; color: var(--text-charcoal);">Q4 · 智能全面閉環</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin: 3px 0;">2027/10/01 ～ 12/31 ｜ 全量收官</div>
+          <div style="font-size: 0.75rem; color: var(--text-body); line-height: 1.4;">Agentic AI 客服跟單、OR-Tools 排產尋優、高管 3 秒決策看板與 2,500 席審計驗收。</div>
+        </div>
+      </div>
+
+      <!-- WBS Detailed Table -->
+      <div style="overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: #FFF;">
+        <table style="width: 100%; min-width: 1050px; border-collapse: collapse; font-size: 0.8rem;">
+          <thead>
+            <tr style="background: #FAF8F5; border-bottom: 2px solid var(--border-subtle);">
+              <th style="padding: 10px 8px; width: 70px; text-align: center; color: var(--text-charcoal); font-weight: 800;">WBS 代號</th>
+              <th style="padding: 10px 14px; text-align: left; color: var(--text-charcoal); font-weight: 800; width: 260px;">專案名稱與主架構範疇</th>
+              <th style="padding: 10px 8px; text-align: center; width: 85px; color: var(--text-charcoal); font-weight: 800;">資本屬性</th>
+              <th style="padding: 10px 10px; text-align: right; width: 95px; color: var(--text-charcoal); font-weight: 800;">開始日期</th>
+              <th style="padding: 10px 10px; text-align: right; width: 95px; color: var(--text-charcoal); font-weight: 800;">結束日期</th>
+              <th style="padding: 10px 8px; text-align: right; width: 85px; color: var(--text-charcoal); font-weight: 800;">實質工期</th>
+              <th style="padding: 10px 10px; text-align: left; width: 100px; color: var(--text-charcoal); font-weight: 800;">負責團隊</th>
+              <th style="padding: 10px 14px; text-align: left; color: var(--text-charcoal); font-weight: 800;">關鍵里程碑與交付成果</th>
+              <th style="padding: 10px 10px; text-align: right; width: 100px; color: var(--text-charcoal); font-weight: 800;">預算規模</th>
+            </tr>
+          </thead>
+          <tbody id="wbsTableBody">
+            
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Run" data-id="P1-1">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-1</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>API Management (Kong 雙活架構與跨國邊緣節點)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/01/04</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/05/28</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">92 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">雲端架構組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">總部雙活網關 + 3 海外廠邊緣 Kong 叢集</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$52,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Run" data-id="P1-2">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-2</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Access Governance (Entra ID 分層 SSO + Vault 金鑰輪替)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/01/04</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/06/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">115 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">資安身分組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">全集團 2,500 席分層身分 + 核心 DB 動態金鑰 + AI Agent 沙盒</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$105,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Grow" data-id="P1-3">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-3</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Enterprise Data Layer (Databricks 30TB+ 企業湖倉)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/02/15</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/09/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">155 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">數據工程組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">4 廠 CDC 實時串流 + 30TB 湖倉中台 + 按需運算節點</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$115,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Grow" data-id="P1-4">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-4</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Data Governance (Profisee MDM 主數據與品質門禁)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/03/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/10/29</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">164 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">數據治理組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">原副料/款號主數據清洗 + 自動品質門禁 (SAM>0, PCD檢核)</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$80,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Transform" data-id="P1-5">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-5</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>AI Governance (Portkey / LiteLLM 多模型調度與專利遮罩)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/04/06</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/11/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">161 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">AI 架構組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">多模型路由 + 1,000 萬 Token 配額管控 + Tech Pack 專利保護</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$48,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Run" data-id="P1-6">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-6</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Cybersecurity (CrowdStrike 24/7 MDR + Cloudflare ZTNA)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/01/04</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/12/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">240 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">資安維運組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">2,500 席 ZTNA 零信任 + 800 台端點 24/7 全託管防勒索</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$100,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Run" data-id="P1-7">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-7</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Backup / DR / BCP (Zerto CDP 秒級災備 + S3 WORM)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/01/04</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/08/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">159 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">系統維運組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">12~16 台核心生產 VM 秒級複製 + 30TB 不可篡改備份 (RPO<15m, RTO<2h)</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$68,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar I 數位底座與治理" data-cat="Run" data-id="P1-8">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P1-8</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Network & Edge (Fortinet SD-WAN HA + 8台車間邊緣主機)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar I 數位底座與治理</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/01/04</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/07/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">137 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">網路通訊組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">4 基地雙軌 SD-WAN HA + 8 台車間工業邊緣主機 (48~72h 自治)</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$72,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar II 營運流程整合" data-cat="Grow" data-id="P2-1">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P2-1</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Production Fulfillment (Camunda 8 端到端履約編排)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar II 營運流程整合</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/03/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/09/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">145 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">生管系統組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">訂單至出貨 9 大工序端到端履約可視化與節點阻礙預警</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$45,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar II 營運流程整合" data-cat="Grow" data-id="P2-2">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P2-2</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Material Flow & Risk (供應鏈 Control Tower 物料流)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar II 營運流程整合</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/02/15</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/08/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">135 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">供應鏈組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">BOM/採購/海運 ETA 與 WMS 庫存即時風險看板，避開2月Tet年假停工</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$40,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar II 營運流程整合" data-cat="Transform" data-id="P2-3">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P2-3</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Pre-production 4-Gate (Ready-to-Sew 產前門禁引擎)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar II 營運流程整合</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/03/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/09/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">145 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">產前技術組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">Gate 1~4 齊套硬性攔截引擎，未達標鎖死發料，提升換線效率35%</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$50,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar II 營運流程整合" data-cat="Grow" data-id="P2-4">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P2-4</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>IE Digital Process (GSDCost 標準工時與技能矩陣串接)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar II 營運流程整合</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/05/03</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/10/29</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">124 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">IE 工程組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">標準工時庫與員工技能矩陣整合，線上效率與人機配比即時核算</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$35,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar II 營運流程整合" data-cat="Run" data-id="P2-5">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P2-5</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Enterprise Workflow (Flowable BPM 跨部門營運協同)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar II 營運流程整合</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/02/15</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/07/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">113 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">BPM 開發組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">行政簽核延伸至產銷跨部門異常工單自動派工與 SLA 追蹤</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$25,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Transform" data-id="P3-1">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-1</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Exception Management (Apache Flink CEP 實時預警)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/04/06</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/10/29</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">140 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">流計算組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">PCD 裁剪前 72h 缺料主動預警規則引擎上線，攔截非預期停工</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$42,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Run" data-id="P3-2">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-2</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Production & Material Analytics (Power BI 跨廠戰情室)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/04/06</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/09/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">121 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">BI 報表組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">Power BI + Superset 跨廠產量、效率、損耗中控大屏</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$30,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Transform" data-id="P3-3">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-3</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Capacity / Completion Forecast (XGBoost 交期完工預估)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/06/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/11/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">126 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">演算法組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">XGBoost 剩餘工時與準時交貨 (OTD) 風險預估模型</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$45,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Transform" data-id="P3-4">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-4</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>IE Optimization & Simulation (OR-Tools 線平衡動態模擬)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/07/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/12/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">126 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">智能 IE 組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">動態人機配置模擬器，自動尋優換線損失最低解，提升平衡率至95%+</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$55,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Transform" data-id="P3-5">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-5</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>AI Agent (生管跟單代理人與客訴自動追蹤協同)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/06/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/12/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">147 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">Agent 研發組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">跨系統跨語言生管問答與客訴自動跟催 Agent，釋放15~25%特定工時</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$60,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Transform" data-id="P3-6">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-6</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Enterprise Knowledge / RAG (多國語 Tech Pack 知識庫)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/05/03</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/10/29</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">124 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">知識中台組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">Qdrant 語意檢索，英中技術手冊即時轉譯越/高棉/印尼，做工檢索提效70%</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$48,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar III 智能營運與決策" data-cat="Run" data-id="P3-7">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P3-7</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>RPA 流程自動化 (Power Automate 跨系統行政拋單)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar III 智能營運與決策</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/03/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/08/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">125 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">RPA 開發組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">重複性進出口報關與採購拋單機器人上線，消除人工抄寫轉錄</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$20,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar IV 智慧製造與設備" data-cat="Grow" data-id="P4-1">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P4-1</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Smart Equipment (AGV / 自動模板機與 MES 實時介接)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar IV 智慧製造與設備</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/04/06</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/11/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">161 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">OT 整合組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">Kepware OPC-UA + EMQX 實現模板機自動派單與裁片計工</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$45,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar IV 智慧製造與設備" data-cat="Transform" data-id="P4-2">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P4-2</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>AI / Computing Infra (總部 vLLM 算力與海外 K3s 輕量邊緣)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar IV 智慧製造與設備</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-trans" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Transform</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/03/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/08/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">125 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">基礎算力組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">總部 4x GPU 伺服器叢集 + 4 廠 K3s 邊緣推論節點就緒</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$65,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar IV 智慧製造與設備" data-cat="Run" data-id="P4-3">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P4-3</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Network & Edge Infra (車間 OT 實體隔離與 48~72h 離線自治)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar IV 智慧製造與設備</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-run" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Run</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/02/15</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/07/30</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">113 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">網路基礎組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">車間 OT 實體隔離 + Moxa/研華邊緣網關 Delta 雙向同步 (100% 斷網零停機)</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$40,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar IV 智慧製造與設備" data-cat="Grow" data-id="P4-4">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P4-4</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>Production Data Collection (RFID 產線讀寫與光電計工)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar IV 智慧製造與設備</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/03/01</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/10/29</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">164 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">物聯傳感組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">Impinj RFID 讀寫器 + 產線光電計工 Sensor 實時回傳 MES</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$50,000 USD</td>
+    </tr>
+
+    <tr class="wbs-row" data-pillar="Pillar IV 智慧製造與設備" data-cat="Grow" data-id="P4-5">
+      <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--rust-primary);">P4-5</td>
+      <td style="font-weight: 700; color: var(--text-charcoal);">
+        <div>特種自動化設備整合 (自動裁床/吊掛/印尼無縫貼合監控)</div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Pillar IV 智慧製造與設備</div>
+      </td>
+      <td style="text-align: center;"><span class="cat-badge cat-grow" style="padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #FFF;">Grow</span></td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/05/03</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-size: 0.78rem;">2027/12/31</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 800; color: var(--text-charcoal); font-size: 0.82rem;">166 天</td>
+      <td style="font-size: 0.78rem; color: var(--text-body);">自動化工藝組</td>
+      <td style="font-size: 0.78rem; color: var(--text-body); line-height: 1.4;">印尼貼合基地溫壓 IoT 監控 + 自動拉布裁床接口，保障大貨零脫膠</td>
+      <td style="text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--rust-primary); font-size: 0.8rem;">$55,000 USD</td>
+    </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
     <section id="recommendations" class="section-header">
       <div class="section-eyebrow">Strategic Value Augmentation</div>
       <h2 class="section-title">國際 IT 主管 6 大關鍵升級節點</h2>
@@ -5645,6 +6132,53 @@
     document.addEventListener('DOMContentLoaded', bindAllSyncTriggers);
   } else {
     bindAllSyncTriggers();
+  }
+
+
+
+
+
+  // =========================================================================
+  // WBS FILTER & SEARCH CONTROLLER
+  // =========================================================================
+
+  function filterWbs(catOrPillar, btn) {
+    document.querySelectorAll('.wbs-filter-btn').forEach(b => {
+      b.classList.remove('active');
+      b.style.background = 'var(--bg-card)';
+      b.style.color = 'var(--text-body)';
+      b.style.borderColor = 'var(--border-subtle)';
+    });
+    if (btn) {
+      btn.classList.add('active');
+      btn.style.background = 'var(--rust-primary)';
+      btn.style.color = '#fff';
+      btn.style.borderColor = 'var(--rust-primary)';
+    }
+
+    const rows = document.querySelectorAll('.wbs-row');
+    rows.forEach(r => {
+      const pPillar = r.getAttribute('data-pillar') || '';
+      const pCat = r.getAttribute('data-cat') || '';
+      if (catOrPillar === 'all') {
+        r.style.display = '';
+      } else if (pPillar.includes(catOrPillar) || pCat === catOrPillar) {
+        r.style.display = '';
+      } else {
+        r.style.display = 'none';
+      }
+    });
+  }
+
+  function searchWbs() {
+    const input = document.getElementById('wbsSearchInput');
+    if (!input) return;
+    const q = input.value.trim().toLowerCase();
+    const rows = document.querySelectorAll('.wbs-row');
+    rows.forEach(r => {
+      const text = r.textContent.toLowerCase();
+      r.style.display = text.includes(q) ? '' : 'none';
+    });
   }
 
 
