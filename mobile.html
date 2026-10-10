@@ -3338,114 +3338,127 @@
     </section>
 
     <div class="factory-edge-monitor">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        <div style="font-weight: 700; color: var(--text-charcoal); font-size: 1.05rem;">
-          全球廠區邊緣節點動態狀態 (Live Heartbeat Telemetry)
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+        <div>
+          <div style="font-weight: 800; color: var(--text-charcoal); font-size: 1.05rem;">
+            全球廠區邊緣節點動態狀態 (Live Heartbeat Telemetry)
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+            東南亞跨國邊緣主機 DuckDB WAL 異動日誌與台北總部 Delta Lake 雙向同步監控
+          </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF3EB; border-color:var(--orange-vibrant); color:var(--rust-primary); font-weight:700;">
+
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border-color:#E87524; color:#C2410C; font-weight:800; cursor:pointer;" title="點擊模擬或恢復國際海底電纜通訊">
             ⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)
           </button>
-          <div style="font-size: 0.8rem; color: var(--rust-primary); font-weight: 600;">
-            ⚡ 雙向增量同步 (Delta Sync Engine Active)
+          <button id="btnDeltaSync" class="executive-search-btn" onclick="triggerManualDeltaSync()" style="background:#FFFFFF; border-color:#D98B19; color:#B45309; font-weight:800; cursor:pointer;" title="點擊立即執行雙向增量同步">
+            🔄 執行雙向增量同步 (Delta Sync Engine)
+          </button>
+          <div id="deltaSyncLiveStatus" class="sync-engine-badge" onclick="triggerManualDeltaSync()" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:#F5F5F4; border:1px solid #E7E5E4; padding:5px 12px; border-radius:9999px; font-size:0.75rem; font-weight:700;" title="點擊立即執行同步">
+            <span class="sync-pulse-dot" id="syncPulseDot" style="width:8px; height:8px; border-radius:50%; background:#10B981; display:inline-block;"></span>
+            <span id="deltaSyncStatusText" style="color:#292524;">雙向增量同步引擎運轉中 (Delta Sync Active)</span>
           </div>
         </div>
       </div>
 
+      <!-- Live Telemetry Alert Toast -->
+      <div id="telemetryAlertBanner" style="display:none; padding:12px 18px; border-radius:12px; margin-bottom:16px; font-size:0.85rem; font-weight:700; line-height:1.5; transition:all 0.3s ease;"></div>
+
       <div class="sites-grid">
-        <!-- Site 1 -->
-        <div class="site-card">
+        <!-- Site 1: Vietnam -->
+        <div class="site-card" id="site-card-1">
           <div class="site-name">
-            <span class="site-status-dot dot-green"></span>越南隆安主力廠
+            <span class="site-status-dot dot-green" id="site1-status-dot"></span>越南隆安主力廠
           </div>
           <div class="site-role">Vietnam Hub (燈塔示範廠)</div>
           <div class="site-stat-row">
             <span class="site-stat-label">邊緣模式</span>
-            <span class="site-stat-val" style="color: var(--olive-green);">Local Autonomous</span>
+            <span class="site-stat-val" id="site1-mode" style="color: var(--olive-green);">Local Autonomous</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">離線可用容限</span>
-            <span class="site-stat-val">72 Hours</span>
+            <span class="site-stat-val" id="site1-offline">72 Hours</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">MES 延遲</span>
-            <span class="site-stat-val">12 ms (本地)</span>
+            <span class="site-stat-val font-num" id="site1-latency">12 ms (本地)</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">待同步佇列</span>
-            <span class="site-stat-val">0 件 (已同步)</span>
+            <span class="site-stat-val font-num" id="site1-queue">0 件 (已同步)</span>
           </div>
         </div>
 
-        <!-- Site 2 -->
-        <div class="site-card">
+        <!-- Site 2: Cambodia -->
+        <div class="site-card" id="site-card-2">
           <div class="site-name">
-            <span class="site-status-dot dot-green"></span>柬埔寨金邊廠
+            <span class="site-status-dot dot-green" id="site2-status-dot"></span>柬埔寨金邊廠
           </div>
           <div class="site-role">Cambodia Plant (針織運動)</div>
           <div class="site-stat-row">
             <span class="site-stat-label">邊緣模式</span>
-            <span class="site-stat-val" style="color: var(--olive-green);">Local Autonomous</span>
+            <span class="site-stat-val" id="site2-mode" style="color: var(--olive-green);">Local Autonomous</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">離線可用容限</span>
-            <span class="site-stat-val">48 Hours</span>
+            <span class="site-stat-val" id="site2-offline">48 Hours</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">MES 延遲</span>
-            <span class="site-stat-val">18 ms (本地)</span>
+            <span class="site-stat-val font-num" id="site2-latency">18 ms (本地)</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">待同步佇列</span>
-            <span class="site-stat-val">14 件 (同步中)</span>
+            <span class="site-stat-val font-num" id="site2-queue">14 件 (同步中)</span>
           </div>
         </div>
 
-        <!-- Site 3 -->
-        <div class="site-card">
+        <!-- Site 3: Indonesia -->
+        <div class="site-card" id="site-card-3">
           <div class="site-name">
-            <span class="site-status-dot dot-amber"></span>印尼中爪哇廠
+            <span class="site-status-dot dot-amber" id="site3-status-dot"></span>印尼中爪哇廠
           </div>
           <div class="site-role">Indonesia Plant (無縫貼合)</div>
           <div class="site-stat-row">
             <span class="site-stat-label">邊緣模式</span>
-            <span class="site-stat-val" style="color: var(--amber-gold);">Offline Edge Active</span>
+            <span class="site-stat-val" id="site3-mode" style="color: var(--amber-gold);">Offline Edge Active</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">離線可用容限</span>
-            <span class="site-stat-val">48 Hours</span>
+            <span class="site-stat-val" id="site3-offline">48 Hours</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">公網狀態</span>
-            <span class="site-stat-val" style="color: var(--amber-gold);">海纜波動 · 本地自治</span>
+            <span class="site-stat-val" id="site3-wan" style="color: var(--amber-gold);">海纜波動 · 本地自治</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">待同步佇列</span>
-            <span class="site-stat-val">128 件 (快取安全)</span>
+            <span class="site-stat-val font-num" id="site3-queue">128 件 (快取安全)</span>
           </div>
         </div>
 
-        <!-- Site 4 -->
-        <div class="site-card">
+        <!-- Site 4: Taipei HQ -->
+        <div class="site-card" id="site-card-4">
           <div class="site-name">
-            <span class="site-status-dot dot-green"></span>台北營運總部
+            <span class="site-status-dot dot-green" id="site4-status-dot"></span>台北營運總部
           </div>
           <div class="site-role">Taipei HQ (Data Layer / AI)</div>
           <div class="site-stat-row">
             <span class="site-stat-label">治理核心</span>
-            <span class="site-stat-val" style="color: var(--rust-primary);">Group Master MDM</span>
+            <span class="site-stat-val" id="site4-mdm" style="color: var(--rust-primary);">Group Master MDM</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">API 閘道</span>
-            <span class="site-stat-val">Kong Enterprise</span>
+            <span class="site-stat-val" id="site4-gateway">Kong Enterprise</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">AI 運算叢集</span>
-            <span class="site-stat-val">4x GPU Server (Serving)</span>
+            <span class="site-stat-val font-num" id="site4-ai">4x GPU Server (Serving)</span>
           </div>
           <div class="site-stat-row">
             <span class="site-stat-label">安全防禦</span>
-            <span class="site-stat-val">Zero-Trust Active</span>
+            <span class="site-stat-val" id="site4-security">Zero-Trust Active</span>
           </div>
         </div>
       </div>
@@ -5310,6 +5323,228 @@
   window.addEventListener("DOMContentLoaded", function() {
     switchValueChainStep(0);
   });
+
+
+
+
+
+  // =========================================================================
+  // COMPLETE INTERACTIVITY ENGINE: AUDIT & ENHANCEMENT
+  // =========================================================================
+
+  // 1. Factory Edge Telemetry & Delta Sync Engine
+  let isCableCut = false;
+  let isDeltaSyncing = false;
+
+  function toggleCableCutSimulation() {
+    isCableCut = !isCableCut;
+    const btn = document.getElementById('btnCableCutSim');
+    const banner = document.getElementById('telemetryAlertBanner');
+    const statusTxt = document.getElementById('deltaSyncStatusText');
+    const pulseDot = document.getElementById('syncPulseDot');
+
+    const s1Dot = document.getElementById('site1-status-dot');
+    const s1Mode = document.getElementById('site1-mode');
+    const s1Lat = document.getElementById('site1-latency');
+    const s1Queue = document.getElementById('site1-queue');
+
+    const s2Dot = document.getElementById('site2-status-dot');
+    const s2Mode = document.getElementById('site2-mode');
+    const s2Lat = document.getElementById('site2-latency');
+    const s2Queue = document.getElementById('site2-queue');
+
+    const s3Dot = document.getElementById('site3-status-dot');
+    const s3Mode = document.getElementById('site3-mode');
+    const s3Wan = document.getElementById('site3-wan');
+    const s3Queue = document.getElementById('site3-queue');
+
+    const s4Dot = document.getElementById('site4-status-dot');
+    const s4Sec = document.getElementById('site4-security');
+
+    if (isCableCut) {
+      if (btn) {
+        btn.innerHTML = '🔌 恢復海纜通訊 (Restore Network)';
+        btn.style.background = '#FEF2F2';
+        btn.style.borderColor = '#EF4444';
+        btn.style.color = '#B91C1C';
+      }
+      if (statusTxt) {
+        statusTxt.textContent = '🟠 海纜斷網模擬中 · 海外 3 廠切換 DuckDB 48~72h 離線自律 (0停工)';
+        statusTxt.style.color = '#C2410C';
+      }
+      if (pulseDot) pulseDot.style.background = '#F59E0B';
+
+      if (banner) {
+        banner.style.display = 'block';
+        banner.style.background = '#FFFBEB';
+        banner.style.border = '1px solid #FDE68A';
+        banner.style.color = '#B45309';
+        banner.innerHTML = '⚡ <strong>[突發斷網演練啟動]</strong> 國際海纜中斷！海外 3 大基地自動切換為研華工業邊緣主機（DuckDB）本地 48~72h 自律生產模式！MES 裁床零停工，待同步佇列安全暫存中。';
+      }
+
+      if (s1Dot) s1Dot.className = 'site-status-dot dot-amber';
+      if (s1Mode) { s1Mode.textContent = 'Offline Autonomous Active'; s1Mode.style.color = '#D98B19'; }
+      if (s1Lat) s1Lat.textContent = '4 ms (本地DuckDB快取)';
+      if (s1Queue) { s1Queue.textContent = '284 件 (安全佇列中)'; s1Queue.style.color = '#B45309'; }
+
+      if (s2Dot) s2Dot.className = 'site-status-dot dot-amber';
+      if (s2Mode) { s2Mode.textContent = 'Offline Autonomous Active'; s2Mode.style.color = '#D98B19'; }
+      if (s2Lat) s2Lat.textContent = '5 ms (本地DuckDB快取)';
+      if (s2Queue) { s2Queue.textContent = '178 件 (安全佇列中)'; s2Queue.style.color = '#B45309'; }
+
+      if (s3Dot) s3Dot.className = 'site-status-dot dot-amber';
+      if (s3Mode) { s3Mode.textContent = 'Offline Autonomous Active'; s3Mode.style.color = '#D98B19'; }
+      if (s3Wan) { s3Wan.textContent = '海纜中斷 · 本地自律生產中'; s3Wan.style.color = '#EF4444'; }
+      if (s3Queue) { s3Queue.textContent = '412 件 (安全佇列中)'; s3Queue.style.color = '#B45309'; }
+
+      if (s4Sec) { s4Sec.textContent = 'Buffer Queue Active (等待復聯)'; s4Sec.style.color = '#D98B19'; }
+    } else {
+      if (btn) {
+        btn.innerHTML = '⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)';
+        btn.style.background = '#FFF7ED';
+        btn.style.borderColor = '#E87524';
+        btn.style.color = '#C2410C';
+      }
+      if (banner) {
+        banner.style.display = 'block';
+        banner.style.background = '#F0FDF4';
+        banner.style.border = '1px solid #BBF7D0';
+        banner.style.color = '#15803D';
+        banner.innerHTML = '✅ <strong>[海纜通訊復聯]</strong> 國際專線連線恢復！自動喚醒 Delta Sync Engine 雙向增量同步引擎，開始將累積之 874 筆工單無損拋轉回總部湖倉！';
+      }
+      triggerManualDeltaSync();
+    }
+  }
+
+  function triggerManualDeltaSync() {
+    if (isDeltaSyncing) return;
+    isDeltaSyncing = true;
+
+    const btnSync = document.getElementById('btnDeltaSync');
+    const banner = document.getElementById('telemetryAlertBanner');
+    const statusTxt = document.getElementById('deltaSyncStatusText');
+    const pulseDot = document.getElementById('syncPulseDot');
+
+    const s1Dot = document.getElementById('site1-status-dot');
+    const s1Mode = document.getElementById('site1-mode');
+    const s1Lat = document.getElementById('site1-latency');
+    const s1Queue = document.getElementById('site1-queue');
+
+    const s2Dot = document.getElementById('site2-status-dot');
+    const s2Mode = document.getElementById('site2-mode');
+    const s2Lat = document.getElementById('site2-latency');
+    const s2Queue = document.getElementById('site2-queue');
+
+    const s3Dot = document.getElementById('site3-status-dot');
+    const s3Mode = document.getElementById('site3-mode');
+    const s3Wan = document.getElementById('site3-wan');
+    const s3Queue = document.getElementById('site3-queue');
+
+    const s4Dot = document.getElementById('site4-status-dot');
+    const s4Sec = document.getElementById('site4-security');
+
+    if (btnSync) {
+      btnSync.innerHTML = '🔄 雙向增量同步中 (Syncing...)';
+      btnSync.disabled = true;
+      btnSync.style.opacity = '0.7';
+    }
+    if (statusTxt) {
+      statusTxt.textContent = '🔄 雙向增量同步中... 比對 DuckDB WAL 日誌與總部 Delta Lake...';
+      statusTxt.style.color = '#C2410C';
+    }
+    if (pulseDot) pulseDot.style.background = '#E87524';
+
+    setTimeout(function() {
+      if (s1Queue) s1Queue.textContent = '120 件 (同步中...)';
+      if (s2Queue) s2Queue.textContent = '64 件 (同步中...)';
+      if (s3Queue) s3Queue.textContent = '180 件 (同步中...)';
+    }, 600);
+
+    setTimeout(function() {
+      isDeltaSyncing = false;
+      isCableCut = false;
+
+      if (btnSync) {
+        btnSync.innerHTML = '🔄 執行雙向增量同步 (Delta Sync Engine)';
+        btnSync.disabled = false;
+        btnSync.style.opacity = '1';
+      }
+
+      const btnCut = document.getElementById('btnCableCutSim');
+      if (btnCut) {
+        btnCut.innerHTML = '⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)';
+        btnCut.style.background = '#FFF7ED';
+        btnCut.style.borderColor = '#E87524';
+        btnCut.style.color = '#C2410C';
+      }
+
+      if (statusTxt) {
+        statusTxt.textContent = '🟢 雙向增量同步完成 · 全球 4 大基地 100% 同步 (0 佇列)';
+        statusTxt.style.color = '#15803D';
+      }
+      if (pulseDot) pulseDot.style.background = '#10B981';
+
+      if (s1Dot) s1Dot.className = 'site-status-dot dot-green';
+      if (s1Mode) { s1Mode.textContent = 'Local Autonomous'; s1Mode.style.color = 'var(--olive-green)'; }
+      if (s1Lat) s1Lat.textContent = '12 ms (本地)';
+      if (s1Queue) { s1Queue.textContent = '0 件 (100% 已同步)'; s1Queue.style.color = 'inherit'; }
+
+      if (s2Dot) s2Dot.className = 'site-status-dot dot-green';
+      if (s2Mode) { s2Mode.textContent = 'Local Autonomous'; s2Mode.style.color = 'var(--olive-green)'; }
+      if (s2Lat) s2Lat.textContent = '18 ms (本地)';
+      if (s2Queue) { s2Queue.textContent = '0 件 (100% 已同步)'; s2Queue.style.color = 'inherit'; }
+
+      if (s3Dot) s3Dot.className = 'site-status-dot dot-green';
+      if (s3Mode) { s3Mode.textContent = 'Local Autonomous'; s3Mode.style.color = 'var(--olive-green)'; }
+      if (s3Wan) { s3Wan.textContent = '專線復原 · 雙軌就緒'; s3Wan.style.color = 'var(--olive-green)'; }
+      if (s3Queue) { s3Queue.textContent = '0 件 (100% 已同步)'; s3Queue.style.color = 'inherit'; }
+
+      if (s4Dot) s4Dot.className = 'site-status-dot dot-green';
+      if (s4Sec) { s4Sec.textContent = 'Zero-Trust Active'; s4Sec.style.color = 'inherit'; }
+
+      if (banner) {
+        banner.style.display = 'block';
+        banner.style.background = '#F0FDF4';
+        banner.style.border = '1px solid #BBF7D0';
+        banner.style.color = '#15803D';
+        banner.innerHTML = '✅ <strong>[雙向增量同步完成 (Sync Completed in 1.2s)]</strong> 874 筆海外離線車間 MES、RFID 與裁床日誌已成功無損拋轉至台北總部 Databricks 湖倉！全集團 SSOT 單一真理已全量對齊！';
+      }
+    }, 1200);
+  }
+
+  // 2. Ready-to-Sew 4-Gate Toggle by Row
+  function toggleGate(gateId) {
+    const cb = document.getElementById(gateId);
+    if (cb) {
+      cb.checked = !cb.checked;
+      calculateGateStatus();
+    }
+  }
+
+  // 3. Search & Scope Filtering inside Pillar
+  function filterScopeItems() {
+    const input = document.getElementById('scopeSearch');
+    if (!input) return;
+    const q = input.value.trim().toLowerCase();
+    const container = document.getElementById('pillarExpandedView');
+    if (!container) return;
+    const items = container.querySelectorAll('.subdomain-card, .pillar-module-card, li, .detail-card, tr');
+    items.forEach(el => {
+      if (!q) {
+        el.style.display = '';
+      } else {
+        const match = el.textContent.toLowerCase().includes(q);
+        el.style.display = match ? '' : 'none';
+      }
+    });
+  }
+
+  // 4. Modal Backdrop Closer
+  function closeSearchModalOnBackdrop(event) {
+    if (event.target && event.target.id === 'searchModalBackdrop') {
+      closeSearchModal();
+    }
+  }
 
 
 </script>
