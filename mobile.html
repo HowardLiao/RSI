@@ -5077,12 +5077,26 @@
     }
 
     function setLanguage(lang) {
-      currentLang = ['zh', 'en', 'vi'].includes(lang) ? lang : 'zh';
+      currentLang = ['zh', 'en', 'ja', 'vi'].includes(lang) ? lang : 'zh';
       const dict = i18n_multilingual[currentLang] || i18n_multilingual.zh;
+
+      // Update active style on all lang pill buttons
+      ['zh', 'en', 'ja', 'vi'].forEach(l => {
+        document.querySelectorAll(`#langBtn-${l}, #drawer-langBtn-${l}`).forEach(btn => {
+          if (l === currentLang) {
+            btn.style.background = 'var(--rust-primary)';
+            btn.style.color = '#fff';
+          } else {
+            btn.style.background = 'transparent';
+            btn.style.color = '#57534E';
+          }
+        });
+      });
 
       // Update Dropdown Header Display
       const disp = document.getElementById("currentLangDisplay");
-      if (disp && langDisplayMap[currentLang]) disp.innerText = langDisplayMap[currentLang];
+      const langNames = { zh: "🇹🇼 繁體中文 ▼", en: "🇬🇧 English ▼", ja: "🇯🇵 日本語 ▼", vi: "🇻🇳 Tiếng Việt ▼" };
+      if (disp && langNames[currentLang]) disp.innerText = langNames[currentLang];
       document.querySelectorAll(".lang-option").forEach(opt => opt.classList.remove("active"));
       const activeOpt = document.getElementById(`opt-${currentLang}`);
       if (activeOpt) activeOpt.classList.add("active");
@@ -5095,6 +5109,7 @@
       if (document.getElementById('nav-pillars')) document.getElementById('nav-pillars').innerText = dict.navPillars;
       if (document.getElementById('nav-logic')) document.getElementById('nav-logic').innerText = dict.navLogic;
       if (document.getElementById('nav-gate')) document.getElementById('nav-gate').innerText = dict.navGate;
+      if (document.getElementById('nav-wbs')) document.getElementById('nav-wbs').innerText = dict.navWbs || "📅 2027 WBS 甘特圖";
       if (document.getElementById('nav-recom')) document.getElementById('nav-recom').innerText = dict.navRecom;
 
       // Update Masthead & Leadership
