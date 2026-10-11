@@ -3250,33 +3250,24 @@
             <span id="t-searchBtnText">搜尋 ⌘K</span>
           </button>
 
-                              <!-- Executive Multi-Language Dropdown Menu (ZH / EN / JA / VI) -->
-          <div class="executive-lang-picker" id="langPickerWrap" style="position: relative; display: inline-block;">
-            <button type="button" class="lang-picker-toggle-btn" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" aria-expanded="false" aria-haspopup="true" style="display: inline-flex; align-items: center; gap: 6px; background: #FFFFFF; border: 1.5px solid var(--border-subtle); padding: 6px 14px; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; color: var(--text-charcoal); cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);" title="選擇顯示語言 (Select Language / 言語選択)">
-              <span style="font-size: 0.95rem;">🌐</span>
-              <span id="currentLangDisplay">🇹🇼 繁體中文</span>
-              <span id="langDropdownArrow" style="font-size: 0.65rem; color: var(--text-muted); transition: transform 0.2s ease;">▼</span>
+                                        <!-- Segmented Multi-Language Switcher (ZH / EN / JA / VI) -->
+          <div class="lang-pill-switcher" id="langSwitcherBar" role="tablist" aria-label="語言切換 (Language Switcher)" style="display: inline-flex; align-items: center; background: #F5F5F4; border: 1.5px solid #E7E5E4; border-radius: 9999px; padding: 2px 3px; gap: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <button type="button" class="lang-switch-btn active" id="langBtn-zh" onclick="setLanguage('zh')" role="tab" aria-selected="true" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 800; cursor: pointer; background: #E87524; color: #FFFFFF; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 6px rgba(232, 117, 36, 0.3);">
+              <span style="font-size: 0.85rem;">🇹🇼</span>
+              <span>中文</span>
             </button>
-
-            <!-- Dropdown Menu Box -->
-            <div class="lang-picker-dropdown-menu" id="langDropdownMenu" role="menu" style="display: none; position: absolute; top: calc(100% + 6px); right: 0; min-width: 195px; background: #FFFFFF; border: 1.5px solid var(--border-subtle); border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,0.15); padding: 6px; z-index: 999999; backdrop-filter: blur(8px);">
-              <div class="lang-menu-item active" id="menuOpt-zh" onclick="selectLang('zh')" role="menuitem" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; color: var(--rust-primary); background: #FFF3EB; cursor: pointer; transition: background 0.15s ease;">
-                <span>🇹🇼 繁體中文</span>
-                <span class="lang-check" id="check-zh" style="color: var(--rust-primary); font-weight: 900;">✓</span>
-              </div>
-              <div class="lang-menu-item" id="menuOpt-en" onclick="selectLang('en')" role="menuitem" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; color: var(--text-charcoal); cursor: pointer; transition: background 0.15s ease;">
-                <span>🇬🇧 Global English</span>
-                <span class="lang-check" id="check-en" style="display: none; color: var(--rust-primary); font-weight: 900;">✓</span>
-              </div>
-              <div class="lang-menu-item" id="menuOpt-ja" onclick="selectLang('ja')" role="menuitem" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; color: var(--text-charcoal); cursor: pointer; transition: background 0.15s ease;">
-                <span>🇯🇵 日本語 (Japanese)</span>
-                <span class="lang-check" id="check-ja" style="display: none; color: var(--rust-primary); font-weight: 900;">✓</span>
-              </div>
-              <div class="lang-menu-item" id="menuOpt-vi" onclick="selectLang('vi')" role="menuitem" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; color: var(--text-charcoal); cursor: pointer; transition: background 0.15s ease;">
-                <span>🇻🇳 Tiếng Việt</span>
-                <span class="lang-check" id="check-vi" style="display: none; color: var(--rust-primary); font-weight: 900;">✓</span>
-              </div>
-            </div>
+            <button type="button" class="lang-switch-btn" id="langBtn-en" onclick="setLanguage('en')" role="tab" aria-selected="false" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 700; cursor: pointer; background: transparent; color: #44403C; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+              <span style="font-size: 0.85rem;">🇬🇧</span>
+              <span>English</span>
+            </button>
+            <button type="button" class="lang-switch-btn" id="langBtn-ja" onclick="setLanguage('ja')" role="tab" aria-selected="false" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 700; cursor: pointer; background: transparent; color: #44403C; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+              <span style="font-size: 0.85rem;">🇯🇵</span>
+              <span>日本語</span>
+            </button>
+            <button type="button" class="lang-switch-btn" id="langBtn-vi" onclick="setLanguage('vi')" role="tab" aria-selected="false" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 700; cursor: pointer; background: transparent; color: #44403C; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+              <span style="font-size: 0.85rem;">🇻🇳</span>
+              <span>Tiếng Việt</span>
+            </button>
           </div>
 
           <button onclick="window.print()" class="executive-search-btn" style="padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem;">
@@ -5643,43 +5634,23 @@
       currentLang = ['zh', 'en', 'ja', 'vi'].includes(lang) ? lang : 'zh';
       const dict = i18n_multilingual[currentLang] || i18n_multilingual.zh;
 
-      // Update Dropdown Header and Active Menu Items
-      const langNames = { zh: "🇹🇼 繁體中文", en: "🇬🇧 Global English", ja: "🇯🇵 日本語", vi: "🇻🇳 Tiếng Việt" };
-      const disp = document.getElementById("currentLangDisplay");
-      if (disp && langNames[currentLang]) disp.innerText = langNames[currentLang];
-
+      // Update Active Switcher Pill Styling
       ['zh', 'en', 'ja', 'vi'].forEach(l => {
-        // Desktop Menu items
-        const item = document.getElementById(`menuOpt-${l}`);
-        const chk = document.getElementById(`check-${l}`);
-        if (item) {
+        document.querySelectorAll(`#langBtn-${l}, #drawer-langBtn-${l}`).forEach(btn => {
           if (l === currentLang) {
-            item.classList.add('active');
-            item.style.background = '#FFF3EB';
-            item.style.color = 'var(--rust-primary)';
+            btn.classList.add('active');
+            btn.style.background = '#E87524';
+            btn.style.color = '#FFFFFF';
+            btn.style.boxShadow = '0 2px 6px rgba(232, 117, 36, 0.3)';
+            btn.setAttribute('aria-selected', 'true');
           } else {
-            item.classList.remove('active');
-            item.style.background = 'transparent';
-            item.style.color = 'var(--text-charcoal)';
+            btn.classList.remove('active');
+            btn.style.background = 'transparent';
+            btn.style.color = '#44403C';
+            btn.style.boxShadow = 'none';
+            btn.setAttribute('aria-selected', 'false');
           }
-        }
-        if (chk) chk.style.display = (l === currentLang ? 'inline' : 'none');
-
-        // Mobile Drawer Menu items
-        const dItem = document.getElementById(`drawer-menuOpt-${l}`);
-        const dChk = document.getElementById(`drawer-check-${l}`);
-        if (dItem) {
-          if (l === currentLang) {
-            dItem.style.background = 'var(--rust-primary)';
-            dItem.style.color = '#fff';
-            dItem.style.border = 'none';
-          } else {
-            dItem.style.background = '#fff';
-            dItem.style.color = '#44403C';
-            dItem.style.border = '1px solid var(--border-subtle)';
-          }
-        }
-        if (dChk) dChk.style.display = (l === currentLang ? 'inline' : 'none');
+        });
       });
 
       // Update Top Nav Items
