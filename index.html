@@ -2874,17 +2874,21 @@
             <span id="t-searchBtnText">搜尋 ⌘K</span>
           </button>
 
-          <!-- Language Picker -->
-          <div class="executive-lang-picker" id="langPickerWrap">
-            <button type="button" class="lang-picker-toggle" id="langPickerToggleBtn" onclick="toggleLangDropdown(event)" style="cursor:pointer; user-select:none; padding: 5px 12px; border-radius: 9999px; font-size: 0.75rem;">
-              <span>🌐</span>
-              <span id="currentLangDisplay">🇹🇼 繁體中文 ▼</span>
+                    <!-- Segmented Multi-Language Controller (ZH / EN / JA / VI) -->
+          <div class="lang-pill-group" style="display: inline-flex; background: #F5F5F4; border: 1.5px solid #E7E5E4; border-radius: 9999px; padding: 2px; gap: 2px;">
+            <button type="button" class="lang-pill-btn active" id="langBtn-zh" onclick="setLanguage('zh')" style="padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.75rem; font-weight: 800; cursor: pointer; background: var(--rust-primary); color: #fff; transition: all 0.2s ease;">
+              🇹🇼 中文
             </button>
-            <div class="lang-picker-dropdown" id="langPickerDropdown" style="display:none;">
-              <div class="lang-picker-item selected" onclick="selectLanguage('zh')" id="optLangZh">🇹🇼 繁體中文</div>
-              <div class="lang-picker-item" onclick="selectLanguage('en')" id="optLangEn">🇬🇧 Global English</div>
-              <div class="lang-picker-item" onclick="selectLanguage('vi')" id="optLangVi">🇻🇳 Tiếng Việt</div>
-            </div>
+            <button type="button" class="lang-pill-btn" id="langBtn-en" onclick="setLanguage('en')" style="padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.75rem; font-weight: 800; cursor: pointer; background: transparent; color: #57534E; transition: all 0.2s ease;">
+              🇬🇧 English
+            </button>
+            <button type="button" class="lang-pill-btn" id="langBtn-ja" onclick="setLanguage('ja')" style="padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.75rem; font-weight: 800; cursor: pointer; background: transparent; color: #57534E; transition: all 0.2s ease;">
+              🇯🇵 日本語
+            </button>
+            <button type="button" class="lang-pill-btn" id="langBtn-vi" onclick="setLanguage('vi')" style="padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.75rem; font-weight: 800; cursor: pointer; background: transparent; color: #57534E; transition: all 0.2s ease;">
+              🇻🇳 Tiếng Việt
+            </button>
+          </div>
           </div>
 
           <button onclick="window.print()" class="executive-search-btn" style="padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem;">
@@ -4357,6 +4361,102 @@
 
     // 2. Comprehensive Trilingual UI Dictionary
     const i18n_multilingual = {
+
+      ja: {
+        navInvest: "2027 投資方針と予算配分",
+        navEvo: "3カ年進化ロードマップ (2025–2027)",
+        navAnalytics: "戦略データ＆動態分析",
+        navEdge: "多国籍エッジ自律稼働テレメトリ",
+        navPillars: "4大主要アーキテクチャ (Four Pillars)",
+        navLogic: "階層型バリューチェーン",
+        navGate: "Ready-to-Sew 投入ゲート管理",
+        navWbs: "📅 2027 WBS ガントチャート",
+        navRecom: "グローバルIT幹部 6大提言",
+        mainTitle: "2027 IT 運用計画アーキテクチャ戦略会議<br><span class=\"accent\">統合運用・インテリジェントオペレーション</span>",
+        lead: "RSI信源グローバル機能性アパレル製造を基盤とし、「個別導入」から「データガバナンス、エッジレジリエンス、AI協調、インテリジェント意思決定」へ飛躍する多国籍運用青写真。",
+        sponsorChip: "<span>報告対象：</span> <strong>周文津 副総経理</strong>",
+        authorChip: "<span>実行責任者：</span> <strong>Howard Liao Ph.D.</strong>",
+        leadershipTitle: "<span>周文津 副総経理 <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">プロジェクト総括</span></span><span style=\"color: var(--border-subtle);\">|</span><span>Howard Liao Ph.D. <span style=\"font-size: 0.92rem; font-weight: 500; color: var(--text-muted);\">実行責任者</span></span>",
+        metric1Lbl: "中核戦略アーキテクチャ",
+        metric2Lbl: "デジタル領域サブドメイン",
+        metric3Lbl: "海外エッジオフライン自律",
+        searchBtnText: "青写真検索... ⌘K",
+        searchPlaceholder: "4大柱、25プロジェクト、ゲート基準、財務モデルをキーワード検索... [ ⌘K ]",
+        printBtnText: "レポート印刷",
+        investEyebrow: "戦略的投資・資本ガバナンス · C-Level 戦略",
+        investTitle: "2027 IT 投資方針と資本配分ガバナンス",
+        investDesc: "2027年のIT投資方針は「運用の強靭性、AIスケール化、信頼できるデータ、コスト最適化」を柱とし、予算配分を55% Run、25% Grow、20% Transformに設定。FinOpsとライセンス統合で運用保守費を8〜12%削減し、Agentic AIでコア工数を15〜25%解放、Tier-1システムのRTO/RPOを国際監査水準へ引き上げます。",
+        cardResilienceTitle: "運用の強靭性",
+        cardResilienceSub: "Operational Resilience",
+        cardResilienceDesc: "東南アジア海外工場のエッジオフライン自律稼働とゼロトラスト多層防御を確立し、Tier-1コア製造の改ざん防止バックアップと監査対応復旧力を保証。",
+        cardAiTitle: "AI スケール化",
+        cardAiSub: "AI at Scale & Agentic AI",
+        cardAiDesc: "Agentic AIをCS、生産管理進捗、多言語仕様書ナレッジ（RAG）、IE縫製工順に全面導入し、受動的な照会から自律協調エージェントへ進化。",
+        cardDataTitle: "データの信頼性",
+        cardDataSub: "Data Trustworthiness",
+        cardDataDesc: "全社単一の真実（SSOT）を確立し、マスターデータ（MDM）を統一定義。厳格な属性ベースアクセス制御（ABAC）とデータ監査を実施。",
+        cardCostTitle: "コスト最適化",
+        cardCostSub: "Cost Governance & FinOps",
+        cardCostDesc: "クラウドとインフラのFinOpsを徹底、重複ライセンス統合と基盤近代化により運用維持費を抑制し、成長投資へ転換。",
+        budgetTitle: "2027 IT 予算配分モデル (Gartner R-G-T)",
+        budgetPillRun: "● 55% Run (基盤維持・安定運用)",
+        budgetPillGrow: "● 25% Grow (事業成長・機能拡張)",
+        budgetPillTrans: "● 20% Transform (変革・AIイノベーション)",
+        commitmentsTitle: "3大中核財務・パフォーマンスコミットメント指標",
+        commit1Title: "IT運用保守コスト削減 (FinOps & Consolidation)",
+        commit1Desc: "FinOpsの権限最適化、アイドル資源解放、重複ライセンス統合、インフラ近代化により、制御可能なIT Run Costを実質8〜12%削減。",
+        commit2Title: "特定コア業務の工数解放 (Agentic AI Empowerment)",
+        commit2Desc: "CS、PMC納期追跡、Tech Pack仕様書多言語RAG、IE縫製工程へのAgentic AI導入により、特定業務工数を15〜25%解放。",
+        commit3Title: "Tier-1 システム災害復旧とセキュリティ監査 (Auditable RTO/RPO)",
+        commit3Desc: "基幹製造システムの高可用性を国際基準へ高め、Tier-1システムのRTO/RPOおよびインシデント復旧能力を外部監査水準へ昇格。",
+        evoEyebrow: "戦略的進化タイムライン",
+        evoTitle: "2025〜2027 IT 発展進化の軌跡",
+        evoDesc: "3年間の進化段階を明確化：基盤ツール構築からプロセス連携へ、2027年にはデータガバナンスとインテリジェント自律支援へ集約。",
+        analyticsEyebrow: "エグゼクティブ・ビジュアル分析",
+        analyticsTitle: "戦略データ＆動態チャート分析",
+        analyticsDesc: "多次元の定量的モデルを通じて、IT資本配分の重心移行、製造KPI効果予測、AI適用ロードマップを直観的に可視化。",
+        ieEyebrow: "対話型 IE シミュレーション・エンジン",
+        ieTitle: "IE 縫製ラインバランス＆生産性リアルタイム演算シミュレーター",
+        ieDesc: "作業者のスキル習熟度と部材揃い率を動的に調整し、ラインバランス率（Line Balance Rate）と日産出量を即時シミュレーション。",
+        sliderSkillLbl: "縫製工段スキルマトリクス成熟度 (Worker Skill Index)",
+        sliderReadyLbl: "裁断スーパーマーケット副資材揃い率 (Sewing Ready Ratio)",
+        ieMetric1Lbl: "推定縫製ラインバランス率",
+        ieMetric2Lbl: "工場総合設備効率 (OEE)",
+        ieMetric3Lbl: "単組標準日産出量",
+        ieMetric4Lbl: "タクトボトルネック待機損失 (SAM)",
+        edgeEyebrow: "ハイブリッド・エッジ強靭性モニター",
+        edgeTitle: "RSI多国籍工場エッジ強靭性＆リアルタイム通信テレメトリ",
+        edgeDesc: "Edge Survivability（エッジオフライン自律稼働アーキテクチャ）を実装：海底ケーブルが切断されても、現場MES・裁断・ハンガーは48〜72時間自律生産を継続。",
+        edgeStatusLive: "⚡ 双方向増分同期 (Delta Sync Engine Active)",
+        edgePullBtn: "🔌 海底ケーブル切断模擬 (Pull Cable)",
+        edgeRestoreBtn: "⚡ ネットワーク通信復旧 (Restore Network)",
+        pillarsEyebrow: "中核アーキテクチャの4大柱",
+        pillarsTitle: "2027 4大中核アーキテクチャ詳細解説",
+        pillarsDesc: "デジタル基盤を礎とし、業務プロセスを縦軸、スマート設備を感覚器、インテリジェント意思決定を司令塔として端到端のデジタルレジリエンスを構築。",
+        pillarTab1: "Pillar I · デジタル基盤＆ガバナンス",
+        pillarTab2: "Pillar II · 業務プロセス統合",
+        pillarTab3: "Pillar III · インテリジェント運用＆意思決定",
+        pillarTab4: "Pillar IV · スマート製造＆設備",
+        logicEyebrow: "アーキテクチャ階層と価値フロー",
+        logicTitle: "4大アーキテクチャ連携の階層型バリューチェーン",
+        logicDesc: "物理インフラから最上位のAI協調に至る段階的サポートロジックを示し、データがどのように経営価値へ変換されるかを可視化。",
+        gateEyebrow: "Ready-to-Sew インタラクティブ・シミュレーター",
+        gateTitle: "Ready-to-Sew（投入前ゲート管理）シミュレーター",
+        gateDesc: "アパレル縫製現場での部材未揃い投入を撲滅。4つの剛性ゲートが100%充足されるまで、システムは出庫・投入を硬性ロック。",
+        gate1Lbl: "Gate 1 · 原副資材揃い検証 (BOM & Trims Ready)",
+        gate1Sub: "表地、ゴムテープ、ファスナー、ミシン糸が全量到着し、検査合格・入庫済み。",
+        gate2Lbl: "Gate 2 · 仕様書・型紙ロック (Tech Pack & CAD Sealed)",
+        gate2Sub: "最新縫製仕様書、ステッチ密度SPI、マーキング配置図が承認済みで疑義なし。",
+        gate3Lbl: "Gate 3 · MQP 量産前サンプル封印 (Pre-Production Approval)",
+        gate3Sub: "PPミーティング完了、初品サンプルが品質管理とバイヤーにより承認・封印済み。",
+        gate4Lbl: "Gate 4 · 裁断パーツスーパーマーケット準備完了 (Supermarket Buffer Ready)",
+        gate4Sub: "自動裁断完了、高難度圧着・特殊工序半製品が100%ラインサイドへ供給済み。",
+        recomEyebrow: "戦略的価値の深化",
+        recomTitle: "グローバルIT幹部 6大重要アップグレード提言",
+        recomDesc: "RSI信源グローバルの高機能スポーツウェア・水着製造基盤に立ち、技術的強靭性と損益改善を両立する深化策を取締役会へ提言。",
+        footerText: "報告対象：周文津 副総経理 ｜ 実行責任者：Howard Liao Ph.D."
+      },
+
       zh: {
         navInvest: "2027 投資主軸與預算",
         navEvo: "三年演進軌跡 (2025–2027)",
