@@ -3049,131 +3049,6 @@
     animation: fluidParticleTravel 1.8s infinite ease-in-out;
   }
 
-
-  /* =========================================================================
-     ACCESSIBILITY (WCAG 2.1 AA) & ERGONOMIC FRIENDLINESS
-     ========================================================================= */
-
-  /* 1. Universal Focus Visible Ring */
-  :focus-visible {
-    outline: 3px solid #E87524 !important;
-    outline-offset: 3px !important;
-    border-radius: 4px;
-  }
-
-  /* 2. Skip to Main Content Link */
-  .skip-to-content-link {
-    position: absolute;
-    top: -60px;
-    left: 16px;
-    background: #E87524;
-    color: #FFFFFF;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-weight: 800;
-    font-size: 0.85rem;
-    z-index: 2147483647;
-    transition: top 0.2s ease;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  }
-  .skip-to-content-link:focus {
-    top: 16px;
-  }
-
-  /* 3. Scroll-Reveal Animation Engine */
-  .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-  }
-  .reveal-on-scroll.revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* 4. Desktop Hover Micro-Interactions */
-  @media (hover: hover) and (pointer: fine) {
-    .bento-card:hover {
-      transform: translateY(-4px);
-      border-color: #E87524;
-      box-shadow: 0 10px 25px -5px rgba(232, 117, 36, 0.18);
-    }
-    .strategy-focus-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      border-color: var(--orange-vibrant);
-    }
-    .pillar-nav-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--orange-vibrant);
-    }
-    .timeline-tab-btn:hover {
-      transform: translateY(-2px);
-      border-color: var(--orange-vibrant);
-    }
-    .executive-search-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-  }
-
-  /* 5. Mobile Ergonomic Touch Targets & Feedback */
-  .dock-item, .lang-picker-toggle-btn, .executive-search-btn, .timeline-tab-btn, .pillar-nav-card {
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-  }
-  .dock-item:active, .lang-picker-toggle-btn:active {
-    transform: scale(0.94);
-  }
-
-  /* Smooth Scrolling offset */
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 84px;
-  }
-
-  /* Fixed Mobile Header and Container Adjustments */
-  @media (max-width: 640px) {
-    html {
-      scroll-padding-top: 110px;
-    }
-    .container {
-      padding: 20px 14px 100px 14px !important;
-    }
-    .hero-title-main {
-      font-size: 1.85rem !important;
-      line-height: 1.2 !important;
-    }
-    .bento-num {
-      font-size: 1.55rem !important;
-    }
-    .author-dossier-card {
-      padding: 16px !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
-    }
-    .author-metrics-summary {
-      justify-content: space-between !important;
-      margin-top: 12px !important;
-      gap: 12px !important;
-    }
-    .timeline-tabs {
-      grid-template-columns: 1fr !important;
-      gap: 10px !important;
-    }
-    .sites-grid {
-      grid-template-columns: 1fr !important;
-    }
-    .pillars-nav-grid {
-      grid-template-columns: 1fr !important;
-    }
-    .sim-grid {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
 </style>
 </head>
 <body>
@@ -3223,26 +3098,18 @@
             <span>📅</span>
             <span>全專案 WBS 甘特圖</span>
           </a>
-          <a href="RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf" download="RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf" class="executive-search-btn" style="text-decoration: none; background: #FFF1F2; border: 1.5px solid var(--border-accent); color: var(--rust-primary); font-weight: 800; padding: 6px 14px; border-radius: 9999px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;" title="下載完整 34 頁高管簡報 PDF">
-            <span>📥</span>
-            <span>下載簡報 PDF (34頁)</span>
-          </a>
-          <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (34頁)')" class="executive-search-btn" style="background:#FFF; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; padding:6px 14px; border-radius:9999px; font-size:0.78rem; cursor:pointer;" title="線上即時預覽簡報 PDF">
-            <span>👁️</span>
-            <span>預覽簡報 PDF</span>
-          </button>
           <a href="gantt_chart_2027.html" target="_blank" class="executive-search-btn" style="text-decoration: none; background: #FFF; border: 1px solid var(--border-subtle); color: var(--text-charcoal); font-weight: 700; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;" title="在新分頁開啟完整甘特圖">
             <span>↗</span>
             <span>獨立全屏甘特圖</span>
           </a>
-          <a href="organization_resources.html" class="executive-search-btn" style="text-decoration: none; background: #FAF5FF; border: 1px solid #D8B4FE; color: #7E22CE; font-weight: 700; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
-            <span>👥</span>
-            <span>組織與資源配置</span>
+          <a href="#doc-center" class="executive-search-btn" style="text-decoration: none; background: #FFF1F2; border: 1.5px solid var(--border-accent); color: var(--rust-primary); font-weight: 800; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
+            <span>📑</span>
+            <span>文檔預覽中心</span>
           </a>
-          <a href="inventory_discovery.html" class="executive-search-btn" style="text-decoration: none; background: #F0FDF4; border: 1px solid #86EFAC; color: #15803D; font-weight: 700; padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
-            <span>📋</span>
-            <span>職能與設備盤點</span>
-          </a>
+          <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (34頁)')" class="executive-search-btn" style="background:#FFF; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; padding:6px 14px; border-radius:9999px; font-size:0.78rem; cursor:pointer;" title="線上即時預覽簡報 PDF (僅供預覽)">
+            <span>👁️</span>
+            <span>預覽簡報 PDF (34頁)</span>
+          </button>
 
           <!-- Search Trigger -->
           <button class="executive-search-btn" onclick="openSearchModal()" style="padding: 6px 14px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">
@@ -3250,7 +3117,7 @@
             <span id="t-searchBtnText">搜尋 ⌘K</span>
           </button>
 
-                                        <!-- Segmented Multi-Language Switcher (ZH / EN / JA / VI) -->
+          <!-- Segmented Multi-Language Switcher (ZH / EN / JA / VI) -->
           <div class="lang-pill-switcher" id="langSwitcherBar" role="tablist" aria-label="語言切換 (Language Switcher)" style="display: inline-flex; align-items: center; background: #F5F5F4; border: 1.5px solid #E7E5E4; border-radius: 9999px; padding: 2px 3px; gap: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
             <button type="button" class="lang-switch-btn active" id="langBtn-zh" onclick="setLanguage('zh')" role="tab" aria-selected="true" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 800; cursor: pointer; background: #E87524; color: #FFFFFF; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 6px rgba(232, 117, 36, 0.3);">
               <span style="font-size: 0.85rem;">🇹🇼</span>
@@ -3269,6 +3136,12 @@
               <span>Tiếng Việt</span>
             </button>
           </div>
+
+          <button onclick="window.print()" class="executive-search-btn" style="padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem;">
+            🖨️ 列印
+          </button>
+        </div>
+      </div>
 
           <button onclick="window.print()" class="executive-search-btn" style="padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem;">
             🖨️ 列印
@@ -3343,7 +3216,6 @@
         <a href="#logic-flow" id="nav-logic">價值鏈與層級邏輯</a>
         <a href="#simulator" id="nav-gate">Ready-to-Sew 產前門禁</a>
         <a href="#wbs-gantt" id="nav-wbs" style="color: var(--rust-primary); font-weight: 800;">📅 2027 WBS 甘特圖</a>
-        <a href="#doc-center" id="nav-docs" style="color:var(--rust-primary); font-weight:800;">📑 5大文檔與PDF預覽</a>
         <a href="#recommendations" id="nav-recom">國際 IT 主管 6 大建議</a>
       </nav>
 
@@ -3367,11 +3239,11 @@
       </div>
       <div class="author-metrics-summary">
         <div class="metric-pill-item">
-          <div class="metric-pill-num" id="dossier-val-pillars">4 大</div>
+          <div class="metric-pill-num">4 大</div>
           <div class="metric-pill-lbl" id="t-metric1Lbl">核心戰略主架構</div>
         </div>
         <div class="metric-pill-item">
-          <div class="metric-pill-num" id="dossier-val-subdomains">25 項</div>
+          <div class="metric-pill-num">25 項</div>
           <div class="metric-pill-lbl" id="t-metric2Lbl">數位子領域清單</div>
         </div>
         <div class="metric-pill-item">
@@ -3397,10 +3269,10 @@
         </div>
       </div>
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-        <a href="RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf" download="RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf" style="text-decoration: none; background: var(--rust-primary); color: #FFF; padding: 8px 20px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(168,50,18,0.25);">
-          <span>📥</span>
-          <span>下載 34 頁高管簡報 PDF (周文津副總審批版)</span>
-        </a>
+        <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (34頁)')" style="border: none; background: var(--rust-primary); color: #FFF; padding: 8px 20px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(168,50,18,0.25); cursor: pointer;">
+          <span>👁️</span>
+          <span>線上審閱 34 頁高管簡報 PDF (周文津副總審批版 · 僅供預覽)</span>
+        </button>
         <button onclick="window.print()" style="background: transparent; border: 1px solid var(--rust-primary); color: var(--rust-primary); padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
           🖨️ 列印匯報版面
         </button>
@@ -4572,12 +4444,12 @@
 
 
     
-    <!-- Section: Official Document Center & PDF Previews -->
+    <!-- Section 11: Official Document Center & PDF Previews -->
     <section id="doc-center" class="section-header" style="margin-top: 56px;">
-      <div class="section-eyebrow">Executive Publications & Download Center</div>
-      <h2 class="section-title">官方文檔中心 ｜ 全量 PDF 線上即時預覽與下載專區</h2>
+      <div class="section-eyebrow">Executive Publications & Online Preview Center</div>
+      <h2 class="section-title">官方文檔中心 ｜ 全量 PDF 線上即時審閱預覽專區 (僅供線上預覽 · 嚴禁下載)</h2>
       <p class="section-description">
-        信源全球 2027 策略藍圖全套 5 大出版件已全數轉製為高畫質向量 PDF，完整收錄高階簡報、白皮書全文、WBS 甘特圖、組織資源配置與盤點 SOP，支援免下載即時預覽與離線儲存。
+        信源全球 2027 策略藍圖全套 5 大出版件已全數轉製為高畫質向量 PDF，完整收錄高階簡報、白皮書全文、WBS 甘特圖、組織資源配置與盤點 SOP，恪守資訊安全與知識產權治理規範，所有文檔僅供 C-Level 經營決策層線上審閱預覽，嚴禁外流下載。
       </p>
     </section>
 
@@ -4598,14 +4470,9 @@
             <span>規格：<strong>完整 34 頁橫式 16:9 投影片</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">7.4 MB</strong></span>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (周文津副總審批版)')" class="executive-search-btn" style="flex:1; justify-content:center; background:#FFF7ED; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; cursor:pointer; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="在瀏覽器中直接預覽此 PDF">
-              <span>👁️</span> 預覽 (Preview)
-            </button>
-            <a href="RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf" download="RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf" class="executive-search-btn" style="flex:1; justify-content:center; text-decoration:none; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="下載此 PDF 檔案">
-              <span>📥</span> 下載 PDF
-            </a>
-          </div>
+          <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (周文津副總審批版)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF (僅供線上預覽 · 禁止下載)">
+            <span>👁️</span> 線上即時審閱預覽 (Preview Document)
+          </button>
         </div>
       </div>
 
@@ -4624,14 +4491,9 @@
             <span>規格：<strong>白皮書詳細章節與實施規約</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">11.2 MB</strong></span>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="openPdfPreview('RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf', '2027 執行長戰略藍圖白皮書 (CEO Strategic Blueprint)')" class="executive-search-btn" style="flex:1; justify-content:center; background:#FFF7ED; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; cursor:pointer; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="在瀏覽器中直接預覽此 PDF">
-              <span>👁️</span> 預覽 (Preview)
-            </button>
-            <a href="RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf" download="RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf" class="executive-search-btn" style="flex:1; justify-content:center; text-decoration:none; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="下載此 PDF 檔案">
-              <span>📥</span> 下載 PDF
-            </a>
-          </div>
+          <button onclick="openPdfPreview('RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf', '2027 執行長戰略藍圖白皮書 (CEO Strategic Blueprint)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF (僅供線上預覽 · 禁止下載)">
+            <span>👁️</span> 線上即時審閱預覽 (Preview Document)
+          </button>
         </div>
       </div>
 
@@ -4650,14 +4512,9 @@
             <span>規格：<strong>25 項核心專案全排程甘特圖</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">3.6 MB</strong></span>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="openPdfPreview('RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf', '2027 全專案 WBS 工作分解結構與實施甘特圖手冊')" class="executive-search-btn" style="flex:1; justify-content:center; background:#FFF7ED; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; cursor:pointer; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="在瀏覽器中直接預覽此 PDF">
-              <span>👁️</span> 預覽 (Preview)
-            </button>
-            <a href="RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf" download="RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf" class="executive-search-btn" style="flex:1; justify-content:center; text-decoration:none; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="下載此 PDF 檔案">
-              <span>📥</span> 下載 PDF
-            </a>
-          </div>
+          <button onclick="openPdfPreview('RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf', '2027 全專案 WBS 工作分解結構與實施甘特圖手冊')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF (僅供線上預覽 · 禁止下載)">
+            <span>👁️</span> 線上即時審閱預覽 (Preview Document)
+          </button>
         </div>
       </div>
 
@@ -4676,14 +4533,9 @@
             <span>規格：<strong>RACI 矩陣與 4 廠配置藍圖</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">3.1 MB</strong></span>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="openPdfPreview('RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf', '2027 跨國組織職能與資源配置實施手冊')" class="executive-search-btn" style="flex:1; justify-content:center; background:#FFF7ED; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; cursor:pointer; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="在瀏覽器中直接預覽此 PDF">
-              <span>👁️</span> 預覽 (Preview)
-            </button>
-            <a href="RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf" download="RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf" class="executive-search-btn" style="flex:1; justify-content:center; text-decoration:none; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="下載此 PDF 檔案">
-              <span>📥</span> 下載 PDF
-            </a>
-          </div>
+          <button onclick="openPdfPreview('RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf', '2027 跨國組織職能與資源配置實施手冊')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF (僅供線上預覽 · 禁止下載)">
+            <span>👁️</span> 線上即時審閱預覽 (Preview Document)
+          </button>
         </div>
       </div>
 
@@ -4702,14 +4554,9 @@
             <span>規格：<strong>SOP 推動規範與 5 大標準表單</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">1.5 MB</strong></span>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="openPdfPreview('RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf', '2027 現有技術職能與資通設備盤點實施手冊 (SOP 與 5 大表單)')" class="executive-search-btn" style="flex:1; justify-content:center; background:#FFF7ED; border:1.5px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800; cursor:pointer; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="在瀏覽器中直接預覽此 PDF">
-              <span>👁️</span> 預覽 (Preview)
-            </button>
-            <a href="RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf" download="RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf" class="executive-search-btn" style="flex:1; justify-content:center; text-decoration:none; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; padding:8px 12px; border-radius:8px; font-size:0.78rem;" title="下載此 PDF 檔案">
-              <span>📥</span> 下載 PDF
-            </a>
-          </div>
+          <button onclick="openPdfPreview('RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf', '2027 現有技術職能與資通設備盤點實施手冊 (SOP 與 5 大表單)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF (僅供線上預覽 · 禁止下載)">
+            <span>👁️</span> 線上即時審閱預覽 (Preview Document)
+          </button>
         </div>
       </div>
 
@@ -5634,24 +5481,26 @@
       currentLang = ['zh', 'en', 'ja', 'vi'].includes(lang) ? lang : 'zh';
       const dict = i18n_multilingual[currentLang] || i18n_multilingual.zh;
 
-      // Update Active Switcher Pill Styling
+      // Update active style on all lang pill buttons
       ['zh', 'en', 'ja', 'vi'].forEach(l => {
         document.querySelectorAll(`#langBtn-${l}, #drawer-langBtn-${l}`).forEach(btn => {
           if (l === currentLang) {
-            btn.classList.add('active');
-            btn.style.background = '#E87524';
-            btn.style.color = '#FFFFFF';
-            btn.style.boxShadow = '0 2px 6px rgba(232, 117, 36, 0.3)';
-            btn.setAttribute('aria-selected', 'true');
+            btn.style.background = 'var(--rust-primary)';
+            btn.style.color = '#fff';
           } else {
-            btn.classList.remove('active');
             btn.style.background = 'transparent';
-            btn.style.color = '#44403C';
-            btn.style.boxShadow = 'none';
-            btn.setAttribute('aria-selected', 'false');
+            btn.style.color = '#57534E';
           }
         });
       });
+
+      // Update Dropdown Header Display
+      const disp = document.getElementById("currentLangDisplay");
+      const langNames = { zh: "🇹🇼 繁體中文 ▼", en: "🇬🇧 English ▼", ja: "🇯🇵 日本語 ▼", vi: "🇻🇳 Tiếng Việt ▼" };
+      if (disp && langNames[currentLang]) disp.innerText = langNames[currentLang];
+      document.querySelectorAll(".lang-option").forEach(opt => opt.classList.remove("active"));
+      const activeOpt = document.getElementById(`opt-${currentLang}`);
+      if (activeOpt) activeOpt.classList.add("active");
 
       // Update Top Nav Items
       if (document.getElementById('nav-invest')) document.getElementById('nav-invest').innerText = dict.navInvest;
@@ -6188,7 +6037,30 @@
       `).join('');
     }
 
-    
+    function toggleLangDropdown(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu) {
+        menu.classList.toggle("open");
+      }
+    }
+
+    function selectLang(lang) {
+      setLanguage(lang);
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu) menu.classList.remove("open");
+    }
+
+    document.addEventListener("click", function(e) {
+      const wrap = document.getElementById("langPickerWrap");
+      const menu = document.getElementById("langDropdownMenu");
+      if (menu && wrap && !wrap.contains(e.target)) {
+        menu.classList.remove("open");
+      }
+    });
 
     document.addEventListener("keydown", function(e) {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -6228,15 +6100,15 @@
 
   <!-- Mobile Bottom Interactive Navigation Bar (Dock) -->
   <nav class="mobile-bottom-dock" id="mobileBottomDock" role="navigation" aria-label="手機端底部互動導覽列">
-    <a href="#invest-framework" class="dock-item" id="dock-invest" data-target-id="invest-framework" onclick="handleDockClick(event, 'invest-framework')">
+    <a href="#invest-framework" class="dock-item" id="dock-invest" onclick="handleDockClick(event, 'invest-framework')">
       <span class="dock-icon">🏛️</span>
       <span class="dock-label">資本配置</span>
     </a>
-    <a href="#visual-analytics" class="dock-item" id="dock-charts" data-target-id="visual-analytics" onclick="handleDockClick(event, 'visual-analytics')">
+    <a href="#visual-analytics" class="dock-item" id="dock-charts" onclick="handleDockClick(event, 'visual-analytics')">
       <span class="dock-icon">📈</span>
       <span class="dock-label">戰情圖表</span>
     </a>
-    <a href="#factory-monitor" class="dock-item" id="dock-factory" data-target-id="factory-monitor" onclick="handleDockClick(event, 'factory-monitor')">
+    <a href="#factory-monitor" class="dock-item" id="dock-factory" onclick="handleDockClick(event, 'factory-monitor')">
       <span class="dock-icon">🏭</span>
       <span class="dock-label">廠區遙測</span>
     </a>
@@ -6999,219 +6871,7 @@
 
 
   // =========================================================================
-  // MULTI-LANGUAGE DROPDOWN MENU CONTROLLER
-  // =========================================================================
-
-  function toggleLangDropdown(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const menu = document.getElementById('langDropdownMenu');
-    const arrow = document.getElementById('langDropdownArrow');
-    const btn = document.getElementById('langPickerToggleBtn');
-    if (!menu) return;
-    const isBlock = menu.style.display === 'block';
-    if (isBlock) {
-      menu.style.display = 'none';
-      if (arrow) arrow.style.transform = 'rotate(0deg)';
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-    } else {
-      menu.style.display = 'block';
-      if (arrow) arrow.style.transform = 'rotate(180deg)';
-      if (btn) btn.setAttribute('aria-expanded', 'true');
-    }
-  }
-
-  function closeLangDropdown() {
-    const menu = document.getElementById('langDropdownMenu');
-    const arrow = document.getElementById('langDropdownArrow');
-    const btn = document.getElementById('langPickerToggleBtn');
-    if (menu) menu.style.display = 'none';
-    if (arrow) arrow.style.transform = 'rotate(0deg)';
-    if (btn) btn.setAttribute('aria-expanded', 'false');
-  }
-
-  function selectLang(lang) {
-    setLanguage(lang);
-    closeLangDropdown();
-  }
-
-  window.toggleLangDropdown = toggleLangDropdown;
-  window.closeLangDropdown = closeLangDropdown;
-  window.selectLang = selectLang;
-  window.selectLanguage = selectLang;
-
-  document.addEventListener('click', function(e) {
-    const wrap = document.getElementById('langPickerWrap');
-    if (wrap && !wrap.contains(e.target)) {
-      closeLangDropdown();
-    }
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closeLangDropdown();
-    }
-  });
-
-
-
-
-
-  // =========================================================================
-  // EXECUTIVE DYNAMIC ENGINE: COUNT-UP, SCROLL-REVEAL & SCROLL-SPY
-  // =========================================================================
-
-  // 1. Smooth Count-Up Animation Function
-  function animateCountUp(element, endVal, prefix = '', suffix = '', duration = 1600, decimals = 0) {
-    if (!element || element.__counted) return;
-    element.__counted = true;
-
-    const startTime = performance.now();
-    const startVal = 0;
-
-    function update(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out expo curve for snappy executive feel
-      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const current = startVal + (endVal - startVal) * ease;
-
-      const formatted = decimals > 0 
-        ? current.toFixed(decimals) 
-        : Math.round(current).toLocaleString();
-
-      element.textContent = `${prefix}${formatted}${suffix}`;
-
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        const finalFormatted = decimals > 0 
-          ? endVal.toFixed(decimals) 
-          : Math.round(endVal).toLocaleString();
-        element.textContent = `${prefix}${finalFormatted}${suffix}`;
-      }
-    }
-
-    requestAnimationFrame(update);
-  }
-
-  // 2. Initialize Count-Up on Viewport Entry
-  function initCountUpObserver() {
-    // Collect Bento and Key Metrics elements
-    const countItems = [
-      { id: 'bento-val-shipment', val: 7500, prefix: '', suffix: ' 萬件', decimals: 0 },
-      { id: 'bento-val-savings', val: 3705, prefix: 'NT$ ', suffix: ' 萬', decimals: 0 },
-      { id: 'bento-val-payback', val: 14.8, prefix: '', suffix: ' 個月', decimals: 1 },
-      { id: 'bento-val-autonomy', val: 72, prefix: '48 ～ ', suffix: ' 小時', decimals: 0 },
-      { id: 'dossier-val-pillars', val: 4, prefix: '', suffix: ' 大', decimals: 0 },
-      { id: 'dossier-val-subdomains', val: 25, prefix: '', suffix: ' 項', decimals: 0 }
-    ];
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const target = entry.target;
-          const conf = countItems.find(c => c.id === target.id);
-          if (conf) {
-            animateCountUp(target, conf.val, conf.prefix, conf.suffix, 1500, conf.decimals);
-            obs.unobserve(target);
-          }
-        }
-      });
-    }, { threshold: 0.15 });
-
-    countItems.forEach(c => {
-      const el = document.getElementById(c.id);
-      if (el) observer.observe(el);
-    });
-  }
-
-  // 3. Scroll-Reveal Observer for All Main Sections and Panels
-  function initScrollRevealObserver() {
-    const revealTargets = document.querySelectorAll(
-      '.section-header, .bento-card, .timeline-interactive, .factory-edge-monitor, ' +
-      '.pillar-nav-card, .value-chain-section, .simulator-container, .wbs-container, ' +
-      '.strategy-focus-card, .author-dossier-card, .editorial-quote-box'
-    );
-
-    revealTargets.forEach(el => el.classList.add('reveal-on-scroll'));
-
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    revealTargets.forEach(el => revealObserver.observe(el));
-  }
-
-  // 4. Scroll-Spy: Synchronize Top Segmented Pills & Mobile Dock on Scroll
-  function initScrollSpy() {
-    const sectionIds = [
-      'invest-framework', 'evolution', 'visual-analytics', 'dynamic-sim', 
-      'factory-monitor', 'pillars', 'logic-flow', 'simulator', 'wbs-gantt', 'recommendations'
-    ];
-
-    const sections = sectionIds
-      .map(id => document.getElementById(id))
-      .filter(Boolean);
-
-    window.addEventListener('scroll', () => {
-      const scrollPos = window.scrollY + 120;
-      let activeId = sectionIds[0];
-
-      for (let i = 0; i < sections.length; i++) {
-        const sec = sections[i];
-        if (sec.offsetTop <= scrollPos) {
-          activeId = sec.id;
-        }
-      }
-
-      // Update Top Nav
-      document.querySelectorAll('.masthead-nav a').forEach(a => {
-        const href = a.getAttribute('href');
-        if (href === `#${activeId}`) {
-          a.classList.add('active');
-        } else {
-          a.classList.remove('active');
-        }
-      });
-
-      // Update Mobile Dock
-      document.querySelectorAll('.mobile-bottom-dock .dock-item').forEach(btn => {
-        const targetId = btn.getAttribute('data-target-id');
-        if (targetId === activeId) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-    }, { passive: true });
-  }
-
-  // 5. Master DOM Readiness Controller
-  function initAllExecutiveDynamics() {
-    try { initCountUpObserver(); } catch(e) { console.warn('CountUp error:', e); }
-    try { initScrollRevealObserver(); } catch(e) { console.warn('ScrollReveal error:', e); }
-    try { initScrollSpy(); } catch(e) { console.warn('ScrollSpy error:', e); }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAllExecutiveDynamics);
-  } else {
-    initAllExecutiveDynamics();
-  }
-
-
-
-
-
-  // =========================================================================
-  // EXECUTIVE PDF PREVIEW CONTROLLER
+  // EXECUTIVE PDF PREVIEW CONTROLLER (PREVIEW ONLY)
   // =========================================================================
 
   function openPdfPreview(pdfUrl, docTitle) {
@@ -7219,22 +6879,13 @@
     const backdrop = document.getElementById('pdfPreviewBackdrop');
     const iframe = document.getElementById('pdfPreviewIframe');
     const titleEl = document.getElementById('pdfModalDocTitle');
-    const btnDl = document.getElementById('btnPdfModalDownload');
-    const btnNewTab = document.getElementById('btnPdfModalNewTab');
 
     if (!modal || !iframe) return;
 
     if (titleEl) titleEl.textContent = docTitle || '文檔預覽';
-    if (btnDl) {
-      btnDl.href = pdfUrl;
-      btnDl.download = pdfUrl;
-    }
-    if (btnNewTab) {
-      btnNewTab.href = pdfUrl;
-    }
 
-    // Set iframe source with native PDF viewer parameters
-    iframe.src = `${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`;
+    // Suppress browser PDF toolbar download options via #toolbar=0
+    iframe.src = `${pdfUrl}#toolbar=0&navpanes=1&scrollbar=1`;
 
     modal.style.display = 'flex';
     backdrop.style.display = 'block';
@@ -7262,6 +6913,116 @@
       closePdfPreview();
     }
   });
+
+
+
+  // =========================================================================
+  // DYNAMICS & ACCESSIBILITY: COUNT-UP, SCROLL-REVEAL & SCROLL-SPY
+  // =========================================================================
+
+  function animateCountUp(element, endVal, prefix = '', suffix = '', duration = 1600, decimals = 0) {
+    if (!element || element.__counted) return;
+    element.__counted = true;
+
+    const startTime = performance.now();
+    const startVal = 0;
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = startVal + (endVal - startVal) * ease;
+
+      const formatted = decimals > 0 
+        ? current.toFixed(decimals) 
+        : Math.round(current).toLocaleString();
+
+      element.textContent = `${prefix}${formatted}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        const finalFormatted = decimals > 0 
+          ? endVal.toFixed(decimals) 
+          : Math.round(endVal).toLocaleString();
+        element.textContent = `${prefix}${finalFormatted}${suffix}`;
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  function initCountUpObserver() {
+    const countItems = [
+      { id: 'bento-val-shipment', val: 7500, prefix: '', suffix: ' 萬件', decimals: 0 },
+      { id: 'bento-val-savings', val: 3705, prefix: 'NT$ ', suffix: ' 萬', decimals: 0 },
+      { id: 'bento-val-payback', val: 14.8, prefix: '', suffix: ' 個月', decimals: 1 },
+      { id: 'bento-val-autonomy', val: 72, prefix: '48 ～ ', suffix: ' 小時', decimals: 0 }
+    ];
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          const conf = countItems.find(c => c.id === target.id);
+          if (conf) {
+            animateCountUp(target, conf.val, conf.prefix, conf.suffix, 1500, conf.decimals);
+            obs.unobserve(target);
+          }
+        }
+      });
+    }, { threshold: 0.15 });
+
+    countItems.forEach(c => {
+      const el = document.getElementById(c.id);
+      if (el) observer.observe(el);
+    });
+  }
+
+  function initScrollRevealObserver() {
+    const targets = document.querySelectorAll(
+      '.section-header, .bento-card, .timeline-interactive, .factory-edge-monitor, ' +
+      '.pillar-nav-card, .value-chain-section, .simulator-container, .wbs-container, ' +
+      '.strategy-focus-card, .author-dossier-card, .editorial-quote-box, .doc-card'
+    );
+    targets.forEach(el => el.classList.add('reveal-on-scroll'));
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('revealed');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(el => obs.observe(el));
+  }
+
+  function initScrollSpy() {
+    const sectionIds = [
+      'invest-framework', 'evolution', 'visual-analytics', 'dynamic-sim', 
+      'factory-monitor', 'pillars', 'logic-flow', 'simulator', 'wbs-gantt', 'doc-center', 'recommendations'
+    ];
+
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 140;
+      let activeId = sectionIds[0];
+
+      for (let i = 0; i < sections.length; i++) {
+        if (sections[i].offsetTop <= scrollPos) {
+          activeId = sections[i].id;
+        }
+      }
+
+      document.querySelectorAll('.masthead-nav a').forEach(a => {
+        if (a.getAttribute('href') === `#${activeId}`) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+    }, { passive: true });
+  }
 
 
 </script>
@@ -7301,7 +7062,7 @@
 
 
 
-<!-- Full-Screen Executive PDF Preview Modal -->
+<!-- Full-Screen Executive PDF Preview Modal (Preview Only · No Downloads) -->
 <div id="pdfPreviewModal" role="dialog" aria-modal="true" aria-labelledby="pdfModalDocTitle" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:94%; max-width:1180px; height:92vh; background:#FFFFFF; border:2px solid var(--orange-vibrant); border-radius:16px; box-shadow:0 25px 60px rgba(0,0,0,0.45); z-index:2147483647; flex-direction:column; overflow:hidden; font-family:-apple-system, BlinkMacSystemFont, 'Noto Sans TC', sans-serif;">
   
   <!-- Modal Header Bar -->
@@ -7314,21 +7075,19 @@
       </div>
     </div>
 
-    <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-      <a id="btnPdfModalDownload" href="#" download="#" class="executive-search-btn" style="text-decoration:none; background:var(--rust-primary); color:#FFF; font-weight:800; padding:6px 14px; border-radius:9999px; font-size:0.75rem;">
-        <span>📥</span> 下載此 PDF
-      </a>
-      <a id="btnPdfModalNewTab" href="#" target="_blank" class="executive-search-btn" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); font-weight:700; padding:6px 12px; border-radius:9999px; font-size:0.75rem;" title="在新分頁中完整開啟">
-        <span>↗</span> 全頁
-      </a>
+    <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
+      <span style="background:#FFFBEB; border:1px solid #FDE68A; color:#B45309; padding:4px 12px; border-radius:9999px; font-size:0.72rem; font-weight:800; display:inline-flex; align-items:center; gap:4px;">
+        <span>🔒</span>
+        <span>機密審批件 · 僅供線上即時預覽 (Preview Only · Do Not Download)</span>
+      </span>
       <button onclick="closePdfPreview()" style="background:#F5F5F4; border:1px solid #E7E5E4; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; cursor:pointer; color:#78716C; padding:0;" title="關閉預覽 (ESC)">
         ✕
       </button>
     </div>
   </div>
 
-  <!-- Modal IFrame Body -->
-  <div style="flex:1; width:100%; height:100%; background:#F3F4F6; position:relative;">
+  <!-- Modal IFrame Body with Download Bar Suppressed -->
+  <div style="flex:1; width:100%; height:100%; background:#F3F4F6; position:relative;" oncontextmenu="return false;">
     <iframe id="pdfPreviewIframe" src="about:blank" style="width:100%; height:100%; border:none; display:block;" title="PDF Preview IFrame"></iframe>
   </div>
 </div>
