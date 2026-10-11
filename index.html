@@ -3049,9 +3049,135 @@
     animation: fluidParticleTravel 1.8s infinite ease-in-out;
   }
 
+
+  /* =========================================================================
+     ACCESSIBILITY (WCAG 2.1 AA) & ERGONOMIC FRIENDLINESS
+     ========================================================================= */
+
+  /* 1. Universal Focus Visible Ring */
+  :focus-visible {
+    outline: 3px solid #E87524 !important;
+    outline-offset: 3px !important;
+    border-radius: 4px;
+  }
+
+  /* 2. Skip to Main Content Link */
+  .skip-to-content-link {
+    position: absolute;
+    top: -60px;
+    left: 16px;
+    background: #E87524;
+    color: #FFFFFF;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    z-index: 2147483647;
+    transition: top 0.2s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .skip-to-content-link:focus {
+    top: 16px;
+  }
+
+  /* 3. Scroll-Reveal Animation Engine */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 4. Desktop Hover Micro-Interactions */
+  @media (hover: hover) and (pointer: fine) {
+    .bento-card:hover {
+      transform: translateY(-4px);
+      border-color: #E87524;
+      box-shadow: 0 10px 25px -5px rgba(232, 117, 36, 0.18);
+    }
+    .strategy-focus-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--orange-vibrant);
+    }
+    .pillar-nav-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--orange-vibrant);
+    }
+    .timeline-tab-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--orange-vibrant);
+    }
+    .executive-search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  /* 5. Mobile Ergonomic Touch Targets & Feedback */
+  .dock-item, .lang-picker-toggle-btn, .executive-search-btn, .timeline-tab-btn, .pillar-nav-card {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .dock-item:active, .lang-picker-toggle-btn:active {
+    transform: scale(0.94);
+  }
+
+  /* Smooth Scrolling offset */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+  }
+
+  /* Fixed Mobile Header and Container Adjustments */
+  @media (max-width: 640px) {
+    html {
+      scroll-padding-top: 110px;
+    }
+    .container {
+      padding: 20px 14px 100px 14px !important;
+    }
+    .hero-title-main {
+      font-size: 1.85rem !important;
+      line-height: 1.2 !important;
+    }
+    .bento-num {
+      font-size: 1.55rem !important;
+    }
+    .author-dossier-card {
+      padding: 16px !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .author-metrics-summary {
+      justify-content: space-between !important;
+      margin-top: 12px !important;
+      gap: 12px !important;
+    }
+    .timeline-tabs {
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+    .sites-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .pillars-nav-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .sim-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
 </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content-link">跳至主要內容 (Skip to Main Content)</a>
   <a href="#main-content" class="skip-link">跳至主要內容區 (Skip to main content)</a>
 
 
@@ -3190,22 +3316,22 @@
         <div class="hero-bento-grid">
           <div class="bento-card">
             <div class="bento-label">集團年出貨量</div>
-            <div class="bento-num">7,500 萬件</div>
+            <div class="bento-num" id="bento-val-shipment">7,500 萬件</div>
             <div class="bento-desc">跨國精準履約交付防禦</div>
           </div>
           <div class="bento-card">
             <div class="bento-label">年硬性現金節省</div>
-            <div class="bento-num">NT$ 3,700 萬</div>
+            <div class="bento-num" id="bento-val-savings">NT$ 3,705 萬</div>
             <div class="bento-desc">防禦包機 ＋ 布料降損 1.2%</div>
           </div>
           <div class="bento-card">
             <div class="bento-label">投資回本週期</div>
-            <div class="bento-num">14.8 個月</div>
+            <div class="bento-num" id="bento-val-payback">14.8 個月</div>
             <div class="bento-desc">單件成衣成本僅 NT$ 0.27</div>
           </div>
           <div class="bento-card">
             <div class="bento-label">車間斷網離線自律</div>
-            <div class="bento-num">48 ～ 72 小時</div>
+            <div class="bento-num" id="bento-val-autonomy">48 ～ 72 小時</div>
             <div class="bento-desc">研華工業邊緣主機 DuckDB</div>
           </div>
         </div>
@@ -3245,11 +3371,11 @@
       </div>
       <div class="author-metrics-summary">
         <div class="metric-pill-item">
-          <div class="metric-pill-num">4 大</div>
+          <div class="metric-pill-num" id="dossier-val-pillars">4 大</div>
           <div class="metric-pill-lbl" id="t-metric1Lbl">核心戰略主架構</div>
         </div>
         <div class="metric-pill-item">
-          <div class="metric-pill-num">25 項</div>
+          <div class="metric-pill-num" id="dossier-val-subdomains">25 項</div>
           <div class="metric-pill-lbl" id="t-metric2Lbl">數位子領域清單</div>
         </div>
         <div class="metric-pill-item">
@@ -5981,15 +6107,15 @@
 
   <!-- Mobile Bottom Interactive Navigation Bar (Dock) -->
   <nav class="mobile-bottom-dock" id="mobileBottomDock" role="navigation" aria-label="手機端底部互動導覽列">
-    <a href="#invest-framework" class="dock-item" id="dock-invest" onclick="handleDockClick(event, 'invest-framework')">
+    <a href="#invest-framework" class="dock-item" id="dock-invest" data-target-id="invest-framework" onclick="handleDockClick(event, 'invest-framework')">
       <span class="dock-icon">🏛️</span>
       <span class="dock-label">資本配置</span>
     </a>
-    <a href="#visual-analytics" class="dock-item" id="dock-charts" onclick="handleDockClick(event, 'visual-analytics')">
+    <a href="#visual-analytics" class="dock-item" id="dock-charts" data-target-id="visual-analytics" onclick="handleDockClick(event, 'visual-analytics')">
       <span class="dock-icon">📈</span>
       <span class="dock-label">戰情圖表</span>
     </a>
-    <a href="#factory-monitor" class="dock-item" id="dock-factory" onclick="handleDockClick(event, 'factory-monitor')">
+    <a href="#factory-monitor" class="dock-item" id="dock-factory" data-target-id="factory-monitor" onclick="handleDockClick(event, 'factory-monitor')">
       <span class="dock-icon">🏭</span>
       <span class="dock-label">廠區遙測</span>
     </a>
@@ -6807,6 +6933,157 @@
       closeLangDropdown();
     }
   });
+
+
+
+
+
+  // =========================================================================
+  // EXECUTIVE DYNAMIC ENGINE: COUNT-UP, SCROLL-REVEAL & SCROLL-SPY
+  // =========================================================================
+
+  // 1. Smooth Count-Up Animation Function
+  function animateCountUp(element, endVal, prefix = '', suffix = '', duration = 1600, decimals = 0) {
+    if (!element || element.__counted) return;
+    element.__counted = true;
+
+    const startTime = performance.now();
+    const startVal = 0;
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out expo curve for snappy executive feel
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = startVal + (endVal - startVal) * ease;
+
+      const formatted = decimals > 0 
+        ? current.toFixed(decimals) 
+        : Math.round(current).toLocaleString();
+
+      element.textContent = `${prefix}${formatted}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        const finalFormatted = decimals > 0 
+          ? endVal.toFixed(decimals) 
+          : Math.round(endVal).toLocaleString();
+        element.textContent = `${prefix}${finalFormatted}${suffix}`;
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // 2. Initialize Count-Up on Viewport Entry
+  function initCountUpObserver() {
+    // Collect Bento and Key Metrics elements
+    const countItems = [
+      { id: 'bento-val-shipment', val: 7500, prefix: '', suffix: ' 萬件', decimals: 0 },
+      { id: 'bento-val-savings', val: 3705, prefix: 'NT$ ', suffix: ' 萬', decimals: 0 },
+      { id: 'bento-val-payback', val: 14.8, prefix: '', suffix: ' 個月', decimals: 1 },
+      { id: 'bento-val-autonomy', val: 72, prefix: '48 ～ ', suffix: ' 小時', decimals: 0 },
+      { id: 'dossier-val-pillars', val: 4, prefix: '', suffix: ' 大', decimals: 0 },
+      { id: 'dossier-val-subdomains', val: 25, prefix: '', suffix: ' 項', decimals: 0 }
+    ];
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          const conf = countItems.find(c => c.id === target.id);
+          if (conf) {
+            animateCountUp(target, conf.val, conf.prefix, conf.suffix, 1500, conf.decimals);
+            obs.unobserve(target);
+          }
+        }
+      });
+    }, { threshold: 0.15 });
+
+    countItems.forEach(c => {
+      const el = document.getElementById(c.id);
+      if (el) observer.observe(el);
+    });
+  }
+
+  // 3. Scroll-Reveal Observer for All Main Sections and Panels
+  function initScrollRevealObserver() {
+    const revealTargets = document.querySelectorAll(
+      '.section-header, .bento-card, .timeline-interactive, .factory-edge-monitor, ' +
+      '.pillar-nav-card, .value-chain-section, .simulator-container, .wbs-container, ' +
+      '.strategy-focus-card, .author-dossier-card, .editorial-quote-box'
+    );
+
+    revealTargets.forEach(el => el.classList.add('reveal-on-scroll'));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealTargets.forEach(el => revealObserver.observe(el));
+  }
+
+  // 4. Scroll-Spy: Synchronize Top Segmented Pills & Mobile Dock on Scroll
+  function initScrollSpy() {
+    const sectionIds = [
+      'invest-framework', 'evolution', 'visual-analytics', 'dynamic-sim', 
+      'factory-monitor', 'pillars', 'logic-flow', 'simulator', 'wbs-gantt', 'recommendations'
+    ];
+
+    const sections = sectionIds
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 120;
+      let activeId = sectionIds[0];
+
+      for (let i = 0; i < sections.length; i++) {
+        const sec = sections[i];
+        if (sec.offsetTop <= scrollPos) {
+          activeId = sec.id;
+        }
+      }
+
+      // Update Top Nav
+      document.querySelectorAll('.masthead-nav a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href === `#${activeId}`) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+
+      // Update Mobile Dock
+      document.querySelectorAll('.mobile-bottom-dock .dock-item').forEach(btn => {
+        const targetId = btn.getAttribute('data-target-id');
+        if (targetId === activeId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }, { passive: true });
+  }
+
+  // 5. Master DOM Readiness Controller
+  function initAllExecutiveDynamics() {
+    try { initCountUpObserver(); } catch(e) { console.warn('CountUp error:', e); }
+    try { initScrollRevealObserver(); } catch(e) { console.warn('ScrollReveal error:', e); }
+    try { initScrollSpy(); } catch(e) { console.warn('ScrollSpy error:', e); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAllExecutiveDynamics);
+  } else {
+    initAllExecutiveDynamics();
+  }
 
 
 </script>
