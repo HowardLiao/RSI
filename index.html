@@ -2803,6 +2803,252 @@
     transform: translateY(0);
   }
 
+
+  /* =========================================================================
+     EGYPTIAN PHARAOH FLUID DYNAMICS (流體動力視覺系統)
+     GPU-Accelerated Organic Liquid Motion, Conduits & Wave Shimmer
+     ========================================================================= */
+
+  /* 1. Fluid Streaming & Pulse Animations */
+  @keyframes fluidStreamForward {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  @keyframes fluidParticleTravel {
+    0% { left: -15%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { left: 115%; opacity: 0; }
+  }
+
+  @keyframes fluidBreathingGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 3px rgba(232, 117, 36, 0.25), 0 4px 14px rgba(182, 83, 45, 0.35);
+      transform: scale(1.06);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(242, 140, 40, 0.45), 0 6px 22px rgba(232, 117, 36, 0.65);
+      transform: scale(1.12);
+    }
+  }
+
+  @keyframes fluidShimmerBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes fluidValveTurbulence {
+    0%, 100% { transform: translateY(0) scaleY(1); }
+    25% { transform: translateY(-2px) scaleY(1.08); }
+    75% { transform: translateY(2px) scaleY(0.92); }
+  }
+
+  /* 2. Process Fluid Flow Connectors */
+  .flow-connector {
+    flex: 1;
+    height: 4px;
+    background: #E7E5E4;
+    min-width: 16px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Moving liquid particle inside connector */
+  .flow-connector::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(232, 117, 36, 0.7) 50%, transparent 100%);
+    animation: fluidParticleTravel 2.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .flow-connector.active {
+    height: 6px;
+    background: linear-gradient(90deg, #B6532D 0%, #E87524 30%, #D98B19 60%, #F28C28 100%);
+    background-size: 200% 100%;
+    animation: fluidStreamForward 2.8s infinite linear;
+    box-shadow: 0 0 12px rgba(232, 117, 36, 0.65);
+  }
+
+  .flow-connector.active::after {
+    background: linear-gradient(90deg, transparent 0%, #FFFFFF 50%, transparent 100%);
+    animation: fluidParticleTravel 1.4s infinite linear;
+  }
+
+  /* Stepper Node Active Fluid Aura */
+  .flow-step-item.active .flow-step-circle {
+    background: linear-gradient(135deg, #B6532D 0%, #E87524 50%, #D98B19 100%) !important;
+    color: #FFFFFF !important;
+    border-color: #E87524 !important;
+    animation: fluidBreathingGlow 2.8s infinite ease-in-out !important;
+  }
+
+  /* 3. Hero Strategic Transition Formula with Fluid Stream */
+  .quote-formula {
+    position: relative;
+    padding-bottom: 8px;
+  }
+
+  .fluid-formula-arrow {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  .fluid-arrow-conduit {
+    display: inline-block;
+    width: 32px;
+    height: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #E87524 0%, #D98B19 50%, #F28C28 100%);
+    background-size: 200% 100%;
+    animation: fluidStreamForward 2s infinite linear;
+    position: relative;
+  }
+
+  .fluid-arrow-conduit::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: -3.5px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid #F28C28;
+  }
+
+  /* 4. Timeline 2025-2027 Fluid Conduit */
+  .timeline-fluid-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 9999px;
+    background: #E7E5E4;
+    position: relative;
+    overflow: hidden;
+    margin: -14px 0 24px 0;
+  }
+
+  .timeline-fluid-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #A83212 0%, #E87524 35%, #D98B19 70%, #F59E0B 100%);
+    background-size: 200% 100%;
+    animation: fluidStreamForward 3.5s infinite linear;
+    box-shadow: 0 0 10px rgba(232, 117, 36, 0.4);
+  }
+
+  /* 5. Ready-to-Sew 4-Gate Fluid Pipeline Visualization */
+  .gate-fluid-pipeline-wrap {
+    margin: 16px 0 20px 0;
+    padding: 14px 18px;
+    background: #FAF8F5;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .gate-fluid-pipe {
+    flex: 1;
+    height: 8px;
+    border-radius: 9999px;
+    background: #E7E5E4;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+
+  .gate-fluid-pipe.flowing {
+    background: linear-gradient(90deg, #10B981 0%, #34D399 35%, #059669 70%, #10B981 100%);
+    background-size: 200% 100%;
+    animation: fluidStreamForward 2s infinite linear;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  }
+
+  .gate-fluid-pipe.blocked {
+    background: linear-gradient(90deg, #B6532D 0%, #EF4444 40%, #B6532D 80%);
+    background-size: 200% 100%;
+    animation: fluidValveTurbulence 1.5s infinite ease-in-out;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.45);
+  }
+
+  .gate-pipe-node {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #fff;
+    background: #78716C;
+    transition: all 0.3s ease;
+  }
+
+  .gate-pipe-node.pass {
+    background: #10B981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  }
+
+  .gate-pipe-node.block {
+    background: #EF4444;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  }
+
+  /* 6. Canvas Fluid Dynamics Wave Ribbon */
+  .fluid-wave-canvas-wrap {
+    width: 100%;
+    height: 48px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, rgba(254, 243, 199, 0.35) 0%, rgba(255, 247, 237, 0.6) 100%);
+    border: 1px solid rgba(232, 117, 36, 0.15);
+  }
+
+  .fluid-wave-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .fluid-wave-caption {
+    position: absolute;
+    top: 6px;
+    left: 14px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C2410C;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .fluid-pulse-bead {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #E87524;
+    animation: fluidParticleTravel 1.8s infinite ease-in-out;
+  }
+
 </style>
 </head>
 <body>
@@ -3006,10 +3252,10 @@
       <div class="quote-content">
         <div class="quote-formula">
           <span>2025 建置系統</span>
-          <span style="color: var(--text-muted);">⟶</span>
+          <span class="fluid-formula-arrow"><span class="fluid-arrow-conduit"></span></span>
           <span>2026 補齊流程</span>
-          <span style="color: var(--text-muted);">⟶</span>
-          <span style="color: var(--orange-vibrant);">2027 整合運用與智能營運</span>
+          <span class="fluid-formula-arrow"><span class="fluid-arrow-conduit"></span></span>
+          <span style="color: var(--orange-vibrant); font-weight: 800;">2027 整合運用與智能營運</span>
           <span class="tag">戰略轉型</span>
         </div>
         <div class="quote-subtitle">
@@ -3575,7 +3821,16 @@
       </p>
     </section>
 
-        <div class="value-chain-section" id="logic-flow-interactive" role="region" aria-label="四大架構串聯之層級價值鏈互動系統">
+              <!-- Value Chain Fluid Dynamics Wave Ribbon -->
+      <div class="fluid-wave-canvas-wrap" title="層級價值鏈即時流體動力狀態波 (Live Fluid Dynamics Ribbon)">
+        <canvas id="valueChainFluidCanvas" class="fluid-wave-canvas"></canvas>
+        <div class="fluid-wave-caption">
+          <span class="fluid-pulse-bead"></span>
+          <span>層級價值鏈流體動力運轉中 · 數據由底層硬體向頂層 AI 逐級湧流 (Fluid Hierarchy Active)</span>
+        </div>
+      </div>
+
+    <div class="value-chain-section" id="logic-flow-interactive" role="region" aria-label="四大架構串聯之層級價值鏈互動系統">
       
       <!-- Interactive 7-Step Stepper Header -->
       <div class="value-flow-stepper" role="tablist" aria-label="價值鏈七大層級選擇器">
@@ -3643,6 +3898,26 @@
         針對成衣製造「產前條件不齊便上線造成拆線停工」之現場痛點，體現 2027 流程整合與主動異常管理的具體機制。
       </p>
     </section>
+
+          <!-- Ready-to-Sew 4-Gate Fluid Pipeline Visualization -->
+      <div class="gate-fluid-pipeline-wrap" role="region" aria-label="4道門禁流體聯鎖管路">
+        <span style="font-size:0.75rem; font-weight:800; color:#9A3412; white-space:nowrap;">門禁流體聯鎖：</span>
+        <div class="gate-pipe-node pass" id="gateNode-1" title="門禁一 BOM原副料">G1</div>
+        <div class="gate-fluid-pipe flowing" id="gateFluidPipe"></div>
+        <div class="gate-pipe-node pass" id="gateNode-2" title="門禁二 工藝包CAD">G2</div>
+        <div class="gate-pipe-node pass" id="gateNode-3" title="門禁三 MQP封樣">G3</div>
+        <div class="gate-pipe-node pass" id="gateNode-4" title="門禁四 裁片超市">G4</div>
+        <span style="font-size:0.75rem; font-weight:800; color:#15803D; white-space:nowrap;">➔ 放行生產</span>
+      </div>
+
+      <!-- 4-Gate Fluid Wave Ribbon -->
+      <div class="fluid-wave-canvas-wrap" style="height: 38px; margin-top: 10px;" title="門禁流體動力波 (Fluid Gate Stream)">
+        <canvas id="gateFluidCanvas" class="fluid-wave-canvas"></canvas>
+        <div class="fluid-wave-caption" style="top: 4px;">
+          <span class="fluid-pulse-bead" style="background:#10B981;"></span>
+          <span style="color:#166534;">4-Gate 剛性流體水閥聯鎖 · 條件全齊始開閥放行 (Fluid Valve Authorization)</span>
+        </div>
+      </div>
 
     <div class="simulator-container">
       <div class="sim-grid">
@@ -6305,6 +6580,165 @@
       r.style.display = text.includes(q) ? '' : 'none';
     });
   }
+
+
+
+
+
+  // =========================================================================
+  // FLUID DYNAMICS ENGINE: MULTI-LAYER SINE-WAVE FLUID CANVAS
+  // GPU-Accelerated Organic Fluid Ribbon in Egyptian Warm Palette
+  // =========================================================================
+
+  class EgyptianFluidWave {
+    constructor(canvasId) {
+      this.canvas = document.getElementById(canvasId);
+      if (!this.canvas) return;
+      this.ctx = this.canvas.getContext('2d');
+      this.step = 0;
+      this.surgeFactor = 1.0;
+      this.init();
+    }
+
+    init() {
+      this.resize();
+      window.addEventListener('resize', () => this.resize());
+      this.animate();
+    }
+
+    resize() {
+      if (!this.canvas) return;
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = this.canvas.width = rect.width * (window.devicePixelRatio || 1);
+      this.height = this.canvas.height = rect.height * (window.devicePixelRatio || 1);
+    }
+
+    surge() {
+      this.surgeFactor = 2.4;
+      setTimeout(() => {
+        const decay = setInterval(() => {
+          this.surgeFactor -= 0.1;
+          if (this.surgeFactor <= 1.0) {
+            this.surgeFactor = 1.0;
+            clearInterval(decay);
+          }
+        }, 40);
+      }, 300);
+    }
+
+    drawWave(color, alpha, speed, waveLength, amplitude, yOffset) {
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, this.height);
+
+      for (let x = 0; x <= this.width; x += 6) {
+        const y = Math.sin((x * waveLength) + (this.step * speed)) * amplitude * this.surgeFactor + yOffset;
+        ctx.lineTo(x, y);
+      }
+
+      ctx.lineTo(this.width, this.height);
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.globalAlpha = alpha;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    animate() {
+      if (!this.canvas) return;
+      this.ctx.clearRect(0, 0, this.width, this.height);
+      this.step += 0.035;
+
+      const baseH = this.height * 0.55;
+
+      // Layer 1: Rust Primary Fluid Base (#B6532D)
+      this.drawWave('#B6532D', 0.22, 0.8, 0.007, this.height * 0.16, baseH + 6);
+      
+      // Layer 2: Warm Egyptian Orange (#E87524)
+      this.drawWave('#E87524', 0.32, 1.2, 0.011, this.height * 0.22, baseH);
+      
+      // Layer 3: Vibrant Citrus Gold (#F28C28)
+      this.drawWave('#F28C28', 0.42, 1.6, 0.015, this.height * 0.18, baseH - 5);
+
+      requestAnimationFrame(() => this.animate());
+    }
+  }
+
+  // Initialize Canvas Instances when DOM loads
+  let valueChainFluidWave = null;
+  let gateFluidWave = null;
+
+  function initFluidDynamicsEngines() {
+    valueChainFluidWave = new EgyptianFluidWave('valueChainFluidCanvas');
+    gateFluidWave = new EgyptianFluidWave('gateFluidCanvas');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFluidDynamicsEngines);
+  } else {
+    initFluidDynamicsEngines();
+  }
+
+  // Trigger Fluid Wave Surge on Value Chain Step Click
+  const originalSwitchValueChainStep = window.switchValueChainStep;
+  window.switchValueChainStep = function(index) {
+    if (typeof originalSwitchValueChainStep === 'function') {
+      originalSwitchValueChainStep(index);
+    }
+    if (valueChainFluidWave) {
+      valueChainFluidWave.surge();
+    }
+    // Update active connectors fluid flow
+    document.querySelectorAll('.flow-connector').forEach((conn, idx) => {
+      if (idx < index) {
+        conn.classList.add('active');
+      } else {
+        conn.classList.remove('active');
+      }
+    });
+  };
+
+  // Update Gate Fluid Pipeline on Gate Status Calculation
+  function updateGateFluidPipeline() {
+    const g1 = document.getElementById('gateBOM') ? document.getElementById('gateBOM').checked : false;
+    const g2 = document.getElementById('gateTech') ? document.getElementById('gateTech').checked : false;
+    const g3 = document.getElementById('gateSample') ? document.getElementById('gateSample').checked : false;
+    const g4 = document.getElementById('gateTrim') ? document.getElementById('gateTrim').checked : false;
+
+    // Update Node visual indicators
+    const n1 = document.getElementById('gateNode-1');
+    const n2 = document.getElementById('gateNode-2');
+    const n3 = document.getElementById('gateNode-3');
+    const n4 = document.getElementById('gateNode-4');
+    const pipe = document.getElementById('gateFluidPipe');
+
+    if (n1) n1.className = 'gate-pipe-node ' + (g1 ? 'pass' : 'block');
+    if (n2) n2.className = 'gate-pipe-node ' + (g2 ? 'pass' : 'block');
+    if (n3) n3.className = 'gate-pipe-node ' + (g3 ? 'pass' : 'block');
+    if (n4) n4.className = 'gate-pipe-node ' + (g4 ? 'pass' : 'block');
+
+    if (pipe) {
+      if (g1 && g2 && g3 && g4) {
+        pipe.className = 'gate-fluid-pipe flowing';
+      } else {
+        pipe.className = 'gate-fluid-pipe blocked';
+      }
+    }
+
+    if (gateFluidWave) {
+      gateFluidWave.surge();
+    }
+  }
+
+  // Hook into calculateGateStatus
+  const originalCalculateGateStatus = window.calculateGateStatus;
+  window.calculateGateStatus = function() {
+    if (typeof originalCalculateGateStatus === 'function') {
+      originalCalculateGateStatus();
+    }
+    updateGateFluidPipeline();
+  };
 
 
 </script>
