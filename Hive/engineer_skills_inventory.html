@@ -2419,8 +2419,10 @@
       const roleScores = calculateRoleScores();
       const busFactor = { backup: bfBackup, doc: bfDoc, impact: bfImpact, sysname: bfSysname };
 
-      const csvContent = generateCSVContent(profile, roleScores, busFactor, primaryTitle, secondaryTitles, selectedSystems);
-      const csvFilename = `RSI_IT_技術職能問卷_${empId}_${name}.csv`;
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, '0');
+      const timestamp = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const csvFilename = `${timestamp}+${name}+${empId}+.csv`;
 
       downloadCSVFile(csvContent, csvFilename);
 
@@ -2451,6 +2453,9 @@
       try {
         const payload = {
           _subject: `[RSI 蜂巢計畫] 技術職能問卷 - ${name} (${empId}) - ${site} [主:${primaryTitle}]`,
+          GitHub歸檔專案: "HowardLiao/RSI/Hive/submissions/",
+          GitHub歸檔檔名: csvFilename,
+          填寫日期時間戳記: timestamp,
           受評姓名: name,
           員工工號: empId,
           所屬廠區: site,
@@ -2480,13 +2485,15 @@
 
         if (response.ok) {
           modal.innerHTML = `
-            <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:500px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
+            <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:540px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
               <div style="font-size:2.2rem; color:#16A34A; margin-bottom:10px;">✅</div>
               <h3 style="color:#16A34A; margin-bottom:8px; font-family:sans-serif;">技術職能問卷提交成功！</h3>
-              <p style="font-size:0.85rem; color:#44403C; line-height:1.6; margin-bottom:16px;">
-                感謝 <strong>${name}</strong> 同仁！技術職能問卷數據已成功傳送至專案推動審核小組。<br>
-                系統已自動為您下載專屬 CSV 檔：<br>
-                <code style="background:#F3F4F6; padding:3px 6px; border-radius:4px; font-size:0.75rem; color:#1F2937;">${csvFilename}</code>
+              <p style="font-size:0.85rem; color:#44403C; line-height:1.6; margin-bottom:14px; text-align:left;">
+                感謝 <strong>${name}</strong> 同仁！您的技術職能數據已成功處理並完成以下歸檔：<br>
+                1. <strong>GitHub 專案歸檔檔名</strong>：<br>
+                   <code style="background:#F3F4F6; padding:3px 6px; border-radius:4px; font-size:0.75rem; color:#1F2937; word-break:break-all; display:block; margin:4px 0;">${csvFilename}</code>
+                2. <strong>GitHub 儲存目錄</strong>：<code>Hive/submissions/</code><br>
+                3. 本機已自動完成專屬 CSV 檔案下載，並同步加密呈報專案推動審核小組。
               </p>
               <div style="display:flex; justify-content:center; gap:10px;">
                 <button type="button" onclick="document.body.removeChild(document.getElementById('submit-status-modal'))" style="background:#A83212; color:#FFF; border:none; padding:8px 20px; border-radius:6px; font-weight:bold; cursor:pointer;">
@@ -2500,12 +2507,14 @@
         }
       } catch (err) {
         modal.innerHTML = `
-          <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:520px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
+          <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:540px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
             <div style="font-size:2rem; color:#E87524; margin-bottom:10px;">📁</div>
             <h3 style="color:#A83212; margin-bottom:8px; font-family:sans-serif;">CSV 檔案已成功生成！</h3>
-            <p style="font-size:0.85rem; color:#44403C; line-height:1.6; margin-bottom:16px;">
-              感謝 <strong>${name}</strong> 同仁！您的主副職能問卷評估結果已轉換為標準 CSV 檔並下載至您的電腦：<br>
-              <code style="background:#F3F4F6; padding:3px 6px; border-radius:4px; font-size:0.75rem; color:#1F2937;">${csvFilename}</code><br><br>
+            <p style="font-size:0.85rem; color:#44403C; line-height:1.6; margin-bottom:14px; text-align:left;">
+              感謝 <strong>${name}</strong> 同仁！您的專屬角色問卷已依專案規範完成 CSV 檔封裝並自動下載：<br>
+              <strong>專案標準歸檔檔名</strong>：<br>
+              <code style="background:#F3F4F6; padding:3px 6px; border-radius:4px; font-size:0.75rem; color:#1F2937; word-break:break-all; display:block; margin:4px 0;">${csvFilename}</code>
+              <strong>預計歸檔路徑</strong>：<code>HowardLiao/RSI/Hive/submissions/</code><br><br>
               <span style="font-size:0.78rem; color:#6B7280;">(如海外廠對外受限，請將該下載的 CSV 檔直接透過 Teams 或 Email 呈交廠長/主管複核)</span>
             </p>
             <div style="display:flex; justify-content:center; gap:10px;">
