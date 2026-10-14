@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 現有資訊 6 大領域現況盤點表 ｜ Hive Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --border-strong: #D6D3D1;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .form-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      padding: 36px 40px;
+      position: relative;
+    }
+
+    /* Watermark */
+    .watermark-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+      border-radius: var(--radius-md);
+    }
+
+    .header-bar {
+      border-bottom: 2px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .notice-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-left: 4px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-size: 0.82rem;
+      margin-bottom: 26px;
+      line-height: 1.55;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 6px;
+      margin-top: 32px;
+    }
+    .section-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Basic Profile Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .form-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .form-input {
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      font-family: inherit;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
+    }
+
+    /* Table Styles */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+    }
+    .inventory-table {
+      width: 100%;
+      min-width: 1050px;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .inventory-table th, .inventory-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 9px 10px;
+      vertical-align: middle;
+    }
+    .inventory-table th {
+      background: #FAF8F5;
+      color: var(--text-charcoal);
+      font-weight: 800;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .inventory-table td input, .inventory-table td select {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 5px 7px;
+      font-size: 0.78rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .inventory-table td input:focus, .inventory-table td select:focus {
+      border-color: var(--orange-vibrant);
+      background: #FFFDF9;
+    }
+
+    /* Badges */
+    .tag-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: var(--bg-warm-tint);
+      color: var(--rust-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .textarea-box {
+      width: 100%;
+      min-height: 75px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      resize: vertical;
+      margin-top: 4px;
+      margin-bottom: 14px;
+    }
+
+    /* Action bar */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--rust-primary);
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--orange-vibrant);
+    }
+    .btn-secondary {
+      background: #FFF;
+      border: 1px solid var(--border-strong);
+      color: var(--text-charcoal);
+    }
+    .btn-secondary:hover {
+      background: #FAF8F5;
+      border-color: var(--orange-vibrant);
+    }
+
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .form-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .action-bar { display: none; }
+      .table-wrap { overflow: visible; }
+      .inventory-table { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <div class="watermark-overlay"></div>
+
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+        </div>
+        <h1 class="header-title">信源全球 · 現有資訊基礎架構與系統 6 大領域現況盤點表<br><span>IT Assets & Infrastructure Comprehensive Discovery Form</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM CODE: RSI-INFRA-DISCOVERY-2027</div>
+      </div>
+    </div>
+
+    <!-- Notice Box -->
+    <div class="notice-box">
+      <strong>📌 填表目的與跨國盤點指引：</strong><br>
+      為推進信源全球 2027 蜂巢計畫（Hive Project）之 API Platform、Data Lake 與各廠資料串接，本表全面盤點台北總部與海外三廠（越南隆安、柬埔寨金邊、印尼中爪哇）在 <strong>1.軟體 2.硬體 3.網路 4.雲端 5.連線協作 6.資安</strong> 等 6 大維度現況。請各廠專責 IT 同仁詳實填報，直屬廠部資訊主管進行確認簽核。
+    </div>
+
+    <form id="discoveryForm">
+
+      <!-- Section 0: Metadata -->
+      <div class="section-title">0. 填報單位與負責人資訊 (Plant & Owner Metadata)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">盤點填報廠區節點 *</label>
+          <select class="form-input" required>
+            <option value="">-- 請選擇受盤點節點 --</option>
+            <option value="TP">台北營運總部 (Taipei HQ)</option>
+            <option value="VN">越南隆安示範旗艦廠 (Vietnam Long An)</option>
+            <option value="KH">柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
+            <option value="ID">印尼中爪哇廠 (Indonesia Central Java)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">填報同仁姓名 / 員工編號 *</label>
+          <input type="text" class="form-input" placeholder="例：陳志遠 / RSI-92015" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">聯絡公務 Email / 分機 *</label>
+          <input type="text" class="form-input" placeholder="例：edward.chen@rsisportswear.com / #3210" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">廠區資訊主管複核簽名人 *</label>
+          <input type="text" class="form-input" placeholder="例：林課長 / IT Manager" required>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 1. 軟體盤點 (Software Inventory) -->
+      <!-- ============================================================== -->
+      <div class="section-title">1. 軟體與應用系統現況盤點 (Software & Systems Inventory)</div>
+      <div class="section-desc">清查各廠現有運作之 ERP、MES、WMS、PLM、考勤薪資、聯銓 BI 報表及自編巨集/排程系統。</div>
+
+      <div class="table-wrap">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th style="width: 120px;">系統分類</th>
+              <th style="width: 160px;">系統名稱 / 模組</th>
+              <th style="width: 110px;">供應商 / 自研</th>
+              <th style="width: 140px;">底層資料庫類型與版本</th>
+              <th style="width: 110px;">部署型態</th>
+              <th style="width: 100px;">常態活躍人數</th>
+              <th>主要業務功能與現場維運痛點 (含單點維護風險)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag-badge">核心 ERP / 生管</span></td>
+              <td><input type="text" value="鼎新 ERP / 天心 / 專屬成衣ERP"></td>
+              <td><input type="text" value="外部原廠合約"></td>
+              <td><input type="text" value="MS SQL 2016 SP2"></td>
+              <td>
+                <select>
+                  <option selected>地端實體機</option>
+                  <option>地端 VMware</option>
+                  <option>公有雲主機</option>
+                </select>
+              </td>
+              <td><input type="text" value="約 150 席"></td>
+              <td><input type="text" value="主掌成衣 BOM、訂單、採購與庫存。報表查詢較慢，夜間跑帳佔用資源"></td>
+            </tr>
+            <tr>
+              <td><span class="tag-badge">車間 MES / 工序</span></td>
+              <td><input type="text" value="成衣車間生產追蹤系統"></td>
+              <td><input type="text" value="內部自研 / 協力廠"></td>
+              <td><input type="text" value="MS SQL 2014 Standard"></td>
+              <td>
+                <select>
+                  <option>地端實體機</option>
+                  <option selected>地端 VMware</option>
+                  <option>公有雲主機</option>
+                </select>
+              </td>
+              <td><input type="text" value="約 80 席 (含現場掃碼)"></td>
+              <td><input type="text" value="車縫線計件與工序進度追蹤。SQL 版本較舊，需確認 CDC 支援性"></td>
+            </tr>
+            <tr>
+              <td><span class="tag-badge">商業智慧 / 報表</span></td>
+              <td><input type="text" value="聯銓 BI 戰情系統"></td>
+              <td><input type="text" value="聯銓資訊原廠"></td>
+              <td><input type="text" value="直連 MS SQL / 檔案"></td>
+              <td>
+                <select>
+                  <option>地端實體機</option>
+                  <option selected>地端 VMware</option>
+                  <option>公有雲主機</option>
+                </select>
+              </td>
+              <td><input type="text" value="約 35 位主管"></td>
+              <td><input type="text" value="產銷與出貨統計報表。跨廠歷史數據龐大時查詢需等待 15~30 秒"></td>
+            </tr>
+            <tr>
+              <td><span class="tag-badge">倉儲 WMS / 物料</span></td>
+              <td><input type="text" placeholder="例：原副料條碼倉儲管理系統"></td>
+              <td><input type="text" placeholder="原廠或自研"></td>
+              <td><input type="text" placeholder="例：MS SQL 2019"></td>
+              <td>
+                <select>
+                  <option>地端實體機</option>
+                  <option selected>地端 VMware</option>
+                  <option>公有雲主機</option>
+                </select>
+              </td>
+              <td><input type="text" placeholder="使用人數"></td>
+              <td><input type="text" placeholder="記錄布卷入庫、檢驗、發料管理現況"></td>
+            </tr>
+            <tr>
+              <td><span class="tag-badge">HRM / 考勤門禁</span></td>
+              <td><input type="text" placeholder="例：各國當地勞動人薪/刷卡系統"></td>
+              <td><input type="text" placeholder="原廠名稱"></td>
+              <td><input type="text" placeholder="例：MS SQL / Access / MySQL"></td>
+              <td>
+                <select>
+                  <option selected>地端實體機</option>
+                  <option>地端 VMware</option>
+                  <option>公有雲主機</option>
+                </select>
+              </td>
+              <td><input type="text" placeholder="涵蓋全廠人數"></td>
+              <td><input type="text" placeholder="需符合當地勞工法規，刷卡機離線暫存機制"></td>
+            </tr>
+            <tr>
+              <td><span class="tag-badge">自編排程 / 巨集</span></td>
+              <td><input type="text" placeholder="例：生管排程 Excel VBA 巨集 / 轉帳腳本"></td>
+              <td><input type="text" value="同仁自行編寫"></td>
+              <td><input type="text" value="檔案型 / ODBC連線"></td>
+              <td><input type="text" value="個人 PC / 廠區伺服器"></td>
+              <td><input type="text" placeholder="使用人數"></td>
+              <td><input type="text" placeholder="【單點黑數風險】請說明若該同仁請假是否有人能維護？"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 2. 硬體盤點 (Hardware Inventory) -->
+      <!-- ============================================================== -->
+      <div class="section-title">2. 實體伺服器與硬體設備盤點 (Hardware & Infrastructure Assets)</div>
+      <div class="section-desc">清查機房實體伺服器、VMware 虛擬機、儲存陣列 (NAS/SAN) 及車間工業電腦 (IPC)。</div>
+
+      <div class="table-wrap">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th style="width: 100px;">設備編號</th>
+              <th style="width: 120px;">設備類型</th>
+              <th style="width: 140px;">廠牌型號</th>
+              <th style="width: 150px;">硬體規格 (CPU/RAM/Disk)</th>
+              <th style="width: 140px;">作業系統版本 (OS)</th>
+              <th style="width: 140px;">承載之核心系統</th>
+              <th style="width: 110px;">原廠保固狀態</th>
+              <th>目前妥善率與硬體汰換急迫性</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" value="SRV-01"></td>
+              <td>
+                <select>
+                  <option selected>實體伺服器</option>
+                  <option>虛擬主機 (VM)</option>
+                  <option>網路儲存 (NAS/SAN)</option>
+                  <option>車間工控機 (IPC)</option>
+                </select>
+              </td>
+              <td><input type="text" value="Dell PowerEdge R740"></td>
+              <td><input type="text" value="32C / 128GB RAM / 4TB SSD (RAID5)"></td>
+              <td><input type="text" value="VMware ESXi 7.0u3"></td>
+              <td><input type="text" value="工廠核心 MES 與 DB 主機"></td>
+              <td><input type="text" value="已過保 (2024到期)"></td>
+              <td><input type="text" value="負載 CPU 45% / 記憶體吃緊 85%，建議納入 2027 汰換清單"></td>
+            </tr>
+            <tr>
+              <td><input type="text" value="SRV-02"></td>
+              <td>
+                <select>
+                  <option>實體伺服器</option>
+                  <option selected>虛擬主機 (VM)</option>
+                  <option>網路儲存 (NAS/SAN)</option>
+                  <option>車間工控機 (IPC)</option>
+                </select>
+              </td>
+              <td><input type="text" value="VMware VM 實例"></td>
+              <td><input type="text" value="8 vCPU / 32GB RAM / 1TB"></td>
+              <td><input type="text" value="Windows Server 2016"></td>
+              <td><input type="text" value="網域 AD 與 檔案分享伺服器"></td>
+              <td><input type="text" value="跟隨實體機"></td>
+              <td><input type="text" value="運作正常，OS 即將停止延伸支援，需評估升級"></td>
+            </tr>
+            <tr>
+              <td><input type="text" value="NAS-01"></td>
+              <td>
+                <select>
+                  <option>實體伺服器</option>
+                  <option>虛擬主機 (VM)</option>
+                  <option selected>網路儲存 (NAS/SAN)</option>
+                  <option>車間工控機 (IPC)</option>
+                </select>
+              </td>
+              <td><input type="text" value="Synology 12-Bay Rack"></td>
+              <td><input type="text" value="24TB (可用空間剩餘 18%)"></td>
+              <td><input type="text" value="DSM 7.2"></td>
+              <td><input type="text" value="Veeam 本地備份儲存池"></td>
+              <td><input type="text" value="保固至 2026/12"></td>
+              <td><input type="text" value="空間即將告警，無異地第二份不可篡改複本"></td>
+            </tr>
+            <tr>
+              <td><input type="text" value="IPC-01~10"></td>
+              <td>
+                <select>
+                  <option>實體伺服器</option>
+                  <option>虛擬主機 (VM)</option>
+                  <option>網路儲存 (NAS/SAN)</option>
+                  <option selected>車間工控機 (IPC)</option>
+                </select>
+              </td>
+              <td><input type="text" value="研華 ARK-2250 / 觸控機"></td>
+              <td><input type="text" value="Core i5 / 8GB / 256GB SSD"></td>
+              <td><input type="text" value="Windows 10 IoT Ent"></td>
+              <td><input type="text" value="裁剪車間自動裁床 / 模板機集控"></td>
+              <td><input type="text" value="過保 / 廠內自修"></td>
+              <td><input type="text" value="現場粉塵較大，目前無冷備品，故障將影響裁切線"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 3. 網路盤點 (Network Inventory) -->
+      <!-- ============================================================== -->
+      <div class="section-title">3. 網路環境與外網頻寬現況盤點 (Network Topology & Bandwidth)</div>
+      <div class="section-desc">清查對外線路電信商、備援機制、核心/接入交換器、VLAN 劃分與車間 Wi-Fi 覆蓋。</div>
+
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">主要對外固網 ISP 與頻寬規格 *</label>
+          <input type="text" class="form-input" placeholder="例：中華電信 300M/100M FTTB 或 越南 Viettel 150M 對稱">
+        </div>
+        <div class="form-group">
+          <label class="form-label">第二條備援線路 (Failover) *</label>
+          <input type="text" class="form-input" placeholder="例：VNPT 100M 光纖 / 4G LTE 備援 / 無 (單線無備援)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">核心交換器 (Core Switch) 品牌型號</label>
+          <input type="text" class="form-input" placeholder="例：Cisco Catalyst 3850 / Aruba 2930F">
+        </div>
+        <div class="form-group">
+          <label class="form-label">廠區是否劃分 VLAN 網段隔離？</label>
+          <select class="form-input">
+            <option>是，嚴格隔離 (辦公室 / 伺服器 / 車間機台 / 訪客Wi-Fi)</option>
+            <option>部分隔離 (僅分伺服器與辦公室)</option>
+            <option>否，全廠單一扁平網路 (Flat Network，廣播封包多)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">車間 Wi-Fi 無線網路現況</label>
+          <input type="text" class="form-input" placeholder="例：Aruba AP 25 台，覆蓋車縫區，後整包裝區有訊號死角">
+        </div>
+        <div class="form-group">
+          <label class="form-label">機房 UPS 不斷電系統放電續航時間</label>
+          <input type="text" class="form-input" placeholder="例：APC 10kVA，停電可支撐伺服器 35 分鐘，廠區有發電機">
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 4. 雲端盤點 (Cloud Infrastructure Inventory) -->
+      <!-- ============================================================== -->
+      <div class="section-title">4. 公有雲與雲端租用資源盤點 (Cloud Assets & FinOps)</div>
+      <div class="section-desc">清查目前已在 AWS、GCP、Azure 或其他雲平台租用之主機、資料庫及月度帳單。</div>
+
+      <div class="table-wrap">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th style="width: 110px;">公有雲廠商</th>
+              <th style="width: 140px;">帳號代碼 / 區域 (Region)</th>
+              <th style="width: 140px;">租用服務名稱</th>
+              <th style="width: 140px;">規格配置 (vCPU/RAM/Disk)</th>
+              <th style="width: 150px;">承載業務與系統</th>
+              <th style="width: 120px;">月度帳單 (USD/TWD)</th>
+              <th>資源使用率與閒置分析 (FinOps 檢視)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" value="AWS"></td>
+              <td><input type="text" value="ap-southeast-1 (新加坡)"></td>
+              <td><input type="text" value="EC2 實例 ＋ S3 儲存"></td>
+              <td><input type="text" value="t3.xlarge (4C/16G) / 500GB"></td>
+              <td><input type="text" value="品牌客戶 EDI 訂單拋轉"></td>
+              <td><input type="text" value="約 $180 USD / 月"></td>
+              <td><input type="text" value="CPU 平均負載僅 8%，夜間閒置，可降規為 t3.medium 節省成本"></td>
+            </tr>
+            <tr>
+              <td><input type="text" value="GCP / Azure"></td>
+              <td><input type="text" placeholder="例：asia-east1 (台灣)"></td>
+              <td><input type="text" placeholder="例：Cloud Run / VM"></td>
+              <td><input type="text" placeholder="規格"></td>
+              <td><input type="text" placeholder="用途"></td>
+              <td><input type="text" placeholder="金額"></td>
+              <td><input type="text" placeholder="使用率說明"></td>
+            </tr>
+            <tr>
+              <td><input type="text" value="SaaS 雲端服務"></td>
+              <td><input type="text" value="Microsoft 365 租戶"></td>
+              <td><input type="text" value="Exchange / Teams / OneDrive"></td>
+              <td><input type="text" value="E3 / F3 授權共 1,200 席"></td>
+              <td><input type="text" value="全集團公務信箱與協同通訊"></td>
+              <td><input type="text" value="約 NT$ 52 萬 / 月"></td>
+              <td><input type="text" value="海外廠約 200 席未啟動或僅收信，可改買 Frontline 節省年費"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 5. 各點連線協作方式 (Inter-Site Connectivity & Collaboration) -->
+      <!-- ============================================================== -->
+      <div class="section-title">5. 跨廠各點連線與遠端協作方式盤點 (Inter-Site Connectivity)</div>
+      <div class="section-desc">清查台北總部與海外三廠的網路互連管道、遠端維運機制與跨國檔案同步模式。</div>
+
+      <div class="table-wrap">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th style="width: 140px;">連線端點路線</th>
+              <th style="width: 150px;">連線管道技術型態</th>
+              <th style="width: 120px;">平均延遲 (Ping RTT)</th>
+              <th style="width: 160px;">每日資料交換量與方式</th>
+              <th style="width: 150px;">遠端維護存取方式</th>
+              <th>國際海纜或外網中斷時之現場應變機制</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>台北總部 ↔ 越南隆安</strong></td>
+              <td>
+                <select>
+                  <option selected>Site-to-Site IPSec VPN</option>
+                  <option>MPLS 國際專線</option>
+                  <option>SD-WAN 智慧選路</option>
+                  <option>公網直連 (無加密通道)</option>
+                </select>
+              </td>
+              <td><input type="text" value="約 35 ~ 45 ms"></td>
+              <td><input type="text" value="每日排程 SQL 拋轉約 3GB"></td>
+              <td><input type="text" value="Fortinet SSL-VPN ＋ RDP"></td>
+              <td><input type="text" value="斷網時車間 MES 改本機單機暫存，海纜修復後手動補傳"></td>
+            </tr>
+            <tr>
+              <td><strong>台北總部 ↔ 柬埔寨金邊</strong></td>
+              <td>
+                <select>
+                  <option selected>Site-to-Site IPSec VPN</option>
+                  <option>MPLS 國際專線</option>
+                  <option>SD-WAN 智慧選路</option>
+                </select>
+              </td>
+              <td><input type="text" value="約 50 ~ 65 ms"></td>
+              <td><input type="text" value="夜間整批拋轉約 1.5GB"></td>
+              <td><input type="text" value="SSL-VPN / AnyDesk (備援)"></td>
+              <td><input type="text" value="金邊當地網路偶有抖動，曾發生排程中斷需人工重跑"></td>
+            </tr>
+            <tr>
+              <td><strong>台北總部 ↔ 印尼中爪哇</strong></td>
+              <td>
+                <select>
+                  <option selected>Site-to-Site IPSec VPN</option>
+                  <option>MPLS 國際專線</option>
+                  <option>SD-WAN 智慧選路</option>
+                </select>
+              </td>
+              <td><input type="text" value="約 60 ~ 80 ms"></td>
+              <td><input type="text" value="每日排程拋轉約 1.2GB"></td>
+              <td><input type="text" value="SSL-VPN ＋ Jump Host"></td>
+              <td><input type="text" value="印尼雨季供電與電信不穩，仰賴本地不斷電與 4G 備援"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 6. 資訊安全盤點 (Cybersecurity & BCP/DR) -->
+      <!-- ============================================================== -->
+      <div class="section-title">6. 資訊安全、防毒、備份與災變復原盤點 (Cybersecurity & BCP)</div>
+      <div class="section-desc">清查邊界防火牆、防毒覆蓋率、備份落實度、RTO/RPO 災難復原水準及帳號權限治理。</div>
+
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">邊界防火牆品牌型號與授權現況 *</label>
+          <input type="text" class="form-input" placeholder="例：Fortinet FortiGate-100F (UTM 授權至 2027/05)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">端點防毒 / EDR 品牌與全廠覆蓋率 *</label>
+          <input type="text" class="form-input" placeholder="例：趨勢 Apex One / 覆蓋率 92% (部分機台工控機未裝)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">核心資料庫備份工具與保存機制 *</label>
+          <input type="text" class="form-input" placeholder="例：Veeam Backup 每日完整＋每小時差異備份至本地 NAS">
+        </div>
+        <div class="form-group">
+          <label class="form-label">是否有「異地備份」或「防勒索不可篡改」？</label>
+          <select class="form-input">
+            <option>僅有本地 NAS 備份 (無異地，風險較高)</option>
+            <option>有異地備份 (每日傳回台北總部)</option>
+            <option>具備不可篡改儲存池 (WORM / S3 Object Lock)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">全廠實體機台是否納入 AD 網域控管？</label>
+          <select class="form-input">
+            <option>全廠 90% 以上納入 AD 網域管理</option>
+            <option>部分納入 (辦公電腦有入網域，車間電腦獨立工作群組)</option>
+            <option>完全無網域 (各機台均為獨立本機帳號，難以統一稽核)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">管理者與 VPN 存取是否啟用 MFA 雙因子認證？</label>
+          <select class="form-input">
+            <option>是，所有 VPN 與雲端帳號皆強制 2FA (Authenticator App)</option>
+            <option>部分啟用 (僅主管啟用，工程師維持純密碼)</option>
+            <option>否，目前純靠帳號密碼登入 (無 MFA)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 14px;">
+        <label class="form-label">過去 1 年內是否曾執行「資料庫實體驗證還原」？預估災難復原時間 (RTO/RPO)：</label>
+        <textarea class="textarea-box" placeholder="例：每季執行一次還原演練；若資料庫損毀，預估資料遺失時間 (RPO) 約 2 小時，系統重新恢復運作時間 (RTO) 約 4～6 小時..."></textarea>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 總結回饋 -->
+      <!-- ============================================================== -->
+      <div class="section-title">7. 廠區綜合反饋與最迫切支援事項 (Feedback & Bottlenecks)</div>
+      <div class="form-group">
+        <label class="form-label">請列出本廠區目前在 IT 運維或產線推進上「最迫切需要總部資源或外部顧問協助解決的前三大痛點」：</label>
+        <textarea class="textarea-box" placeholder="1. 越南隆安廠：MES 報表每逢月底結算經常連線超時，需總部資料庫專家協同調優&#10;2. 網路頻寬：金邊廠光纖偶有中斷，希望能增設 4G 自動備援路由&#10;3. 車間機台：自動裁床工控機老舊無備品，希望總部核定常態備用機..."></textarea>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-bar">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          盤點完成後，請點擊右方按鈕列印存為 PDF，經廠部主管簽核後呈報專案推動小組。
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn btn-secondary" onclick="window.print()">
+            <span>🖨️</span> 列印／存為 PDF
+          </button>
+          <button type="button" class="btn btn-primary" onclick="alert('6 大領域基礎架構盤點表填寫驗證完成！請點擊【列印／存為 PDF】將成果存檔呈核。')">
+            <span>💾</span> 驗證並完成盤點
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>
