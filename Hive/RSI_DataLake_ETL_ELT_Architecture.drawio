@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2026-10-14T06:15:00.000Z" agent="Mozilla/5.0" version="24.7.17" type="device">
+<mxfile host="app.diagrams.net" modified="2026-10-14T06:25:00.000Z" agent="Mozilla/5.0" version="24.7.17" type="device">
   <!-- Page 1: DataLake & ETL/ELT Architecture Diagram -->
   <diagram id="dl-arch-01" name="1. DataLake & ETL/ELT 湖倉架構圖">
     <mxGraphModel dx="1420" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1320" pageHeight="1020" background="#FFFFFF" math="0" shadow="0">
@@ -7,8 +7,8 @@
         <mxCell id="1" parent="0" />
 
         <!-- Title Block -->
-        <mxCell id="title-box" value="信源全球 (RSI) · 蜂巢計畫 Data Lakehouse Platform &amp; ETL/ELT 全域數據架構圖&#xa;專案指導：周文津 副總經理 ｜ 架構規劃：Howard Liao Ph.D. 外部顧問" style="text;html=1;strokeColor=#D5D0C5;fillColor=#FFF8EE;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=14;fontFamily=Helvetica;fontColor=#A83212;" vertex="1" parent="1">
-          <mxGeometry x="260" y="20" width="800" height="45" as="geometry" />
+        <mxCell id="title-box" value="信源全球 (RSI) · 蜂巢計畫 Data Lakehouse Platform &amp; ETL/ELT 全域數據架構圖&#xa;【外點結算原則上一天傳輸一次 (離峰排程 · 保護 SD-WAN 頻寬) ＋ 重大特例多次傳輸】 ｜ 外部顧問：Howard Liao Ph.D." style="text;html=1;strokeColor=#D5D0C5;fillColor=#FFF8EE;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=13;fontFamily=Helvetica;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="240" y="20" width="840" height="45" as="geometry" />
         </mxCell>
 
         <!-- Layer 1: Data Sources Layer -->
@@ -33,23 +33,23 @@
         </mxCell>
 
         <!-- Layer 2: Ingestion & Transmission Pipeline (CDC & API) -->
-        <mxCell id="group-ingest" value="層級 2：數據擷取傳輸與異動串流通道 (Ingestion Pipeline: CDC &amp; Micro-batch)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFF8EE;strokeColor=#FED7AA;fontColor=#A83212;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+        <mxCell id="group-ingest" value="層級 2：數據擷取傳輸與 SD-WAN 頻寬治理 (Ingestion Pipeline &amp; SD-WAN Bandwidth Governance)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFF8EE;strokeColor=#FED7AA;fontColor=#A83212;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="40" y="215" width="1240" height="110" as="geometry" />
         </mxCell>
 
-        <mxCell id="ing1" value="&lt;b&gt;CDC 異動日誌擷取 (Serverless)&lt;/b&gt;&lt;br&gt;Datastream / AWS DMS&lt;br&gt;讀取 MS SQL 交易日誌 (秒級串流)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
+        <mxCell id="ing1" value="&lt;b&gt;CDC 異動日誌擷取 (Serverless)&lt;/b&gt;&lt;br&gt;Datastream / AWS DMS&lt;br&gt;讀取 MS SQL 交易日誌 (可設頻寬上限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
           <mxGeometry x="50" y="35" width="260" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="ing2" value="&lt;b&gt;API 邊緣收集與緩衝傳輸&lt;/b&gt;&lt;br&gt;Cloud API Gateway ＋ Edge Proxy&lt;br&gt;每小時批次彙整 (JSON Payload)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
+        <mxCell id="ing2" value="&lt;b&gt;外點結算一天一次傳輸 (離峰)&lt;/b&gt;&lt;br&gt;排定深夜離峰打包壓縮上傳&lt;br&gt;&lt;font color=&quot;#B45309&quot;&gt;&lt;b&gt;避免白天衝擊 SD-WAN 頻寬&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#B45309;strokeWidth=2;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
           <mxGeometry x="360" y="35" width="260" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="ing3" value="&lt;b&gt;傳輸網路與加密通道&lt;/b&gt;&lt;br&gt;Cloud Interconnect / IPSec VPN&lt;br&gt;斷線自動續傳 (Checkpoint / Offset)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
+        <mxCell id="ing3" value="&lt;b&gt;重大緊急事件多次傳輸通道&lt;/b&gt;&lt;br&gt;4-Gate 結關 / 重大品質異常 / 手動強制&lt;br&gt;優先頻寬佇列 (QoS Priority Sync)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
           <mxGeometry x="670" y="35" width="260" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="ing4" value="&lt;b&gt;未結構化檔案直傳 (SFTP/API)&lt;/b&gt;&lt;br&gt;Cloud Storage API / S3 API&lt;br&gt;做工圖資與文件自動上傳" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#78716C;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
+        <mxCell id="ing4" value="&lt;b&gt;傳輸網路與加密通道&lt;/b&gt;&lt;br&gt;SD-WAN 智慧選路 / IPSec VPN&lt;br&gt;斷線自動記錄 Checkpoint 續傳" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#78716C;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-ingest">
           <mxGeometry x="980" y="35" width="220" height="60" as="geometry" />
         </mxCell>
 
@@ -59,26 +59,26 @@
         </mxCell>
 
         <!-- Tier 1: Bronze (Raw) -->
-        <mxCell id="tier-bronze" value="&lt;b&gt;【銅牌原始層 Bronze / ODS】&lt;/b&gt;&lt;br&gt;&lt;i&gt;Raw Ingestion &amp; Change Logs&lt;/i&gt;&lt;br&gt;&lt;br&gt;• 100% 完整保留原始異動資料&lt;br&gt;• 格式：Parquet / JSON / BigQuery 暫存&lt;br&gt;• 包含 _metadata、_timestamp、操作類別 (I/U/D)&lt;br&gt;• 冷資料沉降於 GCS / S3 物件儲存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8EE;strokeColor=#B6532D;strokeWidth=1.5;fontColor=#222222;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="group-lake">
+        <mxCell id="tier-bronze" value="&lt;b&gt;【銅牌原始層 Bronze / ODS】&lt;/b&gt;&lt;br&gt;&lt;i&gt;Raw Ingestion &amp; Change Logs&lt;/i&gt;&lt;br&gt;&lt;br&gt;• 100% 完整保留原始異動資料&lt;br&gt;• 外點每日離峰批次寫入 ＋ 緊急直傳&lt;br&gt;• 格式：Parquet / JSON / BigQuery 暫存&lt;br&gt;• 包含 _metadata、_timestamp、操作類別&lt;br&gt;• 冷資料沉降於 GCS / S3 物件儲存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8EE;strokeColor=#B6532D;strokeWidth=1.5;fontColor=#222222;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="group-lake">
           <mxGeometry x="40" y="45" width="350" height="180" as="geometry" />
         </mxCell>
 
         <!-- Tier 2: Silver (DWD) -->
-        <mxCell id="tier-silver" value="&lt;b&gt;【銀牌整合清洗層 Silver / DWD】&lt;/b&gt;&lt;br&gt;&lt;i&gt;Standardized &amp; Conformed Data&lt;/i&gt;&lt;br&gt;&lt;br&gt;• 執行每小時 ELT 去重與 MERGE&lt;br&gt;• 跨廠時間戳標準化 (統一換算 UTC+8)&lt;br&gt;• 4-Gate 產前門禁資料校驗&lt;br&gt;• 關聯主檔 (Dim_Style, Dim_Factory)&lt;br&gt;• 支援 Apache Iceberg / BigLake ACID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontColor=#222222;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="group-lake">
+        <mxCell id="tier-silver" value="&lt;b&gt;【銀牌整合清洗層 Silver / DWD】&lt;/b&gt;&lt;br&gt;&lt;i&gt;Standardized &amp; Conformed Data&lt;/i&gt;&lt;br&gt;&lt;br&gt;• 執行每日結算 ELT 去重與 MERGE&lt;br&gt;• 跨廠時間戳標準化 (統一換算 UTC+8)&lt;br&gt;• 4-Gate 產前門禁資料校驗&lt;br&gt;• 關聯主檔 (Dim_Style, Dim_Factory)&lt;br&gt;• 支援 Apache Iceberg / BigLake ACID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontColor=#222222;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="group-lake">
           <mxGeometry x="440" y="45" width="360" height="180" as="geometry" />
         </mxCell>
 
         <!-- Tier 3: Gold (DWS/ADS) -->
-        <mxCell id="tier-gold" value="&lt;b&gt;【金牌業務主題與對帳層 Gold / ADS】&lt;/b&gt;&lt;br&gt;&lt;i&gt;Business Aggregation &amp; Reconciliation&lt;/i&gt;&lt;br&gt;&lt;br&gt;• 每日 24:00 結算切帳表 (Snapshot)&lt;br&gt;• 跨廠產量平衡：裁剪 vs 車縫 vs 出貨&lt;br&gt;• 每小時線平衡率 (Line Balance) 聚合表&lt;br&gt;• 聯銓 BI 專用快取視圖 (BI Engine)&lt;br&gt;• 高階經營與財務利潤率 KPI 寬表" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDFB;strokeColor=#D97706;strokeWidth=2;fontColor=#222222;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="group-lake">
+        <mxCell id="tier-gold" value="&lt;b&gt;【金牌業務主題與對帳層 Gold / ADS】&lt;/b&gt;&lt;br&gt;&lt;i&gt;Business Aggregation &amp; Reconciliation&lt;/i&gt;&lt;br&gt;&lt;br&gt;• 每日結算切帳表 (Snapshot 一天一次)&lt;br&gt;• 跨廠產量平衡：裁剪 vs 車縫 vs 出貨&lt;br&gt;• 每日/即時重要事件聚合表&lt;br&gt;• 聯銓 BI 專用快取視圖 (BI Engine)&lt;br&gt;• 高階經營與財務利潤率 KPI 寬表" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDFB;strokeColor=#D97706;strokeWidth=2;fontColor=#222222;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="group-lake">
           <mxGeometry x="850" y="45" width="350" height="180" as="geometry" />
         </mxCell>
 
         <!-- Flow arrows inside lakehouse -->
-        <mxCell id="lake-flow1" value="ELT 每小時清洗&#xa;(BigQuery SQL)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E87524;strokeWidth=2;fontSize=10;fontColor=#A83212;" edge="1" parent="group-lake" source="tier-bronze" target="tier-silver">
+        <mxCell id="lake-flow1" value="每日結算 ELT 清洗&#xa;(BigQuery SQL)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E87524;strokeWidth=2;fontSize=10;fontColor=#A83212;" edge="1" parent="group-lake" source="tier-bronze" target="tier-silver">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="lake-flow2" value="每日結算彙總&#xa;(Airflow DAG)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;fontSize=10;fontColor=#A83212;" edge="1" parent="group-lake" source="tier-silver" target="tier-gold">
+        <mxCell id="lake-flow2" value="每日對帳彙總&#xa;(Airflow DAG)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;fontSize=10;fontColor=#A83212;" edge="1" parent="group-lake" source="tier-silver" target="tier-gold">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
@@ -87,7 +87,7 @@
           <mxGeometry x="40" y="625" width="1240" height="120" as="geometry" />
         </mxCell>
 
-        <mxCell id="orch1" value="&lt;b&gt;Apache Airflow 司令塔&lt;/b&gt;&lt;br&gt;Cloud Composer / MWAA&lt;br&gt;每小時 DAG / 依賴校驗 / 失敗重試" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-orch">
+        <mxCell id="orch1" value="&lt;b&gt;Apache Airflow 司令塔&lt;/b&gt;&lt;br&gt;Cloud Composer / MWAA&lt;br&gt;每日離峰 DAG / 重大特例觸發 / 失敗重試" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-orch">
           <mxGeometry x="40" y="40" width="260" height="60" as="geometry" />
         </mxCell>
 
@@ -125,11 +125,11 @@
         </mxCell>
 
         <!-- Vertical Connectors between layers -->
-        <mxCell id="c-arr1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A83212;strokeWidth=2;" edge="1" parent="1" source="src2" target="ing1">
+        <mxCell id="c-arr1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A83212;strokeWidth=2;" edge="1" parent="1" source="src2" target="ing2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="c-arr2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A83212;strokeWidth=2;" edge="1" parent="1" source="ing1" target="tier-bronze">
+        <mxCell id="c-arr2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A83212;strokeWidth=2;" edge="1" parent="1" source="ing2" target="tier-bronze">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
@@ -146,15 +146,15 @@
   </diagram>
 
   <!-- Page 2: DataLake ETL / ELT Sequence Diagram -->
-  <diagram id="dl-seq-02" name="2. DataLake ETL/ELT 端到端時序圖">
+  <diagram id="dl-seq-02" name="2. DataLake 結算傳輸時序圖">
     <mxGraphModel dx="1420" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1320" pageHeight="1150" background="#FFFFFF" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
         <!-- Title Block -->
-        <mxCell id="seq-dl-title" value="信源全球 (RSI) · 蜂巢計畫 Data Lakehouse ETL / ELT 端到端調用時序圖&#xa;(涵蓋每小時串流 ELT 清洗 ＋ 每日 24:00 結算切帳對帳流程) ｜ 外部顧問：Howard Liao Ph.D." style="text;html=1;strokeColor=#D5D0C5;fillColor=#FFF8EE;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=13;fontFamily=Helvetica;fontColor=#A83212;" vertex="1" parent="1">
-          <mxGeometry x="260" y="20" width="800" height="45" as="geometry" />
+        <mxCell id="seq-dl-title" value="信源全球 (RSI) · 蜂巢計畫 Data Lakehouse 結算傳輸時序圖&#xa;【外點原則上一天傳輸一次 (離峰排程 · 保護 SD-WAN 頻寬) ＋ 重大緊急特例多次傳輸】 ｜ 外部顧問：Howard Liao Ph.D." style="text;html=1;strokeColor=#D5D0C5;fillColor=#FFF8EE;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=13;fontFamily=Helvetica;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="240" y="20" width="840" height="45" as="geometry" />
         </mxCell>
 
         <!-- Lifelines -->
@@ -162,177 +162,137 @@
           <mxGeometry x="50" y="85" width="130" height="980" as="geometry" />
         </mxCell>
 
-        <mxCell id="ll-cdc" value="CDC 串流引擎&#xa;(Datastream / DMS)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FFF8EE;strokeColor=#E87524;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
-          <mxGeometry x="230" y="85" width="140" height="980" as="geometry" />
+        <mxCell id="ll-sdwan" value="外點 SD-WAN / 代理&#xa;(Edge Proxy &amp; Buffer)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FEF3C7;strokeColor=#B45309;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="230" y="85" width="150" height="980" as="geometry" />
         </mxCell>
 
         <mxCell id="ll-raw" value="湖倉銅牌層 (Bronze)&#xa;(Raw ODS / GCS)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#B6532D;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
-          <mxGeometry x="420" y="85" width="140" height="980" as="geometry" />
+          <mxGeometry x="430" y="85" width="140" height="980" as="geometry" />
         </mxCell>
 
         <mxCell id="ll-airflow" value="流程編排司令塔&#xa;(Cloud Composer / Airflow)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#A83212;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#A83212;" vertex="1" parent="1">
-          <mxGeometry x="610" y="85" width="160" height="980" as="geometry" />
+          <mxGeometry x="620" y="85" width="160" height="980" as="geometry" />
         </mxCell>
 
         <mxCell id="ll-dwh" value="湖倉銀/金牌層 (Silver/Gold)&#xa;(BigQuery / Iceberg)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#D97706;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
-          <mxGeometry x="820" y="85" width="170" height="980" as="geometry" />
+          <mxGeometry x="830" y="85" width="170" height="980" as="geometry" />
         </mxCell>
 
         <mxCell id="ll-bi" value="報表與決策消費端&#xa;(聯銓 BI / 主管看板)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#78716C;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
-          <mxGeometry x="1040" y="85" width="150" height="980" as="geometry" />
+          <mxGeometry x="1050" y="85" width="150" height="980" as="geometry" />
         </mxCell>
 
-        <!-- Stage 1 Divider: Ingestion -->
-        <mxCell id="div-ing" value="第一階段：持續異動擷取 (Continuous CDC Stream Ingestion ➔ ELT 載入)" style="text;html=1;strokeColor=#A83212;fillColor=#FFF8EE;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#A83212;" vertex="1" parent="1">
+        <!-- Stage 1 Divider: Daytime Local Aggregation -->
+        <mxCell id="div-daytime" value="白天產線尖峰 (07:00 ~ 19:00)：外點本地暫存聚合 ➔ 嚴格保護 SD-WAN 頻寬 (Bandwidth Preservation)" style="text;html=1;strokeColor=#B45309;fillColor=#FEF3C7;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#92400E;" vertex="1" parent="1">
           <mxGeometry x="40" y="180" width="1170" height="25" as="geometry" />
         </mxCell>
 
-        <mxCell id="seq1" value="1. 工廠車縫機台/MES 寫入 MS SQL 交易日誌 (Insert/Update/Delete)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dbs" target="ll-dbs">
+        <mxCell id="seq1" value="1. 車間 MES 工序計件寫入本地 MS SQL 日誌" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dbs" target="ll-dbs">
           <mxGeometry x="0.2" y="15" relative="1" as="geometry">
             <mxPoint as="offset" />
             <mxPoint x="120" y="220" as="sourcePoint" />
             <Array as="points">
               <mxPoint x="150" y="220" />
-              <mxPoint x="150" y="250" />
+              <mxPoint x="150" y="245" />
             </Array>
-            <mxPoint x="120" y="250" as="targetPoint" />
+            <mxPoint x="120" y="245" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq2" value="2. Datastream 持續監聽 Transaction Log (低延遲串流讀取變更)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#E87524;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dbs" target="ll-cdc">
+        <mxCell id="seq2" value="2. 本地 Edge 代理快取聚合 (不佔用跨國 SD-WAN 頻寬，保證車間/語音順暢)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#B45309;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dbs" target="ll-sdwan">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="115" y="270" as="sourcePoint" />
-            <mxPoint x="300" y="270" as="targetPoint" />
+            <mxPoint x="115" y="265" as="sourcePoint" />
+            <mxPoint x="300" y="265" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq3" value="3. Storage Write API 直傳寫入 Bronze 原始層 (ODS 變更事件表)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#B6532D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-cdc" target="ll-raw">
+        <mxCell id="seq3" value="3. 【重大緊急特例觸發 (Priority Event)】如 4-Gate 結關/出貨/嚴重品質異常 ➔ 即時高優先級通道傳輸" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#DC2626;strokeWidth=2;fontSize=10;fontColor=#DC2626;" edge="1" parent="1" source="ll-sdwan" target="ll-raw">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="300" y="300" as="sourcePoint" />
-            <mxPoint x="490" y="300" as="targetPoint" />
+            <mxPoint x="305" y="300" as="sourcePoint" />
+            <mxPoint x="500" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq4" value="4. 寫入確認 ＆ 更新 LSN 位移檢查點 (Checkpoint ACK)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#B6532D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-raw" target="ll-cdc">
+        <!-- Stage 2 Divider: Off-Peak Nightly Transfer (Once a day) -->
+        <mxCell id="div-nightly" value="深夜離峰時段 (01:00 ~ 03:00)：外點每日結算一次性打包傳輸 (Daily Off-Peak Batch ➔ 避開網路尖峰)" style="text;html=1;strokeColor=#A83212;fillColor=#FFF8EE;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="40" y="350" width="1170" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="seq4" value="4. 深夜離峰 (01:00) 啟動外點結算打包傳輸任務 (壓縮率達 80% 節省頻寬)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#E87524;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-sdwan" target="ll-raw">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="490" y="330" as="sourcePoint" />
-            <mxPoint x="300" y="330" as="targetPoint" />
+            <mxPoint x="305" y="395" as="sourcePoint" />
+            <mxPoint x="500" y="395" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <!-- Stage 2 Divider: Hourly ELT -->
-        <mxCell id="div-hourly" value="第二階段：每小時微批次清洗轉換 (Hourly Micro-batch ELT Pipeline)" style="text;html=1;strokeColor=#E87524;fillColor=#FFFDFB;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#E87524;" vertex="1" parent="1">
-          <mxGeometry x="40" y="380" width="1170" height="25" as="geometry" />
+        <mxCell id="seq5" value="5. 寫入 Bronze 原始日誌層 ＆ 回傳傳輸完成確認 (ACK, Checkpoint Saved)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#B6532D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-raw" target="ll-sdwan">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="425" as="sourcePoint" />
+            <mxPoint x="305" y="425" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq5" value="5. 每小時定時觸發 DAG (每逢整點 00 分)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-airflow">
+        <!-- Stage 3 Divider: Daily Reconciliation -->
+        <mxCell id="div-reconcile" value="第三階段：每日結算切帳與跨廠對帳 (Daily Reconciliation &amp; Cut-off DAG)" style="text;html=1;strokeColor=#D97706;fillColor=#FFFDFB;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#D97706;" vertex="1" parent="1">
+          <mxGeometry x="40" y="475" width="1170" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="seq6" value="6. Airflow 啟動每日結算 DAG (排定離峰 02:30)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-airflow">
           <mxGeometry x="0.2" y="15" relative="1" as="geometry">
             <mxPoint as="offset" />
-            <mxPoint x="690" y="420" as="sourcePoint" />
+            <mxPoint x="700" y="515" as="sourcePoint" />
             <Array as="points">
-              <mxPoint x="720" y="420" />
-              <mxPoint x="720" y="445" />
+              <mxPoint x="730" y="515" />
+              <mxPoint x="730" y="540" />
             </Array>
-            <mxPoint x="690" y="445" as="targetPoint" />
+            <mxPoint x="700" y="540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq6" value="6. 檢查 Bronze 層各廠 CDC 數據完整性 (Sensor 依賴檢驗)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#78716C;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-raw">
+        <mxCell id="seq7" value="7. 驅動 BigQuery MERGE SQL ➔ 清洗產出 Silver 乾淨事實表" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#D97706;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-dwh">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="465" as="sourcePoint" />
-            <mxPoint x="490" y="465" as="targetPoint" />
+            <mxPoint x="700" y="565" as="sourcePoint" />
+            <mxPoint x="915" y="565" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq7" value="7. 驅動 BigQuery 執行 MERGE SQL (去重、跨廠時間戳統一、關聯主檔)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#D97706;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-dwh">
+        <mxCell id="seq8" value="8. 跨廠產量與庫存平衡核對：[裁剪投入] vs [車縫產出] vs [出貨入庫]" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-dwh">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="500" as="sourcePoint" />
-            <mxPoint x="905" y="500" as="targetPoint" />
+            <mxPoint x="700" y="600" as="sourcePoint" />
+            <mxPoint x="915" y="600" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq8" value="8. 產出 Silver 層標準事實表 (DWD_Sewing_Production)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#D97706;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dwh" target="ll-airflow">
+        <mxCell id="seq9" value="9. 產出每日對帳結算表 (Reconciled Report) ＆ 標註異常" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dwh" target="ll-airflow">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="905" y="530" as="sourcePoint" />
-            <mxPoint x="690" y="530" as="targetPoint" />
+            <mxPoint x="915" y="635" as="sourcePoint" />
+            <mxPoint x="700" y="635" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq9" value="9. 聚合線平衡率 (Line Balance) 與即時產出 ➔ 刷新 Gold 層" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-dwh">
+        <mxCell id="seq10" value="10. 推播每日對帳完成通報 (Webhook to Teams/Email)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-bi">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="565" as="sourcePoint" />
-            <mxPoint x="905" y="565" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="seq10" value="10. BI Engine 記憶體快取自動預熱 (更新完成確認)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dwh" target="ll-airflow">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="905" y="595" as="sourcePoint" />
-            <mxPoint x="690" y="595" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-
-        <!-- Stage 3 Divider: Daily Cut-off & Reconciliation -->
-        <mxCell id="div-daily" value="第三階段：每日 24:00 業務結算切帳與跨廠對帳 (Daily Reconciliation &amp; Financial Cut-off)" style="text;html=1;strokeColor=#D97706;fillColor=#FEF3C7;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#92400E;" vertex="1" parent="1">
-          <mxGeometry x="40" y="650" width="1170" height="25" as="geometry" />
-        </mxCell>
-
-        <mxCell id="seq11" value="11. 每日 24:00 啟動結算切帳 DAG (Snapshot Cut-off)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-airflow">
-          <mxGeometry x="0.2" y="15" relative="1" as="geometry">
-            <mxPoint as="offset" />
-            <mxPoint x="690" y="695" as="sourcePoint" />
-            <Array as="points">
-              <mxPoint x="720" y="695" />
-              <mxPoint x="720" y="720" />
-            </Array>
-            <mxPoint x="690" y="720" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="seq12" value="12. 鎖定昨日截至 23:59:59 快照 (Time-Travel 凍結帳面數據)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#D97706;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-dwh">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="740" as="sourcePoint" />
-            <mxPoint x="905" y="740" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="seq13" value="13. 執行跨廠平衡核對：[裁剪投入] vs [車縫產出] vs [出貨入庫] 差異檢驗" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-dwh">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="775" as="sourcePoint" />
-            <mxPoint x="905" y="775" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="seq14" value="14. 產出每日對帳結算表 (Reconciled Report) ＆ 標註異常筆數" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dwh" target="ll-airflow">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="905" y="810" as="sourcePoint" />
-            <mxPoint x="690" y="810" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="seq15" value="15. 推播對帳報告與稽核通知 (Webhook to Teams/Email)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-airflow" target="ll-bi">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="845" as="sourcePoint" />
-            <mxPoint x="1115" y="845" as="targetPoint" />
+            <mxPoint x="700" y="670" as="sourcePoint" />
+            <mxPoint x="1125" y="670" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
         <!-- Stage 4: Downstream Serving -->
         <mxCell id="div-serving" value="第四階段：報表與決策消費 (Downstream Serving via 聯銓 BI &amp; AI)" style="text;html=1;strokeColor=#15803D;fillColor=#ECFDF5;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#065F46;" vertex="1" parent="1">
-          <mxGeometry x="40" y="900" width="1170" height="25" as="geometry" />
+          <mxGeometry x="40" y="720" width="1170" height="25" as="geometry" />
         </mxCell>
 
-        <mxCell id="seq16" value="16. 聯銓 BI 載入 Gold 主題市集 (BI Engine 亞秒級響應，耗時 &lt; 1s)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-bi" target="ll-dwh">
+        <mxCell id="seq11" value="11. 聯銓 BI 載入 Gold 主題市集 (直連 BI Engine 快取，查詢耗時 &lt; 1s)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-bi" target="ll-dwh">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1115" y="945" as="sourcePoint" />
-            <mxPoint x="905" y="945" as="targetPoint" />
+            <mxPoint x="1125" y="765" as="sourcePoint" />
+            <mxPoint x="915" y="765" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="seq17" value="17. 傳回高階戰情儀表 (周副總與決策層即時掌握 7,500 萬件營運全貌)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dwh" target="ll-bi">
+        <mxCell id="seq12" value="12. 傳回高階戰情儀表 (周副總與決策層即時掌握產銷全貌)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-dwh" target="ll-bi">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="905" y="975" as="sourcePoint" />
-            <mxPoint x="1115" y="975" as="targetPoint" />
+            <mxPoint x="915" y="795" as="sourcePoint" />
+            <mxPoint x="1125" y="795" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 

@@ -694,7 +694,7 @@
           <span class="metaphor-icon">⚡</span>
           <div class="metaphor-title">即時串接通道</div>
           <div class="metaphor-role">Pollen Corridors · API Platform</div>
-          <div class="metaphor-body">企業級 API 平台與微批次資料管線如同採集與傳遞路徑，每小時增量傳遞、每日自動結算對帳，確保跨國節點血管暢通。</div>
+          <div class="metaphor-body">企業級 API 平台與微批次資料管線如同採集與傳遞路徑，外點結算原則上一天傳輸一次（排定離峰、保護 SD-WAN 頻寬）、重大特例才多次傳輸，確保跨國節點血管暢通。</div>
         </div>
 
         <div class="metaphor-card">
@@ -765,7 +765,7 @@
         <div class="pipeline-step">
           <span class="step-badge">階段 5</span>
           <div class="step-name">建置與驗收</div>
-          <div class="step-desc">正式環境部署、雙向增量串接、每小時更新與階段成果驗收。</div>
+          <div class="step-desc">正式環境部署、雙向增量串接、每日離峰結算傳輸 (SD-WAN 頻寬保護) 與階段成果驗收。</div>
         </div>
         <div class="pipeline-step">
           <span class="step-badge">階段 6</span>
@@ -839,9 +839,9 @@
             </tr>
             <tr>
               <td class="col-id">6</td>
-              <td class="col-title">每小時更新與每日結算</td>
-              <td>確認更新頻率、結算時間、對帳規則、失敗補跑及斷線補傳需求</td>
-              <td class="col-deliverable">排程規格、結算規則、驗收項目</td>
+              <td class="col-title">每日結算傳輸與重大特例通道 (SD-WAN 頻寬保護)</td>
+              <td>外點結算原則上一天傳輸一次（排定深夜離峰），重大緊急事項才多次傳輸，避免衝擊外點 SD-WAN 頻寬；確認結算時間、對帳規則、失敗補跑及斷線補傳</td>
+              <td class="col-deliverable">離峰排程規格、結算規則、SD-WAN 流量管制項目</td>
               <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
             </tr>
             <tr>

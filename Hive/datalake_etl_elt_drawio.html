@@ -197,7 +197,7 @@
         <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
           RSI GLOBAL ENTERPRISE · HIVE PROJECT DATA ARCHITECTURE
         </div>
-        <h1 class="header-title">信源全球 · 蜂巢計畫 Data Lakehouse Platform &amp; ETL/ELT 架構圖與時序圖<br><span>Draw.io 向量設計版 (3層湖倉 ＋ 每小時微批次 ＋ 每日結算切帳)</span></h1>
+        <h1 class="header-title">信源全球 · 蜂巢計畫 Data Lakehouse Platform &amp; ETL/ELT 架構圖與時序圖<br><span>Draw.io 向量設計版 (外點結算一天一次 · SD-WAN 頻寬保護 ＋ 重大特例傳輸)</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
@@ -230,19 +230,15 @@
           <span>信源全球 (RSI) Data Lakehouse &amp; ETL/ELT 5 層全域數據架構圖</span>
         </div>
         <div style="font-size: 0.75rem; color: var(--text-muted);">
-          Draw.io 格式 · 涵蓋 MS SQL CDC 串流、Bronze/Silver/Gold 3 層湖倉、Airflow 調度與聯銓 BI
+          Draw.io 格式 · 涵蓋外點 SD-WAN 頻寬保護、Bronze/Silver/Gold 3 層湖倉、Airflow 調度與聯銓 BI
         </div>
       </div>
 
       <div class="info-callout">
-        <strong>💡 現代 Lakehouse 核心設計亮點：</strong><br>
-        1. <strong>ETL 與 ELT 分工</strong>：<br>
-           - <strong>ELT（核心大數據流）</strong>：各廠 MS SQL 異動經 Datastream <strong>秒級直入 Bronze 原始層</strong>，再由 BigQuery 內部運算核心執行 SQL MERGE 轉換至 Silver/Gold 層，效能最快、無資料遺失風險。<br>
-           - <strong>ETL（邊緣清洗與敏感去識別化）</strong>：針對部分含機密工資、特定客戶機敏標籤之資料，於邊緣或進入湖倉前執行欄位遮罩與過濾。<br>
-        2. <strong>Medallion 3 層架構</strong>：<br>
-           - <strong>Bronze (ODS)</strong>：保留 100% 原始變更軌跡（Insert/Update/Delete）。<br>
-           - <strong>Silver (DWD)</strong>：去重清洗、跨廠時間戳統一為 UTC+8、關聯款式與工藝主檔、4-Gate 產前門禁校驗。<br>
-           - <strong>Gold (ADS)</strong>：每日 24:00 結算切帳表、各廠產量平衡（裁剪 vs 車縫 vs 出貨）、聯銓 BI 直連快取視圖。
+        <strong>💡 SD-WAN 頻寬保護與湖倉設計核心亮點：</strong><br>
+        1. <strong>外點結算一天一次傳輸 (Daily Off-Peak Batch)</strong>：為避免佔用外點 SD-WAN 頻寬影響白天的成衣產線、視訊與 ERP 操作，外點結算資料原則上<strong>每天深夜離峰時段（01:00 ~ 03:00）打包壓縮傳輸一次</strong>。<br>
+        2. <strong>重大緊急特例通道 (Priority On-Demand Trigger)</strong>：僅在 4-Gate 結關、出貨檢驗或嚴重品質異常等重要特例時，才啟動高優先級多次即時傳輸。<br>
+        3. <strong>Medallion 3 層架構</strong>：Bronze (保留原始事件) ➔ Silver (每日清洗與時間戳對齊) ➔ Gold (每日 24:00 結算切帳表與聯銓 BI 直連快取)。
       </div>
 
       <!-- Rendered Architecture SVG -->
@@ -277,25 +273,25 @@
           <text x="1050" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">未結構化文件 &amp; SaaS</text>
           <text x="1050" y="98" text-anchor="middle" font-size="10" fill="#666666">客戶 Tech Pack (PDF/CAD) / EDI</text>
 
-          <!-- Layer 2: Ingestion -->
+          <!-- Layer 2: Ingestion & SD-WAN -->
           <rect x="20" y="160" width="1160" height="110" rx="8" fill="#FFF8EE" stroke="#FED7AA" stroke-width="1.5"/>
-          <text x="40" y="185" font-weight="800" font-size="13" fill="#A83212">層級 2：數據擷取傳輸與異動串流通道 (Ingestion Pipeline: CDC &amp; Micro-batch)</text>
+          <text x="40" y="185" font-weight="800" font-size="13" fill="#A83212">層級 2：數據擷取傳輸與 SD-WAN 頻寬治理 (Ingestion &amp; SD-WAN Bandwidth Governance)</text>
 
           <rect x="40" y="195" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#A83212" stroke-width="1.5"/>
-          <text x="170" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">CDC 異動串流 (Serverless)</text>
-          <text x="170" y="238" text-anchor="middle" font-size="10" fill="#666666">Datastream / 讀取 MS SQL 日誌</text>
+          <text x="170" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">CDC 異動日誌擷取</text>
+          <text x="170" y="238" text-anchor="middle" font-size="10" fill="#666666">Datastream / 可配置頻寬流量上限</text>
 
-          <rect x="330" y="195" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
-          <text x="460" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">API 邊緣收集與緩衝傳輸</text>
-          <text x="460" y="238" text-anchor="middle" font-size="10" fill="#666666">Cloud API Gateway ＋ 邊緣快取</text>
+          <rect x="330" y="195" width="260" height="60" rx="6" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
+          <text x="460" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#92400E">外點結算一天一次 (深夜離峰)</text>
+          <text x="460" y="238" text-anchor="middle" font-size="10" fill="#B45309" font-weight="700">避免白天衝擊 SD-WAN 跨國頻寬</text>
 
           <rect x="620" y="195" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
-          <text x="750" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">傳輸網路與加密通道</text>
-          <text x="750" y="238" text-anchor="middle" font-size="10" fill="#666666">專線 / IPSec VPN (斷線位移續傳)</text>
+          <text x="750" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">重大特例多次傳輸通道</text>
+          <text x="750" y="238" text-anchor="middle" font-size="10" fill="#666666">4-Gate結關/嚴重品質異常優先傳送</text>
 
           <rect x="910" y="195" width="250" height="60" rx="6" fill="#FFFFFF" stroke="#78716C" stroke-width="1.5"/>
-          <text x="1035" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">圖資與文件直傳管道</text>
-          <text x="1035" y="238" text-anchor="middle" font-size="10" fill="#666666">Cloud Storage API / S3 API</text>
+          <text x="1035" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">傳輸網路與加密通道</text>
+          <text x="1035" y="238" text-anchor="middle" font-size="10" fill="#666666">SD-WAN / IPSec VPN (斷線位移續傳)</text>
 
           <!-- Layer 3: Modern Lakehouse (Bronze / Silver / Gold) -->
           <rect x="20" y="300" width="1160" height="230" rx="8" fill="#FAF8F5" stroke="#A83212" stroke-width="2"/>
@@ -305,14 +301,14 @@
           <rect x="40" y="340" width="340" height="170" rx="6" fill="#FFF8EE" stroke="#B6532D" stroke-width="1.5"/>
           <text x="55" y="365" font-weight="800" font-size="12" fill="#A83212">【銅牌原始層 Bronze / ODS】</text>
           <text x="55" y="385" font-size="10" fill="#666666">• 100% 完整保留原始異動資料</text>
-          <text x="55" y="405" font-size="10" fill="#666666">• 格式：Parquet / BigQuery 暫存表</text>
-          <text x="55" y="425" font-size="10" fill="#666666">• 包含 _metadata、_timestamp、操作類別</text>
+          <text x="55" y="405" font-size="10" fill="#666666">• 外點每日離峰批次寫入 ＋ 緊急直傳</text>
+          <text x="55" y="425" font-size="10" fill="#666666">• 格式：Parquet / BigQuery 暫存表</text>
           <text x="55" y="445" font-size="10" fill="#666666">• 冷資料沉降於 GCS 物件儲存</text>
 
           <!-- Silver -->
           <rect x="430" y="340" width="340" height="170" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
           <text x="445" y="365" font-weight="800" font-size="12" fill="#E87524">【銀牌清洗層 Silver / DWD】</text>
-          <text x="445" y="385" font-size="10" fill="#666666">• 每小時 ELT 去重與 MERGE 運算</text>
+          <text x="445" y="385" font-size="10" fill="#666666">• 每日結算 ELT 去重與 MERGE 運算</text>
           <text x="445" y="405" font-size="10" fill="#666666">• 跨廠時間戳統一 (UTC+8 台北時間)</text>
           <text x="445" y="425" font-size="10" fill="#666666">• 關聯主檔 (Dim_Style, Dim_Plant)</text>
           <text x="445" y="445" font-size="10" fill="#666666">• 4-Gate 產前門禁規格校驗</text>
@@ -320,14 +316,14 @@
           <!-- Gold -->
           <rect x="820" y="340" width="340" height="170" rx="6" fill="#FFFDFB" stroke="#D97706" stroke-width="2"/>
           <text x="835" y="365" font-weight="800" font-size="12" fill="#D97706">【金牌業務主題與對帳層 Gold / ADS】</text>
-          <text x="835" y="385" font-size="10" fill="#666666">• 每日 24:00 結算切帳表 (Snapshot)</text>
+          <text x="835" y="385" font-size="10" fill="#666666">• 每日結算切帳表 (Snapshot 一天一次)</text>
           <text x="835" y="405" font-size="10" fill="#666666">• 跨廠產量平衡：裁剪 vs 車縫 vs 出貨</text>
-          <text x="835" y="425" font-size="10" fill="#666666">• 每小時線平衡率 (Line Balance) 寬表</text>
+          <text x="835" y="425" font-size="10" fill="#666666">• 每日/即時重大事件聚合寬表</text>
           <text x="835" y="445" font-size="10" fill="#666666">• 聯銓 BI 專用快取視圖 (BI Engine)</text>
 
           <!-- Arrows inside lakehouse -->
           <line x1="380" y1="425" x2="425" y2="425" stroke="#E87524" stroke-width="2" marker-end="url(#arrOrange2)"/>
-          <text x="402" y="415" text-anchor="middle" font-size="9" fill="#A83212" font-weight="700">ELT 每小時</text>
+          <text x="402" y="415" text-anchor="middle" font-size="9" fill="#A83212" font-weight="700">ELT 清洗</text>
 
           <line x1="770" y1="425" x2="815" y2="425" stroke="#D97706" stroke-width="2" marker-end="url(#arrOrange2)"/>
           <text x="792" y="415" text-anchor="middle" font-size="9" fill="#A83212" font-weight="700">每日結算</text>
@@ -338,7 +334,7 @@
 
           <rect x="40" y="595" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#A83212" stroke-width="1.5"/>
           <text x="170" y="620" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">Apache Airflow 司令塔</text>
-          <text x="170" y="638" text-anchor="middle" font-size="10" fill="#666666">每小時 DAG / 依賴校驗 / 失敗重試</text>
+          <text x="170" y="638" text-anchor="middle" font-size="10" fill="#666666">每日離峰 DAG / 重大特例 / 失敗重試</text>
 
           <rect x="330" y="595" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
           <text x="460" y="620" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">跨廠每日對帳檢核器</text>
@@ -374,7 +370,7 @@
 
           <!-- Connectors between layers -->
           <line x1="450" y1="115" x2="450" y2="190" stroke="#E87524" stroke-width="2" marker-end="url(#arrOrange2)"/>
-          <line x1="170" y1="255" x2="170" y2="335" stroke="#A83212" stroke-width="2" marker-end="url(#arrRust2)"/>
+          <line x1="460" y1="255" x2="460" y2="335" stroke="#A83212" stroke-width="2" marker-end="url(#arrRust2)"/>
           <line x1="990" y1="510" x2="990" y2="590" stroke="#D97706" stroke-width="2" marker-end="url(#arrOrange2)"/>
           <line x1="170" y1="655" x2="170" y2="735" stroke="#A83212" stroke-width="2" marker-end="url(#arrRust2)"/>
         </svg>
@@ -386,19 +382,19 @@
       <div class="panel-header">
         <div class="panel-title">
           <span>⏱️</span>
-          <span>DataLake ETL/ELT 端到端數據生命週期時序圖</span>
+          <span>DataLake 結算傳輸時序圖 (外點一天一次 ＋ SD-WAN 頻寬保護)</span>
         </div>
         <div style="font-size: 0.75rem; color: var(--text-muted);">
-          Draw.io 格式 · 分步驟展示持續 CDC 串流、每小時微批次 ELT 與每日 24:00 結算切帳
+          Draw.io 格式 · 分步驟展示白天本地暫存、深夜離峰一次性傳輸與重大特例通道
         </div>
       </div>
 
       <div class="info-callout">
-        <strong>💡 數據生命週期 4 階段流程拆解：</strong><br>
-        1. <strong>持續 CDC 擷取 (Streaming Ingestion)</strong>：MS SQL 交易異動秒級直傳寫入 Bronze 原始層，自動維護 LSN 檢查點。<br>
-        2. <strong>每小時微批次 ELT (Hourly Processing)</strong>：整點由 Airflow 觸發，驅動 BigQuery 執行標準 MERGE SQL，產出 Silver 乾淨事實表與每小時線平衡率。<br>
-        3. <strong>每日 24:00 業務結算對帳 (Daily Cut-off &amp; Reconciliation)</strong>：以 Time-Travel 凍結昨日快照，跨廠比對「裁剪 vs 車縫 vs 出貨」平衡平衡性，產出對帳結算表。<br>
-        4. <strong>下游極速消費 (Downstream Serving)</strong>：聯銓 BI 直接載入 Gold 層，透過 BI Engine 記憶體加速達成亞秒級回應。
+        <strong>💡 SD-WAN 頻寬保護與結算時序拆解：</strong><br>
+        1. <strong>白天產線尖峰 (07:00 ~ 19:00)</strong>：車間 MES 工序寫入本地 MS SQL，本地 Edge 代理暫存聚合，<strong>完全不佔用跨國 SD-WAN 頻寬</strong>，保證車間即時通訊與語音品質。<br>
+        2. <strong>重大緊急特例通道</strong>：遇 4-Gate 結關、出貨急驗或嚴重品質異常，啟動即時多次通道優先傳輸。<br>
+        3. <strong>深夜離峰傳輸 (01:00 ~ 03:00)</strong>：外點將整日結算資料打包壓縮（壓縮率 80%），一次性寫入 Bronze 原始層。<br>
+        4. <strong>每日結算對帳與 BI 消費</strong>：Airflow 於 02:30 啟動清洗對帳，產出結算寬表，供台北總部聯銓 BI 早晨 08:00 開檔秒級即查。
       </div>
 
       <!-- Rendered Sequence SVG -->
@@ -409,102 +405,88 @@
           <text x="110" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">總部/各廠 MS SQL</text>
           <line x1="110" y1="60" x2="110" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
 
-          <rect x="220" y="20" width="140" height="40" rx="4" fill="#FFF8EE" stroke="#E87524" stroke-width="1.5"/>
-          <text x="290" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">CDC 串流引擎</text>
-          <line x1="290" y1="60" x2="290" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+          <rect x="220" y="20" width="150" height="40" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
+          <text x="295" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#92400E">外點 SD-WAN/代理</text>
+          <line x1="295" y1="60" x2="295" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
 
-          <rect x="400" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#B6532D" stroke-width="1.5"/>
-          <text x="470" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">Bronze 原始湖庫</text>
-          <line x1="470" y1="60" x2="470" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+          <rect x="410" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#B6532D" stroke-width="1.5"/>
+          <text x="480" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">Bronze 原始湖庫</text>
+          <line x1="480" y1="60" x2="480" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
 
-          <rect x="580" y="20" width="150" height="40" rx="4" fill="#FAF8F5" stroke="#A83212" stroke-width="2"/>
-          <text x="655" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#A83212">Airflow 司令塔</text>
-          <line x1="655" y1="60" x2="655" y2="830" stroke="#A83212" stroke-dasharray="4,4"/>
+          <rect x="590" y="20" width="150" height="40" rx="4" fill="#FAF8F5" stroke="#A83212" stroke-width="2"/>
+          <text x="665" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#A83212">Airflow 司令塔</text>
+          <line x1="665" y1="60" x2="665" y2="830" stroke="#A83212" stroke-dasharray="4,4"/>
 
-          <rect x="760" y="20" width="150" height="40" rx="4" fill="#FAF8F5" stroke="#D97706" stroke-width="1.5"/>
-          <text x="835" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">Silver / Gold 倉儲</text>
-          <line x1="835" y1="60" x2="835" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+          <rect x="770" y="20" width="150" height="40" rx="4" fill="#FAF8F5" stroke="#D97706" stroke-width="1.5"/>
+          <text x="845" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">Silver / Gold 倉儲</text>
+          <line x1="845" y1="60" x2="845" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
 
-          <rect x="940" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#78716C" stroke-width="1.5"/>
-          <text x="1010" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">聯銓 BI / 主管看板</text>
-          <line x1="1010" y1="60" x2="1010" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+          <rect x="950" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#78716C" stroke-width="1.5"/>
+          <text x="1020" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">聯銓 BI / 主管看板</text>
+          <line x1="1020" y1="60" x2="1020" y2="830" stroke="#D6D3D1" stroke-dasharray="4,4"/>
 
           <!-- Divider 1 -->
-          <rect x="30" y="80" width="1040" height="25" rx="4" fill="#FFF8EE" stroke="#A83212"/>
-          <text x="50" y="97" font-weight="800" font-size="11" fill="#A83212">第一階段：持續異動擷取 (Continuous CDC Stream Ingestion ➔ ELT 載入)</text>
+          <rect x="30" y="80" width="1040" height="25" rx="4" fill="#FEF3C7" stroke="#B45309"/>
+          <text x="50" y="97" font-weight="800" font-size="11" fill="#92400E">白天產線尖峰 (07:00 ~ 19:00)：外點本地暫存聚合 ➔ 嚴格保護 SD-WAN 頻寬 (Bandwidth Preservation)</text>
 
           <!-- Step 1 & 2 -->
-          <line x1="110" y1="130" x2="280" y2="130" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust2)"/>
-          <text x="195" y="123" text-anchor="middle" font-size="10" fill="#222222">1. 車間 MES 寫入 SQL 日誌 (I/U/D)</text>
+          <line x1="110" y1="130" x2="110" y2="155" stroke="#A83212" stroke-width="1.5"/>
+          <text x="200" y="125" text-anchor="middle" font-size="10" fill="#222222">1. 車間 MES 工序計件寫入本地 MS SQL 日誌</text>
 
-          <line x1="110" y1="160" x2="280" y2="160" stroke="#E87524" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
-          <text x="195" y="153" text-anchor="middle" font-size="10" fill="#222222">2. Datastream 低延遲串流讀取變更</text>
+          <line x1="110" y1="160" x2="285" y2="160" stroke="#B45309" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
+          <text x="200" y="153" text-anchor="middle" font-size="10" fill="#92400E" font-weight="700">2. 本地 Edge 代理快取聚合 (不佔用 SD-WAN 頻寬)</text>
 
-          <!-- Step 3 & 4 -->
-          <line x1="290" y1="190" x2="460" y2="190" stroke="#B6532D" stroke-width="1.5" marker-end="url(#arrRust2)"/>
-          <text x="375" y="183" text-anchor="middle" font-size="10" fill="#222222">3. Storage Write API 直傳寫入 Bronze 原始層</text>
-
-          <line x1="470" y1="220" x2="300" y2="220" stroke="#B6532D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust2)"/>
-          <text x="385" y="213" text-anchor="middle" font-size="10" fill="#666666">4. Checkpoint ACK (更新 LSN 位移檢查點)</text>
+          <line x1="295" y1="190" x2="470" y2="190" stroke="#DC2626" stroke-width="2" marker-end="url(#arrRust2)"/>
+          <text x="385" y="183" text-anchor="middle" font-size="10" fill="#DC2626" font-weight="800">3. 【重大特例緊急通道】4-Gate結關/嚴重異常直傳</text>
 
           <!-- Divider 2 -->
-          <rect x="30" y="260" width="1040" height="25" rx="4" fill="#FFFDFB" stroke="#E87524"/>
-          <text x="50" y="277" font-weight="800" font-size="11" fill="#E87524">第二階段：每小時微批次清洗轉換 (Hourly Micro-batch ELT Pipeline)</text>
+          <rect x="30" y="240" width="1040" height="25" rx="4" fill="#FFF8EE" stroke="#A83212"/>
+          <text x="50" y="257" font-weight="800" font-size="11" fill="#A83212">深夜離峰時段 (01:00 ~ 03:00)：外點每日結算一次性打包傳輸 (Daily Off-Peak Batch ➔ 避開尖峰)</text>
 
-          <!-- Step 5 -->
-          <line x1="655" y1="310" x2="480" y2="310" stroke="#78716C" stroke-width="1.5" marker-end="url(#arrRust2)"/>
-          <text x="568" y="303" text-anchor="middle" font-size="10" fill="#222222">5. 每小時整點觸發 DAG ➔ 檢查 Bronze 數據完整性</text>
+          <!-- Step 4 & 5 -->
+          <line x1="295" y1="290" x2="470" y2="290" stroke="#E87524" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
+          <text x="385" y="283" text-anchor="middle" font-size="10" fill="#222222">4. 深夜離峰 (01:00) 啟動每日結算打包傳輸 (壓縮率 80%)</text>
 
-          <!-- Step 6 -->
-          <line x1="655" y1="340" x2="825" y2="340" stroke="#D97706" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
-          <text x="740" y="333" text-anchor="middle" font-size="10" fill="#222222">6. 驅動 BigQuery 執行 MERGE SQL (去重/時間戳統一/主檔關聯)</text>
-
-          <!-- Step 7 -->
-          <line x1="835" y1="370" x2="665" y2="370" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange2)"/>
-          <text x="750" y="363" text-anchor="middle" font-size="10" fill="#666666">7. 產出 Silver 層標準事實表 (DWD_Sewing_Production)</text>
-
-          <!-- Step 8 -->
-          <line x1="655" y1="400" x2="825" y2="400" stroke="#15803D" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
-          <text x="740" y="393" text-anchor="middle" font-size="10" fill="#15803D" font-weight="700">8. 聚合線平衡率 (Line Balance) ➔ 刷新 Gold 報表層</text>
-
-          <!-- Step 9 -->
-          <line x1="835" y1="430" x2="665" y2="430" stroke="#15803D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange2)"/>
-          <text x="750" y="423" text-anchor="middle" font-size="10" fill="#15803D">9. BI Engine 快取自動預熱完成</text>
+          <line x1="480" y1="320" x2="305" y2="320" stroke="#B6532D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust2)"/>
+          <text x="395" y="313" text-anchor="middle" font-size="10" fill="#666666">5. 寫入 Bronze 原始層 ＆ ACK (位移 Checkpoint 保存)</text>
 
           <!-- Divider 3 -->
-          <rect x="30" y="470" width="1040" height="25" rx="4" fill="#FEF3C7" stroke="#D97706"/>
-          <text x="50" y="487" font-weight="800" font-size="11" fill="#92400E">第三階段：每日 24:00 業務結算切帳與跨廠對帳 (Daily Reconciliation &amp; Cut-off)</text>
+          <rect x="30" y="370" width="1040" height="25" rx="4" fill="#FFFDFB" stroke="#D97706"/>
+          <text x="50" y="387" font-weight="800" font-size="11" fill="#D97706">第三階段：每日結算切帳與跨廠對帳 (Daily Reconciliation &amp; Cut-off DAG)</text>
+
+          <!-- Step 6 -->
+          <line x1="665" y1="420" x2="665" y2="445" stroke="#A83212" stroke-width="1.5"/>
+          <text x="750" y="415" text-anchor="middle" font-size="10" fill="#222222">6. Airflow 啟動每日結算對帳 DAG (排定離峰 02:30)</text>
+
+          <!-- Step 7 -->
+          <line x1="665" y1="455" x2="835" y2="455" stroke="#D97706" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
+          <text x="750" y="448" text-anchor="middle" font-size="10" fill="#222222">7. 驅動 BigQuery MERGE SQL ➔ 清洗產出 Silver 乾淨事實表</text>
+
+          <!-- Step 8 -->
+          <line x1="665" y1="490" x2="835" y2="490" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust2)"/>
+          <text x="750" y="483" text-anchor="middle" font-size="10" fill="#222222">8. 跨廠產量平衡核對：[裁剪投入] vs [車縫產出] vs [出貨入庫]</text>
+
+          <!-- Step 9 -->
+          <line x1="845" y1="520" x2="675" y2="520" stroke="#A83212" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust2)"/>
+          <text x="760" y="513" text-anchor="middle" font-size="10" fill="#A83212">9. 產出每日對帳結算表 (Reconciled Report) ＆ 標註異常</text>
 
           <!-- Step 10 -->
-          <line x1="655" y1="520" x2="825" y2="520" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust2)"/>
-          <text x="740" y="513" text-anchor="middle" font-size="10" fill="#A83212" font-weight="700">10. 每日 24:00 啟動切帳 DAG ➔ Time-Travel 鎖定昨日截至 23:59:59 快照</text>
-
-          <!-- Step 11 -->
-          <line x1="655" y1="550" x2="825" y2="550" stroke="#D97706" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
-          <text x="740" y="543" text-anchor="middle" font-size="10" fill="#222222">11. 跨廠產量平衡核對：[裁剪投入] vs [車縫產出] vs [出貨入庫] 差異檢驗</text>
-
-          <!-- Step 12 -->
-          <line x1="835" y1="580" x2="665" y2="580" stroke="#A83212" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust2)"/>
-          <text x="750" y="573" text-anchor="middle" font-size="10" fill="#A83212">12. 產出每日對帳結算表 (Reconciled Report) ＆ 標註異常筆數</text>
-
-          <!-- Step 13 -->
-          <line x1="655" y1="610" x2="1000" y2="610" stroke="#15803D" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
-          <text x="828" y="603" text-anchor="middle" font-size="10" fill="#15803D" font-weight="700">13. 推播對帳報告與稽核通知 (Webhook to Teams/Email)</text>
+          <line x1="665" y1="555" x2="1010" y2="555" stroke="#15803D" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
+          <text x="838" y="548" text-anchor="middle" font-size="10" fill="#15803D" font-weight="700">10. 自動推播對帳報告與稽核通知 (Webhook to Teams/Email)</text>
 
           <!-- Divider 4 -->
-          <rect x="30" y="650" width="1040" height="25" rx="4" fill="#ECFDF5" stroke="#15803D"/>
-          <text x="50" y="667" font-weight="800" font-size="11" fill="#065F46">第四階段：報表與決策消費 (Downstream Serving via 聯銓 BI &amp; AI)</text>
+          <rect x="30" y="610" width="1040" height="25" rx="4" fill="#ECFDF5" stroke="#15803D"/>
+          <text x="50" y="627" font-weight="800" font-size="11" fill="#065F46">第四階段：報表與決策消費 (Downstream Serving via 聯銓 BI &amp; AI)</text>
 
-          <!-- Step 14 & 15 -->
-          <line x1="1010" y1="700" x2="845" y2="700" stroke="#15803D" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
-          <text x="928" y="693" text-anchor="middle" font-size="10" fill="#222222">14. 聯銓 BI 載入 Gold 報表層 (直連 BI Engine，查詢耗時 &lt; 1s)</text>
+          <!-- Step 11 & 12 -->
+          <line x1="1020" y1="660" x2="855" y2="660" stroke="#15803D" stroke-width="1.5" marker-end="url(#arrOrange2)"/>
+          <text x="938" y="653" text-anchor="middle" font-size="10" fill="#222222">11. 聯銓 BI 載入 Gold 報表層 (直連 BI Engine 快取，耗時 &lt; 1s)</text>
 
-          <line x1="835" y1="730" x2="1000" y2="730" stroke="#15803D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange2)"/>
-          <text x="918" y="723" text-anchor="middle" font-size="10" fill="#15803D">15. 回傳高階戰情儀表 (周副總與決策層即時掌握產銷全貌)</text>
+          <line x1="845" y1="690" x2="1010" y2="690" stroke="#15803D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange2)"/>
+          <text x="928" y="683" text-anchor="middle" font-size="10" fill="#15803D">12. 回傳高階戰情儀表 (周副總與決策層晨會即時掌握全貌)</text>
 
-          <!-- Step 16 -->
-          <line x1="835" y1="760" x2="1000" y2="760" stroke="#78716C" stroke-width="1.5" marker-end="url(#arrRust2)"/>
-          <text x="918" y="753" text-anchor="middle" font-size="10" fill="#666666">16. 同步提供 Vertex AI / RAG 向量特徵檢索</text>
+          <line x1="845" y1="720" x2="1010" y2="720" stroke="#78716C" stroke-width="1.5" marker-end="url(#arrRust2)"/>
+          <text x="928" y="713" text-anchor="middle" font-size="10" fill="#666666">13. 同步提供 Vertex AI / RAG 向量特徵檢索</text>
         </svg>
       </div>
     </div>
