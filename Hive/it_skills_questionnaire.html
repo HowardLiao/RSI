@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 內部 IT 6 大領域技術職能盤點問卷 ｜ Hive Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --border-strong: #D6D3D1;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .survey-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 36px 42px;
+      position: relative;
+    }
+
+    .watermark-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+      border-radius: var(--radius-md);
+    }
+
+    .header-bar {
+      border-bottom: 2.5px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .notice-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-left: 4px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .level-guide {
+      margin-bottom: 28px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .level-guide table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .level-guide th, .level-guide td {
+      padding: 8px 12px;
+      border: 1px solid var(--border-subtle);
+    }
+    .level-guide th {
+      background: #FAF8F5;
+      color: var(--text-charcoal);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .part-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      margin-top: 32px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }
+    .part-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .form-input {
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      font-family: inherit;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
+    }
+
+    /* Question Card */
+    .q-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      transition: all 0.2s ease;
+    }
+    .q-card:hover {
+      border-color: #FED7AA;
+      box-shadow: var(--shadow-sm);
+      background: #FFFCF9;
+    }
+    .q-head {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .q-scenario {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+    .likert-scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+    .likert-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      text-align: center;
+    }
+    .likert-item input {
+      cursor: pointer;
+    }
+
+    .textarea-box {
+      width: 100%;
+      min-height: 75px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      resize: vertical;
+      margin-top: 4px;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1.5px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--rust-primary);
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--orange-vibrant);
+    }
+    .btn-secondary {
+      background: #FFF;
+      border: 1px solid var(--border-strong);
+      color: var(--text-charcoal);
+    }
+
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .survey-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .action-bar { display: none; }
+      .q-card { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="survey-container">
+    <div class="watermark-overlay"></div>
+
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+        </div>
+        <h1 class="header-title">信源全球 · 內部 IT 技術職能現況調查問卷<br><span>Internal IT Technical Competency &amp; Infrastructure Survey Form</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">SURVEY CODE: RSI-IT-SURVEY-2027</div>
+      </div>
+    </div>
+
+    <!-- Notice Box -->
+    <div class="notice-box">
+      <strong>📌 問卷填答說明與指引：</strong><br>
+      為精準掌握台北總部與海外三廠（越南隆安、柬埔寨金邊、印尼中爪哇）內部 IT 同仁的真實技術掌握度與系統維護現況，本問卷圍繞 <strong>1.軟體 2.硬體 3.網路 4.雲端 5.各點連線協作 6.資安</strong> 等 6 大維度設計。調查結果將作為 2027 蜂巢計畫技術培訓安排、跨廠職能矩陣分工及原廠資源引進之依據。<strong>本問卷非個人考績單一懲處，請同仁依「實際能夠獨立解決問題之經驗」如實作答</strong>。
+    </div>
+
+    <!-- Level Guide -->
+    <div class="level-guide">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 130px;">熟練度評分</th>
+            <th style="width: 140px;">客觀等級標籤</th>
+            <th>具體行為表現標準 (請依此客觀作答)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1 分 · 完全不會</strong></td>
+            <td>No Awareness</td>
+            <td>無此技術概念，從未操作過，無法理解術語。</td>
+          </tr>
+          <tr>
+            <td><strong>2 分 · 初學理解</strong></td>
+            <td>Novice / Learner</td>
+            <td>理解基礎名詞與架構，但無法獨立排錯，需他人指導逐步驟操作。</td>
+          </tr>
+          <tr>
+            <td><strong>3 分 · 獨立維運</strong></td>
+            <td>Competent</td>
+            <td>能依照標準 SOP 獨立完成設定、日常維運、備份與常見異常排除。</td>
+          </tr>
+          <tr>
+            <td><strong>4 分 · 資深精通</strong></td>
+            <td>Proficient</td>
+            <td>熟稔底層原理，能排查跨系統深層故障、調優效能瓶頸、撰寫複雜腳本。</td>
+          </tr>
+          <tr>
+            <td><strong>5 分 · 架構專家</strong></td>
+            <td>Expert / Lead</td>
+            <td>具備架構規劃、技術選型與高可用設計能力，能指導並帶教其他同仁。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <form id="itSurveyForm">
+
+      <!-- Part 0: Profile -->
+      <div class="part-title">Part 0. 受訪同仁基本資訊 (Basic Profile)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：王小明 / David Wang" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 (Emp ID) *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-91023" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點廠區 *</label>
+          <select class="form-input" required>
+            <option value="">-- 請選擇所屬廠區 --</option>
+            <option>台北營運總部 (Taipei HQ)</option>
+            <option>越南隆安示範旗艦廠 (Vietnam Long An)</option>
+            <option>柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
+            <option>印尼中爪哇廠 (Indonesia Central Java)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任職稱與日常主要負責系統 *</label>
+          <input type="text" class="form-input" placeholder="例：系統維護工程師 / MES與資料庫" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">信源 (RSI) 年資 / 總 IT 工作年資</label>
+          <input type="text" class="form-input" placeholder="例：信源 2 年 / 總 IT 年資 5 年">
+        </div>
+        <div class="form-group">
+          <label class="form-label">直屬主管姓名</label>
+          <input type="text" class="form-input" placeholder="例：李課長">
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 1: Software -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 1. 軟體與應用系統 (Software &amp; Applications)</div>
+      <div class="part-desc">評估同仁在核心 ERP/MES、MS SQL 資料庫維護、T-SQL 語法與聯銓 BI 報表之能力。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-1. 核心 ERP / MES / WMS 業務系統維運能力</div>
+        <div class="q-scenario">能否處理成衣 BOM 表展開、訂單拋轉、車縫工序計件回傳或外協工單之異常除錯？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q1_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q1_1" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q1_1" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q1_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q1_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-2. Microsoft SQL Server 資料庫日常管理與維護</div>
+        <div class="q-scenario">能否獨立執行資料庫安裝、配置定期備份排程、交易日誌截斷 (Truncate) 與實體資料庫災難還原？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q1_2" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q1_2" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q1_2" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q1_2" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q1_2" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-3. 進階 T-SQL 撰寫與預存程序 (Stored Procedure) 開發</div>
+        <div class="q-scenario">能否撰寫複雜多表 JOIN、通用資料表運算式 (CTE)、窗口函數 (Window Functions) 及交易事務控制 (BEGIN TRAN/COMMIT)？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q1_3" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q1_3" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q1_3" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q1_3" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q1_3" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-4. 資料庫效能調優、索引設計與死鎖排查 (Deadlock)</div>
+        <div class="q-scenario">能否判讀 Execution Plan 找出全表掃描效能盲點、設計包含資料欄索引 (Covering Index) 並解決鎖定阻礙？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q1_4" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q1_4" value="2" checked> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q1_4" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q1_4" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q1_4" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-5. 聯銓 Smart eVision 報表開發與 Excel VBA 巨集</div>
+        <div class="q-scenario">能否在聯銓 BI 配置資料集、設計多維度交叉儀表板；或修改維護生管複雜 Excel 巨集程式碼？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q1_5" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q1_5" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q1_5" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q1_5" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q1_5" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 2: Hardware -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 2. 硬體與伺服器機房設施 (Hardware &amp; Equipment)</div>
+      <div class="part-desc">評估同仁在實體伺服器、RAID 陣列、VMware 虛擬化與車間工控機 (IPC) 之維護能力。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-1. 機架伺服器硬體維護 (Dell PowerEdge / HP DL380)</div>
+        <div class="q-scenario">能否獨立進行實體伺服器上架、硬體故障診斷、使用 iDRAC / iLO 帶外管理並進行韌體升級？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q2_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q2_1" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q2_1" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q2_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q2_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-2. 磁碟陣列卡配置與抽換重建 (RAID 1/5/6/10)</div>
+        <div class="q-scenario">能否配置 RAID 陣列卡、設定 Hot Spare 熱備援硬碟、並在硬碟亮黃燈故障時正確熱插拔抽換？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q2_2" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q2_2" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q2_2" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q2_2" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q2_2" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-3. VMware ESXi 虛擬化平台維運與 vMotion</div>
+        <div class="q-scenario">能否建立虛擬機、分配調整 vCPU/RAM/磁碟規格、配置 vSwitch 虛擬交換器並執行虛擬機熱遷移？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q2_3" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q2_3" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q2_3" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q2_3" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q2_3" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-4. 車間工控電腦 (IPC) 與吊掛 RFID 讀寫器除錯</div>
+        <div class="q-scenario">能否維護研華工控機、排查 COM 串列埠通訊、調整 Impinj RFID 讀寫器天線角度並解決漏讀異常？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q2_4" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q2_4" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q2_4" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q2_4" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q2_4" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-5. 機房電力、在線式不斷電系統 (UPS) 與環境維護</div>
+        <div class="q-scenario">能否執行 APC 機房 UPS 定期放電測試、確認電池健康狀態、管理空調溫濕度並測試發電機切換？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q2_5" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q2_5" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q2_5" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q2_5" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q2_5" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 3: Network -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 3. 廠區網路架構與傳輸環境 (Network Infrastructure)</div>
+      <div class="part-desc">評估同仁在核心交換機、VLAN 劃分、車間 Wi-Fi 覆蓋與外網雙線備援之能力。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-1. 核心交換器 (Core Switch) 設定與堆疊維護</div>
+        <div class="q-scenario">能否維護 Cisco / Aruba 核心交換機、配置 LACP 鏈路聚合、設定靜態/動態路由與網關備援？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q3_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-2. 廠區 VLAN 網段規劃、Trunk 與存取控制清單 (ACL)</div>
+        <div class="q-scenario">能否規劃 VLAN 隔離車間機台、伺服器、辦公室與訪客網路，配置 802.1Q 埠並防止廣播風暴？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q3_2" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q3_2" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q3_2" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q3_2" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q3_2" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-3. 車間企業級 Wi-Fi 覆蓋調優與信號死角排查</div>
+        <div class="q-scenario">能否管理 Aruba / Unifi 無線 AP 控制器、調整無線射頻通道 (Channel)、優化車間條碼槍快速漫遊？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q3_3" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q3_3" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q3_3" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q3_3" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q3_3" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-4. 廠區對外固網雙線路與 4G 備援 (Dual-WAN Failover)</div>
+        <div class="q-scenario">能否設定雙電信商線路自動故障切換 (Failover)、配置 4G/5G 路由器備援通訊並進行演練？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q3_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q3_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-5. 網路封包分析與斷線定位 (Wireshark / 網管監控)</div>
+        <div class="q-scenario">能否使用 Wireshark 抓包分析 TCP 重傳、判讀連線逾時原因，並使用 SNMP/PRTG 監控頻寬流量？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q3_5" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q3_5" value="2" checked> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q3_5" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q3_5" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q3_5" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 4: Cloud -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 4. 公有雲與現代數據湖倉 (Cloud &amp; Modern Lakehouse)</div>
+      <div class="part-desc">評估同仁在 GCP / AWS 雲端資源、BigQuery 倉儲、Airflow 排程與 CDC 串流之掌握度。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-1. 公有雲基礎架構與權限安全治理 (GCP / AWS IAM)</div>
+        <div class="q-scenario">能否在 GCP 或 AWS 控制台建立 VPC 子網、管理 VM 實例、配置 IAM 最小權限角色與金鑰？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q4_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q4_1" value="2" checked> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q4_1" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q4_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q4_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-2. 雲端現代數據倉儲操作 (Google BigQuery)</div>
+        <div class="q-scenario">能否在 BigQuery 建立分區表 (Partitioning)、撰寫 MERGE 語法執行資料對帳、並優化查詢掃描成本？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q4_2" value="1" checked> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q4_2" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q4_2" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q4_2" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q4_2" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-3. 現代 Lakehouse 開放表格式 (Apache Iceberg)</div>
+        <div class="q-scenario">是否理解開放湖倉格式的 ACID 交易、Time Travel 歷史快照查詢與檔案自動壓實機制？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q4_3" value="1" checked> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q4_3" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q4_3" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q4_3" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q4_3" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-4. 工作流編排排程實務 (Apache Airflow DAG)</div>
+        <div class="q-scenario">能否使用 Python 撰寫 Airflow DAG 腳本、設定任務前後依賴關係、配置失敗重跑與告警推播？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q4_4" value="1" checked> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q4_4" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q4_4" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q4_4" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q4_4" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-5. 雲端費用管控與閒置資源排查 (FinOps)</div>
+        <div class="q-scenario">能否分析雲端月度帳單、找出閒置未釋放之測試主機或無用磁碟、並配置預算警報？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q4_5" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q4_5" value="2" checked> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q4_5" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q4_5" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q4_5" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 5: Connectivity -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 5. 各點連線、SD-WAN 與跨國協作 (Connectivity &amp; SD-WAN)</div>
+      <div class="part-desc">評估同仁在跨國 VPN、SD-WAN 頻寬保護、外點一日一次傳輸排程與遠端運維能力。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-1. 跨國 Site-to-Site IPSec VPN 建立與除錯</div>
+        <div class="q-scenario">能否在 Fortinet 防火牆建立台北總部至海外三廠之 IPSec VPN 穿隧並排除斷線問題？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q5_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q5_1" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q5_1" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q5_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q5_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-2. 跨國 SD-WAN 流量工程與 QoS 頻寬優先級配置</div>
+        <div class="q-scenario">能否配置 SD-WAN 智慧選路，並設定 QoS 保障車間語音、ERP 核心傳輸不被大檔案搶走頻寬？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q5_2" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q5_2" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q5_2" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q5_2" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q5_2" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-3. 外點結算一日一次傳輸排程 (深夜離峰 · SD-WAN 頻寬保護)</div>
+        <div class="q-scenario">是否清楚落實：外點結算資料原則上一天傳輸一次（深夜 01:00~03:00 打包），避免白天影響頻寬？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q5_3" value="1"> 1分 (不清楚)</label>
+          <label class="likert-item"><input type="radio" name="q5_3" value="2"> 2分 (知道概念)</label>
+          <label class="likert-item"><input type="radio" name="q5_3" value="3" checked> 3分 (能獨立配置)</label>
+          <label class="likert-item"><input type="radio" name="q5_3" value="4"> 4分 (精通排程)</label>
+          <label class="likert-item"><input type="radio" name="q5_3" value="5"> 5分 (架構規範制定)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-4. 重大緊急特例通道配置 (4-Gate結關/出貨/嚴重品質異常)</div>
+        <div class="q-scenario">能否配置針對 4-Gate 產前門禁急需出貨結關時的高優先級即時傳輸通道？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q5_4" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q5_4" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q5_4" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q5_4" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q5_4" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-5. 國際海纜斷網時之車間離線自律 (48~72hr 保障)</div>
+        <div class="q-scenario">能否設定本地 Edge 代理快取佇列，確保海纜切斷時車間生產不停擺、復網自動批次追平？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q5_5" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q5_5" value="2" checked> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q5_5" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q5_5" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q5_5" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 6: Security -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 6. 資訊安全、備份與災變復原 (Cybersecurity &amp; BCP/DR)</div>
+      <div class="part-desc">評估同仁在防火牆、EDR 防毒、Veeam 備份還原、防勒索不可篡改儲存之能力。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-1. 次世代防火牆 (NGFW) 安全策略與入侵防禦 (IPS)</div>
+        <div class="q-scenario">能否配置 Fortinet 防火牆存取策略 (Policies)、啟用防毒與 IPS 深度檢測並排除誤判？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q6_1" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q6_1" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q6_1" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q6_1" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q6_1" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-2. 端點安全防護 (EDR / 防毒主控台派送)</div>
+        <div class="q-scenario">能否管理防毒主控台（趨勢/卡巴/CrowdStrike）、監控全廠機台更新率、配置 USB 隨身碟讀寫限制？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q6_2" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q6_2" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q6_2" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q6_2" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q6_2" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-3. 企業備份架構 (Veeam Backup 3-2-1 原則實務)</div>
+        <div class="q-scenario">能否配置每日完整與差異備份、設定備份加密、並能獨立執行 VM 及資料庫之實體還原開機測試？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q6_3" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q6_3" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q6_3" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q6_3" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q6_3" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-4. 防勒索不可篡改備份池 (WORM / S3 Object Lock)</div>
+        <div class="q-scenario">是否理解並能配置不可篡改唯讀備份儲存池，防止勒索病毒橫向感染加密備份複本？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q6_4" value="1" checked> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q6_4" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q6_4" value="3"> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q6_4" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q6_4" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-5. 帳號生命週期審查與多因子認證 (MFA 雙因子)</div>
+        <div class="q-scenario">能否推行 Authenticator 雙因子認證、落實離職當日即時停權、每季執行特權帳號盤點？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="q6_5" value="1"> 1分 (不會)</label>
+          <label class="likert-item"><input type="radio" name="q6_5" value="2"> 2分 (初學)</label>
+          <label class="likert-item"><input type="radio" name="q6_5" value="3" checked> 3分 (獨立操作)</label>
+          <label class="likert-item"><input type="radio" name="q6_5" value="4"> 4分 (精通排錯)</label>
+          <label class="likert-item"><input type="radio" name="q6_5" value="5"> 5分 (架構專家)</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 7: Bus Factor -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 7. 系統責任與單點脆弱度 (Bus Factor) 排查</div>
+      <div class="part-desc">排查「全公司只有您一人會處理、缺乏文件且無代理人」之高風險關鍵系統黑數。</div>
+
+      <div class="form-group">
+        <label class="form-label">1. 您目前日常最主要負責維護、修改或排除問題的核心系統/設備/排程有哪些？</label>
+        <textarea class="textarea-box" placeholder="例：1. 隆安現場 MES 車間生產進度追蹤模組&#10;2. 採購發票拋轉 SQL 自動排程&#10;3. 金邊廠吊掛 RFID 接收通訊服務"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">2. 上述系統中，是否有任何系統或排程是「若您休假 2 週或突發離職，全集團目前沒有第二人知道如何排除」的？</label>
+        <textarea class="textarea-box" placeholder="例：某個 5 年前寫的 SQL 轉帳排程，沒有留下文件，目前只有我看過 source code，如果出錯全廠對帳會中斷..."></textarea>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Part 8: Training & Feedback -->
+      <!-- ============================================================== -->
+      <div class="part-title">Part 8. 蜂巢計畫培訓意向與建議 (Training &amp; Feedback)</div>
+      
+      <div class="form-group">
+        <label class="form-label">1. 配合 2027 蜂巢計畫推動，您個人最希望在今年接受哪三項原廠深度培訓？（可複選最多 3 項）</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; font-size: 0.8rem; margin-top: 6px; margin-bottom: 12px;">
+          <label><input type="checkbox"> Google Cloud BigQuery 現代湖倉實務</label>
+          <label><input type="checkbox"> Apache Airflow DAG 排程開發與除錯</label>
+          <label><input type="checkbox"> MS SQL Server 索引調校與 Deadlock 排除</label>
+          <label><input type="checkbox"> 企業級 API 平台設計與 Postman 自動化</label>
+          <label><input type="checkbox"> 聯銓 BI 複雜多維建模與性能優化</label>
+          <label><input type="checkbox"> Fortinet 跨國 SD-WAN 流量工程與 QoS</label>
+          <label><input type="checkbox"> 工廠車間 OT 機台訊號採集 (Modbus/OPC)</label>
+          <label><input type="checkbox"> Veeam 備份與防勒索不可篡改架構實務</label>
+          <label><input type="checkbox"> Agentic AI / RAG 企業知識庫應用實戰</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">2. 您認為公司現有 IT 環境最亟需改善的技術瓶頸是什麼？（請提出您最真誠的建言）：</label>
+        <textarea class="textarea-box" placeholder="請暢所欲言，提出您在第一線維運中最常遇到的痛點或希望總部支援之處..."></textarea>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-bar">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          問卷填畢後，可點擊右方按鈕列印存為 PDF，經廠部主管簽章後呈報專案推動小組。
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn btn-secondary" onclick="window.print()">
+            <span>🖨️</span> 列印問卷／存為 PDF
+          </button>
+          <button type="button" class="btn btn-primary" onclick="alert('技術職能問卷填寫驗證成功！請點擊【列印問卷／存為 PDF】將成果存檔陳核。')">
+            <span>💾</span> 送出並驗證問卷
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>
