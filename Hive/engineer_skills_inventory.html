@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷 (多角色動態適配版) ｜ Hive Project</title>
+  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷 (角色多選動態適配版) ｜ Hive Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -140,130 +140,202 @@
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
-      margin-bottom: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
     }
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      margin-bottom: 14px;
+      gap: 5px;
+      margin-bottom: 6px;
     }
     .form-label {
       font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-charcoal);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .form-label .badge-multi {
+      font-size: 0.68rem;
+      background: #FFF8EE;
+      color: var(--orange-vibrant);
+      border: 1px solid #FDBA74;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 800;
     }
     .form-input {
       background: #FFFFFF;
       border: 1px solid var(--border-strong);
       border-radius: 4px;
-      padding: 7px 10px;
+      padding: 8px 10px;
       font-size: 0.82rem;
       color: var(--text-charcoal);
       font-family: inherit;
       outline: none;
+      min-height: 38px;
     }
     .form-input:focus {
       border-color: var(--orange-vibrant);
       box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
     }
 
-    /* Role Pills Grid (Multi-select) */
-    .role-selection-section {
-      background: #FAF8F5;
-      border: 1.5px solid #FED7AA;
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      margin-bottom: 24px;
+    
+    /* Enterprise Multi-Select Dropdown Component */
+    .custom-multiselect {
+      position: relative;
     }
-    .role-selection-head {
+    .multiselect-trigger {
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 6px 10px;
+      min-height: 38px;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .role-selection-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--rust-primary);
-    }
-    .role-hint-badge {
-      font-size: 0.75rem;
-      color: var(--orange-vibrant);
-      font-weight: 700;
-      background: #FFF8EE;
-      padding: 3px 8px;
-      border-radius: 20px;
-      border: 1px solid #FDBA74;
-    }
-    .roles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 10px;
-    }
-    .role-checkbox-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-subtle);
-      border-radius: 6px;
-      padding: 9px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
       transition: all 0.2s ease;
       user-select: none;
     }
-    .role-checkbox-card:hover {
+    .multiselect-trigger:hover {
       border-color: var(--orange-vibrant);
-      background: #FFFDFB;
     }
-    .role-checkbox-card.selected {
-      border-color: var(--rust-primary);
+    .multiselect-trigger.active {
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
+    }
+    .multiselect-tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+      max-width: 90%;
+    }
+    .multiselect-placeholder {
+      color: #9CA3AF;
+      font-size: 0.82rem;
+    }
+    .selected-tag-pill {
       background: #FFF8EE;
-      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.12);
+      border: 1px solid #FED7AA;
+      color: var(--rust-primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
-    .role-checkbox-card input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
+    .selected-tag-pill .remove-tag {
+      font-weight: bold;
+      cursor: pointer;
+      color: var(--orange-vibrant);
+      font-size: 0.85rem;
+    }
+    .selected-tag-pill .remove-tag:hover {
+      color: var(--rust-primary);
+    }
+    .multiselect-arrow {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+    }
+    .multiselect-trigger.active .multiselect-arrow {
+      transform: rotate(180deg);
+    }
+    .multiselect-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 6px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      z-index: 9999;
+      display: none;
+      max-height: 320px;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+    .multiselect-menu.show {
+      display: block;
+    }
+    .multiselect-header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.72rem;
+      background: #FAF8F5;
+    }
+    .multiselect-action-btn {
+      color: var(--rust-primary);
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .multiselect-action-btn:hover {
+      text-decoration: underline;
+    }
+    .multiselect-option-item {
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      color: var(--text-charcoal);
+    }
+    .multiselect-option-item:hover {
+      background: #FFF8EE;
+    }
+    .multiselect-option-item input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
       accent-color: var(--rust-primary);
       cursor: pointer;
     }
-    .role-info-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-charcoal);
+    .multiselect-option-text {
+      flex: 1;
     }
-    .role-info-tag {
+    .multiselect-option-sub {
       font-size: 0.68rem;
       color: var(--text-muted);
       font-family: var(--font-mono);
     }
+
 
     /* Active Dynamic Notice Banner */
     .active-domains-banner {
       background: #ECFDF5;
       border: 1px solid #A7F3D0;
       border-left: 4px solid #059669;
-      border-radius: 4px;
-      padding: 10px 14px;
-      font-size: 0.8rem;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
       color: #065F46;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.08);
     }
 
     /* Domain Section wrapper */
     .domain-block {
       transition: all 0.3s ease;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .domain-block.collapsed {
       background: #FAFAF9;
@@ -286,9 +358,9 @@
       cursor: pointer;
     }
     .domain-tag-badge {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 12px;
       font-family: var(--font-mono);
     }
@@ -494,6 +566,7 @@
       .domain-block.collapsed { border: none; padding: 0; }
       .q-card { page-break-inside: avoid; }
       .analytics-section { page-break-before: always; }
+      .multiselect-menu { display: none !important; }
     }
   </style>
 </head>
@@ -513,14 +586,14 @@
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
         <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
-        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-MULTIROLE-ADAPTIVE-2027</div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-MULTIROLE-DROPDOWN-2027</div>
       </div>
     </div>
 
     <!-- Notice Box -->
     <div class="notice-box">
-      <strong>📌 多重角色動態適配問卷指引：</strong><br>
-      考量台北總部及海外三廠同仁常兼任多項職能（一人分飾多角），本問卷支援<strong>「現任技術專業角色可複選 2 個以上」</strong>。您勾選角色後，系統將<strong>自動即時動態展開對應領域的專業問卷</strong>，讓您專注於本職與兼任責任；未勾選的領域可按需折疊或加分填寫。所有數據均為標準化選單，填畢<strong>自動轉為 CSV 檔並背景安全轉呈專案複核小組</strong>。
+      <strong>📌 多重角色下拉多選 ＆ 問卷動態適配指引：</strong><br>
+      為因應台北總部及海外三廠同仁常兼任多項職能（一人分飾多角），本問卷在<strong>「現任技術專業角色」</strong>與<strong>「主要主責系統範疇」</strong>均支援<strong>【下拉式選單多選 (Multi-Select)】</strong>。點開選單即可勾選 1 個或多個兼任角色，系統將<strong>自動即時展開對應領域的專業問卷</strong>；未勾選的領域自動收合為選填卡。填畢<strong>自動轉為結構化 CSV 檔並背景安全轉呈專案複核小組</strong>。
     </div>
 
     <!-- Level Guide -->
@@ -565,17 +638,24 @@
 
     <form id="assessmentForm">
 
-      <!-- Part 0: Basic Profile -->
-      <div class="part-title">Part 0. 受訪同仁基本資訊 (基本屬性全選單化，便於統計匯整)</div>
+      <!-- Part 0: Basic Profile with Multi-Select Dropdowns -->
+      <div class="part-title">Part 0. 受訪同仁基本資訊 (關鍵選單支援複選，便於精確統計匯整)</div>
+      
       <div class="info-grid">
+        
+        <!-- 姓名 -->
         <div class="form-group">
           <label class="form-label">中文姓名 / 英文姓名 *</label>
           <input type="text" class="form-input" id="prof_name" placeholder="例：陳志遠 / Edward Chen" required>
         </div>
+
+        <!-- 工號 -->
         <div class="form-group">
           <label class="form-label">員工工號 (Emp ID) *</label>
           <input type="text" class="form-input" id="prof_empid" placeholder="例：RSI-92015" required>
         </div>
+
+        <!-- 廠區 -->
         <div class="form-group">
           <label class="form-label">所屬節點廠區 *</label>
           <select class="form-input" id="prof_site" required>
@@ -586,6 +666,211 @@
             <option value="印尼中爪哇廠 (Indonesia Central Java)">印尼中爪哇廠 (Indonesia Central Java)</option>
           </select>
         </div>
+
+        <!-- 現任技術專業角色 (下拉多選) -->
+        <div class="form-group custom-multiselect" id="ms_role_wrapper">
+          <label class="form-label">
+            <span>現任技術專業角色 (標準選單) *</span>
+            <span class="badge-multi">這可以多選 ✔</span>
+          </label>
+          
+          <div class="multiselect-trigger" id="roleTrigger" onclick="toggleMultiSelect('roleMenu', 'roleTrigger')">
+            <div class="multiselect-tags-container" id="roleTagsContainer">
+              <span class="multiselect-placeholder">-- 請點擊勾選 1 個或多個角色 (可多選) --</span>
+            </div>
+            <span class="multiselect-arrow">▼</span>
+          </div>
+
+          <div class="multiselect-menu" id="roleMenu">
+            <div class="multiselect-header-actions">
+              <span>可勾選 2 個以上兼任角色</span>
+              <div>
+                <span class="multiselect-action-btn" onclick="selectAllInMenu('roleMenu', true); updateRolesFromMenu();">全選</span>
+                <span style="color:#D1D5DB; margin:0 4px;">|</span>
+                <span class="multiselect-action-btn" onclick="selectAllInMenu('roleMenu', false); updateRolesFromMenu();">清空</span>
+              </div>
+            </div>
+
+            <!-- Role Options with checkboxes -->
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="💻 前端軟體工程師" data-domains="d1" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>💻 軟體開發工程師 (前端 / UI/UX / RWD)</div>
+                <div class="multiselect-option-sub">啟動問卷：1. 軟體工程 (前端子題)</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="💻 後端軟體工程師" data-domains="d1" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>💻 軟體開發工程師 (後端 / C# .NET / Java / API)</div>
+                <div class="multiselect-option-sub">啟動問卷：1. 軟體工程 (API/T-SQL)</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="💻 全端軟體工程師" data-domains="d1" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>💻 全端軟體開發工程師 (Full-Stack)</div>
+                <div class="multiselect-option-sub">啟動問卷：1. 軟體工程 (全項)</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🗄️ DBA 資料庫與數據工程師" data-domains="d1,d4" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🗄️ 資料庫管理員 / 數據工程師 (DBA / Data)</div>
+                <div class="multiselect-option-sub">啟動問卷：1. 軟體(SQL) ＋ 4. 雲端湖倉</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="📊 商業智慧與報表分析師" data-domains="d1,d4" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>📊 商業智慧與報表分析師 (BI / Smart eVision)</div>
+                <div class="multiselect-option-sub">啟動問卷：1. 軟體(聯銓BI) ＋ 4. 數據中台</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="⚙️ ERP/MES 製造系統維護" data-domains="d1,d2,d8" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>⚙️ ERP / MES / WMS 製造系統維護工程師</div>
+                <div class="multiselect-option-sub">啟動問卷：1. 軟體 ＋ 2. 硬體 ＋ 8. 連線</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🖥️ 系統與虛擬化工程師" data-domains="d2" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🖥️ 系統伺服器與虛擬化維運 (VMware / Infra)</div>
+                <div class="multiselect-option-sub">啟動問卷：2. 實體硬體與設施</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🌐 網路與通訊工程師" data-domains="d3,d8" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🌐 網路與通訊工程師 (Network / Cisco / SD-WAN)</div>
+                <div class="multiselect-option-sub">啟動問卷：3. 廠區網路 ＋ 8. 各點連線</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🛡️ 資訊安全工程師" data-domains="d5" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🛡️ 資訊安全工程師 (Cybersecurity / SASE)</div>
+                <div class="multiselect-option-sub">啟動問卷：5. 資訊安全與存取防護</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🛠️ SRE網站可靠性/DevOps" data-domains="d6" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🛠️ 網站可靠性 / DevOps 工程師 (SRE / Docker)</div>
+                <div class="multiselect-option-sub">啟動問卷：6. SRE 可靠性與監控</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🧑‍💻 MIS服務台與終端維運" data-domains="d7" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk)</div>
+                <div class="multiselect-option-sub">啟動問卷：7. 資訊管理與維運 (MIS)</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="🏭 車間工控與OT物聯網" data-domains="d2,d8" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>🏭 車間工控與 OT 物聯網工程師 (IPC / RFID)</div>
+                <div class="multiselect-option-sub">啟動問卷：2. 硬體工控 ＋ 8. 邊緣自律</div>
+              </div>
+            </label>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_roles" value="📋 IT專案經理/主管(全評)" data-domains="all" onchange="updateRolesFromMenu()">
+              <div class="multiselect-option-text">
+                <div>👔 資訊主管 / 專案經理 (全 8 大領域檢核)</div>
+                <div class="multiselect-option-sub">啟動問卷：全 8 大領域完整檢核</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- 日常主要負責的核心系統 (下拉多選) -->
+        <div class="form-group custom-multiselect" id="ms_sys_wrapper">
+          <label class="form-label">
+            <span>日常主要負責的核心系統維運範疇 *</span>
+            <span class="badge-multi">這可以多選 ✔</span>
+          </label>
+          
+          <div class="multiselect-trigger" id="sysTrigger" onclick="toggleMultiSelect('sysMenu', 'sysTrigger')">
+            <div class="multiselect-tags-container" id="sysTagsContainer">
+              <span class="multiselect-placeholder">-- 請點擊勾選日常管轄系統 (可多選) --</span>
+            </div>
+            <span class="multiselect-arrow">▼</span>
+          </div>
+
+          <div class="multiselect-menu" id="sysMenu">
+            <div class="multiselect-header-actions">
+              <span>可勾選管轄的多個系統</span>
+              <div>
+                <span class="multiselect-action-btn" onclick="selectAllInMenu('sysMenu', true); updateSystemsFromMenu();">全選</span>
+                <span style="color:#D1D5DB; margin:0 4px;">|</span>
+                <span class="multiselect-action-btn" onclick="selectAllInMenu('sysMenu', false); updateSystemsFromMenu();">清空</span>
+              </div>
+            </div>
+
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="成衣核心 ERP 系統" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">成衣核心 ERP 系統 (生管 / 採購 / 訂單)</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="車間現場 MES 系統" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">車間現場 MES 系統 (裁剪 / 車縫工序計件 / 4-Gate)</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="WMS 倉庫與條碼出貨" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">WMS 倉庫管理與成品條碼出貨系統</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="MS SQL Server 資料庫叢集" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">MS SQL Server 資料庫叢集、備份與預存程序</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="聯銓 Smart eVision 戰情室" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">聯銓 Smart eVision 戰情室與 BI 多維報表</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="機架伺服器與虛擬化" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">實體機架伺服器 (Dell/HP) 與 VMware 虛擬化</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="廠區交換機與車間 Wi-Fi" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">廠區核心交換機 (Cisco/Aruba) 與車間 Wi-Fi</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="跨國 SD-WAN 與離峰排程" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">跨國 SD-WAN、VPN 穿隧與離峰傳輸排程維護</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="Fortinet 防火牆與資安備份" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">Fortinet 防火牆、防毒 EDR 與 Veeam 備份 (資安)</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="AD 網域、M365 與 PC 終端" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">AD 網域、Microsoft 365 租戶與 PC 終端 (MIS)</div>
+            </label>
+            <label class="multiselect-option-item">
+              <input type="checkbox" name="ms_systems" value="吊掛 RFID 讀寫器與工控機" onchange="updateSystemsFromMenu()">
+              <div class="multiselect-option-text">吊掛線 RFID 讀寫器、工控機 IPC 與機台通訊</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 信源在職年資 -->
         <div class="form-group">
           <label class="form-label">信源 (RSI) 在職年資 *</label>
           <select class="form-input" id="prof_rsi_tenure" required>
@@ -597,6 +882,8 @@
             <option value="10 年以上 (資深元老 / Pillar)">10 年以上 (資深元老 / Pillar)</option>
           </select>
         </div>
+
+        <!-- 總 IT 年資 -->
         <div class="form-group">
           <label class="form-label">總 IT 產業工作年資 *</label>
           <select class="form-input" id="prof_total_tenure" required>
@@ -608,6 +895,8 @@
             <option value="15 年以上 (Principal / Veteran)">15 年以上 (Principal / Veteran)</option>
           </select>
         </div>
+
+        <!-- 直屬主管 -->
         <div class="form-group">
           <label class="form-label">直屬主管 / 審核人單位 *</label>
           <select class="form-input" id="prof_supervisor" required>
@@ -619,152 +908,15 @@
             <option value="印尼中爪哇廠 · 資訊主管/廠長 (ID IT Lead)">印尼中爪哇廠 · 資訊主管/廠長 (ID IT Lead)</option>
           </select>
         </div>
+
       </div>
 
-      <!-- ============================================================== -->
-      <!-- MULTI-ROLE SELECTION (CHECKBOX PILLS) -->
-      <!-- ============================================================== -->
-      <div class="role-selection-section">
-        <div class="role-selection-head">
-          <div class="role-selection-title">
-            <span>🎯</span> 現任技術專業角色（可同時複選 2 個以上兼任角色）*
-          </div>
-          <div class="role-hint-badge" id="roleCountBadge">
-            已勾選 0 個專業角色（請點擊下方卡片勾選）
-          </div>
-        </div>
-        <p style="font-size:0.76rem; color:var(--text-muted); margin-bottom:12px;">
-          請勾選您目前在信源實際擔綱的職能（例如兼任「後端開發＋DBA」或「網路＋資安」）。勾選後，下方將<strong>自動展開專屬該角色的核心題目</strong>：
-        </p>
-
-        <div class="roles-grid" id="rolesGrid">
-
-          <!-- 1. 前端 -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd1')">
-            <input type="checkbox" name="tech_roles" value="💻 前端軟體工程師" data-domains="d1">
-            <div>
-              <div class="role-info-title">💻 軟體開發 (前端 / UI / RWD)</div>
-              <div class="role-info-tag">啟動領域：1. 軟體工程</div>
-            </div>
-          </label>
-
-          <!-- 2. 後端 -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd1')">
-            <input type="checkbox" name="tech_roles" value="💻 後端軟體工程師" data-domains="d1">
-            <div>
-              <div class="role-info-title">💻 軟體開發 (後端 / C# / API / SQL)</div>
-              <div class="role-info-tag">啟動領域：1. 軟體工程</div>
-            </div>
-          </label>
-
-          <!-- 3. 全端 -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd1')">
-            <input type="checkbox" name="tech_roles" value="💻 全端軟體工程師" data-domains="d1">
-            <div>
-              <div class="role-info-title">💻 全端軟體工程師 (Full-Stack)</div>
-              <div class="role-info-tag">啟動領域：1. 軟體工程</div>
-            </div>
-          </label>
-
-          <!-- 4. DBA / Data -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd1,d4')">
-            <input type="checkbox" name="tech_roles" value="🗄️ DBA 資料庫與數據工程師" data-domains="d1,d4">
-            <div>
-              <div class="role-info-title">🗄️ 資料庫管理員 / 數據工程 (DBA)</div>
-              <div class="role-info-tag">啟動領域：1. 軟體(SQL) ＋ 4. 雲端湖倉</div>
-            </div>
-          </label>
-
-          <!-- 5. BI Developer -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd1,d4')">
-            <input type="checkbox" name="tech_roles" value="📊 商業智慧與報表分析師" data-domains="d1,d4">
-            <div>
-              <div class="role-info-title">📊 商業智慧與報表分析 (BI)</div>
-              <div class="role-info-tag">啟動領域：1. 軟體(聯銓BI) ＋ 4. 數據湖倉</div>
-            </div>
-          </label>
-
-          <!-- 6. ERP/MES -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd1,d2,d8')">
-            <input type="checkbox" name="tech_roles" value="⚙️ ERP/MES 製造系統工程師" data-domains="d1,d2,d8">
-            <div>
-              <div class="role-info-title">⚙️ ERP / MES / WMS 製造系統維護</div>
-              <div class="role-info-tag">啟動領域：1. 軟體 ＋ 2. 硬體 ＋ 8. 連線</div>
-            </div>
-          </label>
-
-          <!-- 7. Infra / VMware -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd2')">
-            <input type="checkbox" name="tech_roles" value="🖥️ 系統與虛擬化工程師" data-domains="d2">
-            <div>
-              <div class="role-info-title">🖥️ 系統伺服器與虛擬化 (VMware)</div>
-              <div class="role-info-tag">啟動領域：2. 實體硬體設施</div>
-            </div>
-          </label>
-
-          <!-- 8. Network -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd3,d8')">
-            <input type="checkbox" name="tech_roles" value="🌐 網路與通訊工程師" data-domains="d3,d8">
-            <div>
-              <div class="role-info-title">🌐 網路工程師 (Cisco / Wi-Fi)</div>
-              <div class="role-info-tag">啟動領域：3. 廠區網路 ＋ 8. 各點連線</div>
-            </div>
-          </label>
-
-          <!-- 9. Security -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd5')">
-            <input type="checkbox" name="tech_roles" value="🛡️ 資訊安全工程師" data-domains="d5">
-            <div>
-              <div class="role-info-title">🛡️ 資訊安全工程師 (Security/SASE)</div>
-              <div class="role-info-tag">啟動領域：5. 資訊安全與存取防護</div>
-            </div>
-          </label>
-
-          <!-- 10. SRE -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd6')">
-            <input type="checkbox" name="tech_roles" value="🛠️ 網站可靠性/DevOps工程師" data-domains="d6">
-            <div>
-              <div class="role-info-title">🛠️ SRE 網站可靠性 / DevOps</div>
-              <div class="role-info-tag">啟動領域：6. SRE 可靠性與監控</div>
-            </div>
-          </label>
-
-          <!-- 11. MIS Helpdesk -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd7')">
-            <input type="checkbox" name="tech_roles" value="🧑‍💻 MIS服務台與終端維運" data-domains="d7">
-            <div>
-              <div class="role-info-title">🧑‍💻 資訊服務台 / 終端維運 (MIS)</div>
-              <div class="role-info-tag">啟動領域：7. 資訊管理與維運</div>
-            </div>
-          </label>
-
-          <!-- 12. OT/RFID -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'd2,d8')">
-            <input type="checkbox" name="tech_roles" value="🏭 車間工控與OT物聯網" data-domains="d2,d8">
-            <div>
-              <div class="role-info-title">🏭 車間工控與 OT 物聯網 (RFID/IPC)</div>
-              <div class="role-info-tag">啟動領域：2. 硬體工控 ＋ 8. 邊緣自律</div>
-            </div>
-          </label>
-
-          <!-- 13. PM / Lead (All) -->
-          <label class="role-checkbox-card" onclick="toggleRoleCard(this, 'all')">
-            <input type="checkbox" name="tech_roles" value="👔 IT主管/專案經理 (全域評鑑)" data-domains="all">
-            <div>
-              <div class="role-info-title">👔 IT主管 / 專案經理 (全領域檢核)</div>
-              <div class="role-info-tag">啟動領域：全 8 大領域完整檢核</div>
-            </div>
-          </label>
-
-        </div>
-      </div>
-
-      <!-- Active Domains Banner -->
+      <!-- Active Domains Adaptive Banner -->
       <div class="active-domains-banner" id="activeDomainsBanner">
         <div>
-          <span>⚡ <strong>問卷動態適配中：</strong>目前已依您選擇的角色展開對應問卷。未勾選的領域已收合為選填卡，點擊標題即可自由展開補填。</span>
+          <span>⚡ <strong>問卷動態適配中：</strong>上方選單已勾選 <strong id="selectedRolesCountText">0 個角色</strong>，系統已自動展開對應領域問卷。未勾選領域已自動收合，點擊標題即可隨時展開加分填報。</span>
         </div>
-        <button type="button" onclick="expandAllDomains()" style="background:#FFF; border:1px solid #059669; color:#065F46; padding:3px 10px; border-radius:4px; font-size:0.72rem; cursor:pointer; font-weight:bold;">
+        <button type="button" onclick="expandAllDomains()" style="background:#FFF; border:1px solid #059669; color:#065F46; padding:4px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer; font-weight:bold;">
           展開全部 8 大領域
         </button>
       </div>
@@ -974,7 +1126,7 @@
       </div>
 
       <!-- ============================================================== -->
-      <!-- 5. 資安 (融入最新 SASE/ZTNA/CASB/DLP/SWG) -->
+      <!-- 5. 資安 -->
       <!-- ============================================================== -->
       <div class="domain-block" id="block_d5">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d5')">
@@ -1291,7 +1443,7 @@
     </form>
   </div>
 
-  <!-- Dynamic Role Adaptive & CSV Dispatch Handler -->
+  <!-- Multi-Select Controller & Adaptive Form Handler -->
   <script>
     const _T_HASH = atob('bGlhby5ob3dhcmRAZ21haWwuY29t'); // Encrypted recipient token
 
@@ -1307,42 +1459,76 @@
       "8. 各點連線協作"
     ];
 
-    // Role-to-Domain dynamic mapping
-    function updateAdaptiveForm() {
-      const checkedBoxes = document.querySelectorAll('input[name="tech_roles"]:checked');
-      const count = checkedBoxes.length;
-      const countBadge = document.getElementById('roleCountBadge');
-      if (countBadge) {
-        countBadge.innerText = count === 0 
-          ? '請至少勾選 1 個主責或兼任角色' 
-          : `已勾選 ${count} 個角色（已自動適配展開對應問卷）`;
-      }
+    // Toggle custom multiselect dropdown menu
+    function toggleMultiSelect(menuId, triggerId) {
+      const menu = document.getElementById(menuId);
+      const trigger = document.getElementById(triggerId);
+      const isShow = menu.classList.contains('show');
 
-      // Collect all active domain IDs
+      // Close all other dropdowns
+      document.querySelectorAll('.multiselect-menu').forEach(m => m.classList.remove('show'));
+      document.querySelectorAll('.multiselect-trigger').forEach(t => t.classList.remove('active'));
+
+      if (!isShow) {
+        menu.classList.add('show');
+        trigger.classList.add('active');
+      }
+    }
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.custom-multiselect')) {
+        document.querySelectorAll('.multiselect-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.multiselect-trigger').forEach(t => t.classList.remove('active'));
+      }
+    });
+
+    function selectAllInMenu(menuId, isCheck) {
+      const menu = document.getElementById(menuId);
+      if (!menu) return;
+      const cbs = menu.querySelectorAll('input[type="checkbox"]');
+      cbs.forEach(cb => { cb.checked = isCheck; });
+    }
+
+    // Update Roles from menu selection
+    function updateRolesFromMenu() {
+      const cbs = document.querySelectorAll('input[name="ms_roles"]:checked');
+      const container = document.getElementById('roleTagsContainer');
       const activeDomains = new Set();
       let hasAll = false;
 
-      checkedBoxes.forEach(cb => {
-        const dStr = cb.getAttribute('data-domains') || '';
-        if (dStr === 'all') {
-          hasAll = true;
-        } else {
-          dStr.split(',').forEach(d => {
-            if (d.trim()) activeDomains.add(d.trim());
-          });
-        }
-      });
+      if (!container) return;
+      container.innerHTML = '';
 
-      // If no roles selected or 'all' selected, expand all domains
+      if (cbs.length === 0) {
+        container.innerHTML = '<span class="multiselect-placeholder">-- 請點擊勾選 1 個或多個角色 (可多選) --</span>';
+      } else {
+        cbs.forEach(cb => {
+          const pill = document.createElement('span');
+          pill.className = 'selected-tag-pill';
+          pill.innerHTML = `<span>${cb.value}</span><span class="remove-tag" onclick="removeRoleTag('${cb.value}', event)">×</span>`;
+          container.appendChild(pill);
+
+          const dStr = cb.getAttribute('data-domains') || '';
+          if (dStr === 'all') hasAll = true;
+          else {
+            dStr.split(',').forEach(d => { if (d.trim()) activeDomains.add(d.trim()); });
+          }
+        });
+      }
+
+      // Update adaptive domains banner text
+      const bannerText = document.getElementById('selectedRolesCountText');
+      if (bannerText) bannerText.innerText = `${cbs.length} 個角色`;
+
+      // Update Domain Blocks Visibility
       const allDomainKeys = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
-
       allDomainKeys.forEach(k => {
         const block = document.getElementById('block_' + k);
         const badge = document.getElementById('badge_' + k);
         if (!block) return;
 
-        if (hasAll || count === 0 || activeDomains.has(k)) {
-          // Expand domain
+        if (hasAll || cbs.length === 0 || activeDomains.has(k)) {
           block.classList.remove('collapsed');
           block.classList.add('active');
           if (badge) {
@@ -1350,7 +1536,6 @@
             badge.className = 'domain-tag-badge badge-primary-role';
           }
         } else {
-          // Collapse domain as optional
           block.classList.add('collapsed');
           block.classList.remove('active');
           if (badge) {
@@ -1361,17 +1546,41 @@
       });
     }
 
-    function toggleRoleCard(card, domainKey) {
-      // Small timeout to allow input checkbox state to settle
-      setTimeout(() => {
-        const cb = card.querySelector('input[type="checkbox"]');
-        if (cb.checked) {
-          card.classList.add('selected');
-        } else {
-          card.classList.remove('selected');
-        }
-        updateAdaptiveForm();
-      }, 10);
+    function removeRoleTag(val, event) {
+      event.stopPropagation();
+      const cb = document.querySelector(`input[name="ms_roles"][value="${val}"]`);
+      if (cb) {
+        cb.checked = false;
+        updateRolesFromMenu();
+      }
+    }
+
+    // Update Systems from menu selection
+    function updateSystemsFromMenu() {
+      const cbs = document.querySelectorAll('input[name="ms_systems"]:checked');
+      const container = document.getElementById('sysTagsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (cbs.length === 0) {
+        container.innerHTML = '<span class="multiselect-placeholder">-- 請點擊勾選日常管轄系統 (可多選) --</span>';
+      } else {
+        cbs.forEach(cb => {
+          const pill = document.createElement('span');
+          pill.className = 'selected-tag-pill';
+          pill.innerHTML = `<span>${cb.value}</span><span class="remove-tag" onclick="removeSystemTag('${cb.value}', event)">×</span>`;
+          container.appendChild(pill);
+        });
+      }
+    }
+
+    function removeSystemTag(val, event) {
+      event.stopPropagation();
+      const cb = document.querySelector(`input[name="ms_systems"][value="${val}"]`);
+      if (cb) {
+        cb.checked = false;
+        updateSystemsFromMenu();
+      }
     }
 
     function toggleDomainBlock(k) {
@@ -1564,7 +1773,7 @@
       updateGapTable(scores);
     }
 
-    function generateCSVContent(profile, scores, busFactor, selectedRoles) {
+    function generateCSVContent(profile, scores, busFactor, selectedRoles, selectedSystems) {
       const BOM = '\uFEFF';
       let csv = BOM + '"評鑑領域/分類","項目名稱/欄位","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","情境檢核標準/處置建議"\r\n';
 
@@ -1576,6 +1785,8 @@
       csv += `"基本資訊","所屬節點廠區","${profile.site}","--","--","--"
 `;
       csv += `"基本資訊","現任技術專業角色(複選)","${selectedRoles.join(' ; ')}","--","--","支援跨域多工兼任"
+`;
+      csv += `"基本資訊","日常主要主責範疇(複選)","${selectedSystems.join(' ; ')}","--","--","支援管轄多系統"
 `;
       csv += `"基本資訊","信源在職年資","${profile.rsiTenure}","--","--","--"
 `;
@@ -1679,10 +1890,15 @@
       const totalTenure = document.getElementById('prof_total_tenure') ? document.getElementById('prof_total_tenure').value : '';
       const supervisor = document.getElementById('prof_supervisor') ? document.getElementById('prof_supervisor').value : '';
 
-      // Collect multiple roles
-      const checkedBoxes = document.querySelectorAll('input[name="tech_roles"]:checked');
+      // Collect multiple roles from custom multi-select
+      const checkedRoleBoxes = document.querySelectorAll('input[name="ms_roles"]:checked');
       const selectedRoles = [];
-      checkedBoxes.forEach(cb => selectedRoles.push(cb.value));
+      checkedRoleBoxes.forEach(cb => selectedRoles.push(cb.value));
+
+      // Collect multiple systems from custom multi-select
+      const checkedSysBoxes = document.querySelectorAll('input[name="ms_systems"]:checked');
+      const selectedSystems = [];
+      checkedSysBoxes.forEach(cb => selectedSystems.push(cb.value));
 
       if (!name || name === '同仁') {
         alert('請先填寫基本資訊中的【中文姓名 / 英文姓名】！');
@@ -1700,8 +1916,8 @@
         return;
       }
       if (selectedRoles.length === 0) {
-        alert('請至少勾選 1 個或多個【現任技術專業角色】！');
-        document.getElementById('rolesGrid').scrollIntoView({ behavior: 'smooth' });
+        alert('請在【現任技術專業角色】下拉選單中至少勾選 1 個角色！');
+        toggleMultiSelect('roleMenu', 'roleTrigger');
         return;
       }
 
@@ -1715,7 +1931,7 @@
       const scores = calculateScores();
       const busFactor = { backup: bfBackup, doc: bfDoc, impact: bfImpact, sysname: bfSysname };
 
-      const csvContent = generateCSVContent(profile, scores, busFactor, selectedRoles);
+      const csvContent = generateCSVContent(profile, scores, busFactor, selectedRoles, selectedSystems);
       const csvFilename = `RSI_IT_8Domains_Survey_${empId}_${name}.csv`;
 
       // Trigger Local Download
@@ -1753,6 +1969,7 @@
           員工工號: empId,
           所屬廠區: site,
           兼任專業角色清單: selectedRoles.join(' ; '),
+          主責系統範疇清單: selectedSystems.join(' ; '),
           主管審核單位: supervisor,
           信源在職年資: rsiTenure,
           總IT年資: totalTenure,
@@ -1822,17 +2039,17 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Pre-select 2 roles as clean example
-      const defaultRoles = document.querySelectorAll('input[name="tech_roles"]');
-      if (defaultRoles[1]) {
-        defaultRoles[1].checked = true;
-        defaultRoles[1].closest('.role-checkbox-card').classList.add('selected');
-      }
-      if (defaultRoles[3]) {
-        defaultRoles[3].checked = true;
-        defaultRoles[3].closest('.role-checkbox-card').classList.add('selected');
-      }
-      updateAdaptiveForm();
+      // Pre-select 2 roles as clean default example
+      const defaultRoles = document.querySelectorAll('input[name="ms_roles"]');
+      if (defaultRoles[1]) defaultRoles[1].checked = true; // 後端
+      if (defaultRoles[3]) defaultRoles[3].checked = true; // DBA
+
+      const defaultSys = document.querySelectorAll('input[name="ms_systems"]');
+      if (defaultSys[0]) defaultSys[0].checked = true; // ERP
+      if (defaultSys[3]) defaultSys[3].checked = true; // SQL Server
+
+      updateRolesFromMenu();
+      updateSystemsFromMenu();
       updateCharts();
     });
   </script>
