@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷 (角色多選動態適配版) ｜ Hive Project</title>
+  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷 (兼任角色同時並列版) ｜ Hive Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -183,8 +183,7 @@
       box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
     }
 
-    
-    /* Enterprise Multi-Select Dropdown Component */
+    /* Multi-Select Dropdown Component */
     .custom-multiselect {
       position: relative;
     }
@@ -313,44 +312,103 @@
       font-family: var(--font-mono);
     }
 
-
-    /* Active Dynamic Notice Banner */
-    .active-domains-banner {
-      background: #ECFDF5;
-      border: 1px solid #A7F3D0;
-      border-left: 4px solid #059669;
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-size: 0.82rem;
-      color: #065F46;
+    /* Simultaneous Questionnaires Panel */
+    .simultaneous-roles-panel {
+      background: #FFF8EE;
+      border: 2px solid var(--orange-vibrant);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 24px;
       margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(232, 117, 36, 0.09);
+    }
+    .simultaneous-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       gap: 10px;
-      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.08);
+      margin-bottom: 10px;
+    }
+    .simultaneous-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .role-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .active-role-tag {
+      background: #FFFFFF;
+      border: 1px solid #FDBA74;
+      color: var(--rust-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-mode-toggles {
+      display: inline-flex;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 2px;
+      font-size: 0.75rem;
+    }
+    .filter-toggle-btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+    .filter-toggle-btn.active {
+      background: var(--rust-primary);
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     }
 
     /* Domain Section wrapper */
     .domain-block {
       transition: all 0.3s ease;
       margin-bottom: 22px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
     }
-    .domain-block.collapsed {
+    .domain-block.active-listed {
+      border: 2px solid #FED7AA;
+      border-left: 6px solid var(--rust-primary);
+      background: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(168, 50, 18, 0.06);
+    }
+    .domain-block.hidden-mode {
+      display: none !important;
+    }
+    .domain-block.collapsed-optional {
       background: #FAFAF9;
       border: 1px dashed var(--border-strong);
-      border-radius: 6px;
       padding: 12px 16px;
     }
-    .domain-block.collapsed .domain-content {
+    .domain-block.collapsed-optional .domain-content {
       display: none;
     }
-    .domain-block.active {
-      background: #FFFFFF;
-      border-left: 3.5px solid var(--orange-vibrant);
-      padding-left: 12px;
-    }
+
     .domain-header-toggle {
       display: flex;
       justify-content: space-between;
@@ -377,7 +435,7 @@
 
     /* Question Cards */
     .q-card {
-      background: #FFFFFF;
+      background: #FAFAF9;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 13px 16px;
@@ -404,7 +462,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 6px;
-      background: #FAF8F5;
+      background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: 4px;
       padding: 7px 10px;
@@ -562,8 +620,9 @@
       body { background: #FFF; padding: 0; }
       .survey-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
       .action-bar { display: none; }
-      .domain-block.collapsed .domain-content { display: block !important; }
-      .domain-block.collapsed { border: none; padding: 0; }
+      .domain-block.collapsed-optional .domain-content { display: block !important; }
+      .domain-block.collapsed-optional { border: none; padding: 0; }
+      .domain-block.hidden-mode { display: block !important; }
       .q-card { page-break-inside: avoid; }
       .analytics-section { page-break-before: always; }
       .multiselect-menu { display: none !important; }
@@ -586,14 +645,14 @@
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
         <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
-        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-MULTIROLE-DROPDOWN-2027</div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027</div>
       </div>
     </div>
 
     <!-- Notice Box -->
     <div class="notice-box">
-      <strong>📌 多重角色下拉多選 ＆ 問卷動態適配指引：</strong><br>
-      為因應台北總部及海外三廠同仁常兼任多項職能（一人分飾多角），本問卷在<strong>「現任技術專業角色」</strong>與<strong>「主要主責系統範疇」</strong>均支援<strong>【下拉式選單多選 (Multi-Select)】</strong>。點開選單即可勾選 1 個或多個兼任角色，系統將<strong>自動即時展開對應領域的專業問卷</strong>；未勾選的領域自動收合為選填卡。填畢<strong>自動轉為結構化 CSV 檔並背景安全轉呈專案複核小組</strong>。
+      <strong>📌 兼任角色專屬問卷「同時並列列出」填答指引：</strong><br>
+      考量台北總部及海外三廠同仁常兼任多項職能（一人分飾多角），本問卷在<strong>「現任技術專業角色」支援多選</strong>。當您在下拉選單中<strong>勾選 2 個或多個角色</strong>時，系統會<strong>【自動將您兼任角色所需填寫的所有問卷同時全部列出】</strong>，直接呈現專屬問卷組合，無需來回翻找或受無關領域干擾！填畢<strong>自動轉為結構化 CSV 檔並背景安全轉呈專案複核小組</strong>。
     </div>
 
     <!-- Level Guide -->
@@ -671,7 +730,7 @@
         <div class="form-group custom-multiselect" id="ms_role_wrapper">
           <label class="form-label">
             <span>現任技術專業角色 (標準選單) *</span>
-            <span class="badge-multi">這可以多選 ✔</span>
+            <span class="badge-multi">可勾選 2 個以上角色 ✔</span>
           </label>
           
           <div class="multiselect-trigger" id="roleTrigger" onclick="toggleMultiSelect('roleMenu', 'roleTrigger')">
@@ -683,7 +742,7 @@
 
           <div class="multiselect-menu" id="roleMenu">
             <div class="multiselect-header-actions">
-              <span>可勾選 2 個以上兼任角色</span>
+              <span>勾選兼任角色將同時列出對應問卷</span>
               <div>
                 <span class="multiselect-action-btn" onclick="selectAllInMenu('roleMenu', true); updateRolesFromMenu();">全選</span>
                 <span style="color:#D1D5DB; margin:0 4px;">|</span>
@@ -799,11 +858,11 @@
           </div>
         </div>
 
-        <!-- 日常主要負責的核心系統 (下拉多選) -->
+        <!-- 日常主要主責系統 (下拉多選) -->
         <div class="form-group custom-multiselect" id="ms_sys_wrapper">
           <label class="form-label">
             <span>日常主要負責的核心系統維運範疇 *</span>
-            <span class="badge-multi">這可以多選 ✔</span>
+            <span class="badge-multi">可勾選多個系統 ✔</span>
           </label>
           
           <div class="multiselect-trigger" id="sysTrigger" onclick="toggleMultiSelect('sysMenu', 'sysTrigger')">
@@ -911,28 +970,48 @@
 
       </div>
 
-      <!-- Active Domains Adaptive Banner -->
-      <div class="active-domains-banner" id="activeDomainsBanner">
-        <div>
-          <span>⚡ <strong>問卷動態適配中：</strong>上方選單已勾選 <strong id="selectedRolesCountText">0 個角色</strong>，系統已自動展開對應領域問卷。未勾選領域已自動收合，點擊標題即可隨時展開加分填報。</span>
+      <!-- Simultaneous Roles Questionnaire Bundle Panel (兼任角色專屬問卷清單) -->
+      <div class="simultaneous-roles-panel" id="simultaneousPanel">
+        <div class="simultaneous-header">
+          <div>
+            <div class="simultaneous-title">
+              <span>📋</span>
+              <span id="simultaneousTitleText">兼任角色專屬問卷組合（已同時列出對應領域）</span>
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-body); margin-top:2px;">
+              依據您所勾選的兼任角色，系統已自動將您<strong>本次需填寫的全部專業領域問卷同時完整並列於下方</strong>：
+            </div>
+            <div class="role-pills-row" id="activeRolePillsRow">
+              <!-- Dynamically populated tags -->
+            </div>
+          </div>
+
+          <div style="text-align:right;">
+            <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:4px;">檢視模式切換：</div>
+            <div class="filter-mode-toggles">
+              <button type="button" class="filter-toggle-btn active" id="btnModeFocused" onclick="switchDisplayMode('focused')">
+                🎯 僅列出兼任必填問卷
+              </button>
+              <button type="button" class="filter-toggle-btn" id="btnModeAll" onclick="switchDisplayMode('all')">
+                🌐 展開全公司 8 大領域
+              </button>
+            </div>
+          </div>
         </div>
-        <button type="button" onclick="expandAllDomains()" style="background:#FFF; border:1px solid #059669; color:#065F46; padding:4px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer; font-weight:bold;">
-          展開全部 8 大領域
-        </button>
       </div>
 
       <!-- ============================================================== -->
       <!-- 1. 軟體 (前端、後端) -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d1">
+      <div class="domain-block active-listed" id="block_d1">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d1')">
           <div class="part-title" style="margin-top:0;">
             <span>1. 軟體工程：前端與後端開發 (Software Engineering)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d1">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d1">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋前端 UI 切版、後端 C#/.NET/Java/Python Web API、T-SQL 預存程序與死鎖調校。</div>
+          <div class="part-desc" id="desc_d1">涵蓋前端 UI 切版、後端 C#/.NET/Java/Python Web API、T-SQL 預存程序與死鎖調校。</div>
 
           <div class="q-card">
             <div class="q-head">Q1-1. 前端 UI 開發與響應式切版 (HTML5 / Vue / React / RWD)</div>
@@ -975,15 +1054,15 @@
       <!-- ============================================================== -->
       <!-- 2. 硬體 -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d2">
+      <div class="domain-block active-listed" id="block_d2">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d2')">
           <div class="part-title" style="margin-top:0;">
             <span>2. 實體硬體與車間設施 (Hardware &amp; Shopfloor Equipment)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d2">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d2">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋 Dell/HP 伺服器、RAID 磁碟陣列、NAS/SAN、VMware 虛擬化與車間工控機 (IPC)。</div>
+          <div class="part-desc" id="desc_d2">涵蓋 Dell/HP 伺服器、RAID 磁碟陣列、NAS/SAN、VMware 虛擬化與車間工控機 (IPC)。</div>
 
           <div class="q-card">
             <div class="q-head">Q2-1. 機架伺服器硬體管理 (Dell R740 / HP DL380 / iDRAC)</div>
@@ -1026,15 +1105,15 @@
       <!-- ============================================================== -->
       <!-- 3. 網路 -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d3">
+      <div class="domain-block active-listed" id="block_d3">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d3')">
           <div class="part-title" style="margin-top:0;">
             <span>3. 廠區網路架構與傳輸 (Network &amp; Wi-Fi Infrastructure)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d3">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d3">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋核心交換器、VLAN 切割隔離、車間 Wi-Fi 覆蓋調優與雙線路備援。</div>
+          <div class="part-desc" id="desc_d3">涵蓋核心交換器、VLAN 切割隔離、車間 Wi-Fi 覆蓋調優與雙線路備援。</div>
 
           <div class="q-card">
             <div class="q-head">Q3-1. 核心交換器 (Core Switch) 設定、堆疊與鏈路聚合</div>
@@ -1077,15 +1156,15 @@
       <!-- ============================================================== -->
       <!-- 4. 雲端 -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d4">
+      <div class="domain-block active-listed" id="block_d4">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d4')">
           <div class="part-title" style="margin-top:0;">
             <span>4. 公有雲與數據中台 (Cloud &amp; Lakehouse Architecture)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d4">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d4">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋 GCP/AWS 雲端環境操作、BigQuery 數據倉儲、Apache Airflow 排程與 FinOps。</div>
+          <div class="part-desc" id="desc_d4">涵蓋 GCP/AWS 雲端環境操作、BigQuery 數據倉儲、Apache Airflow 排程與 FinOps。</div>
 
           <div class="q-card">
             <div class="q-head">Q4-1. 公有雲基礎架構操作 (GCP / AWS 控制台與 IAM)</div>
@@ -1128,15 +1207,15 @@
       <!-- ============================================================== -->
       <!-- 5. 資安 -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d5">
+      <div class="domain-block active-listed" id="block_d5">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d5')">
           <div class="part-title" style="margin-top:0;">
             <span>5. 資訊安全與存取防護 (Cybersecurity &amp; SASE)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d5">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d5">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋次世代防火牆 (Fortinet)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP) 與防勒索 WORM。</div>
+          <div class="part-desc" id="desc_d5">涵蓋次世代防火牆 (Fortinet)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP) 與防勒索 WORM。</div>
 
           <div class="q-card">
             <div class="q-head">Q5-1. 次世代防火牆 (FortiGate NGFW) 安全策略與 IPS</div>
@@ -1179,15 +1258,15 @@
       <!-- ============================================================== -->
       <!-- 6. SRE -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d6">
+      <div class="domain-block active-listed" id="block_d6">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d6')">
           <div class="part-title" style="margin-top:0;">
             <span>6. 網站可靠性工程與維運 (SRE &amp; DevOps)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d6">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d6">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋系統可用性指標 (SLA/SLO)、日誌集中監控 (Prometheus/Grafana)、CI/CD 自動化與容器。</div>
+          <div class="part-desc" id="desc_d6">涵蓋系統可用性指標 (SLA/SLO)、日誌集中監控 (Prometheus/Grafana)、CI/CD 自動化與容器。</div>
 
           <div class="q-card">
             <div class="q-head">Q6-1. 服務等級目標與可用性監控 (SLI / SLO / SLA)</div>
@@ -1230,15 +1309,15 @@
       <!-- ============================================================== -->
       <!-- 7. MIS -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d7">
+      <div class="domain-block active-listed" id="block_d7">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d7')">
           <div class="part-title" style="margin-top:0;">
             <span>7. 資訊管理與終端維運 (MIS &amp; IT Service Management)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d7">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d7">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋 Active Directory 網域管理、GPO 派送、M365 租戶維護、軟體資產合規與使用者支援。</div>
+          <div class="part-desc" id="desc_d7">涵蓋 Active Directory 網域管理、GPO 派送、M365 租戶維護、軟體資產合規與使用者支援。</div>
 
           <div class="q-card">
             <div class="q-head">Q7-1. Active Directory 網域控制、GPO 安全原則與帳號審查</div>
@@ -1281,15 +1360,15 @@
       <!-- ============================================================== -->
       <!-- 8. 各點連線協作 (貫徹外點一日一次傳輸原則) -->
       <!-- ============================================================== -->
-      <div class="domain-block" id="block_d8">
+      <div class="domain-block active-listed" id="block_d8">
         <div class="domain-header-toggle" onclick="toggleDomainBlock('d8')">
           <div class="part-title" style="margin-top:0;">
             <span>8. 各點連線與 SD-WAN 協作 (Connectivity &amp; SD-WAN)</span>
           </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d8">核心必填</span>
+          <span class="domain-tag-badge badge-primary-role" id="badge_d8">必填問卷</span>
         </div>
         <div class="domain-content">
-          <div class="part-desc">涵蓋跨國 VPN、SD-WAN 頻寬保護、外點一日一次離峰傳輸排程與海纜斷網離線自治。</div>
+          <div class="part-desc" id="desc_d8">涵蓋跨國 VPN、SD-WAN 頻寬保護、外點一日一次離峰傳輸排程與海纜斷網離線自治。</div>
 
           <div class="q-card">
             <div class="q-head">Q8-1. 跨國 Site-to-Site IPSec VPN 建立與連線除錯</div>
@@ -1459,13 +1538,13 @@
       "8. 各點連線協作"
     ];
 
-    // Toggle custom multiselect dropdown menu
+    let currentDisplayMode = 'focused'; // 'focused' = 僅列出選中問卷, 'all' = 顯示全部8大領域
+
     function toggleMultiSelect(menuId, triggerId) {
       const menu = document.getElementById(menuId);
       const trigger = document.getElementById(triggerId);
       const isShow = menu.classList.contains('show');
 
-      // Close all other dropdowns
       document.querySelectorAll('.multiselect-menu').forEach(m => m.classList.remove('show'));
       document.querySelectorAll('.multiselect-trigger').forEach(t => t.classList.remove('active'));
 
@@ -1475,7 +1554,6 @@
       }
     }
 
-    // Close when clicking outside
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.custom-multiselect')) {
         document.querySelectorAll('.multiselect-menu').forEach(m => m.classList.remove('show'));
@@ -1490,57 +1568,99 @@
       cbs.forEach(cb => { cb.checked = isCheck; });
     }
 
-    // Update Roles from menu selection
+    function switchDisplayMode(mode) {
+      currentDisplayMode = mode;
+      document.getElementById('btnModeFocused').classList.toggle('active', mode === 'focused');
+      document.getElementById('btnModeAll').classList.toggle('active', mode === 'all');
+      updateRolesFromMenu();
+    }
+
+    // Role-to-Domain dynamic mapping and simultaneous questionnaire listing
     function updateRolesFromMenu() {
       const cbs = document.querySelectorAll('input[name="ms_roles"]:checked');
       const container = document.getElementById('roleTagsContainer');
+      const pillsRow = document.getElementById('activeRolePillsRow');
+      const simultaneousTitle = document.getElementById('simultaneousTitleText');
+
       const activeDomains = new Set();
+      const domainSourceRoles = {};
       let hasAll = false;
 
-      if (!container) return;
-      container.innerHTML = '';
+      if (container) container.innerHTML = '';
+      if (pillsRow) pillsRow.innerHTML = '';
 
       if (cbs.length === 0) {
-        container.innerHTML = '<span class="multiselect-placeholder">-- 請點擊勾選 1 個或多個角色 (可多選) --</span>';
+        if (container) container.innerHTML = '<span class="multiselect-placeholder">-- 請點擊勾選 1 個或多個角色 (可多選) --</span>';
+        if (simultaneousTitle) simultaneousTitle.innerText = '請先於上方選單勾選兼任角色（系統將自動同時列出對應問卷）';
       } else {
         cbs.forEach(cb => {
-          const pill = document.createElement('span');
-          pill.className = 'selected-tag-pill';
-          pill.innerHTML = `<span>${cb.value}</span><span class="remove-tag" onclick="removeRoleTag('${cb.value}', event)">×</span>`;
-          container.appendChild(pill);
+          const rVal = cb.value;
+          // Add pill to dropdown trigger box
+          if (container) {
+            const pill = document.createElement('span');
+            pill.className = 'selected-tag-pill';
+            pill.innerHTML = `<span>${rVal}</span><span class="remove-tag" onclick="removeRoleTag('${rVal}', event)">×</span>`;
+            container.appendChild(pill);
+          }
+
+          // Add pill to simultaneous banner
+          if (pillsRow) {
+            const rTag = document.createElement('span');
+            rTag.className = 'active-role-tag';
+            rTag.innerHTML = `<span>✔ ${rVal}</span>`;
+            pillsRow.appendChild(rTag);
+          }
 
           const dStr = cb.getAttribute('data-domains') || '';
-          if (dStr === 'all') hasAll = true;
-          else {
-            dStr.split(',').forEach(d => { if (d.trim()) activeDomains.add(d.trim()); });
+          if (dStr === 'all') {
+            hasAll = true;
+          } else {
+            dStr.split(',').forEach(d => {
+              const dk = d.trim();
+              if (dk) {
+                activeDomains.add(dk);
+                if (!domainSourceRoles[dk]) domainSourceRoles[dk] = [];
+                domainSourceRoles[dk].push(rVal.replace(/[💻🗄️📊⚙️🖥️🌐🛡️🛠️🧑‍💻🏭📋👔]/g, '').trim());
+              }
+            });
           }
         });
-      }
 
-      // Update adaptive domains banner text
-      const bannerText = document.getElementById('selectedRolesCountText');
-      if (bannerText) bannerText.innerText = `${cbs.length} 個角色`;
+        if (simultaneousTitle) {
+          simultaneousTitle.innerText = `兼任角色專屬問卷組合（已同時列出 ${cbs.length} 個兼任角色對應的全部問卷）`;
+        }
+      }
 
       // Update Domain Blocks Visibility
       const allDomainKeys = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
       allDomainKeys.forEach(k => {
         const block = document.getElementById('block_' + k);
         const badge = document.getElementById('badge_' + k);
+        const desc = document.getElementById('desc_' + k);
         if (!block) return;
 
-        if (hasAll || cbs.length === 0 || activeDomains.has(k)) {
-          block.classList.remove('collapsed');
-          block.classList.add('active');
+        const isDomainActive = hasAll || cbs.length === 0 || activeDomains.has(k);
+
+        if (isDomainActive) {
+          // It's a required domain for one or more selected roles
+          block.className = 'domain-block active-listed';
           if (badge) {
-            badge.innerText = '核心必填';
+            const sourceRoles = domainSourceRoles[k] ? domainSourceRoles[k].join('、') : '';
+            badge.innerText = sourceRoles ? `🎯 兼任必填 (來自：${sourceRoles})` : '🎯 核心必填';
             badge.className = 'domain-tag-badge badge-primary-role';
           }
         } else {
-          block.classList.add('collapsed');
-          block.classList.remove('active');
-          if (badge) {
-            badge.innerText = '非主選角色 (點擊展開填寫)';
-            badge.className = 'domain-tag-badge badge-optional-role';
+          // Unselected domain
+          if (currentDisplayMode === 'focused' && cbs.length > 0) {
+            // In focused mode: HIDE unselected domains so only selected roles' questionnaires are simultaneously listed!
+            block.className = 'domain-block hidden-mode';
+          } else {
+            // In all mode: collapse optional
+            block.className = 'domain-block collapsed-optional';
+            if (badge) {
+              badge.innerText = '非主選角色 (選填)';
+              badge.className = 'domain-tag-badge badge-optional-role';
+            }
           }
         }
       });
@@ -1555,7 +1675,6 @@
       }
     }
 
-    // Update Systems from menu selection
     function updateSystemsFromMenu() {
       const cbs = document.querySelectorAll('input[name="ms_systems"]:checked');
       const container = document.getElementById('sysTagsContainer');
@@ -1587,23 +1706,25 @@
       const block = document.getElementById('block_' + k);
       const badge = document.getElementById('badge_' + k);
       if (!block) return;
-      if (block.classList.contains('collapsed')) {
-        block.classList.remove('collapsed');
+      if (block.classList.contains('collapsed-optional')) {
+        block.classList.remove('collapsed-optional');
+        block.classList.add('active-listed');
         if (badge) badge.innerText = '選填展開中';
-      } else {
-        block.classList.add('collapsed');
+      } else if (block.classList.contains('active-listed') && currentDisplayMode === 'all') {
+        block.classList.remove('active-listed');
+        block.classList.add('collapsed-optional');
         if (badge) badge.innerText = '點擊展開';
       }
     }
 
     function expandAllDomains() {
+      switchDisplayMode('all');
       const allDomainKeys = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
       allDomainKeys.forEach(k => {
         const block = document.getElementById('block_' + k);
         const badge = document.getElementById('badge_' + k);
         if (block) {
-          block.classList.remove('collapsed');
-          block.classList.add('active');
+          block.className = 'domain-block active-listed';
         }
         if (badge) {
           badge.innerText = '全項展開';
@@ -1890,12 +2011,10 @@
       const totalTenure = document.getElementById('prof_total_tenure') ? document.getElementById('prof_total_tenure').value : '';
       const supervisor = document.getElementById('prof_supervisor') ? document.getElementById('prof_supervisor').value : '';
 
-      // Collect multiple roles from custom multi-select
       const checkedRoleBoxes = document.querySelectorAll('input[name="ms_roles"]:checked');
       const selectedRoles = [];
       checkedRoleBoxes.forEach(cb => selectedRoles.push(cb.value));
 
-      // Collect multiple systems from custom multi-select
       const checkedSysBoxes = document.querySelectorAll('input[name="ms_systems"]:checked');
       const selectedSystems = [];
       checkedSysBoxes.forEach(cb => selectedSystems.push(cb.value));
@@ -2039,7 +2158,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Pre-select 2 roles as clean default example
+      // Pre-select 2 roles as clear default example: 後端 + DBA
       const defaultRoles = document.querySelectorAll('input[name="ms_roles"]');
       if (defaultRoles[1]) defaultRoles[1].checked = true; // 後端
       if (defaultRoles[3]) defaultRoles[3].checked = true; // DBA
