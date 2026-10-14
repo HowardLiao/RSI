@@ -65,18 +65,7 @@
     }
 
     /* Fixed Watermark Overlay: Howard Liao Ph.D. */
-    .watermark-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='160' viewBox='0 0 280 160'%3E%3Ctext x='20' y='90' fill='%2371717A' font-family='serif' font-weight='bold' font-size='16' transform='rotate(-25 140 80)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
-      background-repeat: repeat;
-    }
+    
 
     /* Top Masthead: Milan Editorial Header */
     .milan-masthead {
@@ -1242,9 +1231,7 @@
         background: #FFF !important;
         color: #000 !important;
       }
-      .watermark-overlay {
-        opacity: 0.08 !important; /* ensure watermark renders nicely on print */
-      }
+      
       .milan-masthead, .container, .milan-footer {
         padding: 0 !important;
       }
@@ -1977,12 +1964,53 @@
       font-weight: 500;
     }
 
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
   </style>
 </head>
 <body>
+  <div class="watermark-overlay"></div>
 
   <!-- Watermark: Howard Liao Ph.D. -->
-  <div class="watermark-overlay"></div>
+  
   <!-- Executive Command Palette Search Modal -->
   <div class="search-modal-backdrop" id="searchModalBackdrop" onclick="closeSearchModalOnBackdrop(event)">
     <div class="search-modal-card">

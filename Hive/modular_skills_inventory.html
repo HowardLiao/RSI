@@ -47,15 +47,7 @@
       position: relative;
     }
 
-    .watermark-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
-      background-repeat: repeat;
-      border-radius: var(--radius-md);
-    }
+    
 
     .header-bar {
       border-bottom: 2.5px solid var(--rust-primary);
@@ -306,12 +298,53 @@
       .table-wrap { overflow: visible; }
       .matrix-table { min-width: 100%; }
     }
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
   </style>
 </head>
 <body>
+  <div class="watermark-overlay"></div>
 
   <div class="container">
-    <div class="watermark-overlay"></div>
+    
 
     <!-- Header -->
     <div class="header-bar">
