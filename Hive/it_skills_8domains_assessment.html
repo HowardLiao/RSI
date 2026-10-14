@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷 (兼任角色同時並列版) ｜ Hive Project</title>
+  <title>信源全球 (RSI) · 內部 IT 技術職能盤點問卷 (角色專屬動態生成版) ｜ Hive Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -131,11 +131,6 @@
       gap: 8px;
       border-bottom: 1.5px solid var(--border-subtle);
       padding-bottom: 6px;
-    }
-    .part-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
     }
 
     .info-grid {
@@ -312,39 +307,36 @@
       font-family: var(--font-mono);
     }
 
-    /* Simultaneous Questionnaires Panel */
-    .simultaneous-roles-panel {
+    /* Role-Specific Generated Questionnaires Container */
+    .role-questionnaires-panel {
+      margin-top: 26px;
+      margin-bottom: 24px;
+    }
+
+    .bundle-summary-card {
       background: #FFF8EE;
       border: 2px solid var(--orange-vibrant);
       border-radius: 8px;
-      padding: 16px 20px;
-      margin-top: 24px;
+      padding: 18px 22px;
       margin-bottom: 24px;
       box-shadow: 0 4px 12px rgba(232, 117, 36, 0.09);
     }
-    .simultaneous-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .simultaneous-title {
+    .bundle-summary-title {
       font-size: 1.05rem;
       font-weight: 800;
       color: var(--rust-primary);
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 4px;
     }
-    .role-pills-row {
+    .bundle-pills-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 8px;
     }
-    .active-role-tag {
+    .bundle-role-pill {
       background: #FFFFFF;
       border: 1px solid #FDBA74;
       color: var(--rust-primary);
@@ -352,85 +344,69 @@
       font-weight: 800;
       padding: 4px 10px;
       border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .filter-mode-toggles {
-      display: inline-flex;
+    /* Role-Specific Generated Block */
+    .role-generated-block {
       background: #FFFFFF;
-      border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      padding: 2px;
-      font-size: 0.75rem;
-    }
-    .filter-toggle-btn {
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 700;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
+      border: 1.5px solid var(--border-subtle);
+      border-left: 6px solid var(--rust-primary);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       transition: all 0.2s ease;
     }
-    .filter-toggle-btn.active {
-      background: var(--rust-primary);
-      color: #FFFFFF;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    .role-generated-block:hover {
+      border-color: #FED7AA;
+      box-shadow: 0 4px 16px rgba(168, 50, 18, 0.08);
     }
-
-    /* Domain Section wrapper */
-    .domain-block {
-      transition: all 0.3s ease;
-      margin-bottom: 22px;
-      border-radius: 8px;
-      background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
-      padding: 16px 20px;
-    }
-    .domain-block.active-listed {
-      border: 2px solid #FED7AA;
-      border-left: 6px solid var(--rust-primary);
-      background: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(168, 50, 18, 0.06);
-    }
-    .domain-block.hidden-mode {
-      display: none !important;
-    }
-    .domain-block.collapsed-optional {
-      background: #FAFAF9;
-      border: 1px dashed var(--border-strong);
-      padding: 12px 16px;
-    }
-    .domain-block.collapsed-optional .domain-content {
-      display: none;
-    }
-
-    .domain-header-toggle {
+    .role-block-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    .domain-tag-badge {
+    .role-block-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .role-badge {
       font-size: 0.72rem;
       font-weight: 800;
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
       padding: 3px 10px;
       border-radius: 12px;
       font-family: var(--font-mono);
     }
-    .badge-primary-role {
-      background: #FEE2E2;
-      color: #991B1B;
-      border: 1px solid #FECACA;
+    .role-desc-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
     }
-    .badge-optional-role {
-      background: #F3F4F6;
-      color: #4B5563;
-      border: 1px solid #E5E7EB;
+
+    /* Empty state */
+    .empty-roles-prompt {
+      background: #FAF8F5;
+      border: 2px dashed var(--border-strong);
+      border-radius: 8px;
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 24px;
     }
 
     /* Question Cards */
@@ -620,9 +596,6 @@
       body { background: #FFF; padding: 0; }
       .survey-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
       .action-bar { display: none; }
-      .domain-block.collapsed-optional .domain-content { display: block !important; }
-      .domain-block.collapsed-optional { border: none; padding: 0; }
-      .domain-block.hidden-mode { display: block !important; }
       .q-card { page-break-inside: avoid; }
       .analytics-section { page-break-before: always; }
       .multiselect-menu { display: none !important; }
@@ -640,19 +613,19 @@
         <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
           RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">信源全球 · 內部 IT 技術職能盤點問卷<br><span>Multi-Role Adaptive Technical Competency Assessment &amp; Skill Gap Analysis</span></h1>
+        <h1 class="header-title">信源全球 · 內部 IT 技術職能盤點問卷<br><span>Role-Specific Adaptive Competency Assessment &amp; Skill Gap Analysis</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
         <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
-        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027</div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-ROLE-GENERATED-2027</div>
       </div>
     </div>
 
     <!-- Notice Box -->
     <div class="notice-box">
-      <strong>📌 兼任角色專屬問卷「同時並列列出」填答指引：</strong><br>
-      考量台北總部及海外三廠同仁常兼任多項職能（一人分飾多角），本問卷在<strong>「現任技術專業角色」支援多選</strong>。當您在下拉選單中<strong>勾選 2 個或多個角色</strong>時，系統會<strong>【自動將您兼任角色所需填寫的所有問卷同時全部列出】</strong>，直接呈現專屬問卷組合，無需來回翻找或受無關領域干擾！填畢<strong>自動轉為結構化 CSV 檔並背景安全轉呈專案複核小組</strong>。
+      <strong>📌 角色專屬問卷動態生成機制說明：</strong><br>
+      本系統支援<strong>「選取多個專業角色，即時動態生成並同時列出該角色的專屬技術問卷」</strong>。您在上方下拉選單每勾選一個角色，系統就會在下方自動產生一份專屬於該角色的獨立問卷與實戰情境題目；您可以身兼多職，所有選中角色的問卷將<strong>一併同時並列呈現</strong>供您連續填答。填畢自動轉為結構化 CSV 檔並背景安全轉呈專案複核小組。
     </div>
 
     <!-- Level Guide -->
@@ -726,11 +699,11 @@
           </select>
         </div>
 
-        <!-- 現任技術專業角色 (下拉多選) -->
+        <!-- 現任技術專業角色 (下拉多選：選中後動態生成問卷！) -->
         <div class="form-group custom-multiselect" id="ms_role_wrapper">
           <label class="form-label">
-            <span>現任技術專業角色 (標準選單) *</span>
-            <span class="badge-multi">可勾選 2 個以上角色 ✔</span>
+            <span>現任技術專業角色 (選後即生成問卷) *</span>
+            <span class="badge-multi">可勾選多角色 ✔</span>
           </label>
           
           <div class="multiselect-trigger" id="roleTrigger" onclick="toggleMultiSelect('roleMenu', 'roleTrigger')">
@@ -742,119 +715,16 @@
 
           <div class="multiselect-menu" id="roleMenu">
             <div class="multiselect-header-actions">
-              <span>勾選兼任角色將同時列出對應問卷</span>
+              <span>勾選後下方即時生成該角色專屬問卷</span>
               <div>
-                <span class="multiselect-action-btn" onclick="selectAllInMenu('roleMenu', true); updateRolesFromMenu();">全選</span>
+                <span class="multiselect-action-btn" onclick="selectAllRoles(true);">全選</span>
                 <span style="color:#D1D5DB; margin:0 4px;">|</span>
-                <span class="multiselect-action-btn" onclick="selectAllInMenu('roleMenu', false); updateRolesFromMenu();">清空</span>
+                <span class="multiselect-action-btn" onclick="selectAllRoles(false);">清空</span>
               </div>
             </div>
 
-            <!-- Role Options with checkboxes -->
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="💻 前端軟體工程師" data-domains="d1" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>💻 軟體開發工程師 (前端 / UI/UX / RWD)</div>
-                <div class="multiselect-option-sub">啟動問卷：1. 軟體工程 (前端子題)</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="💻 後端軟體工程師" data-domains="d1" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>💻 軟體開發工程師 (後端 / C# .NET / Java / API)</div>
-                <div class="multiselect-option-sub">啟動問卷：1. 軟體工程 (API/T-SQL)</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="💻 全端軟體工程師" data-domains="d1" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>💻 全端軟體開發工程師 (Full-Stack)</div>
-                <div class="multiselect-option-sub">啟動問卷：1. 軟體工程 (全項)</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🗄️ DBA 資料庫與數據工程師" data-domains="d1,d4" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🗄️ 資料庫管理員 / 數據工程師 (DBA / Data)</div>
-                <div class="multiselect-option-sub">啟動問卷：1. 軟體(SQL) ＋ 4. 雲端湖倉</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="📊 商業智慧與報表分析師" data-domains="d1,d4" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>📊 商業智慧與報表分析師 (BI / Smart eVision)</div>
-                <div class="multiselect-option-sub">啟動問卷：1. 軟體(聯銓BI) ＋ 4. 數據中台</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="⚙️ ERP/MES 製造系統維護" data-domains="d1,d2,d8" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>⚙️ ERP / MES / WMS 製造系統維護工程師</div>
-                <div class="multiselect-option-sub">啟動問卷：1. 軟體 ＋ 2. 硬體 ＋ 8. 連線</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🖥️ 系統與虛擬化工程師" data-domains="d2" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🖥️ 系統伺服器與虛擬化維運 (VMware / Infra)</div>
-                <div class="multiselect-option-sub">啟動問卷：2. 實體硬體與設施</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🌐 網路與通訊工程師" data-domains="d3,d8" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🌐 網路與通訊工程師 (Network / Cisco / SD-WAN)</div>
-                <div class="multiselect-option-sub">啟動問卷：3. 廠區網路 ＋ 8. 各點連線</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🛡️ 資訊安全工程師" data-domains="d5" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🛡️ 資訊安全工程師 (Cybersecurity / SASE)</div>
-                <div class="multiselect-option-sub">啟動問卷：5. 資訊安全與存取防護</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🛠️ SRE網站可靠性/DevOps" data-domains="d6" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🛠️ 網站可靠性 / DevOps 工程師 (SRE / Docker)</div>
-                <div class="multiselect-option-sub">啟動問卷：6. SRE 可靠性與監控</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🧑‍💻 MIS服務台與終端維運" data-domains="d7" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk)</div>
-                <div class="multiselect-option-sub">啟動問卷：7. 資訊管理與維運 (MIS)</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="🏭 車間工控與OT物聯網" data-domains="d2,d8" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>🏭 車間工控與 OT 物聯網工程師 (IPC / RFID)</div>
-                <div class="multiselect-option-sub">啟動問卷：2. 硬體工控 ＋ 8. 邊緣自律</div>
-              </div>
-            </label>
-
-            <label class="multiselect-option-item">
-              <input type="checkbox" name="ms_roles" value="📋 IT專案經理/主管(全評)" data-domains="all" onchange="updateRolesFromMenu()">
-              <div class="multiselect-option-text">
-                <div>👔 資訊主管 / 專案經理 (全 8 大領域檢核)</div>
-                <div class="multiselect-option-sub">啟動問卷：全 8 大領域完整檢核</div>
-              </div>
-            </label>
-
+            <!-- Role Checkbox Items (populated dynamically from ROLES_DATABASE) -->
+            <div id="roleCheckboxesContainer"></div>
           </div>
         </div>
 
@@ -876,9 +746,9 @@
             <div class="multiselect-header-actions">
               <span>可勾選管轄的多個系統</span>
               <div>
-                <span class="multiselect-action-btn" onclick="selectAllInMenu('sysMenu', true); updateSystemsFromMenu();">全選</span>
+                <span class="multiselect-action-btn" onclick="selectAllSystems(true);">全選</span>
                 <span style="color:#D1D5DB; margin:0 4px;">|</span>
-                <span class="multiselect-action-btn" onclick="selectAllInMenu('sysMenu', false); updateSystemsFromMenu();">清空</span>
+                <span class="multiselect-action-btn" onclick="selectAllSystems(false);">清空</span>
               </div>
             </div>
 
@@ -970,448 +840,17 @@
 
       </div>
 
-      <!-- Simultaneous Roles Questionnaire Bundle Panel (兼任角色專屬問卷清單) -->
-      <div class="simultaneous-roles-panel" id="simultaneousPanel">
-        <div class="simultaneous-header">
-          <div>
-            <div class="simultaneous-title">
-              <span>📋</span>
-              <span id="simultaneousTitleText">兼任角色專屬問卷組合（已同時列出對應領域）</span>
-            </div>
-            <div style="font-size:0.78rem; color:var(--text-body); margin-top:2px;">
-              依據您所勾選的兼任角色，系統已自動將您<strong>本次需填寫的全部專業領域問卷同時完整並列於下方</strong>：
-            </div>
-            <div class="role-pills-row" id="activeRolePillsRow">
-              <!-- Dynamically populated tags -->
-            </div>
-          </div>
-
-          <div style="text-align:right;">
-            <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:4px;">檢視模式切換：</div>
-            <div class="filter-mode-toggles">
-              <button type="button" class="filter-toggle-btn active" id="btnModeFocused" onclick="switchDisplayMode('focused')">
-                🎯 僅列出兼任必填問卷
-              </button>
-              <button type="button" class="filter-toggle-btn" id="btnModeAll" onclick="switchDisplayMode('all')">
-                🌐 展開全公司 8 大領域
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- ============================================================== -->
+      <!-- DYNAMIC ROLE-BASED QUESTIONNAIRES CONTAINER -->
+      <!-- ============================================================== -->
+      <div id="roleQuestionnairesApp">
+        <!-- Dynamically rendered by renderRoleQuestionnaires() -->
       </div>
 
       <!-- ============================================================== -->
-      <!-- 1. 軟體 (前端、後端) -->
+      <!-- Part 9: Bus Factor (Standardized Dropdowns) -->
       <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d1">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d1')">
-          <div class="part-title" style="margin-top:0;">
-            <span>1. 軟體工程：前端與後端開發 (Software Engineering)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d1">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d1">涵蓋前端 UI 切版、後端 C#/.NET/Java/Python Web API、T-SQL 預存程序與死鎖調校。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q1-1. 前端 UI 開發與響應式切版 (HTML5 / Vue / React / RWD)</div>
-            <div class="q-scenario">能否熟練使用現代前端框架或原生 JS/CSS 開發手機/平板/電腦自適應的業務表單與看板？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d1_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d1_1" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d1_1" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d1_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d1_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q1-2. 後端應用服務開發 (C# .NET Core / Java / Python Web API)</div>
-            <div class="q-scenario">能否設計 RESTful API、處理依賴注入、交易事務控制 (Transaction) 並與 ERP/MES 後端介接？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d1_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d1_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d1_2" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d1_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d1_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q1-3. 進階 T-SQL 撰寫、Stored Procedure 與死鎖調校</div>
-            <div class="q-scenario">能否編寫複雜 CTE、窗口函數、優化執行計畫 (Execution Plan)、解決 SQL Server Deadlock 阻礙？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d1_3" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d1_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d1_3" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d1_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d1_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 2. 硬體 -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d2">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d2')">
-          <div class="part-title" style="margin-top:0;">
-            <span>2. 實體硬體與車間設施 (Hardware &amp; Shopfloor Equipment)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d2">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d2">涵蓋 Dell/HP 伺服器、RAID 磁碟陣列、NAS/SAN、VMware 虛擬化與車間工控機 (IPC)。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q2-1. 機架伺服器硬體管理 (Dell R740 / HP DL380 / iDRAC)</div>
-            <div class="q-scenario">能否獨立進行實體主機上架、硬體故障診斷、使用 iDRAC / iLO 帶外管理並更新韌體？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d2_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d2_1" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d2_1" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d2_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d2_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q2-2. 磁碟陣列 RAID 配置、抽換重建與儲存 NAS 維護</div>
-            <div class="q-scenario">能否配置 RAID 1/5/6/10、設定 Hot Spare 熱備援、抽換故障硬碟重建，並管理 Synology NAS 空間？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d2_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d2_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d2_2" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d2_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d2_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q2-3. 車間工控機 (IPC) 與吊掛 RFID 讀寫器除錯</div>
-            <div class="q-scenario">能否維護研華工控機、排查 COM 串列埠通訊、調整 Impinj RFID 天線角度並解決機台通訊異常？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d2_3" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d2_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d2_3" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d2_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d2_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 3. 網路 -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d3">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d3')">
-          <div class="part-title" style="margin-top:0;">
-            <span>3. 廠區網路架構與傳輸 (Network &amp; Wi-Fi Infrastructure)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d3">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d3">涵蓋核心交換器、VLAN 切割隔離、車間 Wi-Fi 覆蓋調優與雙線路備援。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q3-1. 核心交換器 (Core Switch) 設定、堆疊與鏈路聚合</div>
-            <div class="q-scenario">能否維護 Cisco/Aruba 核心交換機、配置 LACP 聚合、規劃靜態/動態路由與預設閘道備援？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d3_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d3_1" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d3_1" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d3_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d3_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q3-2. 廠區 VLAN 網段規劃、Trunk 與存取控制清單 (ACL)</div>
-            <div class="q-scenario">能否規劃 VLAN 隔離車間機台、伺服器、辦公室與訪客網路，配置 802.1Q 埠並防止廣播風暴？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d3_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d3_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d3_2" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d3_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d3_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q3-3. 車間企業級 Wi-Fi 覆蓋調優與死角消除</div>
-            <div class="q-scenario">能否管理 Aruba/Unifi AP 控制器、調整無線射頻通道 (Channel)、優化車間條碼槍快速漫遊？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d3_3" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d3_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d3_3" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d3_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d3_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 4. 雲端 -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d4">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d4')">
-          <div class="part-title" style="margin-top:0;">
-            <span>4. 公有雲與數據中台 (Cloud &amp; Lakehouse Architecture)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d4">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d4">涵蓋 GCP/AWS 雲端環境操作、BigQuery 數據倉儲、Apache Airflow 排程與 FinOps。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q4-1. 公有雲基礎架構操作 (GCP / AWS 控制台與 IAM)</div>
-            <div class="q-scenario">能否在 GCP 或 AWS 控制台建立 VPC 子網、管理 VM 實例、配置 IAM 最小權限角色與安全群組？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d4_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d4_1" value="2" checked onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d4_1" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d4_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d4_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q4-2. 雲端現代數據倉儲 (Google BigQuery / S3 Iceberg)</div>
-            <div class="q-scenario">能否在 BigQuery 建立分區表 (Partitioning)、撰寫 MERGE 語法執行對帳、並優化查詢掃描成本？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d4_2" value="1" checked onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d4_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d4_2" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d4_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d4_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q4-3. 工作流編排排程實務 (Apache Airflow DAG)</div>
-            <div class="q-scenario">能否使用 Python 撰寫 Airflow DAG 腳本、設定任務前後依賴關係、配置失敗重跑與告警通知？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d4_3" value="1" checked onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d4_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d4_3" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d4_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d4_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 5. 資安 -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d5">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d5')">
-          <div class="part-title" style="margin-top:0;">
-            <span>5. 資訊安全與存取防護 (Cybersecurity &amp; SASE)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d5">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d5">涵蓋次世代防火牆 (Fortinet)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP) 與防勒索 WORM。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q5-1. 次世代防火牆 (FortiGate NGFW) 安全策略與 IPS</div>
-            <div class="q-scenario">能否配置 Fortinet 防火牆安全策略 (Policies)、啟用防毒與 IPS 深度檢測並排除誤判？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d5_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d5_1" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d5_1" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d5_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d5_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q5-2. 企業備份架構 (Veeam Backup 3-2-1 原則實務)</div>
-            <div class="q-scenario">能否配置每日完整與差異備份、設定備份加密、並能獨立執行 VM 及資料庫之實體還原開機測試？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d5_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d5_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d5_2" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d5_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d5_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q5-3. 防勒索不可篡改備份池 (WORM) 與 MFA 雙因子推行</div>
-            <div class="q-scenario">是否理解並能配置不可篡改唯讀備份池，並推行 Authenticator 雙因子認證強制啟用？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d5_3" value="1" checked onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d5_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d5_3" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d5_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d5_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 6. SRE -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d6">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d6')">
-          <div class="part-title" style="margin-top:0;">
-            <span>6. 網站可靠性工程與維運 (SRE &amp; DevOps)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d6">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d6">涵蓋系統可用性指標 (SLA/SLO)、日誌集中監控 (Prometheus/Grafana)、CI/CD 自動化與容器。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q6-1. 服務等級目標與可用性監控 (SLI / SLO / SLA)</div>
-            <div class="q-scenario">能否為關鍵成衣系統定義可用性指標（如 99.9% 正常運行時間）、計算錯誤預算 (Error Budget)？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d6_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d6_1" value="2" checked onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d6_1" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d6_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d6_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q6-2. 集中化日誌與效能監控 (Prometheus / Grafana / Zabbix)</div>
-            <div class="q-scenario">能否建立集中監控儀表、收集伺服器 CPU/RAM/磁碟/API 回應時間、並設定閥值自動通報？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d6_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d6_2" value="2" checked onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d6_2" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d6_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d6_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q6-3. 容器化與 CI/CD 自動化發布觀念 (Docker / Git Pipeline)</div>
-            <div class="q-scenario">能否看懂 Dockerfile、使用 docker-compose 運行多容器、或使用 GitHub Actions 執行自動化測試打包？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d6_3" value="1" checked onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d6_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d6_3" value="3" onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d6_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d6_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 7. MIS -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d7">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d7')">
-          <div class="part-title" style="margin-top:0;">
-            <span>7. 資訊管理與終端維運 (MIS &amp; IT Service Management)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d7">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d7">涵蓋 Active Directory 網域管理、GPO 派送、M365 租戶維護、軟體資產合規與使用者支援。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q7-1. Active Directory 網域控制、GPO 安全原則與帳號審查</div>
-            <div class="q-scenario">能否管理網域控制器 (DC)、規劃 OU 組織單位、使用 GPO 派送安全性設定並落實離職及時停權？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d7_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d7_1" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d7_1" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d7_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d7_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q7-2. Microsoft 365 租戶管理 (Exchange / Teams / 授權盤點)</div>
-            <div class="q-scenario">能否管理 M365 企業帳號、管理 Exchange 郵件流與安全性、排查員工授權閒置浪費？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d7_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d7_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d7_2" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d7_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d7_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q7-3. 終端電腦映像檔大量部署 (Ghost/WDS) 與 ITIL 工單處理</div>
-            <div class="q-scenario">能否製作標準化 Windows 系統映像檔大量派送、並依照 SLA 規範處理使用者 Helpdesk 工單？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d7_3" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d7_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d7_3" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d7_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d7_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 8. 各點連線協作 (貫徹外點一日一次傳輸原則) -->
-      <!-- ============================================================== -->
-      <div class="domain-block active-listed" id="block_d8">
-        <div class="domain-header-toggle" onclick="toggleDomainBlock('d8')">
-          <div class="part-title" style="margin-top:0;">
-            <span>8. 各點連線與 SD-WAN 協作 (Connectivity &amp; SD-WAN)</span>
-          </div>
-          <span class="domain-tag-badge badge-primary-role" id="badge_d8">必填問卷</span>
-        </div>
-        <div class="domain-content">
-          <div class="part-desc" id="desc_d8">涵蓋跨國 VPN、SD-WAN 頻寬保護、外點一日一次離峰傳輸排程與海纜斷網離線自治。</div>
-
-          <div class="q-card">
-            <div class="q-head">Q8-1. 跨國 Site-to-Site IPSec VPN 建立與連線除錯</div>
-            <div class="q-scenario">能否在 Fortinet 防火牆建立台北總部至海外三廠之 IPSec VPN 穿隧並排除網路抖動問題？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d8_1" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d8_1" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d8_1" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d8_1" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d8_1" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q8-2. 外點結算一日一次傳輸排程 (深夜離峰 · SD-WAN 頻寬保護)</div>
-            <div class="q-scenario">是否清楚落實：外點結算資料原則上一天傳輸一次（深夜 01:00~03:00 打包），避免白天影響頻寬？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d8_2" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d8_2" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d8_2" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d8_2" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d8_2" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-
-          <div class="q-card">
-            <div class="q-head">Q8-3. 重大緊急特例多次傳輸通道 (4-Gate 結關 / 嚴重品質異常)</div>
-            <div class="q-scenario">能否配置針對 4-Gate 產前門禁急需出貨結關時的高優先級即時多次傳輸通道？</div>
-            <div class="likert-scale">
-              <label class="likert-item"><input type="radio" name="d8_3" value="1" onchange="updateCharts()"> 1分</label>
-              <label class="likert-item"><input type="radio" name="d8_3" value="2" onchange="updateCharts()"> 2分</label>
-              <label class="likert-item"><input type="radio" name="d8_3" value="3" checked onchange="updateCharts()"> 3分</label>
-              <label class="likert-item"><input type="radio" name="d8_3" value="4" onchange="updateCharts()"> 4分</label>
-              <label class="likert-item"><input type="radio" name="d8_3" value="5" onchange="updateCharts()"> 5分</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================== -->
-      <!-- 9. Bus Factor (Standardized Dropdowns) -->
-      <!-- ============================================================== -->
-      <div class="part-title">9. 系統責任與單點脆弱度 (Bus Factor) 客觀排查</div>
+      <div class="part-title">系統責任與單點脆弱度 (Bus Factor) 客觀排查</div>
       <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
         為建立集團雙軌交接機制（Shadowing），本區塊採客觀級別選單，嚴格排查「全公司只有少數甚至僅 1 人會修」之關鍵系統。
       </div>
@@ -1461,7 +900,7 @@
         <div class="analytics-head">
           <div class="analytics-title">
             <span>📊</span>
-            <span>技術職能雷達圖 ＆ 2027 蜂巢計畫缺口分析 (即時運算)</span>
+            <span>技術職能雷達圖 ＆ 2027 蜂巢計畫缺口分析 (依所選角色即時運算)</span>
           </div>
           <button type="button" class="btn btn-primary" onclick="updateCharts()">
             <span>🔄</span> 重新計算職能評分
@@ -1472,7 +911,7 @@
           <!-- Radar Canvas Container -->
           <div class="radar-canvas-container">
             <div style="font-weight: 800; font-size: 0.95rem; color: var(--rust-primary); margin-bottom: 8px;">
-              個人 8 大維度技術職能雷達分佈圖
+              所選角色技術職能雷達分佈圖
             </div>
             <div style="display: flex; gap: 14px; font-size: 0.72rem; margin-bottom: 12px;">
               <span style="color: #2563EB; font-weight: 800;">● 現有自評分數 (Current)</span>
@@ -1484,12 +923,12 @@
           <!-- Gap Table Container -->
           <div>
             <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-charcoal); margin-bottom: 10px;">
-              8 大領域技術缺口與精準培訓策略表 (Skill Gap Matrix)
+              所選角色技術缺口與精準培訓策略表 (Skill Gap Matrix)
             </div>
             <table class="gap-table" id="gapMatrixTable">
               <thead>
                 <tr>
-                  <th class="gap-domain">評鑑領域</th>
+                  <th class="gap-domain">所選角色與專業領域</th>
                   <th style="width: 70px;">現得分</th>
                   <th style="width: 70px;">目標分</th>
                   <th style="width: 70px;">缺口差</th>
@@ -1522,24 +961,397 @@
     </form>
   </div>
 
-  <!-- Multi-Select Controller & Adaptive Form Handler -->
+  <!-- Role Database & Controller Script -->
   <script>
     const _T_HASH = atob('bGlhby5ob3dhcmRAZ21haWwuY29t'); // Encrypted recipient token
 
-    const targets = [3.8, 3.5, 3.8, 4.0, 4.2, 3.5, 3.5, 4.0];
-    const domainNames = [
-      "1. 軟體 (前端/後端)",
-      "2. 實體硬體",
-      "3. 廠區網路",
-      "4. 雲端湖倉",
-      "5. 資訊安全",
-      "6. SRE 可靠性",
-      "7. MIS 維運",
-      "8. 各點連線協作"
-    ];
+    // 13 Specialized Roles Database
+    const ROLES_DATA = [
+    {
+        "id": "fe",
+        "title": "💻 前端軟體開發工程師 (Frontend Developer)",
+        "badge": "前端開發專屬",
+        "desc": "評鑑 HTML5/CSS3/JavaScript、Vue/React 前端框架、響應式 RWD 切版、Web API 介接與跨端相容性。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "fe_1",
+                "title": "Q-FE1. HTML5 / CSS3 / 現代前端框架 (Vue / React / 原生 JS)",
+                "scenario": "能否熟練使用 Vue、React 或原生 JavaScript 進行元件化開發，並處理狀態管理 (Vuex/Pinia/Redux)？"
+            },
+            {
+                "id": "fe_2",
+                "title": "Q-FE2. 響應式切版 (RWD) 與手機/平板/工控機多端相容",
+                "scenario": "能否使用 Flexbox、Grid、CSS Media Queries 開發自適應 RWD 介面，確保車間工控機、iPad 及手機完美顯示無破版？"
+            },
+            {
+                "id": "fe_3",
+                "title": "Q-FE3. 前後端 API 異步介接 (RESTful / JSON / Axios / Token 鑑權)",
+                "scenario": "能否熟練使用 Axios / Fetch 呼叫後端 API，處理 JWT Token 刷新、非同步 Promise 錯誤攔截 (Interceptor) 及 Loading 狀態？"
+            },
+            {
+                "id": "fe_4",
+                "title": "Q-FE4. 前端效能調優與建置打包 (Webpack / Vite / 快取)",
+                "scenario": "能否配置 Vite 或 Webpack 進行代碼分割 (Code Splitting)、路由懶加載、CSS 壓縮及靜態資源快取優化？"
+            }
+        ]
+    },
+    {
+        "id": "be",
+        "title": "💻 後端軟體開發工程師 (Backend Developer)",
+        "badge": "後端開發專屬",
+        "desc": "評鑑 C# .NET Core / Java / Python Web API 開發、RESTful 規範、交易事務控制、T-SQL 預存程序與死鎖調校。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "be_1",
+                "title": "Q-BE1. 後端應用服務與架構 (C# .NET Core / Java / Python API)",
+                "scenario": "能否設計符合業界規範的 RESTful API、處理依賴注入 (DI)、分層架構 (Controller-Service-Repository) 及自訂中介軟體 (Middleware)？"
+            },
+            {
+                "id": "be_2",
+                "title": "Q-BE2. 交易事務控制 (Transaction) 與多線程排程",
+                "scenario": "能否使用資料庫交易 (BEGIN TRAN / COMMIT / ROLLBACK) 確保工單扣料與計件之 ACID 一致性，並排除並發超賣或競爭條件？"
+            },
+            {
+                "id": "be_3",
+                "title": "Q-BE3. 進階 T-SQL 撰寫、預存程序 (SP) 與通用運算式 (CTE)",
+                "scenario": "能否撰寫複雜多表 JOIN、通用資料表運算式 (CTE)、窗口函數 (Window Functions) 及百行級核心預存程序？"
+            },
+            {
+                "id": "be_4",
+                "title": "Q-BE4. SQL Server 執行計畫 (Execution Plan) 與死鎖調校",
+                "scenario": "能否判讀 Execution Plan 找出全表掃描盲點、配置覆蓋索引 (Covering Index) 並使用擴充事件解決 SQL Deadlock 鎖定阻礙？"
+            }
+        ]
+    },
+    {
+        "id": "fs",
+        "title": "💻 全端軟體開發工程師 (Full-Stack Developer)",
+        "badge": "全端整合專屬",
+        "desc": "評鑑前後端端到端 (End-to-End) 獨立交付能力、資料庫設計、跨系統業務流程串接與 Git 版本協同。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "fs_1",
+                "title": "Q-FS1. 前後端端到端 (End-to-End) 獨立全流程實作",
+                "scenario": "能否一人獨立完成「前端 UI 設計 ➔ 後端 API 實作 ➔ 資料表結構建立 ➔ 上線部署」之全流程業務需求？"
+            },
+            {
+                "id": "fs_2",
+                "title": "Q-FS2. 資料庫綱要設計 (DDL / Normalization) 與 ORM 調優",
+                "scenario": "能否進行資料庫正規化設計、設計主外鍵索引約束、並調優 Entity Framework 或 Dapper 的查詢效能？"
+            },
+            {
+                "id": "fs_3",
+                "title": "Q-FS3. 跨系統業務資料串接 (ERP / MES / 外協平台)",
+                "scenario": "能否獨立排查前端與後端、或 ERP 與 MES 之間的資料交換編碼、JSON 格式不符或時區時間差異常？"
+            },
+            {
+                "id": "fs_4",
+                "title": "Q-FS4. Git 版本控制與分支衝突排除 (Commit / Branch / Merge)",
+                "scenario": "能否熟練使用 Git 指令管理分支、解決代碼合併衝突 (Merge Conflict)、並維護 GitHub / GitLab 程式碼倉庫？"
+            }
+        ]
+    },
+    {
+        "id": "dba",
+        "title": "🗄️ 資料庫管理員 / 數據工程師 (DBA & Data Engineer)",
+        "badge": "資料庫與數據專屬",
+        "desc": "評鑑 MS SQL Server 叢集、AlwaysOn、備份還原、CDC 資料異動捕獲與 Google BigQuery 現代湖倉實務。",
+        "target": 4.0,
+        "questions": [
+            {
+                "id": "dba_1",
+                "title": "Q-DB1. MS SQL Server 高可用架構 (AlwaysOn AG / 叢集)",
+                "scenario": "能否配置與維護 AlwaysOn 可用性群組、記錄傳送 (Log Shipping)、容錯移轉叢集並處理主從同步延遲？"
+            },
+            {
+                "id": "dba_2",
+                "title": "Q-DB2. 磁碟空間調校、資料表分割與索引維護排程",
+                "scenario": "能否配置資料表水平分割 (Partitioning)、管理交易日誌檔空間增長、執行定期 Index Reorganize / Rebuild 排程？"
+            },
+            {
+                "id": "dba_3",
+                "title": "Q-DB3. 資料異動捕獲 (CDC / Change Tracking) 與管線介接",
+                "scenario": "能否啟用 SQL Server 原生 CDC、配置變更捕獲清理作業、並將增量異動資料介接至 Datastream 或 Kafka？"
+            },
+            {
+                "id": "dba_4",
+                "title": "Q-DB4. 雲端現代數據倉儲 (Google BigQuery) 實務",
+                "scenario": "能否在 BigQuery 建立時間分區表、撰寫 MERGE 語法執行 Upsert 對帳、配置 BI Engine 快取並優化掃描成本？"
+            },
+            {
+                "id": "dba_5",
+                "title": "Q-DB5. 實體資料庫災難還原開機演練 (RPO/RTO 驗證)",
+                "scenario": "能否在伺服器毀損時，獨立使用 .bak 備份與日誌檔進行特定時間點還原 (Point-in-Time Recovery)，並實測還原時間？"
+            }
+        ]
+    },
+    {
+        "id": "bi",
+        "title": "📊 商業智慧與報表分析師 (BI Developer & Analyst)",
+        "badge": "BI與報表專屬",
+        "desc": "評鑑聯銓 Smart eVision 多維度報表、定時轉檔派送、成衣製造 KPI 口徑定義與 Power BI 語意模型。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "bi_1",
+                "title": "Q-BI1. 聯銓 Smart eVision 多維交叉報表與戰情看板開發",
+                "scenario": "能否在聯銓 BI 配置資料集、撰寫 SQL 視圖、設計多維度交叉切片分析與條件式格式化戰情看板？"
+            },
+            {
+                "id": "bi_2",
+                "title": "Q-BI2. 聯銓 BI 使用者權限隔離與定時轉檔派送",
+                "scenario": "能否設定海外廠資料權限隔離（隆安/金邊/爪哇廠長僅能看該廠報表），並配置定時報表 PDF/Excel Email 自動派送？"
+            },
+            {
+                "id": "bi_3",
+                "title": "Q-BI3. 成衣製造關鍵 KPI 口徑定義與計算邏輯",
+                "scenario": "是否精通成衣產線平衡率 (Line Balance)、稼動率 (OEE)、標準工時 (SAM) 及直通良率 (FTY) 的跨廠統一計算口徑？"
+            },
+            {
+                "id": "bi_4",
+                "title": "Q-BI4. 現代 BI 語意建模 (Power BI / Tableau / Looker)",
+                "scenario": "能否建立星型維度模型 (Star Schema)、撰寫 DAX 度量值 (Measures)、時間智慧函數，並設計主管即時互動分析報表？"
+            }
+        ]
+    },
+    {
+        "id": "ms",
+        "title": "⚙️ ERP / MES / WMS 製造系統維護工程師",
+        "badge": "製造核心系統專屬",
+        "desc": "評鑑成衣 ERP、車間 MES 工序計件、4-Gate 產前門禁防呆、WMS 條碼與現場製造流程維護能力。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "ms_1",
+                "title": "Q-MS1. 成衣 ERP 核心業務排錯 (生管 / 採購 / 訂單 BOM)",
+                "scenario": "能否排查成衣 BOM 展開錯誤、工單缺料警報、訂單工單拋轉中斷及委外加工計價之系統異常？"
+            },
+            {
+                "id": "ms_2",
+                "title": "Q-MS2. 車間現場 MES 系統維護 (裁剪 / 車縫計件 / 計件回傳)",
+                "scenario": "能否排查車間各工位車縫計件條碼掃描中斷、工序計件重複回傳或產線換款時的工序派工異常？"
+            },
+            {
+                "id": "ms_3",
+                "title": "Q-MS3. 4-Gate 產前門禁防呆邏輯維護 (物料/紙樣/MQP/裁片)",
+                "scenario": "能否設定並維護產前 4-Gate 強制門禁規則（未達標準嚴禁開裁或上線），排查現場跳關或未審先行的防呆異常？"
+            },
+            {
+                "id": "ms_4",
+                "title": "Q-MS4. WMS 倉庫物流管理與成衣服飾條碼出貨檢驗",
+                "scenario": "能否維護布料倉儲位管理、成品條碼出貨複驗、外箱裝箱明細 (Packing List) 與海關出貨結關資料比對？"
+            }
+        ]
+    },
+    {
+        "id": "infra",
+        "title": "🖥️ 系統與虛擬化工程師 (System & Infrastructure)",
+        "badge": "主機與虛擬化專屬",
+        "desc": "評鑑 Dell/HP 機架伺服器、iDRAC 帶外管理、RAID 陣列在線重建、VMware ESXi 虛擬化與機房 UPS 環境維護。",
+        "target": 3.5,
+        "questions": [
+            {
+                "id": "infra_1",
+                "title": "Q-SE1. 機架伺服器硬體管理 (Dell R740 / HP DL380 / iDRAC)",
+                "scenario": "能否獨立進行實體主機上架、硬體故障診斷、使用 iDRAC / iLO 帶外管理、配置熱備援電源並升級主機板微碼韌體？"
+            },
+            {
+                "id": "infra_2",
+                "title": "Q-SE2. 磁碟陣列卡 RAID 配置、抽換重建與儲存管理",
+                "scenario": "能否配置 RAID 1/5/6/10、設定 Hot Spare 熱備援硬碟、熱插拔抽換故障硬碟重建，並維護 Synology NAS 儲存池？"
+            },
+            {
+                "id": "infra_3",
+                "title": "Q-SE3. VMware ESXi 虛擬化叢集維運與 vMotion 熱遷移",
+                "scenario": "能否建立與維護 ESXi 虛擬機、分配 vCPU/RAM/磁碟規格、配置虛擬交換機 (vSwitch) 並執行 vMotion 無中斷遷移？"
+            },
+            {
+                "id": "infra_4",
+                "title": "Q-SE4. 機房在線式不斷電系統 (UPS) 放電測試與環控",
+                "scenario": "能否定期執行 APC 機房在線式 UPS 放電測試、監控蓄電池健康度、管理機房空調溫濕度並測試柴油發電機切換？"
+            }
+        ]
+    },
+    {
+        "id": "net",
+        "title": "🌐 網路與通訊工程師 (Network & Telecom)",
+        "badge": "網路與SD-WAN專屬",
+        "desc": "評鑑 Cisco/Aruba 交換器、802.1Q VLAN 隔離、車間 Wi-Fi 漫遊、雙線路備援與跨國 SD-WAN 一日一次傳輸排程。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "net_1",
+                "title": "Q-NE1. 核心交換器 (Core Switch) 設定、堆疊與 LACP 聚合",
+                "scenario": "能否維護 Cisco/Aruba 核心交換機、配置 LACP 鏈路聚合、規劃靜態/動態路由與預設閘道備援？"
+            },
+            {
+                "id": "net_2",
+                "title": "Q-NE2. 廠區 VLAN 網段規劃、Trunk 埠與存取控制清單 (ACL)",
+                "scenario": "能否規劃 VLAN 隔離車間機台、伺服器、辦公室與訪客網路，配置 802.1Q 埠並防止廣播風暴？"
+            },
+            {
+                "id": "net_3",
+                "title": "Q-NE3. 車間企業級 Wi-Fi 覆蓋調優與死角消除 (漫遊優化)",
+                "scenario": "能否管理 Aruba/Unifi AP 控制器、調整無線射頻通道 (Channel)、優化車間條碼槍快速漫遊，杜絕訊號死角？"
+            },
+            {
+                "id": "net_4",
+                "title": "Q-NE4. 跨國 Site-to-Site IPSec VPN 建立與 QoS 流量工程",
+                "scenario": "能否在防火牆建立台北至海外三廠之 IPSec VPN 穿隧，設定 QoS 保障車間語音與核心系統不被大流量搶走頻寬？"
+            },
+            {
+                "id": "net_5",
+                "title": "Q-NE5. 外點結算一日一次傳輸排程 (深夜離峰 · SD-WAN 頻寬保護)",
+                "scenario": "是否清楚落實：外點結算資料原則上一天傳輸一次（深夜 01:00~03:00 打包），重大緊急特例才走高優先通道？"
+            }
+        ]
+    },
+    {
+        "id": "sec",
+        "title": "🛡️ 資訊安全工程師 (Cybersecurity & SASE)",
+        "badge": "資訊安全與SASE專屬",
+        "desc": "評鑑次世代防火牆 (NGFW)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP)、Veeam 3-2-1 備份與防勒索 WORM。",
+        "target": 4.2,
+        "questions": [
+            {
+                "id": "sec_1",
+                "title": "Q-SC1. 次世代防火牆 (FortiGate NGFW) 安全策略與 IPS",
+                "scenario": "能否配置 Fortinet 防火牆安全策略 (Policies)、啟用防毒與 IPS 深度檢測並排除系統誤判？"
+            },
+            {
+                "id": "sec_2",
+                "title": "Q-SC2. 零信任網路存取架構 (ZTNA) 與免安裝存取",
+                "scenario": "能否落實依身分與最小權限限制內部應用存取（非直接開放全內網）；理解外包商免安裝 (Clientless Portal) 存取機制？"
+            },
+            {
+                "id": "sec_3",
+                "title": "Q-SC3. SaaS 治理、敏感資料防外洩與安全上網 (CASB + DLP + SWG)",
+                "scenario": "能否掌握雲端應用與影子 IT 控管 (CASB)、配置機密資料外洩防護 (DLP 內容檢測)、安全網頁閘道 (SWG 惡意網站過濾)？"
+            },
+            {
+                "id": "sec_4",
+                "title": "Q-SC4. 企業備份與防勒索不可篡改儲存池 (Veeam + WORM)",
+                "scenario": "能否配置每日完整/差異備份、設定不可篡改唯讀備份池 (Immutable / WORM)，並定期執行 VM 實體開機還原測試？"
+            },
+            {
+                "id": "sec_5",
+                "title": "Q-SC5. 帳號生命週期安全審查與 MFA 雙因子認證強制啟用",
+                "scenario": "能否推廣 Authenticator App 雙因子認證、落實離職員工當日即時停權、每季執行特權管理員帳號權限清查？"
+            }
+        ]
+    },
+    {
+        "id": "sre",
+        "title": "🛠️ 網站可靠性 / DevOps 工程師 (SRE & DevOps)",
+        "badge": "SRE與可靠性專屬",
+        "desc": "評鑑系統可用性指標 (SLI/SLO/SLA)、錯誤預算 Error Budget、Prometheus/Grafana 監控、Docker 與 CI/CD 自動化。",
+        "target": 3.5,
+        "questions": [
+            {
+                "id": "sre_1",
+                "title": "Q-SRE1. 服務等級目標與可用性指標 (SLI / SLO / SLA)",
+                "scenario": "能否為關鍵成衣系統定義可用性指標（如 99.9% 正常運行時間）、計算錯誤預算 (Error Budget) 並建立故障自動升級反應？"
+            },
+            {
+                "id": "sre_2",
+                "title": "Q-SRE2. 集中化日誌與效能監控 (Prometheus / Grafana / Zabbix)",
+                "scenario": "能否建立集中監控儀表、收集伺服器 CPU/RAM/磁碟/API 回應時間、並設定閥值自動通報至 Teams/LINE，排除被動救火？"
+            },
+            {
+                "id": "sre_3",
+                "title": "Q-SRE3. 容器化技術實作 (Dockerfile / docker-compose)",
+                "scenario": "能否看懂與撰寫 Dockerfile、使用 docker-compose 運行多容器、配置資料卷 (Volume) 與網路橋接並排查容器日誌？"
+            },
+            {
+                "id": "sre_4",
+                "title": "Q-SRE4. CI/CD 自動化發布流水線觀念 (GitHub Actions)",
+                "scenario": "能否使用 GitHub Actions 或同級工具撰寫 Pipeline 腳本，實現代碼自動化測試、打包與無中斷發布？"
+            }
+        ]
+    },
+    {
+        "id": "mis",
+        "title": "🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk)",
+        "badge": "MIS與終端維運專屬",
+        "desc": "評鑑 Active Directory 網域控制、GPO 安全原則派送、M365 租戶與郵件流治理、Ghost/WDS 系統映像檔大量部署與 ITIL。",
+        "target": 3.5,
+        "questions": [
+            {
+                "id": "mis_1",
+                "title": "Q-MIS1. Active Directory 網域控制器 (DC) 與 GPO 派送",
+                "scenario": "能否管理網域控制器 (DC)、規劃 OU 組織架構、使用 GPO 派送安全性設定、隨身碟 USB 讀寫限制並落實離職即時停權？"
+            },
+            {
+                "id": "mis_2",
+                "title": "Q-MIS2. Microsoft 365 企業租戶管理 (Exchange / 授權治理)",
+                "scenario": "能否管理 M365 企業帳號、管理 Exchange 郵件流與防釣魚規則、排查員工帳號閒置授權浪費，推行 MFA 雙因子？"
+            },
+            {
+                "id": "mis_3",
+                "title": "Q-MIS3. 終端電腦標準映像檔大量部署 (Ghost/WDS) 與 ITIL 工單",
+                "scenario": "能否製作標準化 Windows 10/11 系統映像檔大量派送至辦公室與車間電腦，並依照 SLA 規範處理使用者 Helpdesk 工單？"
+            }
+        ]
+    },
+    {
+        "id": "ot",
+        "title": "🏭 車間工控與 OT 物聯網工程師 (OT & IoT Engineer)",
+        "badge": "車間工控OT專屬",
+        "desc": "評鑑研華工控機 (IPC) 維護、Impinj 吊掛 RFID 讀寫器校正、RS-485/Modbus 機台通訊與 48~72hr 車間邊緣離線自律機制。",
+        "target": 3.8,
+        "questions": [
+            {
+                "id": "ot_1",
+                "title": "Q-OT1. 車間工控主機維護 (研華 ARK / COM 串列埠通訊)",
+                "scenario": "能否維護研華觸控一體機與工控主機、排查 COM 串列埠通訊協定、安裝工業級驅動程式並進行車間防塵散熱處理？"
+            },
+            {
+                "id": "ot_2",
+                "title": "Q-OT2. 吊掛產線與 RFID 讀寫器除錯 (Impinj / 天線調校)",
+                "scenario": "能否調整 Impinj RFID 天線增益與角度、解決衣架吊掛漏讀、處理 RFID Reader 斷線重連與逾時問題？"
+            },
+            {
+                "id": "ot_3",
+                "title": "Q-OT3. 工業通訊協定應用 (RS-485 / Modbus RTU / 机台訊號)",
+                "scenario": "是否理解 RS-485 差動訊號接線、Modbus 暫存器讀取，能否排除裁剪拉布機、自動模板機與工控板的資料通訊異常？"
+            },
+            {
+                "id": "ot_4",
+                "title": "Q-OT4. 車間邊緣離線自律快取佇列 (48~72hr 保障)",
+                "scenario": "能否配置 Edge Proxy 本地快取資料庫（SQLite/平坦檔），確保國際海纜切斷時車間生產正常運作，復網自動批次追平？"
+            }
+        ]
+    },
+    {
+        "id": "lead",
+        "title": "👔 資訊主管 / 專案經理 (IT Lead & Project Manager)",
+        "badge": "專案管理與架構治理專屬",
+        "desc": "評鑑 WBS 專案甘特圖掌控、成衣製造 4-Gate 流程通曉、原廠 SI 合約把關與跨國團隊技術協調能力。",
+        "target": 4.0,
+        "questions": [
+            {
+                "id": "lead_1",
+                "title": "Q-PM1. 專案 WBS 任務分解與甘特圖里程碑控管",
+                "scenario": "能否將大型蜂巢計畫拆解為具體 WBS 任務清單、使用甘特圖控管進度、定義明確驗收標準 (UAT) 並掌控交付風險？"
+            },
+            {
+                "id": "lead_2",
+                "title": "Q-PM2. 成衣製造業務流程通曉 (打樣/裁剪/車縫/整理 4-Gate)",
+                "scenario": "是否深刻理解成衣打樣到出貨全流程、物料齊套/紙樣封樣/MQP/裁片防呆門禁邏輯，能以業務語言與廠長對接？"
+            },
+            {
+                "id": "lead_3",
+                "title": "Q-PM3. 外部系統整合商 (SI) 與原廠顧問管理",
+                "scenario": "能否審查外部顧問與 SI 原廠之工作範疇 (SOW)、把關交付成果品質，確保符合信源利益，避免被廠商牽著鼻子走？"
+            }
+        ]
+    }
+];
 
-    let currentDisplayMode = 'focused'; // 'focused' = 僅列出選中問卷, 'all' = 顯示全部8大領域
-
+    // Toggle custom multiselect dropdown menu
     function toggleMultiSelect(menuId, triggerId) {
       const menu = document.getElementById(menuId);
       const trigger = document.getElementById(triggerId);
@@ -1561,120 +1373,156 @@
       }
     });
 
-    function selectAllInMenu(menuId, isCheck) {
-      const menu = document.getElementById(menuId);
-      if (!menu) return;
-      const cbs = menu.querySelectorAll('input[type="checkbox"]');
-      cbs.forEach(cb => { cb.checked = isCheck; });
-    }
+    // Populate the dropdown menu items from ROLES_DATA
+    function initRoleDropdownMenu() {
+      const container = document.getElementById('roleCheckboxesContainer');
+      if (!container) return;
+      container.innerHTML = '';
 
-    function switchDisplayMode(mode) {
-      currentDisplayMode = mode;
-      document.getElementById('btnModeFocused').classList.toggle('active', mode === 'focused');
-      document.getElementById('btnModeAll').classList.toggle('active', mode === 'all');
-      updateRolesFromMenu();
-    }
-
-    // Role-to-Domain dynamic mapping and simultaneous questionnaire listing
-    function updateRolesFromMenu() {
-      const cbs = document.querySelectorAll('input[name="ms_roles"]:checked');
-      const container = document.getElementById('roleTagsContainer');
-      const pillsRow = document.getElementById('activeRolePillsRow');
-      const simultaneousTitle = document.getElementById('simultaneousTitleText');
-
-      const activeDomains = new Set();
-      const domainSourceRoles = {};
-      let hasAll = false;
-
-      if (container) container.innerHTML = '';
-      if (pillsRow) pillsRow.innerHTML = '';
-
-      if (cbs.length === 0) {
-        if (container) container.innerHTML = '<span class="multiselect-placeholder">-- 請點擊勾選 1 個或多個角色 (可多選) --</span>';
-        if (simultaneousTitle) simultaneousTitle.innerText = '請先於上方選單勾選兼任角色（系統將自動同時列出對應問卷）';
-      } else {
-        cbs.forEach(cb => {
-          const rVal = cb.value;
-          // Add pill to dropdown trigger box
-          if (container) {
-            const pill = document.createElement('span');
-            pill.className = 'selected-tag-pill';
-            pill.innerHTML = `<span>${rVal}</span><span class="remove-tag" onclick="removeRoleTag('${rVal}', event)">×</span>`;
-            container.appendChild(pill);
-          }
-
-          // Add pill to simultaneous banner
-          if (pillsRow) {
-            const rTag = document.createElement('span');
-            rTag.className = 'active-role-tag';
-            rTag.innerHTML = `<span>✔ ${rVal}</span>`;
-            pillsRow.appendChild(rTag);
-          }
-
-          const dStr = cb.getAttribute('data-domains') || '';
-          if (dStr === 'all') {
-            hasAll = true;
-          } else {
-            dStr.split(',').forEach(d => {
-              const dk = d.trim();
-              if (dk) {
-                activeDomains.add(dk);
-                if (!domainSourceRoles[dk]) domainSourceRoles[dk] = [];
-                domainSourceRoles[dk].push(rVal.replace(/[💻🗄️📊⚙️🖥️🌐🛡️🛠️🧑‍💻🏭📋👔]/g, '').trim());
-              }
-            });
-          }
-        });
-
-        if (simultaneousTitle) {
-          simultaneousTitle.innerText = `兼任角色專屬問卷組合（已同時列出 ${cbs.length} 個兼任角色對應的全部問卷）`;
-        }
-      }
-
-      // Update Domain Blocks Visibility
-      const allDomainKeys = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
-      allDomainKeys.forEach(k => {
-        const block = document.getElementById('block_' + k);
-        const badge = document.getElementById('badge_' + k);
-        const desc = document.getElementById('desc_' + k);
-        if (!block) return;
-
-        const isDomainActive = hasAll || cbs.length === 0 || activeDomains.has(k);
-
-        if (isDomainActive) {
-          // It's a required domain for one or more selected roles
-          block.className = 'domain-block active-listed';
-          if (badge) {
-            const sourceRoles = domainSourceRoles[k] ? domainSourceRoles[k].join('、') : '';
-            badge.innerText = sourceRoles ? `🎯 兼任必填 (來自：${sourceRoles})` : '🎯 核心必填';
-            badge.className = 'domain-tag-badge badge-primary-role';
-          }
-        } else {
-          // Unselected domain
-          if (currentDisplayMode === 'focused' && cbs.length > 0) {
-            // In focused mode: HIDE unselected domains so only selected roles' questionnaires are simultaneously listed!
-            block.className = 'domain-block hidden-mode';
-          } else {
-            // In all mode: collapse optional
-            block.className = 'domain-block collapsed-optional';
-            if (badge) {
-              badge.innerText = '非主選角色 (選填)';
-              badge.className = 'domain-tag-badge badge-optional-role';
-            }
-          }
-        }
+      ROLES_DATA.forEach(role => {
+        const label = document.createElement('label');
+        label.className = 'multiselect-option-item';
+        label.innerHTML = `
+          <input type="checkbox" name="ms_roles" value="${role.id}" onchange="onRoleSelectionChanged()">
+          <div class="multiselect-option-text">
+            <div>${role.title}</div>
+            <div class="multiselect-option-sub">啟動問卷：${role.badge} (${role.questions.length} 題)</div>
+          </div>
+        `;
+        container.appendChild(label);
       });
     }
 
-    function removeRoleTag(val, event) {
+    function selectAllRoles(isCheck) {
+      const cbs = document.querySelectorAll('input[name="ms_roles"]');
+      cbs.forEach(cb => { cb.checked = isCheck; });
+      onRoleSelectionChanged();
+    }
+
+    function selectAllSystems(isCheck) {
+      const cbs = document.querySelectorAll('input[name="ms_systems"]');
+      cbs.forEach(cb => { cb.checked = isCheck; });
+      updateSystemsFromMenu();
+    }
+
+    // When role selection changes: update tags & regenerate role questionnaires!
+    function onRoleSelectionChanged() {
+      const checkedBoxes = document.querySelectorAll('input[name="ms_roles"]:checked');
+      const container = document.getElementById('roleTagsContainer');
+      const selectedRoleIds = Array.from(checkedBoxes).map(cb => cb.value);
+
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (selectedRoleIds.length === 0) {
+        container.innerHTML = '<span class="multiselect-placeholder">-- 請點擊勾選 1 個或多個角色 (可多選) --</span>';
+      } else {
+        selectedRoleIds.forEach(rId => {
+          const roleObj = ROLES_DATA.find(r => r.id === rId);
+          if (roleObj) {
+            const pill = document.createElement('span');
+            pill.className = 'selected-tag-pill';
+            pill.innerHTML = `<span>${roleObj.title.split(' ')[0]} ${roleObj.badge}</span><span class="remove-tag" onclick="removeRoleById('${roleObj.id}', event)">×</span>`;
+            container.appendChild(pill);
+          }
+        });
+      }
+
+      // Dynamically Render Questionnaires for ALL Selected Roles Simultaneously!
+      renderRoleQuestionnaires(selectedRoleIds);
+      updateCharts();
+    }
+
+    function removeRoleById(roleId, event) {
       event.stopPropagation();
-      const cb = document.querySelector(`input[name="ms_roles"][value="${val}"]`);
+      const cb = document.querySelector(`input[name="ms_roles"][value="${roleId}"]`);
       if (cb) {
         cb.checked = false;
-        updateRolesFromMenu();
+        onRoleSelectionChanged();
       }
     }
 
+    // Core Engine: Render role-specific questionnaires simultaneously
+    function renderRoleQuestionnaires(selectedRoleIds) {
+      const panel = document.getElementById('roleQuestionnairesApp');
+      if (!panel) return;
+
+      if (selectedRoleIds.length === 0) {
+        panel.innerHTML = `
+          <div class="empty-roles-prompt">
+            <div style="font-size:2.2rem; margin-bottom:8px;">🎯</div>
+            <div style="font-size:1.1rem; font-weight:800; color:var(--rust-primary); margin-bottom:4px;">
+              尚未選擇技術專業角色
+            </div>
+            <div style="font-size:0.85rem; color:var(--text-muted);">
+              請在上方<strong>【現任技術專業角色】</strong>下拉選單中點選 1 個或多個兼任角色，系統將<strong>自動即時生成該角色的專屬技術評鑑問卷</strong>並同時列出於此處！
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Generate simultaneous listing banner + each role questionnaire block
+      let html = `
+        <div class="bundle-summary-card">
+          <div class="bundle-summary-title">
+            <span>📋</span>
+            <span>已成功生成兼任專屬問卷組合（已同時列出 ${selectedRoleIds.length} 個角色的全部專屬問卷）：</span>
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-body);">
+            系統已針對您所擔任的角色，自動將各角色的實務能力檢核題<strong>全部並列呈現在下方</strong>，請依序自評：
+          </div>
+          <div class="bundle-pills-row">
+      `;
+
+      selectedRoleIds.forEach((rId, idx) => {
+        const rObj = ROLES_DATA.find(r => r.id === rId);
+        if (rObj) {
+          html += `<div class="bundle-role-pill"><span>問卷 ${idx + 1}：${rObj.title}</span></div>`;
+        }
+      });
+      html += `</div></div>`;
+
+      // Render Each Role Questionnaire Block
+      selectedRoleIds.forEach((rId, idx) => {
+        const role = ROLES_DATA.find(r => r.id === rId);
+        if (!role) return;
+
+        html += `
+          <div class="role-generated-block" id="role_block_${role.id}">
+            <div class="role-block-header">
+              <div class="role-block-title">
+                <span>📘 問卷 ${idx + 1} · ${role.title}</span>
+              </div>
+              <span class="role-badge">${role.badge} · 專屬題本 (${role.questions.length} 題)</span>
+            </div>
+            <div class="role-desc-text">${role.desc}</div>
+        `;
+
+        // Questions in this role
+        role.questions.forEach((q, qIdx) => {
+          html += `
+            <div class="q-card">
+              <div class="q-head">${q.title}</div>
+              <div class="q-scenario">${q.scenario}</div>
+              <div class="likert-scale">
+                <label class="likert-item"><input type="radio" name="q_${q.id}" value="1" onchange="updateCharts()"> 1分</label>
+                <label class="likert-item"><input type="radio" name="q_${q.id}" value="2" onchange="updateCharts()"> 2分</label>
+                <label class="likert-item"><input type="radio" name="q_${q.id}" value="3" checked onchange="updateCharts()"> 3分 (獨立維運)</label>
+                <label class="likert-item"><input type="radio" name="q_${q.id}" value="4" onchange="updateCharts()"> 4分</label>
+                <label class="likert-item"><input type="radio" name="q_${q.id}" value="5" onchange="updateCharts()"> 5分</label>
+              </div>
+            </div>
+          `;
+        });
+
+        html += `</div>`; // end role block
+      });
+
+      panel.innerHTML = html;
+    }
+
+    // Systems multiselect tag update
     function updateSystemsFromMenu() {
       const cbs = document.querySelectorAll('input[name="ms_systems"]:checked');
       const container = document.getElementById('sysTagsContainer');
@@ -1702,55 +1550,40 @@
       }
     }
 
-    function toggleDomainBlock(k) {
-      const block = document.getElementById('block_' + k);
-      const badge = document.getElementById('badge_' + k);
-      if (!block) return;
-      if (block.classList.contains('collapsed-optional')) {
-        block.classList.remove('collapsed-optional');
-        block.classList.add('active-listed');
-        if (badge) badge.innerText = '選填展開中';
-      } else if (block.classList.contains('active-listed') && currentDisplayMode === 'all') {
-        block.classList.remove('active-listed');
-        block.classList.add('collapsed-optional');
-        if (badge) badge.innerText = '點擊展開';
-      }
-    }
-
-    function expandAllDomains() {
-      switchDisplayMode('all');
-      const allDomainKeys = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
-      allDomainKeys.forEach(k => {
-        const block = document.getElementById('block_' + k);
-        const badge = document.getElementById('badge_' + k);
-        if (block) {
-          block.className = 'domain-block active-listed';
-        }
-        if (badge) {
-          badge.innerText = '全項展開';
-          badge.className = 'domain-tag-badge badge-primary-role';
-        }
-      });
-    }
-
     function getRadioScore(name) {
       const el = document.querySelector(`input[name="${name}"]:checked`);
       return el ? parseFloat(el.value) : 3.0;
     }
 
-    function calculateScores() {
-      const d1 = (getRadioScore('d1_1') + getRadioScore('d1_2') + getRadioScore('d1_3')) / 3;
-      const d2 = (getRadioScore('d2_1') + getRadioScore('d2_2') + getRadioScore('d2_3')) / 3;
-      const d3 = (getRadioScore('d3_1') + getRadioScore('d3_2') + getRadioScore('d3_3')) / 3;
-      const d4 = (getRadioScore('d4_1') + getRadioScore('d4_2') + getRadioScore('d4_3')) / 3;
-      const d5 = (getRadioScore('d5_1') + getRadioScore('d5_2') + getRadioScore('d5_3')) / 3;
-      const d6 = (getRadioScore('d6_1') + getRadioScore('d6_2') + getRadioScore('d6_3')) / 3;
-      const d7 = (getRadioScore('d7_1') + getRadioScore('d7_2') + getRadioScore('d7_3')) / 3;
-      const d8 = (getRadioScore('d8_1') + getRadioScore('d8_2') + getRadioScore('d8_3')) / 3;
-      return [d1, d2, d3, d4, d5, d6, d7, d8];
+    // Calculate score per selected role
+    function calculateRoleScores() {
+      const checkedBoxes = document.querySelectorAll('input[name="ms_roles"]:checked');
+      const results = [];
+
+      checkedBoxes.forEach(cb => {
+        const rId = cb.value;
+        const role = ROLES_DATA.find(r => r.id === rId);
+        if (!role) return;
+
+        let total = 0;
+        role.questions.forEach(q => {
+          total += getRadioScore('q_' + q.id);
+        });
+        const avg = total / role.questions.length;
+        results.push({
+          id: role.id,
+          title: role.title,
+          badge: role.badge,
+          target: role.target,
+          score: avg,
+          gap: (role.target - avg)
+        });
+      });
+
+      return results;
     }
 
-    function drawRadar(scores) {
+    function drawRadar(roleScores) {
       const canvas = document.getElementById('radarCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -1759,15 +1592,17 @@
       const cx = w / 2;
       const cy = h / 2;
       const radius = Math.min(cx, cy) - 55;
-      const numPoints = 8;
-      const angleStep = (Math.PI * 2) / numPoints;
 
       ctx.clearRect(0, 0, w, h);
 
-      // Con-centric Octagons (1 to 5)
+      // If fewer than 3 roles, show bar/radar layout
+      const count = Math.max(roleScores.length, 3);
+      const angleStep = (Math.PI * 2) / count;
+
+      // Con-centric Octagons/Polygons (1 to 5)
       for (let level = 1; level <= 5; level++) {
         ctx.beginPath();
-        for (let i = 0; i < numPoints; i++) {
+        for (let i = 0; i < count; i++) {
           const angle = i * angleStep - Math.PI / 2;
           const r = (radius / 5) * level;
           const x = cx + r * Math.cos(angle);
@@ -1786,7 +1621,7 @@
       }
 
       // Spokes and Labels
-      for (let i = 0; i < numPoints; i++) {
+      for (let i = 0; i < count; i++) {
         const angle = i * angleStep - Math.PI / 2;
         const x = cx + radius * Math.cos(angle);
         const y = cy + radius * Math.sin(angle);
@@ -1797,21 +1632,25 @@
         ctx.strokeStyle = '#E7E5E4';
         ctx.stroke();
 
-        const labelR = radius + 24;
+        const labelText = roleScores[i] ? roleScores[i].badge : `角色 ${i + 1}`;
+        const labelR = radius + 22;
         const lx = cx + labelR * Math.cos(angle);
         const ly = cy + labelR * Math.sin(angle);
         ctx.fillStyle = '#222222';
         ctx.font = 'bold 11px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(domainNames[i], lx, ly);
+        ctx.fillText(labelText, lx, ly);
       }
+
+      if (roleScores.length === 0) return;
 
       // Target Line (Orange dashed)
       ctx.beginPath();
-      for (let i = 0; i < numPoints; i++) {
+      for (let i = 0; i < count; i++) {
         const angle = i * angleStep - Math.PI / 2;
-        const r = (radius / 5) * targets[i];
+        const tVal = roleScores[i] ? roleScores[i].target : 3.8;
+        const r = (radius / 5) * tVal;
         const x = cx + r * Math.cos(angle);
         const y = cy + r * Math.sin(angle);
         if (i === 0) ctx.moveTo(x, y);
@@ -1826,9 +1665,10 @@
 
       // Current Line (Blue filled)
       ctx.beginPath();
-      for (let i = 0; i < numPoints; i++) {
+      for (let i = 0; i < count; i++) {
         const angle = i * angleStep - Math.PI / 2;
-        const r = (radius / 5) * scores[i];
+        const sVal = roleScores[i] ? roleScores[i].score : 3.0;
+        const r = (radius / 5) * sVal;
         const x = cx + r * Math.cos(angle);
         const y = cy + r * Math.sin(angle);
         if (i === 0) ctx.moveTo(x, y);
@@ -1842,9 +1682,10 @@
       ctx.stroke();
 
       // Points
-      for (let i = 0; i < numPoints; i++) {
+      for (let i = 0; i < count; i++) {
         const angle = i * angleStep - Math.PI / 2;
-        const r = (radius / 5) * scores[i];
+        const sVal = roleScores[i] ? roleScores[i].score : 3.0;
+        const r = (radius / 5) * sVal;
         const x = cx + r * Math.cos(angle);
         const y = cy + r * Math.sin(angle);
         ctx.beginPath();
@@ -1854,22 +1695,26 @@
       }
     }
 
-    function updateGapTable(scores) {
+    function updateGapTable(roleScores) {
       const tbody = document.getElementById('gapTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      scores.forEach((score, idx) => {
-        const target = targets[idx];
-        const gap = (target - score).toFixed(1);
+      if (roleScores.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#9CA3AF; padding:18px;">請勾選上方技術專業角色以檢視缺口分析</td></tr>`;
+        return;
+      }
+
+      roleScores.forEach(item => {
+        const gap = item.gap.toFixed(1);
         let strategy = '';
         let badgeClass = '';
 
-        if (gap >= 1.5) {
-          strategy = '🚨 緊急原廠培訓 / 外部SI支援';
+        if (item.gap >= 1.2) {
+          strategy = '🚨 緊急原廠培訓 / 外部支援';
           badgeClass = 'gap-high';
-        } else if (gap > 0.5) {
-          strategy = '⚠️ 安排 2027 專題專長帶教';
+        } else if (item.gap > 0.4) {
+          strategy = '⚠️ 安排 2027 專長帶教工作坊';
           badgeClass = 'gap-mid';
         } else {
           strategy = '✓ 具備成熟實力，可擔綱主將';
@@ -1878,10 +1723,10 @@
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="gap-domain">${domainNames[idx]}</td>
-          <td style="font-family: monospace; font-weight: bold; color: #2563EB;">${score.toFixed(1)}</td>
-          <td style="font-family: monospace; font-weight: bold; color: #E87524;">${target.toFixed(1)}</td>
-          <td style="font-family: monospace; font-weight: bold; color: ${gap > 0 ? '#B91C1C' : '#065F46'};">${gap > 0 ? '-' + gap : '+' + Math.abs(gap)}</td>
+          <td class="gap-domain"><strong>${item.title}</strong></td>
+          <td style="font-family: monospace; font-weight: bold; color: #2563EB;">${item.score.toFixed(1)}</td>
+          <td style="font-family: monospace; font-weight: bold; color: #E87524;">${item.target.toFixed(1)}</td>
+          <td style="font-family: monospace; font-weight: bold; color: ${item.gap > 0 ? '#B91C1C' : '#065F46'};">${item.gap > 0 ? '-' + gap : '+' + Math.abs(item.gap).toFixed(1)}</td>
           <td><span class="badge-status ${badgeClass}">${strategy}</span></td>
         `;
         tbody.appendChild(tr);
@@ -1889,25 +1734,25 @@
     }
 
     function updateCharts() {
-      const scores = calculateScores();
-      drawRadar(scores);
-      updateGapTable(scores);
+      const roleScores = calculateRoleScores();
+      drawRadar(roleScores);
+      updateGapTable(roleScores);
     }
 
-    function generateCSVContent(profile, scores, busFactor, selectedRoles, selectedSystems) {
+    function generateCSVContent(profile, roleScores, busFactor, selectedRoleTitles, selectedSystems) {
       const BOM = '\uFEFF';
-      let csv = BOM + '"評鑑領域/分類","項目名稱/欄位","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","情境檢核標準/處置建議"\r\n';
+      let csv = BOM + '"評鑑類別","專屬角色/題號","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","題目情境檢核標準/處置建議"\r\n';
 
-      // Profile (Standardized Dropdowns)
+      // Profile
       csv += `"基本資訊","受評姓名","${profile.name}","--","--","--"
 `;
       csv += `"基本資訊","員工工號","${profile.empId}","--","--","--"
 `;
       csv += `"基本資訊","所屬節點廠區","${profile.site}","--","--","--"
 `;
-      csv += `"基本資訊","現任技術專業角色(複選)","${selectedRoles.join(' ; ')}","--","--","支援跨域多工兼任"
+      csv += `"基本資訊","兼任技術角色清單","${selectedRoleTitles.join(' ; ')}","--","--","支援跨域多工兼任"
 `;
-      csv += `"基本資訊","日常主要主責範疇(複選)","${selectedSystems.join(' ; ')}","--","--","支援管轄多系統"
+      csv += `"基本資訊","日常主要主責範疇","${selectedSystems.join(' ; ')}","--","--","支援管轄多系統"
 `;
       csv += `"基本資訊","信源在職年資","${profile.rsiTenure}","--","--","--"
 `;
@@ -1918,67 +1763,26 @@
       csv += `"基本資訊","填報時間戳記","${new Date().toLocaleString()}","--","--","--"
 `;
 
-      // 8 Domains detailed questions & summary
-      const dMap = [
-        { id: 1, name: "1. 軟體工程 (前端/後端)", target: 3.8, q: [
-          { q: "Q1-1 前端 UI 開發與 RWD 切版", key: "d1_1", desc: "HTML5/Vue/React/RWD" },
-          { q: "Q1-2 後端應用服務開發", key: "d1_2", desc: "C# .NET Core / Java / Python Web API" },
-          { q: "Q1-3 進階 T-SQL 與 Stored Procedure", key: "d1_3", desc: "CTE / Window Functions / 死鎖調校" }
-        ]},
-        { id: 2, name: "2. 實體硬體與設施", target: 3.5, q: [
-          { q: "Q2-1 機架伺服器與 iDRAC 帶外維運", key: "d2_1", desc: "Dell R740 / HP DL380 / iDRAC / 微碼升級" },
-          { q: "Q2-2 磁碟陣列卡 RAID 與儲存管理", key: "d2_2", desc: "RAID 1/5/6/10 / Hot Spare / 在線重建" },
-          { q: "Q2-3 車間工控機 (IPC) 與 RFID 設備", key: "d2_3", desc: "研華工控機 / COM埠 / Impinj RFID" }
-        ]},
-        { id: 3, name: "3. 廠區網路傳輸", target: 3.8, q: [
-          { q: "Q3-1 核心交換器與 VLAN 隔離規劃", key: "d3_1", desc: "Cisco/Aruba / 802.1Q / LACP / 廣播風暴防護" },
-          { q: "Q3-2 車間企業級 Wi-Fi 覆蓋調優", key: "d3_2", desc: "Aruba/Unifi AP / 快速漫遊 / 死角排除" },
-          { q: "Q3-3 雙線路 Dual-WAN 與 4G 備援", key: "d3_3", desc: "雙電信線路自動切換 / 4G 路由器 / Wireshark" }
-        ]},
-        { id: 4, name: "4. 公有雲與數據中台", target: 4.0, q: [
-          { q: "Q4-1 公有雲架構與安全治理", key: "d4_1", desc: "GCP/AWS VPC / IAM 最小權限 / 費用預算預警" },
-          { q: "Q4-2 現代數據倉儲 BigQuery", key: "d4_2", desc: "分區表 / MERGE 對帳 / 查詢優化" },
-          { q: "Q4-3 工作流編排 Airflow DAG", key: "d4_3", desc: "Python DAG / Cron排程 / 失敗重跑" }
-        ]},
-        { id: 5, name: "5. 資訊安全與存取防護 (SASE)", target: 4.2, q: [
-          { q: "Q5-1 次世代防火牆 NGFW 策略", key: "d5_1", desc: "Fortinet FortiGate / IPS / AV / 策略配置" },
-          { q: "Q5-2 企業備份架構 Veeam 3-2-1 原則", key: "d5_2", desc: "每日完整/差異備份 / 加密 / 還原開機演練" },
-          { q: "Q5-3 防勒索不可篡改備份池 WORM 與 MFA", key: "d5_3", desc: "WORM 不可篡改儲存 / Authenticator 雙因子" }
-        ]},
-        { id: 6, name: "6. 網站可靠性工程 (SRE)", target: 3.5, q: [
-          { q: "Q6-1 可用性指標定義 SLI/SLO/SLA", key: "d6_1", desc: "99.9%可用性 / Error Budget 錯誤預算" },
-          { q: "Q6-2 集中化監控與告警", key: "d6_2", desc: "Prometheus / Grafana / 閥值自動推播" },
-          { q: "Q6-3 容器化技術與 CI/CD 流程", key: "d6_3", desc: "Docker / Compose / Git Actions 自動發布" }
-        ]},
-        { id: 7, name: "7. 資訊管理與維運 (MIS)", target: 3.5, q: [
-          { q: "Q7-1 Active Directory 與 GPO", key: "d7_1", desc: "DC / OU / GPO派送 / 離職及時停權" },
-          { q: "Q7-2 Microsoft 365 租戶與郵件流治理", key: "d7_2", desc: "Exchange 郵件流 / 授權盤點 / MFA 雙因子" },
-          { q: "Q7-3 系統映像檔大量部署與 ITIL", key: "d7_3", desc: "Ghost/WDS / SLA 工單處理" }
-        ]},
-        { id: 8, name: "8. 各點連線與 SD-WAN 協作", target: 4.0, q: [
-          { q: "Q8-1 跨國 Site-to-Site VPN ＆ SD-WAN", key: "d8_1", desc: "IPSec VPN / 海纜延遲監控 / QoS 流量優先" },
-          { q: "Q8-2 外點結算一日一次傳輸 (離峰排程)", key: "d8_2", desc: "深夜 01:00~03:00 打包 / SD-WAN 頻寬保護" },
-          { q: "Q8-3 重大緊急特例多次傳輸通道", key: "d8_3", desc: "4-Gate 產前門禁出貨結關 / 嚴重品質異常專用" }
-        ]}
-      ];
+      // Role by Role Detailed Questions & Subtotals
+      const checkedBoxes = document.querySelectorAll('input[name="ms_roles"]:checked');
+      checkedBoxes.forEach((cb, rIdx) => {
+        const role = ROLES_DATA.find(r => r.id === cb.value);
+        if (!role) return;
 
-      dMap.forEach((domain) => {
-        let domainTotal = 0;
-        let qCount = 0;
-        domain.q.forEach(qItem => {
-          const val = getRadioScore(qItem.key);
-          domainTotal += val;
-          qCount++;
-          csv += `"${domain.name}","${qItem.q}","${val}","${domain.target}","${(domain.target - val).toFixed(1)}","${qItem.desc}"
+        let rTotal = 0;
+        role.questions.forEach(q => {
+          const val = getRadioScore('q_' + q.id);
+          rTotal += val;
+          csv += `"[問卷 ${rIdx+1}] ${role.title}","${q.title}","${val}","${role.target}","${(role.target - val).toFixed(1)}","${q.scenario.replace(/"/g, '""')}"
 `;
         });
-        const dAvg = (domainTotal / qCount).toFixed(2);
-        const dGap = (domain.target - dAvg).toFixed(2);
-        csv += `"${domain.name} [小計]","領域平均成熟度","${dAvg}","${domain.target}","${dGap}","${dGap >= 1.5 ? '🚨 緊急原廠培訓' : (dGap > 0.5 ? '⚠️ 安排專長帶教' : '✓ 具備成熟主力')}"
+        const rAvg = (rTotal / role.questions.length).toFixed(2);
+        const rGap = (role.target - rAvg).toFixed(2);
+        csv += `"[問卷 ${rIdx+1}] ${role.title} [小計]","角色平均成熟度","${rAvg}","${role.target}","${rGap}","${rGap >= 1.2 ? '🚨 緊急原廠培訓' : (rGap > 0.4 ? '⚠️ 安排專長帶教' : '✓ 具備成熟主力')}"
 `;
       });
 
-      // Bus Factor & Qualitative (Standardized Risk Levels)
+      // Bus Factor
       csv += `"單點脆弱度 (Bus Factor)","職務代理人狀態","${busFactor.backup}","--","--","排查全集團少數人掌握之黑數"
 `;
       csv += `"單點脆弱度 (Bus Factor)","維護文件SOP完整度","${busFactor.doc}","--","--","防範歷史經驗無交接斷層"
@@ -2012,8 +1816,11 @@
       const supervisor = document.getElementById('prof_supervisor') ? document.getElementById('prof_supervisor').value : '';
 
       const checkedRoleBoxes = document.querySelectorAll('input[name="ms_roles"]:checked');
-      const selectedRoles = [];
-      checkedRoleBoxes.forEach(cb => selectedRoles.push(cb.value));
+      const selectedRoleTitles = [];
+      checkedRoleBoxes.forEach(cb => {
+        const role = ROLES_DATA.find(r => r.id === cb.value);
+        if (role) selectedRoleTitles.push(role.title);
+      });
 
       const checkedSysBoxes = document.querySelectorAll('input[name="ms_systems"]:checked');
       const selectedSystems = [];
@@ -2034,8 +1841,8 @@
         document.getElementById('prof_site').focus();
         return;
       }
-      if (selectedRoles.length === 0) {
-        alert('請在【現任技術專業角色】下拉選單中至少勾選 1 個角色！');
+      if (selectedRoleTitles.length === 0) {
+        alert('請在【現任技術專業角色】下拉選單中至少勾選 1 個角色以生成問卷！');
         toggleMultiSelect('roleMenu', 'roleTrigger');
         return;
       }
@@ -2047,11 +1854,11 @@
       const bfSysname = document.getElementById('bf_sysname') ? document.getElementById('bf_sysname').value.trim() : '無特殊註明';
 
       const profile = { name, empId, site, rsiTenure, totalTenure, supervisor };
-      const scores = calculateScores();
+      const roleScores = calculateRoleScores();
       const busFactor = { backup: bfBackup, doc: bfDoc, impact: bfImpact, sysname: bfSysname };
 
-      const csvContent = generateCSVContent(profile, scores, busFactor, selectedRoles, selectedSystems);
-      const csvFilename = `RSI_IT_8Domains_Survey_${empId}_${name}.csv`;
+      const csvContent = generateCSVContent(profile, roleScores, busFactor, selectedRoleTitles, selectedSystems);
+      const csvFilename = `RSI_IT_RoleSpecific_Survey_${empId}_${name}.csv`;
 
       // Trigger Local Download
       downloadCSVFile(csvContent, csvFilename);
@@ -2083,24 +1890,17 @@
 
       try {
         const payload = {
-          _subject: `[RSI 蜂巢計畫] 內部IT技術職能盤點問卷 - ${name} (${empId}) - ${site} [${selectedRoles.join(', ')}]`,
+          _subject: `[RSI 蜂巢計畫] 角色專屬技術職能問卷 - ${name} (${empId}) - ${site} [${selectedRoleTitles.join(', ')}]`,
           受評姓名: name,
           員工工號: empId,
           所屬廠區: site,
-          兼任專業角色清單: selectedRoles.join(' ; '),
+          兼任專業角色清單: selectedRoleTitles.join(' ; '),
           主責系統範疇清單: selectedSystems.join(' ; '),
           主管審核單位: supervisor,
           信源在職年資: rsiTenure,
           總IT年資: totalTenure,
           填報時間: new Date().toLocaleString(),
-          "1_軟體工程均分": scores[0].toFixed(2),
-          "2_實體硬體均分": scores[1].toFixed(2),
-          "3_廠區網路均分": scores[2].toFixed(2),
-          "4_雲端湖倉均分": scores[3].toFixed(2),
-          "5_資訊安全均分": scores[4].toFixed(2),
-          "6_SRE可靠性均分": scores[5].toFixed(2),
-          "7_MIS維運均分": scores[6].toFixed(2),
-          "8_各點連線均分": scores[7].toFixed(2),
+          所選角色評分摘要: roleScores.map(r => `${r.title}: ${r.score.toFixed(2)}分 (目標${r.target}分)`).join(' | '),
           代理人狀態: bfBackup,
           SOP完整度: bfDoc,
           故障衝擊等級: bfImpact,
@@ -2143,7 +1943,7 @@
             <div style="font-size:2rem; color:#E87524; margin-bottom:10px;">📁</div>
             <h3 style="color:#A83212; margin-bottom:8px; font-family:sans-serif;">CSV 檔案已成功生成！</h3>
             <p style="font-size:0.85rem; color:#44403C; line-height:1.6; margin-bottom:16px;">
-              感謝 <strong>${name}</strong> 同仁！您的 8 大領域問卷評估結果已轉換為標準 CSV 檔並下載至您的電腦：<br>
+              感謝 <strong>${name}</strong> 同仁！您的專屬角色問卷評估結果已轉換為標準 CSV 檔並下載至您的電腦：<br>
               <code style="background:#F3F4F6; padding:3px 6px; border-radius:4px; font-size:0.75rem; color:#1F2937;">${csvFilename}</code><br><br>
               <span style="font-size:0.78rem; color:#6B7280;">(如海外廠對外受限，請將該下載的 CSV 檔直接透過 Teams 或 Email 呈交廠長/主管複核)</span>
             </p>
@@ -2158,18 +1958,20 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      initRoleDropdownMenu();
+
       // Pre-select 2 roles as clear default example: 後端 + DBA
-      const defaultRoles = document.querySelectorAll('input[name="ms_roles"]');
-      if (defaultRoles[1]) defaultRoles[1].checked = true; // 後端
-      if (defaultRoles[3]) defaultRoles[3].checked = true; // DBA
+      const beCb = document.querySelector('input[name="ms_roles"][value="be"]');
+      const dbaCb = document.querySelector('input[name="ms_roles"][value="dba"]');
+      if (beCb) beCb.checked = true;
+      if (dbaCb) dbaCb.checked = true;
 
       const defaultSys = document.querySelectorAll('input[name="ms_systems"]');
       if (defaultSys[0]) defaultSys[0].checked = true; // ERP
       if (defaultSys[3]) defaultSys[3].checked = true; // SQL Server
 
-      updateRolesFromMenu();
+      onRoleSelectionChanged();
       updateSystemsFromMenu();
-      updateCharts();
     });
   </script>
 
