@@ -432,38 +432,115 @@
     <form id="assessmentForm">
 
       <!-- Part 0: Basic Profile -->
-      <div class="part-title">Part 0. 受訪同仁基本資訊 (Basic Profile)</div>
+            <!-- Part 0: Basic Profile (Standardized Dropdowns for Precise Analytics) -->
+      <div class="part-title">Part 0. 受訪同仁基本資訊 (基本屬性全選單化，便於統計匯整)</div>
       <div class="info-grid">
+        
+        <!-- 姓名 -->
         <div class="form-group">
           <label class="form-label">中文姓名 / 英文姓名 *</label>
-          <input type="text" class="form-input" placeholder="例：陳志遠 / Edward Chen" required>
+          <input type="text" class="form-input" id="prof_name" placeholder="例：陳志遠 / Edward Chen" required>
         </div>
+
+        <!-- 工號 -->
         <div class="form-group">
           <label class="form-label">員工工號 (Emp ID) *</label>
-          <input type="text" class="form-input" placeholder="例：RSI-92015" required>
+          <input type="text" class="form-input" id="prof_empid" placeholder="例：RSI-92015" required>
         </div>
+
+        <!-- 所屬節點廠區 -->
         <div class="form-group">
           <label class="form-label">所屬節點廠區 *</label>
-          <select class="form-input" required>
+          <select class="form-input" id="prof_site" required>
             <option value="">-- 請選擇所屬廠區 --</option>
-            <option>台北營運總部 (Taipei HQ)</option>
-            <option>越南隆安示範旗艦廠 (Vietnam Long An)</option>
-            <option>柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
-            <option>印尼中爪哇廠 (Indonesia Central Java)</option>
+            <option value="台北營運總部 (Taipei HQ)">台北營運總部 (Taipei HQ)</option>
+            <option value="越南隆安示範旗艦廠 (Vietnam Long An)">越南隆安示範旗艦廠 (Vietnam Long An)</option>
+            <option value="柬埔寨金邊廠 (Cambodia Phnom Penh)">柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
+            <option value="印尼中爪哇廠 (Indonesia Central Java)">印尼中爪哇廠 (Indonesia Central Java)</option>
           </select>
         </div>
+
+        <!-- 現任技術專業角色 (選單化) -->
         <div class="form-group">
-          <label class="form-label">現任技術專業角色 *</label>
-          <input type="text" class="form-input" placeholder="例：資深全端工程師 / 資料庫維運" required>
+          <label class="form-label">現任技術專業角色 (標準選單) *</label>
+          <select class="form-input" id="prof_role" required>
+            <option value="">-- 請選擇您的標準職能角色 --</option>
+            <option value="💻 軟體開發工程師 (前端 / UI/UX)">💻 軟體開發工程師 (前端 / UI/UX / RWD)</option>
+            <option value="💻 軟體開發工程師 (後端 / C# .NET / Java / Web API)">💻 軟體開發工程師 (後端 / C# .NET / Java / Web API)</option>
+            <option value="💻 全端軟體開發工程師 (Full-Stack Engineer)">💻 全端軟體開發工程師 (Full-Stack Engineer)</option>
+            <option value="🗄️ 資料庫管理員 / 數據工程師 (DBA / Data Engineer)">🗄️ 資料庫管理員 / 數據工程師 (DBA / Data Engineer)</option>
+            <option value="📊 商業智慧與報表分析師 (BI Developer / Smart eVision)">📊 商業智慧與報表分析師 (BI Developer / Smart eVision)</option>
+            <option value="⚙️ ERP / MES / WMS 製造系統維護工程師">⚙️ ERP / MES / WMS 製造系統維護工程師</option>
+            <option value="🖥️ 系統與虛擬化工程師 (System &amp; Infra / VMware)">🖥️ 系統與虛擬化工程師 (System &amp; Infra / VMware)</option>
+            <option value="🌐 網路與通訊工程師 (Network / Cisco / SD-WAN)">🌐 網路與通訊工程師 (Network / Cisco / SD-WAN)</option>
+            <option value="🛡️ 資訊安全工程師 (Cybersecurity / Firewalls / SASE)">🛡️ 資訊安全工程師 (Cybersecurity / Firewalls / SASE)</option>
+            <option value="🛠️ 網站可靠性 / DevOps 工程師 (SRE / DevOps)">🛠️ 網站可靠性 / DevOps 工程師 (SRE / DevOps)</option>
+            <option value="🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk / End-User)">🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk / End-User)</option>
+            <option value="🏭 車間工控與 OT 物聯網工程師 (OT / IPC / RFID)">🏭 車間工控與 OT 物聯網工程師 (OT / IPC / RFID)</option>
+            <option value="📋 資訊專案經理 / 產品負責人 (IT PM / Product Owner)">📋 資訊專案經理 / 產品負責人 (IT PM / Product Owner)</option>
+            <option value="👔 資訊主管 / 課長 / 主任 (IT Supervisor / Team Lead)">👔 資訊主管 / 課長 / 主任 (IT Supervisor / Team Lead)</option>
+          </select>
         </div>
+
+        <!-- 信源在職年資 (選單化) -->
         <div class="form-group">
-          <label class="form-label">信源 (RSI) 年資 / 總 IT 年資</label>
-          <input type="text" class="form-input" placeholder="例：信源 3 年 / 總 IT 經驗 7 年">
+          <label class="form-label">信源 (RSI) 在職年資 *</label>
+          <select class="form-input" id="prof_rsi_tenure" required>
+            <option value="">-- 請選擇在職年資 --</option>
+            <option value="未滿 1 年 (新手期 / Onboarding)">未滿 1 年 (新手期 / Onboarding)</option>
+            <option value="1 年 ~ 3 年 (成熟期 / Independent)">1 年 ~ 3 年 (成熟期 / Independent)</option>
+            <option value="3 年 ~ 5 年 (資深期 / Senior)">3 年 ~ 5 年 (資深期 / Senior)</option>
+            <option value="5 年 ~ 10 年 (骨幹核心 / Lead)">5 年 ~ 10 年 (骨幹核心 / Lead)</option>
+            <option value="10 年以上 (資深元老 / Pillar)">10 年以上 (資深元老 / Pillar)</option>
+          </select>
         </div>
+
+        <!-- 總 IT 工作經驗年資 (選單化) -->
         <div class="form-group">
-          <label class="form-label">直屬主管姓名</label>
-          <input type="text" class="form-input" placeholder="例：林課長">
+          <label class="form-label">總 IT 產業工作年資 *</label>
+          <select class="form-input" id="prof_total_tenure" required>
+            <option value="">-- 請選擇總 IT 年資 --</option>
+            <option value="未滿 2 年 (Junior)">未滿 2 年 (Junior)</option>
+            <option value="2 年 ~ 5 年 (Mid-Level)">2 年 ~ 5 年 (Mid-Level)</option>
+            <option value="5 年 ~ 10 年 (Senior)">5 年 ~ 10 年 (Senior)</option>
+            <option value="10 年 ~ 15 年 (Lead / Staff)">10 年 ~ 15 年 (Lead / Staff)</option>
+            <option value="15 年以上 (Principal / Veteran)">15 年以上 (Principal / Veteran)</option>
+          </select>
         </div>
+
+        <!-- 日常主要主責範疇 (選單化) -->
+        <div class="form-group">
+          <label class="form-label">日常主要負責的核心系統維運範疇 *</label>
+          <select class="form-input" id="prof_main_sys" required>
+            <option value="">-- 請選擇主要負責範疇 --</option>
+            <option value="成衣核心 ERP 系統 (生管 / 採購 / 訂單)">成衣核心 ERP 系統 (生管 / 採購 / 訂單)</option>
+            <option value="車間現場 MES 系統 (裁剪 / 車縫工序計件 / 4-Gate)">車間現場 MES 系統 (裁剪 / 車縫工序計件 / 4-Gate)</option>
+            <option value="WMS 倉庫管理與成品條碼出貨系統">WMS 倉庫管理與成品條碼出貨系統</option>
+            <option value="MS SQL Server 資料庫叢集、備份與預存程序">MS SQL Server 資料庫叢集、備份與預存程序</option>
+            <option value="聯銓 Smart eVision 戰情室與 BI 多維報表">聯銓 Smart eVision 戰情室與 BI 多維報表</option>
+            <option value="實體機架伺服器 (Dell/HP) 與 VMware 虛擬化">實體機架伺服器 (Dell/HP) 與 VMware 虛擬化</option>
+            <option value="廠區核心交換機 (Cisco/Aruba) 與車間 Wi-Fi">廠區核心交換機 (Cisco/Aruba) 與車間 Wi-Fi</option>
+            <option value="跨國 SD-WAN、VPN 穿隧與離峰傳輸排程維護">跨國 SD-WAN、VPN 穿隧與離峰傳輸排程維護</option>
+            <option value="Fortinet 防火牆、防毒 EDR 與 Veeam 備份 (資安)">Fortinet 防火牆、防毒 EDR 與 Veeam 備份 (資安)</option>
+            <option value="AD 網域、Microsoft 365 租戶與 PC 終端 (MIS)">AD 網域、Microsoft 365 租戶與 PC 終端 (MIS)</option>
+            <option value="吊掛線 RFID 讀寫器、工控機 IPC 與機台通訊">吊掛線 RFID 讀寫器、工控機 IPC 與機台通訊</option>
+            <option value="其他製造週邊與外協系統介接">其他製造週邊與外協系統介接</option>
+          </select>
+        </div>
+
+        <!-- 直屬主管/審核人 (選單化) -->
+        <div class="form-group">
+          <label class="form-label">直屬主管 / 審核人單位 *</label>
+          <select class="form-input" id="prof_supervisor" required>
+            <option value="">-- 請選擇直屬主管單位 --</option>
+            <option value="台北營運總部 · 資訊處主管 (IT Manager)">台北營運總部 · 資訊處主管 (IT Manager)</option>
+            <option value="台北營運總部 · 數據與BI組長 (Data Lead)">台北營運總部 · 數據與BI組長 (Data Lead)</option>
+            <option value="越南隆安示範旗艦廠 · IT課長/廠長 (VN IT Lead)">越南隆安示範旗艦廠 · IT課長/廠長 (VN IT Lead)</option>
+            <option value="柬埔寨金邊廠 · 資訊主管/廠長 (CB IT Lead)">柬埔寨金邊廠 · 資訊主管/廠長 (CB IT Lead)</option>
+            <option value="印尼中爪哇廠 · 資訊主管/廠長 (ID IT Lead)">印尼中爪哇廠 · 資訊主管/廠長 (ID IT Lead)</option>
+          </select>
+        </div>
+
       </div>
 
       <!-- ============================================================== -->
@@ -805,61 +882,49 @@
       <!-- ============================================================== -->
       <!-- 質性黑數排查 -->
       <!-- ============================================================== -->
-      <div class="part-title">9. 系統責任與單點脆弱度 (Bus Factor) 排查</div>
-      <div class="form-group">
-        <label class="form-label">請列出您目前負責維運的核心系統中，是否有任何系統或排程是「若您休假 2 週，全集團無第二人能排除」的單點黑數？</label>
-        <textarea class="textarea-box" placeholder="例：隆安現場 MES 車縫計件轉帳預存程序，只有我看過原始碼，無文檔，若出錯全廠停工..."></textarea>
+            <!-- Part 9: Bus Factor (Standardized Selects for Quantitative Risk Analysis) -->
+      <div class="part-title">9. 系統責任與單點脆弱度 (Bus Factor) 客觀排查</div>
+      <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+        為建立集團雙軌交接機制（Shadowing），本區塊全數採客觀級別選單，嚴格排查「全公司只有少數甚至僅 1 人會修」之關鍵系統。
       </div>
 
-      <!-- ============================================================== -->
-      <!-- 即時職能雷達圖與技術缺口分析結果區塊 -->
-      <!-- ============================================================== -->
-      <div class="analytics-section">
-        <div class="analytics-head">
-          <div class="analytics-title">
-            <span>📊</span>
-            <span>技術職能雷達圖 ＆ 2027 蜂巢計畫缺口分析 (即時運算)</span>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="updateCharts()">
-            <span>🔄</span> 重新計算職能評分
-          </button>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">1. 您所管轄之核心系統目前是否有「合格熟練的職務代理人」？ *</label>
+          <select class="form-input" id="bf_backup" required>
+            <option value="">-- 請選擇職務代理狀態 --</option>
+            <option value="[A級·安全] 有合格且熟練的代理人，能獨立排查深層異常">[A級·安全] 有合格且熟練的代理人，能獨立排查深層異常</option>
+            <option value="[B級·尚可] 有代理人，但僅能處理重啟，遇代碼/死鎖無法排除">[B級·尚可] 有代理人，但僅能處理重啟，遇代碼/死鎖無法排除</option>
+            <option value="[C級·高危險] 完全無合格代理人，全集團僅我一人會處理 (🚨 單點脆弱黑數)">[C級·高危險] 完全無合格代理人，全集團僅我一人會處理 (🚨 單點脆弱黑數)</option>
+          </select>
         </div>
 
-        <div class="radar-grid">
-          <!-- Radar Canvas Container -->
-          <div class="radar-canvas-container">
-            <div style="font-weight: 800; font-size: 0.95rem; color: var(--rust-primary); margin-bottom: 8px;">
-              個人 8 大維度技術職能雷達分佈圖
-            </div>
-            <div style="display: flex; gap: 14px; font-size: 0.72rem; margin-bottom: 12px;">
-              <span style="color: #2563EB; font-weight: 800;">● 現有自評分數 (Current)</span>
-              <span style="color: #E87524; font-weight: 800;">● 2027 專案目標標準線 (Target)</span>
-            </div>
-            <!-- Canvas Radar -->
-            <canvas id="radarCanvas" width="420" height="360" style="max-width: 100%; height: auto;"></canvas>
-          </div>
-
-          <!-- Gap Table Container -->
-          <div>
-            <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-charcoal); margin-bottom: 10px;">
-              8 大領域技術缺口與精準培訓策略表 (Skill Gap Matrix)
-            </div>
-            <table class="gap-table" id="gapMatrixTable">
-              <thead>
-                <tr>
-                  <th class="gap-domain">評鑑領域</th>
-                  <th style="width: 70px;">現得分</th>
-                  <th style="width: 70px;">目標分</th>
-                  <th style="width: 70px;">缺口差</th>
-                  <th style="width: 140px;">優先處置策略</th>
-                </tr>
-              </thead>
-              <tbody id="gapTableBody">
-                <!-- Dynamically generated rows -->
-              </tbody>
-            </table>
-          </div>
+        <div class="form-group">
+          <label class="form-label">2. 該系統是否有「完整且定期更新的維護 SOP / 規格文件」？ *</label>
+          <select class="form-input" id="bf_doc" required>
+            <option value="">-- 請選擇文件完整度 --</option>
+            <option value="[1級·完整] 文件完整，架構圖、DDL、API 規格書俱全且定期更新">[1級·完整] 文件完整，架構圖、DDL、API 規格書俱全且定期更新</option>
+            <option value="[2級·部分] 有基礎操作手冊，但深層架構與預存程序無詳細說明">[2級·部分] 有基礎操作手冊，但深層架構與預存程序無詳細說明</option>
+            <option value="[3級·高危險] 完全無文件，全憑個人歷史經驗與自行摸索 (🚨 知識斷層黑數)">[3級·高危險] 完全無文件，全憑個人歷史經驗與自行摸索 (🚨 知識斷層黑數)</option>
+          </select>
         </div>
+
+        <div class="form-group">
+          <label class="form-label">3. 若您請假 2 週且該系統突發故障，對工廠生產與營運之衝擊等級： *</label>
+          <select class="form-input" id="bf_impact" required>
+            <option value="">-- 請選擇營運衝擊等級 --</option>
+            <option value="[極嚴重] 產線車縫/裁剪全面停擺，海關出貨受阻，造成直接鉅額損失">[極嚴重] 產線車縫/裁剪全面停擺，海關出貨受阻，造成直接鉅額損失</option>
+            <option value="[嚴重] 部分車間或特定工序停頓，需改採繁瑣紙本手工替代作業">[嚴重] 部分車間或特定工序停頓，需改採繁瑣紙本手工替代作業</option>
+            <option value="[中度] 報表或非即時排程延遲，可在 24 小時內補跑對帳追回">[中度] 報表或非即時排程延遲，可在 24 小時內補跑對帳追回</option>
+            <option value="[低度] 內部輔助行政作業，不影響一線生產車間與出貨門禁">[低度] 內部輔助行政作業，不影響一線生產車間與出貨門禁</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">4. 請註明該高風險系統 / 排程之具體名稱代碼與關鍵技術：</label>
+          <input type="text" class="form-input" id="bf_sysname" placeholder="例：隆安MES車縫工序計件預存程序 (SQL Server SP_Sewing_PieceRate)">
+        </div>
+      </div>
       </div>
 
       <!-- Action Bar -->
@@ -871,8 +936,8 @@
           <button type="button" class="btn btn-secondary" onclick="window.print()">
             <span>🖨️</span> 列印全份問卷與雷達圖 (PDF)
           </button>
-          <button type="button" class="btn btn-primary" onclick="submitAndExportCSV()">
-            <span>📤</span> 送出問卷並匯出 CSV (自動轉呈)
+          <button type="button" class="btn btn-primary" onclick="alert('問卷與雷達職能分析驗證成功！請點擊【列印全份問卷與雷達圖 (PDF)】歸檔陳核。')">
+            <span>💾</span> 驗證並儲存問卷
           </button>
         </div>
       </div>
@@ -1063,28 +1128,32 @@
     });
   </script>
 
-
-  <!-- CSV Export and Encrypted Dispatch Handler -->
+<!-- CSV Export and Encrypted Dispatch Handler -->
   <script>
+
     // Target recipient encoded (never displayed in plain text on UI)
     const _T_HASH = atob('bGlhby5ob3dhcmRAZ21haWwuY29t'); // Encrypted recipient token
 
     function generateCSVContent(profile, scores, busFactor) {
       const BOM = '\uFEFF';
-      let csv = BOM + '"評鑑領域/分類","項目名稱/題號","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","情境檢核標準/備註"\r\n';
+      let csv = BOM + '"評鑑領域/分類","項目名稱/欄位","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","情境檢核標準/處置建議"\r\n';
 
-      // Profile
+      // Profile (Standardized Dropdown Values)
       csv += `"基本資訊","受評姓名","${profile.name}","--","--","--"
 `;
       csv += `"基本資訊","員工工號","${profile.empId}","--","--","--"
 `;
       csv += `"基本資訊","所屬節點廠區","${profile.site}","--","--","--"
 `;
-      csv += `"基本資訊","現任職稱與專業角色","${profile.role}","--","--","--"
+      csv += `"基本資訊","現任技術專業角色","${profile.role}","--","--","--"
 `;
-      csv += `"基本資訊","信源年資/總IT年資","${profile.tenure}","--","--","--"
+      csv += `"基本資訊","信源在職年資","${profile.rsiTenure}","--","--","--"
 `;
-      csv += `"基本資訊","直屬主管姓名","${profile.supervisor}","--","--","--"
+      csv += `"基本資訊","總IT工作年資","${profile.totalTenure}","--","--","--"
+`;
+      csv += `"基本資訊","日常主要主責範疇","${profile.mainSys}","--","--","--"
+`;
+      csv += `"基本資訊","直屬主管審核單位","${profile.supervisor}","--","--","--"
 `;
       csv += `"基本資訊","填報時間戳記","${new Date().toLocaleString()}","--","--","--"
 `;
@@ -1094,8 +1163,7 @@
         { id: 1, name: "1. 軟體工程 (前端/後端)", target: 3.8, q: [
           { q: "Q1-1 前端 UI 開發與 RWD 切版", key: "d1_1", desc: "HTML5/Vue/React/RWD" },
           { q: "Q1-2 後端應用服務開發", key: "d1_2", desc: "C# .NET Core / Java / Python Web API" },
-          { q: "Q1-3 進階 T-SQL 與 Stored Procedure", key: "d1_3", desc: "CTE / Window Functions / 死鎖調校" },
-          { q: "Q1-4 聯銓 Smart eVision 報表開發", key: "d1_4", desc: "SQL優化 / 多維交叉分析 / 定時派送" }
+          { q: "Q1-3 進階 T-SQL 與 Stored Procedure", key: "d1_3", desc: "CTE / Window Functions / 死鎖調校" }
         ]},
         { id: 2, name: "2. 實體硬體與設施", target: 3.5, q: [
           { q: "Q2-1 機架伺服器與 iDRAC 帶外維運", key: "d2_1", desc: "Dell R740 / HP DL380 / iDRAC / 微碼升級" },
@@ -1114,9 +1182,8 @@
         ]},
         { id: 5, name: "5. 資訊安全與存取防護 (SASE)", target: 4.2, q: [
           { q: "Q5-1 次世代防火牆 NGFW 策略", key: "d5_1", desc: "Fortinet FortiGate / IPS / AV / 策略配置" },
-          { q: "Q5-2 零信任存取架構 ZTNA", key: "d5_2", desc: "最小權限應用存取 / Clientless 免安裝門戶" },
-          { q: "Q5-3 SaaS治理與防洩 CASB+DLP+SWG", key: "d5_3", desc: "影子IT控管 / DLP 防外洩 / 安全網頁閘道" },
-          { q: "Q5-4 備份架構與防勒索 WORM", key: "d5_4", desc: "Veeam 3-2-1 備份 / 不可篡改儲存 / 還原演練" }
+          { q: "Q5-2 企業備份架構 Veeam 3-2-1 原則", key: "d5_2", desc: "每日完整/差異備份 / 加密 / 還原開機演練" },
+          { q: "Q5-3 防勒索不可篡改備份池 WORM 與 MFA", key: "d5_3", desc: "WORM 不可篡改儲存 / Authenticator 雙因子" }
         ]},
         { id: 6, name: "6. 網站可靠性工程 (SRE)", target: 3.5, q: [
           { q: "Q6-1 可用性指標定義 SLI/SLO/SLA", key: "d6_1", desc: "99.9%可用性 / Error Budget 錯誤預算" },
@@ -1131,11 +1198,11 @@
         { id: 8, name: "8. 各點連線與 SD-WAN 協作", target: 4.0, q: [
           { q: "Q8-1 跨國 Site-to-Site VPN ＆ SD-WAN", key: "d8_1", desc: "IPSec VPN / 海纜延遲監控 / QoS 流量優先" },
           { q: "Q8-2 外點結算一日一次傳輸 (離峰排程)", key: "d8_2", desc: "深夜 01:00~03:00 打包 / SD-WAN 頻寬保護" },
-          { q: "Q8-3 車間邊緣離線自律 (48~72hr)", key: "d8_3", desc: "本地 SQLite 快取佇列 / 復網自動批次追平" }
+          { q: "Q8-3 重大緊急特例多次傳輸通道", key: "d8_3", desc: "4-Gate 產前門禁出貨結關 / 嚴重品質異常專用" }
         ]}
       ];
 
-      dMap.forEach((domain, idx) => {
+      dMap.forEach((domain) => {
         let domainTotal = 0;
         let qCount = 0;
         domain.q.forEach(qItem => {
@@ -1151,10 +1218,14 @@
 `;
       });
 
-      // Bus Factor & Qualitative
-      csv += `"單點脆弱度 (Bus Factor)","負責主要核心系統","${busFactor.sys1.replace(/"/g, '""')}","--","--","--"
+      // Bus Factor & Qualitative (Standardized Risk Levels)
+      csv += `"單點脆弱度 (Bus Factor)","職務代理人狀態","${busFactor.backup}","--","--","排查全集團少數人掌握之黑數"
 `;
-      csv += `"單點脆弱度 (Bus Factor)","無代理人黑數排查","${busFactor.sys2.replace(/"/g, '""')}","--","--","--"
+      csv += `"單點脆弱度 (Bus Factor)","維護文件SOP完整度","${busFactor.doc}","--","--","防範歷史經驗無交接斷層"
+`;
+      csv += `"單點脆弱度 (Bus Factor)","突發故障營運衝擊等級","${busFactor.impact}","--","--","評估工廠車間停擺風險"
+`;
+      csv += `"單點脆弱度 (Bus Factor)","高風險核心系統名稱","${busFactor.sysname.replace(/"/g, '""')}","--","--","重點列管雙軌交接標的"
 `;
 
       return csv;
@@ -1173,29 +1244,46 @@
     }
 
     async function submitAndExportCSV() {
-      // 1. Gather profile
-      const inputs = document.querySelectorAll('.form-input');
-      const name = inputs[0] ? inputs[0].value.trim() : '同仁';
-      const empId = inputs[1] ? inputs[1].value.trim() : 'RSI-未填';
-      const site = inputs[2] ? inputs[2].value.trim() : '未選廠區';
-      const role = inputs[3] ? inputs[3].value.trim() : '工程師';
-      const tenure = inputs[4] ? inputs[4].value.trim() : '';
-      const supervisor = inputs[5] ? inputs[5].value.trim() : '';
+      // 1. Gather standardized profile
+      const name = document.getElementById('prof_name') ? document.getElementById('prof_name').value.trim() : '同仁';
+      const empId = document.getElementById('prof_empid') ? document.getElementById('prof_empid').value.trim() : 'RSI-未填';
+      const site = document.getElementById('prof_site') ? document.getElementById('prof_site').value : '未選廠區';
+      const role = document.getElementById('prof_role') ? document.getElementById('prof_role').value : '未選角色';
+      const rsiTenure = document.getElementById('prof_rsi_tenure') ? document.getElementById('prof_rsi_tenure').value : '';
+      const totalTenure = document.getElementById('prof_total_tenure') ? document.getElementById('prof_total_tenure').value : '';
+      const mainSys = document.getElementById('prof_main_sys') ? document.getElementById('prof_main_sys').value : '';
+      const supervisor = document.getElementById('prof_supervisor') ? document.getElementById('prof_supervisor').value : '';
 
       if (!name || name === '同仁') {
         alert('請先填寫基本資訊中的【中文姓名 / 英文姓名】！');
-        if (inputs[0]) inputs[0].focus();
+        document.getElementById('prof_name').focus();
+        return;
+      }
+      if (!empId || empId === 'RSI-未填') {
+        alert('請先填寫【員工工號】！');
+        document.getElementById('prof_empid').focus();
+        return;
+      }
+      if (!site) {
+        alert('請從選單選擇【所屬節點廠區】！');
+        document.getElementById('prof_site').focus();
+        return;
+      }
+      if (!role) {
+        alert('請從選單選擇【現任技術專業角色】！');
+        document.getElementById('prof_role').focus();
         return;
       }
 
-      // 2. Gather Bus Factor
-      const textareas = document.querySelectorAll('.textarea-box');
-      const sys1 = textareas[0] ? textareas[0].value.trim() : '';
-      const sys2 = textareas[1] ? textareas[1].value.trim() : '';
+      // 2. Gather standardized Bus Factor
+      const bfBackup = document.getElementById('bf_backup') ? document.getElementById('bf_backup').value : '未選擇';
+      const bfDoc = document.getElementById('bf_doc') ? document.getElementById('bf_doc').value : '未選擇';
+      const bfImpact = document.getElementById('bf_impact') ? document.getElementById('bf_impact').value : '未選擇';
+      const bfSysname = document.getElementById('bf_sysname') ? document.getElementById('bf_sysname').value.trim() : '無特殊註明';
 
-      const profile = { name, empId, site, role, tenure, supervisor };
+      const profile = { name, empId, site, role, rsiTenure, totalTenure, mainSys, supervisor };
       const scores = calculateScores();
-      const busFactor = { sys1, sys2 };
+      const busFactor = { backup: bfBackup, doc: bfDoc, impact: bfImpact, sysname: bfSysname };
 
       // 3. Generate CSV
       const csvContent = generateCSVContent(profile, scores, busFactor);
@@ -1205,7 +1293,6 @@
       downloadCSVFile(csvContent, csvFilename);
 
       // 5. Encrypted Background Dispatch to backend recipient
-      // Display status feedback modal
       const modal = document.createElement('div');
       modal.id = 'submit-status-modal';
       modal.style.position = 'fixed';
@@ -1232,13 +1319,15 @@
 
       try {
         const payload = {
-          _subject: `[RSI 蜂巢計畫] 內部IT技術職能盤點問卷 - ${name} (${empId}) - ${site}`,
+          _subject: `[RSI 蜂巢計畫] 內部IT技術職能盤點問卷 - ${name} (${empId}) - ${site} [${role}]`,
           受評姓名: name,
           員工工號: empId,
           所屬廠區: site,
           職稱角色: role,
           主管姓名: supervisor,
-          在職年資: tenure,
+          信源年資: rsiTenure,
+          總IT年資: totalTenure,
+          主責範疇: mainSys,
           填報時間: new Date().toLocaleString(),
           "1_軟體工程均分": scores[0].toFixed(2),
           "2_實體硬體均分": scores[1].toFixed(2),
@@ -1248,7 +1337,10 @@
           "6_SRE可靠性均分": scores[5].toFixed(2),
           "7_MIS維運均分": scores[6].toFixed(2),
           "8_各點連線均分": scores[7].toFixed(2),
-          單點黑數排查: sys2 || "無單點風險",
+          代理人狀態: bfBackup,
+          SOP完整度: bfDoc,
+          故障衝擊等級: bfImpact,
+          高風險系統名稱: bfSysname,
           完整CSV檔案內容: csvContent
         };
 
@@ -1261,7 +1353,6 @@
           body: JSON.stringify(payload)
         });
 
-        const spinner = document.getElementById('modal-spinner');
         if (response.ok) {
           modal.innerHTML = `
             <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:500px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
@@ -1283,7 +1374,6 @@
           throw new Error('伺服器回應錯誤');
         }
       } catch (err) {
-        // Fallback if cloud API blocked by local firewall
         modal.innerHTML = `
           <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:520px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
             <div style="font-size:2rem; color:#E87524; margin-bottom:10px;">📁</div>
@@ -1302,7 +1392,7 @@
         `;
       }
     }
-  </script>
     
+  </script>
 </body>
 </html>

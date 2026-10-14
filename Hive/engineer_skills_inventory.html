@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 內部 IT 8 大領域高階技術職能深度盤點評鑑表 ｜ Hive Project</title>
+  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷、職能雷達圖與缺口分析 ｜ Hive Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -23,6 +23,7 @@
       --border-strong: #D6D3D1;
       --radius-sm: 6px;
       --radius-md: 10px;
+      --radius-lg: 14px;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
       --shadow-md: 0 6px 20px rgba(168, 50, 18, 0.08);
       --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -39,7 +40,7 @@
       padding: 24px 16px;
     }
 
-    .form-container {
+    .survey-container {
       max-width: 1220px;
       margin: 0 auto;
       background: #FFFFFF;
@@ -120,17 +121,22 @@
       text-align: left;
     }
 
-    .section-title {
+    .part-title {
       font-size: 1.15rem;
       font-weight: 800;
       color: var(--rust-primary);
       margin-top: 32px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
       border-bottom: 1.5px solid var(--border-subtle);
       padding-bottom: 6px;
+    }
+    .part-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
     }
 
     .info-grid {
@@ -165,64 +171,48 @@
       box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
     }
 
-    /* Matrix Table */
-    .matrix-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-      margin-bottom: 24px;
-      border: 1px solid var(--border-subtle);
+    /* Question Cards */
+    .q-card {
       background: #FFFFFF;
-    }
-    .matrix-table th, .matrix-table td {
       border: 1px solid var(--border-subtle);
-      padding: 9px 12px;
-      vertical-align: middle;
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
     }
-    .matrix-table th {
-      background: #FAF8F5;
-      color: var(--text-charcoal);
+    .q-card:hover {
+      border-color: #FED7AA;
+      background: #FFFCF9;
+    }
+    .q-head {
+      font-size: 0.85rem;
       font-weight: 800;
-      text-align: left;
-    }
-    .matrix-category {
-      background: #FAF8F5;
-      font-weight: 800;
-      color: var(--rust-primary);
-      width: 140px;
-      font-size: 0.82rem;
-    }
-    .matrix-skill {
-      font-weight: 700;
       color: var(--text-charcoal);
-      width: 220px;
+      margin-bottom: 4px;
     }
-    .matrix-desc {
-      color: var(--text-body);
+    .q-scenario {
       font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
       line-height: 1.45;
     }
-    .matrix-rating {
-      width: 220px;
-      text-align: center;
-      background: #FCFBF9;
+    .likert-scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 7px 10px;
     }
-    .rating-options {
+    .likert-item {
       display: flex;
-      justify-content: space-between;
-      gap: 4px;
-    }
-    .rating-label {
-      display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
       font-size: 0.72rem;
       cursor: pointer;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-    .rating-label:hover {
-      background: #FFF8EE;
+      text-align: center;
     }
 
     .textarea-box {
@@ -236,17 +226,16 @@
       font-family: inherit;
       resize: vertical;
       margin-top: 4px;
-      margin-bottom: 14px;
     }
 
-    /* Radar & Gap Section */
+    /* Analytics Dashboard Section */
     .analytics-section {
       background: #FAF8F5;
       border: 2px solid var(--orange-vibrant);
       border-radius: var(--radius-md);
       padding: 26px;
-      margin-top: 36px;
-      margin-bottom: 26px;
+      margin-top: 40px;
+      margin-bottom: 30px;
       box-shadow: var(--shadow-md);
     }
     .analytics-head {
@@ -268,6 +257,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .radar-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -277,6 +267,7 @@
     @media (max-width: 900px) {
       .radar-grid { grid-template-columns: 1fr; }
     }
+
     .radar-canvas-container {
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
@@ -289,6 +280,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .gap-table {
       width: 100%;
       border-collapse: collapse;
@@ -313,6 +305,7 @@
       font-weight: 700;
       color: var(--text-charcoal);
     }
+
     .badge-status {
       font-family: var(--font-mono);
       font-size: 0.68rem;
@@ -331,7 +324,7 @@
       align-items: center;
       margin-top: 36px;
       padding-top: 18px;
-      border-top: 1px solid var(--border-subtle);
+      border-top: 1.5px solid var(--border-subtle);
       flex-wrap: wrap;
       gap: 12px;
     }
@@ -363,16 +356,16 @@
 
     @media print {
       body { background: #FFF; padding: 0; }
-      .form-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .survey-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
       .action-bar { display: none; }
+      .q-card { page-break-inside: avoid; }
       .analytics-section { page-break-before: always; }
-      tr { page-break-inside: avoid; }
     }
   </style>
 </head>
 <body>
 
-  <div class="form-container">
+  <div class="survey-container">
     <div class="watermark-overlay"></div>
 
     <!-- Header -->
@@ -381,19 +374,19 @@
         <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
           RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">信源全球 · 內部 IT 8 大領域高階技術職能深度盤點評鑑表<br><span>Granular Technical Competency Assessment, Radar Chart &amp; Skill Gap Analysis</span></h1>
+        <h1 class="header-title">信源全球 · 內部 IT 8 大領域技術職能現況盤點問卷<br><span>Technical Competency Assessment, Radar Chart &amp; Skill Gap Analysis</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
         <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
-        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM CODE: RSI-IT-SKILL-GRANULAR-8DOMAINS-2027</div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-8DOMAINS-ASSESSMENT-2027</div>
       </div>
     </div>
 
     <!-- Notice Box -->
     <div class="notice-box">
-      <strong>📌 深度盤點目的與實施原則（全面對齊最新架構規範）：</strong><br>
-      為推進信源全球 2027「蜂巢計畫（Hive Project）」，本表依最新技術審核決策，全面整編為 <strong>1.軟體(前端/後端) 2.硬體 3.網路 4.雲端 5.資安 6.SRE 7.MIS 8.各點連線協作</strong> 等 8 大核心領域。評估指標納入了 <strong>SASE 零信任存取 (ZTNA/CASB/DLP/SWG)</strong>、<strong>外點結算一日一次傳輸（排定離峰，保護 SD-WAN 頻寬）</strong> 與 <strong>車間邊緣離線自律 (48~72hr)</strong>。填答後將<strong>即時動態生成 8 軸技術職能雷達圖</strong>與<strong>專案技術缺口分析矩陣</strong>。請各位同仁誠實自評，直屬主管將進行複核。
+      <strong>📌 8 大領域全盤調查與缺口分析指引：</strong><br>
+      為推進信源全球 2027「蜂巢計畫（Hive Project）」，本問卷將 IT 職能系統化擴展為 <strong>1.軟體(前端/後端) 2.硬體 3.網路 4.雲端 5.資安 6.SRE 7.MIS 8.各點連線協作</strong> 等 8 大核心領域。問卷作答後將<strong>即時動態生成「個人/廠區技術職能雷達圖」</strong>，並自動比對 2027 專案目標標準線產出<strong>「技術職能缺口分析表」</strong>，精確指引後續客製化培訓與外部原廠資源配比。請各位同仁本諸事實客觀自評。
     </div>
 
     <!-- Level Guide -->
@@ -402,532 +395,549 @@
         <thead>
           <tr>
             <th style="width: 120px;">熟練度等級</th>
-            <th style="width: 140px;">客觀等級標籤</th>
-            <th>具體行為表現標準 (主管查核基準)</th>
+            <th style="width: 140px;">客觀定義</th>
+            <th>具體行為表現檢核標準 (請依能獨立解決問題之實戰經驗作答)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>L1 · 初學理解</strong></td>
-            <td>Novice / Awareness</td>
-            <td>具備基本概念，能看懂架構圖與專有名詞，但無法獨立操作或排錯，需他人逐步驟帶領。</td>
+            <td><strong>1 分 · 完全不會</strong></td>
+            <td>No Awareness</td>
+            <td>無此概念，從未接觸操作過，無法理解技術術語。</td>
           </tr>
           <tr>
-            <td><strong>L2 · 獨立維運</strong></td>
-            <td>Competent Practitioner</td>
-            <td>能依照標準 SOP 獨立執行日常設定、定期備份、常態發布與常見異常排除，無需主管時時監督。</td>
+            <td><strong>2 分 · 初學理解</strong></td>
+            <td>Novice / Learner</td>
+            <td>理解基礎架構與名詞，但無法獨立排錯，需他人指導逐步驟操作。</td>
           </tr>
           <tr>
-            <td><strong>L3 · 資深精通</strong></td>
-            <td>Proficient Specialist</td>
-            <td>熟稔技術底層原理，能排查跨系統深層故障、撰寫複雜 SQL/自動化指令碼、調優效能與排除死鎖。</td>
+            <td><strong>3 分 · 獨立維運</strong></td>
+            <td>Competent</td>
+            <td>能依照標準 SOP 獨立完成設定、日常維運、備份與常見異常排除，無需主管監督。</td>
           </tr>
           <tr>
-            <td><strong>L4 · 架構專家</strong></td>
-            <td>Expert / Tech Lead</td>
-            <td>具備跨領域架構規劃、技術選型與高可用設計能力，能主導大型專案技術落地，並可指導其他工程師。</td>
+            <td><strong>4 分 · 資深精通</strong></td>
+            <td>Proficient</td>
+            <td>熟稔技術底層原理，能排查跨系統深層故障、撰寫複雜腳本、調優效能與排除死鎖。</td>
           </tr>
           <tr>
-            <td><strong>L5 · 戰略導師</strong></td>
-            <td>Master / Enterprise Architect</td>
-            <td>具備業界權威級視野，能制定全集團跨國技術標準、資安合規規範，並規劃未來 3 年演進藍圖。</td>
+            <td><strong>5 分 · 架構專家</strong></td>
+            <td>Expert / Lead</td>
+            <td>具備架構規劃、技術選型與高可用設計能力，能指導並帶教其他同仁。</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <form id="granularForm">
+    <form id="assessmentForm">
 
-      <!-- Section 1: Basic Profile -->
-      <div class="section-title">一、受評同仁基本資料與崗位職能 (Basic Profile)</div>
+      <!-- Part 0: Basic Profile -->
+            <!-- Part 0: Basic Profile (Standardized Dropdowns for Precise Analytics) -->
+      <div class="part-title">Part 0. 受訪同仁基本資訊 (基本屬性全選單化，便於統計匯整)</div>
       <div class="info-grid">
+        
+        <!-- 姓名 -->
         <div class="form-group">
           <label class="form-label">中文姓名 / 英文姓名 *</label>
-          <input type="text" class="form-input" placeholder="例：林志強 / Arthur Lin" required>
+          <input type="text" class="form-input" id="prof_name" placeholder="例：陳志遠 / Edward Chen" required>
         </div>
+
+        <!-- 工號 -->
         <div class="form-group">
-          <label class="form-label">員工編號 (Emp ID) *</label>
-          <input type="text" class="form-input" placeholder="例：RSI-91088" required>
+          <label class="form-label">員工工號 (Emp ID) *</label>
+          <input type="text" class="form-input" id="prof_empid" placeholder="例：RSI-92015" required>
         </div>
+
+        <!-- 所屬節點廠區 -->
         <div class="form-group">
-          <label class="form-label">所屬節點與組織單位 *</label>
-          <select class="form-input" required>
-            <option value="">-- 請選擇所屬節點 --</option>
-            <option>台北營運總部 · 資訊處 (IT/MIS)</option>
-            <option>台北營運總部 · 數據與BI小組</option>
-            <option>越南隆安示範旗艦廠 · IT/廠務部</option>
-            <option>柬埔寨金邊廠 · 資訊部</option>
-            <option>印尼中爪哇廠 · 資訊部</option>
+          <label class="form-label">所屬節點廠區 *</label>
+          <select class="form-input" id="prof_site" required>
+            <option value="">-- 請選擇所屬廠區 --</option>
+            <option value="台北營運總部 (Taipei HQ)">台北營運總部 (Taipei HQ)</option>
+            <option value="越南隆安示範旗艦廠 (Vietnam Long An)">越南隆安示範旗艦廠 (Vietnam Long An)</option>
+            <option value="柬埔寨金邊廠 (Cambodia Phnom Penh)">柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
+            <option value="印尼中爪哇廠 (Indonesia Central Java)">印尼中爪哇廠 (Indonesia Central Java)</option>
           </select>
         </div>
+
+        <!-- 現任技術專業角色 (選單化) -->
         <div class="form-group">
-          <label class="form-label">現任職稱與核心專業角色 *</label>
-          <input type="text" class="form-input" placeholder="例：系統維護工程師 / 資料庫與ERP" required>
+          <label class="form-label">現任技術專業角色 (標準選單) *</label>
+          <select class="form-input" id="prof_role" required>
+            <option value="">-- 請選擇您的標準職能角色 --</option>
+            <option value="💻 軟體開發工程師 (前端 / UI/UX)">💻 軟體開發工程師 (前端 / UI/UX / RWD)</option>
+            <option value="💻 軟體開發工程師 (後端 / C# .NET / Java / Web API)">💻 軟體開發工程師 (後端 / C# .NET / Java / Web API)</option>
+            <option value="💻 全端軟體開發工程師 (Full-Stack Engineer)">💻 全端軟體開發工程師 (Full-Stack Engineer)</option>
+            <option value="🗄️ 資料庫管理員 / 數據工程師 (DBA / Data Engineer)">🗄️ 資料庫管理員 / 數據工程師 (DBA / Data Engineer)</option>
+            <option value="📊 商業智慧與報表分析師 (BI Developer / Smart eVision)">📊 商業智慧與報表分析師 (BI Developer / Smart eVision)</option>
+            <option value="⚙️ ERP / MES / WMS 製造系統維護工程師">⚙️ ERP / MES / WMS 製造系統維護工程師</option>
+            <option value="🖥️ 系統與虛擬化工程師 (System &amp; Infra / VMware)">🖥️ 系統與虛擬化工程師 (System &amp; Infra / VMware)</option>
+            <option value="🌐 網路與通訊工程師 (Network / Cisco / SD-WAN)">🌐 網路與通訊工程師 (Network / Cisco / SD-WAN)</option>
+            <option value="🛡️ 資訊安全工程師 (Cybersecurity / Firewalls / SASE)">🛡️ 資訊安全工程師 (Cybersecurity / Firewalls / SASE)</option>
+            <option value="🛠️ 網站可靠性 / DevOps 工程師 (SRE / DevOps)">🛠️ 網站可靠性 / DevOps 工程師 (SRE / DevOps)</option>
+            <option value="🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk / End-User)">🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk / End-User)</option>
+            <option value="🏭 車間工控與 OT 物聯網工程師 (OT / IPC / RFID)">🏭 車間工控與 OT 物聯網工程師 (OT / IPC / RFID)</option>
+            <option value="📋 資訊專案經理 / 產品負責人 (IT PM / Product Owner)">📋 資訊專案經理 / 產品負責人 (IT PM / Product Owner)</option>
+            <option value="👔 資訊主管 / 課長 / 主任 (IT Supervisor / Team Lead)">👔 資訊主管 / 課長 / 主任 (IT Supervisor / Team Lead)</option>
+          </select>
         </div>
+
+        <!-- 信源在職年資 (選單化) -->
         <div class="form-group">
-          <label class="form-label">信源 (RSI) 在職年資 / 總 IT 年資</label>
-          <input type="text" class="form-input" placeholder="例：信源 2 年 / 總 IT 年資 6 年">
+          <label class="form-label">信源 (RSI) 在職年資 *</label>
+          <select class="form-input" id="prof_rsi_tenure" required>
+            <option value="">-- 請選擇在職年資 --</option>
+            <option value="未滿 1 年 (新手期 / Onboarding)">未滿 1 年 (新手期 / Onboarding)</option>
+            <option value="1 年 ~ 3 年 (成熟期 / Independent)">1 年 ~ 3 年 (成熟期 / Independent)</option>
+            <option value="3 年 ~ 5 年 (資深期 / Senior)">3 年 ~ 5 年 (資深期 / Senior)</option>
+            <option value="5 年 ~ 10 年 (骨幹核心 / Lead)">5 年 ~ 10 年 (骨幹核心 / Lead)</option>
+            <option value="10 年以上 (資深元老 / Pillar)">10 年以上 (資深元老 / Pillar)</option>
+          </select>
         </div>
+
+        <!-- 總 IT 工作經驗年資 (選單化) -->
         <div class="form-group">
-          <label class="form-label">直屬主管姓名 / 複核人</label>
-          <input type="text" class="form-input" placeholder="例：陳課長">
+          <label class="form-label">總 IT 產業工作年資 *</label>
+          <select class="form-input" id="prof_total_tenure" required>
+            <option value="">-- 請選擇總 IT 年資 --</option>
+            <option value="未滿 2 年 (Junior)">未滿 2 年 (Junior)</option>
+            <option value="2 年 ~ 5 年 (Mid-Level)">2 年 ~ 5 年 (Mid-Level)</option>
+            <option value="5 年 ~ 10 年 (Senior)">5 年 ~ 10 年 (Senior)</option>
+            <option value="10 年 ~ 15 年 (Lead / Staff)">10 年 ~ 15 年 (Lead / Staff)</option>
+            <option value="15 年以上 (Principal / Veteran)">15 年以上 (Principal / Veteran)</option>
+          </select>
+        </div>
+
+        <!-- 日常主要主責範疇 (選單化) -->
+        <div class="form-group">
+          <label class="form-label">日常主要負責的核心系統維運範疇 *</label>
+          <select class="form-input" id="prof_main_sys" required>
+            <option value="">-- 請選擇主要負責範疇 --</option>
+            <option value="成衣核心 ERP 系統 (生管 / 採購 / 訂單)">成衣核心 ERP 系統 (生管 / 採購 / 訂單)</option>
+            <option value="車間現場 MES 系統 (裁剪 / 車縫工序計件 / 4-Gate)">車間現場 MES 系統 (裁剪 / 車縫工序計件 / 4-Gate)</option>
+            <option value="WMS 倉庫管理與成品條碼出貨系統">WMS 倉庫管理與成品條碼出貨系統</option>
+            <option value="MS SQL Server 資料庫叢集、備份與預存程序">MS SQL Server 資料庫叢集、備份與預存程序</option>
+            <option value="聯銓 Smart eVision 戰情室與 BI 多維報表">聯銓 Smart eVision 戰情室與 BI 多維報表</option>
+            <option value="實體機架伺服器 (Dell/HP) 與 VMware 虛擬化">實體機架伺服器 (Dell/HP) 與 VMware 虛擬化</option>
+            <option value="廠區核心交換機 (Cisco/Aruba) 與車間 Wi-Fi">廠區核心交換機 (Cisco/Aruba) 與車間 Wi-Fi</option>
+            <option value="跨國 SD-WAN、VPN 穿隧與離峰傳輸排程維護">跨國 SD-WAN、VPN 穿隧與離峰傳輸排程維護</option>
+            <option value="Fortinet 防火牆、防毒 EDR 與 Veeam 備份 (資安)">Fortinet 防火牆、防毒 EDR 與 Veeam 備份 (資安)</option>
+            <option value="AD 網域、Microsoft 365 租戶與 PC 終端 (MIS)">AD 網域、Microsoft 365 租戶與 PC 終端 (MIS)</option>
+            <option value="吊掛線 RFID 讀寫器、工控機 IPC 與機台通訊">吊掛線 RFID 讀寫器、工控機 IPC 與機台通訊</option>
+            <option value="其他製造週邊與外協系統介接">其他製造週邊與外協系統介接</option>
+          </select>
+        </div>
+
+        <!-- 直屬主管/審核人 (選單化) -->
+        <div class="form-group">
+          <label class="form-label">直屬主管 / 審核人單位 *</label>
+          <select class="form-input" id="prof_supervisor" required>
+            <option value="">-- 請選擇直屬主管單位 --</option>
+            <option value="台北營運總部 · 資訊處主管 (IT Manager)">台北營運總部 · 資訊處主管 (IT Manager)</option>
+            <option value="台北營運總部 · 數據與BI組長 (Data Lead)">台北營運總部 · 數據與BI組長 (Data Lead)</option>
+            <option value="越南隆安示範旗艦廠 · IT課長/廠長 (VN IT Lead)">越南隆安示範旗艦廠 · IT課長/廠長 (VN IT Lead)</option>
+            <option value="柬埔寨金邊廠 · 資訊主管/廠長 (CB IT Lead)">柬埔寨金邊廠 · 資訊主管/廠長 (CB IT Lead)</option>
+            <option value="印尼中爪哇廠 · 資訊主管/廠長 (ID IT Lead)">印尼中爪哇廠 · 資訊主管/廠長 (ID IT Lead)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 1. 軟體 (前端、後端) -->
+      <!-- ============================================================== -->
+      <div class="part-title">1. 軟體工程：前端與後端開發 (Software: Frontend &amp; Backend)</div>
+      <div class="part-desc">涵蓋前端響應式 UI、後端 C#/.NET/Java/Python、T-SQL 預存程序與成衣業務邏輯。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-1. 前端 UI 開發與響應式切版 (HTML5 / Vue / React / RWD)</div>
+        <div class="q-scenario">能否熟練使用現代前端框架或原生 JS/CSS 開發手機/平板/電腦自適應的業務表單與看板？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d1_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="5" onchange="updateCharts()"> 5分</label>
         </div>
       </div>
 
-      <!-- Section 2: 8 Domains Granular Matrix -->
-      <div class="section-title">二、8 大核心領域技術實務評鑑矩陣 (8 Domains Granular Competency Matrix)</div>
-      
-      <table class="matrix-table">
-        <thead>
-          <tr>
-            <th style="width: 140px;">核心領域</th>
-            <th style="width: 210px;">具體實務技術項目</th>
-            <th>實務檢核標準與具體行為驗證指標 (Checklist)</th>
-            <th style="width: 200px; text-align: center;">熟練度自評 (L1 ~ L5)</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <!-- 1. 軟體 (前端、後端) -->
-          <tr>
-            <td rowspan="4" class="matrix-category">1. 軟體工程<br>(前端、後端)<br><span class="matrix-subcat">[DEV &amp; DB]</span></td>
-            <td class="matrix-skill">前端 UI 開發與 RWD 切版</td>
-            <td class="matrix-desc">熟練 HTML5/CSS3/JavaScript，能使用 Vue/React 或原生框架開發自適應跨裝置（手機/平板/工控機）業務表單與即時戰情看板。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d1_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d1_1" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d1_1" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d1_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d1_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">後端 Web API 與服務開發</td>
-            <td class="matrix-desc">熟練 C# .NET Core / Java / Python 開發 RESTful API，能處理依賴注入、交易事務控制 (Transaction)、批次排程與成衣工序回傳介接。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d1_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d1_2" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d1_2" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d1_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d1_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">進階 T-SQL 與 Stored Procedure</td>
-            <td class="matrix-desc">精通多表 JOIN、通用資料表運算式 (CTE)、窗口函數 (Window Functions)、撰寫複雜預存程序 (SP) 與成衣 BOM 展開邏輯。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d1_3" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d1_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d1_3" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d1_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d1_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">聯銓 Smart eVision 報表開發</td>
-            <td class="matrix-desc">熟悉聯銓 BI 資料集設定、SQL 查詢優化、多維度交叉分析設計、圖表佈局與條件式格式化，具備報表排程派送經驗。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d1_4" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d1_4" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d1_4" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d1_4" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d1_4" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 2. 硬體 -->
-          <tr>
-            <td rowspan="3" class="matrix-category">2. 實體硬體與設施<br><span class="matrix-subcat">[HARDWARE]</span></td>
-            <td class="matrix-skill">機架伺服器與 iDRAC 帶外維運</td>
-            <td class="matrix-desc">Dell PowerEdge R740 / HP DL380 實體伺服器上架、硬體故障診斷、使用 iDRAC/iLO 帶外管理、配置熱備援電源與更新微碼韌體。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d2_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d2_1" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d2_1" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d2_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d2_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">磁碟陣列卡 RAID 與儲存管理</td>
-            <td class="matrix-desc">配置 RAID 1/5/6/10 陣列、設定 Hot Spare 熱備援硬碟、熱插拔抽換故障硬碟並執行在線重建 (Rebuild)，維護 NAS 儲存池。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d2_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d2_2" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d2_2" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d2_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d2_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">車間工控機 (IPC) 與 RFID 設備</td>
-            <td class="matrix-desc">研華工控機除塵維護、RS-232/COM 串列通訊排查、Impinj 吊掛 RFID 讀寫器天線增益與角度校正，排查漏讀通訊異常。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d2_3" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d2_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d2_3" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d2_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d2_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 3. 網路 -->
-          <tr>
-            <td rowspan="3" class="matrix-category">3. 廠區網路傳輸<br><span class="matrix-subcat">[NETWORK]</span></td>
-            <td class="matrix-skill">核心交換器與 VLAN 隔離規劃</td>
-            <td class="matrix-desc">Cisco/Aruba 核心交換機維護、配置 LACP 鏈路聚合、規劃 802.1Q VLAN 隔離車間/伺服器/辦公網段，配置靜態路由與廣播風暴抑制。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d3_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d3_1" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d3_1" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d3_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d3_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">車間企業級 Wi-Fi 覆蓋調優</td>
-            <td class="matrix-desc">Aruba/Unifi AP 控制器管理、射頻通道 (Channel) 規劃避開干擾、調校車間條碼槍快速漫遊 (802.11r/k/v)，排除生產死角。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d3_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d3_2" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d3_2" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d3_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d3_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">雙線路 Dual-WAN 與 4G 備援</td>
-            <td class="matrix-desc">配置雙電信商外網線路自動故障切換 (Failover)、配置 4G/5G 路由器緊急備援通道，並使用 Wireshark 抓包分析連線延遲問題。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d3_3" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d3_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d3_3" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d3_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d3_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 4. 雲端 -->
-          <tr>
-            <td rowspan="3" class="matrix-category">4. 公有雲與數據中台<br><span class="matrix-subcat">[CLOUD &amp; LAKE]</span></td>
-            <td class="matrix-skill">公有雲架構與安全治理 (GCP/AWS)</td>
-            <td class="matrix-desc">VPC 子網劃分、VM 實例生命週期、IAM 最小權限角色分配、服務帳號 (Service Account) 金鑰管理與雲端費用預算預警。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d4_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d4_1" value="2" checked onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d4_1" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d4_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d4_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">現代數據倉儲 (Google BigQuery)</td>
-            <td class="matrix-desc">建立時間分區表 (Partitioning) 與叢集表 (Clustering)、撰寫 MERGE 語法執行 Upsert 對帳、BI Engine 快取加速、查詢掃描成本優化。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d4_2" value="1" checked onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d4_2" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d4_2" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d4_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d4_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">工作流編排 (Apache Airflow DAG)</td>
-            <td class="matrix-desc">使用 Python 撰寫 Airflow DAG 腳本、配置 Task 依賴關係、排定 Cron 排程、配置失敗自動重跑與 Teams/Email 告警。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d4_3" value="1" checked onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d4_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d4_3" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d4_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d4_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 5. 資安 (融入最新 SASE/ZTNA/CASB/DLP/SWG) -->
-          <tr>
-            <td rowspan="4" class="matrix-category">5. 資訊安全與存取防護<br><span class="matrix-subcat">[SECURITY &amp; SASE]</span></td>
-            <td class="matrix-skill">次世代防火牆 (NGFW) 與邊界策略</td>
-            <td class="matrix-desc">熟練配置 Fortinet 防火牆存取策略 (Policies)、位址物件、NAT 埠轉發、啟用防毒與 IPS 深度檢測並排除系統誤判。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d5_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d5_1" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d5_1" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d5_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d5_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">零信任存取與免安裝架構 (ZTNA)</td>
-            <td class="matrix-desc">落實依身分與最小權限限制內部應用存取（非直接開放全內網）；理解外包商免安裝 (Clientless Portal / 企業安全瀏覽器) 存取機制。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d5_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d5_2" value="2" checked onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d5_2" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d5_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d5_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">SaaS 治理、資料防洩與安全上網<br>(CASB + DLP + SWG)</td>
-            <td class="matrix-desc">掌握雲端應用與影子 IT 控管 (CASB)、配置機密資料外洩防護 (DLP 內容檢測)、安全網頁閘道 (SWG 惡意網頁威脅過濾)。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d5_3" value="1" checked onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d5_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d5_3" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d5_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d5_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">Veeam 3-2-1 備份與防勒索不可篡改 (WORM)</td>
-            <td class="matrix-desc">配置每日完整與差異備份、設定備份加密金鑰、配置防勒索不可篡改備份池 (Immutable / WORM)，並定期執行 VM 實體開機還原測試。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d5_4" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d5_4" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d5_4" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d5_4" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d5_4" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 6. SRE -->
-          <tr>
-            <td rowspan="3" class="matrix-category">6. 網站可靠性工程<br><span class="matrix-subcat">[SRE &amp; DEVOPS]</span></td>
-            <td class="matrix-skill">可用性指標定義 (SLI / SLO / SLA)</td>
-            <td class="matrix-desc">能為關鍵成衣系統定義可用性指標（如 99.9% 正常運行時間）、計算錯誤預算 (Error Budget) 並建立故障自動升級反應機制。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d6_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d6_1" value="2" checked onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d6_1" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d6_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d6_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">集中化監控與告警 (Prometheus/Grafana)</td>
-            <td class="matrix-desc">建立統一監控面板、收集伺服器 CPU/RAM/磁碟/API 回應時間、配置閥值自動發送警報至 Teams/LINE，排除被動救火。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d6_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d6_2" value="2" checked onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d6_2" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d6_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d6_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">容器化技術與 CI/CD 流程觀念 (Docker)</td>
-            <td class="matrix-desc">看懂與撰寫 Dockerfile、使用 docker-compose 運行多容器、使用 Git 分支管理代碼、理解 GitHub Actions 自動化打包發布。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d6_3" value="1" checked onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d6_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d6_3" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d6_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d6_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 7. MIS -->
-          <tr>
-            <td rowspan="3" class="matrix-category">7. 資訊管理與維運<br><span class="matrix-subcat">[MIS &amp; ITSM]</span></td>
-            <td class="matrix-skill">Active Directory 網域控制與 GPO</td>
-            <td class="matrix-desc">管理網域控制器 (DC)、規劃 OU 組織單位、使用 GPO 派送安全性設定、定期執行特權帳號審查並落實員工離職即時停權。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d7_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d7_1" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d7_1" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d7_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d7_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">Microsoft 365 租戶與郵件流治理</td>
-            <td class="matrix-desc">管理 M365 企業帳號、管理 Exchange 郵件流與反垃圾郵件安全、排查員工授權閒置浪費，落實 MFA 雙因子認證。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d7_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d7_2" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d7_2" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d7_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d7_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">標準系統映像檔大量部署 (Ghost/WDS)</td>
-            <td class="matrix-desc">製作標準化 Windows 系統映像檔大量派送、IT 資產生命週期管理、依照 SLA 處理使用者 Helpdesk 支援工單。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d7_3" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d7_3" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d7_3" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d7_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d7_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 8. 各點連線協作 (貫徹外點一日一次傳輸原則) -->
-          <tr>
-            <td rowspan="3" class="matrix-category">8. 各點連線與 SD-WAN<br><span class="matrix-subcat">[CONNECTIVITY]</span></td>
-            <td class="matrix-skill">跨國 Site-to-Site VPN ＆ SD-WAN 實務</td>
-            <td class="matrix-desc">建立與維護台北總部至海外三廠之 IPSec VPN 穿隧、監控跨國海纜延遲 (Ping RTT/Jitter)、設定 SD-WAN 流量智慧選路與 QoS 頻寬優先級。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d8_1" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d8_1" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d8_1" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d8_1" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d8_1" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">外點結算一日一次傳輸 (離峰 SD-WAN 保護)</td>
-            <td class="matrix-desc">嚴格落實外點結算排程「一天傳輸一次（深夜 01:00~03:00 離峰打包）」，保護 SD-WAN 頻寬不被大數據癱瘓；重大緊急事件（4-Gate 出貨結關/品質異常）始走專屬特例通道。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d8_2" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d8_2" value="2" onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d8_2" value="3" checked onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d8_2" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d8_2" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">邊緣離線自治與快取佇列 (48~72hr 保障)</td>
-            <td class="matrix-desc">配置現場機台或 Edge Proxy 的本地快取佇列 (SQLite/平坦檔)，國際海纜中斷時確保車間離線正常生產，連線復原後自動批次追平。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="d8_3" value="1" onchange="updateCharts()">1</label>
-                <label class="rating-label"><input type="radio" name="d8_3" value="2" checked onchange="updateCharts()">2</label>
-                <label class="rating-label"><input type="radio" name="d8_3" value="3" onchange="updateCharts()">3</label>
-                <label class="rating-label"><input type="radio" name="d8_3" value="4" onchange="updateCharts()">4</label>
-                <label class="rating-label"><input type="radio" name="d8_3" value="5" onchange="updateCharts()">5</label>
-              </div>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-
-      <!-- Section 3: Bus Factor -->
-      <div class="section-title">三、負責系統深度清冊與「單點脆弱度 (Bus Factor)」黑數排查</div>
-      <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
-        本區塊旨在找出「全集團只有少數甚至僅 1 人會修、缺乏文檔」的脆弱系統，建立雙軌交接機制。
+      <div class="q-card">
+        <div class="q-head">Q1-2. 後端應用服務開發 (C# .NET Core / Java / Python Web API)</div>
+        <div class="q-scenario">能否設計 RESTful API、處理依賴注入、交易事務控制 (Transaction) 並與 ERP/MES 後端介接？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d1_2" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">1. 您目前日常最主要負責維護、修改或排除問題的核心系統/設備/排程有哪些？</label>
-        <textarea class="textarea-box" placeholder="例：1. 隆安現場 MES 車間生產進度追蹤模組&#10;2. 採購發票拋轉 SQL 自動排程&#10;3. 金邊廠吊掛 RFID 接收通訊服務"></textarea>
+      <div class="q-card">
+        <div class="q-head">Q1-3. 進階 T-SQL 撰寫、Stored Procedure 與死鎖調校</div>
+        <div class="q-scenario">能否編寫複雜 CTE、窗口函數、優化執行計畫 (Execution Plan)、解決 SQL Server Deadlock 阻礙？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d1_3" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">2. 上述系統中，是否有任何系統或排程是「若您休假 2 週或突發離職，全集團目前沒有第二人知道如何排除」的？目前有何應急方案？</label>
-        <textarea class="textarea-box" placeholder="例：某個 5 年前寫的 SQL 轉帳排程，沒有留下文件，目前只有我看過 source code，如果出錯全廠對帳會中斷..."></textarea>
+      <!-- ============================================================== -->
+      <!-- 2. 硬體 -->
+      <!-- ============================================================== -->
+      <div class="part-title">2. 實體硬體與車間設施 (Hardware &amp; Shopfloor Equipment)</div>
+      <div class="part-desc">涵蓋 Dell/HP 伺服器、RAID 磁碟陣列、NAS/SAN、VMware 虛擬化與車間工控機 (IPC)。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-1. 機架伺服器硬體管理 (Dell R740 / HP DL380 / iDRAC)</div>
+        <div class="q-scenario">能否獨立進行實體主機上架、硬體故障診斷、使用 iDRAC / iLO 帶外管理並更新韌體？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d2_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
       </div>
 
-      <!-- Section 4: Dynamic Analytics -->
-      <div class="analytics-section">
-        <div class="analytics-head">
-          <div class="analytics-title">
-            <span>📊</span>
-            <span>8 大領域技術職能雷達圖 ＆ 2027 蜂巢計畫缺口分析 (即時運算)</span>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="updateCharts()">
-            <span>🔄</span> 重新計算職能評分
-          </button>
+      <div class="q-card">
+        <div class="q-head">Q2-2. 磁碟陣列 RAID 配置、抽換重建與儲存 NAS 維護</div>
+        <div class="q-scenario">能否配置 RAID 1/5/6/10、設定 Hot Spare 熱備援、抽換故障硬碟重建，並管理 Synology NAS 空間？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d2_2" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-3. 車間工控機 (IPC) 與吊掛 RFID 讀寫器除錯</div>
+        <div class="q-scenario">能否維護研華工控機、排查 COM 串列埠通訊、調整 Impinj RFID 天線角度並解決機台通訊異常？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d2_3" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 3. 網路 -->
+      <!-- ============================================================== -->
+      <div class="part-title">3. 廠區網路架構與傳輸 (Network &amp; Wi-Fi Infrastructure)</div>
+      <div class="part-desc">涵蓋核心交換器、VLAN 切割隔離、車間 Wi-Fi 覆蓋調優與雙線路備援。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-1. 核心交換器 (Core Switch) 設定、堆疊與鏈路聚合</div>
+        <div class="q-scenario">能否維護 Cisco/Aruba 核心交換機、配置 LACP 聚合、規劃靜態/動態路由與預設閘道備援？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d3_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-2. 廠區 VLAN 網段規劃、Trunk 與存取控制清單 (ACL)</div>
+        <div class="q-scenario">能否規劃 VLAN 隔離車間機台、伺服器、辦公室與訪客網路，配置 802.1Q 埠並防止廣播風暴？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d3_2" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-3. 車間企業級 Wi-Fi 覆蓋調優與死角消除</div>
+        <div class="q-scenario">能否管理 Aruba/Unifi AP 控制器、調整無線射頻通道 (Channel)、優化車間條碼槍快速漫遊？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d3_3" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 4. 雲端 -->
+      <!-- ============================================================== -->
+      <div class="part-title">4. 公有雲與數據中台 (Cloud &amp; Lakehouse Architecture)</div>
+      <div class="part-desc">涵蓋 GCP/AWS 雲端環境操作、BigQuery 數據倉儲、Apache Airflow 排程與 FinOps。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-1. 公有雲基礎架構操作 (GCP / AWS 控制台與 IAM)</div>
+        <div class="q-scenario">能否在 GCP 或 AWS 控制台建立 VPC 子網、管理 VM 實例、配置 IAM 最小權限角色與安全群組？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d4_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="2" checked onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-2. 雲端現代數據倉儲 (Google BigQuery / S3 Iceberg)</div>
+        <div class="q-scenario">能否在 BigQuery 建立分區表 (Partitioning)、撰寫 MERGE 語法執行對帳、並優化查詢掃描成本？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d4_2" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-3. 工作流編排排程實務 (Apache Airflow DAG)</div>
+        <div class="q-scenario">能否使用 Python 撰寫 Airflow DAG 腳本、設定任務前後依賴關係、配置失敗重跑與告警通知？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d4_3" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 5. 資安 -->
+      <!-- ============================================================== -->
+      <div class="part-title">5. 資訊安全與災變復原 (Cybersecurity &amp; BCP/DR)</div>
+      <div class="part-desc">涵蓋次世代防火牆 (Fortinet)、EDR 防毒、Veeam 3-2-1 備份、防勒索 WORM 與 MFA 雙因子。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-1. 次世代防火牆 (FortiGate NGFW) 安全策略與 IPS</div>
+        <div class="q-scenario">能否配置 Fortinet 防火牆安全策略 (Policies)、啟用防毒與 IPS 深度檢測並排除誤判？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d5_1" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-2. 企業備份架構 (Veeam Backup 3-2-1 原則實務)</div>
+        <div class="q-scenario">能否配置每日完整與差異備份、設定備份加密、並能獨立執行 VM 及資料庫之實體還原開機測試？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d5_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-3. 防勒索不可篡改備份池 (WORM) 與 MFA 雙因子推行</div>
+        <div class="q-scenario">是否理解並能配置不可篡改唯讀備份池，並推行 Authenticator 雙因子認證強制啟用？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d5_3" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 6. SRE -->
+      <!-- ============================================================== -->
+      <div class="part-title">6. 網站可靠性工程與維運 (SRE &amp; DevOps)</div>
+      <div class="part-desc">涵蓋系統可用性指標 (SLA/SLO)、日誌集中監控 (Prometheus/Grafana)、CI/CD 自動化與容器。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-1. 服務等級目標與可用性監控 (SLI / SLO / SLA)</div>
+        <div class="q-scenario">能否為關鍵成衣系統定義可用性指標（如 99.9% 正常運行時間）、計算錯誤預算 (Error Budget)？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d6_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="2" checked onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-2. 集中化日誌與效能監控 (Prometheus / Grafana / Zabbix)</div>
+        <div class="q-scenario">能否建立集中監控儀表、收集伺服器 CPU/RAM/磁碟/API 回應時間、並設定閥值自動通報？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d6_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="2" checked onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-3. 容器化與 CI/CD 自動化發布觀念 (Docker / Git Pipeline)</div>
+        <div class="q-scenario">能否看懂 Dockerfile、使用 docker-compose 運行多容器、或使用 GitHub Actions 執行自動化測試打包？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d6_3" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 7. MIS -->
+      <!-- ============================================================== -->
+      <div class="part-title">7. 資訊管理與終端維運 (MIS &amp; IT Service Management)</div>
+      <div class="part-desc">涵蓋 Active Directory 網域管理、GPO 派送、M365 租戶維護、軟體資產合規與使用者支援。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q7-1. Active Directory 網域控制、GPO 安全原則與帳號審查</div>
+        <div class="q-scenario">能否管理網域控制器 (DC)、規劃 OU 組織單位、使用 GPO 派送安全性設定並落實離職及時停權？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d7_1" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q7-2. Microsoft 365 租戶管理 (Exchange / Teams / 授權盤點)</div>
+        <div class="q-scenario">能否管理 M365 企業帳號、管理 Exchange 郵件流與安全性、排查員工授權閒置浪費？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d7_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q7-3. 終端電腦映像檔大量部署 (Ghost/WDS) 與 ITIL 工單處理</div>
+        <div class="q-scenario">能否製作標準化 Windows 系統映像檔大量派送、並依照 SLA 規範處理使用者 Helpdesk 工單？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d7_3" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 8. 各點連線協作 -->
+      <!-- ============================================================== -->
+      <div class="part-title">8. 各點連線與 SD-WAN 協作 (Connectivity &amp; SD-WAN)</div>
+      <div class="part-desc">涵蓋跨國 VPN、SD-WAN 頻寬保護、外點一日一次離峰傳輸排程與海纜斷網離線自治。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q8-1. 跨國 Site-to-Site IPSec VPN 建立與連線除錯</div>
+        <div class="q-scenario">能否在 Fortinet 防火牆建立台北總部至海外三廠之 IPSec VPN 穿隧並排除網路抖動問題？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d8_1" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q8-2. 外點結算一日一次傳輸排程 (深夜離峰 · SD-WAN 頻寬保護)</div>
+        <div class="q-scenario">是否清楚落實：外點結算資料原則上一天傳輸一次（深夜 01:00~03:00 打包），避免白天影響頻寬？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d8_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q8-3. 重大緊急特例多次傳輸通道 (4-Gate 結關 / 嚴重異常)</div>
+        <div class="q-scenario">能否配置針對 4-Gate 產前門禁急需出貨結關時的高優先級即時多次傳輸通道？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d8_3" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 質性黑數排查 -->
+      <!-- ============================================================== -->
+            <!-- Part 9: Bus Factor (Standardized Selects for Quantitative Risk Analysis) -->
+      <div class="part-title">9. 系統責任與單點脆弱度 (Bus Factor) 客觀排查</div>
+      <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+        為建立集團雙軌交接機制（Shadowing），本區塊全數採客觀級別選單，嚴格排查「全公司只有少數甚至僅 1 人會修」之關鍵系統。
+      </div>
+
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">1. 您所管轄之核心系統目前是否有「合格熟練的職務代理人」？ *</label>
+          <select class="form-input" id="bf_backup" required>
+            <option value="">-- 請選擇職務代理狀態 --</option>
+            <option value="[A級·安全] 有合格且熟練的代理人，能獨立排查深層異常">[A級·安全] 有合格且熟練的代理人，能獨立排查深層異常</option>
+            <option value="[B級·尚可] 有代理人，但僅能處理重啟，遇代碼/死鎖無法排除">[B級·尚可] 有代理人，但僅能處理重啟，遇代碼/死鎖無法排除</option>
+            <option value="[C級·高危險] 完全無合格代理人，全集團僅我一人會處理 (🚨 單點脆弱黑數)">[C級·高危險] 完全無合格代理人，全集團僅我一人會處理 (🚨 單點脆弱黑數)</option>
+          </select>
         </div>
 
-        <div class="radar-grid">
-          <!-- Canvas Radar -->
-          <div class="radar-canvas-container">
-            <div style="font-weight: 800; font-size: 0.95rem; color: var(--rust-primary); margin-bottom: 6px;">
-              個人 8 大維度技術職能雷達分佈圖
-            </div>
-            <div style="display: flex; gap: 14px; font-size: 0.72rem; margin-bottom: 10px;">
-              <span style="color: #2563EB; font-weight: 800;">● 現有自評分數 (Current)</span>
-              <span style="color: #E87524; font-weight: 800;">● 2027 專案目標標準線 (Target)</span>
-            </div>
-            <canvas id="radarCanvas" width="420" height="360" style="max-width: 100%; height: auto;"></canvas>
-          </div>
-
-          <!-- Gap Table -->
-          <div>
-            <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-charcoal); margin-bottom: 10px;">
-              8 大領域技術缺口與精準培訓策略表 (Skill Gap Matrix)
-            </div>
-            <table class="gap-table">
-              <thead>
-                <tr>
-                  <th class="gap-domain">評鑑領域</th>
-                  <th style="width: 70px;">現得分</th>
-                  <th style="width: 70px;">目標分</th>
-                  <th style="width: 70px;">缺口差</th>
-                  <th style="width: 140px;">優先處置策略</th>
-                </tr>
-              </thead>
-              <tbody id="gapTableBody">
-                <!-- Dynamically filled -->
-              </tbody>
-            </table>
-          </div>
+        <div class="form-group">
+          <label class="form-label">2. 該系統是否有「完整且定期更新的維護 SOP / 規格文件」？ *</label>
+          <select class="form-input" id="bf_doc" required>
+            <option value="">-- 請選擇文件完整度 --</option>
+            <option value="[1級·完整] 文件完整，架構圖、DDL、API 規格書俱全且定期更新">[1級·完整] 文件完整，架構圖、DDL、API 規格書俱全且定期更新</option>
+            <option value="[2級·部分] 有基礎操作手冊，但深層架構與預存程序無詳細說明">[2級·部分] 有基礎操作手冊，但深層架構與預存程序無詳細說明</option>
+            <option value="[3級·高危險] 完全無文件，全憑個人歷史經驗與自行摸索 (🚨 知識斷層黑數)">[3級·高危險] 完全無文件，全憑個人歷史經驗與自行摸索 (🚨 知識斷層黑數)</option>
+          </select>
         </div>
+
+        <div class="form-group">
+          <label class="form-label">3. 若您請假 2 週且該系統突發故障，對工廠生產與營運之衝擊等級： *</label>
+          <select class="form-input" id="bf_impact" required>
+            <option value="">-- 請選擇營運衝擊等級 --</option>
+            <option value="[極嚴重] 產線車縫/裁剪全面停擺，海關出貨受阻，造成直接鉅額損失">[極嚴重] 產線車縫/裁剪全面停擺，海關出貨受阻，造成直接鉅額損失</option>
+            <option value="[嚴重] 部分車間或特定工序停頓，需改採繁瑣紙本手工替代作業">[嚴重] 部分車間或特定工序停頓，需改採繁瑣紙本手工替代作業</option>
+            <option value="[中度] 報表或非即時排程延遲，可在 24 小時內補跑對帳追回">[中度] 報表或非即時排程延遲，可在 24 小時內補跑對帳追回</option>
+            <option value="[低度] 內部輔助行政作業，不影響一線生產車間與出貨門禁">[低度] 內部輔助行政作業，不影響一線生產車間與出貨門禁</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">4. 請註明該高風險系統 / 排程之具體名稱代碼與關鍵技術：</label>
+          <input type="text" class="form-input" id="bf_sysname" placeholder="例：隆安MES車縫工序計件預存程序 (SQL Server SP_Sewing_PieceRate)">
+        </div>
+      </div>
       </div>
 
       <!-- Action Bar -->
       <div class="action-bar">
         <div style="font-size: 0.75rem; color: var(--text-muted);">
-          填寫完成後可點擊右方按鈕列印存為 PDF，經直屬主管複核簽章後，呈報專案推動小組存檔。
+          問卷填答完成並確認雷達分析後，點擊右方按鈕列印存為 PDF 呈交主管複核。
         </div>
         <div style="display: flex; gap: 10px;">
           <button type="button" class="btn btn-secondary" onclick="window.print()">
-            <span>🖨️</span> 列印／存為 PDF
+            <span>🖨️</span> 列印全份問卷與雷達圖 (PDF)
           </button>
-          <button type="button" class="btn btn-primary" onclick="submitAndExportCSV()">
-            <span>📤</span> 送出問卷並匯出 CSV (自動轉呈)
+          <button type="button" class="btn btn-primary" onclick="alert('問卷與雷達職能分析驗證成功！請點擊【列印全份問卷與雷達圖 (PDF)】歸檔陳核。')">
+            <span>💾</span> 驗證並儲存問卷
           </button>
         </div>
       </div>
@@ -936,14 +946,14 @@
   </div>
 
   <script>
-    // 8 Domains Target Benchmarks (2027 Hive Project)
+    // 8 Domains Target Benchmarks (for 2027 Hive Project)
     const targets = [3.8, 3.5, 3.8, 4.0, 4.2, 3.5, 3.5, 4.0];
     const domainNames = [
       "1. 軟體 (前端/後端)",
       "2. 實體硬體",
       "3. 廠區網路",
       "4. 雲端湖倉",
-      "5. 資訊安全 (SASE)",
+      "5. 資訊安全",
       "6. SRE 可靠性",
       "7. MIS 維運",
       "8. 各點連線協作"
@@ -955,11 +965,11 @@
     }
 
     function calculateScores() {
-      const d1 = (getRadioScore('d1_1') + getRadioScore('d1_2') + getRadioScore('d1_3') + getRadioScore('d1_4')) / 4;
+      const d1 = (getRadioScore('d1_1') + getRadioScore('d1_2') + getRadioScore('d1_3')) / 3;
       const d2 = (getRadioScore('d2_1') + getRadioScore('d2_2') + getRadioScore('d2_3')) / 3;
       const d3 = (getRadioScore('d3_1') + getRadioScore('d3_2') + getRadioScore('d3_3')) / 3;
       const d4 = (getRadioScore('d4_1') + getRadioScore('d4_2') + getRadioScore('d4_3')) / 3;
-      const d5 = (getRadioScore('d5_1') + getRadioScore('d5_2') + getRadioScore('d5_3') + getRadioScore('d5_4')) / 4;
+      const d5 = (getRadioScore('d5_1') + getRadioScore('d5_2') + getRadioScore('d5_3')) / 3;
       const d6 = (getRadioScore('d6_1') + getRadioScore('d6_2') + getRadioScore('d6_3')) / 3;
       const d7 = (getRadioScore('d7_1') + getRadioScore('d7_2') + getRadioScore('d7_3')) / 3;
       const d8 = (getRadioScore('d8_1') + getRadioScore('d8_2') + getRadioScore('d8_3')) / 3;
@@ -980,7 +990,7 @@
 
       ctx.clearRect(0, 0, w, h);
 
-      // Con-centric Octagons (1 to 5)
+      // Draw Background Con-centric Octagons (1 to 5)
       for (let level = 1; level <= 5; level++) {
         ctx.beginPath();
         for (let i = 0; i < numPoints; i++) {
@@ -996,12 +1006,13 @@
         ctx.lineWidth = 1;
         ctx.stroke();
 
+        // Level text
         ctx.fillStyle = '#A8A29E';
         ctx.font = '10px sans-serif';
         ctx.fillText(level.toString(), cx + 4, cy - (radius / 5) * level + 10);
       }
 
-      // Spokes and Labels
+      // Draw Spokes and Labels
       for (let i = 0; i < numPoints; i++) {
         const angle = i * angleStep - Math.PI / 2;
         const x = cx + radius * Math.cos(angle);
@@ -1013,6 +1024,7 @@
         ctx.strokeStyle = '#E7E5E4';
         ctx.stroke();
 
+        // Label
         const labelR = radius + 24;
         const lx = cx + labelR * Math.cos(angle);
         const ly = cy + labelR * Math.sin(angle);
@@ -1023,7 +1035,7 @@
         ctx.fillText(domainNames[i], lx, ly);
       }
 
-      // Target Line (Orange dashed)
+      // Draw Target Polygon (Orange dashed)
       ctx.beginPath();
       for (let i = 0; i < numPoints; i++) {
         const angle = i * angleStep - Math.PI / 2;
@@ -1040,7 +1052,7 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Current Line (Blue filled)
+      // Draw Current Polygon (Blue filled)
       ctx.beginPath();
       for (let i = 0; i < numPoints; i++) {
         const angle = i * angleStep - Math.PI / 2;
@@ -1110,33 +1122,38 @@
       updateGapTable(scores);
     }
 
+    // Initial render
     window.addEventListener('DOMContentLoaded', () => {
       updateCharts();
     });
   </script>
 
-
-  <!-- CSV Export and Encrypted Dispatch Handler -->
+<!-- CSV Export and Encrypted Dispatch Handler -->
   <script>
+
     // Target recipient encoded (never displayed in plain text on UI)
     const _T_HASH = atob('bGlhby5ob3dhcmRAZ21haWwuY29t'); // Encrypted recipient token
 
     function generateCSVContent(profile, scores, busFactor) {
       const BOM = '\uFEFF';
-      let csv = BOM + '"評鑑領域/分類","項目名稱/題號","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","情境檢核標準/備註"\r\n';
+      let csv = BOM + '"評鑑領域/分類","項目名稱/欄位","自評分數/內容","標準基準線 (Target)","技術缺口 (Gap)","情境檢核標準/處置建議"\r\n';
 
-      // Profile
+      // Profile (Standardized Dropdown Values)
       csv += `"基本資訊","受評姓名","${profile.name}","--","--","--"
 `;
       csv += `"基本資訊","員工工號","${profile.empId}","--","--","--"
 `;
       csv += `"基本資訊","所屬節點廠區","${profile.site}","--","--","--"
 `;
-      csv += `"基本資訊","現任職稱與專業角色","${profile.role}","--","--","--"
+      csv += `"基本資訊","現任技術專業角色","${profile.role}","--","--","--"
 `;
-      csv += `"基本資訊","信源年資/總IT年資","${profile.tenure}","--","--","--"
+      csv += `"基本資訊","信源在職年資","${profile.rsiTenure}","--","--","--"
 `;
-      csv += `"基本資訊","直屬主管姓名","${profile.supervisor}","--","--","--"
+      csv += `"基本資訊","總IT工作年資","${profile.totalTenure}","--","--","--"
+`;
+      csv += `"基本資訊","日常主要主責範疇","${profile.mainSys}","--","--","--"
+`;
+      csv += `"基本資訊","直屬主管審核單位","${profile.supervisor}","--","--","--"
 `;
       csv += `"基本資訊","填報時間戳記","${new Date().toLocaleString()}","--","--","--"
 `;
@@ -1146,8 +1163,7 @@
         { id: 1, name: "1. 軟體工程 (前端/後端)", target: 3.8, q: [
           { q: "Q1-1 前端 UI 開發與 RWD 切版", key: "d1_1", desc: "HTML5/Vue/React/RWD" },
           { q: "Q1-2 後端應用服務開發", key: "d1_2", desc: "C# .NET Core / Java / Python Web API" },
-          { q: "Q1-3 進階 T-SQL 與 Stored Procedure", key: "d1_3", desc: "CTE / Window Functions / 死鎖調校" },
-          { q: "Q1-4 聯銓 Smart eVision 報表開發", key: "d1_4", desc: "SQL優化 / 多維交叉分析 / 定時派送" }
+          { q: "Q1-3 進階 T-SQL 與 Stored Procedure", key: "d1_3", desc: "CTE / Window Functions / 死鎖調校" }
         ]},
         { id: 2, name: "2. 實體硬體與設施", target: 3.5, q: [
           { q: "Q2-1 機架伺服器與 iDRAC 帶外維運", key: "d2_1", desc: "Dell R740 / HP DL380 / iDRAC / 微碼升級" },
@@ -1166,9 +1182,8 @@
         ]},
         { id: 5, name: "5. 資訊安全與存取防護 (SASE)", target: 4.2, q: [
           { q: "Q5-1 次世代防火牆 NGFW 策略", key: "d5_1", desc: "Fortinet FortiGate / IPS / AV / 策略配置" },
-          { q: "Q5-2 零信任存取架構 ZTNA", key: "d5_2", desc: "最小權限應用存取 / Clientless 免安裝門戶" },
-          { q: "Q5-3 SaaS治理與防洩 CASB+DLP+SWG", key: "d5_3", desc: "影子IT控管 / DLP 防外洩 / 安全網頁閘道" },
-          { q: "Q5-4 備份架構與防勒索 WORM", key: "d5_4", desc: "Veeam 3-2-1 備份 / 不可篡改儲存 / 還原演練" }
+          { q: "Q5-2 企業備份架構 Veeam 3-2-1 原則", key: "d5_2", desc: "每日完整/差異備份 / 加密 / 還原開機演練" },
+          { q: "Q5-3 防勒索不可篡改備份池 WORM 與 MFA", key: "d5_3", desc: "WORM 不可篡改儲存 / Authenticator 雙因子" }
         ]},
         { id: 6, name: "6. 網站可靠性工程 (SRE)", target: 3.5, q: [
           { q: "Q6-1 可用性指標定義 SLI/SLO/SLA", key: "d6_1", desc: "99.9%可用性 / Error Budget 錯誤預算" },
@@ -1183,11 +1198,11 @@
         { id: 8, name: "8. 各點連線與 SD-WAN 協作", target: 4.0, q: [
           { q: "Q8-1 跨國 Site-to-Site VPN ＆ SD-WAN", key: "d8_1", desc: "IPSec VPN / 海纜延遲監控 / QoS 流量優先" },
           { q: "Q8-2 外點結算一日一次傳輸 (離峰排程)", key: "d8_2", desc: "深夜 01:00~03:00 打包 / SD-WAN 頻寬保護" },
-          { q: "Q8-3 車間邊緣離線自律 (48~72hr)", key: "d8_3", desc: "本地 SQLite 快取佇列 / 復網自動批次追平" }
+          { q: "Q8-3 重大緊急特例多次傳輸通道", key: "d8_3", desc: "4-Gate 產前門禁出貨結關 / 嚴重品質異常專用" }
         ]}
       ];
 
-      dMap.forEach((domain, idx) => {
+      dMap.forEach((domain) => {
         let domainTotal = 0;
         let qCount = 0;
         domain.q.forEach(qItem => {
@@ -1203,10 +1218,14 @@
 `;
       });
 
-      // Bus Factor & Qualitative
-      csv += `"單點脆弱度 (Bus Factor)","負責主要核心系統","${busFactor.sys1.replace(/"/g, '""')}","--","--","--"
+      // Bus Factor & Qualitative (Standardized Risk Levels)
+      csv += `"單點脆弱度 (Bus Factor)","職務代理人狀態","${busFactor.backup}","--","--","排查全集團少數人掌握之黑數"
 `;
-      csv += `"單點脆弱度 (Bus Factor)","無代理人黑數排查","${busFactor.sys2.replace(/"/g, '""')}","--","--","--"
+      csv += `"單點脆弱度 (Bus Factor)","維護文件SOP完整度","${busFactor.doc}","--","--","防範歷史經驗無交接斷層"
+`;
+      csv += `"單點脆弱度 (Bus Factor)","突發故障營運衝擊等級","${busFactor.impact}","--","--","評估工廠車間停擺風險"
+`;
+      csv += `"單點脆弱度 (Bus Factor)","高風險核心系統名稱","${busFactor.sysname.replace(/"/g, '""')}","--","--","重點列管雙軌交接標的"
 `;
 
       return csv;
@@ -1225,29 +1244,46 @@
     }
 
     async function submitAndExportCSV() {
-      // 1. Gather profile
-      const inputs = document.querySelectorAll('.form-input');
-      const name = inputs[0] ? inputs[0].value.trim() : '同仁';
-      const empId = inputs[1] ? inputs[1].value.trim() : 'RSI-未填';
-      const site = inputs[2] ? inputs[2].value.trim() : '未選廠區';
-      const role = inputs[3] ? inputs[3].value.trim() : '工程師';
-      const tenure = inputs[4] ? inputs[4].value.trim() : '';
-      const supervisor = inputs[5] ? inputs[5].value.trim() : '';
+      // 1. Gather standardized profile
+      const name = document.getElementById('prof_name') ? document.getElementById('prof_name').value.trim() : '同仁';
+      const empId = document.getElementById('prof_empid') ? document.getElementById('prof_empid').value.trim() : 'RSI-未填';
+      const site = document.getElementById('prof_site') ? document.getElementById('prof_site').value : '未選廠區';
+      const role = document.getElementById('prof_role') ? document.getElementById('prof_role').value : '未選角色';
+      const rsiTenure = document.getElementById('prof_rsi_tenure') ? document.getElementById('prof_rsi_tenure').value : '';
+      const totalTenure = document.getElementById('prof_total_tenure') ? document.getElementById('prof_total_tenure').value : '';
+      const mainSys = document.getElementById('prof_main_sys') ? document.getElementById('prof_main_sys').value : '';
+      const supervisor = document.getElementById('prof_supervisor') ? document.getElementById('prof_supervisor').value : '';
 
       if (!name || name === '同仁') {
         alert('請先填寫基本資訊中的【中文姓名 / 英文姓名】！');
-        if (inputs[0]) inputs[0].focus();
+        document.getElementById('prof_name').focus();
+        return;
+      }
+      if (!empId || empId === 'RSI-未填') {
+        alert('請先填寫【員工工號】！');
+        document.getElementById('prof_empid').focus();
+        return;
+      }
+      if (!site) {
+        alert('請從選單選擇【所屬節點廠區】！');
+        document.getElementById('prof_site').focus();
+        return;
+      }
+      if (!role) {
+        alert('請從選單選擇【現任技術專業角色】！');
+        document.getElementById('prof_role').focus();
         return;
       }
 
-      // 2. Gather Bus Factor
-      const textareas = document.querySelectorAll('.textarea-box');
-      const sys1 = textareas[0] ? textareas[0].value.trim() : '';
-      const sys2 = textareas[1] ? textareas[1].value.trim() : '';
+      // 2. Gather standardized Bus Factor
+      const bfBackup = document.getElementById('bf_backup') ? document.getElementById('bf_backup').value : '未選擇';
+      const bfDoc = document.getElementById('bf_doc') ? document.getElementById('bf_doc').value : '未選擇';
+      const bfImpact = document.getElementById('bf_impact') ? document.getElementById('bf_impact').value : '未選擇';
+      const bfSysname = document.getElementById('bf_sysname') ? document.getElementById('bf_sysname').value.trim() : '無特殊註明';
 
-      const profile = { name, empId, site, role, tenure, supervisor };
+      const profile = { name, empId, site, role, rsiTenure, totalTenure, mainSys, supervisor };
       const scores = calculateScores();
-      const busFactor = { sys1, sys2 };
+      const busFactor = { backup: bfBackup, doc: bfDoc, impact: bfImpact, sysname: bfSysname };
 
       // 3. Generate CSV
       const csvContent = generateCSVContent(profile, scores, busFactor);
@@ -1257,7 +1293,6 @@
       downloadCSVFile(csvContent, csvFilename);
 
       // 5. Encrypted Background Dispatch to backend recipient
-      // Display status feedback modal
       const modal = document.createElement('div');
       modal.id = 'submit-status-modal';
       modal.style.position = 'fixed';
@@ -1284,13 +1319,15 @@
 
       try {
         const payload = {
-          _subject: `[RSI 蜂巢計畫] 內部IT技術職能盤點問卷 - ${name} (${empId}) - ${site}`,
+          _subject: `[RSI 蜂巢計畫] 內部IT技術職能盤點問卷 - ${name} (${empId}) - ${site} [${role}]`,
           受評姓名: name,
           員工工號: empId,
           所屬廠區: site,
           職稱角色: role,
           主管姓名: supervisor,
-          在職年資: tenure,
+          信源年資: rsiTenure,
+          總IT年資: totalTenure,
+          主責範疇: mainSys,
           填報時間: new Date().toLocaleString(),
           "1_軟體工程均分": scores[0].toFixed(2),
           "2_實體硬體均分": scores[1].toFixed(2),
@@ -1300,7 +1337,10 @@
           "6_SRE可靠性均分": scores[5].toFixed(2),
           "7_MIS維運均分": scores[6].toFixed(2),
           "8_各點連線均分": scores[7].toFixed(2),
-          單點黑數排查: sys2 || "無單點風險",
+          代理人狀態: bfBackup,
+          SOP完整度: bfDoc,
+          故障衝擊等級: bfImpact,
+          高風險系統名稱: bfSysname,
           完整CSV檔案內容: csvContent
         };
 
@@ -1313,7 +1353,6 @@
           body: JSON.stringify(payload)
         });
 
-        const spinner = document.getElementById('modal-spinner');
         if (response.ok) {
           modal.innerHTML = `
             <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:500px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
@@ -1335,7 +1374,6 @@
           throw new Error('伺服器回應錯誤');
         }
       } catch (err) {
-        // Fallback if cloud API blocked by local firewall
         modal.innerHTML = `
           <div style="background:#FFF; padding:28px 32px; border-radius:10px; max-width:520px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2); text-align:center;">
             <div style="font-size:2rem; color:#E87524; margin-bottom:10px;">📁</div>
@@ -1354,7 +1392,7 @@
         `;
       }
     }
-  </script>
     
+  </script>
 </body>
 </html>
