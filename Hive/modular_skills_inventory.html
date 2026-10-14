@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 內部工程師 6 大領域分項技術職能盤點評鑑表 ｜ Hive Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --border-strong: #D6D3D1;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 34px 40px;
+      position: relative;
+    }
+
+    .watermark-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+      border-radius: var(--radius-md);
+    }
+
+    .header-bar {
+      border-bottom: 2.5px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Sub-forms Navigation Tabs */
+    .module-nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 9px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-charcoal);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+      background: var(--bg-warm-tint);
+    }
+    .tab-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+
+    .subform-panel {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .subform-panel.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .notice-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-left: 4px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      margin-bottom: 22px;
+      line-height: 1.55;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 6px;
+      margin-top: 24px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .form-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .form-input {
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      font-family: inherit;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 22px;
+    }
+    .matrix-table {
+      width: 100%;
+      min-width: 1080px;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .matrix-table th, .matrix-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 9px 12px;
+      vertical-align: middle;
+    }
+    .matrix-table th {
+      background: #FAF8F5;
+      color: var(--text-charcoal);
+      font-weight: 800;
+      text-align: left;
+    }
+    .col-id {
+      width: 60px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--rust-primary);
+    }
+    .col-skill {
+      width: 230px;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .col-desc {
+      color: var(--text-body);
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+    .col-rating {
+      width: 220px;
+      text-align: center;
+      background: #FCFBF9;
+    }
+    .rating-options {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .rating-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+
+    .textarea-box {
+      width: 100%;
+      min-height: 70px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      resize: vertical;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--rust-primary);
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--orange-vibrant);
+    }
+    .btn-secondary {
+      background: #FFF;
+      border: 1px solid var(--border-strong);
+      color: var(--text-charcoal);
+    }
+
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .module-nav-tabs, .action-bar { display: none; }
+      .subform-panel { display: block !important; page-break-after: always; margin-bottom: 50px; }
+      .table-wrap { overflow: visible; }
+      .matrix-table { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="watermark-overlay"></div>
+
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+        </div>
+        <h1 class="header-title">信源全球 · 內部工程師 6 大領域分項技術職能盤點評鑑表<br><span>Modular Technical Competency Discovery Forms (6 Dedicated Worksheets)</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SKILL-MODULAR-2027</div>
+      </div>
+    </div>
+
+    <!-- Tabs Navigation Bar -->
+    <div class="module-nav-tabs">
+      <button class="tab-btn active" onclick="switchForm('form-software')">
+        <span>💻</span> 分表 1：軟體與系統 (Software)
+      </button>
+      <button class="tab-btn" onclick="switchForm('form-hardware')">
+        <span>🖥️</span> 分表 2：硬體與伺服器 (Hardware)
+      </button>
+      <button class="tab-btn" onclick="switchForm('form-network')">
+        <span>🌐</span> 分表 3：網路與傳輸 (Network)
+      </button>
+      <button class="tab-btn" onclick="switchForm('form-cloud')">
+        <span>☁️</span> 分表 4：雲端與湖倉 (Cloud)
+      </button>
+      <button class="tab-btn" onclick="switchForm('form-collab')">
+        <span>⚡</span> 分表 5：各點連線協作 (Connectivity)
+      </button>
+      <button class="tab-btn" onclick="switchForm('form-security')">
+        <span>🔒</span> 分表 6：資安與災備 (Security)
+      </button>
+      <button onclick="window.print()" class="tab-btn" style="margin-left: auto; background: #FFF;">
+        <span>🖨️</span> 列印全部／當前分表
+      </button>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 分表 1：軟體與應用系統 (Software) -->
+    <!-- ============================================================== -->
+    <div id="form-software" class="subform-panel active">
+      <div class="notice-box">
+        <strong>📋 分表 1：軟體與應用系統技術職能盤點表 (Software &amp; Applications)</strong><br>
+        • <strong>填報對象</strong>：台北總部與各廠 ERP 工程師、MES 車間系統維運者、資料庫管理員 (DBA)、商業智慧 (BI) 報表開發者與軟體後端工程師。<br>
+        • <strong>評鑑標準</strong>：L1(入門概念需指導)、L2(能依SOP獨立操作)、L3(熟底層原理能排錯調優)、L4(能架構設計與帶教)、L5(戰略導師)。
+      </div>
+
+      <div class="section-title">1.1 受評同仁基本資料 (軟體專屬崗位)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：王小明 / David Wang" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-91023" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點 *</label>
+          <select class="form-input">
+            <option>台北營運總部 · 系統課</option>
+            <option>越南隆安示範旗艦廠 · IT部</option>
+            <option>柬埔寨金邊廠 · 資訊課</option>
+            <option>印尼中爪哇廠 · 資訊組</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任軟體崗位職稱 *</label>
+          <input type="text" class="form-input" placeholder="例：ERP 維運工程師 / 資料庫工程師">
+        </div>
+      </div>
+
+      <div class="section-title">1.2 軟體與資料庫 10 大實務技術細目檢核</div>
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-skill">具體實務技術細目</th>
+              <th class="col-desc">實務檢核標準與具體行為指標 (Checklist)</th>
+              <th class="col-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">S-01</td>
+              <td class="col-skill">核心 ERP 業務模組維護</td>
+              <td class="col-desc">熟悉鼎新/天心或自研成衣 ERP，能處理 BOM 表展開、訂單拋轉、採購進銷存異常排查。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s01" value="1">1</label><label class="rating-label"><input type="radio" name="s01" value="2">2</label><label class="rating-label"><input type="radio" name="s01" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s01" value="4">4</label><label class="rating-label"><input type="radio" name="s01" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-02</td>
+              <td class="col-skill">車間 MES 工序進度模組</td>
+              <td class="col-desc">車縫產線工序計件維護、掃碼回傳排錯、外協工單拋轉、裁片產量即時校驗。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s02" value="1">1</label><label class="rating-label"><input type="radio" name="s02" value="2">2</label><label class="rating-label"><input type="radio" name="s02" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s02" value="4">4</label><label class="rating-label"><input type="radio" name="s02" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-03</td>
+              <td class="col-skill">MS SQL 資料庫維護與配置</td>
+              <td class="col-desc">資料庫日常管理、權限安全分配、維護計畫 (Maintenance Plan)、日誌截斷收縮與備份還原。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s03" value="1">1</label><label class="rating-label"><input type="radio" name="s03" value="2">2</label><label class="rating-label"><input type="radio" name="s03" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s03" value="4">4</label><label class="rating-label"><input type="radio" name="s03" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-04</td>
+              <td class="col-skill">進階 T-SQL 查詢與視圖 (CTE)</td>
+              <td class="col-desc">精通多表關聯、通用資料表運算式 (CTE)、窗口函數 (ROW_NUMBER/RANK)、動態 SQL 撰寫。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s04" value="1">1</label><label class="rating-label"><input type="radio" name="s04" value="2">2</label><label class="rating-label"><input type="radio" name="s04" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s04" value="4">4</label><label class="rating-label"><input type="radio" name="s04" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-05</td>
+              <td class="col-skill">預存程序 (SP) 與交易事務控制</td>
+              <td class="col-desc">編寫複雜 Stored Procedure、處理交易事務 (BEGIN TRAN/COMMIT/ROLLBACK)、異常捕獲 TRY...CATCH。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s05" value="1">1</label><label class="rating-label"><input type="radio" name="s05" value="2">2</label><label class="rating-label"><input type="radio" name="s05" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s05" value="4">4</label><label class="rating-label"><input type="radio" name="s05" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-06</td>
+              <td class="col-skill">索引設計與死鎖排查 (Deadlock)</td>
+              <td class="col-desc">解讀執行計畫 (Execution Plan)、設計包含欄位索引 (Covering Index)、消除死鎖阻礙 (Lock/Block)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s06" value="1">1</label><label class="rating-label"><input type="radio" name="s06" value="2" checked>2</label><label class="rating-label"><input type="radio" name="s06" value="3">3</label><label class="rating-label"><input type="radio" name="s06" value="4">4</label><label class="rating-label"><input type="radio" name="s06" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-07</td>
+              <td class="col-skill">聯銓 Smart eVision 報表開發</td>
+              <td class="col-desc">熟悉聯銓 BI 資料集設定、SQL 取數調優、多維交叉分析設計、主管儀表板畫面排版。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s07" value="1">1</label><label class="rating-label"><input type="radio" name="s07" value="2">2</label><label class="rating-label"><input type="radio" name="s07" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s07" value="4">4</label><label class="rating-label"><input type="radio" name="s07" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-08</td>
+              <td class="col-skill">Excel VBA 巨集維護與 PowerQuery</td>
+              <td class="col-desc">能維護生管複雜 Excel 巨集程式碼、修復公式錯誤、使用 Power Query 自動整併多廠數據。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s08" value="1">1</label><label class="rating-label"><input type="radio" name="s08" value="2">2</label><label class="rating-label"><input type="radio" name="s08" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s08" value="4">4</label><label class="rating-label"><input type="radio" name="s08" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-09</td>
+              <td class="col-skill">應用軟體後端開發 (C# .NET / Java)</td>
+              <td class="col-desc">能閱讀與維護 C# .NET / ASP.NET 後端代碼，能為 ERP/MES 撰寫自訂業務功能外掛或 API。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s09" value="1">1</label><label class="rating-label"><input type="radio" name="s09" value="2" checked>2</label><label class="rating-label"><input type="radio" name="s09" value="3">3</label><label class="rating-label"><input type="radio" name="s09" value="4">4</label><label class="rating-label"><input type="radio" name="s09" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">S-10</td>
+              <td class="col-skill">成衣製程業務通曉 (4-Gate 流程)</td>
+              <td class="col-desc">深入通曉打樣 ➔ 裁剪 ➔ 車縫 ➔ 整理包裝流程，理解 4-Gate 門禁防呆、標準工時 (SAM) 口徑。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="s10" value="1">1</label><label class="rating-label"><input type="radio" name="s10" value="2">2</label><label class="rating-label"><input type="radio" name="s10" value="3" checked>3</label><label class="rating-label"><input type="radio" name="s10" value="4">4</label><label class="rating-label"><input type="radio" name="s10" value="5">5</label></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">1.3 軟體系統負責清冊與「單點脆弱度 (Bus Factor)」排查</div>
+      <div class="form-group">
+        <label class="form-label">請列出您目前主要負責維護的軟體系統、排程或自編程式（請載明若您休假 2 週，是否有人能代理？有無文檔？）：</label>
+        <textarea class="textarea-box" placeholder="例：1. 隆安車間計件 SQL 排程：只有我懂邏輯，無文件，若出錯全廠計件停頓（高風險）&#10;2. 採購發票拋轉程式：C# 開發，林工程師可代理，有簡易手冊..."></textarea>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 分表 2：硬體與伺服器 (Hardware) -->
+    <!-- ============================================================== -->
+    <div id="form-hardware" class="subform-panel">
+      <div class="notice-box">
+        <strong>🖥️ 分表 2：硬體與伺服器基礎設施技術職能盤點表 (Hardware &amp; Equipment)</strong><br>
+        • <strong>填報對象</strong>：機房管理員、實體伺服器工程師、VMware 虛擬化人員、車間機修與工控 (IPC) 工程師。<br>
+        • <strong>評鑑標準</strong>：L1(入門概念需指導)、L2(能依SOP獨立操作)、L3(熟底層原理能排錯調優)、L4(能架構設計與帶教)、L5(戰略導師)。
+      </div>
+
+      <div class="section-title">2.1 受評同仁基本資料 (硬體與機房崗位)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：李國強 / Jacky Li" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-88042" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點 *</label>
+          <select class="form-input">
+            <option>台北營運總部 · 機房組</option>
+            <option>越南隆安示範旗艦廠 · 廠務IT</option>
+            <option>柬埔寨金邊廠 · 資訊部</option>
+            <option>印尼中爪哇廠 · 資訊部</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任硬體維運職稱 *</label>
+          <input type="text" class="form-input" placeholder="例：資深系統硬體工程師 / 機房管理員">
+        </div>
+      </div>
+
+      <div class="section-title">2.2 硬體與機房設施 8 大實務技術細目檢核</div>
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-skill">具體實務技術細目</th>
+              <th class="col-desc">實務檢核標準與具體行為指標 (Checklist)</th>
+              <th class="col-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">H-01</td>
+              <td class="col-skill">機架伺服器維護 (Dell / HP)</td>
+              <td class="col-desc">Dell PowerEdge R740 / HP DL380 安裝上架、硬體健康監控、iDRAC / iLO 遠端帶外管理與韌體更新。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h01" value="1">1</label><label class="rating-label"><input type="radio" name="h01" value="2">2</label><label class="rating-label"><input type="radio" name="h01" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h01" value="4">4</label><label class="rating-label"><input type="radio" name="h01" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-02</td>
+              <td class="col-skill">磁碟陣列配置 (RAID 1/5/6/10)</td>
+              <td class="col-desc">實體陣列卡 (PERC / SmartArray) 設定、熱備援磁碟 (Hot Spare) 配置、硬碟故障抽換與陣列重建 (Rebuild)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h02" value="1">1</label><label class="rating-label"><input type="radio" name="h02" value="2">2</label><label class="rating-label"><input type="radio" name="h02" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h02" value="4">4</label><label class="rating-label"><input type="radio" name="h02" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-03</td>
+              <td class="col-skill">集中儲存系統 (NAS / SAN / iSCSI)</td>
+              <td class="col-desc">Synology 12-Bay Rack 儲存池維護、iSCSI LUN 掛載、NFS/SMB 權限配置、儲存空間擴展與快照管理。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h03" value="1">1</label><label class="rating-label"><input type="radio" name="h03" value="2">2</label><label class="rating-label"><input type="radio" name="h03" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h03" value="4">4</label><label class="rating-label"><input type="radio" name="h03" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-04</td>
+              <td class="col-skill">VMware ESXi 虛擬化主機管理</td>
+              <td class="col-desc">ESXi 7.0/8.0 安裝、建立與調整 VM 規格 (vCPU/RAM)、vSwitch 虛擬交換器配置、執行 vMotion 熱遷移。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h04" value="1">1</label><label class="rating-label"><input type="radio" name="h04" value="2">2</label><label class="rating-label"><input type="radio" name="h04" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h04" value="4">4</label><label class="rating-label"><input type="radio" name="h04" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-05</td>
+              <td class="col-skill">車間工控機 (IPC) 與觸控一體機</td>
+              <td class="col-desc">研華 ARK 系列工控主機、產線觸控一體機維護、粉塵清理散熱維護、COM 埠訊號線除錯與冷備品更換。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h05" value="1">1</label><label class="rating-label"><input type="radio" name="h05" value="2">2</label><label class="rating-label"><input type="radio" name="h05" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h05" value="4">4</label><label class="rating-label"><input type="radio" name="h05" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-06</td>
+              <td class="col-skill">吊掛產線與 RFID 讀寫器硬體</td>
+              <td class="col-desc">Impinj R420 等 RFID 讀寫器天線架設、角度除錯、PoE 供電檢測、讀寫器重啟與韌體升級。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h06" value="1">1</label><label class="rating-label"><input type="radio" name="h06" value="2">2</label><label class="rating-label"><input type="radio" name="h06" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h06" value="4">4</label><label class="rating-label"><input type="radio" name="h06" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-07</td>
+              <td class="col-skill">成衣特種機台工控硬體 (裁床/模板)</td>
+              <td class="col-desc">自動拉布機、自動裁床、模板機的控制板連線排除、USB/網路傳輸介面檢測與主機板硬體更換。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h07" value="1">1</label><label class="rating-label"><input type="radio" name="h07" value="2">2</label><label class="rating-label"><input type="radio" name="h07" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h07" value="4">4</label><label class="rating-label"><input type="radio" name="h07" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">H-08</td>
+              <td class="col-skill">機房電力、不斷電 UPS 與溫控設施</td>
+              <td class="col-desc">APC 機房在線式 UPS 定期放電測試、電池健康度檢視、發電機自動切換開關 (ATS)、機房環控告警。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="h08" value="1">1</label><label class="rating-label"><input type="radio" name="h08" value="2">2</label><label class="rating-label"><input type="radio" name="h08" value="3" checked>3</label><label class="rating-label"><input type="radio" name="h08" value="4">4</label><label class="rating-label"><input type="radio" name="h08" value="5">5</label></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">2.3 硬體設備過保與單點故障風險排查</div>
+      <div class="form-group">
+        <label class="form-label">請列出您廠區目前已過保（或即將過保）、且「無備品、一旦損毀全廠產線立即停擺」的關鍵硬體設備：</label>
+        <textarea class="textarea-box" placeholder="例：1. 隆安現場核心 MES 伺服器已過保 1 年，目前無同型冷備機，若主機板燒毀恐需 2 週調料（極度危險）&#10;2. 裁剪車間自動裁床工控機老舊，風扇有雜音，目前無備用機..."></textarea>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 分表 3：網路與傳輸 (Network) -->
+    <!-- ============================================================== -->
+    <div id="form-network" class="subform-panel">
+      <div class="notice-box">
+        <strong>🌐 分表 3：廠區網路與傳輸環境技術職能盤點表 (Network Infrastructure)</strong><br>
+        • <strong>填報對象</strong>：網路工程師、網路架構師、廠區資訊佈線人員及防火牆管理員。<br>
+        • <strong>評鑑標準</strong>：L1(入門概念需指導)、L2(能依SOP獨立操作)、L3(熟底層原理能排錯調優)、L4(能架構設計與帶教)、L5(戰略導師)。
+      </div>
+
+      <div class="section-title">3.1 受評同仁基本資料 (網路技術崗位)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：黃建華 / Ken Huang" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-95018" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點 *</label>
+          <select class="form-input">
+            <option>台北營運總部 · 網路課</option>
+            <option>越南隆安示範旗艦廠 · IT部</option>
+            <option>柬埔寨金邊廠 · 資訊部</option>
+            <option>印尼中爪哇廠 · 資訊部</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任網路職稱 *</label>
+          <input type="text" class="form-input" placeholder="例：資深網路維運工程師">
+        </div>
+      </div>
+
+      <div class="section-title">3.2 廠區網路 8 大實務技術細目檢核</div>
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-skill">具體實務技術細目</th>
+              <th class="col-desc">實務檢核標準與具體行為指標 (Checklist)</th>
+              <th class="col-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">N-01</td>
+              <td class="col-skill">核心交換器 (Core Switch) 設定</td>
+              <td class="col-desc">Cisco Catalyst / Aruba 核心交換機維護、堆疊 (Stacking) 配置、鏈路聚合 (LACP/Port-Channel)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n01" value="1">1</label><label class="rating-label"><input type="radio" name="n01" value="2">2</label><label class="rating-label"><input type="radio" name="n01" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n01" value="4">4</label><label class="rating-label"><input type="radio" name="n01" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-02</td>
+              <td class="col-skill">VLAN 網段劃分與存取控制 (ACL)</td>
+              <td class="col-desc">規劃 VLAN 切割隔離（車間OT/伺服器/辦公室/訪客Wi-Fi）、配置 802.1Q Trunk 埠、設置跨 VLAN 存取控制清單 (ACL)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n02" value="1">1</label><label class="rating-label"><input type="radio" name="n02" value="2">2</label><label class="rating-label"><input type="radio" name="n02" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n02" value="4">4</label><label class="rating-label"><input type="radio" name="n02" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-03</td>
+              <td class="col-skill">路由協議與網關備援 (VRRP/HSRP)</td>
+              <td class="col-desc">靜態路由、OSPF 動態路由配置、預設閘道冗餘協議 (VRRP)、雙核心架構故障自動切換。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n03" value="1">1</label><label class="rating-label"><input type="radio" name="n03" value="2">2</label><label class="rating-label"><input type="radio" name="n03" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n03" value="4">4</label><label class="rating-label"><input type="radio" name="n03" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-04</td>
+              <td class="col-skill">車間企業級 Wi-Fi 覆蓋與漫遊</td>
+              <td class="col-desc">Aruba / Unifi AP 控制器管理、SSID 頻段配置 (2.4G/5G)、快速漫遊 (802.11r/k)、車間訊號死角量測與信道調整。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n04" value="1">1</label><label class="rating-label"><input type="radio" name="n04" value="2">2</label><label class="rating-label"><input type="radio" name="n04" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n04" value="4">4</label><label class="rating-label"><input type="radio" name="n04" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-05</td>
+              <td class="col-skill">外網線路與 4G 備援 (Dual-WAN)</td>
+              <td class="col-desc">雙電信業者 (Viettel/VNPT等) 頻寬整合、斷線自動切換 (Failover)、4G/5G 路由器備援通訊測試。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n05" value="1">1</label><label class="rating-label"><input type="radio" name="n05" value="2">2</label><label class="rating-label"><input type="radio" name="n05" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n05" value="4">4</label><label class="rating-label"><input type="radio" name="n05" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-06</td>
+              <td class="col-skill">網路封包分析與除錯 (Wireshark)</td>
+              <td class="col-desc">使用 Wireshark / Port Mirroring 抓取封包、分析 TCP 重新傳輸 (Retransmission)、判讀三向交握逾時、廣播風暴定位。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n06" value="1">1</label><label class="rating-label"><input type="radio" name="n06" value="2" checked>2</label><label class="rating-label"><input type="radio" name="n06" value="3">3</label><label class="rating-label"><input type="radio" name="n06" value="4">4</label><label class="rating-label"><input type="radio" name="n06" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-07</td>
+              <td class="col-skill">機房結構化佈線與光纖熔接檢測</td>
+              <td class="col-desc">Cat6 網路線壓接、跳線面板 (Patch Panel) 整理、單模/多模光纖跳線維護、光纖功率計測試。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n07" value="1">1</label><label class="rating-label"><input type="radio" name="n07" value="2">2</label><label class="rating-label"><input type="radio" name="n07" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n07" value="4">4</label><label class="rating-label"><input type="radio" name="n07" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">N-08</td>
+              <td class="col-skill">網路網管監控系統 (SNMP/PRTG)</td>
+              <td class="col-desc">設定 SNMP 監控交換器 CPU/RAM 負載、介面流量 (In/Out Bandwidth)、設定 Telegram/Teams 斷線自動警報。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="n08" value="1">1</label><label class="rating-label"><input type="radio" name="n08" value="2">2</label><label class="rating-label"><input type="radio" name="n08" value="3" checked>3</label><label class="rating-label"><input type="radio" name="n08" value="4">4</label><label class="rating-label"><input type="radio" name="n08" value="5">5</label></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">3.3 廠區網路瓶頸與死角排查</div>
+      <div class="form-group">
+        <label class="form-label">請列出廠區目前經常發生斷線、網路延遲高、或車間特定區域 Wi-Fi 訊號微弱之痛點：</label>
+        <textarea class="textarea-box" placeholder="例：1. 金邊廠每逢下大雨對外光纖即不穩，目前無自動 4G 備援切換機制&#10;2. 越南隆安三樓包裝車間 Wi-Fi 訊號微弱，掃碼槍經常離線重連..."></textarea>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 分表 4：雲端與湖倉 (Cloud) -->
+    <!-- ============================================================== -->
+    <div id="form-cloud" class="subform-panel">
+      <div class="notice-box">
+        <strong>☁️ 分表 4：公有雲與現代數據湖倉技術職能盤點表 (Cloud &amp; Lakehouse)</strong><br>
+        • <strong>填報對象</strong>：雲端架構師、資料工程師 (Data Engineer)、數據庫分析師及 DevOps 同仁。<br>
+        • <strong>評鑑標準</strong>：L1(入門概念需指導)、L2(能依SOP獨立操作)、L3(熟底層原理能排錯調優)、L4(能架構設計與帶教)、L5(戰略導師)。
+      </div>
+
+      <div class="section-title">4.1 受評同仁基本資料 (雲端與數據崗位)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：張雅婷 / Tina Chang" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-93025" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點 *</label>
+          <select class="form-input">
+            <option>台北營運總部 · 數據與中台組</option>
+            <option>台北營運總部 · 雲端架構組</option>
+            <option>越南隆安示範旗艦廠 · IT部</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任雲端/數據職稱 *</label>
+          <input type="text" class="form-input" placeholder="例：雲端資料工程師 / 數據架構師">
+        </div>
+      </div>
+
+      <div class="section-title">4.2 雲端與數據湖倉 8 大實務技術細目檢核</div>
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-skill">具體實務技術細目</th>
+              <th class="col-desc">實務檢核標準與具體行為指標 (Checklist)</th>
+              <th class="col-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">C-01</td>
+              <td class="col-skill">公有雲架構與安全治理 (GCP / AWS)</td>
+              <td class="col-desc">掌握 GCP / AWS 組織架構、IAM 最小權限分配、服務帳戶 (Service Account) 金鑰管理、VPC 網段隔離。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c01" value="1">1</label><label class="rating-label"><input type="radio" name="c01" value="2">2</label><label class="rating-label"><input type="radio" name="c01" value="3" checked>3</label><label class="rating-label"><input type="radio" name="c01" value="4">4</label><label class="rating-label"><input type="radio" name="c01" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-02</td>
+              <td class="col-skill">物件儲存與生命週期政策 (GCS / S3)</td>
+              <td class="col-desc">配置 Bucket 權限 (Uniform Bucket-level Access)、版本控制、生命週期分層政策 (Standard ➔ Nearline ➔ Coldline)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c02" value="1">1</label><label class="rating-label"><input type="radio" name="c02" value="2">2</label><label class="rating-label"><input type="radio" name="c02" value="3" checked>3</label><label class="rating-label"><input type="radio" name="c02" value="4">4</label><label class="rating-label"><input type="radio" name="c02" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-03</td>
+              <td class="col-skill">雲端數據倉儲 (Google BigQuery)</td>
+              <td class="col-desc">設計分區 (Partitioning) 與叢集表 (Clustering)、撰寫 MERGE 語法、配置 BI Engine 快取加速、查詢成本最佳化。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c03" value="1">1</label><label class="rating-label"><input type="radio" name="c03" value="2" checked>2</label><label class="rating-label"><input type="radio" name="c03" value="3">3</label><label class="rating-label"><input type="radio" name="c03" value="4">4</label><label class="rating-label"><input type="radio" name="c03" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-04</td>
+              <td class="col-skill">現代 Lakehouse 表格 (Apache Iceberg)</td>
+              <td class="col-desc">理解 ACID 交易機制、Schema 演進、隱式分區、Time Travel 歷史快照查詢、檔案自動壓實 (Compaction)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c04" value="1" checked>1</label><label class="rating-label"><input type="radio" name="c04" value="2">2</label><label class="rating-label"><input type="radio" name="c04" value="3">3</label><label class="rating-label"><input type="radio" name="c04" value="4">4</label><label class="rating-label"><input type="radio" name="c04" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-05</td>
+              <td class="col-skill">流程編排排程 (Apache Airflow DAG)</td>
+              <td class="col-desc">使用 Python 撰寫 Airflow DAG、使用 BashOperator / PythonOperator、配置 Task 依賴關係、排定 Cron 排程。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c05" value="1" checked>1</label><label class="rating-label"><input type="radio" name="c05" value="2">2</label><label class="rating-label"><input type="radio" name="c05" value="3">3</label><label class="rating-label"><input type="radio" name="c05" value="4">4</label><label class="rating-label"><input type="radio" name="c05" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-06</td>
+              <td class="col-skill">CDC 異動串流 (Datastream / AWS DMS)</td>
+              <td class="col-desc">配置 MS SQL Server CDC 串流任務、處理資料庫斷線重送檢查點 (Checkpoint / Offset)、監控串流延遲。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c06" value="1" checked>1</label><label class="rating-label"><input type="radio" name="c06" value="2">2</label><label class="rating-label"><input type="radio" name="c06" value="3">3</label><label class="rating-label"><input type="radio" name="c06" value="4">4</label><label class="rating-label"><input type="radio" name="c06" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-07</td>
+              <td class="col-skill">雲端成本管控與優化 (FinOps)</td>
+              <td class="col-desc">分析月度帳單報表、找出閒置未釋放之 VM / 磁碟、配置預算警報 (Budgets &amp; Alerts)、承諾使用折扣 (CUD)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c07" value="1">1</label><label class="rating-label"><input type="radio" name="c07" value="2">2</label><label class="rating-label"><input type="radio" name="c07" value="3" checked>3</label><label class="rating-label"><input type="radio" name="c07" value="4">4</label><label class="rating-label"><input type="radio" name="c07" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">C-08</td>
+              <td class="col-skill">企業級 API 閘道管理 (API Gateway)</td>
+              <td class="col-desc">配置 API Gateway 路由規則、匯入 OpenAPI 規格、配置 Rate Limiting 頻率保護與海外廠 IP 白名單。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="c08" value="1" checked>1</label><label class="rating-label"><input type="radio" name="c08" value="2">2</label><label class="rating-label"><input type="radio" name="c08" value="3">3</label><label class="rating-label"><input type="radio" name="c08" value="4">4</label><label class="rating-label"><input type="radio" name="c08" value="5">5</label></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">4.3 雲端帳號資產與閒置浪費排查</div>
+      <div class="form-group">
+        <label class="form-label">請列出您所管轄之公有雲資源（是否有過去專案遺留、未刪除且持續扣款之閒置 VM 或磁碟？）：</label>
+        <textarea class="textarea-box" placeholder="例：AWS 新加坡帳號下有 1 台測試用的 t3.xlarge，專案結束後已閒置 3 個月，建議立即刪除，每月可省約 $150 美元..."></textarea>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 分表 5：各點連線協作 (Connectivity) -->
+    <!-- ============================================================== -->
+    <div id="form-collab" class="subform-panel">
+      <div class="notice-box">
+        <strong>⚡ 分表 5：跨國各點連線、SD-WAN 與遠端協作技術職能盤點表 (Inter-Site Connectivity)</strong><br>
+        • <strong>填報對象</strong>：跨國連線工程師、SD-WAN 管理員、遠端維護人員與跨廠 IT 協同窗口。<br>
+        • <strong>重要實施原則</strong>：【外點結算原則上一天傳輸一次（排定深夜離峰 · 保護 SD-WAN 頻寬），重大特例才多次傳輸】。
+      </div>
+
+      <div class="section-title">5.1 受評同仁基本資料 (連線協作崗位)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：周志成 / Jason Chou" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-94012" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點 *</label>
+          <select class="form-input">
+            <option>台北營運總部 · 跨國通訊課</option>
+            <option>越南隆安示範旗艦廠 · IT部</option>
+            <option>柬埔寨金邊廠 · 資訊部</option>
+            <option>印尼中爪哇廠 · 資訊部</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任連線協作職稱 *</label>
+          <input type="text" class="form-input" placeholder="例：跨國網路協同工程師">
+        </div>
+      </div>
+
+      <div class="section-title">5.2 跨國連線與 SD-WAN 治理 8 大實務技術細目檢核</div>
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-skill">具體實務技術細目</th>
+              <th class="col-desc">實務檢核標準與具體行為指標 (Checklist)</th>
+              <th class="col-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">L-01</td>
+              <td class="col-skill">跨國 Site-to-Site IPSec VPN 建立</td>
+              <td class="col-desc">配置台北總部至海外三廠之 IPSec VPN 穿隧、IKEv2 密鑰交換、監控穿隧狀態與快速除錯。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l01" value="1">1</label><label class="rating-label"><input type="radio" name="l01" value="2">2</label><label class="rating-label"><input type="radio" name="l01" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l01" value="4">4</label><label class="rating-label"><input type="radio" name="l01" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-02</td>
+              <td class="col-skill">跨國 SD-WAN 流量工程與 QoS</td>
+              <td class="col-desc">熟練配置 SD-WAN 智慧選路規則、配置 QoS 優先權保障車間語音、ERP 核心封包不延遲。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l02" value="1">1</label><label class="rating-label"><input type="radio" name="l02" value="2">2</label><label class="rating-label"><input type="radio" name="l02" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l02" value="4">4</label><label class="rating-label"><input type="radio" name="l02" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-03</td>
+              <td class="col-skill">外點結算一日一次傳輸排程 (離峰)</td>
+              <td class="col-desc">落實專案核心規範：排定外點結算數據於深夜離峰 (01:00~03:00) 打包傳輸，避免白天衝擊 SD-WAN 頻寬。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l03" value="1">1</label><label class="rating-label"><input type="radio" name="l03" value="2">2</label><label class="rating-label"><input type="radio" name="l03" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l03" value="4">4</label><label class="rating-label"><input type="radio" name="l03" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-04</td>
+              <td class="col-skill">重大緊急特例多次傳輸通道</td>
+              <td class="col-desc">能配置針對 4-Gate 產前門禁出貨結關、嚴重品質異常之高優先級即時多次傳輸通道。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l04" value="1">1</label><label class="rating-label"><input type="radio" name="l04" value="2">2</label><label class="rating-label"><input type="radio" name="l04" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l04" value="4">4</label><label class="rating-label"><input type="radio" name="l04" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-05</td>
+              <td class="col-skill">遠端維護通道管理 (SSL-VPN / RDP)</td>
+              <td class="col-desc">管理總部工程師遠端撥入海外廠之 Fortinet SSL-VPN、配置跳板機 (Jump Host)、管控遠端桌面 RDP 權限。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l05" value="1">1</label><label class="rating-label"><input type="radio" name="l05" value="2">2</label><label class="rating-label"><input type="radio" name="l05" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l05" value="4">4</label><label class="rating-label"><input type="radio" name="l05" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-06</td>
+              <td class="col-skill">跨國檔案同步與傳輸機制</td>
+              <td class="col-desc">配置 Robocopy / RSync 定時檔案差異同步、管理跨國 FTP 伺服器、監控大檔案傳輸佔用頻寬。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l06" value="1">1</label><label class="rating-label"><input type="radio" name="l06" value="2">2</label><label class="rating-label"><input type="radio" name="l06" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l06" value="4">4</label><label class="rating-label"><input type="radio" name="l06" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-07</td>
+              <td class="col-skill">M365 全球租戶與 Teams 協同管理</td>
+              <td class="col-desc">管理 M365 全球租戶、Teams 會議跨國網路延遲優化、Exchange 郵件路由與反垃圾郵件原則。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l07" value="1">1</label><label class="rating-label"><input type="radio" name="l07" value="2">2</label><label class="rating-label"><input type="radio" name="l07" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l07" value="4">4</label><label class="rating-label"><input type="radio" name="l07" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">L-08</td>
+              <td class="col-skill">國際海纜斷網時之車間離線自律</td>
+              <td class="col-desc">掌握各廠地端 Edge Proxy 暫存佇列配置，確保海纜切斷時車間生產不停擺 48~72 小時、復網自動補傳。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="l08" value="1">1</label><label class="rating-label"><input type="radio" name="l08" value="2">2</label><label class="rating-label"><input type="radio" name="l08" value="3" checked>3</label><label class="rating-label"><input type="radio" name="l08" value="4">4</label><label class="rating-label"><input type="radio" name="l08" value="5">5</label></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">5.3 跨國連線頻寬痛點與海纜中斷歷史排查</div>
+      <div class="form-group">
+        <label class="form-label">請說明過去半年內，您負責的路線是否曾發生 SD-WAN 頻寬被大檔案塞爆、或國際海纜中斷導致車間停頓之具體事件？</label>
+        <textarea class="textarea-box" placeholder="例：今年 4 月國際海纜 AAG 故障，金邊廠往台北總部延遲飆升至 280ms，且白天有人傳輸備份檔導致 ERP 掉包嚴重..."></textarea>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 分表 6：資安與災備 (Security) -->
+    <!-- ============================================================== -->
+    <div id="form-security" class="subform-panel">
+      <div class="notice-box">
+        <strong>🔒 分表 6：資訊安全、備份與災變復原技術職能盤點表 (Cybersecurity &amp; BCP/DR)</strong><br>
+        • <strong>填報對象</strong>：資安工程師、資安稽核員、備份管理員、系統工程師及 IT 主管。<br>
+        • <strong>評鑑標準</strong>：L1(入門概念需指導)、L2(能依SOP獨立操作)、L3(熟底層原理能排錯調優)、L4(能架構設計與帶教)、L5(戰略導師)。
+      </div>
+
+      <div class="section-title">6.1 受評同仁基本資料 (資安與災備崗位)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：林志遠 / Eric Lin" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-96031" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點 *</label>
+          <select class="form-input">
+            <option>台北營運總部 · 資安與稽核組</option>
+            <option>越南隆安示範旗艦廠 · IT部</option>
+            <option>柬埔寨金邊廠 · 資訊部</option>
+            <option>印尼中爪哇廠 · 資訊部</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任資安/災備職稱 *</label>
+          <input type="text" class="form-input" placeholder="例：資安工程師 / 系統備份管理員">
+        </div>
+      </div>
+
+      <div class="section-title">6.2 資訊安全與災備 8 大實務技術細目檢核</div>
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-skill">具體實務技術細目</th>
+              <th class="col-desc">實務檢核標準與具體行為指標 (Checklist)</th>
+              <th class="col-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">SEC-01</td>
+              <td class="col-skill">次世代防火牆 (NGFW) 策略管理</td>
+              <td class="col-desc">Fortinet FortiGate 策略編寫、應用程式控制 (App Control)、IPS 入侵防禦、SSL 深度檢測 (DPI)。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec01" value="1">1</label><label class="rating-label"><input type="radio" name="sec01" value="2">2</label><label class="rating-label"><input type="radio" name="sec01" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec01" value="4">4</label><label class="rating-label"><input type="radio" name="sec01" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-02</td>
+              <td class="col-skill">端點安全與防毒 EDR 主控台維運</td>
+              <td class="col-desc">趨勢 Apex One / 企業防毒主控台管理、全廠端點代理安裝覆蓋率監控、隨身碟 (USB) 讀寫安全管控原則。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec02" value="1">1</label><label class="rating-label"><input type="radio" name="sec02" value="2">2</label><label class="rating-label"><input type="radio" name="sec02" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec02" value="4">4</label><label class="rating-label"><input type="radio" name="sec02" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-03</td>
+              <td class="col-skill">企業備份架構 (Veeam 3-2-1 原則)</td>
+              <td class="col-desc">熟悉 3-2-1 備份架構、設定每日完整與差異備份排程、設定加密金鑰、能獨立執行 VM / 資料庫層級之還原作業。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec03" value="1">1</label><label class="rating-label"><input type="radio" name="sec03" value="2">2</label><label class="rating-label"><input type="radio" name="sec03" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec03" value="4">4</label><label class="rating-label"><input type="radio" name="sec03" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-04</td>
+              <td class="col-skill">防勒索不可篡改儲存 (WORM)</td>
+              <td class="col-desc">配置不可篡改備份儲存池 (Immutable Repository / S3 Object Lock / WORM)，防止勒索病毒橫向加密備份檔案。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec04" value="1" checked>1</label><label class="rating-label"><input type="radio" name="sec04" value="2">2</label><label class="rating-label"><input type="radio" name="sec04" value="3">3</label><label class="rating-label"><input type="radio" name="sec04" value="4">4</label><label class="rating-label"><input type="radio" name="sec04" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-05</td>
+              <td class="col-skill">身分安全與多因子認證 (MFA / 2FA)</td>
+              <td class="col-desc">推行 Authenticator App 雙因子認證、強制 VPN 與雲端後台登入啟用 MFA、配置密碼複雜度原則。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec05" value="1">1</label><label class="rating-label"><input type="radio" name="sec05" value="2">2</label><label class="rating-label"><input type="radio" name="sec05" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec05" value="4">4</label><label class="rating-label"><input type="radio" name="sec05" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-06</td>
+              <td class="col-skill">帳號生命週期審查與權限最小化</td>
+              <td class="col-desc">落實員工離職當日即時停權、每季執行全廠特權帳號盤點、消除共享共用帳號、限制本機 Administrator 權限。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec06" value="1">1</label><label class="rating-label"><input type="radio" name="sec06" value="2">2</label><label class="rating-label"><input type="radio" name="sec06" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec06" value="4">4</label><label class="rating-label"><input type="radio" name="sec06" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-07</td>
+              <td class="col-skill">災難復原指標理解與實測 (RTO/RPO)</td>
+              <td class="col-desc">清楚量化所管轄核心資料庫之 RPO (資料遺失容忍上限) 與 RTO (系統恢復重啟時間)、編寫災難演練手冊。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec07" value="1">1</label><label class="rating-label"><input type="radio" name="sec07" value="2">2</label><label class="rating-label"><input type="radio" name="sec07" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec07" value="4">4</label><label class="rating-label"><input type="radio" name="sec07" value="5">5</label></div></td>
+            </tr>
+            <tr>
+              <td class="col-id">SEC-08</td>
+              <td class="col-skill">資安事件應變流程與日誌留存</td>
+              <td class="col-desc">熟悉勒索病毒通報隔離 SOP (第一時間拔網線/禁用帳號)、集中收集 Syslog 防火牆與 AD 稽核日誌。</td>
+              <td class="col-rating"><div class="rating-options"><label class="rating-label"><input type="radio" name="sec08" value="1">1</label><label class="rating-label"><input type="radio" name="sec08" value="2">2</label><label class="rating-label"><input type="radio" name="sec08" value="3" checked>3</label><label class="rating-label"><input type="radio" name="sec08" value="4">4</label><label class="rating-label"><input type="radio" name="sec08" value="5">5</label></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">6.3 資安防護漏洞與災難備份演練現況排查</div>
+      <div class="form-group">
+        <label class="form-label">過去 1 年內，您廠區是否曾真實執行過「資料庫備份實體還原開機測試」？目前最大的資安隱患為何？</label>
+        <textarea class="textarea-box" placeholder="例：1. 過去 1 年僅確認備份檔案存在，未曾實際將備份檔還原至新主機開機驗證，存在還原失敗隱憂&#10;2. 車間機台有部分 Windows 7 老舊電腦未裝防毒，無法更新修補程式..."></textarea>
+      </div>
+    </div>
+
+    <!-- Common Action Bar -->
+    <div class="action-bar">
+      <div style="font-size: 0.75rem; color: var(--text-muted);">
+        同仁僅需填寫與自身崗位相關之分表（可複選填寫多個分表），點擊「🖨️ 列印此分表」陳核直屬主管。
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button type="button" class="btn btn-secondary" onclick="window.print()">
+          <span>🖨️</span> 列印此分表／存為 PDF
+        </button>
+        <button type="button" class="btn btn-primary" onclick="alert('本分表填寫驗證完成！請點擊【列印此分表／存為 PDF】將成果存檔陳核。')">
+          <span>💾</span> 驗證並完成自評
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchForm(formId) {
+      document.querySelectorAll('.module-nav-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.subform-panel').forEach(p => p.classList.remove('active'));
+
+      event.target.closest('.tab-btn').classList.add('active');
+      document.getElementById(formId).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
