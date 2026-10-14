@@ -1,0 +1,352 @@
+<mxfile host="app.diagrams.net" modified="2026-10-14T06:00:00.000Z" agent="Mozilla/5.0" version="24.7.17" type="device">
+  <diagram id="api-arch-01" name="1. API Platform 全域架構圖">
+    <mxGraphModel dx="1420" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="950" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title Block -->
+        <mxCell id="title-box" value="信源全球 (RSI) · 蜂巢計畫 (Hive Project) 企業級 API Platform 全域架構圖&#xa;專案發起人：周文津 副總經理 ｜ 外部顧問：Howard Liao Ph.D." style="text;html=1;strokeColor=#D5D0C5;fillColor=#FFF8EE;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=14;fontFamily=Helvetica;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="800" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 1: Client & Caller Layer -->
+        <mxCell id="group-l1" value="層級 1：呼叫端與請求發起層 (Clients &amp; API Consumers)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAF8F5;strokeColor=#D6D3D1;fontColor=#222222;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="1220" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c1" value="&lt;b&gt;外部品牌客戶 / 供應鏈&lt;/b&gt;&lt;br&gt;Nike / adidas / Lululemon&lt;br&gt;EDI 訂單 / B2B Webhook" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontColor=#222222;fontSize=11;" vertex="1" parent="group-l1">
+          <mxGeometry x="40" y="35" width="230" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c2" value="&lt;b&gt;台北營運總部核心業務&lt;/b&gt;&lt;br&gt;ERP 系統 / 供應鏈採購&lt;br&gt;聯銓 BI 報表平台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontColor=#222222;fontSize=11;" vertex="1" parent="group-l1">
+          <mxGeometry x="340" y="35" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c3" value="&lt;b&gt;海外三廠車間 MES / OT&lt;/b&gt;&lt;br&gt;越南隆安 / 柬埔寨金邊 / 印尼中爪哇&lt;br&gt;成衣車縫計件 / 吊掛 RFID / 自動裁床" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#222222;fontSize=11;" vertex="1" parent="group-l1">
+          <mxGeometry x="640" y="35" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c4" value="&lt;b&gt;行動端與主管儀表板&lt;/b&gt;&lt;br&gt;Mobile App / 微信小程式&lt;br&gt;主管即時決策看板" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#78716C;strokeWidth=1.5;fontColor=#222222;fontSize=11;" vertex="1" parent="group-l1">
+          <mxGeometry x="980" y="35" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 2: Edge Security & Network Layer -->
+        <mxCell id="group-l2" value="層級 2：邊界防護與網路傳輸層 (Security, WAF &amp; Load Balancing)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFF8EE;strokeColor=#FED7AA;fontColor=#A83212;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="1220" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s1" value="&lt;b&gt;全域負載平衡 (Anycast GSLB)&lt;/b&gt;&lt;br&gt;TLS 1.3 卸載終結 / HTTP/2&lt;br&gt;跨國智慧路徑加速 (Cloud CDN)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l2">
+          <mxGeometry x="60" y="35" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s2" value="&lt;b&gt;Web 應用防火牆 (WAF)&lt;/b&gt;&lt;br&gt;Cloud Armor / AWS WAF&lt;br&gt;OWASP Top 10 防護 / 防 SQL 注入" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l2">
+          <mxGeometry x="370" y="35" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s3" value="&lt;b&gt;流量與頻率防護 (Rate Limiter)&lt;/b&gt;&lt;br&gt;Spike Arrest 突發削峰&lt;br&gt;海外各廠 IP 白名單與配額管制" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l2">
+          <mxGeometry x="680" y="35" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s4" value="&lt;b&gt;安全通道 (Secure Corridors)&lt;/b&gt;&lt;br&gt;Site-to-Site IPSec VPN&lt;br&gt;Dedicated Cloud Interconnect" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#78716C;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l2">
+          <mxGeometry x="970" y="35" width="210" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 3: Central API Gateway Core -->
+        <mxCell id="group-l3" value="層級 3：企業核心 API 閘道中台 (Central API Gateway &amp; Governance Engine)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAF8F5;strokeColor=#A83212;strokeWidth=2;fontColor=#A83212;fontStyle=1;fontSize=13;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="1220" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gw1" value="&lt;b&gt;身份認證與鑑權中心&lt;/b&gt;&lt;br&gt;OAuth2 / JWT Token 簽名驗證&lt;br&gt;API Key 管理 / RBAC 權限" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l3">
+          <mxGeometry x="50" y="45" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gw2" value="&lt;b&gt;動態路由調度引擎&lt;/b&gt;&lt;br&gt;Path 路由 (/api/v1/sewing/...)&lt;br&gt;版本控管 (v1/v2 灰度分流)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l3">
+          <mxGeometry x="340" y="45" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gw3" value="&lt;b&gt;協議轉換與資料清洗&lt;/b&gt;&lt;br&gt;JSON ↔ XML / Header 注入&lt;br&gt;BOM / 工序標準資料檢核" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l3">
+          <mxGeometry x="630" y="45" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gw4" value="&lt;b&gt;高效快取服務層&lt;/b&gt;&lt;br&gt;Redis / Gateway Memory Cache&lt;br&gt;熱門款式基本資料亞秒回應" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#78716C;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l3">
+          <mxGeometry x="920" y="45" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gw-obs" value="&lt;b&gt;【全局可觀測性與審計鏈路】&lt;/b&gt; OpenTelemetry 分布式鏈路追蹤 ＋ Prometheus 效能指標 (Latency/QPS/Errors) ＋ 雲端即時 Audit Logs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8EE;strokeColor=#E87524;dashed=1;fontColor=#A83212;fontSize=11;fontStyle=1;" vertex="1" parent="group-l3">
+          <mxGeometry x="50" y="130" width="1120" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 4: Factory Edge Proxy & Offline Resilience -->
+        <mxCell id="group-l4" value="層級 4：工廠邊緣離線自治代理 (Factory Edge Proxy &amp; Local Offline Resilience)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FFFDFB;strokeColor=#D97706;strokeWidth=1.5;fontColor=#D97706;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="590" width="1220" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge1" value="&lt;b&gt;越南隆安旗艦廠 Edge Proxy&lt;/b&gt;&lt;br&gt;地端 Kong OSS / Envoy&lt;br&gt;SQLite 離線快取佇列" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l4">
+          <mxGeometry x="60" y="40" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge2" value="&lt;b&gt;柬埔寨金邊廠 Edge Proxy&lt;/b&gt;&lt;br&gt;地端邊緣代理閘道&lt;br&gt;海纜中斷時本地持續生產" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l4">
+          <mxGeometry x="360" y="40" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge3" value="&lt;b&gt;印尼中爪哇廠 Edge Proxy&lt;/b&gt;&lt;br&gt;地端邊緣代理閘道&lt;br&gt;雨季斷線暫存 / 4G 備援" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l4">
+          <mxGeometry x="660" y="40" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-rule" value="&lt;b&gt;48 ~ 72 小時離線生產保障&lt;/b&gt;&lt;br&gt;海纜切斷 ➔ 本地快取佇列&lt;br&gt;網路復原 ➔ 自動增量補傳 (ACK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#B45309;fontColor=#92400E;fontSize=10;fontStyle=1;" vertex="1" parent="group-l4">
+          <mxGeometry x="960" y="40" width="210" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 5: Backend Systems & Data Lake Integration -->
+        <mxCell id="group-l5" value="層級 5：後端業務微服務與數據湖倉匯流 (Backend Microservices &amp; Data Integration)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAF8F5;strokeColor=#78716C;fontColor=#44403C;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="740" width="1220" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="b1" value="&lt;b&gt;MS SQL 數據串流整合&lt;/b&gt;&lt;br&gt;Datastream / AWS DMS&lt;br&gt;CDC 即時異動擷取通道" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#A83212;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l5">
+          <mxGeometry x="50" y="40" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="b2" value="&lt;b&gt;成衣營運業務微服務&lt;/b&gt;&lt;br&gt;訂單生管 / 物料需求計算&lt;br&gt;4-Gate 產前門禁校驗服務" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E87524;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l5">
+          <mxGeometry x="320" y="40" width="230" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="b3" value="&lt;b&gt;核心數據湖倉中心 (SSOT)&lt;/b&gt;&lt;br&gt;Google BigQuery / S3 Iceberg&lt;br&gt;跨廠對帳庫 / 聯銓 BI 取數" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l5">
+          <mxGeometry x="600" y="40" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="b4" value="&lt;b&gt;Agentic AI 智慧推理引擎&lt;/b&gt;&lt;br&gt;Vertex AI Gemini / AWS Bedrock&lt;br&gt;Tech Pack 做工多國語 RAG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#78716C;strokeWidth=1.5;fontSize=11;fontColor=#222222;" vertex="1" parent="group-l5">
+          <mxGeometry x="900" y="40" width="270" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Vertical Connectors between layers -->
+        <mxCell id="arr1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E87524;strokeWidth=2;" edge="1" parent="1" source="c2" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arr2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A83212;strokeWidth=2;" edge="1" parent="1" source="s2" target="gw1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arr3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D97706;strokeWidth=2;" edge="1" parent="1" source="gw2" target="edge1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arr4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A83212;strokeWidth=2;" edge="1" parent="1" source="edge1" target="b1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arr5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E87524;strokeWidth=2;" edge="1" parent="1" source="gw3" target="b3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- Diagram Page 2: Sequence Diagram -->
+  <diagram id="api-seq-02" name="2. API 端到端調用時序圖">
+    <mxGraphModel dx="1420" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1050" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title Block -->
+        <mxCell id="seq-title" value="信源全球 (RSI) · 蜂巢計畫 API Platform 端到端時序圖 (含海纜斷網離線自律切換流程)&#xa;專案發起人：周文津 副總經理 ｜ 外部顧問：Howard Liao Ph.D." style="text;html=1;strokeColor=#D5D0C5;fillColor=#FFF8EE;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=13;fontFamily=Helvetica;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="800" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Sequence Lifelines -->
+        <!-- Actor 1: Factory MES -->
+        <mxCell id="ll-mes" value="海外廠車間 MES&#xa;(隆安/金邊/中爪哇)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#A83212;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="60" y="85" width="130" height="880" as="geometry" />
+        </mxCell>
+
+        <!-- Actor 2: Edge Proxy -->
+        <mxCell id="ll-edge" value="工廠邊緣代理&#xa;(Edge Proxy / Queue)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FFF8EE;strokeColor=#E87524;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="250" y="85" width="140" height="880" as="geometry" />
+        </mxCell>
+
+        <!-- Actor 3: Cloud WAF -->
+        <mxCell id="ll-waf" value="安全邊界 WAF&#xa;(Cloud Armor / WAF)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#D97706;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="450" y="85" width="130" height="880" as="geometry" />
+        </mxCell>
+
+        <!-- Actor 4: API Gateway -->
+        <mxCell id="ll-gw" value="企業核心 API 閘道&#xa;(Cloud API Gateway)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#A83212;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="640" y="85" width="140" height="880" as="geometry" />
+        </mxCell>
+
+        <!-- Actor 5: Auth / IAM -->
+        <mxCell id="ll-auth" value="身份與權限中心&#xa;(IAM / JWT Validator)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#78716C;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="840" y="85" width="140" height="880" as="geometry" />
+        </mxCell>
+
+        <!-- Actor 6: Backend / Lakehouse -->
+        <mxCell id="ll-backend" value="後端微服務 / 數據倉&#xa;(BigQuery / MS SQL CDC)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#FAF8F5;strokeColor=#A83212;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="85" width="160" height="880" as="geometry" />
+        </mxCell>
+
+        <!-- Stage Divider 1: Normal Flow -->
+        <mxCell id="div-normal" value="場景一：正常連線傳輸階段 (每小時生產工序數據回傳與 API 調度)" style="text;html=1;strokeColor=#A83212;fillColor=#FFF8EE;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#A83212;" vertex="1" parent="1">
+          <mxGeometry x="50" y="180" width="1160" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1 -->
+        <mxCell id="msg1" value="1. POST /api/v1/sewing/batch-metrics (攜帶 JWT &amp; 工序計件資料)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-mes" target="ll-edge">
+          <mxGeometry x="0.05" y="10" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="125" y="230" as="sourcePoint" />
+            <mxPoint x="315" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 2 -->
+        <mxCell id="msg2" value="2. 透過 TLS 1.3 加密專線/VPN 轉發至雲端" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#E87524;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-edge" target="ll-waf">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="260" as="sourcePoint" />
+            <mxPoint x="510" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 3 -->
+        <mxCell id="msg3" value="3. 驗證 IP 白名單 ＋ Rate Limiter 頻率檢查 (通過)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#D97706;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-waf" target="ll-gw">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="290" as="sourcePoint" />
+            <mxPoint x="705" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 4 & 5 -->
+        <mxCell id="msg4" value="4. 驗證 Token 簽章與過期校驗" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#78716C;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-gw" target="ll-auth">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="320" as="sourcePoint" />
+            <mxPoint x="905" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="msg5" value="5. 鑑權通過 (Role: Factory_Operator, Allow)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#78716C;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-auth" target="ll-gw">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="905" y="350" as="sourcePoint" />
+            <mxPoint x="710" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 6 & 7 -->
+        <mxCell id="msg6" value="6. 寫入 BigQuery 串流暫存表 / 觸發微服務資料檢核" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-gw" target="ll-backend">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="380" as="sourcePoint" />
+            <mxPoint x="1115" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="msg7" value="7. 寫入成功確認 (ACK, TxID=VN-20271014-0821)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-backend" target="ll-gw">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1115" y="410" as="sourcePoint" />
+            <mxPoint x="710" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 8 & 9 -->
+        <mxCell id="msg8" value="8. HTTP 200 OK (寫入完成確認回傳)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#E87524;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-gw" target="ll-edge">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="440" as="sourcePoint" />
+            <mxPoint x="320" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="msg9" value="9. 產線看板與 MES 狀態更新成功" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-edge" target="ll-mes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="470" as="sourcePoint" />
+            <mxPoint x="125" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Stage Divider 2: Offline Resilience -->
+        <mxCell id="div-offline" value="場景二：跨國海纜中斷／網路異常 ➔ 邊緣離線自治與復網自動追平流程 (Offline Resilience)" style="text;html=1;strokeColor=#D97706;fillColor=#FEF3C7;align=left;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=11;fontColor=#92400E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="520" width="1160" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Step 10 -->
+        <mxCell id="msg10" value="10. POST /api/v1/sewing/batch-metrics (車間機台持續生產計件)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-mes" target="ll-edge">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="125" y="570" as="sourcePoint" />
+            <mxPoint x="320" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 11 -->
+        <mxCell id="msg11" value="11. 嘗試發送至雲端 ➔ 網路逾時失敗 (Timeout 3000ms / 海纜切斷)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#DC2626;strokeWidth=2;fontSize=10;fontColor=#DC2626;" edge="1" parent="1" source="ll-edge" target="ll-waf">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="600" as="sourcePoint" />
+            <mxPoint x="515" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 12: Self loop on Edge Proxy -->
+        <mxCell id="msg12" value="12. 自動降級啟動：寫入本地持久化快取佇列 (SQLite / LevelDB Queue)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#D97706;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-edge" target="ll-edge">
+          <mxGeometry x="0.2" y="15" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="325" y="630" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="360" y="630" />
+              <mxPoint x="360" y="660" />
+            </Array>
+            <mxPoint x="325" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 13 -->
+        <mxCell id="msg13" value="13. 回傳 HTTP 202 Accepted (已安全存入本地，產線不停擺、不卡機)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;fontColor=#15803D;" edge="1" parent="1" source="ll-edge" target="ll-mes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="690" as="sourcePoint" />
+            <mxPoint x="125" y="690" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 14: Network Restored -->
+        <mxCell id="msg14" value="【海纜或廠區外網恢復連線 (Network Reconnected)】" style="text;html=1;strokeColor=#15803D;fillColor=#ECFDF5;align=center;verticalAlign=middle;rounded=1;fontStyle=1;fontSize=10;fontColor=#065F46;" vertex="1" parent="1">
+          <mxGeometry x="250" y="730" width="350" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Step 15 -->
+        <mxCell id="msg15" value="15. Edge 守護程序偵測連線恢復 ➔ 依交易時序批次重送 (Batch Re-sync)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-edge" target="ll-gw">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="780" as="sourcePoint" />
+            <mxPoint x="710" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 16 -->
+        <mxCell id="msg16" value="16. 寫入 BigQuery 補追資料庫 ➔ 標註補傳時間戳" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#A83212;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-gw" target="ll-backend">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="810" as="sourcePoint" />
+            <mxPoint x="1115" y="810" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 17 -->
+        <mxCell id="msg17" value="17. 補傳成功確認 (Re-sync ACK Completed, Queue Drained)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#15803D;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-gw" target="ll-edge">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="850" as="sourcePoint" />
+            <mxPoint x="320" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 18 -->
+        <mxCell id="msg18" value="18. 清空本地快取佇列，恢復為正常即時連線轉發模式" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#78716C;strokeWidth=1.5;fontSize=10;" edge="1" parent="1" source="ll-edge" target="ll-edge">
+          <mxGeometry x="0.2" y="15" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="325" y="880" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="360" y="880" />
+              <mxPoint x="360" y="910" />
+            </Array>
+            <mxPoint x="325" y="910" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

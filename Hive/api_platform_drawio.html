@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · API Platform 全域架構圖與時序圖 (Draw.io 互動版)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 32px 36px;
+      position: relative;
+    }
+
+    /* Watermark */
+    .watermark-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+      border-radius: var(--radius-md);
+    }
+
+    .header-bar {
+      border-bottom: 2px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-charcoal);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+      background: var(--bg-warm-tint);
+    }
+    .tab-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+    }
+
+    .diagram-panel {
+      display: none;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      overflow-x: auto;
+    }
+    .diagram-panel.active {
+      display: block;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .panel-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text-charcoal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-callout {
+      background: var(--bg-warm-tint);
+      border-left: 4px solid var(--orange-vibrant);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .action-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .action-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+    }
+
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .nav-tabs, .action-btn { display: none; }
+      .diagram-panel { display: block !important; margin-bottom: 40px; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="watermark-overlay"></div>
+
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT ARCHITECTURE
+        </div>
+        <h1 class="header-title">信源全球 · 蜂巢計畫 API Platform 架構圖與時序圖<br><span>Draw.io 向量設計版 (含邊緣離線自治機制)</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FILE: RSI_API_Platform_Architecture.drawio</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-arch')">
+        <span>🏛️</span> 圖 1：API Platform 全域架構圖 (Architecture Diagram)
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-seq')">
+        <span>⏱️</span> 圖 2：端到端調用時序圖 (Sequence Diagram)
+      </button>
+      <a href="RSI_API_Platform_Architecture.drawio" download="RSI_API_Platform_Architecture.drawio" class="action-btn" style="margin-left: auto;">
+        <span>💾</span> 匯出 Draw.io 原始檔 (.drawio)
+      </a>
+      <button onclick="window.print()" class="action-btn">
+        <span>🖨️</span> 列印圖資
+      </button>
+    </div>
+
+    <!-- Panel 1: Architecture Diagram -->
+    <div id="tab-arch" class="diagram-panel active">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🏛️</span>
+          <span>信源全球 (RSI) API Platform 5 層全域架構拓撲圖</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          Draw.io 格式 · 涵蓋安全邊界、核心中台、邊緣代理與數據湖倉
+        </div>
+      </div>
+
+      <div class="info-callout">
+        <strong>💡 架構設計特點：</strong><br>
+        1. <strong>安全雙防線</strong>：Cloud Armor / WAF 防禦外部攻擊與海外廠 IP 白名單；核心 API 閘道執行嚴格 JWT 簽章與 Rate Limiting 限流。<br>
+        2. <strong>邊緣離線自治 (Edge Resilience)</strong>：海外三廠（越、柬、印尼）配置輕量 Edge Proxy ＋ 本地持久化快取，海纜中斷時車間生產不受阻，復網自動批次追平。<br>
+        3. <strong>湖倉直通</strong>：API 與 Datastream/DMS CDC 管道緊密聯動，每小時增量匯入 BigQuery 核心數據中台。
+      </div>
+
+      <!-- Rendered Architecture SVG -->
+      <div style="width: 100%; text-align: center; overflow-x: auto; padding: 10px 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="100%" height="auto" style="max-width: 1200px; font-family: -apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif;">
+          <!-- Defs for arrows -->
+          <defs>
+            <marker id="arrOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#E87524" />
+            </marker>
+            <marker id="arrRust" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#A83212" />
+            </marker>
+          </defs>
+
+          <!-- Layer 1: Clients -->
+          <rect x="20" y="20" width="1160" height="110" rx="8" fill="#FAF8F5" stroke="#D6D3D1" stroke-width="1.5"/>
+          <text x="40" y="45" font-weight="800" font-size="13" fill="#222222">層級 1：呼叫端與請求發起層 (Clients &amp; API Consumers)</text>
+          
+          <rect x="40" y="55" width="250" height="60" rx="6" fill="#FFFFFF" stroke="#A83212" stroke-width="1.5"/>
+          <text x="165" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">外部品牌客戶 / 供應鏈</text>
+          <text x="165" y="98" text-anchor="middle" font-size="10" fill="#666666">Nike / adidas / Lululemon (EDI/B2B)</text>
+
+          <rect x="320" y="55" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
+          <text x="450" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">台北營運總部核心業務</text>
+          <text x="450" y="98" text-anchor="middle" font-size="10" fill="#666666">ERP 系統 / 供應鏈採購 / 聯銓 BI</text>
+
+          <rect x="610" y="55" width="300" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="760" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">海外三廠車間 MES / 設備</text>
+          <text x="760" y="98" text-anchor="middle" font-size="10" fill="#666666">越南隆安 / 柬埔寨金邊 / 印尼中爪哇</text>
+
+          <rect x="940" y="55" width="220" height="60" rx="6" fill="#FFFFFF" stroke="#78716C" stroke-width="1.5"/>
+          <text x="1050" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">行動端與主管看板</text>
+          <text x="1050" y="98" text-anchor="middle" font-size="10" fill="#666666">Mobile App / 主管戰情報表</text>
+
+          <!-- Layer 2: Edge Security -->
+          <rect x="20" y="160" width="1160" height="110" rx="8" fill="#FFF8EE" stroke="#FED7AA" stroke-width="1.5"/>
+          <text x="40" y="185" font-weight="800" font-size="13" fill="#A83212">層級 2：邊界防護與網路傳輸層 (Security, WAF &amp; Global Acceleration)</text>
+
+          <rect x="40" y="195" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
+          <text x="170" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">全域負載平衡 (Anycast GSLB)</text>
+          <text x="170" y="238" text-anchor="middle" font-size="10" fill="#666666">TLS 1.3 卸載 / HTTP/2 / 智慧選路</text>
+
+          <rect x="330" y="195" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#A83212" stroke-width="1.5"/>
+          <text x="460" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">Web 應用防火牆 (WAF)</text>
+          <text x="460" y="238" text-anchor="middle" font-size="10" fill="#666666">Cloud Armor / OWASP Top 10 防護</text>
+
+          <rect x="620" y="195" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="750" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">頻率管制與配額 (Rate Limiter)</text>
+          <text x="750" y="238" text-anchor="middle" font-size="10" fill="#666666">海外各廠 IP 白名單 / 突發削峰</text>
+
+          <rect x="910" y="195" width="250" height="60" rx="6" fill="#FFFFFF" stroke="#78716C" stroke-width="1.5"/>
+          <text x="1035" y="220" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">安全通道 (Secure Corridors)</text>
+          <text x="1035" y="238" text-anchor="middle" font-size="10" fill="#666666">Site-to-Site VPN / 專線通道</text>
+
+          <!-- Layer 3: Central API Gateway -->
+          <rect x="20" y="300" width="1160" height="180" rx="8" fill="#FAF8F5" stroke="#A83212" stroke-width="2"/>
+          <text x="40" y="325" font-weight="800" font-size="14" fill="#A83212">層級 3：企業核心 API 閘道中台 (Central API Gateway &amp; Governance Engine)</text>
+
+          <rect x="40" y="340" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#A83212" stroke-width="1.5"/>
+          <text x="170" y="365" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">身份認證與鑑權中心</text>
+          <text x="170" y="383" text-anchor="middle" font-size="10" fill="#666666">OAuth2 / JWT 簽章 / API Key 驗證</text>
+
+          <rect x="330" y="340" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
+          <text x="460" y="365" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">動態路由調度引擎</text>
+          <text x="460" y="383" text-anchor="middle" font-size="10" fill="#666666">/api/v1/sewing/... / 灰度版本分流</text>
+
+          <rect x="620" y="340" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="750" y="365" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">協議轉換與資料檢核</text>
+          <text x="750" y="383" text-anchor="middle" font-size="10" fill="#666666">JSON ↔ XML / 4-Gate 欄位防呆</text>
+
+          <rect x="910" y="340" width="250" height="60" rx="6" fill="#FFFFFF" stroke="#78716C" stroke-width="1.5"/>
+          <text x="1035" y="365" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">記憶體快取加速層</text>
+          <text x="1035" y="383" text-anchor="middle" font-size="10" fill="#666666">熱門款式與物料主檔亞秒回應</text>
+
+          <!-- Observability bar -->
+          <rect x="40" y="420" width="1120" height="40" rx="6" fill="#FFF8EE" stroke="#E87524" stroke-dasharray="4,4"/>
+          <text x="600" y="445" text-anchor="middle" font-weight="800" font-size="11" fill="#A83212">【全局可觀測性與審計鏈路】OpenTelemetry 分布式鏈路追蹤 ＋ Prometheus 指標 (Latency/QPS/Errors) ＋ 雲端 Audit Logs</text>
+
+          <!-- Layer 4: Edge Proxy -->
+          <rect x="20" y="510" width="1160" height="120" rx="8" fill="#FFFDFB" stroke="#D97706" stroke-width="1.5"/>
+          <text x="40" y="535" font-weight="800" font-size="13" fill="#D97706">層級 4：工廠邊緣離線自治代理 (Factory Edge Proxy &amp; Offline Resilience)</text>
+
+          <rect x="40" y="550" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="170" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">越南隆安示範廠 Edge Proxy</text>
+          <text x="170" y="593" text-anchor="middle" font-size="10" fill="#666666">地端 Kong OSS / SQLite 暫存佇列</text>
+
+          <rect x="330" y="550" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="460" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">柬埔寨金邊廠 Edge Proxy</text>
+          <text x="460" y="593" text-anchor="middle" font-size="10" fill="#666666">海纜中斷時車間持續生產不停擺</text>
+
+          <rect x="620" y="550" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="750" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">印尼中爪哇廠 Edge Proxy</text>
+          <text x="750" y="593" text-anchor="middle" font-size="10" fill="#666666">雨季斷線暫存 / 4G 備援線路</text>
+
+          <rect x="910" y="550" width="250" height="60" rx="6" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
+          <text x="1035" y="575" text-anchor="middle" font-weight="800" font-size="11" fill="#92400E">48 ~ 72 小時離線生產保障</text>
+          <text x="1035" y="593" text-anchor="middle" font-size="10" fill="#92400E">網路復原 ➔ 自動依時序增量補傳</text>
+
+          <!-- Layer 5: Backend & Lakehouse -->
+          <rect x="20" y="660" width="1160" height="120" rx="8" fill="#FAF8F5" stroke="#78716C" stroke-width="1.5"/>
+          <text x="40" y="685" font-weight="800" font-size="13" fill="#44403C">層級 5：後端微服務與數據湖倉整合 (Backend Services &amp; Lakehouse)</text>
+
+          <rect x="40" y="700" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#A83212" stroke-width="1.5"/>
+          <text x="170" y="725" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">MS SQL 數據串流整合</text>
+          <text x="170" y="743" text-anchor="middle" font-size="10" fill="#666666">Datastream / CDC 即時異動通道</text>
+
+          <rect x="330" y="700" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#E87524" stroke-width="1.5"/>
+          <text x="460" y="725" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">成衣營運業務微服務</text>
+          <text x="460" y="743" text-anchor="middle" font-size="10" fill="#666666">生管訂單 / 物料需求 / 4-Gate 門禁</text>
+
+          <rect x="620" y="700" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+          <text x="750" y="725" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">數據湖倉中心 (SSOT)</text>
+          <text x="750" y="743" text-anchor="middle" font-size="10" fill="#666666">Google BigQuery / 聯銓 BI 取數</text>
+
+          <rect x="910" y="700" width="250" height="60" rx="6" fill="#FFFFFF" stroke="#78716C" stroke-width="1.5"/>
+          <text x="1035" y="725" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">Agentic AI 智慧推理引擎</text>
+          <text x="1035" y="743" text-anchor="middle" font-size="10" fill="#666666">Vertex AI Gemini / Tech Pack RAG</text>
+
+          <!-- Inter-layer Arrows -->
+          <line x1="450" y1="115" x2="450" y2="190" stroke="#E87524" stroke-width="2" marker-end="url(#arrOrange)"/>
+          <line x1="460" y1="255" x2="460" y2="335" stroke="#A83212" stroke-width="2" marker-end="url(#arrRust)"/>
+          <line x1="460" y1="400" x2="460" y2="545" stroke="#D97706" stroke-width="2" marker-end="url(#arrOrange)"/>
+          <line x1="460" y1="610" x2="460" y2="695" stroke="#A83212" stroke-width="2" marker-end="url(#arrRust)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Panel 2: Sequence Diagram -->
+    <div id="tab-seq" class="diagram-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>⏱️</span>
+          <span>API Platform 端到端調用時序圖 (含海纜斷網離線自治與復網補傳機制)</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          Draw.io 格式 · 分步驟展示正常傳輸與異常容錯流程
+        </div>
+      </div>
+
+      <div class="info-callout">
+        <strong>💡 時序圖關鍵情境拆解：</strong><br>
+        • <strong>場景一（正常連線）</strong>：車間 MES ➔ Edge Proxy ➔ 雲端 WAF ➔ API Gateway 鑑權 ➔ 寫入 BigQuery 湖倉 ➔ 回傳 HTTP 200 OK（全鏈路 15~35ms）。<br>
+        • <strong>場景二（海纜斷線離線自律）</strong>：對外逾時 ➔ Edge Proxy 自動降級寫入地端 SQLite 快取 ➔ 回傳 HTTP 202 Accepted ➔ <strong>車間不停擺、機台不卡死</strong>。<br>
+        • <strong>場景三（復網批次追平）</strong>：守護程序偵測復網 ➔ 依序批次補傳 ➔ 寫入 BigQuery 補追庫 ➔ 告警通報完成。
+      </div>
+
+      <!-- Rendered Sequence SVG -->
+      <div style="width: 100%; text-align: center; overflow-x: auto; padding: 10px 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 860" width="100%" height="auto" style="max-width: 1100px; font-family: -apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif;">
+          <!-- Lifeline headers -->
+          <rect x="50" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#A83212" stroke-width="1.5"/>
+          <text x="120" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">海外廠車間 MES</text>
+          <line x1="120" y1="60" x2="120" y2="820" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+
+          <rect x="230" y="20" width="140" height="40" rx="4" fill="#FFF8EE" stroke="#E87524" stroke-width="1.5"/>
+          <text x="300" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">工廠邊緣代理 Proxy</text>
+          <line x1="300" y1="60" x2="300" y2="820" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+
+          <rect x="410" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#D97706" stroke-width="1.5"/>
+          <text x="480" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">安全防護 WAF</text>
+          <line x1="480" y1="60" x2="480" y2="820" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+
+          <rect x="590" y="20" width="150" height="40" rx="4" fill="#FAF8F5" stroke="#A83212" stroke-width="2"/>
+          <text x="665" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#A83212">企業核心 API 閘道</text>
+          <line x1="665" y1="60" x2="665" y2="820" stroke="#A83212" stroke-dasharray="4,4"/>
+
+          <rect x="780" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#78716C" stroke-width="1.5"/>
+          <text x="850" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">IAM / 權限中心</text>
+          <line x1="850" y1="60" x2="850" y2="820" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+
+          <rect x="940" y="20" width="140" height="40" rx="4" fill="#FAF8F5" stroke="#A83212" stroke-width="1.5"/>
+          <text x="1010" y="45" text-anchor="middle" font-weight="800" font-size="11" fill="#222222">BigQuery 數據湖倉</text>
+          <line x1="1010" y1="60" x2="1010" y2="820" stroke="#D6D3D1" stroke-dasharray="4,4"/>
+
+          <!-- Divider 1 -->
+          <rect x="40" y="80" width="1020" height="25" rx="4" fill="#FFF8EE" stroke="#A83212"/>
+          <text x="60" y="97" font-weight="800" font-size="11" fill="#A83212">場景一：正常連線傳輸階段 (每小時生產工序數據回傳與 API 調度)</text>
+
+          <!-- Step 1 -->
+          <line x1="120" y1="130" x2="290" y2="130" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust)"/>
+          <text x="210" y="123" text-anchor="middle" font-size="10" fill="#222222">1. POST /api/v1/sewing/batch-metrics</text>
+
+          <!-- Step 2 -->
+          <line x1="300" y1="160" x2="470" y2="160" stroke="#E87524" stroke-width="1.5" marker-end="url(#arrOrange)"/>
+          <text x="390" y="153" text-anchor="middle" font-size="10" fill="#222222">2. TLS 1.3 專線加密轉發</text>
+
+          <!-- Step 3 -->
+          <line x1="480" y1="190" x2="655" y2="190" stroke="#D97706" stroke-width="1.5" marker-end="url(#arrOrange)"/>
+          <text x="568" y="183" text-anchor="middle" font-size="10" fill="#222222">3. WAF 白名單 ＋ Rate Limit 檢查通過</text>
+
+          <!-- Step 4 & 5 -->
+          <line x1="665" y1="220" x2="840" y2="220" stroke="#78716C" stroke-width="1.5" marker-end="url(#arrRust)"/>
+          <text x="753" y="213" text-anchor="middle" font-size="10" fill="#222222">4. 驗證 JWT 簽章與有效性</text>
+
+          <line x1="850" y1="250" x2="675" y2="250" stroke="#78716C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust)"/>
+          <text x="753" y="243" text-anchor="middle" font-size="10" fill="#666666">5. 鑑權通過 (Role: Factory_Operator)</text>
+
+          <!-- Step 6 & 7 -->
+          <line x1="665" y1="280" x2="1000" y2="280" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust)"/>
+          <text x="833" y="273" text-anchor="middle" font-size="10" fill="#222222">6. 寫入 BigQuery 串流表 (Storage Write API)</text>
+
+          <line x1="1010" y1="310" x2="675" y2="310" stroke="#A83212" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust)"/>
+          <text x="833" y="303" text-anchor="middle" font-size="10" fill="#666666">7. 寫入成功確認 (ACK, TxID=VN-20271014-0821)</text>
+
+          <!-- Step 8 & 9 -->
+          <line x1="665" y1="340" x2="310" y2="340" stroke="#E87524" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange)"/>
+          <text x="488" y="333" text-anchor="middle" font-size="10" fill="#222222">8. HTTP 200 OK (含確認時間戳)</text>
+
+          <line x1="300" y1="370" x2="130" y2="370" stroke="#A83212" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrRust)"/>
+          <text x="215" y="363" text-anchor="middle" font-size="10" fill="#222222">9. 車間產線看板更新成功</text>
+
+          <!-- Divider 2 -->
+          <rect x="40" y="420" width="1020" height="25" rx="4" fill="#FEF3C7" stroke="#D97706"/>
+          <text x="60" y="437" font-weight="800" font-size="11" fill="#92400E">場景二：海纜中斷／外網異常 ➔ 邊緣離線自律與持久化快取 (Offline Resilience)</text>
+
+          <!-- Step 10 -->
+          <line x1="120" y1="470" x2="290" y2="470" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust)"/>
+          <text x="210" y="463" text-anchor="middle" font-size="10" fill="#222222">10. POST /api/v1/sewing/batch-metrics</text>
+
+          <!-- Step 11: Timeout -->
+          <line x1="300" y1="500" x2="470" y2="500" stroke="#DC2626" stroke-width="2" marker-end="url(#arrRust)"/>
+          <text x="390" y="493" text-anchor="middle" font-size="10" fill="#DC2626" font-weight="800">11. 發送雲端逾時 (Timeout 3000ms / 海纜切斷)</text>
+
+          <!-- Step 12: Loopback to edge -->
+          <path d="M 300 525 L 340 525 L 340 550 L 310 550" fill="none" stroke="#D97706" stroke-width="1.5" marker-end="url(#arrOrange)"/>
+          <text x="350" y="540" font-size="10" fill="#D97706" font-weight="700">12. 降級保護：寫入本地 SQLite 快取佇列</text>
+
+          <!-- Step 13 -->
+          <line x1="300" y1="580" x2="130" y2="580" stroke="#15803D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange)"/>
+          <text x="215" y="573" text-anchor="middle" font-size="10" fill="#15803D" font-weight="800">13. HTTP 202 Accepted (已安全存入本地，產線不停擺)</text>
+
+          <!-- Step 14: Restored Notice -->
+          <rect x="250" y="620" width="300" height="25" rx="4" fill="#ECFDF5" stroke="#15803D"/>
+          <text x="400" y="637" text-anchor="middle" font-weight="800" font-size="10" fill="#065F46">【海纜或外網線路恢復連線 (Network Reconnected)】</text>
+
+          <!-- Step 15 -->
+          <line x1="300" y1="670" x2="655" y2="670" stroke="#15803D" stroke-width="1.5" marker-end="url(#arrOrange)"/>
+          <text x="480" y="663" text-anchor="middle" font-size="10" fill="#15803D" font-weight="700">15. Edge 守護程序偵測復網 ➔ 依序批次補傳 (Batch Re-sync)</text>
+
+          <!-- Step 16 -->
+          <line x1="665" y1="700" x2="1000" y2="700" stroke="#A83212" stroke-width="1.5" marker-end="url(#arrRust)"/>
+          <text x="833" y="693" text-anchor="middle" font-size="10" fill="#222222">16. 寫入 BigQuery 補追庫 ➔ 標記補傳時間戳</text>
+
+          <!-- Step 17 -->
+          <line x1="1010" y1="730" x2="675" y2="730" stroke="#15803D" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrOrange)"/>
+          <text x="833" y="723" text-anchor="middle" font-size="10" fill="#15803D">17. 補傳成功確認 (Re-sync ACK, Queue Drained)</text>
+
+          <!-- Step 18 -->
+          <path d="M 300 755 L 340 755 L 340 780 L 310 780" fill="none" stroke="#78716C" stroke-width="1.5" marker-end="url(#arrRust)"/>
+          <text x="350" y="770" font-size="10" fill="#666666">18. 清空本地快取，恢復即時連線轉發模式</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.diagram-panel').forEach(p => p.classList.remove('active'));
+      
+      event.target.closest('.tab-btn').classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
