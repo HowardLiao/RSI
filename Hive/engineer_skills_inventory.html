@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 內部工程師技術職能盤點評鑑表 (Technical Competency Inventory)</title>
+  <title>信源全球 (RSI) · 內部工程師高階技術職能深度盤點評鑑表 ｜ Hive Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -34,17 +34,17 @@
       color: var(--text-body);
       font-family: var(--font-sans);
       line-height: 1.6;
-      padding: 30px 20px;
+      padding: 26px 16px;
     }
 
     .form-container {
-      max-width: 1060px;
+      max-width: 1200px;
       margin: 0 auto;
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      padding: 36px 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 36px 42px;
       position: relative;
     }
 
@@ -54,13 +54,13 @@
       top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
       background-repeat: repeat;
       border-radius: var(--radius-md);
     }
 
     .header-bar {
-      border-bottom: 2px solid var(--rust-primary);
+      border-bottom: 2.5px solid var(--rust-primary);
       padding-bottom: 18px;
       margin-bottom: 24px;
       display: flex;
@@ -71,7 +71,7 @@
     }
     .header-title {
       font-family: var(--font-serif);
-      font-size: 1.85rem;
+      font-size: 1.95rem;
       font-weight: 700;
       color: var(--text-charcoal);
       line-height: 1.25;
@@ -94,7 +94,7 @@
       padding: 14px 18px;
       font-size: 0.82rem;
       margin-bottom: 26px;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
     /* Standard Levels Guide Table */
@@ -122,22 +122,27 @@
 
     /* Form Section */
     .section-title {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--rust-primary);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       border-bottom: 1.5px solid var(--border-subtle);
       padding-bottom: 6px;
-      margin-top: 24px;
+      margin-top: 30px;
+    }
+    .section-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
     }
 
     /* Basic Info Grid */
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 14px;
       margin-bottom: 20px;
     }
@@ -167,15 +172,21 @@
     }
 
     /* Matrix Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 26px;
+    }
     .matrix-table {
       width: 100%;
+      min-width: 1100px;
       border-collapse: collapse;
       font-size: 0.8rem;
-      margin-bottom: 24px;
     }
     .matrix-table th, .matrix-table td {
       border: 1px solid var(--border-subtle);
-      padding: 10px 12px;
+      padding: 9px 12px;
       vertical-align: middle;
     }
     .matrix-table th {
@@ -188,7 +199,14 @@
       background: #FAF8F5;
       font-weight: 800;
       color: var(--rust-primary);
-      width: 140px;
+      width: 130px;
+      font-size: 0.82rem;
+    }
+    .matrix-subcat {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--orange-vibrant);
     }
     .matrix-skill {
       font-weight: 700;
@@ -196,17 +214,19 @@
       width: 220px;
     }
     .matrix-desc {
-      color: var(--text-muted);
+      color: var(--text-body);
       font-size: 0.76rem;
+      line-height: 1.45;
     }
     .matrix-rating {
-      width: 240px;
+      width: 230px;
       text-align: center;
+      background: #FCFBF9;
     }
     .rating-options {
       display: flex;
       justify-content: space-between;
-      gap: 6px;
+      gap: 4px;
     }
     .rating-label {
       display: inline-flex;
@@ -214,12 +234,17 @@
       gap: 2px;
       font-size: 0.72rem;
       cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .rating-label:hover {
+      background: #FFF8EE;
     }
 
     /* Open Questions */
     .textarea-box {
       width: 100%;
-      min-height: 70px;
+      min-height: 75px;
       background: #FFFFFF;
       border: 1px solid var(--border-strong);
       border-radius: 4px;
@@ -236,7 +261,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 30px;
+      margin-top: 36px;
       padding-top: 18px;
       border-top: 1px solid var(--border-subtle);
       flex-wrap: wrap;
@@ -276,6 +301,8 @@
       body { background: #FFF; padding: 0; }
       .form-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
       .action-bar { display: none; }
+      .table-wrap { overflow: visible; }
+      .matrix-table { min-width: 100%; }
     }
   </style>
 </head>
@@ -290,19 +317,19 @@
         <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
           RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">信源全球 · 內部工程師技術職能盤點評鑑表<br><span>Technical Competency Inventory & Discovery Assessment</span></h1>
+        <h1 class="header-title">信源全球 · 內部工程師高階技術職能深度盤點評鑑表<br><span>Granular Technical Competency &amp; Single Point of Failure (Bus Factor) Assessment</span></h1>
       </div>
       <div class="header-meta">
-        <div>發起指導：<strong>周文津 副總經理</strong></div>
-        <div>專案規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
-        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM CODE: RSI-IT-SKILL-2027</div>
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM CODE: RSI-IT-SKILL-GRANULAR-2027</div>
       </div>
     </div>
 
     <!-- Notice Box -->
     <div class="notice-box">
-      <strong>📌 填表目的與客觀自評原則說明：</strong><br>
-      本盤點表旨在釐清台北總部與海外三廠（越南隆安、柬埔寨金邊、印尼中爪哇）內部 IT 與工程同仁的真實技術掌握度與系統維護現況。評估結果將作為「蜂巢計畫（Hive Project）」後續雲端資料工程培訓、職能分工矩陣（RACI）及引進外部原廠 SI 資源之決策依據，<strong>非作單一考績評定，請務必客觀、誠實填寫</strong>。直屬主管將進行複核。
+      <strong>📌 深度盤點目的與實施原則：</strong><br>
+      為推進信源全球 2027「蜂巢計畫（Hive Project）」之跨國現代湖倉（Data Lakehouse）、企業級 API Platform 及海外三廠（越南隆安、柬埔寨金邊、印尼中爪哇）邊緣離線自治，本表將技術範疇細化為 <strong>9 大核心領域、45 項具體實務技術指標</strong>。評估結果將作為集團工程人才地圖、外部原廠 SI 資源配比與客製化培訓藍圖之依據。<strong>請同仁誠實、客觀自評，直屬主管將進行 1-on-1 實務檢驗與複核</strong>。
     </div>
 
     <!-- Rating Standards Guide -->
@@ -311,35 +338,35 @@
         <thead>
           <tr>
             <th style="width: 110px;">熟練度等級</th>
-            <th style="width: 130px;">客觀定義</th>
-            <th>具體行為表現標準</th>
+            <th style="width: 140px;">客觀等級標籤</th>
+            <th>具體行為表現標準 (主管查核基準)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>L1 · 初學理解</strong></td>
-            <td>Basic Awareness</td>
-            <td>具備基本概念，能看懂架構圖與術語，但無法獨立排錯，需在他人指導下一步驟操作。</td>
+            <td>Novice / Awareness</td>
+            <td>具備基本概念，能看懂架構圖與專有名詞，但無法獨立操作或排錯，需他人逐步驟帶領。</td>
           </tr>
           <tr>
             <td><strong>L2 · 獨立維運</strong></td>
-            <td>Competent</td>
-            <td>能依照標準 SOP 獨立執行日常設定、備份、常態部署與常見異常處理，無需他人監督。</td>
+            <td>Competent Practitioner</td>
+            <td>能依照標準 SOP 獨立執行日常設定、定期備份、常態發布與常見異常排除，無需主管時時監督。</td>
           </tr>
           <tr>
             <td><strong>L3 · 資深精通</strong></td>
-            <td>Proficient</td>
-            <td>熟稔底層原理，能排查跨系統深層故障、撰寫複雜 SQL/指令碼、進行效能瓶頸調優。</td>
+            <td>Proficient Specialist</td>
+            <td>熟稔技術底層原理，能排查跨系統深層故障、撰寫複雜 SQL/自動化指令碼、進行效能瓶頸調優與死鎖排查。</td>
           </tr>
           <tr>
             <td><strong>L4 · 架構專家</strong></td>
-            <td>Expert / Lead</td>
-            <td>具備跨領域架構規劃與技術選型能力，能主導大型專案技術落地，並可指導其他工程師。</td>
+            <td>Expert / Tech Lead</td>
+            <td>具備跨領域架構規劃、技術選型與高可用設計能力，能主導大型專案技術落地，並可指導其他工程師。</td>
           </tr>
           <tr>
             <td><strong>L5 · 戰略導師</strong></td>
-            <td>Master / Mentor</td>
-            <td>具備業界權威級認知，能制定全集團技術標準、資安規範，並規劃未來 3 年技術藍圖。</td>
+            <td>Master / Enterprise Architect</td>
+            <td>具備業界權威級視野，能制定全集團跨國技術標準、資安合規規範，並規劃未來 3 年演進藍圖。</td>
           </tr>
         </tbody>
       </table>
@@ -348,402 +375,828 @@
     <form id="competencyForm">
 
       <!-- Section 1: Basic Info -->
-      <div class="section-title">一、受評同仁基本資料 (Basic Profile)</div>
+      <div class="section-title">一、受評同仁基本資料與崗位職能 (Basic Profile)</div>
       <div class="info-grid">
         <div class="form-group">
           <label class="form-label">中文姓名 / 英文姓名 *</label>
-          <input type="text" class="form-input" placeholder="例：王大明 / David Wang" required>
+          <input type="text" class="form-input" placeholder="例：陳志遠 / Edward Chen" required>
         </div>
         <div class="form-group">
           <label class="form-label">員工編號 (Emp ID) *</label>
-          <input type="text" class="form-input" placeholder="例：RSI-88021" required>
+          <input type="text" class="form-input" placeholder="例：RSI-92015" required>
         </div>
         <div class="form-group">
-          <label class="form-label">所屬廠區與部門 *</label>
+          <label class="form-label">所屬節點與組織單位 *</label>
           <select class="form-input" required>
             <option value="">-- 請選擇所屬節點 --</option>
-            <option value="TP">台北營運總部 · 資訊處</option>
-            <option value="VN">越南隆安示範廠 · IT/廠務部</option>
-            <option value="KH">柬埔寨金邊廠 · 資訊部</option>
-            <option value="ID">印尼中爪哇廠 · 資訊部</option>
+            <option value="TP-IT">台北營運總部 · 資訊處 (IT/MIS)</option>
+            <option value="TP-DATA">台北營運總部 · 數據與BI小組</option>
+            <option value="VN-IT">越南隆安示範旗艦廠 · IT/廠務部</option>
+            <option value="KH-IT">柬埔寨金邊廠 · 資訊部</option>
+            <option value="ID-IT">印尼中爪哇廠 · 資訊部</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">現任職稱與核心職務 *</label>
-          <input type="text" class="form-input" placeholder="例：資深系統工程師 / ERP維運" required>
+          <label class="form-label">現任職稱與核心專業角色 *</label>
+          <input type="text" class="form-input" placeholder="例：資深資料庫工程師 / ERP維運" required>
         </div>
         <div class="form-group">
-          <label class="form-label">信源 (RSI) 在職年資</label>
-          <input type="text" class="form-input" placeholder="例：3 年 6 個月">
+          <label class="form-label">信源 (RSI) 在職年資 / 總 IT 年資</label>
+          <input type="text" class="form-input" placeholder="例：信源 3 年 / 總 IT 經驗 7 年">
         </div>
         <div class="form-group">
-          <label class="form-label">直屬主管姓名</label>
-          <input type="text" class="form-input" placeholder="例：李課長">
+          <label class="form-label">直屬主管姓名 / 複核人</label>
+          <input type="text" class="form-input" placeholder="例：林課長 / IT Manager">
         </div>
       </div>
 
-      <!-- Section 2: Technical Skills Matrix -->
-      <div class="section-title">二、核心技術能力成熟度自評 (7 大領域 · 5 級制評定)</div>
-      <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">
-        請依實際操作經驗勾選 1~5 級（1 為入門、3 為能獨立搞定、5 為專家）。
+      <!-- Section 2: Detailed Technical Skills Matrix (9 Domains · 45 Skills) -->
+      <div class="section-title">二、9 大核心領域詳細技術能力盤點矩陣 (Granular Competency Matrix)</div>
+      <div class="section-desc">請同仁依實際操作經驗，於各項具體技能勾選 1~5 級（主管將依實務成果複核）。</div>
+
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="matrix-category">核心領域</th>
+              <th class="matrix-skill">具體實務技術項目</th>
+              <th class="matrix-desc">實務檢核標準與具體行為驗證指標 (Checklist)</th>
+              <th class="matrix-rating">成熟度自評 (L1 ~ L5)</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- 1. Database & Data Engineering -->
+            <tr>
+              <td rowspan="6" class="matrix-category">
+                1. 資料庫與<br>數據工程<br>
+                <span class="matrix-subcat">(Database &amp; Data)</span>
+              </td>
+              <td class="matrix-skill">MS SQL 基礎維運與備份還原</td>
+              <td class="matrix-desc">資料庫安裝配置、資料表維護、定期完整/差異備份、交易日誌截斷 (Truncate) 與災難還原實作。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_sql_admin" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_sql_admin" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_sql_admin" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_sql_admin" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_sql_admin" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">高可用與叢集架構 (AlwaysOn)</td>
+              <td class="matrix-desc">配置與維護 AlwaysOn 可用性群組 (AG)、故障移轉叢集 (Failover Cluster)、資料庫記錄傳送 (Log Shipping)。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_alwayson" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_alwayson" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_alwayson" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_alwayson" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_alwayson" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">進階 T-SQL 撰寫與 Stored Procedure</td>
+              <td class="matrix-desc">精通多表 JOIN、通用資料表運算式 (CTE)、窗口函數 (Window Functions)、複雜預存程序 (SP) 與交易控制 (BEGIN TRAN/COMMIT)。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_tsql" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_tsql" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_tsql" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_tsql" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_tsql" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">索引架構設計與碎片調校</td>
+              <td class="matrix-desc">設計叢集 (Clustered) 與非叢集索引、包含資料欄索引 (Covering Index)、篩選索引 (Filtered Index)，執行定期 Index Reorganize/Rebuild。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_index" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_index" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_index" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_index" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_index" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">效能診斷與死鎖排查 (Deadlock/Plan)</td>
+              <td class="matrix-desc">能判讀執行計畫 (Execution Plan) 找出 Index Scan 效能盲點、使用 Extended Events (擴充事件) 抓取 Deadlock 阻礙並解決鎖定問題。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_deadlock" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_deadlock" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_deadlock" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_deadlock" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_deadlock" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">資料異動捕獲 (CDC / Change Tracking)</td>
+              <td class="matrix-desc">理解 SQL Server 原生 CDC 啟用機制、日誌保留天數配置、變更捕獲清理作業 (sys.sp_cdc_cleanup_change_table) 與 SSIS 拋轉。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_cdc_exp" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_cdc_exp" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_cdc_exp" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_cdc_exp" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_cdc_exp" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 2. Cloud & Modern Lakehouse -->
+            <tr>
+              <td rowspan="5" class="matrix-category">
+                2. 雲端與<br>現代數據湖倉<br>
+                <span class="matrix-subcat">(Cloud &amp; Lakehouse)</span>
+              </td>
+              <td class="matrix-skill">公有雲架構與安全治理 (GCP / AWS)</td>
+              <td class="matrix-desc">IAM 最小權限角色配置、VPC 專用網路與子網規劃、金鑰管理 (KMS)、服務帳戶 (Service Account) 與雲端費用預警。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_cloud_gov" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_cloud_gov" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_cloud_gov" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_cloud_gov" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_cloud_gov" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">物件儲存與生命週期 (GCS / S3)</td>
+              <td class="matrix-desc">儲存貯體 (Bucket) 權限、版本控制、分層儲存 (Standard/Nearline/Coldline/Archive) 與自動生命週期沉降政策 (Lifecycle Policy)。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_obj_storage" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_obj_storage" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_obj_storage" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_obj_storage" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_obj_storage" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">雲端數據倉儲 (BigQuery / Redshift)</td>
+              <td class="matrix-desc">建立分區表 (Partitioning) 與叢集 (Clustering)、撰寫 MERGE 語法執行 Upsert、BI Engine 快取加速配置、查詢掃描成本優化。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_dwh_eng" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_dwh_eng" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_dwh_eng" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_dwh_eng" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_dwh_eng" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">現代 Lakehouse 表格格式 (Apache Iceberg)</td>
+              <td class="matrix-desc">理解 ACID 交易機制、Schema 演進、隱式分區、Time Travel (歷史快照回溯查詢) 與檔案自動壓實 (Compaction)。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_iceberg" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_iceberg" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_iceberg" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_iceberg" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_iceberg" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">工作流編排 (Apache Airflow / Composer)</td>
+              <td class="matrix-desc">使用 Python 撰寫 Airflow DAG、使用 BashOperator / PythonOperator、配置 Task 依賴關係、排定 Cron 排程、配置 Slack/Teams 失敗告警。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_airflow_dag" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_airflow_dag" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_airflow_dag" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_airflow_dag" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_airflow_dag" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 3. API Platform & Integration -->
+            <tr>
+              <td rowspan="5" class="matrix-category">
+                3. API 平台與<br>中台系統整合<br>
+                <span class="matrix-subcat">(API &amp; Integration)</span>
+              </td>
+              <td class="matrix-skill">RESTful API 規範與協議設計</td>
+              <td class="matrix-desc">遵循標準 HTTP Methods (GET/POST/PUT/DELETE)、設計標準化 URI 命名、嚴格定義 HTTP 狀態碼 (200/201/400/401/403/404/500)。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_rest_spec" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_rest_spec" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_rest_spec" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_rest_spec" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_rest_spec" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">資料交換格式解析 (JSON / XML)</td>
+              <td class="matrix-desc">能靈活處理複雜巢狀 JSON (Nested Arrays/Objects)、BOM 表格序列化與反序列化、XML 與 JSON 互相轉換、處理字元編碼 (UTF-8)。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_json_xml" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_json_xml" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_json_xml" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_json_xml" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_json_xml" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">API 工具除錯與自動測試 (Postman)</td>
+              <td class="matrix-desc">熟練建立 Postman 集合 (Collections)、配置環境變數 (Environments)、編寫 Pre-request Script 與 Tests 斷言腳本、匯出 Swagger/OpenAPI 規格。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_postman_adv" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_postman_adv" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_postman_adv" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_postman_adv" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_postman_adv" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">API 鑑權安全 (JWT / OAuth2 / API Key)</td>
+              <td class="matrix-desc">實作或配置 JWT 簽發與驗證、Bearer Token 機制、OAuth 2.0 授權碼/客戶端憑證流程、API Key 配額限制與 HTTPS 憑證綁定。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_jwt_oauth" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_jwt_oauth" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_jwt_oauth" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_jwt_oauth" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_jwt_oauth" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">API 閘道治理 (Rate Limit / Routing)</td>
+              <td class="matrix-desc">配置 API Gateway 路由轉發規則、設定 Rate Limiting 頻率保護、Spike Arrest 突發防護、CORS 跨網域設定、海外廠 IP 白名單過濾。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_gw_traffic" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_gw_traffic" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_gw_traffic" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_gw_traffic" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_gw_traffic" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 4. Software Dev & DevOps -->
+            <tr>
+              <td rowspan="5" class="matrix-category">
+                4. 軟體開發與<br>指令碼自動化<br>
+                <span class="matrix-subcat">(Dev &amp; DevOps)</span>
+              </td>
+              <td class="matrix-skill">PowerShell 自動化維運腳本</td>
+              <td class="matrix-desc">撰寫 PowerShell 腳本自動備份資料庫、管理 AD 帳號、監控伺服器磁碟、排程刪除過期備份檔與自動推播錯誤通知。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_powershell" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_powershell" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_powershell" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_powershell" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_powershell" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">Python 數據工程與自動化 (Pandas/Requests)</td>
+              <td class="matrix-desc">使用 Python 呼叫 REST API 擷取數據、使用 Pandas 進行資料清洗去重、連線 SQL Server / BigQuery 進行數據拋轉與格式轉換。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_python_dev" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_python_dev" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_python_dev" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_python_dev" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_python_dev" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">應用軟體程式碼維護 (C# .NET / Java)</td>
+              <td class="matrix-desc">能閱讀既有 ERP/MES 之後端程式碼（WinForms / ASP.NET MVC / C#）、能排查程式 Bug、能撰寫自訂業務功能模組。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_csharp_app" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_csharp_app" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_csharp_app" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_csharp_app" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_csharp_app" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">版本控制與團隊協同 (Git / GitHub)</td>
+              <td class="matrix-desc">熟練使用 Git 指令（commit, push, pull, branch, merge, stash）、能排除分支衝突（Conflict）、使用 GitHub/GitLab 進行代碼版本留存。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_git_collab" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_git_collab" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_git_collab" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_git_collab" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_git_collab" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">容器化技術實務 (Docker 基礎)</td>
+              <td class="matrix-desc">能看懂與撰寫 Dockerfile、使用 docker-compose 啟動多容器應用、配置容器網路與 Volume 資料卷、檢視容器 Log 排查問題。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_docker_ops" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_docker_ops" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_docker_ops" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_docker_ops" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_docker_ops" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 5. BI & Analytics -->
+            <tr>
+              <td rowspan="5" class="matrix-category">
+                5. 商業智慧與<br>數據視覺化<br>
+                <span class="matrix-subcat">(BI &amp; Analytics)</span>
+              </td>
+              <td class="matrix-skill">聯銓 Smart eVision 報表開發</td>
+              <td class="matrix-desc">熟悉聯銓 BI 資料集設定、SQL 查詢優化、多維度切片與交叉分析設計、圖表佈局與條件式格式化。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_lc_dev" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_dev" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_dev" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_dev" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_dev" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">聯銓 BI 權限管理與定時派送</td>
+              <td class="matrix-desc">配置使用者群組、資料權限過濾（如海外廠長只能看該廠報表）、設定定時報表自動轉檔（PDF/Excel）與 Email 自動派送。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_lc_admin" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_admin" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_admin" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_admin" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_lc_admin" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">現代 BI 工具 (Power BI / Tableau)</td>
+              <td class="matrix-desc">建立星型維度模型 (Star Schema)、撰寫 DAX 計算量度 (Measures)、時間智慧函數 (Time Intelligence)、發布報表至雲端服務。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_pbi_dax" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_pbi_dax" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_pbi_dax" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_pbi_dax" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_pbi_dax" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">Excel 高階巨集維護 (PowerQuery / VBA)</td>
+              <td class="matrix-desc">能維護與修改生管複雜的 Excel VBA 巨集程式碼、使用 Power Query 進行跨檔案數據合併、設計進階樞紐分析表。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_excel_vba" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_excel_vba" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_excel_vba" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_excel_vba" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_excel_vba" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">成衣製造 KPI 口徑定義與計算邏輯</td>
+              <td class="matrix-desc">清楚理解產線平衡率 (Line Balance Rate)、稼動率 (OEE)、標準工時 (SAM)、直通良率 (FTY) 之計算公式與各廠欄位對齊方式。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_garment_kpi" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_garment_kpi" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_garment_kpi" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_garment_kpi" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_garment_kpi" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 6. Infrastructure & Network -->
+            <tr>
+              <td rowspan="6" class="matrix-category">
+                6. 基礎設施、<br>系統與跨國網路<br>
+                <span class="matrix-subcat">(Infra &amp; Network)</span>
+              </td>
+              <td class="matrix-skill">Windows Server 系統管理維護</td>
+              <td class="matrix-desc">安裝配置 Windows Server 2016/2019/2022、角色功能安裝、檢視事件檢視器 (Event Viewer) 排查系統錯誤、磁碟擴展。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_win_srv" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_win_srv" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_win_srv" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_win_srv" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_win_srv" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">Active Directory 網域與目錄服務</td>
+              <td class="matrix-desc">網域控制器 (DC) 管理、組織單位 (OU) 規劃、群組原則 (GPO) 派送安全性設定、DNS 與 DHCP 伺服器配置維護。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_ad_gpo" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_ad_gpo" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_ad_gpo" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_ad_gpo" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_ad_gpo" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">虛擬化平台 (VMware ESXi / vCenter)</td>
+              <td class="matrix-desc">VMware ESXi 叢集維運、建立虛擬機、分配 CPU/RAM/vDisk 資源、管理虛擬交換器 (vSwitch)、執行 vMotion 無中斷遷移。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_vmware_adv" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_vmware_adv" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_vmware_adv" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_vmware_adv" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_vmware_adv" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">交換器網路規劃 (VLAN / 路由)</td>
+              <td class="matrix-desc">實體交換器 (Cisco/Aruba) 設定、規劃 VLAN 隔離車間/辦公室/伺服器網段、配置 802.1Q Trunk 埠、靜態路由與廣播風暴防護。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_vlan_route" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_vlan_route" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_vlan_route" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_vlan_route" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_vlan_route" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">跨國 Site-to-Site VPN ＆ SD-WAN 實務</td>
+              <td class="matrix-desc">建立與維護台北總部至海外三廠之 IPSec VPN 穿隧、監控跨國海纜延遲 (Ping RTT/Jitter)、設定 SD-WAN 流量分流策略。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_vpn_sdwan" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_vpn_sdwan" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_vpn_sdwan" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_vpn_sdwan" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_vpn_sdwan" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">邊界防火牆策略與 QoS (Fortinet)</td>
+              <td class="matrix-desc">熟練配置 FortiGate 防火牆策略 (Policies)、位址物件 (Address Objects)、NAT 連接埠轉發、配置 QoS 保障車間語音與 ERP 頻寬。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_forti_qos" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_forti_qos" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_forti_qos" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_forti_qos" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_forti_qos" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 7. Shopfloor OT & Edge -->
+            <tr>
+              <td rowspan="5" class="matrix-category">
+                7. 車間物聯網與<br>機台邊緣設備<br>
+                <span class="matrix-subcat">(Shopfloor &amp; OT)</span>
+              </td>
+              <td class="matrix-skill">工控電腦 (IPC) 與車間終端維護</td>
+              <td class="matrix-desc">研華 ARK / 觸控一體機維護、工控主機除塵防護、串列埠 (COM Port) 驅動安裝、Windows 10 IoT 作業系統維運。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_ipc_maint" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_ipc_maint" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_ipc_maint" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_ipc_maint" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_ipc_maint" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">工業通訊協定 (Modbus / RS-485 / OPC-UA)</td>
+              <td class="matrix-desc">理解 RS-485 差動訊號接線、Modbus RTU/TCP 暫存器讀取、PLC 數據擷取觀念，能除錯機台資料傳輸異常。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_modbus_opc" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_modbus_opc" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_modbus_opc" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_modbus_opc" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_modbus_opc" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">吊掛產線與 RFID 讀寫設備除錯</td>
+              <td class="matrix-desc">Impinj 或同級 RFID 讀寫器連網設定、天線增益與角度調整、排查衣服衣架 RFID 漏讀、通訊逾時重連。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_rfid_ops" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_rfid_ops" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_rfid_ops" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_rfid_ops" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_rfid_ops" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">特種機台介接 (自動裁床/模板機/貼合)</td>
+              <td class="matrix-desc">自動拉布機與裁床排料檔傳輸、自動模板機程式上傳、特種貼合機溫壓 IoT 感測器數據收集與異常排查。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_sew_machine" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_sew_machine" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_sew_machine" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_sew_machine" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_sew_machine" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">邊緣離線自治機制 (Local Buffer / SQLite)</td>
+              <td class="matrix-desc">能配置現場機台或 Edge Proxy 的本地快取資料庫（SQLite/平坦檔）、海纜中斷時確保機台離線生產、復網自動批次追平。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_edge_offline" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_edge_offline" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_edge_offline" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_edge_offline" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_edge_offline" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 8. Cybersecurity & BCP -->
+            <tr>
+              <td rowspan="5" class="matrix-category">
+                8. 資訊安全、<br>備份與災變復原<br>
+                <span class="matrix-subcat">(Security &amp; BCP)</span>
+              </td>
+              <td class="matrix-skill">企業備份架構落實 (Veeam / 3-2-1 原則)</td>
+              <td class="matrix-desc">熟悉 3-2-1 備份架構、配置每日完整與差異備份、設定備份加密金鑰、能獨立執行虛擬機與檔案層級之還原作業。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_veeam_bcp" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_veeam_bcp" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_veeam_bcp" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_veeam_bcp" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_veeam_bcp" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">防勒索與不可篡改儲存 (WORM / Air-Gapped)</td>
+              <td class="matrix-desc">理解不可篡改備份池 (Immutable Repository / S3 Object Lock / WORM) 設定，防止勒索病毒橫向感染加密備份檔案。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_worm_ransom" value="1" checked> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_worm_ransom" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_worm_ransom" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_worm_ransom" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_worm_ransom" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">端點安全防護 (EDR / 防毒主控台派送)</td>
+              <td class="matrix-desc">管理防毒主控台（趨勢/卡巴/CrowdStrike）、排查端點惡意程式隔離警報、監控全廠機台更新率、配置隨身碟 (USB) 讀寫管制。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_edr_antivirus" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_edr_antivirus" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_edr_antivirus" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_edr_antivirus" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_edr_antivirus" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">身分安全與多因子認證 (MFA / 2FA)</td>
+              <td class="matrix-desc">推廣與配置 Authenticator App 雙因子認證、強制 VPN 撥接啟用 MFA、執行特權管理者帳號定期更換密碼與離職清查。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_mfa_identity" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_mfa_identity" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_mfa_identity" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_mfa_identity" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_mfa_identity" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">災難復原指標理解與實測 (RTO / RPO)</td>
+              <td class="matrix-desc">清楚量化所管轄系統之資料遺失容忍極限 (RPO) 與系統重啟時間 (RTO)、能編寫災難復原操作手冊 (Runbook) 並實際演練。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_rto_rpo" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_rto_rpo" value="2" checked> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_rto_rpo" value="3"> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_rto_rpo" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_rto_rpo" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 9. Cross-border Synergy & PM -->
+            <tr>
+              <td rowspan="4" class="matrix-category">
+                9. 跨國協同與<br>專案推動能力<br>
+                <span class="matrix-subcat">(Synergy &amp; PM)</span>
+              </td>
+              <td class="matrix-skill">跨國外語技術溝通 (英文 / 越文 / 印尼文)</td>
+              <td class="matrix-desc">能以英文書寫清楚的 IT 需求單、能透過 Teams 與海外廠工程師召開技術對接會議、能閱讀原廠英文技術手冊。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_eng_comm" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_eng_comm" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_eng_comm" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_eng_comm" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_eng_comm" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">專案管理掌控度 (WBS 甘特圖 / 驗收)</td>
+              <td class="matrix-desc">能分解工作項目為具體任務 (WBS)、使用甘特圖追蹤里程碑、能明確定義驗收測試計畫 (UAT) 與驗收標準條款。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_wbs_pm" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_wbs_pm" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_wbs_pm" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_wbs_pm" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_wbs_pm" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">成衣製程業務通曉 (產前 4-Gate 流程)</td>
+              <td class="matrix-desc">熟悉成衣製造打樣 ➔ 裁剪 ➔ 車縫 ➔ 整理包裝流程、清楚 BOM 物料結構、了解 4-Gate (物料齊套/紙樣封樣/MQP/裁片) 之門禁防呆邏輯。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_apparel_biz" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_apparel_biz" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_apparel_biz" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_apparel_biz" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_apparel_biz" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-skill">外部廠商與系統整合商 (SI) 管理</td>
+              <td class="matrix-desc">能審查原廠合約工作範疇 (SOW)、把關顧問公司交付進度、能提出精確的架構修訂要求，避免被廠商牽著鼻子走。</td>
+              <td class="matrix-rating">
+                <div class="rating-options">
+                  <label class="rating-label"><input type="radio" name="sk_si_vendor" value="1"> 1</label>
+                  <label class="rating-label"><input type="radio" name="sk_si_vendor" value="2"> 2</label>
+                  <label class="rating-label"><input type="radio" name="sk_si_vendor" value="3" checked> 3</label>
+                  <label class="rating-label"><input type="radio" name="sk_si_vendor" value="4"> 4</label>
+                  <label class="rating-label"><input type="radio" name="sk_si_vendor" value="5"> 5</label>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
       </div>
 
-      <table class="matrix-table">
-        <thead>
-          <tr>
-            <th class="matrix-category">領域範疇</th>
-            <th class="matrix-skill">技術與技能項目</th>
-            <th class="matrix-desc">實務應用內容說明</th>
-            <th class="matrix-rating">自評等級 (L1 ~ L5)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Category 1: Database -->
-          <tr>
-            <td rowspan="4" class="matrix-category">1. 資料庫與<br>數據工程</td>
-            <td class="matrix-skill">Microsoft SQL Server 維運</td>
-            <td class="matrix-desc">資料庫安裝、備份還原、AlwaysOn HA、權限設定與磁碟空間管理。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_sql_admin" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_sql_admin" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_sql_admin" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_sql_admin" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_sql_admin" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">T-SQL 語法與預存程序 (SP)</td>
-            <td class="matrix-desc">能撰寫複雜 JOIN、預存程序、視圖 (View) 與業務邏輯觸發器 (Trigger)。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_tsql" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_tsql" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_tsql" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_tsql" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_tsql" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">效能優化與 Index 調優</td>
-            <td class="matrix-desc">能看懂執行計畫 (Execution Plan)、排查死鎖 (Deadlock)、設計適當叢集索引。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_tuning" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_tuning" value="2" checked> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_tuning" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_tuning" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_tuning" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">異動捕獲 (CDC) 與排程 ETL</td>
-            <td class="matrix-desc">理解 SQL Server CDC / Change Tracking 原理，或有 SSIS 資料拋轉經驗。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_cdc" value="1" checked> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_cdc" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_cdc" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_cdc" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_cdc" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
+      <!-- Section 3: Detailed System Ownership & Bus Factor Risk -->
+      <div class="section-title">三、負責系統深度清冊與「單點脆弱度 (Bus Factor)」黑數排查</div>
+      <div class="section-desc">本區塊旨在找出「全集團只有少數甚至僅 1 人會修」的脆弱節點，建立雙軌交接機制（Shadowing）。</div>
 
-          <!-- Category 2: Cloud & Modern Data -->
-          <tr>
-            <td rowspan="3" class="matrix-category">2. 雲端與<br>現代數據架構</td>
-            <td class="matrix-skill">公有雲基礎架構 (GCP / AWS)</td>
-            <td class="matrix-desc">理解 IAM 權限、VPC 網路、VM 實例配置與物件儲存 (S3 / GCS) 概念。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_cloud_infra" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_cloud_infra" value="2" checked> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_cloud_infra" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_cloud_infra" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_cloud_infra" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">雲端數據倉儲 (BigQuery / Redshift)</td>
-            <td class="matrix-desc">曾使用過雲端 DWH 下 SQL、建立資料市集、理解資料分區與叢集原理。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_dwh" value="1" checked> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_dwh" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_dwh" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_dwh" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_dwh" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">工作流編排 (Apache Airflow)</td>
-            <td class="matrix-desc">能看懂或撰寫 Python Airflow DAG，配置工作依賴、排程與告警通道。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_airflow" value="1" checked> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_airflow" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_airflow" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_airflow" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_airflow" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Category 3: API & Integration -->
-          <tr>
-            <td rowspan="3" class="matrix-category">3. API 串接與<br>中台整合</td>
-            <td class="matrix-skill">RESTful API 設計與呼叫</td>
-            <td class="matrix-desc">理解 HTTP 動詞、JSON 格式解析、狀態碼 (200/404/500) 與錯誤處理。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_rest_api" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_rest_api" value="2" checked> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_rest_api" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_rest_api" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_rest_api" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">API 工具除錯 (Postman / Swagger)</td>
-            <td class="matrix-desc">能熟練使用 Postman 進行介面模擬測試、變數配置與自動化請求發送。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_postman" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_postman" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_postman" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_postman" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_postman" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">API 鑑權與安全 (JWT / OAuth2 / 金鑰)</td>
-            <td class="matrix-desc">理解 Token 認證機制、API 金鑰驗證、HTTPS 憑證配置與存取頻率限制。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_api_auth" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_api_auth" value="2" checked> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_api_auth" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_api_auth" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_api_auth" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Category 4: Software Dev & Scripting -->
-          <tr>
-            <td rowspan="3" class="matrix-category">4. 軟體開發與<br>指令碼維運</td>
-            <td class="matrix-skill">自動化指令碼 (PowerShell / Python / Bash)</td>
-            <td class="matrix-desc">能撰寫指令碼執行排程備份、文字清洗、自動告警推播或檔案同步。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_scripting" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_scripting" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_scripting" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_scripting" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_scripting" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">應用軟體開發 (C# .NET / Java 等)</td>
-            <td class="matrix-desc">能閱讀或維護既有 ERP/MES 之後端程式碼，開發客製化業務小模組。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_dev" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_dev" value="2" checked> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_dev" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_dev" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_dev" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">版控與容器 (Git / Docker 基礎)</td>
-            <td class="matrix-desc">具備 Git 程式碼 commit/push/branch 觀念，或能使用 Docker 啟動服務。</td>
-            <td class="rating-options">
-              <label class="rating-label"><input type="radio" name="skill_git_docker" value="1" checked> 1</label>
-              <label class="rating-label"><input type="radio" name="skill_git_docker" value="2"> 2</label>
-              <label class="rating-label"><input type="radio" name="skill_git_docker" value="3"> 3</label>
-              <label class="rating-label"><input type="radio" name="skill_git_docker" value="4"> 4</label>
-              <label class="rating-label"><input type="radio" name="skill_git_docker" value="5"> 5</label>
-            </td>
-          </tr>
-
-          <!-- Category 5: BI & Analytics -->
-          <tr>
-            <td rowspan="2" class="matrix-category">5. 報表開發與<br>商業智慧</td>
-            <td class="matrix-skill">聯銓 BI 報表系統開發</td>
-            <td class="matrix-desc">熟悉聯銓 BI 資料集設定、維度切片、多維儀表板設計與權限發布。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_lcbi" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_lcbi" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_lcbi" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_lcbi" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_lcbi" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">現代 BI 工具 (Power BI / Excel VBA 巨集)</td>
-            <td class="matrix-desc">能使用 Power BI 建構數據模型，或維護生管複雜 Excel 巨集試算表。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_pbi_vba" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_pbi_vba" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_pbi_vba" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_pbi_vba" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_pbi_vba" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Category 6: Infrastructure & OT -->
-          <tr>
-            <td rowspan="4" class="matrix-category">6. 基礎設施、<br>網路與車間 OT</td>
-            <td class="matrix-skill">Windows Server ＆ Active Directory (AD)</td>
-            <td class="matrix-desc">網域管理、帳號生命週期、群組原則 (GPO)、DNS/DHCP 與檔案共用。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_ad" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_ad" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_ad" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_ad" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_ad" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">虛擬化平台 (VMware ESXi / vCenter)</td>
-            <td class="matrix-desc">虛擬機建立、資源配額配置、快照 (Snapshot) 管理與主機負載監控。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_vmware" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_vmware" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_vmware" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_vmware" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_vmware" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">跨國廠區網路與防火牆 (VPN / VLAN)</td>
-            <td class="matrix-desc">實體交換器切割 VLAN、Fortinet 防火牆規則設定、Site-to-Site VPN 除錯。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_network" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_network" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_network" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_network" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_network" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">車間設備與 OT 機台連網 (RFID / 裁床)</td>
-            <td class="matrix-desc">自動拉布裁床、吊掛系統 RFID 讀寫器、工控機 (IPC) 通訊介面連線排除。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_ot" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_ot" value="2" checked> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_ot" value="3"> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_ot" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_ot" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Category 7: Security & BCP -->
-          <tr>
-            <td rowspan="2" class="matrix-category">7. 資訊安全與<br>備份災變復原</td>
-            <td class="matrix-skill">備份機制與災難復原演練 (Veeam / 異地備份)</td>
-            <td class="matrix-desc">熟悉 3-2-1 備份原則，能執行定期資料庫還原驗證，理解 RTO/RPO 規範。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_backup" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_backup" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_backup" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_backup" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_backup" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="matrix-skill">資安防護與端點應變 (EDR / 防毒 / 勒索防護)</td>
-            <td class="matrix-desc">能排查惡意軟體警報、執行主機安全性修補，遵循最小權限帳號原則。</td>
-            <td class="matrix-rating">
-              <div class="rating-options">
-                <label class="rating-label"><input type="radio" name="skill_sec" value="1"> 1</label>
-                <label class="rating-label"><input type="radio" name="skill_sec" value="2"> 2</label>
-                <label class="rating-label"><input type="radio" name="skill_sec" value="3" checked> 3</label>
-                <label class="rating-label"><input type="radio" name="skill_sec" value="4"> 4</label>
-                <label class="rating-label"><input type="radio" name="skill_sec" value="5"> 5</label>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Section 3: System Ownership & Bus Factor -->
-      <div class="section-title">三、負責系統清冊與單點脆弱度 (Bus Factor) 排查</div>
-      <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">
-        排查是否有「只有自己懂、缺乏文檔」的高風險系統，利於進行跨廠交叉備援（Shadowing）。
+      <div class="table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 150px;">負責系統 / 排程名稱</th>
+              <th style="width: 140px;">開發語言 / 資料庫</th>
+              <th style="width: 120px;">是否有維護文件？</th>
+              <th style="width: 130px;">是否有合格代理人？</th>
+              <th>若您休假 2 週，該系統出錯將對工廠產生何種衝擊？目前有何備援方案？</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" class="form-input" placeholder="例：隆安MES車間進度追蹤模組"></td>
+              <td><input type="text" class="form-input" placeholder="例：C# .NET / MS SQL 2014"></td>
+              <td>
+                <select class="form-input">
+                  <option>文件完整且定期更新</option>
+                  <option selected>有文件但未完全更新</option>
+                  <option>無文件，靠經驗操作</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-input">
+                  <option>有合格熟練代理人</option>
+                  <option selected>僅能處理表面重啟，深層不會</option>
+                  <option>【完全無代理人，單點風險】</option>
+                </select>
+              </td>
+              <td><input type="text" class="form-input" placeholder="例：車縫計件會卡住，目前只有我知道底層哪段預存程序會鎖定"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="form-input" placeholder="例：採購發票拋轉 SQL 自動排程"></td>
+              <td><input type="text" class="form-input" placeholder="例：T-SQL Linked Server"></td>
+              <td>
+                <select class="form-input">
+                  <option>文件完整且定期更新</option>
+                  <option>有文件但未完全更新</option>
+                  <option selected>無文件，靠經驗操作</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-input">
+                  <option>有合格熟練代理人</option>
+                  <option>僅能處理表面重啟，深層不會</option>
+                  <option selected>【完全無代理人，單點風險】</option>
+                </select>
+              </td>
+              <td><input type="text" class="form-input" placeholder="例：若密碼過期排程中斷，採購款對帳會出錯，只有我知道腳本路徑"></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="form-input" placeholder="例：金邊吊掛 RFID 接收通訊服務"></td>
+              <td><input type="text" class="form-input" placeholder="例：Python 腳本 / Socket"></td>
+              <td>
+                <select class="form-input">
+                  <option>文件完整且定期更新</option>
+                  <option selected>有文件但未完全更新</option>
+                  <option>無文件，靠經驗操作</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-input">
+                  <option selected>有合格熟練代理人</option>
+                  <option>僅能處理表面重啟，深層不會</option>
+                  <option>【完全無代理人，單點風險】</option>
+                </select>
+              </td>
+              <td><input type="text" class="form-input" placeholder="例：吊掛計件資料無法回傳總部，備援同仁可重啟 Service"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
+      <!-- Section 4: Training & Career Development -->
+      <div class="section-title">四、2027 蜂巢計畫技術培訓需求與個人職涯發展意向</div>
       <div class="form-group">
-        <label class="form-label">1. 您目前日常最主要負責維運、修改或排除問題的核心系統有哪些？（可複選，請列出）</label>
-        <textarea class="textarea-box" placeholder="例：1. 隆安現場 MES 車間生產進度追蹤模組&#10;2. 採購發票拋轉 SQL 排程&#10;3. 金邊廠吊掛 RFID 分揀通訊服務"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">2. 上述系統中，是否有任何系統或排程是「如果自己請長假或離職，全集團沒有第二人知道如何處理」的黑數？</label>
-        <textarea class="textarea-box" placeholder="例：某個 5 年前寫的 SQL 排程（每晚轉帳用），沒有留下文件，目前只有我看過 source code..."></textarea>
-      </div>
-
-      <!-- Section 4: Training & Upskilling Interest -->
-      <div class="section-title">四、未來技能提升意向 (2027 蜂巢計畫培訓意向)</div>
-      <div class="form-group">
-        <label class="form-label">1. 配合 2027 蜂巢計畫推動，您個人最希望深入接受哪些領域的原廠專業培訓？（可複選）</label>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; font-size: 0.8rem; margin-top: 6px; margin-bottom: 12px;">
-          <label><input type="checkbox"> 雲端數據中台 (GCP BigQuery / AWS)</label>
-          <label><input type="checkbox"> 流程排程編排 (Apache Airflow DAG)</label>
-          <label><input type="checkbox"> 現代 API 平台規劃與 Postman 實戰</label>
-          <label><input type="checkbox"> 現代資料庫 CDC 異動即時串接</label>
-          <label><input type="checkbox"> 聯銓 BI 進階多維建模與效能調優</label>
-          <label><input type="checkbox"> 工廠邊緣網路與 Fortinet 資安防護</label>
+        <label class="form-label">1. 配合 2027 蜂巢計畫推動，您個人最希望在今年接受哪三項原廠深度培訓？（請勾選優先度最高的 3 項）</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; font-size: 0.8rem; margin-top: 6px; margin-bottom: 12px;">
+          <label><input type="checkbox"> Google Cloud BigQuery 現代湖倉實務</label>
+          <label><input type="checkbox"> Apache Airflow DAG 排程開發與除錯</label>
+          <label><input type="checkbox"> MS SQL Server 索引調校與 Deadlock 排除</label>
+          <label><input type="checkbox"> 企業級 API 平台設計與 Postman 自動化</label>
+          <label><input type="checkbox"> 聯銓 BI 複雜多維建模與性能優化</label>
+          <label><input type="checkbox"> Fortinet 跨國 SD-WAN 流量工程與安全</label>
+          <label><input type="checkbox"> 工廠車間 OT 機台訊號採集 (Modbus/OPC)</label>
+          <label><input type="checkbox"> Veeam 備份與防勒索不可篡改架構實務</label>
           <label><input type="checkbox"> Agentic AI / RAG 知識庫應用實戰</label>
-          <label><input type="checkbox"> PMP 國際專案管理規範與 WBS 甘特圖</label>
+          <label><input type="checkbox"> PMP 國際專案管理規範與甘特圖控管</label>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">2. 目前已持有之原廠專業技術證照（若無可填「無」）：</label>
-        <input type="text" class="form-input" placeholder="例：Microsoft MCSA / Azure DP-900 / AWS SAA / CCNA / 乙級電腦硬體裝修">
+        <label class="form-label">2. 目前已持有之原廠專業技術證照（若無請填無，歡迎列出欲報考之證照）：</label>
+        <input type="text" class="form-input" placeholder="例：持有：Microsoft MCSA、CCNA；未來 1 年內欲報考：Google Cloud Professional Data Engineer">
       </div>
 
       <div class="form-group">
-        <label class="form-label">3. 對公司現有 IT 工具、跨廠協同環境或專案推動的具體改善建議：</label>
-        <textarea class="textarea-box" placeholder="請暢所欲言，提出您在第一線維運中最常遇到的痛點或建議改善方向..."></textarea>
+        <label class="form-label">3. 您認為公司現有 IT 環境最亟需改善的技術短板是什麼？（例如跨廠連線不穩、工具缺乏統一標準、缺乏文件等）：</label>
+        <textarea class="textarea-box" placeholder="請具體列出您的觀察與改善建議，這將直接納入外部顧問架構規劃報告中呈報周副總..."></textarea>
       </div>
 
       <!-- Action Buttons -->
       <div class="action-bar">
         <div style="font-size: 0.75rem; color: var(--text-muted);">
-          填寫完成後可點擊右方按鈕列印保存為 PDF，呈交直屬主管進行複核。
+          填寫完成後可點擊右方按鈕列印存為 PDF，經直屬主管複核簽章後，呈報專案小組存檔。
         </div>
         <div style="display: flex; gap: 10px;">
           <button type="button" class="btn btn-secondary" onclick="window.print()">
             <span>🖨️</span> 列印／存為 PDF
           </button>
-          <button type="button" class="btn btn-primary" onclick="alert('自評表填寫格式驗證完成！請點擊【列印／存為 PDF】將成果存檔呈核。')">
+          <button type="button" class="btn btn-primary" onclick="alert('深度技術職能盤點表填寫完成！請點擊【列印／存為 PDF】將成果存檔陳核。')">
             <span>💾</span> 驗證並完成自評
           </button>
         </div>
