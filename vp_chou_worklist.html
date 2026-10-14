@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 周副總交辦推動工作清單與實施規劃 ｜ Howard Liao Ph.D.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAFA;
+      --bg-card: #FFFFFF;
+      --bg-warm-tint: #F5F2EB;
+      --bg-amber-soft: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #DE5814;
+      --amber-gold: #D97706;
+      --green-run: #0D9488;
+      --blue-grow: #2563EB;
+      --purple-trans: #9333EA;
+      --text-charcoal: #1E1E24;
+      --text-body: #4A4A52;
+      --text-muted: #7A7A85;
+      --border-subtle: #E8E5DF;
+      --border-strong: #D5D0C5;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 2px 8px rgba(30, 30, 36, 0.04);
+      --shadow-md: 0 8px 24px rgba(30, 30, 36, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      position: relative;
+      min-height: 100vh;
+      padding: 36px 28px;
+    }
+
+    /* Watermark Overlay */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Top Nav Navigation Bar */
+    .top-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.15s ease;
+      font-size: 0.76rem;
+    }
+    .nav-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+    }
+
+    /* Masthead */
+    .masthead {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .main-title {
+      font-family: var(--font-serif);
+      font-size: 2.35rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .main-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .main-lead {
+      font-size: 0.98rem;
+      color: var(--text-body);
+      max-width: 1080px;
+      line-height: 1.6;
+    }
+    .leadership-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      box-shadow: var(--shadow-sm);
+      display: inline-flex;
+      align-items: center;
+    }
+    .chip strong {
+      color: var(--text-charcoal);
+      margin-left: 5px;
+    }
+
+    /* Executive Notice Box */
+    .executive-mandate-box {
+      background: linear-gradient(135deg, #FFFDFB 0%, #FFF8EE 100%);
+      border: 1px solid #FDE68A;
+      border-left: 5px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .mandate-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mandate-desc {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* Progression Pipeline Steps */
+    .progression-pipeline {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pipeline-h3 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 900px) {
+      .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .pipeline-grid { grid-template-columns: 1fr; }
+    }
+    .pipeline-node {
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      position: relative;
+    }
+    .pipeline-step-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: var(--rust-primary);
+      color: #FFF;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .pipeline-step-title {
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .pipeline-step-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Section Cards & Tables */
+    .section-block {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+    .section-h2 {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    .worklist-table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .worklist-table th, .worklist-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+    }
+    .worklist-table th {
+      background: #FAF8F5;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      text-align: left;
+    }
+    .worklist-table tr:hover td {
+      background: #FFFDF9;
+    }
+    .badge-status {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      display: inline-block;
+    }
+    .status-priority { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+    .status-phase2 { background: #E0E7FF; color: #4338CA; border: 1px solid #C7D2FE; }
+    .status-decision { background: #FEE2E2; color: #B91C1C; border: 1px solid #FECACA; }
+
+    /* Bento Decisions Grid */
+    .decisions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .decision-card {
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+    }
+    .decision-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .decision-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text-charcoal);
+      margin-bottom: 6px;
+    }
+    .decision-body {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 20px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media print {
+      body { padding: 0; background: #FFF; }
+      .top-nav-bar { display: none; }
+      .container { max-width: 100%; }
+      .table-responsive { border: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    
+    <!-- Top Nav Navigation Bar -->
+    <div class="top-nav-bar">
+      <div>RSI GLOBAL ENTERPRISE · 2027 IT STRATEGY BLUEPRINT</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">🌐 回白皮書首頁</a>
+        <a href="index.html#doc-center" class="nav-btn">📑 文檔中心 (預覽)</a>
+        <a href="gantt_chart_2027.html" class="nav-btn">📅 2027 全專案甘特圖</a>
+        <a href="organization_resources.html" class="nav-btn">👥 組織與資源配置</a>
+        <a href="inventory_discovery.html" class="nav-btn">📋 職能與設備盤點</a>
+        <a href="vp_chou_worklist.html" class="nav-btn active">📋 周副總交辦清單</a>
+      </div>
+    </div>
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <h1 class="main-title">信源全球 (RSI) · 周副總交辦推動工作清單與實施規劃<br><span>第一階段優先工作 ＋ 後續應用 ＋ 6 大裁決事項 (職責邊界與推進指引)</span></h1>
+      <p class="main-lead">
+        依周文津副總經理交辦方向，本文件系統化界定「周副總交辦、Howard Liao Ph.D. 協助推動」之完整工作範疇。由外部首席架構顧問主責需求統整、架構規劃、跨廠協調與方案審查，並由內部 IT、海外各廠及外部原廠 SI 承接日常開發與維運責任。
+      </p>
+      <div class="leadership-strip">
+        <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
+          <span>交辦報告對象：</span><strong>周文津 副總經理 (Executive Sponsor)</strong>
+        </div>
+        <div class="chip" style="border-left: 3px solid var(--rust-primary);">
+          <span>推動執行負責：</span><strong>Howard Liao Ph.D. (Lead Architect & Advisor)</strong>
+        </div>
+        <div class="chip">
+          <span>顧問投入原則：</span><strong>每週最多兩天顧問投入 · 主責規劃審查與進度回報</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Executive Mandate Callout Box -->
+    <div class="executive-mandate-box">
+      <div class="mandate-title">📌 核心執行原則與職責邊界宣告 (Governance & Boundaries)</div>
+      <div class="mandate-desc">
+        1. <strong>職責定調</strong>：本工作列表為「周副總交辦、Howard 協助推動」之跨國架構藍圖，非由周副總或顧問單點親自寫碼操作，而是確立責任矩陣（RACI）驅動內部團隊與協力廠商落地。<br>
+        2. <strong>顧問承諾</strong>：Howard Liao Ph.D. 每週最多投入兩天，聚焦於「需求統整、架構規劃、跨廠協調、方案審查與高階進度回報」；實際開發、部署與日常維運由指派之專責單位承接。<br>
+        3. <strong>決策開放性</strong>：當前平台選型（Commercial vs Open Source）、預算額度與建置時程均為待盤點推演方案，尚未最終定案，待周副總裁示後正式立案。
+      </div>
+    </div>
+
+    <!-- Progression Pipeline (6 Stages) -->
+    <div class="progression-pipeline">
+      <div class="pipeline-h3">🚀 建議標準推進順序 (Phased Execution Pipeline)</div>
+      <div class="pipeline-grid">
+        <div class="pipeline-node">
+          <span class="pipeline-step-badge">階段 1</span>
+          <div class="pipeline-step-title">現況盤點</div>
+          <div class="pipeline-step-desc">全面清查總部與海外廠系統、資料庫、API及窗口名單。</div>
+        </div>
+        <div class="pipeline-node">
+          <span class="pipeline-step-badge">階段 2</span>
+          <div class="pipeline-step-title">範圍確認</div>
+          <div class="pipeline-step-desc">與周副總核定第一階段 API、Data Lake 與首批資料納入範圍。</div>
+        </div>
+        <div class="pipeline-node">
+          <span class="pipeline-step-badge">階段 3</span>
+          <div class="pipeline-step-title">平台選型</div>
+          <div class="pipeline-step-desc">比較商業雲端、開源與混合架構，產出成本估算與建議方案。</div>
+        </div>
+        <div class="pipeline-node">
+          <span class="pipeline-step-badge">階段 4</span>
+          <div class="pipeline-step-title">PoC 驗證</div>
+          <div class="pipeline-step-desc">小規模驗證首批 API 介接、增量同步、每日對帳與 BI 取數。</div>
+        </div>
+        <div class="pipeline-node">
+          <span class="pipeline-step-badge">階段 5</span>
+          <div class="pipeline-step-title">建置與驗收</div>
+          <div class="pipeline-step-desc">正式環境部署、雙向增量串接、每小時更新與階段成果驗收。</div>
+        </div>
+        <div class="pipeline-node">
+          <span class="pipeline-step-badge">階段 6</span>
+          <div class="pipeline-step-title">維運交接</div>
+          <div class="pipeline-step-desc">標準維運手冊交接內部 IT、建立分工責任表與 SLA 監控。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Phase 1 Priority Worklist (Items 1 - 9) -->
+    <section class="section-block">
+      <h2 class="section-h2">一、第一階段優先工作 (Phase 1 Core Worklist · 9 大重點任務)</h2>
+      <p class="section-sub">本階段聚焦於「打穩數位底座、釐清現況黑數、建構核心資料管道」，平台產品、預算與建置時程保持彈性，依盤點成果正式呈報。</p>
+      
+      <div class="table-responsive">
+        <table class="worklist-table">
+          <thead>
+            <tr>
+              <th style="width: 70px; text-align: center;">編號</th>
+              <th style="width: 220px;">工作項目</th>
+              <th>主要工作內容</th>
+              <th style="width: 280px;">預計交付產出</th>
+              <th style="width: 100px; text-align: center;">階段狀態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">1</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">現況與需求盤點</td>
+              <td>了解總部與各工廠（越南、柬埔寨、印尼）既有系統、資料庫（MS SQL 等）、介面、資料交換方式及各事業部管理需求。</td>
+              <td><strong>《現況架構清單》<br>《業務需求清單》<br>《跨國對接窗口名單》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">2</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">API Platform 規劃與建置</td>
+              <td>盤點既有 API 與資料介面，確認首批串接系統、平台核心功能（路由、限流、快取）、權限控管及生命週期管理流程。</td>
+              <td><strong>《企業 API 資產清單》<br>《API 平台技術方案》<br>《首批串接範圍定義書》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">3</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">Data Lake Platform 規劃與建置</td>
+              <td>盤點既有 MS SQL 與海外工廠即時資料，確認資料納入範圍、冷熱儲存架構、整合管道及資料治理管理機制。</td>
+              <td><strong>《全集團資料來源清單》<br>《資料湖中台規劃方案》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">4</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">平台選型與成本評估</td>
+              <td>客觀比較商業雲端、開源（Open Source）及地雲混合方案，深入確認部署方式、日常維運人力需求及整體 TCO 預算。</td>
+              <td><strong>《平台技術選型比較表》<br>《建置與 Run Cost 成本估算》<br>《架構師建議方案》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">5</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">總部與工廠資料串接</td>
+              <td>選定首批資料來源，確認擷取方式（CDC / API / 排程）、同步規則、資料交換格式及對來源業務系統之效能影響評估。</td>
+              <td><strong>《資料串接工程規格書》<br>《資料管線 (Pipeline) 實作》<br>《串接效能測試結果》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">6</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">每小時更新與每日結算</td>
+              <td>確認業務更新頻率、每日結算時間點、自動對帳稽核規則、作業失敗重跑機制及跨國斷線補傳（Delta Sync）需求。</td>
+              <td><strong>《排程作業規格書》<br>《每日結算對帳規則》<br>《階段驗收檢核項目》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">7</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">雲端部署與網路資安配套</td>
+              <td>確認雲端主帳號架構、總部與工廠專線連線、存取權限控管與稽核需求；務實釐清 SD-WAN、CASB 的實際落地範圍。</td>
+              <td><strong>《雲地部署拓撲架構圖》<br>《網路與資安配套清單》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">8</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">PoC 與階段驗收</td>
+              <td>小規模實境驗證首批 API 介接、跨國資料增量同步、每日自動對帳及既有 BI 報表取數可行性與穩定性。</td>
+              <td><strong>《PoC 概念驗證報告》<br>《技術挑戰與問題清單》<br>《階段驗收評估成果》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">9</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">執行與維運分工</td>
+              <td>明確界定內部 IT 團隊、海外工廠單位、外部顧問及協力廠商（SI）在建置期與日常維運期的責任矩陣。</td>
+              <td><strong>《跨部門權責分工表 (RACI)》<br>《維運責任清冊與交接標準》</strong></td>
+              <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Phase 2 Advanced Applications (Items 10 - 15) -->
+    <section class="section-block">
+      <h2 class="section-h2">二、後續應用工作 (Phase 2 Advanced Applications · 6 大領域)</h2>
+      <p class="section-sub">第一階段先以調研與需求收集為主，不預設全部同步建置，待基礎底座扎實後分批推展。</p>
+      
+      <div class="table-responsive">
+        <table class="worklist-table">
+          <thead>
+            <tr>
+              <th style="width: 70px; text-align: center;">編號</th>
+              <th style="width: 220px;">工作項目</th>
+              <th>主要工作內容與推進方向</th>
+              <th style="width: 140px; text-align: center;">推進策略</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">10</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">聯銓 BI 優化</td>
+              <td>全面盤點既有聯銓 BI 報表體系與使用者效能痛點，確認底層資料來源、查詢回應效能瓶頸及視覺化呈現改善需求。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">需求收集評估</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">11</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">KPI 系統化</td>
+              <td>跨部門統一指標定義（產能、交期、良率、成本）、計算口徑標準化、資料來源單一化、更新頻率規範及權責負責人鎖定。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">指標定義對齊</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">12</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">品質預測</td>
+              <td>確認成衣品質預測具體目標（縫紉針距瑕疵、面料縮率公差）、盤點可用生產/品質歷史數據品質及模型驗證可行性。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">數據成熟度評估</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">13</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">Agentic AI／RAG 應用</td>
+              <td>深入釐清生管跟單、Tech Pack 做工標準多國語檢索具體情境、內部知識來源（PDF/CAD）、資料存取權限及預期工時效益。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">場景價值驗證</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">14</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">AI 主機與硬體評估</td>
+              <td>依據實際 AI 應用（地端推論 vs 雲端 API）與部署需求，精確評估 GPU 主機規格、電費冷卻配套與實體採購之必要性。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">依算力需求核算</span></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">15</td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">大陸相關 AI 需求確認</td>
+              <td>務實釐清原始交辦內容中涉及大陸廠區之具體需求、使用地點、跨境法規與網路限制，暫不視為已定案方案，嚴守合規邊界。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">合規性前置調研</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: 6 Key Decisions for VP Chou -->
+    <section class="section-block">
+      <h2 class="section-h2">三、需要周副總確認與裁示的事項 (6 大核心決策項目)</h2>
+      <p class="section-sub">為利後續專案排程推進與跨部門資源動員，呈請周副總裁示下列 6 點關鍵原則：</p>
+      
+      <div class="decisions-grid">
+        <div class="decision-card">
+          <div class="decision-num">Decision 01 · 範圍核定</div>
+          <div class="decision-title">核定第一階段優先範圍</div>
+          <div class="decision-body">確認第一階段以「API Platform 規劃建置、Data Lake Platform 規劃建置及首批資料串接」為核心，集中資源快速打通底座。</div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-num">Decision 02 · 窗口指派</div>
+          <div class="decision-title">指定跨部門合作對接窗口</div>
+          <div class="decision-body">由周副總正式指定總部 IT 主管、海外各工廠（隆安、金邊、中爪哇）及關鍵業務單位窗口，確保調研與盤點推動順暢。</div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-num">Decision 03 · 首批標的</div>
+          <div class="decision-title">確認首批納入之系統與工廠</div>
+          <div class="decision-body">確認以哪個核心系統（如 MES / SAP WMS）與海外示範廠（如越南隆安主力廠）作為首批資料串接與 PoC 驗證標的。</div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-num">Decision 04 · 預算時程</div>
+          <div class="decision-title">確認預算區間與期望時程</div>
+          <div class="decision-body">定調第一階段建置之總體預算容許範圍、期望 PoC 上線時間節點，以及高階專案審批的決策流程。</div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-num">Decision 05 · 承接單位</div>
+          <div class="decision-title">指定實際開發部署與維運單位</div>
+          <div class="decision-body">明確指定未來實際從事平台開發、雲端部署與日常 7x24 維運之內部專責單位，或選定之外部協力廠商。</div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-num">Decision 06 · 顧問角色</div>
+          <div class="decision-title">確認每週 2 天顧問投入模式</div>
+          <div class="decision-body">確認 Howard Liao Ph.D. 每週最多兩天顧問投入，主責「需求統整、架構規劃、跨廠協調、方案審查及定期進度回報」，不涉及常態性日常維運。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Footer -->
+    <footer class="page-footer">
+      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫與周副總交辦推動工作手冊</div>
+      <div>交辦報告對象：周文津 副總經理 ｜ 推動執行負責：Howard Liao Ph.D.</div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

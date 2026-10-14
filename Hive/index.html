@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) Hive ｜ 周副總交辦推動工作清單與實施規劃</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-card: #FFFFFF;
+      --bg-warm-tint: #FFF8EE;
+      --bg-amber-soft: #FEF3C7;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --yellow-focus: #E5B300;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --border-accent: #FED7AA;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(168, 50, 18, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      position: relative;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* Watermark Overlay */
+    .watermark-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    /* Top Sticky Header */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 24px;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      background: var(--rust-primary);
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      text-decoration: none;
+      font-size: 0.76rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+      background: var(--bg-warm-tint);
+    }
+    .nav-btn.active {
+      background: var(--orange-vibrant);
+      color: #FFF;
+      border-color: var(--orange-vibrant);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Masthead Banner */
+    .masthead {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 26px;
+      margin-bottom: 30px;
+    }
+    .masthead-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--rust-primary);
+      margin-bottom: 8px;
+    }
+    .masthead-h1 {
+      font-family: var(--font-serif);
+      font-size: 2.35rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .masthead-h1 span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .masthead-p {
+      font-size: 0.96rem;
+      color: var(--text-body);
+      max-width: 1100px;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .leadership-strip {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      box-shadow: var(--shadow-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chip strong {
+      color: var(--text-charcoal);
+    }
+
+    /* Executive Mandate Box */
+    .mandate-box {
+      background: linear-gradient(135deg, #FFFDFB 0%, #FFF8EE 100%);
+      border: 1px solid #FDE68A;
+      border-left: 5px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+    .mandate-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .mandate-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mandate-desc {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.65;
+    }
+    .mandate-desc strong {
+      color: var(--text-charcoal);
+    }
+
+    /* Progression Pipeline */
+    .pipeline-container {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pipeline-head {
+      margin-bottom: 16px;
+    }
+    .pipeline-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pipeline-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      position: relative;
+    }
+    @media (max-width: 1024px) {
+      .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .pipeline-grid { grid-template-columns: 1fr; }
+    }
+    .pipeline-step {
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 14px;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .pipeline-step:hover {
+      border-color: var(--orange-vibrant);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: var(--rust-primary);
+      color: #FFF;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .step-name {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Section Blocks */
+    .section-block {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+    .section-head {
+      margin-bottom: 18px;
+    }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--rust-primary);
+      margin-bottom: 4px;
+    }
+    .section-h2 {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Filter / Search Bar */
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .search-input {
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      color: var(--text-charcoal);
+      outline: none;
+      width: 280px;
+      transition: border-color 0.2s ease;
+    }
+    .search-input:focus {
+      border-color: var(--orange-vibrant);
+      background: #FFF;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    .data-table {
+      width: 100%;
+      min-width: 960px;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+    }
+    .data-table th {
+      background: #FAF8F5;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      text-align: left;
+    }
+    .data-table tbody tr:hover td {
+      background: #FFFDF9;
+    }
+    .col-id {
+      width: 60px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--rust-primary);
+    }
+    .col-title {
+      width: 220px;
+      font-weight: 800;
+      color: var(--text-charcoal);
+    }
+    .col-deliverable {
+      width: 280px;
+      color: var(--rust-primary);
+      font-weight: 700;
+    }
+    .col-status {
+      width: 110px;
+      text-align: center;
+    }
+
+    /* Badges */
+    .pill-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .pill-priority { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+    .pill-phase2 { background: #E0E7FF; color: #4338CA; border: 1px solid #C7D2FE; }
+
+    /* Decisions Grid */
+    .decisions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .decision-card {
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .decision-card:hover {
+      box-shadow: var(--shadow-sm);
+      border-left-color: var(--rust-primary);
+    }
+    .decision-seq {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      margin-bottom: 4px;
+    }
+    .decision-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text-charcoal);
+      margin-bottom: 6px;
+    }
+    .decision-desc {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .decision-status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #B45309;
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      padding: 3px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+
+    /* Embedded PDF Previewer Section */
+    .pdf-preview-box {
+      background: #FFFFFF;
+      border: 2px solid var(--orange-vibrant);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .pdf-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #FAF8F5;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pdf-toolbar-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-charcoal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pdf-toolbar-badge {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      color: #B45309;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .pdf-frame-container {
+      width: 100%;
+      height: 780px;
+      background: #F3F4F6;
+      position: relative;
+    }
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media print {
+      body { padding: 0; background: #FFF; }
+      .top-header, .table-toolbar, .pdf-toolbar button { display: none; }
+      .container { max-width: 100%; }
+      .table-wrap { border: none; }
+      .pdf-preview-box { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <span class="brand-badge">RSI HIVE</span>
+        <span class="brand-title">信源全球 · 周副總交辦推動工作與架構藍圖</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#pipeline" class="nav-btn">🚀 推進順序</a>
+        <a href="#phase1" class="nav-btn">1️⃣ 第一階段 9 大任務</a>
+        <a href="#phase2" class="nav-btn">2️⃣ 後續 6 大應用</a>
+        <a href="#decisions" class="nav-btn">⚖️ 6 大裁決事項</a>
+        <a href="#preview-doc" class="nav-btn active">📑 線上審閱 PDF</a>
+        <a href="../index.html" class="nav-btn">🌐 RSI 總體白皮書</a>
+        <button onclick="window.print()" class="nav-btn" style="cursor: pointer;">🖨️ 列印手冊</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+
+    <!-- Masthead -->
+    <section class="masthead">
+      <div class="masthead-eyebrow">RSI GLOBAL IT GOVERNANCE & ARCHITECTURE · HIVE INITIATIVE</div>
+      <h1 class="masthead-h1">信源全球 (RSI) · 周副總交辦推動工作清單與實施規劃<br><span>第一階段優先工作 ＋ 後續應用 ＋ 6 大裁決事項 (職責邊界與推進指引)</span></h1>
+      <p class="masthead-p">
+        依周文津副總經理交辦方向，本目錄（Hive）系統化界定「周副總交辦、Howard Liao Ph.D. 協助推動」之完整工作範疇。由外部首席架構顧問主責需求統整、架構規劃、跨廠協調與方案審查，並由內部 IT、海外各廠及外部協力廠商承接日常開發與維運責任。
+      </p>
+      <div class="leadership-strip">
+        <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-warm-tint);">
+          <span>交辦報告對象：</span><strong>周文津 副總經理 (Executive Sponsor)</strong>
+        </div>
+        <div class="chip" style="border-left: 3px solid var(--rust-primary);">
+          <span>推動執行負責：</span><strong>Howard Liao Ph.D. (Lead Architect & Advisor)</strong>
+        </div>
+        <div class="chip">
+          <span>顧問投入原則：</span><strong>每週最多兩天顧問投入 · 專注規劃審查與進度回報</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Executive Mandate Callout Box -->
+    <div class="mandate-box">
+      <div class="mandate-head">
+        <div class="mandate-title">
+          <span>📌</span>
+          <span>核心執行原則與職責邊界宣告 (Governance & Boundaries)</span>
+        </div>
+        <a href="#preview-doc" class="nav-btn" style="background: var(--rust-primary); color: #FFF; border-color: var(--rust-primary);">
+          <span>👁️</span> 移至下方 PDF 即時預覽器
+        </a>
+      </div>
+      <div class="mandate-desc">
+        1. <strong>職責定調</strong>：本工作列表為「周副總交辦、Howard 協助推動」之跨國架構工程，非由周副總或顧問單點親自寫碼操作，而是確立責任矩陣（RACI）驅動內部團隊與協力廠商落地。<br>
+        2. <strong>顧問承諾</strong>：Howard Liao Ph.D. 每週最多投入兩天，聚焦於「需求統整、架構規劃、跨廠協調、方案審查與高階進度回報」；實際開發、部署與日常維運由指派之專責單位承接。<br>
+        3. <strong>決策開放性</strong>：當前平台選型（Commercial vs Open Source）、預算額度與建置時程均為待盤點推演方案，尚未最終定案，待周副總裁示後正式立案。
+      </div>
+    </div>
+
+    <!-- Interactive 6-Stage Execution Pipeline -->
+    <section id="pipeline" class="pipeline-container">
+      <div class="pipeline-head">
+        <div class="pipeline-title">
+          <span>🚀</span>
+          <span>建議標準推進順序 (Execution Pipeline · 6 階段路線)</span>
+        </div>
+        <div class="pipeline-sub">現況盤點 ➔ 範圍確認 ➔ 平台選型 ➔ PoC ➔ 建置與驗收 ➔ 維運交接</div>
+      </div>
+
+      <div class="pipeline-grid">
+        <div class="pipeline-step">
+          <span class="step-badge">階段 1</span>
+          <div class="step-name">現況盤點</div>
+          <div class="step-desc">全面清查總部與海外廠系統、資料庫、API及窗口名單。</div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-badge">階段 2</span>
+          <div class="step-name">範圍確認</div>
+          <div class="step-desc">與周副總核定第一階段 API、Data Lake 與首批資料納入範圍。</div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-badge">階段 3</span>
+          <div class="step-name">平台選型</div>
+          <div class="step-desc">比較商業雲端、開源與混合架構，產出成本估算與建議方案。</div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-badge">階段 4</span>
+          <div class="step-name">PoC 驗證</div>
+          <div class="step-desc">小規模驗證首批 API 介接、增量同步、每日對帳與 BI 取數。</div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-badge">階段 5</span>
+          <div class="step-name">建置與驗收</div>
+          <div class="step-desc">正式環境部署、雙向增量串接、每小時更新與階段成果驗收。</div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-badge">階段 6</span>
+          <div class="step-name">維運交接</div>
+          <div class="step-desc">標準維運手冊交接內部 IT、建立分工責任表與 SLA 監控。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Phase 1 Priority Tasks (1 - 9) -->
+    <section id="phase1" class="section-block">
+      <div class="section-head">
+        <div class="section-eyebrow">PHASE 1 CORE DELIVERABLES</div>
+        <h2 class="section-h2">一、第一階段優先工作 (Phase 1 Priority Tasks · 9 大核心任務)</h2>
+        <p class="section-p">先列為待盤點、規劃及執行事項；平台產品、預算與建置時程尚未定案，依實地盤點結果呈核。</p>
+      </div>
+
+      <div class="table-toolbar">
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-charcoal);">
+          共 9 項首要交付任務 (點擊表格欄位可即時聚焦)
+        </div>
+        <input type="text" id="phase1Search" class="search-input" placeholder="搜尋第一階段工作關鍵字..." onkeyup="filterPhase1Table()">
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table" id="tablePhase1">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-title">工作項目</th>
+              <th>主要工作內容</th>
+              <th class="col-deliverable">預計交付產出</th>
+              <th class="col-status">推進狀態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">1</td>
+              <td class="col-title">現況與需求盤點</td>
+              <td>了解總部與各工廠的系統、資料庫、介面、資料交換方式及管理需求</td>
+              <td class="col-deliverable">現況清單、需求清單、窗口名單</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">2</td>
+              <td class="col-title">API Platform 規劃與建置</td>
+              <td>盤點既有 API 與介面，確認首批串接系統、平台功能、權限及管理流程</td>
+              <td class="col-deliverable">API 清單、平台方案、首批串接範圍</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">3</td>
+              <td class="col-title">Data Lake Platform 規劃與建置</td>
+              <td>盤點既有 MS SQL 與工廠資料，確認資料納入範圍、儲存、整合及管理方式</td>
+              <td class="col-deliverable">資料來源清單、資料平台方案</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">4</td>
+              <td class="col-title">平台選型與成本評估</td>
+              <td>比較商業雲端、開源及混合方案，確認部署方式、維運需求及預算</td>
+              <td class="col-deliverable">選型比較表、成本估算、建議方案</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">5</td>
+              <td class="col-title">總部與工廠資料串接</td>
+              <td>選定首批資料來源，確認擷取方式、同步規則、資料格式及來源系統影響</td>
+              <td class="col-deliverable">串接規格、資料管線、測試結果</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">6</td>
+              <td class="col-title">每小時更新與每日結算</td>
+              <td>確認更新頻率、結算時間、對帳規則、失敗補跑及斷線補傳需求</td>
+              <td class="col-deliverable">排程規格、結算規則、驗收項目</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">7</td>
+              <td class="col-title">雲端部署與網路資安配套</td>
+              <td>確認雲端帳號、總部／工廠連線、權限與稽核需求；釐清 SD-WAN、CASB 的實際範圍</td>
+              <td class="col-deliverable">部署架構、網路及資安需求清單</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">8</td>
+              <td class="col-title">PoC 與階段驗收</td>
+              <td>驗證首批 API、資料同步、每日對帳及既有 BI 取數可行性</td>
+              <td class="col-deliverable">PoC 報告、問題清單、驗收結果</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">9</td>
+              <td class="col-title">執行與維運分工</td>
+              <td>確認內部 IT、工廠、顧問及廠商的建置與維運責任</td>
+              <td class="col-deliverable">分工表、維運責任及交接清單</td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Phase 2 Advanced Applications (10 - 15) -->
+    <section id="phase2" class="section-block">
+      <div class="section-head">
+        <div class="section-eyebrow">PHASE 2 APPLICATIONS & EXPANSION</div>
+        <h2 class="section-h2">二、後續應用工作 (Phase 2 Applications · 6 大重點領域)</h2>
+        <p class="section-p">第一階段先蒐集需求，不預設全部同步建置，待基礎底座扎實後分批推展。</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-id">編號</th>
+              <th class="col-title">工作項目</th>
+              <th>主要工作內容與推進方向</th>
+              <th class="col-status">推進策略</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-id">10</td>
+              <td class="col-title">聯銓 BI 優化</td>
+              <td>盤點既有報表與使用問題，確認資料來源、效能及呈現改善需求</td>
+              <td class="col-status"><span class="pill-badge pill-phase2">需求收集評估</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">11</td>
+              <td class="col-title">KPI 系統化</td>
+              <td>統一指標定義、計算口徑、資料來源、更新頻率及負責人</td>
+              <td class="col-status"><span class="pill-badge pill-phase2">指標定義對齊</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">12</td>
+              <td class="col-title">品質預測</td>
+              <td>確認預測目標、可用生產／品質資料及驗證方式</td>
+              <td class="col-status"><span class="pill-badge pill-phase2">數據成熟度評估</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">13</td>
+              <td class="col-title">Agentic AI／RAG 應用</td>
+              <td>釐清使用情境、知識來源、資料權限及預期效益</td>
+              <td class="col-status"><span class="pill-badge pill-phase2">場景價值驗證</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">14</td>
+              <td class="col-title">AI 主機與硬體評估</td>
+              <td>依 AI 應用與部署需求，再評估硬體規格與採購必要性</td>
+              <td class="col-status"><span class="pill-badge pill-phase2">算力成本核算</span></td>
+            </tr>
+            <tr>
+              <td class="col-id">15</td>
+              <td class="col-title">大陸相關 AI 需求確認</td>
+              <td>釐清原始交辦內容中的具體需求、使用地點與限制，暫不視為已定案方案</td>
+              <td class="col-status"><span class="pill-badge pill-phase2">合規前置調研</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: 6 Key Decisions for VP Chou -->
+    <section id="decisions" class="section-block">
+      <div class="section-head">
+        <div class="section-eyebrow">GOVERNANCE & EXECUTIVE APPROVALS</div>
+        <h2 class="section-h2">三、需要周副總確認的事項 (6 大核心裁決項目)</h2>
+        <p class="section-p">為利後續專案排程推進與跨部門資源動員，呈請周副總裁示下列 6 點關鍵原則：</p>
+      </div>
+
+      <div class="decisions-grid">
+        <div class="decision-card">
+          <div>
+            <div class="decision-seq">DECISION 01 · 範圍核定</div>
+            <div class="decision-title">核定第一階段範圍</div>
+            <div class="decision-desc">核定第一階段範圍：API Platform、Data Lake Platform及首批資料串接。集中資源打通底座。</div>
+          </div>
+          <div class="decision-status-tag"><span>⏳</span> 待周副總覆核核定</div>
+        </div>
+
+        <div class="decision-card">
+          <div>
+            <div class="decision-seq">DECISION 02 · 窗口指派</div>
+            <div class="decision-title">指定跨部門合作對接窗口</div>
+            <div class="decision-desc">指定總部 IT、各工廠（越南隆安、柬埔寨金邊、印尼中爪哇）及業務單位專責窗口名單。</div>
+          </div>
+          <div class="decision-status-tag"><span>⏳</span> 待周副總指定名單</div>
+        </div>
+
+        <div class="decision-card">
+          <div>
+            <div class="decision-seq">DECISION 03 · 首批標的</div>
+            <div class="decision-title">確認首批納入之系統與工廠</div>
+            <div class="decision-desc">確認首批納入的系統、工廠與資料來源（如越南示範廠 MES 與核心產銷資料）。</div>
+          </div>
+          <div class="decision-status-tag"><span>⏳</span> 待評估後圈定</div>
+        </div>
+
+        <div class="decision-card">
+          <div>
+            <div class="decision-seq">DECISION 04 · 預算時程</div>
+            <div class="decision-title">確認預算範圍與期望時程</div>
+            <div class="decision-desc">確認預算範圍、期望時程及決策審批方式，確保財務控制與推進節奏相符。</div>
+          </div>
+          <div class="decision-status-tag"><span>⏳</span> 待選型比較後呈報</div>
+        </div>
+
+        <div class="decision-card">
+          <div>
+            <div class="decision-seq">DECISION 05 · 承接單位</div>
+            <div class="decision-title">指定實際維運與承接單位</div>
+            <div class="decision-desc">指定實際開發、部署與日常維運的承接單位（內部專責 IT 小組或指派外部協力廠）。</div>
+          </div>
+          <div class="decision-status-tag"><span>⏳</span> 待確立分工表</div>
+        </div>
+
+        <div class="decision-card">
+          <div>
+            <div class="decision-seq">DECISION 06 · 顧問投入</div>
+            <div class="decision-title">確認每週 2 天顧問投入</div>
+            <div class="decision-desc">確認 Howard Liao Ph.D. 每週最多兩天的顧問投入，以需求統整、架構規劃、協調、方案審查及進度回報為主。</div>
+          </div>
+          <div class="decision-status-tag" style="background:#ECFDF5; border-color:#A7F3D0; color:#065F46;"><span>✓</span> 顧問邊界已定調</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Official Document Online Previewer (Strictly Preview Only) -->
+    <section id="preview-doc" class="section-block">
+      <div class="section-head">
+        <div class="section-eyebrow">OFFICIAL PUBLICATION · PREVIEW ONLY</div>
+        <h2 class="section-h2">四、周副總交辦推動工作手冊 ｜ 官方 PDF 線上即時審閱預覽 (嚴禁下載)</h2>
+        <p class="section-p">完整收錄上述 9 大優先任務、6 大後續應用與 6 大決策事項，已轉製為向量 PDF 供線上即時審閱，恪守資安機密規範，不提供直接下載。</p>
+      </div>
+
+      <div class="pdf-preview-box">
+        <div class="pdf-toolbar">
+          <div class="pdf-toolbar-title">
+            <span>📄</span>
+            <span>RSI_2027_周副總交辦工作清單與實施規劃_HowardLiao.pdf (高畫質向量審批版)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="pdf-toolbar-badge">
+              <span>🔒</span> 機密審批件 · 僅供線上即時預覽 (Preview Only · Do Not Download)
+            </span>
+            <button onclick="toggleFullscreen()" class="nav-btn" style="cursor: pointer; background: #FFF; border: 1px solid var(--border-subtle);">
+              ⛶ 全螢幕審閱
+            </button>
+          </div>
+        </div>
+
+        <div class="pdf-frame-container" id="pdfFrameWrapper" oncontextmenu="return false;">
+          <iframe id="pdfIframe" class="pdf-frame" src="RSI_2027_周副總交辦工作清單與實施規劃_Hive.pdf#toolbar=0&navpanes=1&scrollbar=1" title="周副總交辦推動工作手冊 PDF 預覽"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Footer -->
+    <footer class="page-footer">
+      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫與周副總交辦推動工作手冊 (Hive Initiative)</div>
+      <div>交辦報告對象：周文津 副總經理 ｜ 推動執行負責：Howard Liao Ph.D.</div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Search / Filter for Phase 1 Table
+    function filterPhase1Table() {
+      const q = document.getElementById('phase1Search').value.toLowerCase();
+      const rows = document.querySelectorAll('#tablePhase1 tbody tr');
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        r.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    // Fullscreen Toggle for PDF Previewer
+    function toggleFullscreen() {
+      const el = document.getElementById('pdfFrameWrapper');
+      if (!document.fullscreenElement) {
+        if (el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
