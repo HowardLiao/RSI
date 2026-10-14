@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 內部 IT 8 大領域技術職能盤點問卷、職能雷達圖與缺口分析 ｜ Hive Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --blue-accent: #2563EB;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --border-strong: #D6D3D1;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 6px 20px rgba(168, 50, 18, 0.08);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .survey-container {
+      max-width: 1220px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 38px 44px;
+      position: relative;
+    }
+
+    .watermark-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90' viewBox='0 0 160 90'%3E%3Ctext x='10' y='35' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 50 35)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3Ctext x='90' y='80' fill='%2357534E' font-family='sans-serif' font-weight='600' font-size='10' transform='rotate(-20 130 80)' letter-spacing='1'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+      border-radius: var(--radius-md);
+    }
+
+    .header-bar {
+      border-bottom: 2.5px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .notice-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-left: 4px solid var(--orange-vibrant);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-size: 0.82rem;
+      margin-bottom: 26px;
+      line-height: 1.6;
+    }
+
+    .level-guide {
+      margin-bottom: 28px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .level-guide table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .level-guide th, .level-guide td {
+      padding: 8px 12px;
+      border: 1px solid var(--border-subtle);
+    }
+    .level-guide th {
+      background: #FAF8F5;
+      color: var(--text-charcoal);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .part-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      margin-top: 32px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }
+    .part-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+    .form-input {
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      color: var(--text-charcoal);
+      font-family: inherit;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 0 0 2px rgba(232, 117, 36, 0.15);
+    }
+
+    /* Question Cards */
+    .q-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+    .q-card:hover {
+      border-color: #FED7AA;
+      background: #FFFCF9;
+    }
+    .q-head {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .q-scenario {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+    .likert-scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      background: #FAF8F5;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 7px 10px;
+    }
+    .likert-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .textarea-box {
+      width: 100%;
+      min-height: 75px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      resize: vertical;
+      margin-top: 4px;
+    }
+
+    /* Analytics Dashboard Section */
+    .analytics-section {
+      background: #FAF8F5;
+      border: 2px solid var(--orange-vibrant);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      margin-top: 40px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-md);
+    }
+    .analytics-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .analytics-title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .radar-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .radar-grid { grid-template-columns: 1fr; }
+    }
+
+    .radar-canvas-container {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      background: #FFFFFF;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+    .gap-table th, .gap-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .gap-table th {
+      background: #FAF8F5;
+      font-weight: 800;
+      color: var(--text-charcoal);
+    }
+    .gap-domain {
+      text-align: left !important;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+
+    .badge-status {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .gap-high { background: #FEE2E2; color: #B91C1C; border: 1px solid #FECACA; }
+    .gap-mid { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+    .gap-good { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1.5px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--rust-primary);
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--orange-vibrant);
+    }
+    .btn-secondary {
+      background: #FFF;
+      border: 1px solid var(--border-strong);
+      color: var(--text-charcoal);
+    }
+
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .survey-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .action-bar { display: none; }
+      .q-card { page-break-inside: avoid; }
+      .analytics-section { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="survey-container">
+    <div class="watermark-overlay"></div>
+
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+        </div>
+        <h1 class="header-title">信源全球 · 內部 IT 8 大領域技術職能現況盤點問卷<br><span>Technical Competency Assessment, Radar Chart &amp; Skill Gap Analysis</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-8DOMAINS-ASSESSMENT-2027</div>
+      </div>
+    </div>
+
+    <!-- Notice Box -->
+    <div class="notice-box">
+      <strong>📌 8 大領域全盤調查與缺口分析指引：</strong><br>
+      為推進信源全球 2027「蜂巢計畫（Hive Project）」，本問卷將 IT 職能系統化擴展為 <strong>1.軟體(前端/後端) 2.硬體 3.網路 4.雲端 5.資安 6.SRE 7.MIS 8.各點連線協作</strong> 等 8 大核心領域。問卷作答後將<strong>即時動態生成「個人/廠區技術職能雷達圖」</strong>，並自動比對 2027 專案目標標準線產出<strong>「技術職能缺口分析表」</strong>，精確指引後續客製化培訓與外部原廠資源配比。請各位同仁本諸事實客觀自評。
+    </div>
+
+    <!-- Level Guide -->
+    <div class="level-guide">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 120px;">熟練度等級</th>
+            <th style="width: 140px;">客觀定義</th>
+            <th>具體行為表現檢核標準 (請依能獨立解決問題之實戰經驗作答)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1 分 · 完全不會</strong></td>
+            <td>No Awareness</td>
+            <td>無此概念，從未接觸操作過，無法理解技術術語。</td>
+          </tr>
+          <tr>
+            <td><strong>2 分 · 初學理解</strong></td>
+            <td>Novice / Learner</td>
+            <td>理解基礎架構與名詞，但無法獨立排錯，需他人指導逐步驟操作。</td>
+          </tr>
+          <tr>
+            <td><strong>3 分 · 獨立維運</strong></td>
+            <td>Competent</td>
+            <td>能依照標準 SOP 獨立完成設定、日常維運、備份與常見異常排除，無需主管監督。</td>
+          </tr>
+          <tr>
+            <td><strong>4 分 · 資深精通</strong></td>
+            <td>Proficient</td>
+            <td>熟稔技術底層原理，能排查跨系統深層故障、撰寫複雜腳本、調優效能與排除死鎖。</td>
+          </tr>
+          <tr>
+            <td><strong>5 分 · 架構專家</strong></td>
+            <td>Expert / Lead</td>
+            <td>具備架構規劃、技術選型與高可用設計能力，能指導並帶教其他同仁。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <form id="assessmentForm">
+
+      <!-- Part 0: Basic Profile -->
+      <div class="part-title">Part 0. 受訪同仁基本資訊 (Basic Profile)</div>
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">中文姓名 / 英文姓名 *</label>
+          <input type="text" class="form-input" placeholder="例：陳志遠 / Edward Chen" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">員工工號 (Emp ID) *</label>
+          <input type="text" class="form-input" placeholder="例：RSI-92015" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">所屬節點廠區 *</label>
+          <select class="form-input" required>
+            <option value="">-- 請選擇所屬廠區 --</option>
+            <option>台北營運總部 (Taipei HQ)</option>
+            <option>越南隆安示範旗艦廠 (Vietnam Long An)</option>
+            <option>柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
+            <option>印尼中爪哇廠 (Indonesia Central Java)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">現任技術專業角色 *</label>
+          <input type="text" class="form-input" placeholder="例：資深全端工程師 / 資料庫維運" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">信源 (RSI) 年資 / 總 IT 年資</label>
+          <input type="text" class="form-input" placeholder="例：信源 3 年 / 總 IT 經驗 7 年">
+        </div>
+        <div class="form-group">
+          <label class="form-label">直屬主管姓名</label>
+          <input type="text" class="form-input" placeholder="例：林課長">
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 1. 軟體 (前端、後端) -->
+      <!-- ============================================================== -->
+      <div class="part-title">1. 軟體工程：前端與後端開發 (Software: Frontend &amp; Backend)</div>
+      <div class="part-desc">涵蓋前端響應式 UI、後端 C#/.NET/Java/Python、T-SQL 預存程序與成衣業務邏輯。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-1. 前端 UI 開發與響應式切版 (HTML5 / Vue / React / RWD)</div>
+        <div class="q-scenario">能否熟練使用現代前端框架或原生 JS/CSS 開發手機/平板/電腦自適應的業務表單與看板？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d1_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d1_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-2. 後端應用服務開發 (C# .NET Core / Java / Python Web API)</div>
+        <div class="q-scenario">能否設計 RESTful API、處理依賴注入、交易事務控制 (Transaction) 並與 ERP/MES 後端介接？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d1_2" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d1_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q1-3. 進階 T-SQL 撰寫、Stored Procedure 與死鎖調校</div>
+        <div class="q-scenario">能否編寫複雜 CTE、窗口函數、優化執行計畫 (Execution Plan)、解決 SQL Server Deadlock 阻礙？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d1_3" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d1_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 2. 硬體 -->
+      <!-- ============================================================== -->
+      <div class="part-title">2. 實體硬體與車間設施 (Hardware &amp; Shopfloor Equipment)</div>
+      <div class="part-desc">涵蓋 Dell/HP 伺服器、RAID 磁碟陣列、NAS/SAN、VMware 虛擬化與車間工控機 (IPC)。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-1. 機架伺服器硬體管理 (Dell R740 / HP DL380 / iDRAC)</div>
+        <div class="q-scenario">能否獨立進行實體主機上架、硬體故障診斷、使用 iDRAC / iLO 帶外管理並更新韌體？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d2_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d2_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-2. 磁碟陣列 RAID 配置、抽換重建與儲存 NAS 維護</div>
+        <div class="q-scenario">能否配置 RAID 1/5/6/10、設定 Hot Spare 熱備援、抽換故障硬碟重建，並管理 Synology NAS 空間？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d2_2" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d2_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q2-3. 車間工控機 (IPC) 與吊掛 RFID 讀寫器除錯</div>
+        <div class="q-scenario">能否維護研華工控機、排查 COM 串列埠通訊、調整 Impinj RFID 天線角度並解決機台通訊異常？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d2_3" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d2_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 3. 網路 -->
+      <!-- ============================================================== -->
+      <div class="part-title">3. 廠區網路架構與傳輸 (Network &amp; Wi-Fi Infrastructure)</div>
+      <div class="part-desc">涵蓋核心交換器、VLAN 切割隔離、車間 Wi-Fi 覆蓋調優與雙線路備援。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-1. 核心交換器 (Core Switch) 設定、堆疊與鏈路聚合</div>
+        <div class="q-scenario">能否維護 Cisco/Aruba 核心交換機、配置 LACP 聚合、規劃靜態/動態路由與預設閘道備援？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d3_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d3_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-2. 廠區 VLAN 網段規劃、Trunk 與存取控制清單 (ACL)</div>
+        <div class="q-scenario">能否規劃 VLAN 隔離車間機台、伺服器、辦公室與訪客網路，配置 802.1Q 埠並防止廣播風暴？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d3_2" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d3_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q3-3. 車間企業級 Wi-Fi 覆蓋調優與死角消除</div>
+        <div class="q-scenario">能否管理 Aruba/Unifi AP 控制器、調整無線射頻通道 (Channel)、優化車間條碼槍快速漫遊？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d3_3" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d3_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 4. 雲端 -->
+      <!-- ============================================================== -->
+      <div class="part-title">4. 公有雲與數據中台 (Cloud &amp; Lakehouse Architecture)</div>
+      <div class="part-desc">涵蓋 GCP/AWS 雲端環境操作、BigQuery 數據倉儲、Apache Airflow 排程與 FinOps。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-1. 公有雲基礎架構操作 (GCP / AWS 控制台與 IAM)</div>
+        <div class="q-scenario">能否在 GCP 或 AWS 控制台建立 VPC 子網、管理 VM 實例、配置 IAM 最小權限角色與安全群組？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d4_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="2" checked onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d4_1" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-2. 雲端現代數據倉儲 (Google BigQuery / S3 Iceberg)</div>
+        <div class="q-scenario">能否在 BigQuery 建立分區表 (Partitioning)、撰寫 MERGE 語法執行對帳、並優化查詢掃描成本？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d4_2" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d4_2" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q4-3. 工作流編排排程實務 (Apache Airflow DAG)</div>
+        <div class="q-scenario">能否使用 Python 撰寫 Airflow DAG 腳本、設定任務前後依賴關係、配置失敗重跑與告警通知？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d4_3" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="4" onchange="updateCharts()"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d4_3" value="5" onchange="updateCharts()"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 5. 資安 -->
+      <!-- ============================================================== -->
+      <div class="part-title">5. 資訊安全與災變復原 (Cybersecurity &amp; BCP/DR)</div>
+      <div class="part-desc">涵蓋次世代防火牆 (Fortinet)、EDR 防毒、Veeam 3-2-1 備份、防勒索 WORM 與 MFA 雙因子。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-1. 次世代防火牆 (FortiGate NGFW) 安全策略與 IPS</div>
+        <div class="q-scenario">能否配置 Fortinet 防火牆安全策略 (Policies)、啟用防毒與 IPS 深度檢測並排除誤判？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d5_1" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d5_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-2. 企業備份架構 (Veeam Backup 3-2-1 原則實務)</div>
+        <div class="q-scenario">能否配置每日完整與差異備份、設定備份加密、並能獨立執行 VM 及資料庫之實體還原開機測試？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d5_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d5_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q5-3. 防勒索不可篡改備份池 (WORM) 與 MFA 雙因子推行</div>
+        <div class="q-scenario">是否理解並能配置不可篡改唯讀備份池，並推行 Authenticator 雙因子認證強制啟用？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d5_3" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d5_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 6. SRE -->
+      <!-- ============================================================== -->
+      <div class="part-title">6. 網站可靠性工程與維運 (SRE &amp; DevOps)</div>
+      <div class="part-desc">涵蓋系統可用性指標 (SLA/SLO)、日誌集中監控 (Prometheus/Grafana)、CI/CD 自動化與容器。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-1. 服務等級目標與可用性監控 (SLI / SLO / SLA)</div>
+        <div class="q-scenario">能否為關鍵成衣系統定義可用性指標（如 99.9% 正常運行時間）、計算錯誤預算 (Error Budget)？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d6_1" value="1" onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="2" checked onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d6_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-2. 集中化日誌與效能監控 (Prometheus / Grafana / Zabbix)</div>
+        <div class="q-scenario">能否建立集中監控儀表、收集伺服器 CPU/RAM/磁碟/API 回應時間、並設定閥值自動通報？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d6_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="2" checked onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d6_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q6-3. 容器化與 CI/CD 自動化發布觀念 (Docker / Git Pipeline)</div>
+        <div class="q-scenario">能否看懂 Dockerfile、使用 docker-compose 運行多容器、或使用 GitHub Actions 執行自動化測試打包？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d6_3" value="1" checked onchange="updateCharts()"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="2" onchange="updateCharts()"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="3" onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d6_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 7. MIS -->
+      <!-- ============================================================== -->
+      <div class="part-title">7. 資訊管理與終端維運 (MIS &amp; IT Service Management)</div>
+      <div class="part-desc">涵蓋 Active Directory 網域管理、GPO 派送、M365 租戶維護、軟體資產合規與使用者支援。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q7-1. Active Directory 網域控制、GPO 安全原則與帳號審查</div>
+        <div class="q-scenario">能否管理網域控制器 (DC)、規劃 OU 組織單位、使用 GPO 派送安全性設定並落實離職及時停權？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d7_1" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d7_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q7-2. Microsoft 365 租戶管理 (Exchange / Teams / 授權盤點)</div>
+        <div class="q-scenario">能否管理 M365 企業帳號、管理 Exchange 郵件流與安全性、排查員工授權閒置浪費？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d7_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d7_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q7-3. 終端電腦映像檔大量部署 (Ghost/WDS) 與 ITIL 工單處理</div>
+        <div class="q-scenario">能否製作標準化 Windows 系統映像檔大量派送、並依照 SLA 規範處理使用者 Helpdesk 工單？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d7_3" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d7_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 8. 各點連線協作 -->
+      <!-- ============================================================== -->
+      <div class="part-title">8. 各點連線與 SD-WAN 協作 (Connectivity &amp; SD-WAN)</div>
+      <div class="part-desc">涵蓋跨國 VPN、SD-WAN 頻寬保護、外點一日一次離峰傳輸排程與海纜斷網離線自治。</div>
+
+      <div class="q-card">
+        <div class="q-head">Q8-1. 跨國 Site-to-Site IPSec VPN 建立與連線除錯</div>
+        <div class="q-scenario">能否在 Fortinet 防火牆建立台北總部至海外三廠之 IPSec VPN 穿隧並排除網路抖動問題？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d8_1" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d8_1" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q8-2. 外點結算一日一次傳輸排程 (深夜離峰 · SD-WAN 頻寬保護)</div>
+        <div class="q-scenario">是否清楚落實：外點結算資料原則上一天傳輸一次（深夜 01:00~03:00 打包），避免白天影響頻寬？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d8_2" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d8_2" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-head">Q8-3. 重大緊急特例多次傳輸通道 (4-Gate 結關 / 嚴重異常)</div>
+        <div class="q-scenario">能否配置針對 4-Gate 產前門禁急需出貨結關時的高優先級即時多次傳輸通道？</div>
+        <div class="likert-scale">
+          <label class="likert-item"><input type="radio" name="d8_3" value="1"> 1分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="2"> 2分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="3" checked onchange="updateCharts()"> 3分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="4"> 4分</label>
+          <label class="likert-item"><input type="radio" name="d8_3" value="5"> 5分</label>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 質性黑數排查 -->
+      <!-- ============================================================== -->
+      <div class="part-title">9. 系統責任與單點脆弱度 (Bus Factor) 排查</div>
+      <div class="form-group">
+        <label class="form-label">請列出您目前負責維運的核心系統中，是否有任何系統或排程是「若您休假 2 週，全集團無第二人能排除」的單點黑數？</label>
+        <textarea class="textarea-box" placeholder="例：隆安現場 MES 車縫計件轉帳預存程序，只有我看過原始碼，無文檔，若出錯全廠停工..."></textarea>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- 即時職能雷達圖與技術缺口分析結果區塊 -->
+      <!-- ============================================================== -->
+      <div class="analytics-section">
+        <div class="analytics-head">
+          <div class="analytics-title">
+            <span>📊</span>
+            <span>技術職能雷達圖 ＆ 2027 蜂巢計畫缺口分析 (即時運算)</span>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="updateCharts()">
+            <span>🔄</span> 重新計算職能評分
+          </button>
+        </div>
+
+        <div class="radar-grid">
+          <!-- Radar Canvas Container -->
+          <div class="radar-canvas-container">
+            <div style="font-weight: 800; font-size: 0.95rem; color: var(--rust-primary); margin-bottom: 8px;">
+              個人 8 大維度技術職能雷達分佈圖
+            </div>
+            <div style="display: flex; gap: 14px; font-size: 0.72rem; margin-bottom: 12px;">
+              <span style="color: #2563EB; font-weight: 800;">● 現有自評分數 (Current)</span>
+              <span style="color: #E87524; font-weight: 800;">● 2027 專案目標標準線 (Target)</span>
+            </div>
+            <!-- Canvas Radar -->
+            <canvas id="radarCanvas" width="420" height="360" style="max-width: 100%; height: auto;"></canvas>
+          </div>
+
+          <!-- Gap Table Container -->
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-charcoal); margin-bottom: 10px;">
+              8 大領域技術缺口與精準培訓策略表 (Skill Gap Matrix)
+            </div>
+            <table class="gap-table" id="gapMatrixTable">
+              <thead>
+                <tr>
+                  <th class="gap-domain">評鑑領域</th>
+                  <th style="width: 70px;">現得分</th>
+                  <th style="width: 70px;">目標分</th>
+                  <th style="width: 70px;">缺口差</th>
+                  <th style="width: 140px;">優先處置策略</th>
+                </tr>
+              </thead>
+              <tbody id="gapTableBody">
+                <!-- Dynamically generated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          問卷填答完成並確認雷達分析後，點擊右方按鈕列印存為 PDF 呈交主管複核。
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn btn-secondary" onclick="window.print()">
+            <span>🖨️</span> 列印全份問卷與雷達圖 (PDF)
+          </button>
+          <button type="button" class="btn btn-primary" onclick="alert('問卷與雷達職能分析驗證成功！請點擊【列印全份問卷與雷達圖 (PDF)】歸檔陳核。')">
+            <span>💾</span> 驗證並儲存問卷
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    // 8 Domains Target Benchmarks (for 2027 Hive Project)
+    const targets = [3.8, 3.5, 3.8, 4.0, 4.2, 3.5, 3.5, 4.0];
+    const domainNames = [
+      "1. 軟體 (前端/後端)",
+      "2. 實體硬體",
+      "3. 廠區網路",
+      "4. 雲端湖倉",
+      "5. 資訊安全",
+      "6. SRE 可靠性",
+      "7. MIS 維運",
+      "8. 各點連線協作"
+    ];
+
+    function getRadioScore(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? parseFloat(el.value) : 3.0;
+    }
+
+    function calculateScores() {
+      const d1 = (getRadioScore('d1_1') + getRadioScore('d1_2') + getRadioScore('d1_3')) / 3;
+      const d2 = (getRadioScore('d2_1') + getRadioScore('d2_2') + getRadioScore('d2_3')) / 3;
+      const d3 = (getRadioScore('d3_1') + getRadioScore('d3_2') + getRadioScore('d3_3')) / 3;
+      const d4 = (getRadioScore('d4_1') + getRadioScore('d4_2') + getRadioScore('d4_3')) / 3;
+      const d5 = (getRadioScore('d5_1') + getRadioScore('d5_2') + getRadioScore('d5_3')) / 3;
+      const d6 = (getRadioScore('d6_1') + getRadioScore('d6_2') + getRadioScore('d6_3')) / 3;
+      const d7 = (getRadioScore('d7_1') + getRadioScore('d7_2') + getRadioScore('d7_3')) / 3;
+      const d8 = (getRadioScore('d8_1') + getRadioScore('d8_2') + getRadioScore('d8_3')) / 3;
+      return [d1, d2, d3, d4, d5, d6, d7, d8];
+    }
+
+    function drawRadar(scores) {
+      const canvas = document.getElementById('radarCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = Math.min(cx, cy) - 55;
+      const numPoints = 8;
+      const angleStep = (Math.PI * 2) / numPoints;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw Background Con-centric Octagons (1 to 5)
+      for (let level = 1; level <= 5; level++) {
+        ctx.beginPath();
+        for (let i = 0; i < numPoints; i++) {
+          const angle = i * angleStep - Math.PI / 2;
+          const r = (radius / 5) * level;
+          const x = cx + r * Math.cos(angle);
+          const y = cy + r * Math.sin(angle);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = level === 5 ? '#D6D3D1' : '#E7E5E4';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Level text
+        ctx.fillStyle = '#A8A29E';
+        ctx.font = '10px sans-serif';
+        ctx.fillText(level.toString(), cx + 4, cy - (radius / 5) * level + 10);
+      }
+
+      // Draw Spokes and Labels
+      for (let i = 0; i < numPoints; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const x = cx + radius * Math.cos(angle);
+        const y = cy + radius * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = '#E7E5E4';
+        ctx.stroke();
+
+        // Label
+        const labelR = radius + 24;
+        const lx = cx + labelR * Math.cos(angle);
+        const ly = cy + labelR * Math.sin(angle);
+        ctx.fillStyle = '#222222';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(domainNames[i], lx, ly);
+      }
+
+      // Draw Target Polygon (Orange dashed)
+      ctx.beginPath();
+      for (let i = 0; i < numPoints; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const r = (radius / 5) * targets[i];
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = '#E87524';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Draw Current Polygon (Blue filled)
+      ctx.beginPath();
+      for (let i = 0; i < numPoints; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const r = (radius / 5) * scores[i];
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(37, 99, 235, 0.22)';
+      ctx.fill();
+      ctx.strokeStyle = '#2563EB';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Points
+      for (let i = 0; i < numPoints; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const r = (radius / 5) * scores[i];
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#2563EB';
+        ctx.fill();
+      }
+    }
+
+    function updateGapTable(scores) {
+      const tbody = document.getElementById('gapTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      scores.forEach((score, idx) => {
+        const target = targets[idx];
+        const gap = (target - score).toFixed(1);
+        let strategy = '';
+        let badgeClass = '';
+
+        if (gap >= 1.5) {
+          strategy = '🚨 緊急原廠培訓 / 外部SI支援';
+          badgeClass = 'gap-high';
+        } else if (gap > 0.5) {
+          strategy = '⚠️ 安排 2027 專題專長帶教';
+          badgeClass = 'gap-mid';
+        } else {
+          strategy = '✓ 具備成熟實力，可擔綱主將';
+          badgeClass = 'gap-good';
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="gap-domain">${domainNames[idx]}</td>
+          <td style="font-family: monospace; font-weight: bold; color: #2563EB;">${score.toFixed(1)}</td>
+          <td style="font-family: monospace; font-weight: bold; color: #E87524;">${target.toFixed(1)}</td>
+          <td style="font-family: monospace; font-weight: bold; color: ${gap > 0 ? '#B91C1C' : '#065F46'};">${gap > 0 ? '-' + gap : '+' + Math.abs(gap)}</td>
+          <td><span class="badge-status ${badgeClass}">${strategy}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateCharts() {
+      const scores = calculateScores();
+      drawRadar(scores);
+      updateGapTable(scores);
+    }
+
+    // Initial render
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCharts();
+    });
+  </script>
+
+</body>
+</html>
