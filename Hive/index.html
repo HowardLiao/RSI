@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) Hive ｜ 周副總交辦推動工作清單與實施規劃</title>
+  <title>信源全球 (RSI) · 蜂巢計畫（Project Hive）架構實施藍圖 ｜ Howard Liao Ph.D.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
       --orange-vibrant: #E87524;
       --amber-gold: #D97706;
       --yellow-focus: #E5B300;
+      --honey-glow: #F59E0B;
       --text-charcoal: #222222;
       --text-body: #44403C;
       --text-muted: #666666;
@@ -80,18 +81,21 @@
       gap: 12px;
     }
     .brand-badge {
-      background: var(--rust-primary);
+      background: linear-gradient(135deg, #A83212 0%, #E87524 100%);
       color: #FFF;
       font-family: var(--font-mono);
       font-size: 0.75rem;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 4px;
       letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
     .brand-title {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 700;
       color: var(--text-charcoal);
     }
@@ -149,6 +153,9 @@
       letter-spacing: 0.15em;
       color: var(--rust-primary);
       margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .masthead-h1 {
       font-family: var(--font-serif);
@@ -189,17 +196,86 @@
       color: var(--text-charcoal);
     }
 
-    /* Executive Mandate Box */
-    .mandate-box {
+    /* Honeycomb Architectural Metaphor Grid */
+    .metaphor-section {
       background: linear-gradient(135deg, #FFFDFB 0%, #FFF8EE 100%);
-      border: 1px solid #FDE68A;
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 34px;
+      box-shadow: var(--shadow-sm);
+    }
+    .metaphor-head {
+      margin-bottom: 16px;
+    }
+    .metaphor-h2 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .metaphor-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .metaphor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .metaphor-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      border-top: 3px solid var(--orange-vibrant);
+      transition: all 0.2s ease;
+    }
+    .metaphor-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-top-color: var(--rust-primary);
+    }
+    .metaphor-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .metaphor-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-charcoal);
+      margin-bottom: 4px;
+    }
+    .metaphor-role {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--rust-primary);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .metaphor-body {
+      font-size: 0.78rem;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* Governance Mandate Callout Box */
+    .governance-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
       border-left: 5px solid var(--orange-vibrant);
       border-radius: var(--radius-sm);
       padding: 20px 24px;
-      margin-bottom: 36px;
+      margin-bottom: 34px;
       box-shadow: var(--shadow-sm);
     }
-    .mandate-head {
+    .gov-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -207,21 +283,21 @@
       gap: 12px;
       margin-bottom: 10px;
     }
-    .mandate-title {
+    .gov-title {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       font-weight: 700;
       color: var(--rust-primary);
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .mandate-desc {
+    .gov-desc {
       font-size: 0.88rem;
       color: var(--text-body);
       line-height: 1.65;
     }
-    .mandate-desc strong {
+    .gov-desc strong {
       color: var(--text-charcoal);
     }
 
@@ -551,14 +627,15 @@
   <header class="top-header">
     <div class="header-inner">
       <div class="brand-group">
-        <span class="brand-badge">RSI HIVE</span>
-        <span class="brand-title">信源全球 · 周副總交辦推動工作與架構藍圖</span>
+        <span class="brand-badge"><span>🐝</span> PROJECT HIVE</span>
+        <span class="brand-title">信源全球 · 蜂巢計畫（Project Hive）架構實施藍圖</span>
       </div>
       <nav class="nav-links">
-        <a href="#pipeline" class="nav-btn">🚀 推進順序</a>
-        <a href="#phase1" class="nav-btn">1️⃣ 第一階段 9 大任務</a>
-        <a href="#phase2" class="nav-btn">2️⃣ 後續 6 大應用</a>
-        <a href="#decisions" class="nav-btn">⚖️ 6 大裁決事項</a>
+        <a href="#metaphor" class="nav-btn">🍯 蜂巢架構意象</a>
+        <a href="#pipeline" class="nav-btn">🚀 6階段推進</a>
+        <a href="#phase1" class="nav-btn">1️⃣ 第一階段 9大任務</a>
+        <a href="#phase2" class="nav-btn">2️⃣ 後續 6大應用</a>
+        <a href="#decisions" class="nav-btn">⚖️ 專案裁決事項</a>
         <a href="#preview-doc" class="nav-btn active">📑 線上審閱 PDF</a>
         <a href="../index.html" class="nav-btn">🌐 RSI 總體白皮書</a>
         <button onclick="window.print()" class="nav-btn" style="cursor: pointer;">🖨️ 列印手冊</button>
@@ -571,39 +648,82 @@
 
     <!-- Masthead -->
     <section class="masthead">
-      <div class="masthead-eyebrow">RSI GLOBAL IT GOVERNANCE & ARCHITECTURE · HIVE INITIATIVE</div>
-      <h1 class="masthead-h1">信源全球 (RSI) · 周副總交辦推動工作清單與實施規劃<br><span>第一階段優先工作 ＋ 後續應用 ＋ 6 大裁決事項 (職責邊界與推進指引)</span></h1>
+      <div class="masthead-eyebrow">
+        <span>🐝</span> RSI GLOBAL ENTERPRISE · STRATEGIC DATA & AGENTIC ARCHITECTURE
+      </div>
+      <h1 class="masthead-h1">信源全球 (RSI) · 蜂巢計畫（Project Hive）實施藍圖<br><span>跨國協同節點 · 核心資料湖庫 · 智慧群體決策 (Global Swarm & Data Lake Architecture)</span></h1>
       <p class="masthead-p">
-        依周文津副總經理交辦方向，本目錄（Hive）系統化界定「周副總交辦、Howard Liao Ph.D. 協助推動」之完整工作範疇。由外部首席架構顧問主責需求統整、架構規劃、跨廠協調與方案審查，並由內部 IT、海外各廠及外部協力廠商承接日常開發與維運責任。
+        以「蜂巢（Hive）」為宏觀架構意象：將台北總部與東南亞各海外工廠比喻為自主協作的工蜂節點，API 平台為敏捷串接與即時傳遞通道，Data Lake 為集中沉澱全集團營運知識與智慧結晶的核心蜜巢；自堅實數位底座自然向上孵育聯銓 BI 戰情、統一 KPI 體系、品質預測與 Agentic AI 自主協同，不將專案侷限於單一技術，為跨國製造注入群體智慧。
       </p>
       <div class="leadership-strip">
         <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-warm-tint);">
-          <span>交辦報告對象：</span><strong>周文津 副總經理 (Executive Sponsor)</strong>
+          <span>專案發起人：</span><strong>周文津 副總經理 (Executive Sponsor)</strong>
         </div>
         <div class="chip" style="border-left: 3px solid var(--rust-primary);">
-          <span>推動執行負責：</span><strong>Howard Liao Ph.D. (Lead Architect & Advisor)</strong>
+          <span>執行負責人：</span><strong>Howard Liao Ph.D. (Lead Architect & Advisor)</strong>
         </div>
         <div class="chip">
-          <span>顧問投入原則：</span><strong>每週最多兩天顧問投入 · 專注規劃審查與進度回報</strong>
+          <span>顧問投入原則：</span><strong>每週最多兩天顧問投入 · 專注架構規劃、跨節點協同與方案審查</strong>
         </div>
       </div>
     </section>
 
-    <!-- Executive Mandate Callout Box -->
-    <div class="mandate-box">
-      <div class="mandate-head">
-        <div class="mandate-title">
+    <!-- Honeycomb Architectural Metaphor Section -->
+    <section id="metaphor" class="metaphor-section">
+      <div class="metaphor-head">
+        <div class="metaphor-h2">
+          <span>🍯</span>
+          <span>蜂巢計畫核心架構意象解構 (The Honeycomb Metaphor)</span>
+        </div>
+        <p class="metaphor-sub">突破傳統單點系統建置思維，以生命體群體協同模式構建跨國製造韌性。</p>
+      </div>
+
+      <div class="metaphor-grid">
+        <div class="metaphor-card">
+          <span class="metaphor-icon">🐝</span>
+          <div class="metaphor-title">跨國協作節點</div>
+          <div class="metaphor-role">Collaborative Worker Nodes</div>
+          <div class="metaphor-body">台北總部與海外工廠（越南隆安、柬埔寨金邊、印尼中爪哇）如同工蜂與獨立巢室，具備邊緣自律生產能力，各司其職且緊密互聯。</div>
+        </div>
+
+        <div class="metaphor-card">
+          <span class="metaphor-icon">⚡</span>
+          <div class="metaphor-title">即時串接通道</div>
+          <div class="metaphor-role">Pollen Corridors · API Platform</div>
+          <div class="metaphor-body">企業級 API 平台與微批次資料管線如同採集與傳遞路徑，每小時增量傳遞、每日自動結算對帳，確保跨國節點血管暢通。</div>
+        </div>
+
+        <div class="metaphor-card">
+          <span class="metaphor-icon">🍯</span>
+          <div class="metaphor-title">核心資料湖庫</div>
+          <div class="metaphor-role">Honeycomb Core · Data Lake</div>
+          <div class="metaphor-body">集中沉澱與治理全集團生產營運數據，將分散異質資料轉化為高純度數位資產，建立全集團唯一真實數據版本（SSOT）。</div>
+        </div>
+
+        <div class="metaphor-card">
+          <span class="metaphor-icon">🧠</span>
+          <div class="metaphor-title">群體智慧孵育</div>
+          <div class="metaphor-role">Swarm Intelligence · BI & AI</div>
+          <div class="metaphor-body">底座穩固後自然延伸上層應用：聯銓 BI 戰情儀表、統一口徑 KPI 系統、縫製品質預測與 Agentic AI 自主協同，全面賦能經營決策。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Governance Principles Box -->
+    <div class="governance-box">
+      <div class="gov-head">
+        <div class="gov-title">
           <span>📌</span>
-          <span>核心執行原則與職責邊界宣告 (Governance & Boundaries)</span>
+          <span>蜂巢計畫核心治理原則與協同模式 (Governance & Boundaries)</span>
         </div>
         <a href="#preview-doc" class="nav-btn" style="background: var(--rust-primary); color: #FFF; border-color: var(--rust-primary);">
           <span>👁️</span> 移至下方 PDF 即時預覽器
         </a>
       </div>
-      <div class="mandate-desc">
-        1. <strong>職責定調</strong>：本工作列表為「周副總交辦、Howard 協助推動」之跨國架構工程，非由周副總或顧問單點親自寫碼操作，而是確立責任矩陣（RACI）驅動內部團隊與協力廠商落地。<br>
-        2. <strong>顧問承諾</strong>：Howard Liao Ph.D. 每週最多投入兩天，聚焦於「需求統整、架構規劃、跨廠協調、方案審查與高階進度回報」；實際開發、部署與日常維運由指派之專責單位承接。<br>
-        3. <strong>決策開放性</strong>：當前平台選型（Commercial vs Open Source）、預算額度與建置時程均為待盤點推演方案，尚未最終定案，待周副總裁示後正式立案。
+      <div class="gov-desc">
+        1. <strong>職責定調</strong>：蜂巢計畫為總體跨國資訊架構升級工程，非單點個人寫碼操作，而是確立跨國責任矩陣（RACI）驅動內部 IT 團隊、海外廠務與原廠 SI 落地。<br>
+        2. <strong>顧問承諾</strong>：Howard Liao Ph.D. 每週最多投入兩天，聚焦於「需求統整、架構規劃、跨節點協同、方案審查與高階進度回報」；實際開發、部署與日常維運由專責指派之內部與協力團隊承接。<br>
+        3. <strong>決策開放性</strong>：當前平台選型（商業雲端 vs 開源平台 vs 混合架構）、預算額度與建置時程均為待盤點推演方案，依實地盤點成果呈核後正式立案。
       </div>
     </div>
 
@@ -654,14 +774,14 @@
     <!-- Section 1: Phase 1 Priority Tasks (1 - 9) -->
     <section id="phase1" class="section-block">
       <div class="section-head">
-        <div class="section-eyebrow">PHASE 1 CORE DELIVERABLES</div>
+        <div class="section-eyebrow">PHASE 1 CORE FOUNDATIONS</div>
         <h2 class="section-h2">一、第一階段優先工作 (Phase 1 Priority Tasks · 9 大核心任務)</h2>
         <p class="section-p">先列為待盤點、規劃及執行事項；平台產品、預算與建置時程尚未定案，依實地盤點結果呈核。</p>
       </div>
 
       <div class="table-toolbar">
         <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-charcoal);">
-          共 9 項首要交付任務 (點擊表格欄位可即時聚焦)
+          共 9 項首要交付任務 (輸入關鍵字可即時過濾篩選)
         </div>
         <input type="text" id="phase1Search" class="search-input" placeholder="搜尋第一階段工作關鍵字..." onkeyup="filterPhase1Table()">
       </div>
@@ -697,7 +817,7 @@
               <td class="col-title">Data Lake Platform 規劃與建置</td>
               <td>盤點既有 MS SQL 與工廠資料，確認資料納入範圍、儲存、整合及管理方式</td>
               <td class="col-deliverable">資料來源清單、資料平台方案</td>
-              <td class="col-status"><span class="pill-badge pill-priority">優先推動</span></td>
+              <td class="col-status"><span class="pill-badge pill-priority">優先推重</span></td>
             </tr>
             <tr>
               <td class="col-id">4</td>
@@ -798,7 +918,7 @@
             <tr>
               <td class="col-id">15</td>
               <td class="col-title">大陸相關 AI 需求確認</td>
-              <td>釐清原始交辦內容中的具體需求、使用地點與限制，暫不視為已定案方案</td>
+              <td>釐清跨國部署中的具體業務需求、使用地點與合規限制，暫不視為已定案方案</td>
               <td class="col-status"><span class="pill-badge pill-phase2">合規前置調研</span></td>
             </tr>
           </tbody>
@@ -806,56 +926,56 @@
       </div>
     </section>
 
-    <!-- Section 3: 6 Key Decisions for VP Chou -->
+    <!-- Section 3: Key Decisions for Project Sponsor -->
     <section id="decisions" class="section-block">
       <div class="section-head">
         <div class="section-eyebrow">GOVERNANCE & EXECUTIVE APPROVALS</div>
-        <h2 class="section-h2">三、需要周副總確認的事項 (6 大核心裁決項目)</h2>
-        <p class="section-p">為利後續專案排程推進與跨部門資源動員，呈請周副總裁示下列 6 點關鍵原則：</p>
+        <h2 class="section-h2">三、專案啟動與高層裁決事項 (6 大核心決策項目)</h2>
+        <p class="section-p">為利後續專案排程推進與跨部門資源動員，呈請專案發起人周副總裁示下列 6 點關鍵原則：</p>
       </div>
 
       <div class="decisions-grid">
         <div class="decision-card">
           <div>
             <div class="decision-seq">DECISION 01 · 範圍核定</div>
-            <div class="decision-title">核定第一階段範圍</div>
-            <div class="decision-desc">核定第一階段範圍：API Platform、Data Lake Platform及首批資料串接。集中資源打通底座。</div>
+            <div class="decision-title">核定第一階段優先範圍</div>
+            <div class="decision-desc">確認第一階段以「API Platform、Data Lake Platform及首批資料串接」為核心，集中資源快速打通底座。</div>
           </div>
-          <div class="decision-status-tag"><span>⏳</span> 待周副總覆核核定</div>
+          <div class="decision-status-tag"><span>⏳</span> 待覆核核定</div>
         </div>
 
         <div class="decision-card">
           <div>
             <div class="decision-seq">DECISION 02 · 窗口指派</div>
             <div class="decision-title">指定跨部門合作對接窗口</div>
-            <div class="decision-desc">指定總部 IT、各工廠（越南隆安、柬埔寨金邊、印尼中爪哇）及業務單位專責窗口名單。</div>
+            <div class="decision-desc">指定總部 IT、各海外工廠（越南隆安、柬埔寨金邊、印尼中爪哇）及業務單位專責窗口名單。</div>
           </div>
-          <div class="decision-status-tag"><span>⏳</span> 待周副總指定名單</div>
+          <div class="decision-status-tag"><span>⏳</span> 待指定名單</div>
         </div>
 
         <div class="decision-card">
           <div>
             <div class="decision-seq">DECISION 03 · 首批標的</div>
             <div class="decision-title">確認首批納入之系統與工廠</div>
-            <div class="decision-desc">確認首批納入的系統、工廠與資料來源（如越南示範廠 MES 與核心產銷資料）。</div>
+            <div class="decision-desc">確認首批納入的示範系統、試點工廠與資料來源（如越南主力廠 MES 與產銷資料）。</div>
           </div>
-          <div class="decision-status-tag"><span>⏳</span> 待評估後圈定</div>
+          <div class="decision-status-tag"><span>⏳</span> 待評估圈定</div>
         </div>
 
         <div class="decision-card">
           <div>
             <div class="decision-seq">DECISION 04 · 預算時程</div>
             <div class="decision-title">確認預算範圍與期望時程</div>
-            <div class="decision-desc">確認預算範圍、期望時程及決策審批方式，確保財務控制與推進節奏相符。</div>
+            <div class="decision-desc">確認預算容許範圍、期望時程節點及決策審批方式，確保財務治理與節奏對齊。</div>
           </div>
-          <div class="decision-status-tag"><span>⏳</span> 待選型比較後呈報</div>
+          <div class="decision-status-tag"><span>⏳</span> 待選型後呈報</div>
         </div>
 
         <div class="decision-card">
           <div>
             <div class="decision-seq">DECISION 05 · 承接單位</div>
-            <div class="decision-title">指定實際維運與承接單位</div>
-            <div class="decision-desc">指定實際開發、部署與日常維運的承接單位（內部專責 IT 小組或指派外部協力廠）。</div>
+            <div class="decision-title">指定實際維運與承接團隊</div>
+            <div class="decision-desc">指定實際從事平台開發、雲端部署與日常 7x24 維運之內部專責團隊或外部協力原廠。</div>
           </div>
           <div class="decision-status-tag"><span>⏳</span> 待確立分工表</div>
         </div>
@@ -864,7 +984,7 @@
           <div>
             <div class="decision-seq">DECISION 06 · 顧問投入</div>
             <div class="decision-title">確認每週 2 天顧問投入</div>
-            <div class="decision-desc">確認 Howard Liao Ph.D. 每週最多兩天的顧問投入，以需求統整、架構規劃、協調、方案審查及進度回報為主。</div>
+            <div class="decision-desc">定調 Howard Liao Ph.D. 每週最多兩天顧問投入，以「需求統整、架構規劃、跨廠協同、方案審查及進度回報」為主。</div>
           </div>
           <div class="decision-status-tag" style="background:#ECFDF5; border-color:#A7F3D0; color:#065F46;"><span>✓</span> 顧問邊界已定調</div>
         </div>
@@ -875,15 +995,15 @@
     <section id="preview-doc" class="section-block">
       <div class="section-head">
         <div class="section-eyebrow">OFFICIAL PUBLICATION · PREVIEW ONLY</div>
-        <h2 class="section-h2">四、周副總交辦推動工作手冊 ｜ 官方 PDF 線上即時審閱預覽 (嚴禁下載)</h2>
-        <p class="section-p">完整收錄上述 9 大優先任務、6 大後續應用與 6 大決策事項，已轉製為向量 PDF 供線上即時審閱，恪守資安機密規範，不提供直接下載。</p>
+        <h2 class="section-h2">四、蜂巢計畫實施手冊 ｜ 官方 PDF 線上即時審閱預覽 (嚴禁下載)</h2>
+        <p class="section-p">完整收錄上述蜂巢架構意象、9 大優先任務、6 大後續應用與 6 大決策事項，已轉製為向量 PDF 供線上即時審閱，恪守資安機密規範，不提供直接下載。</p>
       </div>
 
       <div class="pdf-preview-box">
         <div class="pdf-toolbar">
           <div class="pdf-toolbar-title">
             <span>📄</span>
-            <span>RSI_2027_周副總交辦工作清單與實施規劃_HowardLiao.pdf (高畫質向量審批版)</span>
+            <span>RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf (高畫質向量審批版)</span>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
             <span class="pdf-toolbar-badge">
@@ -896,15 +1016,15 @@
         </div>
 
         <div class="pdf-frame-container" id="pdfFrameWrapper" oncontextmenu="return false;">
-          <iframe id="pdfIframe" class="pdf-frame" src="RSI_2027_周副總交辦工作清單與實施規劃_Hive.pdf#toolbar=0&navpanes=1&scrollbar=1" title="周副總交辦推動工作手冊 PDF 預覽"></iframe>
+          <iframe id="pdfIframe" class="pdf-frame" src="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf#toolbar=0&navpanes=1&scrollbar=1" title="蜂巢計畫實施手冊 PDF 預覽"></iframe>
         </div>
       </div>
     </section>
 
     <!-- Page Footer -->
     <footer class="page-footer">
-      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫與周副總交辦推動工作手冊 (Hive Initiative)</div>
-      <div>交辦報告對象：周文津 副總經理 ｜ 推動執行負責：Howard Liao Ph.D.</div>
+      <div>信源全球 (RSI) · 2027 年度 IT 營運計畫 ｜ 蜂巢計畫（Project Hive）架構實施手冊</div>
+      <div>專案發起人：周文津 副總經理 ｜ 執行負責人：Howard Liao Ph.D.</div>
     </footer>
 
   </main>
