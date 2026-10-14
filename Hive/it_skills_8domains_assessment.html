@@ -674,8 +674,9 @@
 
     <!-- Notice Box -->
     <div class="notice-box">
-      <strong>📌 技術職能問卷（主職能單選 ＋ 副職能多選）實施指引：</strong><br>
-      為精準界定同仁之核心本職與兼任職能，本問卷嚴格規範：<strong>【主要技術職能僅能選 1 個】</strong>，作為您的主要評鑑題本（10 題核心必填）；<strong>【兼任 / 副技術職能可勾選多個】</strong>，系統將同時並列生成您兼任職能的專屬 10 題問卷，完整展現您的多重實力厚度。填畢<strong>自動轉為結構化 CSV 檔並背景安全轉呈專案複核小組</strong>。
+      <strong>📌 技術職能問卷（微軟解決方案 Microsoft Solution 全面深化 · 主職能單選 ＋ 副職能多選）實施指引：</strong><br>
+      信源全球現今核心資訊體系全面以 <strong>Microsoft Solution（C# .NET Core / Web API 應用開發、MS SQL Server AlwaysOn 高可用資料庫、Windows Server AD 網域、M365、聯銓 Smart eVision ＋ Power BI）</strong> 為核心骨幹。<br>
+      為精準界定同仁在微軟技術棧與 2027 蜂巢計畫雲地協同中之核心本職與兼任職能，本問卷嚴格規範：<strong>【主要技術職能僅能選 1 個】</strong>，作為您的主要評鑑題本（10 題核心必填）；<strong>【兼任 / 副技術職能可勾選多個】</strong>，系統將同時並列生成您兼任職能的專屬 10 題問卷，完整展現您的多重實力厚度。填畢將自動以標準檔名（<code>填寫日期時間+姓名+工號+.csv</code>）下載並同步記錄於 GitHub HIVE 專案庫中。
     </div>
 
     <!-- Level Guide -->
@@ -1031,212 +1032,212 @@
     const ROLES_DATA = [
   {
     "id": "fe",
-    "title": "💻 前端軟體開發工程師 (Frontend Developer)",
-    "badge": "前端開發專屬 (10題)",
-    "desc": "評鑑 HTML5/CSS3/JavaScript、Vue/React 前端框架、響應式 RWD 切版、Web API 介接、前端效能調優與可視化圖表。",
+    "title": "💻 前端與客戶端工程師 (Frontend & Client Developer)",
+    "badge": "前端與微軟客戶端專屬 (10題)",
+    "desc": "評鑑 HTML5/CSS3/JavaScript、Vue/React 現代前端、微軟 C# WinForms/WPF 車間客戶端、RWD 跨端響應式與 IIS 靜態託管優化。",
     "target": 3.8,
     "questions": [
       {
         "id": "fe_01",
-        "title": "Q-FE01. HTML5 語意化與現代 CSS3 (Flexbox / CSS Grid)",
-        "scenario": "能否熟練使用語意化標籤，並運用 Flexbox 與 CSS Grid 快速完成複雜業務表單與儀表板佈局？"
+        "title": "Q-FE01. 現代 Web 前端核心 (HTML5 / CSS3 / JavaScript ES6+)",
+        "scenario": "能否熟練使用語意化標籤，並運用 Flexbox、CSS Grid 與 ES6+ 語法快速完成複雜業務表單與生產儀表板佈局？"
       },
       {
         "id": "fe_02",
-        "title": "Q-FE02. JavaScript 核心機制 (ES6+ / Promise / Async-Await)",
-        "scenario": "能否熟練運用箭頭函數、解構賦值、Promise 異步鏈、Async/Await，並理解事件循環 (Event Loop)？"
+        "title": "Q-FE02. 前端元件化框架 (Vue 3 / React / 狀態管理)",
+        "scenario": "能否使用 Vue 3 組合式 API 或 React 進行元件化開發，並妥善處理車間產能即時資料狀態管理 (Pinia/Redux)？"
       },
       {
         "id": "fe_03",
-        "title": "Q-FE03. 現代前端框架 (Vue 3 Composition API / React Hooks)",
-        "scenario": "能否使用 Vue 3 組合式 API 或 React Hooks 進行元件化開發，並妥善處理元件狀態管理 (Pinia/Redux)？"
+        "title": "Q-FE03. 微軟 C# WinForms / WPF 車間桌面客戶端維護",
+        "scenario": "能否維護與修改車間產線既有的 C# WinForms / WPF 桌面應用程式（如刷槍條碼連線、吊掛機台觸控通訊端）？"
       },
       {
         "id": "fe_04",
         "title": "Q-FE04. 跨平台響應式設計 (RWD / 工控機 / 平板多端自適應)",
-        "scenario": "能否使用 Media Queries 與彈性單位，確保系統在車間觸控工控機、iPad、筆電及手機多端完美自適應無破版？"
+        "scenario": "能否使用 Media Queries 與彈性排版，確保系統在車間 Windows 工控一體機、iPad 平板、筆電及手機多端完美自適應無破版？"
       },
       {
         "id": "fe_05",
-        "title": "Q-FE05. 前後端 API 異步介接 (Axios / RESTful / Interceptors)",
-        "scenario": "能否熟練使用 Axios 呼叫後端 API，統一處理 JWT Token 刷新、全局錯誤攔截器 (Interceptors) 及載入狀態？"
+        "title": "Q-FE05. 與微軟 ASP.NET Core Web API 異步介接 (Axios / Token)",
+        "scenario": "能否熟練使用 Axios 呼叫 C# Web API，統一處理 JWT Bearer Token 刷新、全局錯誤攔截器 (Interceptors) 及非同步狀態？"
       },
       {
         "id": "fe_06",
-        "title": "Q-FE06. 前端身分安全防護 (XSS / CSRF 防禦與 Token 儲存)",
-        "scenario": "能否防範 XSS 跨站腳本攻擊（避免 dangerouslySetInnerHTML / v-html）、防範 CSRF 並正確保存 Token？"
+        "title": "Q-FE06. 前端資安防護 (XSS / CSRF 防禦與 Token 安全儲存)",
+        "scenario": "能否防範 XSS 跨站腳本攻擊（嚴格過濾使用者輸入內容）、防範 CSRF 偽冒請求，並安全妥善保存身分憑證？"
       },
       {
         "id": "fe_07",
-        "title": "Q-FE07. 前端建置打包與工具鏈 (Vite / Webpack / 壓縮優化)",
-        "scenario": "能否配置 Vite 或 Webpack 進行代碼分割 (Code Splitting)、資源壓縮、Tree Shaking，並優化生產環境打包體積？"
+        "title": "Q-FE07. 微軟 IIS 站台部署與前端打包構建 (Vite / Webpack / IIS)",
+        "scenario": "能否將前端代碼打包編譯、配置微軟 IIS 虛擬目錄、配置 URL Rewrite 規則支援 SPA 單頁應用程式路由跳轉？"
       },
       {
         "id": "fe_08",
         "title": "Q-FE08. 前端效能優化 (SPA 首頁秒開 / 路由懶加載 / 虛擬列表)",
-        "scenario": "能否實作路由動態懶加載、靜態資源快取、大數據虛擬滾動列表 (Virtual Scroll)，確保千筆資料流暢渲染？"
+        "scenario": "能否實作路由動態懶加載、靜態資源快取、大數據虛擬滾動列表 (Virtual Scroll)，確保數千筆成衣訂單流暢渲染不卡頓？"
       },
       {
         "id": "fe_09",
-        "title": "Q-FE09. 前端資料視覺化與即時看板 (ECharts / Chart.js / Canvas)",
-        "scenario": "能否使用 ECharts 或 Chart.js 開發成衣車間產能即時戰情看板、良率趨勢折線圖與動態更新柱狀圖？"
+        "title": "Q-FE09. 前端資料視覺化與車間即時戰情看板 (ECharts / Canvas)",
+        "scenario": "能否使用 ECharts 開發車間產能實時戰情看板、良率趨勢折線圖與動態產線平衡率柱狀圖，並支援定時輪播刷新？"
       },
       {
         "id": "fe_10",
-        "title": "Q-FE10. 代碼品質規範與團隊協同 (TypeScript / ESLint / Git)",
-        "scenario": "能否使用 TypeScript 定義介面型別、配置 ESLint 統一代碼風格，並熟練使用 Git 分支進行協同開發？"
+        "title": "Q-FE10. 微軟技術環境協同與代碼品質規範 (TypeScript / Visual Studio / Git)",
+        "scenario": "能否使用 TypeScript 定義資料模型型別、使用 Visual Studio Code 進行協同開發，並熟練使用 Git 進行分支版本控管？"
       }
     ]
   },
   {
     "id": "be",
-    "title": "💻 後端軟體開發工程師 (Backend Developer)",
-    "badge": "後端開發專屬 (10題)",
-    "desc": "評鑑 C# .NET Core / Java / Python Web API 開發、RESTful 規範、交易事務控制、T-SQL 預存程序與死鎖調校。",
+    "title": "💻 後端軟體開發工程師 (Backend .NET Developer)",
+    "badge": "微軟.NET後端專屬 (10題)",
+    "desc": "評鑑微軟 C# .NET Core / ASP.NET MVC / Web API 開發、IIS 託管、RESTful 規範、交易事務控制、T-SQL 預存程序與死鎖調校。",
     "target": 3.8,
     "questions": [
       {
         "id": "be_01",
-        "title": "Q-BE01. 後端服務框架開發 (C# .NET Core / ASP.NET MVC / Java)",
-        "scenario": "能否獨立使用 C# .NET Core 或 Java Spring Boot 開發高可用 Web API，並實作分層架構 (Controller-Service-Repo)？"
+        "title": "Q-BE01. 微軟 C# .NET Core / ASP.NET Web API 核心開發",
+        "scenario": "能否熟練使用 C# .NET 6/8 或 ASP.NET MVC 開發企業級 Web API，實作分層架構 (Controller-Service-Repository)？"
       },
       {
         "id": "be_02",
-        "title": "Q-BE02. RESTful API 規範設計與 Swagger / OpenAPI 文件",
-        "scenario": "能否設計符合業界標準的 RESTful URI、HTTP Methods、嚴格 HTTP 狀態碼，並維護自動化 Swagger 文檔？"
+        "title": "Q-BE02. RESTful Web API 規格設計與 Swagger / OpenAPI 整合",
+        "scenario": "能否設計符合微軟標準的 RESTful URI、HTTP 動作 (GET/POST/PUT/DELETE)、精準狀態碼，並配置 Swagger 自動產生介面文件？"
       },
       {
         "id": "be_03",
-        "title": "Q-BE03. 依賴注入 (DI / IoC) 與中介軟體 (Middleware) 開發",
-        "scenario": "能否配置服務生命週期 (Transient/Scoped/Singleton)，並自訂全域日誌記錄與身分驗證中介軟體 (Middleware)？"
+        "title": "Q-BE03. 依賴注入 (DI / IoC) 與 ASP.NET Core Middleware 中介軟體",
+        "scenario": "能否配置微軟內建 DI 服務生命週期 (Transient/Scoped/Singleton)，並自訂全域例外記錄與身分驗證 Middleware？"
       },
       {
         "id": "be_04",
-        "title": "Q-BE04. 資料庫交易事務控制 (ACID 保障與並行競爭排查)",
-        "scenario": "能否使用 BEGIN TRAN/COMMIT 確保成衣工單扣料與計件之資料一致性，並排除多工位同時搶料的並發衝突？"
+        "title": "Q-BE04. 資料庫交易事務控制 (SqlTransaction / ACID 保障)",
+        "scenario": "能否使用 C# SqlTransaction 或 TransactionScope 確保成衣工單扣料、計件工資的 ACID 一致性，防範並發競爭衝突？"
       },
       {
         "id": "be_05",
-        "title": "Q-BE05. 進階 T-SQL 撰寫 (多表 JOIN / CTE / Window Functions)",
-        "scenario": "能否編寫複雜的多表關聯查詢、通用運算式 (CTE)、窗口函數 (ROW_NUMBER/RANK/SUM OVER) 進行深度資料運算？"
+        "title": "Q-BE05. 進階 T-SQL 撰寫 (多表關聯 JOIN / CTE / 窗口函數)",
+        "scenario": "能否編寫高效 T-SQL 查詢、多表關聯 JOIN、通用資料表運算式 (CTE)、窗口函數 (ROW_NUMBER/RANK/SUM OVER)？"
       },
       {
         "id": "be_06",
-        "title": "Q-BE06. 核心預存程序 (Stored Procedure) 開發與業務邏輯封裝",
-        "scenario": "能否獨立撰寫並維護包含動態 SQL、條件分支及游標/暫存表之數百行級核心預存程序 (SP)？"
+        "title": "Q-BE06. 核心業務預存程序 (Stored Procedure) 撰寫與除錯",
+        "scenario": "能否獨立撰寫並維護包含動態 SQL、條件分支及暫存表 (#temp) 之數百行級核心預存程序 (SP)，處理成衣複雜算薪算料？"
       },
       {
         "id": "be_07",
-        "title": "Q-BE07. SQL Server 執行計畫 (Execution Plan) 分析與索引調校",
-        "scenario": "能否判讀 Graphical Execution Plan 找出全表掃描效能盲點，設計包含資料欄索引 (Covering Index) 消除耗時瓶頸？"
+        "title": "Q-BE07. MS SQL Server 執行計畫 (Execution Plan) 分析與索引調優",
+        "scenario": "能否在 SSMS 判讀 Graphical Execution Plan 找出 Clustered Index Scan 效能盲點，設計包含資料欄索引 (Covering Index)？"
       },
       {
         "id": "be_08",
-        "title": "Q-BE08. 死鎖 (Deadlock) 與鎖定競爭診斷 (Extended Events)",
-        "scenario": "能否使用 SQL Server Profiler 或 Extended Events 抓取 Deadlock Graph，並調整查詢交易順序徹底解決死鎖？"
+        "title": "Q-BE08. 死鎖 (Deadlock) 與鎖定競爭排查 (Extended Events)",
+        "scenario": "能否使用 SQL Server Profiler 或 Extended Events 擴充事件擷取 Deadlock Graph，調整交易讀寫順序徹底消除死鎖？"
       },
       {
         "id": "be_09",
-        "title": "Q-BE09. 後端異步處理與排程任務 (BackgroundService / 多線程)",
-        "scenario": "能否使用 C# Task/async 撰寫無阻塞非同步程式碼，並配置定時後台批次任務處理大檔案匯入或報表預計算？"
+        "title": "Q-BE09. 後台異步任務與定時批次排程 (IHostedService / Quartz.NET)",
+        "scenario": "能否使用 C# async/await 編寫無阻塞非同步程式碼，並使用 BackgroundService 或 Quartz.NET 執行夜間大量資料運算排程？"
       },
       {
         "id": "be_10",
-        "title": "Q-BE10. 後端安全性防護與全域例外過濾 (SQL Injection / Rate Limit)",
-        "scenario": "能否落實 SQL 參數化查詢徹底杜絕 SQL Injection、實作全域 Exception Filter 與 API 頻率限制 (Rate Limiting)？"
+        "title": "Q-BE10. 微軟 IIS 站台託管與應用程式集區 (App Pool) 調校",
+        "scenario": "能否在 Windows Server 配置 IIS 站台、配置應用程式集區 (App Pool) 回收政策、Worker Process 記憶體監控與效能調校？"
       }
     ]
   },
   {
     "id": "fs",
-    "title": "💻 全端軟體開發工程師 (Full-Stack Developer)",
-    "badge": "全端整合專屬 (10題)",
-    "desc": "評鑑前後端端到端 (End-to-End) 獨立交付能力、資料庫設計、跨系統業務流程串接與軟體生命週期把關。",
+    "title": "💻 全端軟體開發工程師 (Full-Stack .NET Developer)",
+    "badge": "微軟全端架構專屬 (10題)",
+    "desc": "評鑑微軟技術棧端到端 (End-to-End) 獨立交付能力、SQL Server 資料庫設計、跨系統業務流程串接與 IIS 上線維運。",
     "target": 3.8,
     "questions": [
       {
         "id": "fs_01",
-        "title": "Q-FS01. 端到端 (End-to-End) 獨立全流程交付能力",
-        "scenario": "能否一人獨立完成「需求分析 ➔ 前端 UI 切版 ➔ 後端 API 撰寫 ➔ 資料表建立 ➔ 上線部署」之全流程業務需求？"
+        "title": "Q-FS01. 微軟全棧端到端 (End-to-End) 獨立全流程實作能力",
+        "scenario": "能否一人獨立完成「需求分析 ➔ 前端切版 ➔ C# .NET 後端開發 ➔ SQL Server 資料表設計 ➔ IIS 部署上線」全流程？"
       },
       {
         "id": "fs_02",
-        "title": "Q-FS02. 資料庫綱要設計 (ERD 繪製 / 正規化 Normalization)",
-        "scenario": "能否繪製實體關聯圖 (ERD)、進行資料庫正規化設計、配置主外鍵約束與關聯規則，確保資料不冗餘？"
+        "title": "Q-FS02. MS SQL Server 資料表綱要設計 (DDL / 正規化 / 主外鍵)",
+        "scenario": "能否繪製資料庫實體關聯圖 (ERD)、進行資料庫正規化設計、配置主外鍵約束與叢集索引，確保資料結構強健且不冗餘？"
       },
       {
         "id": "fs_03",
-        "title": "Q-FS03. 前後端資料通訊與跨網域 (CORS) 策略除錯",
-        "scenario": "能否排查跨網域存取 (CORS) 預檢請求 (OPTIONS) 錯誤、解決前後端 JSON 序列化欄位大小寫或時區偏差問題？"
+        "title": "Q-FS03. 前後端資料通訊與微軟 IIS CORS 跨網域策略除錯",
+        "scenario": "能否排查微軟 IIS CORS 跨網域預檢請求 (OPTIONS) 錯誤、解決前後端 JSON 序列化時間格式 (DateTime) 與時區偏差問題？"
       },
       {
         "id": "fs_04",
-        "title": "Q-FS04. 後端 ORM 框架與原生 SQL 效能取捨 (Dapper / EF)",
-        "scenario": "能否靈活使用 Entity Framework 或輕量級 Dapper，排查 N+1 查詢效能陷阱並在高負載查詢改寫為高效 SQL？"
+        "title": "Q-FS04. 微軟 ORM 框架與原生 SQL 效能取捨 (EF Core / Dapper)",
+        "scenario": "能否在微軟環境靈活使用 Entity Framework Core 或輕量級 Dapper，排查 N+1 查詢效能陷阱並在高負載查詢改寫為原生 T-SQL？"
       },
       {
         "id": "fs_05",
-        "title": "Q-FS05. 跨系統業務資料介接 (成衣 ERP 訂單 ➔ 車間 MES 拋轉)",
-        "scenario": "能否設計跨系統資料交換管線，處理 ERP 訂單工單拋轉至車間 MES、並在斷線時具備自動重試與補拋機制？"
+        "title": "Q-FS05. 跨系統業務資料拋轉介接 (成衣 ERP 訂單 ➔ 車間 MES 拋轉)",
+        "scenario": "能否設計跨系統資料交換管線，使用 C# 與 T-SQL 處理 ERP 訂單工單拋轉至車間 MES、並在網路斷線時具備重試補拋機制？"
       },
       {
         "id": "fs_06",
-        "title": "Q-FS06. 企業級使用者身分與權限控制 (RBAC 角色型權限)",
-        "scenario": "能否設計細緻的使用者角色權限系統 (RBAC)，實現不同廠區使用者登入後看到不同的功能選單與按鈕授權？"
+        "title": "Q-FS06. 企業級使用者身分認證 (ASP.NET Identity / JWT / AD整合)",
+        "scenario": "能否實作 ASP.NET Identity 或 JWT Bearer 認證，並能整合公司內部 Windows Active Directory (AD) 網域帳號單一登入？"
       },
       {
         "id": "fs_07",
-        "title": "Q-FS07. 系統快取架構應用 (Redis / MemoryCache 效能提升)",
-        "scenario": "能否使用記憶體快取 (MemoryCache) 或 Redis 快取高頻查詢之成衣物料字典與公用參數，大幅降低資料庫讀取負擔？"
+        "title": "Q-FS07. 微軟快取架構應用 (IMemoryCache / DistributedCache)",
+        "scenario": "能否使用微軟 IMemoryCache 或 Redis 快取高頻查詢之成衣物料字典與系統參數，大幅降低 SQL Server 資料庫讀取壓力？"
       },
       {
         "id": "fs_08",
-        "title": "Q-FS08. 團隊 Git 版本協同與分支衝突解決 (Git Flow 規範)",
-        "scenario": "能否熟練使用 Git 指令管理分支、解決多名同仁同時修改檔案之代碼衝突 (Merge Conflict)，並進行版本回退？"
+        "title": "Q-FS08. 團隊 Git 版本協同與分支衝突解決 (Visual Studio / Git)",
+        "scenario": "能否在 Visual Studio 環境熟練使用 Git 指令管理分支、解決多人協同開發之代碼衝突 (Merge Conflict)，並進行版本回滾？"
       },
       {
         "id": "fs_09",
-        "title": "Q-FS09. 自動化單元測試與 API 整合測試 (Postman Tests 斷言)",
-        "scenario": "能否編寫 Postman 自動化測試腳本、設定環境變數、驗證 HTTP 回應狀態碼與 JSON 回傳結構之正確性？"
+        "title": "Q-FS09. 自動化單元測試與 API 整合測試 (xUnit / Postman)",
+        "scenario": "能否使用微軟 xUnit / NUnit 撰寫後端單元測試，並使用 Postman 編寫自動化斷言腳本進行 API 回歸測試？"
       },
       {
         "id": "fs_10",
-        "title": "Q-FS10. 軟體工程技術文件撰寫 (架構圖 / 資料字典 / 操作SOP)",
-        "scenario": "能否為自研系統撰寫完整的系統架構說明書、資料庫欄位字典、API 介面手冊，確保知識傳承避免單點黑數？"
+        "title": "Q-FS10. 軟體工程技術文檔撰寫 (架構圖 / 資料字典 / 操作SOP)",
+        "scenario": "能否為自研系統撰寫完整的系統架構說明書、資料庫欄位字典、API 介面手冊，確保知識傳承避免人員離職黑數？"
       }
     ]
   },
   {
     "id": "dba",
-    "title": "🗄️ 資料庫管理員 / 數據工程師 (DBA & Data Engineer)",
-    "badge": "資料庫與數據專屬 (10題)",
-    "desc": "評鑑 MS SQL Server 叢集、AlwaysOn、備份還原、CDC 資料異動捕獲與 Google BigQuery 現代湖倉實務。",
+    "title": "🗄️ 微軟資料庫管理員 / 數據工程師 (MS SQL DBA & Data Engineer)",
+    "badge": "MS SQL資料庫專屬 (10題)",
+    "desc": "評鑑 Microsoft SQL Server 叢集、AlwaysOn、備份還原、CDC 資料異動捕獲、SSIS 拋轉與雲端湖倉對接實務。",
     "target": 4.0,
     "questions": [
       {
         "id": "dba_01",
-        "title": "Q-DB01. MS SQL Server 高可用架構 (AlwaysOn AG / 叢集維護)",
-        "scenario": "能否配置與維護 AlwaysOn 可用性群組、記錄傳送 (Log Shipping)、容錯移轉叢集並處理異步複寫延遲？"
+        "title": "Q-DB01. MS SQL Server 高可用架構維護 (AlwaysOn AG / 叢集)",
+        "scenario": "能否配置與維護 AlwaysOn 可用性群組、Windows 容錯移轉叢集 (WSFC)、記錄傳送 (Log Shipping) 並排查複寫同步延遲？"
       },
       {
         "id": "dba_02",
-        "title": "Q-DB02. 索引架構優化與定期重組重建 (Reorganize / Rebuild)",
-        "scenario": "能否設計叢集與非叢集索引、監控索引碎片率 (Fragmentation)，並編寫自動化維護排程執行重組或重建？"
+        "title": "Q-DB02. 索引架構優化與維護計畫排程 (Reorganize / Rebuild)",
+        "scenario": "能否設計叢集與非叢集索引、監控索引碎片率 (Fragmentation)，並使用 SQL Server Agent 配置定期維護計畫自動整理？"
       },
       {
         "id": "dba_03",
         "title": "Q-DB03. 磁碟空間調校與檔案群組管理 (mdf / ldf / tempdb)",
-        "scenario": "能否管理資料檔與日誌檔增長比例、配置多個 tempdb 檔案消除並發競爭，並將歷史大表移至獨立檔案群組？"
+        "scenario": "能否管理資料檔與日誌檔增長比例、配置多個 tempdb 檔案消除並發競爭，並將歷史大表移至獨立實體磁碟檔案群組？"
       },
       {
         "id": "dba_04",
         "title": "Q-DB04. 資料表水平分割 (Table Partitioning) 實務",
-        "scenario": "能否按年份或月份配置資料表水平分割函數與配置架構，並使用滑動視窗 (Sliding Window) 封存歷史龐大資料？"
+        "scenario": "能否按年份或月份在 SQL Server 建立分割函數與分割配置架構，並使用滑動視窗 (Sliding Window) 封存歷史龐大工單資料？"
       },
       {
         "id": "dba_05",
         "title": "Q-DB05. 資料異動捕獲 (CDC / Change Tracking) 與管線介接",
-        "scenario": "能否啟用 SQL Server 原生 CDC、配置變更捕獲清理作業、並將增量異動資料穩定同步至外部分析管線？"
+        "scenario": "能否在 SQL Server 啟用原生 CDC、配置變更捕獲清理作業 (sp_cdc_cleanup)，並將增量異動資料穩定同步至外部分析管線？"
       },
       {
         "id": "dba_06",
@@ -1250,32 +1251,32 @@
       },
       {
         "id": "dba_08",
-        "title": "Q-DB08. 雲端現代數據倉儲 Google BigQuery 實務操作",
-        "scenario": "能否在 BigQuery 建立時間分區表 (Partitioning) 與叢集表 (Clustering)、撰寫 MERGE 語法對帳並優化查詢掃描成本？"
+        "title": "Q-DB08. 微軟 SSIS 封裝開發與資料排程拋轉 (ETL Pipeline)",
+        "scenario": "能否使用 SQL Server Integration Services (SSIS) 開發資料清洗與拋轉封裝、排定 Agent Job 自動排程並排查執行錯誤？"
       },
       {
         "id": "dba_09",
-        "title": "Q-DB09. 工作流編排排程 Apache Airflow DAG 腳本開發",
-        "scenario": "能否使用 Python 撰寫 Airflow DAG、設定任務先後依賴關係、配置失敗自動重跑次數與 Email/Teams 異常通知？"
+        "title": "Q-DB09. 雲端現代數據倉儲對接 (MS SQL ➔ BigQuery / 湖倉)",
+        "scenario": "能否將地端 MS SQL Server 資料庫安全介接至雲端倉儲（如 Google BigQuery 或 Azure），撰寫 MERGE 語法執行對帳？"
       },
       {
         "id": "dba_10",
         "title": "Q-DB10. 實體資料庫災難還原開機演練 (RPO/RTO 驗證)",
-        "scenario": "能否在伺服器硬碟全損情境下，獨立使用備份檔執行特定時間點還原 (Point-in-Time)，並實測達成 RTO<2hr、RPO<15min？"
+        "scenario": "能否在伺服器硬碟全損情境下，獨立使用 .bak 與 .trn 備份檔執行特定時間點還原 (Point-in-Time)，實測達成 RTO<2hr、RPO<15min？"
       }
     ]
   },
   {
     "id": "bi",
     "title": "📊 商業智慧與報表分析師 (BI Developer & Analyst)",
-    "badge": "BI與報表專屬 (10題)",
-    "desc": "評鑑聯銓 Smart eVision 多維度報表、定時轉檔派送、成衣製造 KPI 口徑定義與 Power BI 語意模型。",
+    "badge": "聯銓BI與Power BI專屬 (10題)",
+    "desc": "評鑑聯銓 Smart eVision 多維度報表、定時轉檔派送、成衣製造 KPI 口徑定義、Microsoft Power BI 語意建模與 DAX 實務。",
     "target": 3.8,
     "questions": [
       {
         "id": "bi_01",
-        "title": "Q-BI01. 聯銓 Smart eVision 報表開發與資料集 SQL 優化",
-        "scenario": "能否在聯銓 BI 配置資料來源、撰寫高效 SQL 查詢視圖、排除多表 JOIN 造成的儀表板載入逾時問題？"
+        "title": "Q-BI01. 聯銓 Smart eVision 報表開發與 MS SQL 查詢調優",
+        "scenario": "能否在聯銓 BI 配置 SQL Server 資料來源、撰寫高效 SQL 查詢視圖、排除多表關聯造成的儀表板載入逾時問題？"
       },
       {
         "id": "bi_02",
@@ -1309,26 +1310,26 @@
       },
       {
         "id": "bi_08",
-        "title": "Q-BI08. 現代 BI 語意模型構建 (Power BI / Tableau / Looker)",
-        "scenario": "能否建立星型維度模型 (Star Schema)，區分事實資料表 (Fact) 與維度資料表 (Dimension)，並建立正確之一對多關聯？"
+        "title": "Q-BI08. Microsoft Power BI 星型模型與資料閘道 (Gateway)",
+        "scenario": "能否在 Power BI 建立星型維度模型 (Star Schema)，並配置內部地端資料閘道 (On-premises Data Gateway) 定期刷新？"
       },
       {
         "id": "bi_09",
-        "title": "Q-BI09. 進階 DAX 度量值與時間智慧函數撰寫 (YoY / MoM)",
+        "title": "Q-BI09. Microsoft Power BI 進階 DAX 度量值與時間智慧函數",
         "scenario": "能否撰寫 DAX 函數計算同期比較 (Year-over-Year)、月環比成長、本年迄今累計 (YTD) 及動態排名指標？"
       },
       {
         "id": "bi_10",
-        "title": "Q-BI10. 生產車間戰情大螢幕即時刷新與負載平衡調優",
-        "scenario": "能否設計掛載於車間現場的大螢幕即時產能看板，設定合理快取與刷新頻率，防止頻繁查詢拖慢核心資料庫？"
+        "title": "Q-BI10. 生產車間戰情大螢幕即時刷新與資料庫負載平衡",
+        "scenario": "能否設計掛載於車間現場的大螢幕即時產能看板，設定合理快取與刷新頻率，防止頻繁查詢拖慢核心 SQL Server？"
       }
     ]
   },
   {
     "id": "ms",
     "title": "⚙️ ERP / MES / WMS 製造系統維護工程師",
-    "badge": "製造核心系統專屬 (10題)",
-    "desc": "評鑑成衣 ERP、車間 MES 工序計件、4-Gate 產前門禁防呆、WMS 條碼與現場製造流程維護能力。",
+    "badge": "成衣核心製造系統專屬 (10題)",
+    "desc": "評鑑成衣 ERP、車間 MES 工序計件、4-Gate 產前門禁防呆、WMS 條碼與 Windows/SQL Server 底層製造維護。",
     "target": 3.8,
     "questions": [
       {
@@ -1373,21 +1374,21 @@
       },
       {
         "id": "ms_09",
-        "title": "Q-MS09. 現場掃描設備與條碼標籤印表機硬體通訊排錯 (Zebra)",
+        "title": "Q-MS09. 現場掃描設備與 Zebra 條碼印表機通訊維護",
         "scenario": "能否排查車間 Zebra 條碼標籤機列印位移、熱轉印碳帶斷帶，以及無線條碼槍掃描解碼逾時等現場設備硬體故障？"
       },
       {
         "id": "ms_10",
-        "title": "Q-MS10. 產線換線停滯時之緊急離線手工備援作業流程維護",
+        "title": "Q-MS10. MES 系統突發中斷時之標準紙本手工計件單緊急備援",
         "scenario": "若 MES 伺服器突發中斷，能否指導現場車間主管迅速啟動標準紙本手工計件單備援，並於系統恢復後批次平帳補錄？"
       }
     ]
   },
   {
     "id": "infra",
-    "title": "🖥️ 系統與虛擬化工程師 (System & Infrastructure)",
-    "badge": "主機與虛擬化專屬 (10題)",
-    "desc": "評鑑 Dell/HP 機架伺服器、iDRAC 帶外管理、RAID 陣列在線重建、VMware ESXi 虛擬化與機房 UPS 環境維護。",
+    "title": "🖥️ 系統與伺服器硬體工程師 (System & Infrastructure)",
+    "badge": "微軟伺服器與硬體專屬 (10題)",
+    "desc": "評鑑 Dell/HP 機架伺服器、iDRAC 帶外管理、RAID 陣列在線重建、Windows Server 叢集、VMware 虛擬化與機房 UPS 環境維護。",
     "target": 3.5,
     "questions": [
       {
@@ -1398,7 +1399,7 @@
       {
         "id": "infra_02",
         "title": "Q-SE02. 伺服器帶外遠端管理 (Dell iDRAC / HP iLO 獨立埠)",
-        "scenario": "能否設定獨立 iDRAC/iLO 網段、使用虛擬主控台 (Virtual Console) 進行遠端遠程開機、掛載 ISO 安裝系統並升級韌體？"
+        "scenario": "能否設定獨立 iDRAC/iLO 網段、使用虛擬主控台 (Virtual Console) 進行遠端開機、掛載 ISO 安裝系統並升級微碼韌體？"
       },
       {
         "id": "infra_03",
@@ -1412,18 +1413,18 @@
       },
       {
         "id": "infra_05",
-        "title": "Q-SE05. VMware ESXi 虛擬化平台維運與 vCenter 叢集管理",
-        "scenario": "能否在實體主機安裝 ESXi 系統、納入 vCenter 統一管理、建立虛擬機並分配 vCPU/RAM/磁碟規格？"
+        "title": "Q-SE05. Windows Server 2016/2019/2022 容錯移轉叢集 (WSFC)",
+        "scenario": "能否在 Windows Server 配置容錯移轉叢集 (WSFC)、見證磁碟 (Quorum Witness)，並排查叢集節點心跳網路中斷？"
       },
       {
         "id": "infra_06",
-        "title": "Q-SE06. 虛擬交換機 (vSwitch) 與實體網卡綁定 (NIC Teaming)",
-        "scenario": "能否配置標準或分散式虛擬交換機 (dvSwitch)、設定 802.1Q VLAN Tagging，並配置雙實體網卡負載平衡與容錯備援？"
+        "title": "Q-SE06. 虛擬化平台維運 (VMware ESXi / Microsoft Hyper-V)",
+        "scenario": "能否在伺服器維護虛擬化平台 (ESXi 或 Hyper-V)、建立虛擬機、分配 vCPU/RAM/虛擬磁碟並管理虛擬交換機 (vSwitch)？"
       },
       {
         "id": "infra_07",
-        "title": "Q-SE07. vMotion 虛擬機熱遷移與 Storage vMotion 儲存搬遷",
-        "scenario": "能否在實體伺服器需停機維護時，使用 vMotion 將線上運行中的虛擬機無痛遷移至其他實體節點，確保 0 停機？"
+        "title": "Q-SE07. 虛擬機無中斷熱遷移 (vMotion / Live Migration)",
+        "scenario": "能否在實體伺服器需停機維護時，使用 vMotion 或 Live Migration 將運行中的 Windows 虛擬機無痛遷移至其他節點？"
       },
       {
         "id": "infra_08",
@@ -1504,8 +1505,8 @@
   {
     "id": "sec",
     "title": "🛡️ 資訊安全工程師 (Cybersecurity & SASE)",
-    "badge": "資訊安全與SASE專屬 (10題)",
-    "desc": "評鑑次世代防火牆 (NGFW)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP)、Veeam 3-2-1 備份與防勒索 WORM。",
+    "badge": "微軟環境資安與SASE專屬 (10題)",
+    "desc": "評鑑次世代防火牆 (NGFW)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP)、微軟環境防毒、Veeam 3-2-1 備份與防勒索 WORM。",
     "target": 4.2,
     "questions": [
       {
@@ -1516,7 +1517,7 @@
       {
         "id": "sec_02",
         "title": "Q-SC02. 入侵防禦系統 (IPS) 與防毒深度封包檢測 (DPI)",
-        "scenario": "能否在防火牆啟用 IPS 入侵防護特徵庫、防毒檢測、SSL/TLS 深度檢測，並排除關鍵業務系統的誤判阻斷？"
+        "scenario": "能否在防火牆啟用 IPS 入侵防護特徵庫、防毒檢測、SSL/TLS 深度檢測，並排除微軟關鍵業務服務的誤判阻斷？"
       },
       {
         "id": "sec_03",
@@ -1545,7 +1546,7 @@
       },
       {
         "id": "sec_08",
-        "title": "Q-SC08. 企業備份架構 Veeam 3-2-1 原則實務與加密存放",
+        "title": "Q-SC08. 微軟虛擬機與 SQL 備份 Veeam 3-2-1 原則實務",
         "scenario": "能否配置 Veeam 備份任務：3 份資料複本、2 種不同儲存介質、1 份異地/離線存放，並對所有備份檔案啟用 AES-256 加密？"
       },
       {
@@ -1555,22 +1556,22 @@
       },
       {
         "id": "sec_10",
-        "title": "Q-SC10. 帳號生命週期審查與 MFA 雙因子認證強制啟用",
-        "scenario": "能否推廣 Authenticator App 雙因子認證、落實離職員工當日即時封鎖停權、每季執行特權管理員帳號權限清查與密碼更換？"
+        "title": "Q-SC10. 微軟帳號生命週期審查與 MFA 雙因子認證強制啟用",
+        "scenario": "能否在 Active Directory 與 M365 推行 Authenticator App 雙因子認證、落實離職當日即時封鎖停權、每季執行特權管理員帳號權限清查？"
       }
     ]
   },
   {
     "id": "sre",
     "title": "🛠️ 網站可靠性 / DevOps 工程師 (SRE & DevOps)",
-    "badge": "SRE與可靠性專屬 (10題)",
-    "desc": "評鑑系統可用性指標 (SLI/SLO/SLA)、錯誤預算 Error Budget、Prometheus/Grafana 監控、Docker 與 CI/CD 自動化。",
+    "badge": "微軟環境SRE與維運專屬 (10題)",
+    "desc": "評鑑系統可用性指標 (SLI/SLO/SLA)、錯誤預算 Error Budget、微軟 IIS / Windows 監控、PowerShell 自動化與 CI/CD 發布。",
     "target": 3.5,
     "questions": [
       {
         "id": "sre_01",
         "title": "Q-SRE01. 服務等級目標可用性指標定義 (SLI / SLO / SLA)",
-        "scenario": "能否為關鍵成衣 ERP/MES 系統定義可用性指標（如 99.9% 正常運行時間、API 回應延遲 < 500ms），並與業務單位對齊？"
+        "scenario": "能否為成衣 ERP/MES 與核心 Web API 定義可用性指標（如 99.9% 正常運行時間、API 回應延遲 < 500ms），並與業務單位對齊？"
       },
       {
         "id": "sre_02",
@@ -1579,51 +1580,51 @@
       },
       {
         "id": "sre_03",
-        "title": "Q-SRE03. 集中化日誌與效能監控 (Prometheus / Grafana 儀表)",
-        "scenario": "能否使用 Prometheus 收集伺服器 CPU/RAM/磁碟/API 請求流量，並在 Grafana 建立統一監控面板實現視覺化？"
+        "title": "Q-SRE03. 微軟 Windows / IIS / SQL Server 集中監控 (Prometheus/Grafana)",
+        "scenario": "能否使用 Windows Exporter 收集伺服器 CPU/RAM/磁碟/IIS 請求流量與 SQL Server 鎖定指標，並在 Grafana 建立統一儀表板？"
       },
       {
         "id": "sre_04",
-        "title": "Q-SRE04. 智慧告警閥值設計與告警疲勞治理 (AlertManager / Teams)",
-        "scenario": "能否設定合理監控告警閥值（避免頻繁誤報造成告警疲勞），並透過 Webhook 將關鍵 P1 警報即時發送至 Teams/LINE？"
+        "title": "Q-SRE04. 智慧告警閥值設計與告警疲勞治理 (Teams Webhook 推播)",
+        "scenario": "能否設定合理監控告警閥值（避免頻繁誤報造成告警疲勞），並透過 Webhook 將關鍵 P1 警報即時發送至 Teams IT 專屬頻道？"
       },
       {
         "id": "sre_05",
-        "title": "Q-SRE05. 容器化技術實踐 (Dockerfile 優化與多階段構建)",
-        "scenario": "能否看懂與撰寫 Dockerfile、使用多階段構建 (Multi-stage Build) 減小容器鏡像體積，並配置健康檢查 (HEALTHCHECK)？"
+        "title": "Q-SRE05. 微軟環境 PowerShell 自動化維運腳本開發",
+        "scenario": "能否編寫 PowerShell 腳本自動備份資料庫、定期清理過期日誌、監控磁碟空間並在 IIS 應用程式集區當機時自動重啟？"
       },
       {
         "id": "sre_06",
-        "title": "Q-SRE06. 多容器本地編排維運 (docker-compose 環境維護)",
-        "scenario": "能否使用 docker-compose.yml 編排 Web API、Redis、資料庫多容器環境，配置持久化資料卷 (Volume) 與獨立容器網路？"
+        "title": "Q-SRE06. 容器化技術與 .NET 微服務實作 (Docker / Compose)",
+        "scenario": "能否撰寫支援 .NET 應用的 Dockerfile、使用 docker-compose.yml 本地編排 Web API 與 Redis 快取，配置資料卷 (Volume)？"
       },
       {
         "id": "sre_07",
-        "title": "Q-SRE07. CI/CD 自動化發布流水線 (GitHub Actions Pipeline)",
-        "scenario": "能否編寫 GitHub Actions 或同級 CI/CD 腳本，在代碼合併至 main 分支時自動執行代碼檢查、單元測試並打包 Docker 鏡像？"
+        "title": "Q-SRE07. CI/CD 自動化發布流水線 (GitHub Actions / Azure DevOps)",
+        "scenario": "能否編寫 GitHub Actions 或 Azure DevOps Pipeline，在代碼合併時自動執行 .NET 構建、單元測試並自動發布至 IIS 站台？"
       },
       {
         "id": "sre_08",
-        "title": "Q-SRE08. 無中斷發布策略觀念 (藍綠發布 Blue-Green / 金絲雀 Canary)",
-        "scenario": "是否理解藍綠發布與金絲雀發布之流量切換原理，能在系統更新版本時維持使用者無感、且發生異常時具備秒級回滾能力？"
+        "title": "Q-SRE08. 無中斷發布策略 (藍綠發布 Blue-Green / 負載平衡切換)",
+        "scenario": "能否利用 IIS ARR (Application Request Routing) 或負載平衡器進行雙站台切換，實現更新版本時使用者無感且可秒級回滾？"
       },
       {
         "id": "sre_09",
-        "title": "Q-SRE09. 基礎設施即代碼 (IaC / Ansible / Terraform 自動化觀念)",
-        "scenario": "是否具備使用自動化腳本或組態工具大量設定多台伺服器之觀念，確保開發、測試與正式環境組態完全一致？"
+        "title": "Q-SRE09. 基礎設施組態標準化與自動化管理觀念",
+        "scenario": "是否具備使用組態指令碼大量標準化設定多台 Windows Server 之觀念，確保開發、測試與正式環境組態完全一致？"
       },
       {
         "id": "sre_10",
-        "title": "Q-SRE10. 災難復原演練與混沌工程 (Chaos Engineering 破壞性測試)",
-        "scenario": "能否在非生產環境模擬單一節點伺服器斷電、網路丟包或資料庫突然掛起，驗證系統能否在 3 秒內自動降級或容錯轉移？"
+        "title": "Q-SRE10. 災難復原演練與混沌工程 (破壞性測試與自動容錯移轉)",
+        "scenario": "能否在非生產環境模擬單一節點主機斷電、網路丟包或 SQL Server 突然掛起，驗證 AlwaysOn 能否在 3 秒內自動容錯轉移？"
       }
     ]
   },
   {
     "id": "mis",
     "title": "🧑‍💻 資訊服務台 / 終端維運工程師 (MIS Helpdesk)",
-    "badge": "MIS與終端維運專屬 (10題)",
-    "desc": "評鑑 Active Directory 網域控制、GPO 安全原則派送、M365 租戶與郵件流治理、Ghost/WDS 系統映像檔大量部署與 ITIL。",
+    "badge": "微軟AD與M365維運專屬 (10題)",
+    "desc": "評鑑 Active Directory 網域控制、GPO 安全原則派送、Microsoft 365 租戶與郵件流治理、Ghost/WDS 系統映像檔大量部署與 ITIL。",
     "target": 3.5,
     "questions": [
       {
@@ -1741,7 +1742,7 @@
     "id": "lead",
     "title": "👔 資訊主管 / 專案經理 (Lead & Project Manager)",
     "badge": "專案管理與架構治理專屬 (10題)",
-    "desc": "評鑑 WBS 專案甘特圖掌控、成衣製造 4-Gate 流程通曉、原廠 SI 合約把關、跨國團隊溝通與技術連續性治理。",
+    "desc": "評鑑 WBS 專案甘特圖掌控、成衣製造 4-Gate 流程通曉、原廠 SI 合約把關、微軟生態系治理與跨國技術連續性。",
     "target": 4.0,
     "questions": [
       {
@@ -1781,8 +1782,8 @@
       },
       {
         "id": "lead_08",
-        "title": "Q-PM08. IT 預算規劃、成本效益分析與雲端 FinOps 資源費用控制",
-        "scenario": "能否進行軟硬體採購三年總體擁有成本 (TCO) 分析，審查雲端月度帳單並排查閒置主機，實現高性價比投資？"
+        "title": "Q-PM08. IT 預算規劃、成本效益分析與微軟授權費用控制",
+        "scenario": "能否進行軟硬體採購三年總體擁有成本 (TCO) 分析，審查 Windows Server、SQL Server 及 M365 授權最佳化配置？"
       },
       {
         "id": "lead_09",
