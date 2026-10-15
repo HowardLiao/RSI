@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 邊界 WAAP 在線防護 ＆ 旁路 API 安全態勢雙軌聯防架構指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --emerald-accent: #059669;
+      --blue-accent: #2563EB;
+      --purple-accent: #7C3AED;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 32px 36px;
+      position: relative;
+    }
+
+    .header-bar {
+      border-bottom: 2px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 9px 18px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-charcoal);
+      font-weight: 700;
+      font-size: 0.83rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+      background: var(--bg-warm-tint);
+    }
+    .tab-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.2);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pillar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .pillar-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+    .pillar-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .callout-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-size: 0.83rem;
+      color: #7C2D12;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    table.data-table th {
+      background: #F3F4F6;
+      color: var(--text-charcoal);
+      padding: 10px 14px;
+      font-weight: 700;
+      border-bottom: 2px solid #D1D5DB;
+    }
+    table.data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.data-table tr:nth-child(even) { background: #FAFAF9; }
+
+    .action-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-body);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .action-btn:hover {
+      background: var(--bg-surface);
+      border-color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+        </div>
+        <h1 class="header-title">信源全球 · 邊界 WAAP 在線防護 ＆ 旁路 API 安全態勢雙軌聯防架構<br><span>去品牌化通用技術標準 · 雙向動態閉環阻斷 · 相關角色技術職能問卷題本</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027</div>
+      </div>
+    </div>
+
+    <!-- Architectural Consensus Callout -->
+    <div class="callout-box">
+      <strong>📌 核心架構定位與非取代原則 (Architectural Separation of Concerns)：</strong><br>
+      1. <strong>不是強行合併，亦非互相取代</strong>：邊界 WAAP (Web 應用程式與 API 防護) 專注於<strong>入口處毫秒級在線攔截（Inline Blocking）</strong>；API 安全系統專注於<strong>旁路深度語意分析、影子資產發現與業務邏輯漏洞識別（Out-of-Band Behavioral & Posture Analysis）</strong>。<br>
+      2. <strong>動態回饋閉環聯防 (Closed-Loop Remediation)</strong>：當旁路 API 安全系統透過流量鏡像偵測到 BOLA 越權攻擊、帳號爬取異常或高風險未授權行為時，自動透過 Webhook/API 將威脅特徵與惡意 IP 即時反饋推送到邊界 WAAP 實現在線阻斷！<br>
+      3. <strong>零生產延遲衝擊</strong>：旁路採用 Traffic Mirroring 拷貝流量進行 AI 基準線學習，完全不拖慢成衣車間工單計件與 4-Gate 產前門禁的響應速度。
+    </div>
+
+    <!-- Nav Tabs -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-arch')">
+        <span>🏛️</span> 1. WAAP ＋ API 安全雙軌架構拓撲與聯防時序
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-roles')">
+        <span>📋</span> 2. 相關核心角色問卷題庫 (資安/後端/SRE/主管)
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-diff')">
+        <span>⚖️</span> 3. 邊界 WAAP vs 旁路 API 安全職能對照表
+      </button>
+
+      <div style="margin-left: auto; display: flex; gap: 8px;">
+        <button onclick="window.print()" class="action-btn">
+          <span>🖨️</span> 列印圖資 (強制每頁浮水印)
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 1: ARCHITECTURE & SEQUENCE           -->
+    <!-- ========================================== -->
+    <div id="tab-arch" class="panel active">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>🏛️</span>
+            <span>第一部分：邊界 WAAP ＋ 旁路 API 安全雙軌聯防拓撲圖</span>
+          </div>
+          <span style="font-size:0.75rem; color:#A83212; font-weight:bold;">Closed-Loop Bidirectional Defense</span>
+        </div>
+
+        <div style="background:#FFFFFF; border:1px solid var(--border-subtle); border-radius:6px; padding:16px; margin:16px 0; text-align:center;">
+          <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
+            【雙軌架構拓撲】邊界在線防護 ＋ 旁路行為分析 ＋ 自動閉環回饋阻斷
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 480" width="100%" height="auto" style="max-width:1150px; font-family:var(--font-sans);">
+            <!-- Clients -->
+            <rect x="20" y="40" width="180" height="90" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+            <text x="110" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#1E293B">外部呼叫端 / 車間</text>
+            <text x="110" y="90" text-anchor="middle" font-size="10" fill="#64748B">產線機台 / 手持刷槍</text>
+            <text x="110" y="105" text-anchor="middle" font-size="10" fill="#64748B">供應商 / 辦公終端</text>
+
+            <line x1="200" y1="85" x2="260" y2="85" stroke="#A83212" stroke-width="2"/>
+
+            <!-- WAAP Box (Inline) -->
+            <rect x="260" y="20" width="280" height="130" rx="8" fill="#FFF8EE" stroke="#FDBA74" stroke-width="2"/>
+            <text x="400" y="50" text-anchor="middle" font-size="13" font-weight="800" fill="#C2410C">🛡️ 軌道 1：邊界 WAAP 防護層</text>
+            <text x="400" y="70" text-anchor="middle" font-size="10" fill="#7C2D12">【在線即時攔截 · Inline Proxy】</text>
+            <text x="400" y="90" text-anchor="middle" font-size="9" fill="#431407">• OWASP Top 10 已知威脅特徵庫過濾</text>
+            <text x="400" y="105" text-anchor="middle" font-size="9" fill="#431407">• L7 DDoS 流量清洗 ＆ 惡意爬蟲遏止</text>
+            <text x="400" y="120" text-anchor="middle" font-size="9" fill="#431407">• 海外廠 IP 白名單 ＆ 速率限制 (Rate Limit)</text>
+
+            <line x1="540" y1="85" x2="620" y2="85" stroke="#16A34A" stroke-width="2"/>
+
+            <!-- Core API Gateway & Backend -->
+            <rect x="620" y="20" width="260" height="130" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="2"/>
+            <text x="750" y="50" text-anchor="middle" font-size="13" font-weight="800" fill="#15803D">⚙️ 核心 API Gateway ＆ 後端</text>
+            <text x="750" y="70" text-anchor="middle" font-size="10" fill="#166534">【微軟 C# .NET 8 核心中台】</text>
+            <text x="750" y="90" text-anchor="middle" font-size="9" fill="#14532D">• 成衣 ERP 訂單 / MES 計件 Web API</text>
+            <text x="750" y="105" text-anchor="middle" font-size="9" fill="#14532D">• 4-Gate 產前門禁防呆服務</text>
+            <text x="750" y="120" text-anchor="middle" font-size="9" fill="#14532D">• 直連 MS SQL Server AlwaysOn 叢集</text>
+
+            <!-- Traffic Mirroring Line -->
+            <path d="M 580 85 L 580 260 L 620 260" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="4"/>
+            <text x="560" y="190" font-size="10" font-weight="700" fill="#2563EB" transform="rotate(-90 560 190)">流量鏡像 (Traffic Mirroring)</text>
+
+            <!-- API Security Box (Out of Band) -->
+            <rect x="620" y="200" width="490" height="160" rx="8" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
+            <text x="865" y="225" text-anchor="middle" font-size="13" font-weight="800" fill="#1D4ED8">🔍 軌道 2：API 安全態勢與行為分析系統</text>
+            <text x="865" y="245" text-anchor="middle" font-size="10" fill="#1E3A8A">【旁路深度分析 · Out-of-Band · 零生產延遲衝擊】</text>
+            
+            <rect x="640" y="260" width="140" height="85" rx="4" fill="#FFFFFF" stroke="#BFDBFE"/>
+            <text x="710" y="280" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">① 影子 API 發現</text>
+            <text x="710" y="300" text-anchor="middle" font-size="8" fill="#3B82F6">• 自動盤點未列管端點</text>
+            <text x="710" y="315" text-anchor="middle" font-size="8" fill="#3B82F6">• 標記殭屍 (Zombie) 端點</text>
+            <text x="710" y="330" text-anchor="middle" font-size="8" fill="#3B82F6">• 比對 Swagger 差異</text>
+
+            <rect x="795" y="260" width="140" height="85" rx="4" fill="#FFFFFF" stroke="#BFDBFE"/>
+            <text x="865" y="280" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">② AI 行為異常分析</text>
+            <text x="865" y="300" text-anchor="middle" font-size="8" fill="#3B82F6">• 建立正常調用基準線</text>
+            <text x="865" y="315" text-anchor="middle" font-size="8" fill="#3B82F6">• BOLA 物件級越權偵測</text>
+            <text x="865" y="330" text-anchor="middle" font-size="8" fill="#3B82F6">• 大量資料刮取/憑證填充</text>
+
+            <rect x="950" y="260" width="145" height="85" rx="4" fill="#FFFFFF" stroke="#BFDBFE"/>
+            <text x="1022" y="280" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">③ 敏感資料審計</text>
+            <text x="1022" y="300" text-anchor="middle" font-size="8" fill="#3B82F6">• 成衣報價單明文外露</text>
+            <text x="1022" y="315" text-anchor="middle" font-size="8" fill="#3B82F6">• 員工個資與金鑰外洩</text>
+            <text x="1022" y="330" text-anchor="middle" font-size="8" fill="#3B82F6">• 國際個資合規稽核</text>
+
+            <!-- Closed Loop Feedback Line -->
+            <path d="M 620 310 L 400 310 L 400 150" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="6"/>
+            <text x="510" y="300" text-anchor="middle" font-size="11" font-weight="800" fill="#DC2626">⚡ 雙向閉環聯防：自動推送惡意特徵與 IP 黑名單至 WAAP 在線阻斷！</text>
+
+            <!-- Bottom Note -->
+            <rect x="20" y="390" width="1110" height="70" rx="6" fill="#FAFAF9" stroke="#E5E7EB"/>
+            <text x="40" y="415" font-size="10" font-weight="700" fill="#1F2937">💡 架構設計深意：</text>
+            <text x="40" y="432" font-size="9" fill="#4B5563">1. 邊界 WAAP 只能阻擋已知特徵攻擊（如 SQLi），完全看不懂合法的 API 呼叫是否在越權偷看他人成衣報價（BOLA）。</text>
+            <text x="40" y="448" font-size="9" fill="#4B5563">2. 旁路 API 安全系統深度理解語意與業務行為，當它抓到越權行為時，自動回傳封鎖指令給 WAAP，形成完美的閉環安全！</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 2: RELEVANT ROLE QUESTIONNAIRES      -->
+    <!-- ========================================== -->
+    <div id="tab-roles" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>📋</span>
+            <span>第二部分：WAAP ＋ API 安全相關核心角色問卷題庫 (共 4 大關鍵角色)</span>
+          </div>
+          <span style="font-size:0.75rem; color:#059669; font-weight:bold;">已同步更新至全站評鑑系統</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:14px;">
+          落實此雙軌安全體系，牽涉資安、後端開發、SRE 維運與專案主管 4 大角色。以下為各角色專屬檢核考題：
+        </p>
+
+        <!-- Role 1: R09-SEC -->
+        <h4 style="font-size:0.95rem; color:var(--rust-primary); margin:16px 0 8px;">
+          🛡️ 【核心角色 1】[R09-SEC] 資訊安全工程師 (Cybersecurity, WAAP & API Security)
+        </h4>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 14%;">題號代碼</th>
+                <th style="width: 36%;">實務題目名稱</th>
+                <th style="width: 50%;">實務情境檢核標準 (Checklist)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>[R09-SEC-01]</strong></td>
+                <td>邊界 WAAP 在線規則配置與 DDoS 流量過濾</td>
+                <td>能否熟練維護邊界 WAAP/WAF 在線代理規則，配置 OWASP Top 10 防護特徵庫、速率限制 (Rate Limiting) 與成衣海外廠 IP 白名單，在入口端毫秒級阻擋惡意攻擊？</td>
+              </tr>
+              <tr>
+                <td><strong>[R09-SEC-02]</strong></td>
+                <td>旁路 API 影子資產與殭屍端點自動發現</td>
+                <td>能否透過流量鏡像 (Traffic Mirroring) 部署旁路 API 安全系統，動態比對 Swagger 契約與真實流量，秒級盤點出未納管的影子 API (Shadow APIs) 與廢棄殭屍端點？</td>
+              </tr>
+              <tr>
+                <td><strong>[R09-SEC-03]</strong></td>
+                <td>API 運行時基準線學習與 AI 行為異常偵測</td>
+                <td>能否利用 API 安全引擎建立每支業務 API 的正常調用基準線 (Baseline)，精準辨識資料異常抓取 (Scraping)、帳號憑證填充與非常規時段的大量讀取行為？</td>
+              </tr>
+              <tr>
+                <td><strong>[R09-SEC-04]</strong></td>
+                <td>物件級越權 (BOLA) 與業務邏輯漏洞專項防禦</td>
+                <td>當合法登入之攻擊者透過替換工單 ID 或工序代碼存取其他車間資料時，能否透過 API 語義與參數脈絡分析即時識別此類傳統 WAF 無法防範的 BOLA 業務邏輯越權？</td>
+              </tr>
+              <tr>
+                <td><strong>[R09-SEC-05]</strong></td>
+                <td>邊界 WAAP 阻斷與旁路 API 安全雙向動態聯防閉環機制</td>
+                <td>是否深刻理解「邊界 WAAP 負責在線阻擋、旁路 API 安全負責深度洞察，兩者非互相取代亦非強行合併」之原則，並能配置 API 安全偵測威脅後自動推送動態規則至邊界 WAAP 即時阻斷？</td>
+              </tr>
+              <tr>
+                <td><strong>[R09-SEC-06]</strong></td>
+                <td>API 負載敏感資料外洩防護 (DLP 內容審計)</td>
+                <td>能否深入檢查 API Request / Response 負載內容，自動稽核成衣報價單、工序計件工資、客戶合約與身分憑證是否以明文外露，並觸發資安預警？</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Role 2: R02-BE -->
+        <h4 style="font-size:0.95rem; color:var(--blue-accent); margin:20px 0 8px;">
+          💻 【核心角色 2】[R02-BE] 後端軟體開發工程師 (Backend .NET Developer)
+        </h4>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 14%;">題號代碼</th>
+                <th style="width: 36%;">實務題目名稱</th>
+                <th style="width: 50%;">實務情境檢核標準 (Checklist)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>[R02-BE-02]</strong></td>
+                <td>RESTful API 規格設計與 Swagger 規格防影子端點</td>
+                <td>能否嚴格遵守契約優先 (Contract-First)，後端改動即時更新 Swagger 文件，主動通報資安團隊消除影子 API (Shadow API) 盲點？</td>
+              </tr>
+              <tr>
+                <td><strong>[R02-BE-04]</strong></td>
+                <td>資料庫交易事務控制與物件級存取權限校驗 (BOLA 防護)</td>
+                <td>在 C# 控制器中，能否在查詢資料前嚴格校驗當前使用者的工廠代碼與廠長身分，杜絕單純依賴前端傳入 ID 造成的 BOLA 水平越權漏洞？</td>
+              </tr>
+              <tr>
+                <td><strong>[R02-BE-10]</strong></td>
+                <td>API 敏感欄位遮蔽 (Masking) 與回傳最小化</td>
+                <td>能否使用 DTO 嚴格過濾後端回傳欄位，避免將未經處理的資料庫整表實體 (Entity) 直接序列化回傳，防止機密成衣單價與成本洩漏？</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Role 3: R10-SRE -->
+        <h4 style="font-size:0.95rem; color:var(--purple-accent); margin:20px 0 8px;">
+          🛠️ 【核心角色 3】[R10-SRE] 網站可靠性 / DevOps 工程師 (SRE & DevOps)
+        </h4>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 14%;">題號代碼</th>
+                <th style="width: 36%;">實務題目名稱</th>
+                <th style="width: 50%;">實務情境檢核標準 (Checklist)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>[R10-SRE-03]</strong></td>
+                <td>流量鏡像 (Traffic Mirroring) 旁路拋送配置</td>
+                <td>能否在負載平衡器或反向代理配置異步流量複製 (Mirroring)，將即時請求副本無感推送至 API 安全分析叢集，保證生產環境零延遲？</td>
+              </tr>
+              <tr>
+                <td><strong>[R10-SRE-07]</strong></td>
+                <td>CI/CD 靜態 API 契約安全掃描自動化門禁</td>
+                <td>能否在 GitHub Actions / Azure DevOps Pipeline 整合 API 規格掃描，在代碼合併前自動攔截未經身分驗證的高風險開放 API？</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Role 4: R13-PM -->
+        <h4 style="font-size:0.95rem; color:var(--amber-gold); margin:20px 0 8px;">
+          👔 【核心角色 4】[R13-PM] 資訊主管 / 專案經理 (Lead & Project Manager)
+        </h4>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 14%;">題號代碼</th>
+                <th style="width: 36%;">實務題目名稱</th>
+                <th style="width: 50%;">實務情境檢核標準 (Checklist)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>[R13-PM-06]</strong></td>
+                <td>全集團 API 資產台帳治理與影子端點清零 KPI</td>
+                <td>能否建立全集團跨廠 API 資產登記制度，定期審查影子 API 發現清單，要求各廠資訊團隊限期完成合規納管或下線？</td>
+              </tr>
+              <tr>
+                <td><strong>[R13-PM-08]</strong></td>
+                <td>邊界在線防護與旁路安全之雙軌預算審查</td>
+                <td>能否清晰向經營階層論證「邊界 WAAP 阻斷」與「旁路 API 安全態勢」兩者分工之必要性，精準評估 TCO 投資回報率？</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 3: COMPARISON TABLE                  -->
+    <!-- ========================================== -->
+    <div id="tab-diff" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>⚖️</span>
+            <span>第三部分：邊界 WAAP vs 旁路 API 安全技術職能本質深度對照表</span>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 20%;">比較維度</th>
+                <th style="width: 40%; color:#C2410C;">邊界 WAAP 防護 (在線串聯 · Inline)</th>
+                <th style="width: 40%; color:#1D4ED8;">API 安全態勢與行為分析 (旁路分析 · Out-of-Band)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>部署位置與拓撲</strong></td>
+                <td>位於網路最前端，流量必須經過其反向代理 (Inline Proxy)。</td>
+                <td>透過流量鏡像 (Traffic Mirroring) 或 eBPF 探針旁路接收副本，完全不介入主鏈路。</td>
+              </tr>
+              <tr>
+                <td><strong>對生產交易之延遲</strong></td>
+                <td>增加 1~5ms 檢查耗時。</td>
+                <td><strong>0ms（完全零延遲衝擊）</strong>。</td>
+              </tr>
+              <tr>
+                <td><strong>影子 API (Shadow) 發現</strong></td>
+                <td>❌ <strong>無法發現</strong>（只能保護設定在它後面的已列管站台）。</td>
+                <td>✅ <strong>核心強項</strong>（自動分析全流量，秒級抓出未列管的開發端點與殭屍 API）。</td>
+              </tr>
+              <tr>
+                <td><strong>業務邏輯漏洞 (BOLA)</strong></td>
+                <td>❌ <strong>極難防範</strong>（合法請求格式無法觸發特徵阻斷）。</td>
+                <td>✅ <strong>核心強項</strong>（透過上下文與行為基準線，精準抓出水平越權與異常刮取）。</td>
+              </tr>
+              <tr>
+                <td><strong>阻斷動作與響應</strong></td>
+                <td>✅ <strong>在線即時攔截</strong>（直接回傳 403 Forbidden 掐斷連線）。</td>
+                <td>⚠️ 旁路分析不直接阻斷，而是<strong>將特徵動態反饋推送給 WAAP 執行在線阻斷</strong>。</td>
+              </tr>
+              <tr>
+                <td><strong>防護目標與盲點</strong></td>
+                <td>防範已知特徵攻擊、DDoS 與惡意 Bot；盲點在於不理解業務語義。</td>
+                <td>防範未知邏輯漏洞、帳號濫用與影子資產；需搭配 WAAP 實現入口閉環。</td>
+              </tr>
+              <tr style="background:#FFF8EE; font-weight:bold;">
+                <td><strong>信源架構結論</strong></td>
+                <td colspan="2" style="text-align:center; color:#A83212;">
+                  兩者是「護門盾牌 (WAAP)」與「深層透視眼 (API Security)」的黃金搭檔，絕不可強行合併或相互取代！
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(tabId)) {
+          btn.classList.add('active');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

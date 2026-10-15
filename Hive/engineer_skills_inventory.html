@@ -1622,70 +1622,70 @@
   },
   {
     "id": "sec",
-    "title": "[R09-SEC] 🛡️ 資訊安全工程師 (Cybersecurity & SASE)",
-    "badge": "微軟環境資安與SASE專屬 (10題)",
-    "desc": "評鑑次世代防火牆 (NGFW)、零信任存取 (ZTNA)、SaaS 影子IT控管 (CASB/DLP)、微軟環境防毒、Veeam 3-2-1 備份與防勒索 WORM。",
+    "title": "[R09-SEC] 🛡️ 資訊安全工程師 (Cybersecurity, WAAP & API Security)",
+    "badge": "微軟WAAP與API安全專屬 (10題)",
+    "desc": "評鑑邊界次世代 WAAP 在線防護、旁路 API 影子資產發現、運行時 BOLA 行為異常偵測、WAAP 雙向閉環聯防、ZTNA 零信任與防勒索 WORM。",
     "target": 4.2,
     "questions": [
       {
         "id": "R09-SEC-01",
-        "title": "[R09-SEC-01] 次世代防火牆 (FortiGate NGFW) 安全策略與物件管理",
-        "scenario": "能否熟練配置 Fortinet 防火牆存取策略 (Policies)、位址物件、NAT 連接埠轉發，並落實嚴格的最小授權規則？",
-        "code": "R09-SEC-01"
+        "code": "R09-SEC-01",
+        "title": "[R09-SEC-01] 邊界 WAAP (Web 應用程式與 API 防護) 在線規則配置與 DDoS 流量過濾",
+        "scenario": "能否熟練維護邊界 WAAP/WAF 在線代理規則，配置 OWASP Top 10 防護特徵庫、速率限制 (Rate Limiting) 與成衣海外廠 IP 白名單，在入口端毫秒級阻擋惡意攻擊？"
       },
       {
         "id": "R09-SEC-02",
-        "title": "[R09-SEC-02] 入侵防禦系統 (IPS) 與防毒深度封包檢測 (DPI)",
-        "scenario": "能否在防火牆啟用 IPS 入侵防護特徵庫、防毒檢測、SSL/TLS 深度檢測，並排除微軟關鍵業務服務的誤判阻斷？",
-        "code": "R09-SEC-02"
+        "code": "R09-SEC-02",
+        "title": "[R09-SEC-02] 旁路 API 影子資產與殭屍端點自動發現 (Shadow & Rogue API Discovery)",
+        "scenario": "能否透過流量鏡像 (Traffic Mirroring) 部署旁路 API 安全系統，動態比對 Swagger 契約與真實流量，秒級盤點出未納管的影子 API (Shadow APIs) 與廢棄殭屍端點？"
       },
       {
         "id": "R09-SEC-03",
-        "title": "[R09-SEC-03] 零信任網路存取架構 (ZTNA) 最小權限應用授權",
-        "scenario": "能否落實 ZTNA 架構：依據使用者身分與裝置安全性，僅開放指定內部應用程式存取權，徹底改變直接打通內網的傳統 VPN 做法？",
-        "code": "R09-SEC-03"
+        "code": "R09-SEC-03",
+        "title": "[R09-SEC-03] API 運行時基準線學習與 AI 行為異常偵測 (Runtime Behavioral Anomaly)",
+        "scenario": "能否利用 API 安全引擎建立每支業務 API 的正常調用基準線 (Baseline)，精準辨識資料異常抓取 (Scraping)、帳號憑證填充與非常規時段的大量讀取行為？"
       },
       {
         "id": "R09-SEC-04",
-        "title": "[R09-SEC-04] 外包商與未納管設備免安裝安全存取 (Clientless Portal)",
-        "scenario": "能否為外部協力廠商或非託管個人設備配置免安裝 Agent 的反向代理 Web Portal 或企業安全瀏覽器存取通道？",
-        "code": "R09-SEC-04"
+        "code": "R09-SEC-04",
+        "title": "[R09-SEC-04] 物件級越權 (BOLA) 與業務邏輯漏洞專項防禦 (Broken Object Authorization)",
+        "scenario": "當合法登入之攻擊者透過替換工單 ID 或工序代碼存取其他車間資料時，能否透過 API 語義與參數脈絡分析即時識別此類傳統 WAF 無法防範的 BOLA 業務邏輯越權？"
       },
       {
         "id": "R09-SEC-05",
-        "title": "[R09-SEC-05] 雲端存取安全代理 (CASB) 與影子 IT (Shadow IT) 控管",
-        "scenario": "能否透過 CASB 掌握全集團各廠同仁使用的未授權雲端服務、識別高風險應用，並落實公私企業帳號租戶隔離 (Tenant Restriction)？",
-        "code": "R09-SEC-05"
+        "code": "R09-SEC-05",
+        "title": "[R09-SEC-05] 邊界 WAAP 阻斷與旁路 API 安全雙向動態聯防閉環機制 (Closed-Loop Remediation)",
+        "scenario": "是否深刻理解「邊界 WAAP 負責在線阻擋、旁路 API 安全負責深度洞察，兩者非互相取代亦非強行合併」之原則，並能配置 API 安全偵測威脅後自動推送動態規則至邊界 WAAP 即時阻斷？"
       },
       {
         "id": "R09-SEC-06",
-        "title": "[R09-SEC-06] 敏感資料外洩防護 (DLP) 內容即時過濾與攔截",
-        "scenario": "能否配置 DLP 政策深層檢查傳輸內容（如成衣設計版型圖、成本報價單、員工個資），在使用者外傳至雲端或郵件時即時阻斷？",
-        "code": "R09-SEC-06"
+        "code": "R09-SEC-06",
+        "title": "[R09-SEC-06] API 負載敏感資料外洩防護 (DLP / Sensitive Data Exposure 稽核)",
+        "scenario": "能否深入檢查 API Request / Response 負載內容，自動稽核成衣報價單、工序計件工資、客戶合約與身分憑證是否以明文外露，並觸發資安預警？"
       },
       {
         "id": "R09-SEC-07",
-        "title": "[R09-SEC-07] 安全網頁閘道 (SWG) 與惡意網站威脅過濾",
-        "scenario": "能否在安全閘道配置 URL 分類過濾、阻擋已知釣魚網址、惡意網域及高風險下載，並啟用雲端沙箱 (Cloud Sandbox) 即時分析？",
-        "code": "R09-SEC-07"
+        "code": "R09-SEC-07",
+        "title": "[R09-SEC-07] 零信任網路存取架構 (ZTNA) 最小權限應用授權",
+        "scenario": "能否落實 ZTNA 架構：依據使用者身分與裝置安全性，僅開放指定內部應用程式存取權，徹底改變直接打通內網的傳統 VPN 做法？"
       },
       {
         "id": "R09-SEC-08",
-        "title": "[R09-SEC-08] 微軟虛擬機與 SQL 備份 Veeam 3-2-1 原則實務",
-        "scenario": "能否配置 Veeam 備份任務：3 份資料複本、2 種不同儲存介質、1 份異地/離線存放，並對所有備份檔案啟用 AES-256 加密？",
-        "code": "R09-SEC-08"
+        "code": "R09-SEC-08",
+        "title": "[R09-SEC-08] 雲端存取安全代理 (CASB) 與影子 IT (Shadow IT) 控管",
+        "scenario": "能否透過 CASB 掌握全集團各廠同仁使用的未授權雲端服務、識別高風險應用，並落實公私企業帳號租戶隔離 (Tenant Restriction)？"
       },
       {
         "id": "R09-SEC-09",
-        "title": "[R09-SEC-09] 防勒索不可篡改儲存池 (WORM / Immutable Repository)",
-        "scenario": "能否配置支援 Object Lock 或硬體 WORM 的不可篡改唯讀備份儲存池，確保在鎖定天數內任何惡意程式或管理員皆無法刪除加密？",
-        "code": "R09-SEC-09"
+        "code": "R09-SEC-09",
+        "title": "[R09-SEC-09] 微軟虛擬機與 SQL 備份 Veeam 3-2-1 原則實務與 WORM 防勒索儲存池",
+        "scenario": "能否配置 Veeam 備份任務：3 份資料複本、2 種不同儲存介質、1 份異地/離線存放，並對儲存池啟用 Object Lock 或硬體 WORM 確保不可篡改？"
       },
       {
         "id": "R09-SEC-10",
-        "title": "[R09-SEC-10] 微軟帳號生命週期審查與 MFA 雙因子認證強制啟用",
-        "scenario": "能否在 Active Directory 與 M365 推行 Authenticator App 雙因子認證、落實離職當日即時封鎖停權、每季執行特權管理員帳號權限清查？",
-        "code": "R09-SEC-10"
+        "code": "R09-SEC-10",
+        "title": "[R09-SEC-10] 微軟 Active Directory 帳號生命週期審查與 MFA 雙因子認證強制啟用",
+        "scenario": "能否在 Active Directory 與 M365 推行 Authenticator App 雙因子認證、落實離職當日即時封鎖停權、每季執行特權管理員帳號權限清查？"
       }
     ],
     "code": "R09-SEC"
