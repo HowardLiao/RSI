@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 蜂巢計畫 TOGAF 企業架構 ＆ API 品質測試與標準規範指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --emerald-accent: #059669;
+      --blue-accent: #2563EB;
+      --purple-accent: #7C3AED;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 32px 36px;
+      position: relative;
+    }
+
+    .header-bar {
+      border-bottom: 2px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 9px 18px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-charcoal);
+      font-weight: 700;
+      font-size: 0.83rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+      background: var(--bg-warm-tint);
+    }
+    .tab-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.2);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pillar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .pillar-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+    .pillar-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .callout-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-size: 0.83rem;
+      color: #7C2D12;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .code-box {
+      background: #1E1E1E;
+      color: #D4D4D4;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 18px;
+      border-radius: 6px;
+      overflow-x: auto;
+      line-height: 1.5;
+      margin: 14px 0;
+    }
+    .code-box .kw { color: #569CD6; }
+    .code-box .typ { color: #4EC9B0; }
+    .code-box .str { color: #CE9178; }
+    .code-box .com { color: #6A9955; font-style: italic; }
+    .code-box .fn { color: #DCDCAA; }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    table.data-table th {
+      background: #F3F4F6;
+      color: var(--text-charcoal);
+      padding: 10px 14px;
+      font-weight: 700;
+      border-bottom: 2px solid #D1D5DB;
+    }
+    table.data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.data-table tr:nth-child(even) { background: #FAFAF9; }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+    .badge-togaf { background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; }
+    .badge-test { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .badge-net { background: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+
+    .action-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-body);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .action-btn:hover {
+      background: var(--bg-surface);
+      border-color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · PROJECT HIVE 2027
+        </div>
+        <h1 class="header-title">信源全球 · TOGAF 企業架構框架 ＆ API 品質工程標準規範指南<br><span>標準 API 撰寫模式 (C# .NET 8) · 自動化品質測試金字塔 · 開發與測試工具鏈</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027</div>
+      </div>
+    </div>
+
+    <!-- Executive Directives Callout -->
+    <div class="callout-box">
+      <strong>📌 蜂巢計畫 TOGAF 架構與 API 品質治理方針 (Governance Directives)：</strong><br>
+      1. <strong>TOGAF 4 大架構支柱全面落地</strong>：以業務架構 (成衣製造 4-Gate 產前門禁/外點離峰結算)、資料架構 (MS SQL CDC ➔ 湖倉 Medallion 3 層)、應用架構 (企業級 API Platform) 與技術架構 (微軟技術棧 ＋ 雲端中台 ＋ 海外三廠 Envoy 邊緣自律) 貫通全集團。<br>
+      2. <strong>微軟技術棧標準 API 撰寫範式</strong>：全集團統一採用 <strong>C# .NET 8 / ASP.NET Core Web API</strong>，落實 RESTful 標準 URI 命名、嚴格 HTTP 狀態碼、統一 JSON 回傳信封 (Envelope)、Swagger 契約優先及參數化防 SQL 注入。<br>
+      3. <strong>全方位 API 品質測試金字塔</strong>：建構單元測試 (xUnit)、整合測試 (WebApplicationFactory)、自動化回歸 (Postman/Newman)、效能壓測 (k6 P95&lt;200ms)、OWASP API 安全滲透與斷網 48~72hr 混沌工程驗證。
+    </div>
+
+    <!-- Nav Tabs -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-togaf')">
+        <span>🏛️</span> 第一部分：TOGAF 10 企業架構與蜂巢計畫對齊
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-testing')">
+        <span>🧪</span> 第二部分：API 全方位品質測試金字塔
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-standards')">
+        <span>💻</span> 第三部分：微軟 C# .NET 8 標準 API 撰寫規範與範本
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-tooling')">
+        <span>🛠️</span> 第四部分：API 開發、測試與 CI/CD 工具鏈
+      </button>
+
+      <div style="margin-left: auto; display: flex; gap: 8px;">
+        <button onclick="window.print()" class="action-btn">
+          <span>🖨️</span> 列印圖資 (每頁保證浮水印)
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 1: TOGAF 10 ENTERPRISE ARCHITECTURE  -->
+    <!-- ========================================== -->
+    <div id="tab-togaf" class="panel active">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>🏛️</span>
+            <span>第一部分：TOGAF 10 企業架構（4 大支柱 ＆ ADM 循環）在信源蜂巢計畫之實施</span>
+          </div>
+          <span class="badge-tag badge-togaf">TOGAF 10 Certified Standard</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:16px;">
+          TOGAF（The Open Group Architecture Framework）是全球頂級企業架構標準。信源全球 2027「蜂巢計畫」透過 <strong>BDAT（業務、資料、應用、技術）4 大核心架構層</strong> 與 <strong>ADM 演進循環</strong>，確保周副總戰略目標精準落實至代碼與日常維運：
+        </p>
+
+        <!-- TOGAF BDAT Matrix Table -->
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 18%;">TOGAF 核心架構支柱</th>
+                <th style="width: 32%;">信源全球業務現況與痛點 (AS-IS)</th>
+                <th style="width: 50%;">2027 蜂巢計畫目標架構 (TO-BE Target Architecture)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. 業務架構<br>(Business Architecture)</strong></td>
+                <td>
+                  • 台北總部與越/柬/爪哇三廠溝通靠電話、Email 與人工對帳。<br>
+                  • 產前檢查靠紙本，工單漏料或樣板未簽核仍冒險投產。<br>
+                  • 外點頻繁回傳資料導致白天 SD-WAN 頻寬被擠爆。
+                </td>
+                <td>
+                  • <strong>4-Gate 產前門禁系統化防呆</strong>（物料100%齊套、紙樣封樣、MQP缺失結案、裁片合格，未過系統強制鎖定）。<br>
+                  • <strong>外點結算一日一次原則</strong>（排定深夜 01:00~03:00 離峰打包傳輸，保護白天車間產線頻寬）。<br>
+                  • 業務能力地圖 (Business Capabilities) 與各廠生管/廠長 KPI 對齊。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>2. 資料架構<br>(Data Architecture)</strong></td>
+                <td>
+                  • 各廠 MS SQL 資料孤島，跨廠資料難以合併。<br>
+                  • 白天直接對 OLTP 核心資料庫跑複雜報表，造成鎖定與死鎖。<br>
+                  • 歷史工單數據龐大導致資料庫磁碟爆滿。
+                </td>
+                <td>
+                  • <strong>Medallion 3 層現代湖倉</strong>（Bronze 原始日誌 ➔ Silver 清洗對齊 ➔ Gold 24:00 切帳總表）。<br>
+                  • <strong>MS SQL Server 原生 CDC 增量捕獲</strong>，零鎖表提取變更。<br>
+                  • 統一定義集團成衣款號、SAM 標準工時與 OEE 計算口徑。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>3. 應用架構<br>(Application Architecture)</strong></td>
+                <td>
+                  • 點對點 (Point-to-Point) 雜亂呼叫，缺乏統一 API 規範。<br>
+                  • 遇到國際海纜切斷，車間機台立刻卡死停擺。<br>
+                  • 缺乏 API 契約管理，前端與後端改動經常引發相容性故障。
+                </td>
+                <td>
+                  • <strong>跨國 5 層 API Platform</strong>（企業級 API Gateway 治理 ＋ JWT 鑑權 ＋ Rate Limiting 限流）。<br>
+                  • <strong>海外三廠 Edge Proxy 邊緣離線自治</strong>（海纜切斷保障車間 48~72hr 連續離線生產，復網自動平帳）。<br>
+                  • OpenAPI (Swagger) 契約優先 (Contract-First)，消除跨團隊摩擦。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>4. 技術架構<br>(Technology Architecture)</strong></td>
+                <td>
+                  • 地端依賴傳統 VPN 連線，易遭海纜波動中斷。<br>
+                  • 伺服器軟硬體缺乏標準化組態，單點脆弱度 (Bus Factor) 高。<br>
+                  • 備份缺乏不可篡改機制，存在勒索病毒風險。
+                </td>
+                <td>
+                  • <strong>Microsoft Solution 深化</strong>（C# .NET 8 Web API ＋ MS SQL Server AlwaysOn 高可用 ＋ Windows Server AD）。<br>
+                  • <strong>SASE 零信任存取 (ZTNA + CASB + DLP)</strong> 替代傳統 VPN。<br>
+                  • Veeam 3-2-1 備份原則 ＋ WORM 不可篡改儲存池，杜絕勒索威脅。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SVG Diagram: TOGAF ADM Cycle aligned with Hive -->
+        <div style="background:#FFFFFF; border:1px solid var(--border-subtle); border-radius:6px; padding:16px; margin-top:16px; text-align:center;">
+          <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
+            【TOGAF ADM 架構演進循環 ＆ 信源蜂巢計畫 2027 實施對齊圖】
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 240" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
+            <!-- Circles for ADM -->
+            <rect x="30" y="30" width="150" height="70" rx="6" fill="#F8FAFC" stroke="#CBD5E1"/>
+            <text x="105" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B">預備階段 / Phase A</text>
+            <text x="105" y="75" text-anchor="middle" font-size="11" font-weight="800" fill="#A83212">架構願景與原則</text>
+            <text x="105" y="90" text-anchor="middle" font-size="9" fill="#64748B">周副總蜂巢戰略確立</text>
+
+            <line x1="180" y1="65" x2="210" y2="65" stroke="#94A3B8" stroke-width="2"/>
+
+            <rect x="210" y="30" width="160" height="70" rx="6" fill="#EFF6FF" stroke="#93C5FD"/>
+            <text x="290" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#1D4ED8">Phase B / C / D</text>
+            <text x="290" y="75" text-anchor="middle" font-size="11" font-weight="800" fill="#1D4ED8">BDAT 4層架構設計</text>
+            <text x="290" y="90" text-anchor="middle" font-size="9" fill="#1E3A8A">業務/資料/應用/技術</text>
+
+            <line x1="370" y1="65" x2="400" y2="65" stroke="#94A3B8" stroke-width="2"/>
+
+            <rect x="400" y="30" width="160" height="70" rx="6" fill="#FEF3C7" stroke="#FDE68A"/>
+            <text x="480" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#B45309">Phase E / F</text>
+            <text x="480" y="75" text-anchor="middle" font-size="11" font-weight="800" fill="#B45309">機會與過渡計畫</text>
+            <text x="480" y="90" text-anchor="middle" font-size="9" fill="#78350F">WBS 25項甘特里程碑</text>
+
+            <line x1="560" y1="65" x2="590" y2="65" stroke="#94A3B8" stroke-width="2"/>
+
+            <rect x="590" y="30" width="160" height="70" rx="6" fill="#F0FDF4" stroke="#86EFAC"/>
+            <text x="670" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#15803D">Phase G</text>
+            <text x="670" y="75" text-anchor="middle" font-size="11" font-weight="800" fill="#15803D">實施架構治理</text>
+            <text x="670" y="90" text-anchor="middle" font-size="9" fill="#14532D">13角色技術職能評鑑</text>
+
+            <line x1="750" y1="65" x2="780" y2="65" stroke="#94A3B8" stroke-width="2"/>
+
+            <rect x="780" y="30" width="160" height="70" rx="6" fill="#FFF8EE" stroke="#FDBA74"/>
+            <text x="860" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#C2410C">Phase H</text>
+            <text x="860" y="75" text-anchor="middle" font-size="11" font-weight="800" fill="#C2410C">架構變更管理</text>
+            <text x="860" y="90" text-anchor="middle" font-size="9" fill="#7C2D12">API版本控管與演進</text>
+
+            <rect x="30" y="130" width="910" height="85" rx="6" fill="#FAFAF9" stroke="#E5E7EB"/>
+            <text x="50" y="155" font-size="11" font-weight="800" fill="#1F2937">🎯 TOGAF 治理核心產出（Deliverables）：</text>
+            <text x="50" y="178" font-size="10" fill="#4B5563">1. 企業架構定義文件 (Architecture Definition Document · ADD)：精準定義跨國 API Platform 邊界與 Data Lakehouse 規範。</text>
+            <text x="50" y="198" font-size="10" fill="#4B5563">2. 架構合規評審 (Architecture Compliance Review)：嚴格把關外部原廠 SI 合約條款 (SOW)，確保信源技術主權不被廠商綁架。</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 2: API QUALITY TESTING PYRAMID       -->
+    <!-- ========================================== -->
+    <div id="tab-testing" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>🧪</span>
+            <span>第二部分：企業級 API 全方位品質測試金字塔 ＆ 自動化門禁</span>
+          </div>
+          <span class="badge-tag badge-test">ISO 25010 Software Quality</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:16px;">
+          為徹底解決跨國製造環境中 API「改 A 壞 B」、「海外廠斷網當機」、「死鎖造成產線停滯」等品質盲點，信源全球制定完整的 <strong>API 品質測試工程體系</strong>：
+        </p>
+
+        <!-- Testing Pyramid Grid -->
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 15%;">測試層級</th>
+                <th style="width: 25%;">測試目標與檢驗範疇</th>
+                <th style="width: 25%;">標準工具與技術棧</th>
+                <th style="width: 35%;">信源品質驗收標準 (Quality Gate)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. 單元測試<br>(Unit Testing)</strong></td>
+                <td>驗證個別方法 (Methods)、業務規則驗證 (如工序計件公式、SAM 計算)。</td>
+                <td><strong>xUnit / NUnit</strong> + <strong>Moq</strong> + <strong>FluentAssertions</strong></td>
+                <td>• 核心業務代碼行覆蓋率 (Code Coverage) <strong>&gt;= 80%</strong>。<br>• 每次 Git Commit 本地秒級執行完畢。</td>
+              </tr>
+              <tr>
+                <td><strong>2. 整合測試<br>(Integration)</strong></td>
+                <td>驗證 Controller ➔ Service ➔ MS SQL Server 真實資料庫讀寫與交易控制。</td>
+                <td><strong>WebApplicationFactory</strong> (ASP.NET Core) + Testcontainers</td>
+                <td>• 驗證 `SqlTransaction` 扣料與計件之 ACID 一致性。<br>• 杜絕多工位同時搶料產生的並發死鎖 (Deadlock)。</td>
+              </tr>
+              <tr>
+                <td><strong>3. 契約測試<br>(Contract Testing)</strong></td>
+                <td>防範後端修改欄位或型別導致車間工控機前端或手持刷槍連線崩潰。</td>
+                <td><strong>Pact (.NET)</strong> + <strong>OpenAPI Spec Diff</strong></td>
+                <td>• API 變更禁止破壞性更動 (No Breaking Changes)。<br>• Swagger 規格比對自動攔截缺漏欄位。</td>
+              </tr>
+              <tr>
+                <td><strong>4. 功能回歸測試<br>(Functional API)</strong></td>
+                <td>端到端成衣製造場景（打樣 ➔ 4-Gate 產前門禁 ➔ 車間計件 ➔ 出貨檢驗）。</td>
+                <td><strong>Postman Collections</strong> + <strong>Newman (CLI)</strong></td>
+                <td>• 自動化測試集合 <strong>100% 通過 (Zero Failure)</strong>。<br>• 自動整合至 GitHub Actions / Azure DevOps CI 流水線。</td>
+              </tr>
+              <tr>
+                <td><strong>5. 效能與壓力測試<br>(Load & Stress)</strong></td>
+                <td>驗證早班打卡換款、車間數百工位同時掃描回傳時的系統極限承受力。</td>
+                <td><strong>k6 (JavaScript 壓測)</strong> / Locust / JMeter</td>
+                <td>• <strong>P95 回應時間 &lt; 200ms，P99 &lt; 500ms</strong>。<br>• 承受平日尖峰 3 倍併發請求 (500+ RPS) 無 5xx 錯誤。</td>
+              </tr>
+              <tr>
+                <td><strong>6. API 資安滲透測試<br>(Security Testing)</strong></td>
+                <td>防範 OWASP API Security Top 10（SQL 注入、JWT 偽造、越權存取 BOLA）。</td>
+                <td><strong>OWASP ZAP</strong> + <strong>SonarQube</strong> + Roslyn Analyzers</td>
+                <td>• <strong>Zero Critical / High 嚴重資安漏洞</strong>。<br>• 強制落實參數化查詢，嚴禁字串拼接 SQL。</td>
+              </tr>
+              <tr>
+                <td><strong>7. 斷網自律混沌工程<br>(Chaos & Resilience)</strong></td>
+                <td>模擬海外三廠海纜突發中斷，檢驗工廠 48~72hr 連續離線生產與復網補傳。</td>
+                <td><strong>Pumba</strong> (Docker 故障注入) / 手動切斷網卡</td>
+                <td>• 斷網瞬間機台自動收到 <strong>HTTP 202 Accepted</strong> 暫存。<br>• 復網後 15 分鐘內本地暫存佇列 100% 自動平帳。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 3: STANDARD API GUIDELINES (C# .NET) -->
+    <!-- ========================================== -->
+    <div id="tab-standards" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>💻</span>
+            <span>第三部分：微軟 C# .NET 8 標準 API 撰寫規範、命名慣例與代碼範本</span>
+          </div>
+          <span class="badge-tag badge-net">C# .NET 8 / ASP.NET Core</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:12px;">
+          信源全球內部所有軟體工程師、外部協力廠商（SI）與顧問團隊，在開發 C# .NET Web API 時，必須嚴格遵守以下企業標準：
+        </p>
+
+        <h4 style="font-size:0.95rem; color:var(--text-charcoal); margin:14px 0 6px;">1. RESTful URI 命名與 HTTP 動詞精確映射</h4>
+        <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6; margin-bottom:10px;">
+          • <strong>URI 規範</strong>：一律使用小寫、複數名詞，並包含清晰版本號（例：<code>/api/v1/production-orders</code>）。<br>
+          • <strong>HTTP 動詞映射</strong>：<br>
+            - <code>GET</code>：查詢資料（安全且冪等，禁止修改狀態）。<br>
+            - <code>POST</code>：新增資源或觸發業務動作（例：<code>POST /api/v1/sewing-records</code>）。<br>
+            - <code>PUT</code>：全量覆蓋更新資源。<br>
+            - <code>PATCH</code>：部分欄位更新。<br>
+            - <code>DELETE</code>：軟刪除（標記 <code>IsDeleted = 1</code>，禁止物理刪除成衣生產紀錄）。
+        </div>
+
+        <h4 style="font-size:0.95rem; color:var(--text-charcoal); margin:14px 0 6px;">2. 統一 API 回傳信封格式 (Standard API Envelope Model)</h4>
+        <p style="font-size:0.8rem; color:var(--text-body); margin-bottom:6px;">
+          所有 API 無論成功或失敗，回傳之 JSON 必須封裝於標準結構中，方便前端與車間工控機統一解析：
+        </p>
+        <div class="code-box">
+<span class="kw">public class</span> <span class="typ">ApiResponse</span>&lt;<span class="typ">T</span>&gt;
+{
+    <span class="kw">public bool</span> Success { <span class="kw">get</span>; <span class="kw">set</span>; }           <span class="com">// true / false</span>
+    <span class="kw">public string</span> Code { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="str">"RSI-200"</span>; <span class="com">// 集團標準業務代碼</span>
+    <span class="kw">public string</span> Message { <span class="kw">get</span>; <span class="kw">set</span>; }        <span class="com">// 繁中清晰提示訊息</span>
+    <span class="kw">public</span> <span class="typ">T</span>? Data { <span class="kw">get</span>; <span class="kw">set</span>; }                 <span class="com">// 業務實體資料</span>
+    <span class="kw">public string</span> TraceId { <span class="kw">get</span>; <span class="kw">set</span>; }         <span class="com">// 鏈路追蹤 ID (用於日誌排錯)</span>
+    <span class="kw">public</span> <span class="typ">DateTime</span> Timestamp { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="typ">DateTime</span>.UtcNow;
+
+    <span class="kw">public static</span> <span class="typ">ApiResponse</span>&lt;<span class="typ">T</span>&gt; <span class="fn">Ok</span>(<span class="typ">T</span> data, <span class="kw">string</span> msg = <span class="str">"操作成功"</span>) 
+        =&gt; <span class="kw">new</span>() { Success = <span class="kw">true</span>, Code = <span class="str">"RSI-200"</span>, Data = data, Message = msg };
+
+    <span class="kw">public static</span> <span class="typ">ApiResponse</span>&lt;<span class="typ">T</span>&gt; <span class="fn">Fail</span>(<span class="kw">string</span> code, <span class="kw">string</span> msg) 
+        =&gt; <span class="kw">new</span>() { Success = <span class="kw">false</span>, Code = code, Message = msg };
+}
+        </div>
+
+        <h4 style="font-size:0.95rem; color:var(--text-charcoal); margin:14px 0 6px;">3. C# .NET 8 標準 Controller 企業骨架範本 (含 4-Gate 門禁檢核與交易控制)</h4>
+        <div class="code-box">
+[<span class="typ">ApiController</span>]
+[<span class="typ">Route</span>(<span class="str">"api/v1/[controller]"</span>)]
+[<span class="typ">Authorize</span>] <span class="com">// 強制 JWT 身分驗證</span>
+[<span class="typ">Produces</span>(<span class="str">"application/json"</span>)]
+<span class="kw">public class</span> <span class="typ">ProductionOrdersController</span> : <span class="typ">ControllerBase</span>
+{
+    <span class="kw">private readonly</span> <span class="typ">IOrderService</span> _orderService;
+    <span class="kw">private readonly</span> <span class="typ">ILogger</span>&lt;<span class="typ">ProductionOrdersController</span>&gt; _logger;
+
+    <span class="kw">public</span> <span class="fn">ProductionOrdersController</span>(<span class="typ">IOrderService</span> orderService, <span class="typ">ILogger</span>&lt;<span class="typ">ProductionOrdersController</span>&gt; logger)
+    {
+        _orderService = orderService;
+        _logger = logger;
+    }
+
+    <span class="com">/// &lt;summary&gt;</span>
+    <span class="com">/// 車間工單投產門禁審查 (4-Gate 產前門禁防呆 API)</span>
+    <span class="com">/// &lt;/summary&gt;</span>
+    [<span class="typ">HttpPost</span>(<span class="str">"{orderId}/start-production"</span>)]
+    [<span class="typ">ProducesResponseType</span>(<span class="kw">typeof</span>(<span class="typ">ApiResponse</span>&lt;<span class="typ">ProductionTicketDto</span>&gt;), <span class="typ">StatusCodes</span>.Status200OK)]
+    [<span class="typ">ProducesResponseType</span>(<span class="kw">typeof</span>(<span class="typ">ApiResponse</span>&lt;<span class="typ">GateCheckResultDto</span>&gt;), <span class="typ">StatusCodes</span>.Status409Conflict)]
+    <span class="kw">public async</span> <span class="typ">Task</span>&lt;<span class="typ">IActionResult</span>&gt; <span class="fn">StartProduction</span>(<span class="kw">string</span> orderId, [<span class="typ">FromBody</span>] <span class="typ">StartOrderCommand</span> cmd)
+    {
+        <span class="com">// 1. 執行 4-Gate 產前門禁防呆審查 (物料齊套/紙樣封樣/MQP改善/裁片封包)</span>
+        <span class="kw">var</span> gateResult = <span class="kw">await</span> _orderService.<span class="fn">VerifyFourGatesAsync</span>(orderId);
+        <span class="kw">if</span> (!gateResult.Passed)
+        {
+            _logger.<span class="fn">LogWarning</span>(<span class="str">"工單 {OrderId} 4-Gate 產前門禁未通過: {Reason}"</span>, orderId, gateResult.FailureReason);
+            <span class="kw">return</span> <span class="fn">Conflict</span>(<span class="typ">ApiResponse</span>&lt;<span class="typ">GateCheckResultDto</span>&gt;.<span class="fn">Fail</span>(<span class="str">"RSI-409-GATE"</span>, gateResult.FailureReason));
+        }
+
+        <span class="com">// 2. 開啟資料庫交易 (SqlTransaction 保障 ACID 一致性)</span>
+        <span class="kw">var</span> ticket = <span class="kw">await</span> _orderService.<span class="fn">DispatchOrderWithTransactionAsync</span>(orderId, cmd);
+        
+        <span class="kw">return</span> <span class="fn">Ok</span>(<span class="typ">ApiResponse</span>&lt;<span class="typ">ProductionTicketDto</span>&gt;.<span class="fn">Ok</span>(ticket, <span class="str">"4-Gate 審查通過，工單已成功投產！"</span>));
+    }
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PANEL 4: TOOLING & CI/CD PIPELINE          -->
+    <!-- ========================================== -->
+    <div id="tab-tooling" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>🛠️</span>
+            <span>第四部分：標準 API 開發、除錯、測試與 CI/CD 自動化工具鏈</span>
+          </div>
+          <span class="badge-tag badge-togaf">DevOps & Automation</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:16px;">
+          全集團推行標準化工具鏈，消除開發人員各自為政之現象：
+        </p>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 18%;">工程階段</th>
+                <th style="width: 32%;">推薦標準工具 (Recommended Tools)</th>
+                <th style="width: 50%;">工具實務職能與自動化落地方式</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. API 設計與契約管理</strong></td>
+                <td><strong>Swagger / OpenAPI 3.0</strong> + <strong>Stoplight Studio</strong></td>
+                <td>
+                  • 代碼優先 (Code-First) 自動透過 Swashbuckle 產出互動式 API 文件。<br>
+                  • 嚴格規範輸入參數格式、必填欄位與範例回傳值。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>2. 本地開發與除錯</strong></td>
+                <td><strong>Visual Studio 2022 Enterprise</strong> + <strong>VS Code</strong></td>
+                <td>
+                  • 原生支援 C# .NET 8、內建 HTTP Request (.http) 檔案進行極速本地偵錯。<br>
+                  • 配置 Roslyn 代碼分析器，編譯期間即時提示潛在 Bug。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>3. API 集合與回歸測試</strong></td>
+                <td><strong>Postman</strong> + <strong>Newman CLI</strong></td>
+                <td>
+                  • 維護信源官方 Postman Collections，涵蓋所有 13 大角色管轄系統。<br>
+                  • 使用 Newman 於終端環境一鍵自動化執行完整測試套件。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>4. 併發與效能壓測</strong></td>
+                <td><strong>k6 (Grafana k6)</strong></td>
+                <td>
+                  • 以 JavaScript 撰寫高併發壓測腳本（例：模擬 300 條產線同時刷件）。<br>
+                  • 產出清晰的 P90 / P95 / P99 延遲分布圖與 HTTP 錯誤率統計。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>5. 靜態代碼與安全掃描</strong></td>
+                <td><strong>SonarQube</strong> + <strong>Snyk</strong> (依賴項掃描)</td>
+                <td>
+                  • 自動掃描代碼壞味道 (Code Smells)、重複率與安全漏洞。<br>
+                  • 阻擋含有 SQL 注入隱患的代碼合併至 main 分支。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>6. CI/CD 自動化發布流水線</strong></td>
+                <td><strong>GitHub Actions</strong> 或 <strong>Azure DevOps Pipeline</strong></td>
+                <td>
+                  • <strong>自動化門禁（Quality Gate）</strong>：<br>
+                    <code>git push ➔ dotnet build ➔ xUnit (覆蓋率&gt;80%) ➔ Newman API測試 ➔ SonarQube掃描 ➔ 自動發布至 IIS / Cloud Run</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:6px; padding:16px; margin-top:16px;">
+          <h4 style="color:#15803D; font-size:0.95rem; margin-bottom:6px;">🚀 信源全球 API 卓越品質總結方針：</h4>
+          <p style="font-size:0.83rem; color:#14532D; line-height:1.6;">
+            1. <strong>契約嚴謹</strong>：以 TOGAF 應用架構為綱領，API 變更必須向前相容，絕不破壞海外三廠車間工控機現有運作。<br>
+            2. <strong>測試前置</strong>：落實單元測試覆蓋率 &gt;= 80% ＋ k6 壓力測試 P95 &lt; 200ms，任何未經自動化測試驗證之 API 嚴禁部署上線。<br>
+            3. <strong>韌性保證</strong>：微軟 C# .NET 8 核心後端直連 MS SQL Server 叢集，海外三廠配合 Envoy Edge Proxy 本地佇列，達成 48~72hr 斷網自律生產！
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(tabId)) {
+          btn.classList.add('active');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
