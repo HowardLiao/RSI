@@ -16,11 +16,6 @@
   --text-primary:#2D3748;--text-muted:#5F6B7A;--accent-primary:#DE5814;--accent-deep:#A83212;--accent-warm:#D97706;
 }
 .doc[data-theme="milan-amber"]{--bg-primary:#FBFBFA;--bg-surface:#FFFFFF;--bg-card:#F5F2EE;--border-color:#E4DED6;--text-primary:#2D3748;--text-muted:#5F6B7A;--accent-primary:#DE5814;--accent-deep:#A83212;--accent-warm:#D97706;color-scheme:light}
-.doc[data-theme="deep-obsidian"]{--bg-primary:#020617;--bg-surface:#0F172A;--bg-card:#111C33;--border-color:#1E2B45;--text-primary:#F8FAFC;--text-muted:#A5B4C8;--accent-primary:#38BDF8;--accent-deep:#7DD3FC;--accent-warm:#F59E0B;color-scheme:dark}
-.doc[data-theme="egyptian-pharaoh"]{--bg-primary:#FAF7F0;--bg-surface:#FFFDF8;--bg-card:#F1EADB;--border-color:#E0D3B8;--text-primary:#1C1917;--text-muted:#57534E;--accent-primary:#1E3A8A;--accent-deep:#0D9488;--accent-warm:#D97706;color-scheme:light}
-.doc[data-theme="gustav-klimt"]{--bg-primary:#1A150D;--bg-surface:#241C10;--bg-card:#2E2414;--border-color:#4A3A1C;--text-primary:#FEF3C7;--text-muted:#D6C79B;--accent-primary:#F59E0B;--accent-deep:#FCD34D;--accent-warm:#B45309;color-scheme:dark}
-.doc[data-theme="mika-ninagawa"]{--bg-primary:#0A0512;--bg-surface:#140A20;--bg-card:#1C0E2C;--border-color:#3B1A4F;--text-primary:#FFF1F2;--text-muted:#E3B9C6;--accent-primary:#E11D48;--accent-deep:#06B6D4;--accent-warm:#F472B6;color-scheme:dark}
-.doc[data-theme="joan-miro"]{--bg-primary:#FAF9F6;--bg-surface:#FFFFFF;--bg-card:#F1EFE8;--border-color:#18181B;--text-primary:#18181B;--text-muted:#3F3F46;--accent-primary:#DC2626;--accent-deep:#2563EB;--accent-warm:#CA8A04;color-scheme:light}
 
 body{background:var(--bg-primary);margin:0}
 .doc{background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-body);font-size:15.5px;line-height:1.8;min-height:100vh;
@@ -28,8 +23,6 @@ body{background:var(--bg-primary);margin:0}
 .wrap{max-width:860px;margin:0 auto}
 .bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-block:16px;font-size:13px;color:var(--text-muted);border-bottom:1px solid var(--border-color)}
 .bar label{display:flex;gap:8px;align-items:center}
-select{font:inherit;color:var(--text-primary);background:var(--bg-surface);border:1px solid var(--border-color);border-radius:6px;padding:3px 8px}
-select:focus-visible{outline:2px solid var(--accent-primary);outline-offset:2px}
 .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 
 header{padding-block:34px 24px;border-bottom:3px solid var(--accent-deep)}
@@ -92,16 +85,6 @@ footer p{max-width:none}
 
   <div class="bar">
     <span class="mono">RSI-MIN-20261016 · 內部文件</span>
-    <label for="theme">版面風格
-      <select id="theme">
-        <option value="milan-amber" selected>米蘭編排暖琥珀</option>
-        <option value="deep-obsidian">曜石黑高階戰情</option>
-        <option value="egyptian-pharaoh">埃及法老美學</option>
-        <option value="gustav-klimt">古斯塔夫·克林姆</option>
-        <option value="mika-ninagawa">蜷川實花</option>
-        <option value="joan-miro">胡安·米羅</option>
-      </select>
-    </label>
   </div>
 
   <header>
@@ -405,13 +388,6 @@ footer p{max-width:none}
 </div>
 </div>
 
-<script>
-(function(){
-  var d=document.getElementById('doc'),s=document.getElementById('theme');
-  try{var v=localStorage.getItem('rsi-min-theme');if(v){d.dataset.theme=v;s.value=v;}}catch(e){}
-  s.addEventListener('change',function(){d.dataset.theme=s.value;try{localStorage.setItem('rsi-min-theme',s.value);}catch(e){}});
-})();
-</script>
 
   <script src="../assets/rsi-site.js" defer></script>
 </body>

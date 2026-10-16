@@ -176,14 +176,6 @@
       <a href="#acceptance" class="opt">驗收與風險</a>
       <a href="#decisions">待裁示決策</a>
       <a href="#phase2" class="opt">第二階段</a>
-      <select id="themeSel" aria-label="切換視覺主題">
-        <option value="milan-amber">米蘭編排暖琥珀</option>
-        <option value="deep-obsidian">曜石黑高階戰情</option>
-        <option value="egyptian-pharaoh">埃及法老美學</option>
-        <option value="gustav-klimt">古斯塔夫·克林姆</option>
-        <option value="mika-ninagawa">蜷川實花</option>
-        <option value="joan-miro">胡安·米羅</option>
-      </select>
     </nav>
   </div>
 </header>
@@ -447,16 +439,6 @@
   </div>
 </footer>
 
-<script>
-  (function () {
-    var root = document.documentElement, sel = document.getElementById('themeSel');
-    try { var t = localStorage.getItem('hive-theme'); if (t) { root.setAttribute('data-theme', t); sel.value = t; } } catch (e) {}
-    sel.addEventListener('change', function () {
-      root.setAttribute('data-theme', sel.value);
-      try { localStorage.setItem('hive-theme', sel.value); } catch (e) {}
-    });
-  })();
-</script>
   <script src="../assets/rsi-site.js" defer></script>
 </body>
 </html>

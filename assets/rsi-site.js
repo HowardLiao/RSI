@@ -18,6 +18,161 @@
   var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
   var SUGGEST = ['RACI', 'PoC', 'SD-WAN', 'Data Lake', '副總裁示', 'API Platform', '甘特圖', 'KPI'];
 
+  /* ---------------- Site map: top navigation and breadcrumbs ---------------- */
+  // Paths are relative to the site root. Pages not listed here get "首頁 › <page title>".
+  var STRATEGY = [
+    ['ceo_strategic_plan.html', 'IT 策略與投資計畫（CEO）'],
+    ['roadmap_2027.html', '2025–2027 策略路線圖'],
+    ['gantt_chart_2027.html', '全專案甘特圖'],
+    ['vp_chou_worklist.html', '周副總交辦工作清單'],
+    ['organization_resources.html', '組織職能與資源配置'],
+    ['inventory_discovery.html', '職能與設備盤點手冊'],
+    ['pptx_rendered_deck.html', 'IT 營運計畫簡報']
+  ];
+  var HIVE = [
+    { label: '架構與平台', items: [
+      ['Hive/platforms_architecture_showcase.html', '雙核心架構展廳'],
+      ['Hive/cloud_platforms_deepdive_architecture.html', '三大雲端深度架構'],
+      ['Hive/platform_tools_comparison_matrix.html', '工具選型評估'],
+      ['Hive/api_platform_drawio.html', 'API Platform 架構圖'],
+      ['Hive/datalake_etl_elt_drawio.html', 'Data Lake ETL/ELT 架構圖'],
+      ['Hive/togaf_api_quality_standards.html', 'TOGAF 與 API 品質規範'],
+      ['Hive/waap_api_security_architecture.html', 'WAAP 與 API 安全架構']
+    ] },
+    { label: '盤點與問卷', items: [
+      ['Hive/it_skills_8domains_assessment.html', '技術職能問卷'],
+      ['Hive/engineer_skills_inventory.html', '高階技術評鑑表'],
+      ['Hive/it_skills_questionnaire.html', '6 大領域職能盤點問卷'],
+      ['Hive/modular_skills_inventory.html', '6 大領域分項盤點表'],
+      ['Hive/it_infrastructure_inventory.html', '資訊基礎設施盤點表']
+    ] },
+    { label: '文件', items: [
+      ['Hive/index.html', '蜂巢計畫實施藍圖'],
+      ['Hive/download_center.html', '文檔中心'],
+      ['Hive/RSI_Group_會議紀錄_2026-10-16.html', '會議紀錄 2026-10-16']
+    ] }
+  ];
+  var EXTRA = { 'mobile.html': '首頁（行動版）', 'mobile_simulator.html': '手機真機模擬', 'index_legacy_swiss.html': '首頁（舊版）' };
+
+  var CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  var BURGER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+
+  function here() {
+    var p = decodeURIComponent(location.pathname), r = decodeURIComponent(ROOT.pathname);
+    p = p.indexOf(r) === 0 ? p.slice(r.length) : p.replace(/^\//, '');
+    return p === '' || /\/$/.test(p) ? p + 'index.html' : p;
+  }
+  function url(p) { return new URL(p, ROOT).href; }
+
+  function crumbsFor(cur) {
+    var home = [['index.html', '首頁']], i, g;
+    if (cur === 'index.html') return [];
+    for (i = 0; i < STRATEGY.length; i++) if (STRATEGY[i][0] === cur) return home.concat([[null, '策略與規劃'], [cur, STRATEGY[i][1]]]);
+    if (cur === 'Hive/index.html') return home.concat([[cur, '蜂巢計畫']]);
+    for (g = 0; g < HIVE.length; g++) for (i = 0; i < HIVE[g].items.length; i++) {
+      if (HIVE[g].items[i][0] === cur) return home.concat([['Hive/index.html', '蜂巢計畫'], [null, HIVE[g].label], [cur, HIVE[g].items[i][1]]]);
+    }
+    var t = EXTRA[cur] || (document.title || '').split(/[｜|]/)[0].replace(/^RSI Group\s*·\s*/, '').trim() || cur;
+    return home.concat([[cur, t]]);
+  }
+
+  var top, menus = [];
+  function closeMenus(except) {
+    menus.forEach(function (m) { if (m !== except) { m.btn.setAttribute('aria-expanded', 'false'); m.panel.hidden = true; } });
+  }
+  function link(p, text, cur, cls) {
+    var a = el('a', cls || null); a.href = url(p); a.textContent = text;
+    if (p === cur) a.setAttribute('aria-current', 'page');
+    return a;
+  }
+  function dropdown(label, groups, cur) {
+    var wrap = el('div', 'rsi-dd'), id = 'rsi-dd-' + menus.length;
+    var btn = el('button', 'rsi-dd-btn', esc(label) + CHEVRON);
+    btn.type = 'button'; btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', id);
+    var panel = el('div', 'rsi-dd-panel' + (groups.length > 1 ? ' cols' : '')); panel.id = id; panel.hidden = true;
+    groups.forEach(function (g) {
+      var box = el('div', 'rsi-dd-group');
+      if (g.label) box.appendChild(el('div', 'rsi-dd-label', esc(g.label)));
+      g.items.forEach(function (it) {
+        box.appendChild(link(it[0], it[1], cur));
+        if (it[0] === cur) wrap.classList.add('is-current');
+      });
+      panel.appendChild(box);
+    });
+    var m = { btn: btn, panel: panel };
+    menus.push(m);
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      closeMenus(m);
+      btn.setAttribute('aria-expanded', String(open)); panel.hidden = !open;
+    });
+    wrap.appendChild(btn); wrap.appendChild(panel);
+    return wrap;
+  }
+
+  function buildTop() {
+    var cur = here();
+    top = el('header', 'rsi-top');
+    top.setAttribute('data-nosnippet', '');
+    var inner = el('div', 'rsi-top-in');
+    var brand = el('a', 'rsi-brand', '<b>RSI Group</b><span>2027 IT 營運計畫</span>');
+    brand.href = url('index.html');
+    var nav = el('nav', 'rsi-nav'); nav.setAttribute('aria-label', '網站導覽');
+    nav.appendChild(link('index.html', '首頁', cur, 'rsi-nav-link'));
+    nav.appendChild(dropdown('策略與規劃', [{ items: STRATEGY }], cur));
+    var hiveCur = cur.indexOf('Hive/') === 0;
+    var hive = dropdown('蜂巢計畫', HIVE, cur);
+    if (hiveCur) hive.classList.add('is-current');
+    nav.appendChild(hive);
+    nav.appendChild(link('Hive/download_center.html', '文檔中心', cur, 'rsi-nav-link'));
+
+    var kbd = pageOwnsShortcuts() ? '' : '<span class="rsi-kbd">' + (isMac ? '⌘K' : 'Ctrl K') + '</span>';
+    var search = el('button', 'rsi-top-search', ICON + '<span class="rsi-ph">搜尋全站內容…</span>' + kbd);
+    search.type = 'button'; search.setAttribute('aria-label', '全站搜尋');
+    search.addEventListener('click', open);
+
+    var burger = el('button', 'rsi-menu-btn', BURGER);
+    burger.type = 'button'; burger.setAttribute('aria-label', '開啟網站選單'); burger.setAttribute('aria-expanded', 'false');
+    burger.addEventListener('click', function () {
+      var o = !top.classList.contains('is-open');
+      top.classList.toggle('is-open', o);
+      burger.setAttribute('aria-expanded', String(o));
+      burger.setAttribute('aria-label', o ? '關閉網站選單' : '開啟網站選單');
+    });
+
+    inner.appendChild(brand); inner.appendChild(nav); inner.appendChild(search); inner.appendChild(burger);
+    top.appendChild(inner);
+
+    var trail = crumbsFor(cur);
+    if (trail.length) {
+      var bc = el('nav', 'rsi-crumbs'); bc.setAttribute('aria-label', '麵包屑');
+      var ol = el('ol');
+      trail.forEach(function (c, i) {
+        var li = el('li');
+        if (i === trail.length - 1) { var s = el('span'); s.textContent = c[1]; s.setAttribute('aria-current', 'page'); li.appendChild(s); }
+        else if (c[0]) li.appendChild(link(c[0], c[1], null));
+        else li.appendChild(document.createTextNode(c[1]));
+        ol.appendChild(li);
+      });
+      bc.appendChild(ol); top.appendChild(bc);
+    }
+
+    // Full-bleed at the very top even when the page pads its <body>.
+    var bs = getComputedStyle(document.body);
+    var pt = parseFloat(bs.paddingTop) || 0, pl = parseFloat(bs.paddingLeft) || 0, pr = parseFloat(bs.paddingRight) || 0;
+    top.style.margin = (-pt) + 'px ' + (-pr) + 'px ' + pt + 'px ' + (-pl) + 'px';
+    if (bs.display.indexOf('flex') >= 0 || bs.display.indexOf('grid') >= 0) { top.style.width = 'calc(100% + ' + (pl + pr) + 'px)'; top.style.gridColumn = '1 / -1'; top.style.order = '-1'; }
+    document.body.insertBefore(top, document.body.firstChild);
+
+    document.addEventListener('click', function (e) { if (!top.contains(e.target)) closeMenus(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var openOne = menus.filter(function (m) { return !m.panel.hidden; })[0];
+      if (openOne) { closeMenus(); openOne.btn.focus(); }
+    });
+    return search;
+  }
+
   /* ---------------- Search ---------------- */
   var dialog, input, body, list, status, chips, fab;
   var index = null, loading = null, hits = [], active = -1, lastFocus = null, timer = 0;
@@ -232,7 +387,7 @@
     }
     return false;
   }
-  function isUI(n) { return n.closest && n.closest('.rsi-search, .rsi-search-fab'); }
+  function isUI(n) { return n.closest && n.closest('.rsi-search, .rsi-search-fab, .rsi-top'); }
 
   function resetFit() {
     zoomed.forEach(function (n) { n.style.zoom = ''; }); zoomed = [];
@@ -335,7 +490,13 @@
   function scheduleFit() { clearTimeout(rt); rt = setTimeout(function () { fitMobile(); placeFab(); }, 150); }
 
   function start() {
+    var topSearch = buildTop();
     buildUI();
+    // The floating search button only appears once the top bar's search has scrolled out of view.
+    if ('IntersectionObserver' in window) {
+      fab.hidden = true;
+      new IntersectionObserver(function (es) { fab.hidden = es[0].isIntersecting; placeFab(); }).observe(topSearch);
+    }
     fitMobile();
     placeFab();
     window.addEventListener('load', function () { lastWidth = 0; fitMobile(); placeFab(); });
