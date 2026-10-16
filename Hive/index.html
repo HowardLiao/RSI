@@ -153,7 +153,8 @@
   footer .links { display: flex; gap: 14px; flex-wrap: wrap; }
 
   @media print {
-    header.top, .watermark, select { display: none; }
+    header.top, select { display: none; }
+    .watermark { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     body { background: #fff; color: #000; }
     .tbl { overflow: visible; } table { min-width: 0 !important; }
     section { break-inside: avoid-page; }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RSI Group · 蜂巢計畫（Project Hive）官方專案文檔與高階報表下載中心</title>
+  <title>RSI Group · 蜂巢計畫（Project Hive）官方專案文檔與高階報表文檔中心（僅供預覽）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -231,6 +231,24 @@
       transition: background 0.15s ease;
     }
     .btn-download:hover { background: var(--orange-vibrant); }
+    button.btn-download { border: none; cursor: pointer; font-family: inherit; }
+    .btn-download:focus-visible { outline: 2px solid var(--orange-vibrant); outline-offset: 2px; }
+
+    /* Preview-only PDF viewer: pages are drawn to canvas by pdf.js, so there is no download or print toolbar */
+    .pv-backdrop { position: fixed; inset: 0; background: rgba(28,25,23,.62); z-index: 2147483646; }
+    .pv-modal { position: fixed; inset: max(12px, 3vh) max(12px, 3vw); background: #F5F5F4; border: 2px solid var(--orange-vibrant); border-radius: var(--radius-lg);
+      box-shadow: 0 25px 60px rgba(0,0,0,.45); z-index: 2147483647; display: flex; flex-direction: column; overflow: hidden; }
+    .pv-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #FFFFFF; border-bottom: 1px solid var(--border-subtle); }
+    .pv-title { font-weight: 800; font-size: .92rem; color: var(--text-charcoal); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pv-tag { font-size: .72rem; font-weight: 700; color: var(--rust-primary); background: var(--bg-warm-tint); border: 1px solid #FED7AA; border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+    .pv-close { border: 1px solid var(--border-subtle); background: #FFFFFF; border-radius: 6px; padding: 5px 12px; font: inherit; font-size: .8rem; font-weight: 700; cursor: pointer; }
+    .pv-close:focus-visible { outline: 2px solid var(--orange-vibrant); outline-offset: 2px; }
+    .pv-body { flex: 1; overflow: auto; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .pv-body canvas { display: block; max-width: 100%; height: auto !important; background: #FFFFFF; box-shadow: 0 2px 10px rgba(0,0,0,.12);
+      user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+    .pv-modal[hidden], .pv-backdrop[hidden] { display: none; }
+    .pv-status { font-size: .85rem; color: var(--text-muted); padding: 24px; }
+    @media print { body * { visibility: hidden !important; } }
     .btn-preview {
       padding: 7px 12px;
       background: #FFFFFF;
@@ -271,11 +289,12 @@
         <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
           RSI GROUP · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">RSI Group · 蜂巢計畫專案文檔與出版級報表官方下載中心<br><span>全系列 15 份 PDF 向量手冊、Draw.io 工程圖資原始檔 ＆ CSV 數據庫一覽</span></h1>
+        <h1 class="header-title">RSI Group · 蜂巢計畫專案文檔與出版級報表官方文檔中心<br><span>13 份 PDF 手冊與 2 份 Draw.io 工程圖資 · 僅供線上預覽</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
         <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div>文件版本：<strong>2026-10-17 全面更新</strong></div>
         <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027</div>
       </div>
     </div>
@@ -283,7 +302,7 @@
     <!-- Quick Navigation / Search -->
     <div class="callout-box">
       <div>
-        <strong>📌 下載指引：</strong>所有文檔均為正式出版級向量格式，內建 <code>Howard Liao Ph.D.</code> 防偽浮水印，支援單鍵直接下載與線上即時預覽。
+        <strong>📌 預覽指引：</strong>全部 PDF 已於 2026-10-17 依網站最新內容重新輸出（含 10/16 周副總用詞更正：RSI Group、越南／柬埔寨／印尼／孟加拉四大產區、Global Control Center 治理模式），內建 <code>Howard Liao Ph.D.</code> 浮水印。<strong>所有文件僅供線上預覽，不提供下載。</strong>
       </div>
       <div style="display: flex; gap: 10px; align-items: center;">
         <input type="text" id="docSearchInput" class="search-input" placeholder="🔍 搜尋文檔關鍵字 (如：API / 湖倉 / 問卷)..." oninput="filterDocuments()">
@@ -298,7 +317,7 @@
           <span>📜</span>
           <span>類別 A：戰略藍圖與實施決策清冊 (Strategic Blueprints)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">共 3 份出版級文件</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 2 份出版級文件</span>
       </div>
 
       <div class="doc-grid">
@@ -311,11 +330,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：3.0 MB</span>
+              <span>大小：3.6 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" download="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -329,11 +347,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：11.1 MB</span>
+              <span>大小：11.4 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="../RSI_CEO戰略營運計畫_2027.pdf" download="RSI_CEO戰略營運計畫_2027.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="../RSI_CEO戰略營運計畫_2027.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="../RSI_CEO戰略營運計畫_2027.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -347,7 +364,7 @@
           <span>🏛️</span>
           <span>類別 B：企業架構、平台設計與安全規範書 (Enterprise Architecture & Cloud Specs)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">共 8 份技術規範</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 7 份技術規範</span>
       </div>
 
       <div class="doc-grid">
@@ -363,8 +380,7 @@
               <span>大小：1.9 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_TOGAF企業架構與API品質標準規範書.pdf" download="RSI_TOGAF企業架構與API品質標準規範書.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_TOGAF企業架構與API品質標準規範書.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_TOGAF企業架構與API品質標準規範書.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -378,11 +394,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：844 KB</span>
+              <span>大小：1.5 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf" download="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -396,11 +411,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：2.3 MB</span>
+              <span>大小：2.4 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf" download="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -414,11 +428,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：1.9 MB</span>
+              <span>大小：2.0 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf" download="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -435,8 +448,7 @@
               <span>大小：1.8 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_API_Platform與DataLake雙核心架構報告.pdf" download="RSI_API_Platform與DataLake雙核心架構報告.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_API_Platform與DataLake雙核心架構報告.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_API_Platform與DataLake雙核心架構報告.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -453,8 +465,7 @@
               <span>大小：1.8 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_API_Platform_架構圖與時序圖.pdf" download="RSI_API_Platform_架構圖與時序圖.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_API_Platform_架構圖與時序圖.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_API_Platform_架構圖與時序圖.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -471,8 +482,7 @@
               <span>大小：1.9 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf" download="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -486,7 +496,7 @@
           <span>📝</span>
           <span>類別 C：內部 IT 技術職能問卷與單點黑數盤點評鑑 (Questionnaires & Bus Factor Reports)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">共 5 份盤點手冊</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 4 份盤點手冊</span>
       </div>
 
       <div class="doc-grid">
@@ -499,11 +509,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：3.5 MB</span>
+              <span>大小：3.6 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_內部IT_技術職能問卷與缺口分析報告.pdf" download="RSI_內部IT_技術職能問卷與缺口分析報告.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_內部IT_技術職能問卷與缺口分析報告.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_內部IT_技術職能問卷與缺口分析報告.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -517,11 +526,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：3.5 MB</span>
+              <span>大小：3.6 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf" download="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -535,11 +543,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：1.8 MB</span>
+              <span>大小：1.9 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_資訊基礎設施與系統6大領域盤點表.pdf" download="RSI_資訊基礎設施與系統6大領域盤點表.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_資訊基礎設施與系統6大領域盤點表.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_資訊基礎設施與系統6大領域盤點表.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -553,11 +560,10 @@
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-pdf">PDF</span>
-              <span>大小：2.4 MB</span>
+              <span>大小：2.5 MB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_內部工程師6大領域分項盤點表.pdf" download="RSI_內部工程師6大領域分項盤點表.pdf" class="btn-download">📥 點擊下載</a>
-              <a href="RSI_內部工程師6大領域分項盤點表.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+              <button type="button" class="btn-download" data-pdf="RSI_內部工程師6大領域分項盤點表.pdf">👁️ 線上預覽</button>
             </div>
           </div>
         </div>
@@ -569,9 +575,9 @@
       <div class="category-header">
         <div class="category-title">
           <span>📐</span>
-          <span>類別 D：可編輯工程原始圖資 (Draw.io)</span>
+          <span>類別 D：工程圖資線上檢視 (Draw.io)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">工程原稿與真實數據</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">線上互動檢視</span>
       </div>
 
       <div class="doc-grid">
@@ -579,7 +585,7 @@
         <div class="doc-item">
           <div>
             <div class="doc-name">RSI_API_Platform_Architecture.drawio</div>
-            <div class="doc-desc">API Platform 5 層全域架構之 Draw.io 向量工程原始檔，可直接於 draw.io / VS Code 載入修改。</div>
+            <div class="doc-desc">API Platform 5 層全域架構之 Draw.io 向量圖資，提供線上互動檢視。</div>
           </div>
           <div>
             <div class="doc-meta">
@@ -587,8 +593,7 @@
               <span>大小：27 KB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_API_Platform_Architecture.drawio" download="RSI_API_Platform_Architecture.drawio" class="btn-download">📥 下載工程檔</a>
-              <a href="api_platform_drawio.html" target="_blank" class="btn-preview">👁️ 線上圖資</a>
+              <a href="api_platform_drawio.html" class="btn-download">👁️ 線上檢視圖資</a>
             </div>
           </div>
         </div>
@@ -597,7 +602,7 @@
         <div class="doc-item">
           <div>
             <div class="doc-name">RSI_DataLake_ETL_ELT_Architecture.drawio</div>
-            <div class="doc-desc">Data Lakehouse 湖倉與離峰傳輸排程之 Draw.io 向量工程原始檔，可直接於 draw.io 載入修改。</div>
+            <div class="doc-desc">Data Lakehouse 湖倉與離峰傳輸排程之 Draw.io 向量圖資，提供線上互動檢視。</div>
           </div>
           <div>
             <div class="doc-meta">
@@ -605,8 +610,7 @@
               <span>大小：26 KB</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_DataLake_ETL_ELT_Architecture.drawio" download="RSI_DataLake_ETL_ELT_Architecture.drawio" class="btn-download">📥 下載工程檔</a>
-              <a href="datalake_etl_elt_drawio.html" target="_blank" class="btn-preview">👁️ 線上圖資</a>
+              <a href="datalake_etl_elt_drawio.html" class="btn-download">👁️ 線上檢視圖資</a>
             </div>
           </div>
         </div>
@@ -630,6 +634,93 @@
         card.style.display = visibleItems.length > 0 ? 'block' : 'none';
       });
     }
+  </script>
+
+  <!-- Preview-only viewer -->
+  <div class="pv-backdrop" id="pvBackdrop" hidden></div>
+  <div class="pv-modal" id="pvModal" role="dialog" aria-modal="true" aria-labelledby="pvTitle" hidden>
+    <div class="pv-head">
+      <div class="pv-title" id="pvTitle">文件預覽</div>
+      <span class="pv-tag">僅供線上預覽 · 不提供下載</span>
+      <button type="button" class="pv-close" id="pvClose">✕ 關閉</button>
+    </div>
+    <div class="pv-body" id="pvBody"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    (function () {
+      var LIB = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+      if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = LIB + 'pdf.worker.min.js';
+
+      var modal = document.getElementById('pvModal');
+      var backdrop = document.getElementById('pvBackdrop');
+      var body = document.getElementById('pvBody');
+      var title = document.getElementById('pvTitle');
+      var task = null, opener = null, run = 0;
+
+      function status(msg) { body.innerHTML = '<div class="pv-status"></div>'; body.firstChild.textContent = msg; }
+
+      function open(url, name, btn) {
+        opener = btn;
+        title.textContent = name;
+        modal.hidden = backdrop.hidden = false;
+        document.body.style.overflow = 'hidden';
+        document.getElementById('pvClose').focus();
+        if (!window.pdfjsLib) { status('預覽元件載入失敗，請重新整理頁面後再試。'); return; }
+        status('文件載入中…');
+        var my = ++run;
+        task = pdfjsLib.getDocument({ url: url, cMapUrl: LIB + 'cmaps/', cMapPacked: true });
+        task.promise.then(function (pdf) {
+          if (my !== run) return;
+          body.innerHTML = '';
+          var width = Math.min(body.clientWidth - 32, 1100);
+          var ratio = window.devicePixelRatio || 1;
+          var chain = Promise.resolve();
+          for (var i = 1; i <= pdf.numPages; i++) (function (n) {
+            chain = chain.then(function () {
+              if (my !== run) return;
+              return pdf.getPage(n).then(function (page) {
+                var vp = page.getViewport({ scale: 1 });
+                var scale = width / vp.width;
+                var view = page.getViewport({ scale: scale * ratio });
+                var c = document.createElement('canvas');
+                c.width = view.width; c.height = view.height;
+                c.style.width = (view.width / ratio) + 'px';
+                c.setAttribute('aria-label', name + ' 第 ' + n + ' 頁');
+                body.appendChild(c);
+                return page.render({ canvasContext: c.getContext('2d'), viewport: view }).promise;
+              });
+            });
+          })(i);
+        }).catch(function () { if (my === run) status('文件載入失敗，請稍後再試。'); });
+      }
+
+      function close() {
+        run++;
+        if (task) { task.destroy(); task = null; }
+        modal.hidden = backdrop.hidden = true;
+        body.innerHTML = '';
+        document.body.style.overflow = '';
+        if (opener) opener.focus();
+      }
+
+      document.querySelectorAll('button[data-pdf]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var name = btn.closest('.doc-item').querySelector('.doc-name').textContent.trim();
+          open(btn.getAttribute('data-pdf'), name, btn);
+        });
+      });
+      document.getElementById('pvClose').addEventListener('click', close);
+      backdrop.addEventListener('click', close);
+      modal.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+      document.addEventListener('keydown', function (e) {
+        if (modal.hidden) return;
+        if (e.key === 'Escape') close();
+        var k = (e.key || '').toLowerCase();
+        if ((e.metaKey || e.ctrlKey) && (k === 's' || k === 'p')) e.preventDefault();
+      });
+    })();
   </script>
   <script src="../assets/rsi-site.js" defer></script>
 </body>
