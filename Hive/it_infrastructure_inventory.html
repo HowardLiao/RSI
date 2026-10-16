@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 現有資訊 6 大領域現況盤點表 ｜ Hive Project</title>
+  <title>RSI Group · 現有資訊 6 大領域現況盤點表 ｜ Hive Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -310,9 +310,9 @@
     <div class="header-bar">
       <div>
         <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
-          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+          RSI GROUP · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">信源全球 · 現有資訊基礎架構與系統 6 大領域現況盤點表<br><span>IT Assets & Infrastructure Comprehensive Discovery Form</span></h1>
+        <h1 class="header-title">RSI Group · 現有資訊基礎架構與系統 6 大領域現況盤點表<br><span>IT Assets & Infrastructure Comprehensive Discovery Form</span></h1>
       </div>
       <div class="header-meta" style="text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end;">
         <div style="text-align: right; width: 100%;">專案指導：<strong>周文津 副總經理</strong></div>
@@ -324,7 +324,7 @@
     <!-- Notice Box -->
     <div class="notice-box">
       <strong>📌 填表目的與跨國盤點指引：</strong><br>
-      為推進信源全球 2027 蜂巢計畫（Hive Project）之 API Platform、Data Lake 與各廠資料串接，本表全面盤點台北總部與海外三廠（越南隆安、柬埔寨金邊、印尼中爪哇）在 <strong>1.軟體 2.硬體 3.網路 4.雲端 5.連線協作 6.資安</strong> 等 6 大維度現況。請各廠專責 IT 同仁詳實填報，直屬廠部資訊主管進行確認簽核。
+      為推進RSI Group 2027 蜂巢計畫（Hive Project）之 API Platform、Data Lake 與各廠資料串接，本表全面盤點台北總部與海外各產區（越南、柬埔寨、印尼、孟加拉）在 <strong>1.軟體 2.硬體 3.網路 4.雲端 5.連線協作 6.資安</strong> 等 6 大維度現況。請各廠專責 IT 同仁詳實填報，直屬廠部資訊主管進行確認簽核。
     </div>
 
     <form id="discoveryForm">
@@ -337,9 +337,9 @@
           <select class="form-input" required>
             <option value="">-- 請選擇受盤點節點 --</option>
             <option value="TP">台北營運總部 (Taipei HQ)</option>
-            <option value="VN">越南隆安示範旗艦廠 (Vietnam Long An)</option>
-            <option value="KH">柬埔寨金邊廠 (Cambodia Phnom Penh)</option>
-            <option value="ID">印尼中爪哇廠 (Indonesia Central Java)</option>
+            <option value="VN">越南廠 (Vietnam)</option>
+            <option value="KH">柬埔寨廠 (Cambodia)</option>
+            <option value="ID">印尼廠 (Indonesia)</option>
           </select>
         </div>
         <div class="form-group">
@@ -649,7 +649,7 @@
       <!-- 5. 各點連線協作方式 (Inter-Site Connectivity & Collaboration) -->
       <!-- ============================================================== -->
       <div class="section-title">5. 跨廠各點連線與遠端協作方式盤點 (Inter-Site Connectivity)</div>
-      <div class="section-desc">清查台北總部與海外三廠的網路互連管道、遠端維運機制與跨國檔案同步模式。</div>
+      <div class="section-desc">清查台北總部與海外各產區的網路互連管道、遠端維運機制與跨國檔案同步模式。</div>
 
       <div class="table-wrap">
         <table class="inventory-table">
@@ -665,7 +665,7 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>台北總部 ↔ 越南隆安</strong></td>
+              <td><strong>台北總部 ↔ 越南</strong></td>
               <td>
                 <select>
                   <option selected>Site-to-Site IPSec VPN</option>
@@ -680,7 +680,7 @@
               <td><input type="text" value="斷網時車間 MES 改本機單機暫存，海纜修復後手動補傳"></td>
             </tr>
             <tr>
-              <td><strong>台北總部 ↔ 柬埔寨金邊</strong></td>
+              <td><strong>台北總部 ↔ 柬埔寨</strong></td>
               <td>
                 <select>
                   <option selected>Site-to-Site IPSec VPN</option>
@@ -691,10 +691,10 @@
               <td><input type="text" value="約 50 ~ 65 ms"></td>
               <td><input type="text" value="夜間整批拋轉約 1.5GB"></td>
               <td><input type="text" value="SSL-VPN / AnyDesk (備援)"></td>
-              <td><input type="text" value="金邊當地網路偶有抖動，曾發生排程中斷需人工重跑"></td>
+              <td><input type="text" value="柬埔寨當地網路偶有抖動，曾發生排程中斷需人工重跑"></td>
             </tr>
             <tr>
-              <td><strong>台北總部 ↔ 印尼中爪哇</strong></td>
+              <td><strong>台北總部 ↔ 印尼</strong></td>
               <td>
                 <select>
                   <option selected>Site-to-Site IPSec VPN</option>
@@ -767,7 +767,7 @@
       <div class="section-title">7. 廠區綜合反饋與最迫切支援事項 (Feedback & Bottlenecks)</div>
       <div class="form-group">
         <label class="form-label">請列出本廠區目前在 IT 運維或產線推進上「最迫切需要總部資源或外部顧問協助解決的前三大痛點」：</label>
-        <textarea class="textarea-box" placeholder="1. 越南隆安廠：MES 報表每逢月底結算經常連線超時，需總部資料庫專家協同調優&#10;2. 網路頻寬：金邊廠光纖偶有中斷，希望能增設 4G 自動備援路由&#10;3. 車間機台：自動裁床工控機老舊無備品，希望總部核定常態備用機..."></textarea>
+        <textarea class="textarea-box" placeholder="1. 越南廠：MES 報表每逢月底結算經常連線超時，需總部資料庫專家協同調優&#10;2. 網路頻寬：柬埔寨廠光纖偶有中斷，希望能增設 4G 自動備援路由&#10;3. 車間機台：自動裁床工控機老舊無備品，希望總部核定常態備用機..."></textarea>
       </div>
 
       <!-- Action Buttons -->

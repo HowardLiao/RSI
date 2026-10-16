@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · API Platform ＆ Data Lakehouse + ETL/ELT 工具選型與架構評估 (GCP vs AWS vs OpenSource)</title>
+  <title>RSI Group · API Platform ＆ Data Lakehouse + ETL/ELT 工具選型與架構評估 (GCP vs AWS vs OpenSource)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -290,9 +290,9 @@
     <div class="header-bar">
       <div>
         <div style="font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
-          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+          RSI GROUP · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">信源全球 · API Platform ＆ Data Lakehouse + ETL/ELT 工具選型與全景架構<br><span>三大技術體系深度評鑑：1. GCP  2. AWS  3. OpenSource (融合現有 Microsoft 解決方案)</span></h1>
+        <h1 class="header-title">RSI Group · API Platform ＆ Data Lakehouse + ETL/ELT 工具選型與全景架構<br><span>三大技術體系深度評鑑：1. GCP  2. AWS  3. OpenSource (融合現有 Microsoft 解決方案)</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
@@ -305,8 +305,8 @@
     <div class="callout-box">
       <strong>📌 核心架構約束與戰略共識 (Architectural Directives)：</strong><br>
       1. <strong>現行微軟解決方案 (Microsoft Solution) 為穩健基底</strong>：信源地端核心 100% 採用 <strong>C# .NET Core / ASP.NET Web API</strong> 與 <strong>MS SQL Server (AlwaysOn AG)</strong>，任何公有雲或開源選型必須無縫對接微軟技術棧，絕不進行推倒重來的破壞性重構。<br>
-      2. <strong>外點結算一日一次傳輸 (保護 SD-WAN 頻寬)</strong>：海外三廠（越、柬、印尼）之成衣結算資料<strong>原則上一天傳輸一次（排定深夜 01:00 ~ 03:00 離峰時段）</strong>，白天頻寬全力留給車間生產、視訊與 ERP 營運；重要特例（4-Gate 產前門禁、出貨核可）才由優先通道傳輸。<br>
-      3. <strong>海外三廠邊緣自律 (Edge Autonomy)</strong>：Edge Proxy ＋ 本地快取佇列，在國際海纜切斷時保障車間 48~72 小時連續離線生產，復網自動批次追平。
+      2. <strong>外點結算一日一次傳輸 (保護 SD-WAN 頻寬)</strong>：海外各產區（越、柬、印、孟尼）之成衣結算資料<strong>原則上一天傳輸一次（排定深夜 01:00 ~ 03:00 離峰時段）</strong>，白天頻寬全力留給車間生產、視訊與 ERP 營運；重要特例（4-Gate 產前門禁、出貨核可）才由優先通道傳輸。<br>
+      3. <strong>海外各產區邊緣自律 (Edge Autonomy)</strong>：Edge Proxy ＋ 本地快取佇列，在國際海纜切斷時保障車間 48~72 小時連續離線生產，復網自動批次追平。
     </div>
 
     <!-- Tabs -->
@@ -324,7 +324,7 @@
         <span>🐧</span> 體系 3：OpenSource (開源自建) 解決方案
       </button>
       <button class="tab-btn" onclick="switchTab('tab-eval')">
-        <span>⚖️</span> TCO 總體成本與信源全球落地選型建議
+        <span>⚖️</span> TCO 總體成本與RSI Group落地選型建議
       </button>
     </div>
 
@@ -357,7 +357,7 @@
                 <td>
                   <span class="badge-cloud badge-gcp">Cloud Armor</span> + <span class="badge-cloud badge-gcp">Cloud CDN</span><br>
                   • 自動防禦 Layer 7 DDoS、SQL Injection 與 XSS。<br>
-                  • 設定海外三廠 IP 白名單與地理圍欄。<br>
+                  • 設定海外各產區 IP 白名單與地理圍欄。<br>
                   • 與 Cloud Load Balancing 深度整合。
                 </td>
                 <td>
@@ -416,7 +416,7 @@
                 </td>
               </tr>
               <tr>
-                <td><strong>4. 海外三廠邊緣自律代理<br>(Edge Offline Autonomy)</strong></td>
+                <td><strong>4. 海外各產區邊緣自律代理<br>(Edge Offline Autonomy)</strong></td>
                 <td>
                   <span class="badge-cloud badge-gcp">Google Distributed Cloud Edge</span><br>
                   • 在廠端本地部署 Google 託管邊緣節點。<br>
@@ -424,7 +424,7 @@
                 </td>
                 <td>
                   <span class="badge-cloud badge-aws">AWS IoT Greengrass</span> / <span class="badge-cloud badge-aws">ECS Anywhere</span><br>
-                  • 將 AWS 容器能力延伸至海外三廠工控機。<br>
+                  • 將 AWS 容器能力延伸至海外各產區工控機。<br>
                   • 本地消息佇列暫存，斷網自律生產。
                 </td>
                 <td>
@@ -639,7 +639,7 @@
         </div>
 
         <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:6px; padding:16px; font-size:0.83rem;">
-          <strong>💡 GCP 方案在信源全球之核心優勢：</strong><br>
+          <strong>💡 GCP 方案在RSI Group之核心優勢：</strong><br>
           • <strong>分析體驗第一</strong>：BigQuery 是公有雲中維護負擔最低的湖倉，無需調校叢集大小、無伺服器架構立竿見影。<br>
           • <strong>微軟 SQL Server 深度整合</strong>：Datastream 對 SQL Server CDC 支援極佳，增量管線建置僅需數小時。<br>
           • <strong>潛在考量</strong>：Google Cloud 在越南與柬埔寨無本地機房（需連線至新加坡或台灣 Region），需依賴穩定 SD-WAN 線路。
@@ -676,7 +676,7 @@
         </div>
 
         <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:6px; padding:16px; font-size:0.83rem;">
-          <strong>💡 AWS 方案在信源全球之核心優勢：</strong><br>
+          <strong>💡 AWS 方案在RSI Group之核心優勢：</strong><br>
           • <strong>全球網路覆蓋最佳</strong>：AWS 在東南亞節點最齊全（新加坡、雅加達），連線延遲表現優異。<br>
           • <strong>開源生態最繁榮</strong>：S3 ＋ Iceberg 幾乎是全球數據湖標準，未來遷移或切換成本最低。<br>
           • <strong>潛在考量</strong>：AWS 計費項目極繁雜（Glue DPU、DMS 實例、NAT Gateway、數據外傳費），維護配置門檻較高。
@@ -701,7 +701,7 @@
             <p>1. <strong>Coraza WAF + NGINX</strong> 自建入口邊界，加載 OWASP 安全規則集。<br>
                2. <strong>Kong Gateway (OSS)</strong> 或 <strong>Apache APISIX</strong> 部署於內部 Linux 節點。<br>
                3. C# .NET 應用部署於地端 <strong>K3s 容器叢集</strong> 或延續現有 <strong>Windows Server IIS</strong>。<br>
-               4. 海外三廠工控機運行 <strong>Envoy Proxy ＋ SQLite</strong> 佇列，實現 48~72hr 離線自律。</p>
+               4. 海外各產區工控機運行 <strong>Envoy Proxy ＋ SQLite</strong> 佇列，實現 48~72hr 離線自律。</p>
           </div>
           <div class="feature-box oss">
             <h4><span>🗄️</span> Data Lakehouse: Debezium + MinIO + Iceberg + Spark + Airflow</h4>
@@ -713,7 +713,7 @@
         </div>
 
         <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:6px; padding:16px; font-size:0.83rem;">
-          <strong>💡 OpenSource 方案在信源全球之核心優勢：</strong><br>
+          <strong>💡 OpenSource 方案在RSI Group之核心優勢：</strong><br>
           • <strong>零雲端授權費</strong>：完全無需支付公有雲的月度帳單，充分利用既有 Dell/HP 伺服器與硬體設備。<br>
           • <strong>數據 100% 在地化</strong>：成衣製程版型、報價單與財務數據完全不離開信源內部機房，合規風險為零。<br>
           • <strong>重大挑戰</strong>：維運負擔極重！需資深 SRE 團隊監控 Kafka 叢集、Spark 記憶體溢出與 K3s 節點狀態，且東南亞廠區較難招聘高級開源 SRE 工程師。
@@ -739,7 +739,7 @@
                 <th>1. Google Cloud (GCP)</th>
                 <th>2. Amazon Web Services (AWS)</th>
                 <th>3. OpenSource (開源自建)</th>
-                <th>信源全球 2027 蜂巢計畫權衡分析</th>
+                <th>RSI Group 2027 蜂巢計畫權衡分析</th>
               </tr>
             </thead>
             <tbody>
@@ -762,7 +762,7 @@
                 <td>⭐⭐⭐ (新加坡/台灣 Region)</td>
                 <td>⭐⭐⭐⭐⭐ (印尼雅加達本地 Region)</td>
                 <td>⭐⭐⭐⭐ (取決於既有 SD-WAN 專線)</td>
-                <td>印尼中爪哇廠連線 AWS 雅加達延遲最佳。</td>
+                <td>印尼廠連線 AWS 雅加達延遲最佳。</td>
               </tr>
               <tr>
                 <td><strong>微軟技術棧相容性 (.NET/SQL)</strong></td>
@@ -790,12 +790,12 @@
         </div>
 
         <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:18px; margin-top:16px;">
-          <h4 style="color:#B45309; font-size:1rem; margin-bottom:8px;">💡 Howard Liao Ph.D. 外部顧問之「信源全球最優解：混血漸進式落地方案」</h4>
+          <h4 style="color:#B45309; font-size:1rem; margin-bottom:8px;">💡 Howard Liao Ph.D. 外部顧問之「RSI Group最優解：混血漸進式落地方案」</h4>
           <p style="font-size:0.85rem; color:#78350F; line-height:1.65;">
-            基於信源全球<strong>「現今皆為 Microsoft Solution」</strong>與<strong>「外點一天傳一次保護 SD-WAN 頻寬」</strong>之實務現實，最穩健、成本最低且成效最快的落地策略為：<br><br>
-            1. <strong>地端核心不動搖 (AS-IS 根基)</strong>：台北總部與海外三廠維持 <strong>MS SQL Server AlwaysOn</strong> 與 <strong>C# .NET Core Web API</strong>，既有 <strong>聯銓 Smart eVision</strong> 繼續負責各廠廠長清晨生產晨會報表。<br>
+            基於RSI Group<strong>「現今皆為 Microsoft Solution」</strong>與<strong>「外點一天傳一次保護 SD-WAN 頻寬」</strong>之實務現實，最穩健、成本最低且成效最快的落地策略為：<br><br>
+            1. <strong>地端核心不動搖 (AS-IS 根基)</strong>：台北總部與海外各產區維持 <strong>MS SQL Server AlwaysOn</strong> 與 <strong>C# .NET Core Web API</strong>，既有 <strong>聯銓 Smart eVision</strong> 繼續負責各廠廠長清晨生產晨會報表。<br>
             2. <strong>數據中台採用 GCP BigQuery (TO-BE 現代化)</strong>：啟用 MS SQL 原生 CDC，透過排程於 <strong>每日深夜 01:00~03:00 離峰時段</strong> 打包傳輸至 Google BigQuery 建立湖倉，由周副總與管理層以 <strong>Microsoft Power BI</strong> 直連進行跨國經營分析。<br>
-            3. <strong>海外三廠採用 OpenSource Envoy 自律邊緣</strong>：海外三廠以最輕量的開源 <strong>Envoy Proxy ＋ SQLite</strong> 部署於工控主機，<strong>零授權費實現 48~72 小時離線生產保障</strong>，兼具極致穩定與成本效益！
+            3. <strong>海外各產區採用 OpenSource Envoy 自律邊緣</strong>：海外各產區以最輕量的開源 <strong>Envoy Proxy ＋ SQLite</strong> 部署於工控主機，<strong>零授權費實現 48~72 小時離線生產保障</strong>，兼具極致穩定與成本效益！
           </p>
         </div>
       </div>

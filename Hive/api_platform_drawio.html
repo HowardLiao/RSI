@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · API Platform 全域架構圖與時序圖 (Draw.io 互動版)</title>
+  <title>RSI Group · API Platform 全域架構圖與時序圖 (Draw.io 互動版)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -228,9 +228,9 @@
     <div class="header-bar">
       <div>
         <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--rust-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
-          RSI GLOBAL ENTERPRISE · HIVE PROJECT ARCHITECTURE
+          RSI GROUP · HIVE PROJECT ARCHITECTURE
         </div>
-        <h1 class="header-title">信源全球 · 蜂巢計畫 API Platform 架構圖與時序圖<br><span>Draw.io 向量設計版 (含邊緣離線自治機制)</span></h1>
+        <h1 class="header-title">RSI Group · 蜂巢計畫 API Platform 架構圖與時序圖<br><span>Draw.io 向量設計版 (含邊緣離線自治機制)</span></h1>
       </div>
       <div class="header-meta" style="text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end;">
         <div style="text-align: right; width: 100%;">專案指導：<strong>周文津 副總經理</strong></div>
@@ -260,7 +260,7 @@
       <div class="panel-header">
         <div class="panel-title">
           <span>🏛️</span>
-          <span>信源全球 (RSI) API Platform 5 層全域架構拓撲圖</span>
+          <span>RSI Group API Platform 5 層全域架構拓撲圖</span>
         </div>
         <div style="font-size: 0.75rem; color: var(--text-muted);">
           Draw.io 格式 · 涵蓋安全邊界、核心中台、邊緣代理與數據湖倉
@@ -270,7 +270,7 @@
       <div class="info-callout">
         <strong>💡 架構設計特點：</strong><br>
         1. <strong>安全雙防線</strong>：Cloud Armor / WAF 防禦外部攻擊與海外廠 IP 白名單；核心 API 閘道執行嚴格 JWT 簽章與 Rate Limiting 限流。<br>
-        2. <strong>邊緣離線自治 (Edge Resilience)</strong>：海外三廠（越、柬、印尼）配置輕量 Edge Proxy ＋ 本地持久化快取，海纜中斷時車間生產不受阻，復網自動批次追平。<br>
+        2. <strong>邊緣離線自治 (Edge Resilience)</strong>：海外各產區（越、柬、印、孟尼）配置輕量 Edge Proxy ＋ 本地持久化快取，海纜中斷時車間生產不受阻，復網自動批次追平。<br>
         3. <strong>湖倉直通</strong>：API 與 Datastream/DMS CDC 管道緊密聯動，每小時增量匯入 BigQuery 核心數據中台。
       </div>
 
@@ -300,8 +300,8 @@
           <text x="450" y="98" text-anchor="middle" font-size="10" fill="#666666">ERP 系統 / 供應鏈採購 / 聯銓 BI</text>
 
           <rect x="610" y="55" width="300" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
-          <text x="760" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">海外三廠車間 MES / 設備</text>
-          <text x="760" y="98" text-anchor="middle" font-size="10" fill="#666666">越南隆安 / 柬埔寨金邊 / 印尼中爪哇</text>
+          <text x="760" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">海外各產區車間 MES / 設備</text>
+          <text x="760" y="98" text-anchor="middle" font-size="10" fill="#666666">越南 / 柬埔寨 / 印尼 / 孟加拉</text>
 
           <rect x="940" y="55" width="220" height="60" rx="6" fill="#FFFFFF" stroke="#78716C" stroke-width="1.5"/>
           <text x="1050" y="80" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">行動端與主管看板</text>
@@ -356,15 +356,15 @@
           <text x="40" y="535" font-weight="800" font-size="13" fill="#D97706">層級 4：工廠邊緣離線自治代理 (Factory Edge Proxy &amp; Offline Resilience)</text>
 
           <rect x="40" y="550" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
-          <text x="170" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">越南隆安示範廠 Edge Proxy</text>
+          <text x="170" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">越南廠 Edge Proxy</text>
           <text x="170" y="593" text-anchor="middle" font-size="10" fill="#666666">地端 Kong OSS / SQLite 暫存佇列</text>
 
           <rect x="330" y="550" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
-          <text x="460" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">柬埔寨金邊廠 Edge Proxy</text>
+          <text x="460" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">柬埔寨廠 Edge Proxy</text>
           <text x="460" y="593" text-anchor="middle" font-size="10" fill="#666666">海纜中斷時車間持續生產不停擺</text>
 
           <rect x="620" y="550" width="260" height="60" rx="6" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
-          <text x="750" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">印尼中爪哇廠 Edge Proxy</text>
+          <text x="750" y="575" text-anchor="middle" font-weight="800" font-size="12" fill="#222222">印尼廠 Edge Proxy</text>
           <text x="750" y="593" text-anchor="middle" font-size="10" fill="#666666">雨季斷線暫存 / 4G 備援線路</text>
 
           <rect x="910" y="550" width="250" height="60" rx="6" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>

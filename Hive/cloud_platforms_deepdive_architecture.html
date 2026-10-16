@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · API Platform ＆ Data Lakehouse + ETL/ELT 三大體系深度架構、層級圖、運作圖與工具選型</title>
+  <title>RSI Group · API Platform ＆ Data Lakehouse + ETL/ELT 三大體系深度架構、層級圖、運作圖與工具選型</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -264,9 +264,9 @@
     <div class="header-bar">
       <div>
         <div style="font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
-          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+          RSI GROUP · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">信源全球 · API Platform ＆ Data Lakehouse + ETL/ELT 深度架構全貌<br><span>三大體系全景層級圖、運作時序圖及工具清冊 (1. GCP  2. AWS  3. OpenSource)</span></h1>
+        <h1 class="header-title">RSI Group · API Platform ＆ Data Lakehouse + ETL/ELT 深度架構全貌<br><span>三大體系全景層級圖、運作時序圖及工具清冊 (1. GCP  2. AWS  3. OpenSource)</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
@@ -278,9 +278,9 @@
     <!-- Core Directives Callout -->
     <div class="callout-box">
       <strong>📌 核心架構約束與戰略基石 (Architectural Directives)：</strong><br>
-      1. <strong>地端微軟解決方案 (Microsoft Solution) 為主力</strong>：台北總部與海外三廠維持 <strong>C# .NET Core Web API</strong>、<strong>MS SQL Server AlwaysOn 高可用叢集</strong> 與 <strong>聯銓 Smart eVision</strong> 晨會報表。<br>
-      2. <strong>外點結算一日一次傳輸 (保護 SD-WAN 頻寬)</strong>：海外三廠成衣工單資料<strong>原則上一天傳輸一次（排定深夜 01:00 ~ 03:00 離峰）</strong>，杜絕白天佔用頻寬影響車間；重大特例通道啟動高優先即時傳輸。<br>
-      3. <strong>海外三廠邊緣自律 (Edge Autonomy)</strong>：Edge Proxy ＋ 本地快取，在國際海纜切斷時保障車間 <strong>48~72 小時連續離線生產</strong>，復網批次自動追平。
+      1. <strong>地端微軟解決方案 (Microsoft Solution) 為主力</strong>：台北總部與海外各產區維持 <strong>C# .NET Core Web API</strong>、<strong>MS SQL Server AlwaysOn 高可用叢集</strong> 與 <strong>聯銓 Smart eVision</strong> 晨會報表。<br>
+      2. <strong>外點結算一日一次傳輸 (保護 SD-WAN 頻寬)</strong>：海外各產區成衣工單資料<strong>原則上一天傳輸一次（排定深夜 01:00 ~ 03:00 離峰）</strong>，杜絕白天佔用頻寬影響車間；重大特例通道啟動高優先即時傳輸。<br>
+      3. <strong>海外各產區邊緣自律 (Edge Autonomy)</strong>：Edge Proxy ＋ 本地快取，在國際海纜切斷時保障車間 <strong>48~72 小時連續離線生產</strong>，復網批次自動追平。
     </div>
 
     <!-- Nav Tabs -->
@@ -335,14 +335,14 @@
           </div>
           <div class="tool-card">
             <div class="tool-card-title"><span>🏭</span> 邊緣自律：GDC Edge Proxy + 本地快取</div>
-            <div class="tool-card-desc">海外三廠輕量代理，海纜切斷回傳 202 Accepted，車間連續 48~72hr 離線生產，復網自動補傳。</div>
+            <div class="tool-card-desc">海外各產區輕量代理，海纜切斷回傳 202 Accepted，車間連續 48~72hr 離線生產，復網自動補傳。</div>
           </div>
         </div>
 
         <!-- SVG Diagram: GCP API Hierarchy -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【層級圖】信源全球 API Platform 5 層架構層級 (GCP 實現體系)
+            【層級圖】RSI Group API Platform 5 層架構層級 (GCP 實現體系)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Tier 1 -->
@@ -351,7 +351,7 @@
             
             <!-- Tier 2 -->
             <rect x="20" y="90" width="1060" height="50" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
-            <text x="40" y="120" font-weight="700" font-size="12" fill="#1D4ED8">【層級 2：安全邊界層】Cloud Armor WAF (防禦 L7 DDoS / SQLi) ＋ 海外三廠 IP 白名單過濾</text>
+            <text x="40" y="120" font-weight="700" font-size="12" fill="#1D4ED8">【層級 2：安全邊界層】Cloud Armor WAF (防禦 L7 DDoS / SQLi) ＋ 海外各產區 IP 白名單過濾</text>
 
             <!-- Tier 3 -->
             <rect x="20" y="160" width="1060" height="50" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5"/>
@@ -363,14 +363,14 @@
 
             <!-- Tier 5 -->
             <rect x="20" y="300" width="1060" height="50" rx="6" fill="#FFF8EE" stroke="#FDBA74" stroke-width="1.5"/>
-            <text x="40" y="330" font-weight="700" font-size="12" fill="#C2410C">【層級 5：海外三廠邊緣層】越南隆安 / 柬埔寨金邊 / 印尼中爪哇 Edge Proxy ＋ SQLite (48~72hr 離線自律)</text>
+            <text x="40" y="330" font-weight="700" font-size="12" fill="#C2410C">【層級 5：海外各產區邊緣層】越南 / 柬埔寨 / 印尼 / 孟加拉 Edge Proxy ＋ SQLite (48~72hr 離線自律)</text>
           </svg>
         </div>
 
         <!-- SVG Sequence Diagram: GCP API Operation -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【運作圖】信源全球 API Platform 正常連線 vs 斷網自律運作時序圖 (GCP)
+            【運作圖】RSI Group API Platform 正常連線 vs 斷網自律運作時序圖 (GCP)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 320" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Lifelines -->
@@ -439,12 +439,12 @@
         <!-- SVG Diagram: GCP DataLake Hierarchy -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【層級圖】信源全球 Data Lakehouse 5 層架構層級 (GCP 實現體系)
+            【層級圖】RSI Group Data Lakehouse 5 層架構層級 (GCP 實現體系)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Tier 1 -->
             <rect x="20" y="20" width="1060" height="50" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-            <text x="40" y="50" font-weight="700" font-size="12" fill="#1E293B">【層級 1：數據源】台北總部 ERP ＋ 越/柬/爪哇三廠現場 MS SQL Server AlwaysOn 叢集</text>
+            <text x="40" y="50" font-weight="700" font-size="12" fill="#1E293B">【層級 1：數據源】台北總部 ERP ＋ 越/柬/印/孟各產區現場 MS SQL Server AlwaysOn 叢集</text>
             
             <!-- Tier 2 -->
             <rect x="20" y="90" width="1060" height="50" rx="6" fill="#FFF8EE" stroke="#FDBA74" stroke-width="1.5"/>
@@ -467,7 +467,7 @@
         <!-- SVG Sequence Diagram: GCP DataLake Operation -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【運作圖】信源全球 Data Lake 跨日夜離峰排程傳輸與報表產出時序圖 (GCP)
+            【運作圖】RSI Group Data Lake 跨日夜離峰排程傳輸與報表產出時序圖 (GCP)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 280" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Timeline steps -->
@@ -545,7 +545,7 @@
         <!-- SVG Diagram: AWS API Hierarchy -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【層級圖】信源全球 API Platform 5 層架構層級 (AWS 實現體系)
+            【層級圖】RSI Group API Platform 5 層架構層級 (AWS 實現體系)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Tier 1 -->
@@ -573,7 +573,7 @@
         <!-- SVG Sequence Diagram: AWS API Operation -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【運作圖】信源全球 API Platform 調用與斷網自律運作時序圖 (AWS)
+            【運作圖】RSI Group API Platform 調用與斷網自律運作時序圖 (AWS)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 260" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Lifelines -->
@@ -638,12 +638,12 @@
         <!-- SVG Diagram: AWS DataLake Hierarchy -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【層級圖】信源全球 Data Lakehouse 5 層架構層級 (AWS 實現體系)
+            【層級圖】RSI Group Data Lakehouse 5 層架構層級 (AWS 實現體系)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Tier 1 -->
             <rect x="20" y="20" width="1060" height="50" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-            <text x="40" y="50" font-weight="700" font-size="12" fill="#1E293B">【層級 1：數據源】台北總部 ＆ 東南亞三廠地端 MS SQL Server AlwaysOn 叢集</text>
+            <text x="40" y="50" font-weight="700" font-size="12" fill="#1E293B">【層級 1：數據源】台北總部 ＆ 海外各產區地端 MS SQL Server AlwaysOn 叢集</text>
             
             <!-- Tier 2 -->
             <rect x="20" y="90" width="1060" height="50" rx="6" fill="#FFF8EE" stroke="#FDBA74" stroke-width="1.5"/>
@@ -695,14 +695,14 @@
           </div>
           <div class="tool-card">
             <div class="tool-card-title"><span>🏭</span> 邊緣自律：Envoy Proxy + SQLite / Flat File</div>
-            <div class="tool-card-desc">【極致輕量推薦】海外三廠工控機運行 Envoy，海纜中斷暫存本機，48~72hr 離線生產。</div>
+            <div class="tool-card-desc">【極致輕量推薦】海外各產區工控機運行 Envoy，海纜中斷暫存本機，48~72hr 離線生產。</div>
           </div>
         </div>
 
         <!-- SVG Diagram: OpenSource API Hierarchy -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【層級圖】信源全球 API Platform 5 層架構層級 (OpenSource 實現體系)
+            【層級圖】RSI Group API Platform 5 層架構層級 (OpenSource 實現體系)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Tier 1 -->
@@ -760,7 +760,7 @@
         <!-- SVG Diagram: OpenSource DataLake Hierarchy -->
         <div class="diagram-container">
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
-            【層級圖】信源全球 Data Lakehouse 5 層架構層級 (OpenSource 實現體系)
+            【層級圖】RSI Group Data Lakehouse 5 層架構層級 (OpenSource 實現體系)
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="100%" height="auto" style="max-width:1100px; font-family:var(--font-sans);">
             <!-- Tier 1 -->
@@ -863,11 +863,11 @@
         </div>
 
         <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:18px;">
-          <h4 style="color:#B45309; font-size:1rem; margin-bottom:8px;">💡 信源全球「漸進混血式」最佳落地藍圖 (Howard Liao Ph.D. 外部顧問決策建議)</h4>
+          <h4 style="color:#B45309; font-size:1rem; margin-bottom:8px;">💡 RSI Group「漸進混血式」最佳落地藍圖 (Howard Liao Ph.D. 外部顧問決策建議)</h4>
           <p style="font-size:0.85rem; color:#78350F; line-height:1.65;">
             1. <strong>地端穩健根基</strong>：維持 100% Microsoft Solution（C# .NET Core Web API ＋ MS SQL Server AlwaysOn），既有「聯銓 Smart eVision」繼續負責各廠廠長清晨生產晨會報表。<br>
             2. <strong>數據湖倉採 GCP BigQuery 體系</strong>：啟用 MS SQL 原生 CDC，排定<strong>【深夜 01:00~03:00】外點一日一次傳輸</strong>，零維護負擔建構 Medallion 3 層湖倉，周副總與管理層以 <strong>Microsoft Power BI</strong> 直連進行跨國經營分析。<br>
-            3. <strong>海外三廠採 OpenSource Envoy 邊緣自律</strong>：海外三廠工控主機部署開源 Envoy Proxy ＋ SQLite，<strong>零授權費達成 48~72 小時斷網自律生產保障</strong>！
+            3. <strong>海外各產區採 OpenSource Envoy 邊緣自律</strong>：海外各產區工控主機部署開源 Envoy Proxy ＋ SQLite，<strong>零授權費達成 48~72 小時斷網自律生產保障</strong>！
           </p>
         </div>
       </div>

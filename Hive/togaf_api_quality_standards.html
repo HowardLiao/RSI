@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI) · 蜂巢計畫 TOGAF 企業架構 ＆ API 品質測試與標準規範指南</title>
+  <title>RSI Group · 蜂巢計畫 TOGAF 企業架構 ＆ API 品質測試與標準規範指南</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -283,9 +283,9 @@
     <div class="header-bar">
       <div>
         <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
-          RSI GLOBAL ENTERPRISE · PROJECT HIVE 2027
+          RSI GROUP · PROJECT HIVE 2027
         </div>
-        <h1 class="header-title">信源全球 · TOGAF 企業架構框架 ＆ API 品質工程標準規範指南<br><span>標準 API 撰寫模式 (C# .NET 8) · 自動化品質測試金字塔 · 開發與測試工具鏈</span></h1>
+        <h1 class="header-title">RSI Group · TOGAF 企業架構框架 ＆ API 品質工程標準規範指南<br><span>標準 API 撰寫模式 (C# .NET 8) · 自動化品質測試金字塔 · 開發與測試工具鏈</span></h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
@@ -297,7 +297,7 @@
     <!-- Executive Directives Callout -->
     <div class="callout-box">
       <strong>📌 蜂巢計畫 TOGAF 架構與 API 品質治理方針 (Governance Directives)：</strong><br>
-      1. <strong>TOGAF 4 大架構支柱全面落地</strong>：以業務架構 (成衣製造 4-Gate 產前門禁/外點離峰結算)、資料架構 (MS SQL CDC ➔ 湖倉 Medallion 3 層)、應用架構 (企業級 API Platform) 與技術架構 (微軟技術棧 ＋ 雲端中台 ＋ 海外三廠 Envoy 邊緣自律) 貫通全集團。<br>
+      1. <strong>TOGAF 4 大架構支柱全面落地</strong>：以業務架構 (成衣製造 4-Gate 產前門禁/外點離峰結算)、資料架構 (MS SQL CDC ➔ 湖倉 Medallion 3 層)、應用架構 (企業級 API Platform) 與技術架構 (微軟技術棧 ＋ 雲端中台 ＋ 海外各產區 Envoy 邊緣自律) 貫通全集團。<br>
       2. <strong>微軟技術棧標準 API 撰寫範式</strong>：全集團統一採用 <strong>C# .NET 8 / ASP.NET Core Web API</strong>，落實 RESTful 標準 URI 命名、嚴格 HTTP 狀態碼、統一 JSON 回傳信封 (Envelope)、Swagger 契約優先及參數化防 SQL 注入。<br>
       3. <strong>全方位 API 品質測試金字塔</strong>：建構單元測試 (xUnit)、整合測試 (WebApplicationFactory)、自動化回歸 (Postman/Newman)、效能壓測 (k6 P95&lt;200ms)、OWASP API 安全滲透與斷網 48~72hr 混沌工程驗證。
     </div>
@@ -338,7 +338,7 @@
         </div>
 
         <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:16px;">
-          TOGAF（The Open Group Architecture Framework）是全球頂級企業架構標準。信源全球 2027「蜂巢計畫」透過 <strong>BDAT（業務、資料、應用、技術）4 大核心架構層</strong> 與 <strong>ADM 演進循環</strong>，確保周副總戰略目標精準落實至代碼與日常維運：
+          TOGAF（The Open Group Architecture Framework）是全球頂級企業架構標準。RSI Group 2027「蜂巢計畫」透過 <strong>BDAT（業務、資料、應用、技術）4 大核心架構層</strong> 與 <strong>ADM 演進循環</strong>，確保周副總戰略目標精準落實至代碼與日常維運：
         </p>
 
         <!-- TOGAF BDAT Matrix Table -->
@@ -347,7 +347,7 @@
             <thead>
               <tr>
                 <th style="width: 18%;">TOGAF 核心架構支柱</th>
-                <th style="width: 32%;">信源全球業務現況與痛點 (AS-IS)</th>
+                <th style="width: 32%;">RSI Group業務現況與痛點 (AS-IS)</th>
                 <th style="width: 50%;">2027 蜂巢計畫目標架構 (TO-BE Target Architecture)</th>
               </tr>
             </thead>
@@ -355,7 +355,7 @@
               <tr>
                 <td><strong>1. 業務架構<br>(Business Architecture)</strong></td>
                 <td>
-                  • 台北總部與越/柬/爪哇三廠溝通靠電話、Email 與人工對帳。<br>
+                  • 台北總部與越/柬/印/孟各產區溝通靠電話、Email 與人工對帳。<br>
                   • 產前檢查靠紙本，工單漏料或樣板未簽核仍冒險投產。<br>
                   • 外點頻繁回傳資料導致白天 SD-WAN 頻寬被擠爆。
                 </td>
@@ -387,7 +387,7 @@
                 </td>
                 <td>
                   • <strong>跨國 5 層 API Platform</strong>（企業級 API Gateway 治理 ＋ JWT 鑑權 ＋ Rate Limiting 限流）。<br>
-                  • <strong>海外三廠 Edge Proxy 邊緣離線自治</strong>（海纜切斷保障車間 48~72hr 連續離線生產，復網自動平帳）。<br>
+                  • <strong>海外各產區 Edge Proxy 邊緣離線自治</strong>（海纜切斷保障車間 48~72hr 連續離線生產，復網自動平帳）。<br>
                   • OpenAPI (Swagger) 契約優先 (Contract-First)，消除跨團隊摩擦。
                 </td>
               </tr>
@@ -471,7 +471,7 @@
         </div>
 
         <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:16px;">
-          為徹底解決跨國製造環境中 API「改 A 壞 B」、「海外廠斷網當機」、「死鎖造成產線停滯」等品質盲點，信源全球制定完整的 <strong>API 品質測試工程體系</strong>：
+          為徹底解決跨國製造環境中 API「改 A 壞 B」、「海外廠斷網當機」、「死鎖造成產線停滯」等品質盲點，RSI Group制定完整的 <strong>API 品質測試工程體系</strong>：
         </p>
 
         <!-- Testing Pyramid Grid -->
@@ -524,7 +524,7 @@
               </tr>
               <tr>
                 <td><strong>7. 斷網自律混沌工程<br>(Chaos & Resilience)</strong></td>
-                <td>模擬海外三廠海纜突發中斷，檢驗工廠 48~72hr 連續離線生產與復網補傳。</td>
+                <td>模擬海外各產區海纜突發中斷，檢驗工廠 48~72hr 連續離線生產與復網補傳。</td>
                 <td><strong>Pumba</strong> (Docker 故障注入) / 手動切斷網卡</td>
                 <td>• 斷網瞬間機台自動收到 <strong>HTTP 202 Accepted</strong> 暫存。<br>• 復網後 15 分鐘內本地暫存佇列 100% 自動平帳。</td>
               </tr>
@@ -548,7 +548,7 @@
         </div>
 
         <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:12px;">
-          信源全球內部所有軟體工程師、外部協力廠商（SI）與顧問團隊，在開發 C# .NET Web API 時，必須嚴格遵守以下企業標準：
+          RSI Group內部所有軟體工程師、外部協力廠商（SI）與顧問團隊，在開發 C# .NET Web API 時，必須嚴格遵守以下企業標準：
         </p>
 
         <h4 style="font-size:0.95rem; color:var(--text-charcoal); margin:14px 0 6px;">1. RESTful URI 命名與 HTTP 動詞精確映射</h4>
@@ -707,11 +707,11 @@
         </div>
 
         <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:6px; padding:16px; margin-top:16px;">
-          <h4 style="color:#15803D; font-size:0.95rem; margin-bottom:6px;">🚀 信源全球 API 卓越品質總結方針：</h4>
+          <h4 style="color:#15803D; font-size:0.95rem; margin-bottom:6px;">🚀 RSI Group API 卓越品質總結方針：</h4>
           <p style="font-size:0.83rem; color:#14532D; line-height:1.6;">
-            1. <strong>契約嚴謹</strong>：以 TOGAF 應用架構為綱領，API 變更必須向前相容，絕不破壞海外三廠車間工控機現有運作。<br>
+            1. <strong>契約嚴謹</strong>：以 TOGAF 應用架構為綱領，API 變更必須向前相容，絕不破壞海外各產區車間工控機現有運作。<br>
             2. <strong>測試前置</strong>：落實單元測試覆蓋率 &gt;= 80% ＋ k6 壓力測試 P95 &lt; 200ms，任何未經自動化測試驗證之 API 嚴禁部署上線。<br>
-            3. <strong>韌性保證</strong>：微軟 C# .NET 8 核心後端直連 MS SQL Server 叢集，海外三廠配合 Envoy Edge Proxy 本地佇列，達成 48~72hr 斷網自律生產！
+            3. <strong>韌性保證</strong>：微軟 C# .NET 8 核心後端直連 MS SQL Server 叢集，海外各產區配合 Envoy Edge Proxy 本地佇列，達成 48~72hr 斷網自律生產！
           </p>
         </div>
       </div>

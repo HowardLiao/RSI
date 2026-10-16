@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RSI 蜂巢計畫實施藍圖</title>
-<meta name="description" content="信源全球 (RSI) 蜂巢計畫（Project Hive）實施藍圖：推進時程、任務分工 RACI、PoC 驗收標準、風險與待裁示決策。">
+<meta name="description" content="RSI Group 蜂巢計畫（Project Hive）實施藍圖：推進時程、任務分工 RACI、PoC 驗收標準、風險與待裁示決策。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -189,14 +189,14 @@
 
   <!-- Masthead：現況先行 -->
   <section class="mast">
-    <div class="eyebrow">信源全球 (RSI) · 2027 年度 IT 營運計畫</div>
+    <div class="eyebrow">RSI Group · 2027 年度 IT 營運計畫</div>
     <h1>蜂巢計畫實施藍圖</h1>
-    <p class="lead">本文件界定蜂巢計畫（Project Hive）的工作範疇、推進順序與分工：第一階段打通總部與海外各廠的 API Platform 與 Data Lake，作為後續 BI、KPI 與 AI 應用的共同資料底座。</p>
+    <p class="lead">本文件界定蜂巢計畫（Project Hive）的工作範疇、推進順序與分工：第一階段打通台北總部與越南、柬埔寨、印尼、孟加拉各產區的 API Platform 與 Data Lake，作為後續 BI、KPI 與 AI 應用的共同資料底座。</p>
     <div class="status">
-      <div><span class="k">版本</span><span class="v">v2.1 · 2026-10-16</span></div>
+      <div><span class="k">版本</span><span class="v">v2.2 · 2026-10-16</span></div>
       <div><span class="k">目前階段</span><span class="v hot">階段 1 現況盤點 · 進行中</span></div>
       <div><span class="k">下一個裁示</span><span class="v">D01 範圍、D02 窗口、D03 首批標的</span></div>
-      <div><span class="k">裁示期限</span><span class="v">第 6 週結束前 <span class="tag-sug">建議</span></span></div>
+      <div><span class="k">預計啟動</span><span class="v">2026 年 11 月初 <span class="tag-sug">暫定</span></span></div>
     </div>
   </section>
 
@@ -207,9 +207,10 @@
       <h2>治理原則</h2>
     </div>
     <div class="gov">
-      <div><b>01 · 專案性質</b><p>蜂巢計畫是跨國資訊架構升級工程，由責任矩陣（見下方 RACI）驅動總部 IT、海外各廠與協力廠商落地。</p></div>
-      <div><b>02 · 顧問角色</b><p>外部顧問每週最多投入兩天，負責需求統整、架構規劃、跨廠協同、方案審查與進度回報；開發、部署與日常維運由指派團隊承接。</p></div>
+      <div><b>01 · 專案性質</b><p>蜂巢計畫是跨國資訊架構升級工程，由責任矩陣（見下方 RACI）驅動總部 ITS、IS、ERP Team、各廠 IT 與協力廠商落地。</p></div>
+      <div><b>02 · 顧問角色</b><p>外部顧問每週平均投入 1–2 天，負責需求統整、架構規劃、跨廠協同、方案審查與進度回報；開發、部署與日常維運由指派團隊承接。</p></div>
       <div><b>03 · 決策開放</b><p>平台選型（商業雲端、開源或混合）、預算與正式建置時程，依現況盤點與選型結果呈核後定案。</p></div>
+      <div><b>04 · 總部集中控管</b><p>採 Global Control Center 模式：由總部統一決策與控管，各產區提出營運與維護需求後回饋校正。需求來源分三類：總部推動、產區需求（經各廠 IT 主管彙整）、副總年度規劃。</p></div>
     </div>
   </section>
 
@@ -218,7 +219,7 @@
     <div class="sec-head">
       <div class="eyebrow">Timeline &amp; Gates</div>
       <h2>六階段推進與決策閘門</h2>
-      <p class="muted">週數為建議期程，自專案啟動日起算；紅色標籤為進入下一階段前必須完成的裁示。階段 5 期程依選型結果另訂。</p>
+      <p class="muted">週數為建議期程，自專案啟動日（預計 2026 年 11 月初）起算；紅色標籤為進入下一階段前必須完成的裁示。階段 5 期程依選型結果另訂。</p>
     </div>
     <div class="pipe">
       <div class="stage now"><span class="no">階段 1 · 進行中</span><h3>現況盤點</h3><span class="wk">W1–W4</span><p class="d">清查總部與各廠系統、資料庫、API 與窗口名單。</p><div class="gate"><span>D02</span></div></div>
@@ -241,7 +242,7 @@
       <table class="t-960">
         <thead><tr><th class="c">編號</th><th>工作項目</th><th>主要工作內容</th><th>交付產出</th><th class="c">階段</th><th class="c">狀態</th></tr></thead>
         <tbody>
-          <tr><td class="n">1</td><td class="w-task"><b>現況與需求盤點</b></td><td class="w-wide">了解總部與各工廠的系統、資料庫、介面、資料交換方式及管理需求</td><td>現況清單、需求清單、窗口名單</td><td class="c">1</td><td class="c"><span class="pill p-run">進行中</span></td></tr>
+          <tr><td class="n">1</td><td class="w-task"><b>現況與需求盤點</b></td><td class="w-wide">了解台北總部與越南、柬埔寨、印尼、孟加拉各產區的系統、資料庫、介面、資料交換方式及管理需求</td><td>現況清單、需求清單、窗口名單</td><td class="c">1</td><td class="c"><span class="pill p-run">進行中</span></td></tr>
           <tr><td class="n">2</td><td><b>API Platform 規劃與建置</b></td><td>盤點既有 API 與介面，確認首批串接系統、平台功能、權限及管理流程</td><td>API 清單、平台方案、首批串接範圍</td><td class="c">2 → 5</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
           <tr><td class="n">3</td><td><b>Data Lake Platform 規劃與建置</b></td><td>盤點既有 MS SQL 與工廠資料，確認資料納入範圍、儲存、整合及管理方式</td><td>資料來源清單、資料平台方案</td><td class="c">2 → 5</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
           <tr><td class="n">4</td><td><b>平台選型與成本評估</b></td><td>比較商業雲端、開源及混合方案，確認部署方式、維運需求及預算</td><td>選型比較表、成本估算、建議方案</td><td class="c">3</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
@@ -249,9 +250,24 @@
           <tr><td class="n">6</td><td><b>每日結算傳輸與重大特例通道</b></td><td>外點結算原則上每日離峰傳輸一次，重大緊急事項才走特例通道多次傳輸，以保護外點 SD-WAN 頻寬；確認結算時間、對帳規則、失敗補跑及斷線補傳</td><td>離峰排程規格、結算規則、SD-WAN 流量管制項目</td><td class="c">2 → 5</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
           <tr><td class="n">7</td><td><b>雲端部署與網路資安配套</b></td><td>確認雲端帳號、總部／工廠連線、權限與稽核需求；釐清 SD-WAN、CASB 的實際範圍</td><td>部署架構、網路及資安需求清單</td><td class="c">3</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
           <tr><td class="n">8</td><td><b>PoC 與階段驗收</b></td><td>依驗收標準驗證首批 API、資料同步、每日對帳及既有 BI 取數</td><td>PoC 報告、問題清單、驗收結果</td><td class="c">4</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
-          <tr><td class="n">9</td><td><b>執行與維運分工</b></td><td>確認內部 IT、工廠、顧問及廠商的建置與維運責任</td><td>分工表、維運責任及交接清單</td><td class="c">6</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
+          <tr><td class="n">9</td><td><b>執行與維運分工</b></td><td>確認 ITS、IS、ERP Team、各廠 IT、顧問及廠商的建置與維運責任</td><td>分工表、維運責任及交接清單</td><td class="c">6</td><td class="c"><span class="pill p-wait">未啟動</span></td></tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <!-- IT 組織 -->
+  <section id="itorg">
+    <div class="sec-head">
+      <div class="eyebrow">IT Organization</div>
+      <h2>RSI Group IT 組織與分工</h2>
+      <p class="muted">依副總說明整理；總部 IT 分三個團隊，各廠 IT 偏執行與維護，不負責開發。</p>
+    </div>
+    <div class="gov">
+      <div><b>ITS · Infra</b><p>網路、機房等基礎設施，含總部與各產區之間的 SD-WAN 連線。</p></div>
+      <div><b>ERP Team</b><p>業務流程系統，從研發、採購一路到帳務結算；ERP 為 D365，以 X++ 開發。</p></div>
+      <div><b>IS</b><p>工廠與台北總部的系統，例如 MES、IE 與品管系統的開發與推動。</p></div>
+      <div><b>各廠 IT</b><p>越南、柬埔寨、印尼、孟加拉各產區的 IT 團隊：機房、系統上線與日常問題處理，不負責開發。</p></div>
     </div>
   </section>
 
@@ -260,21 +276,21 @@
     <div class="sec-head">
       <div class="eyebrow">Responsibility Matrix</div>
       <h2>RACI 責任矩陣 <span class="tag-sug">初稿 · 待發起人確認</span></h2>
-      <p class="muted">每項任務只有一位最終負責人（A）。顧問負責規劃與審查類任務，串接、部署與維運由總部 IT、海外廠與協力廠商執行。</p>
+      <p class="muted">每項任務只有一位最終負責人（A）。顧問負責規劃與審查；平台與串接由 IS 承接，網路與資安由 ITS 承接，各廠 IT 負責現場上線與維護。</p>
     </div>
     <div class="tbl">
-      <table class="t-760">
-        <thead><tr><th>任務</th><th class="c">專案發起人</th><th class="c">外部顧問</th><th class="c">總部 IT</th><th class="c">海外各廠</th><th class="c">SI／原廠</th></tr></thead>
+      <table class="t-960">
+        <thead><tr><th>任務</th><th class="c">專案發起人</th><th class="c">外部顧問</th><th class="c">ITS</th><th class="c">IS</th><th class="c">ERP Team</th><th class="c">各廠 IT</th><th class="c">SI／原廠</th></tr></thead>
         <tbody>
-          <tr><td>1 現況與需求盤點</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td><td class="r I">—</td></tr>
-          <tr><td>2 API Platform</td><td class="r I">I</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r R">R</td></tr>
-          <tr><td>3 Data Lake Platform</td><td class="r I">I</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r R">R</td></tr>
-          <tr><td>4 平台選型與成本評估</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r I">I</td><td class="r C">C</td></tr>
-          <tr><td>5 總部與工廠資料串接</td><td class="r I">I</td><td class="r C">C</td><td class="r A">A</td><td class="r R">R</td><td class="r R">R</td></tr>
-          <tr><td>6 每日結算傳輸與特例通道</td><td class="r I">I</td><td class="r C">C</td><td class="r A">A</td><td class="r R">R</td><td class="r R">R</td></tr>
-          <tr><td>7 雲端部署與網路資安</td><td class="r I">I</td><td class="r C">C</td><td class="r A">A</td><td class="r C">C</td><td class="r R">R</td></tr>
-          <tr><td>8 PoC 與階段驗收</td><td class="r A">A</td><td class="r R">R</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td></tr>
-          <tr><td>9 執行與維運分工</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td><td class="r I">I</td></tr>
+          <tr><td>1 現況與需求盤點</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td><td class="r C">C</td><td class="r C">C</td><td class="r I">—</td></tr>
+          <tr><td>2 API Platform</td><td class="r I">I</td><td class="r A">A</td><td class="r C">C</td><td class="r R">R</td><td class="r C">C</td><td class="r I">I</td><td class="r R">R</td></tr>
+          <tr><td>3 Data Lake Platform</td><td class="r I">I</td><td class="r A">A</td><td class="r C">C</td><td class="r R">R</td><td class="r C">C</td><td class="r I">I</td><td class="r R">R</td></tr>
+          <tr><td>4 平台選型與成本評估</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td><td class="r C">C</td><td class="r I">I</td><td class="r C">C</td></tr>
+          <tr><td>5 總部與工廠資料串接</td><td class="r I">I</td><td class="r C">C</td><td class="r C">C</td><td class="r A">A</td><td class="r C">C</td><td class="r R">R</td><td class="r R">R</td></tr>
+          <tr><td>6 每日結算傳輸與特例通道</td><td class="r I">I</td><td class="r C">C</td><td class="r R">R</td><td class="r A">A</td><td class="r C">C</td><td class="r R">R</td><td class="r R">R</td></tr>
+          <tr><td>7 雲端部署與網路資安</td><td class="r I">I</td><td class="r C">C</td><td class="r A">A</td><td class="r C">C</td><td class="r I">I</td><td class="r C">C</td><td class="r R">R</td></tr>
+          <tr><td>8 PoC 與階段驗收</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td><td class="r C">C</td></tr>
+          <tr><td>9 執行與維運分工</td><td class="r A">A</td><td class="r R">R</td><td class="r C">C</td><td class="r C">C</td><td class="r C">C</td><td class="r C">C</td><td class="r I">I</td></tr>
         </tbody>
       </table>
     </div>
@@ -312,7 +328,7 @@
             <tr><td><b>海外資料法規</b></td><td>部分資料不得出境或需在地留存</td><td>D06 決定資料落地區域，選型前完成法規檢核</td></tr>
             <tr><td><b>各廠窗口人力不足</b></td><td>盤點與測試延宕</td><td>D02 指定專責窗口並明定每週投入時數</td></tr>
             <tr><td><b>擷取拖慢來源系統</b></td><td>影響工廠日常生產作業</td><td>採增量擷取並避開生產尖峰，PoC 量測效能影響</td></tr>
-            <tr><td><b>維運承接團隊未定</b></td><td>上線後無人負責</td><td>D05 於 PoC 前確定，承接團隊參與 PoC</td></tr>
+            <tr><td><b>維運承接團隊未定</b></td><td>上線後無人負責</td><td>D05 於 PoC 前確定，承接團隊參與 PoC；各廠 IT 不負責開發，開發由 IS 或協力廠商承接</td></tr>
           </tbody>
         </table>
       </div>
@@ -341,8 +357,8 @@
         <div class="dec-top"><span class="dec-id">D02 · 窗口指派</span><span class="pill p-dec">待裁示</span></div>
         <h3>跨部門對接窗口</h3>
         <dl>
-          <dt>選項</dt><dd>各單位指定專責窗口／由總部 IT 統一對接</dd>
-          <dt>建議</dt><dd>總部 IT、各海外廠、業務單位各一位專責窗口</dd>
+          <dt>選項</dt><dd>各單位指定專責窗口／由總部 IS 統一對接</dd>
+          <dt>建議</dt><dd>ITS、IS、ERP Team、各產區 IT 主管與業務單位各一位專責窗口</dd>
           <dt>期限</dt><dd>階段 1 第 2 週（W2）</dd>
           <dt>卡住</dt><dd>任務 1</dd>
         </dl>
@@ -352,7 +368,7 @@
         <h3>首批納入的系統與工廠</h3>
         <dl>
           <dt>選項</dt><dd>單一試點廠／多廠同步</dd>
-          <dt>建議</dt><dd>單一試點廠（如越南主力廠 MES 與產銷資料）</dd>
+          <dt>建議</dt><dd>依試點慣例：新技術／自動化議題由柬埔寨廠試點，管理面議題由越南廠試點；本案屬新平台導入，建議柬埔寨廠（待確認）</dd>
           <dt>期限</dt><dd>階段 2 結束（W6）</dd>
           <dt>卡住</dt><dd>任務 5、8</dd>
         </dl>
@@ -402,11 +418,11 @@
         <thead><tr><th class="c">編號</th><th>工作項目</th><th>主要工作內容</th><th>依賴的資料底座</th><th class="c">準備動作</th></tr></thead>
         <tbody>
           <tr><td class="n">10</td><td class="w-task"><b>聯銓 BI 優化</b></td><td>盤點既有報表與使用問題，確認資料來源、效能及呈現改善需求</td><td>Data Lake 首批資料</td><td class="c"><span class="pill p-wait">需求收集</span></td></tr>
-          <tr><td class="n">11</td><td><b>KPI 系統化</b></td><td>統一指標定義、計算口徑、資料來源、更新頻率及負責人</td><td>每日結算資料</td><td class="c"><span class="pill p-wait">指標定義</span></td></tr>
-          <tr><td class="n">12</td><td><b>品質預測</b></td><td>確認預測目標、可用生產／品質資料及驗證方式</td><td>工廠生產與品質資料</td><td class="c"><span class="pill p-wait">資料成熟度評估</span></td></tr>
+          <tr><td class="n">11</td><td><b>KPI 系統化</b></td><td>統一指標定義、計算口徑、資料來源、更新頻率及負責人；副總 11 月起與 IT 討論指標定義</td><td>每日結算資料</td><td class="c"><span class="pill p-wait">11 月指標討論</span></td></tr>
+          <tr><td class="n">12</td><td><b>品質驗證（資料品質確認）</b></td><td>資料串回後，確認資料品質並驗證產品品質差異（如 6 Sigma 分析），作為改善依據</td><td>工廠生產與品質資料</td><td class="c"><span class="pill p-wait">資料品質確認</span></td></tr>
           <tr><td class="n">13</td><td><b>Agentic AI／RAG 應用</b></td><td>釐清使用情境、知識來源、資料權限及預期效益</td><td>文件知識庫＋權限模型</td><td class="c"><span class="pill p-wait">場景驗證</span></td></tr>
           <tr><td class="n">14</td><td><b>AI 主機與硬體評估</b></td><td>依 AI 應用與部署需求，再評估硬體規格與採購必要性</td><td>依 12、13 結果</td><td class="c"><span class="pill p-wait">算力成本核算</span></td></tr>
-          <tr><td class="n">15</td><td><b>區域合規需求確認</b></td><td>釐清各使用地點的 AI 業務需求與合規限制</td><td>依 D06 結果</td><td class="c"><span class="pill p-wait">合規調研</span></td></tr>
+          <tr><td class="n">15</td><td><b>Global Control Center 治理模式確認</b></td><td>總部集中決策與控管，各產區營運與維護（O&amp;M）需求回饋後校正；報表呈現可因地制宜，背後管理邏輯必須一致</td><td>總部治理模式</td><td class="c"><span class="pill p-wait">模式定調</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -415,7 +431,7 @@
 </main>
 
 <footer>
-  <div>信源全球 (RSI) · 蜂巢計畫實施藍圖 v2.1 · 外部顧問 Howard Liao Ph.D.</div>
+  <div>RSI Group · 蜂巢計畫實施藍圖 v2.2 · 外部顧問 Howard Liao Ph.D.</div>
   <div class="links">
     <a href="platforms_architecture_showcase.html">雙平台架構展廳</a>
     <a href="cloud_platforms_deepdive_architecture.html">三大雲端體系評估</a>
