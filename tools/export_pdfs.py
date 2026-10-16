@@ -29,6 +29,7 @@ TARGETS = {
     "Hive/RSI_內部工程師高階技術職能深度盤點評鑑表.pdf": "Hive/engineer_skills_inventory.html",
     "Hive/RSI_資訊基礎設施與系統6大領域盤點表.pdf": "Hive/it_infrastructure_inventory.html",
     "Hive/RSI_內部工程師6大領域分項盤點表.pdf": "Hive/modular_skills_inventory.html",
+    "Hive/RSI_Group_會議紀錄_2026-10-16.pdf": "Hive/RSI_Group_會議紀錄_2026-10-16.html",
 }
 
 
