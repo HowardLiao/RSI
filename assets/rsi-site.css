@@ -1,0 +1,122 @@
+/* RSI Group site layer — loaded on every page.
+   1) Site search (button + dialog), 2) mobile safety rules used by rsi-site.js.
+   Search UI uses the Milan Warm Amber palette on its own surface so it reads
+   the same on light and dark pages. */
+:root {
+  --rsi-s-bg: #FFFFFF;
+  --rsi-s-surface: #FBFBFA;
+  --rsi-s-text: #2D3748;
+  --rsi-s-muted: #5F6672;
+  --rsi-s-line: #E7E1D8;
+  --rsi-s-accent: #A83212;
+  --rsi-s-accent-2: #DE5814;
+  --rsi-s-mark: #FEF3C7;
+  --rsi-s-font: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* Skip links stay hidden until a keyboard user focuses them. */
+.skip-to-content-link:not(:focus), .skip-link:not(:focus) { position: absolute !important; left: -9999px !important; top: auto !important; width: 1px; height: 1px; overflow: hidden; }
+.skip-to-content-link:focus { position: fixed; left: 16px; top: 16px; z-index: 2147483002; padding: 10px 16px; border-radius: 8px; background: var(--rsi-s-accent); color: #FFFFFF; font: 600 14px/1.2 var(--rsi-s-font); }
+
+/* ---------- Search button ---------- */
+.rsi-search-fab {
+  position: fixed; z-index: 2147483000;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 48px; padding: 0 18px 0 14px; margin: 0;
+  border: 0; border-radius: 999px;
+  background: var(--rsi-s-accent); color: #FFFFFF;
+  font: 600 15px/1 var(--rsi-s-font); letter-spacing: 0;
+  box-shadow: 0 6px 20px rgba(45, 55, 72, .28);
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.rsi-search-fab:hover { background: #8F2A0F; }
+.rsi-search-fab:focus-visible { outline: 3px solid var(--rsi-s-accent-2); outline-offset: 3px; }
+.rsi-search-fab svg { width: 20px; height: 20px; flex: none; }
+.rsi-search-fab .rsi-kbd { font: 500 12px/1 var(--rsi-s-font); padding: 4px 6px; border-radius: 6px; background: rgba(255,255,255,.18); }
+@media (max-width: 768px) {
+  .rsi-search-fab { width: 52px; height: 52px; padding: 0; justify-content: center; }
+  .rsi-search-fab .rsi-label, .rsi-search-fab .rsi-kbd { display: none; }
+  .rsi-search-fab svg { width: 22px; height: 22px; }
+}
+
+/* ---------- Search dialog ---------- */
+.rsi-search[hidden], .rsi-search [hidden] { display: none !important; }
+.rsi-search {
+  position: fixed; inset: 0; z-index: 2147483647; /* max; opened dialog is moved last in the DOM so it paints above page bars */
+  display: flex; justify-content: center; align-items: flex-start;
+  padding: 10vh 16px 16px; background: rgba(20, 24, 32, .45);
+  font: 15px/1.6 var(--rsi-s-font); color: var(--rsi-s-text); text-align: left;
+}
+.rsi-search, .rsi-search * { box-sizing: border-box; }
+.rsi-search-panel {
+  width: min(680px, 100%); max-height: 80vh; display: flex; flex-direction: column;
+  background: var(--rsi-s-bg); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .3);
+}
+.rsi-search-bar { display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 16px; border-bottom: 1px solid var(--rsi-s-line); }
+.rsi-search-bar svg { width: 20px; height: 20px; color: var(--rsi-s-muted); flex: none; }
+.rsi-search-input {
+  flex: 1; min-width: 0; height: 44px; margin: 0; padding: 0 4px;
+  border: 0; outline: 0; background: transparent; color: var(--rsi-s-text);
+  font: 400 17px/1.4 var(--rsi-s-font); -webkit-appearance: none; appearance: none;
+}
+.rsi-search-input::-webkit-search-cancel-button { display: none; }
+.rsi-search-close {
+  height: 36px; padding: 0 12px; margin: 0; border: 1px solid var(--rsi-s-line); border-radius: 8px;
+  background: var(--rsi-s-surface); color: var(--rsi-s-muted); font: 500 13px/1 var(--rsi-s-font); cursor: pointer;
+}
+.rsi-search-close:focus-visible, .rsi-search-chip:focus-visible { outline: 2px solid var(--rsi-s-accent); outline-offset: 2px; }
+.rsi-search-body { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding: 8px; }
+.rsi-search-status { margin: 0; padding: 12px 10px; color: var(--rsi-s-muted); font-size: 14px; }
+.rsi-search-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 10px 12px; }
+.rsi-search-chip {
+  height: 34px; padding: 0 14px; margin: 0; border: 1px solid var(--rsi-s-line); border-radius: 999px;
+  background: var(--rsi-s-surface); color: var(--rsi-s-text); font: 500 14px/1 var(--rsi-s-font); cursor: pointer;
+}
+.rsi-search-list { list-style: none; margin: 0; padding: 0; }
+.rsi-search-list li { margin: 0; padding: 0; list-style: none; }
+.rsi-search-hit {
+  display: block; padding: 10px 12px; margin: 0 0 2px; border-radius: 10px;
+  color: var(--rsi-s-text) !important; text-decoration: none !important; background: transparent;
+}
+.rsi-search-hit:hover, .rsi-search-hit[aria-selected="true"] { background: var(--rsi-s-surface); box-shadow: inset 0 0 0 1px var(--rsi-s-line); }
+.rsi-search-hit:focus-visible { outline: 2px solid var(--rsi-s-accent); outline-offset: -2px; }
+.rsi-hit-page { display: block; font-size: 12px; line-height: 1.4; color: var(--rsi-s-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rsi-hit-head { display: block; margin-top: 2px; font-size: 15px; font-weight: 700; line-height: 1.45; color: var(--rsi-s-accent); }
+.rsi-hit-snip { display: block; margin-top: 2px; font-size: 14px; line-height: 1.6; color: var(--rsi-s-text); overflow-wrap: anywhere; }
+.rsi-search mark { background: var(--rsi-s-mark); color: inherit; padding: 0 1px; border-radius: 2px; }
+.rsi-search-foot { display: flex; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--rsi-s-line); color: var(--rsi-s-muted); font-size: 12px; background: var(--rsi-s-surface); }
+.rsi-search-foot kbd { font: 500 11px/1 var(--rsi-s-font); padding: 3px 5px; border: 1px solid var(--rsi-s-line); border-radius: 4px; background: var(--rsi-s-bg); }
+@media (max-width: 768px) {
+  .rsi-search { padding: 0; align-items: stretch; }
+  .rsi-search-panel { max-height: none; height: 100%; width: 100%; border-radius: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .rsi-search-foot { display: none; }
+  .rsi-hit-snip { -webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+}
+html.rsi-search-open, html.rsi-search-open body { overflow: hidden !important; }
+@media print { .rsi-search-fab, .rsi-search { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .rsi-search-fab { transition: none; } }
+
+/* ---------- Mobile safety layer (classes are added by rsi-site.js) ---------- */
+@media (max-width: 768px) {
+  img, video { max-width: 100%; height: auto; }
+  pre { max-width: 100%; overflow-x: auto; }
+  .rsi-x-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+  .rsi-x-scroll > table { margin-left: 0; margin-right: 0; }
+  .rsi-stack { grid-template-columns: minmax(0, 1fr) !important; }
+  .rsi-stack > * { min-width: 0 !important; grid-column: auto !important; }
+  .rsi-wrap { flex-wrap: wrap !important; }
+  .rsi-wrap > * { min-width: 0; }
+  .rsi-break { overflow-wrap: anywhere; word-break: break-word; }
+  .rsi-nav-scroll { flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .rsi-nav-scroll > * { flex: 0 0 auto !important; }
+  .rsi-nav-scroll::-webkit-scrollbar { display: none; }
+}
+@media (pointer: coarse) {
+  input[type="checkbox"], input[type="radio"] { min-width: 20px; min-height: 20px; }
+  label:has(> input[type="radio"]), label:has(> input[type="checkbox"]) { padding-top: 6px; padding-bottom: 6px; }
+  select, textarea, input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]) { font-size: max(16px, 1em); min-height: 40px; }
+  button { min-height: 40px; }
+}

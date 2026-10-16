@@ -60,5 +60,12 @@
 * **5 大標準表單**：技術職能表、管理協同表、伺服器雲端表、車間 OT 邊緣表、SaaS 授權表。
 * **3 大交付物**：全集團職能熱力圖、技術債與斷網風險清冊、FinOps 授權降本建議書。
 
+## 🔍 全站搜尋與手機版
+* 每頁右下角的「全站搜尋」按鈕（桌機也可按 ⌘K／Ctrl K 或 `/`）會搜尋全站頁面；首頁的 ⌘K 保留給首頁本身的專案搜尋。
+* 共用檔案：`assets/rsi-site.css`、`assets/rsi-site.js`，搜尋資料在 `assets/search-index.json`。
+* 新增或修改頁面後，在 repo 根目錄執行：
+  * `python3 tools/build_search_index.py`：重建搜尋資料。
+  * `python3 tools/inject_site_assets.py`：替新頁面加上搜尋與手機版設定（已加過的頁面會略過）。
+
 ---
-*版權聲明：本計畫受 Howard Liao Ph.D. 專利保護與浮水印防偽管制，僅供信源全球內部戰略決策使用。*
+*版權聲明：本計畫受 Howard Liao Ph.D. 專利保護與浮水印防偽管制，僅供 RSI Group 內部戰略決策使用。*
