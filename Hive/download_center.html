@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) · 蜂巢計畫（Project Hive）官方專案文檔與高階報表下載中心</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #E87524;
+      --amber-gold: #D97706;
+      --emerald-accent: #059669;
+      --blue-accent: #2563EB;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E5E4;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F5F5F4;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 32px 36px;
+      position: relative;
+    }
+
+    .header-bar {
+      border-bottom: 2px solid var(--rust-primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+    }
+    .header-title span {
+      color: var(--orange-vibrant);
+      font-style: italic;
+    }
+    .header-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .callout-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-size: 0.84rem;
+      color: #7C2D12;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .category-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+    .category-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .doc-item {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .doc-item:hover {
+      border-color: var(--orange-vibrant);
+      box-shadow: 0 4px 12px rgba(168, 50, 18, 0.08);
+      background: #FFFDFB;
+    }
+    .doc-name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .doc-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      flex-grow: 1;
+    }
+    .doc-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+    }
+    .badge-fmt {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .badge-pdf { background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5; }
+    .badge-drawio { background: #FEF3C7; color: #D97706; border: 1px solid #FDE68A; }
+    .badge-csv { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+
+    .doc-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-download {
+      flex: 1;
+      padding: 7px 12px;
+      background: var(--rust-primary);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 4px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: background 0.15s ease;
+    }
+    .btn-download:hover { background: var(--orange-vibrant); }
+    .btn-preview {
+      padding: 7px 12px;
+      background: #FFFFFF;
+      color: var(--text-body);
+      border: 1px solid var(--border-subtle);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .btn-preview:hover { background: #F3F4F6; }
+
+    .search-input {
+      padding: 8px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      min-width: 260px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
+          RSI GLOBAL ENTERPRISE · HIVE PROJECT 2027
+        </div>
+        <h1 class="header-title">信源全球 · 蜂巢計畫專案文檔與出版級報表官方下載中心<br><span>全系列 17 份 PDF 向量手冊、Draw.io 工程圖資原始檔 ＆ CSV 數據庫一覽</span></h1>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>架構規劃：<strong>Howard Liao Ph.D. 外部顧問</strong></div>
+        <div style="font-family: var(--font-mono); margin-top: 4px;">FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027</div>
+      </div>
+    </div>
+
+    <!-- Quick Navigation / Search -->
+    <div class="callout-box">
+      <div>
+        <strong>📌 下載指引：</strong>所有文檔均為正式出版級向量格式，內建 <code>Howard Liao Ph.D.</code> 防偽浮水印，支援單鍵直接下載與線上即時預覽。
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <input type="text" id="docSearchInput" class="search-input" placeholder="🔍 搜尋文檔關鍵字 (如：API / 湖倉 / 問卷)..." oninput="filterDocuments()">
+        <a href="index.html" class="btn-preview" style="background:#FFF;">🏠 返回蜂巢首頁</a>
+      </div>
+    </div>
+
+    <!-- Category A: Strategic Blueprints -->
+    <div class="category-card" data-category="strategy">
+      <div class="category-header">
+        <div class="category-title">
+          <span>📜</span>
+          <span>類別 A：戰略藍圖與實施決策清冊 (Strategic Blueprints)</span>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 3 份出版級文件</span>
+      </div>
+
+      <div class="doc-grid">
+        <!-- Doc A1 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf</div>
+            <div class="doc-desc">收錄蜂巢架構意象、9 大優先任務、6 大後續應用與 6 項周副總重大決策事項之高畫質向量審批版手冊。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：3.0 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" download="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc A2 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_2027_周副總交辦工作清單與實施規劃_Hive.pdf</div>
+            <div class="doc-desc">梳理周副總指導第一階段 9 大任務工作拆解、責任矩陣與實施排程之高階決策備忘錄。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：2.3 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_2027_周副總交辦工作清單與實施規劃_Hive.pdf" download="RSI_2027_周副總交辦工作清單與實施規劃_Hive.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_2027_周副總交辦工作清單與實施規劃_Hive.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc A3 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_CEO戰略營運計畫_2027.pdf</div>
+            <div class="doc-desc">全集團 2027 年度跨國營運戰略綱要、成衣價值鏈整合、海外三廠現代化演進之總體執行計畫書。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：11.1 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="../RSI_CEO戰略營運計畫_2027.pdf" download="RSI_CEO戰略營運計畫_2027.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="../RSI_CEO戰略營運計畫_2027.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category B: Architecture & Specifications -->
+    <div class="category-card" data-category="architecture">
+      <div class="category-header">
+        <div class="category-title">
+          <span>🏛️</span>
+          <span>類別 B：企業架構、平台設計與安全規範書 (Enterprise Architecture & Cloud Specs)</span>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 8 份技術規範</span>
+      </div>
+
+      <div class="doc-grid">
+        <!-- Doc B1 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_TOGAF企業架構與API品質標準規範書.pdf</div>
+            <div class="doc-desc">以 TOGAF 10 BDAT 4 大架構為綱領，規範 C# .NET 8 標準 API 撰寫範本、自動化測試金字塔 (xUnit/k6/Postman) 與品質門禁。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.9 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_TOGAF企業架構與API品質標準規範書.pdf" download="RSI_TOGAF企業架構與API品質標準規範書.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_TOGAF企業架構與API品質標準規範書.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B2 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf</div>
+            <div class="doc-desc">去品牌化定義邊界 WAAP 在線阻斷與旁路 API 安全（影子資產發現/BOLA防禦）之雙向動態閉環聯防拓撲與角色題庫。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：844 KB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf" download="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_邊界WAAP與旁路API安全雙軌聯防架構報告.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B3 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf</div>
+            <div class="doc-desc">完整收錄 GCP、AWS、OpenSource 三大體系之 API Platform 與 Data Lakehouse 5 層架構層級圖與跨日夜運作時序圖。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：2.3 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf" download="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_三大雲端體系_API與DataLake架構層級運作圖資.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B4 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf</div>
+            <div class="doc-desc">橫向評鑑 GCP、AWS、OpenSource 之組件對應矩陣、微軟方案相容性、維運負擔與 3 年 TCO 總體成本決策分析。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.9 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf" download="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_API_Platform與DataLake工具選型評估_GCP_AWS_OpenSource.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B5 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_API_Platform與DataLake雙核心架構報告.pdf</div>
+            <div class="doc-desc">API Platform 即時中台 ＋ Data Lakehouse 湖倉平台之雙核心聯動架構報告（含外點 SD-WAN 離峰傳輸保護）。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.8 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_API_Platform與DataLake雙核心架構報告.pdf" download="RSI_API_Platform與DataLake雙核心架構報告.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_API_Platform與DataLake雙核心架構報告.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B6 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_API_Platform_架構圖與時序圖.pdf</div>
+            <div class="doc-desc">企業 API Gateway 5 層全域架構拓撲、微軟 C# API 中台與海外三廠 48~72hr 斷網自律運作時序向量圖資。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.8 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_API_Platform_架構圖與時序圖.pdf" download="RSI_API_Platform_架構圖與時序圖.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_API_Platform_架構圖與時序圖.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B7 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf</div>
+            <div class="doc-desc">MS SQL Server CDC 捕獲、外點結算一日一次（深夜 01:00~03:00 離峰）SD-WAN 頻寬保護與湖倉 3 層清洗時序圖。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.9 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf" download="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_DataLake_ETL_ELT_架構圖與時序圖.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category C: Competency & Inventory Questionnaires -->
+    <div class="category-card" data-category="inventory">
+      <div class="category-header">
+        <div class="category-title">
+          <span>📝</span>
+          <span>類別 C：內部 IT 技術職能問卷與單點黑數盤點評鑑 (Questionnaires & Bus Factor Reports)</span>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 5 份盤點手冊</span>
+      </div>
+
+      <div class="doc-grid">
+        <!-- Doc C1 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_內部IT_技術職能問卷與缺口分析報告.pdf</div>
+            <div class="doc-desc">最新版「技術職能問卷」題本，涵蓋 13 大專業角色 [R01-FE]~[R13-PM] 專屬 10 題實務情境題（共 130 題）與 Bus Factor 單點黑數檢核。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：3.5 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_內部IT_技術職能問卷與缺口分析報告.pdf" download="RSI_內部IT_技術職能問卷與缺口分析報告.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_內部IT_技術職能問卷與缺口分析報告.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc C2 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_內部工程師高階技術職能深度盤點評鑑表.pdf</div>
+            <div class="doc-desc">高階工程師 8 大維度技術成熟度（L1~L5）自評表、主管查核標準矩陣與技術缺口動態雷達分析手冊。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：3.5 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf" download="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_內部工程師高階技術職能深度盤點評鑑表.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc C3 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_資訊基礎設施與系統6大領域盤點表.pdf</div>
+            <div class="doc-desc">集團伺服器、網路交換器、資安防火牆、成衣 ERP/MES/WMS 及海外廠通訊之實體現況盤點手冊。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.8 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_資訊基礎設施與系統6大領域盤點表.pdf" download="RSI_資訊基礎設施與系統6大領域盤點表.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_資訊基礎設施與系統6大領域盤點表.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc C4 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_內部工程師6大領域分項盤點表.pdf</div>
+            <div class="doc-desc">早期模組化 6 大領域分項獨立切換技術盤點表與指標清單存檔手冊。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：2.4 MB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_內部工程師6大領域分項盤點表.pdf" download="RSI_內部工程師6大領域分項盤點表.pdf" class="btn-download">📥 點擊下載</a>
+              <a href="RSI_內部工程師6大領域分項盤點表.pdf" target="_blank" class="btn-preview">👁️ 預覽</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category D: Editable Raw Files & Submissions -->
+    <div class="category-card" data-category="raw">
+      <div class="category-header">
+        <div class="category-title">
+          <span>📐</span>
+          <span>類別 D：可編輯工程原始圖資 ＆ 同仁填表數據庫 (Draw.io & CSV)</span>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted);">工程原稿與真實數據</span>
+      </div>
+
+      <div class="doc-grid">
+        <!-- Doc D1 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_API_Platform_Architecture.drawio</div>
+            <div class="doc-desc">API Platform 5 層全域架構之 Draw.io 向量工程原始檔，可直接於 draw.io / VS Code 載入修改。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-drawio">DRAW.IO</span>
+              <span>大小：27 KB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_API_Platform_Architecture.drawio" download="RSI_API_Platform_Architecture.drawio" class="btn-download">📥 下載工程檔</a>
+              <a href="api_platform_drawio.html" target="_blank" class="btn-preview">👁️ 線上圖資</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc D2 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_DataLake_ETL_ELT_Architecture.drawio</div>
+            <div class="doc-desc">Data Lakehouse 湖倉與離峰傳輸排程之 Draw.io 向量工程原始檔，可直接於 draw.io 載入修改。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-drawio">DRAW.IO</span>
+              <span>大小：26 KB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_DataLake_ETL_ELT_Architecture.drawio" download="RSI_DataLake_ETL_ELT_Architecture.drawio" class="btn-download">📥 下載工程檔</a>
+              <a href="datalake_etl_elt_drawio.html" target="_blank" class="btn-preview">👁️ 線上圖資</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc D3 -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">20261014_152500+陳志遠+RSI-92015+.csv</div>
+            <div class="doc-desc">GitHub HIVE 專案同仁填表歸檔庫標準命名之 CSV 實體數據檔案範本（UTF-8 BOM 編碼）。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-csv">CSV</span>
+              <span>大小：7.2 KB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="submissions/20261014_152500+陳志遠+RSI-92015+.csv" download="20261014_152500+陳志遠+RSI-92015+.csv" class="btn-download">📥 下載 CSV</a>
+              <a href="submissions/README.md" target="_blank" class="btn-preview">📖 規範說明</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function filterDocuments() {
+      const q = document.getElementById('docSearchInput').value.toLowerCase().trim();
+      const items = document.querySelectorAll('.doc-item');
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+
+      // Hide category cards if all child items hidden
+      document.querySelectorAll('.category-card').forEach(card => {
+        const visibleItems = card.querySelectorAll('.doc-item[style*="display: flex"], .doc-item:not([style*="display"])');
+        card.style.display = visibleItems.length > 0 ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

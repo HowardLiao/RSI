@@ -664,17 +664,18 @@
         <span class="brand-title">信源全球 · Hive Project 實施藍圖</span>
       </div>
       <nav class="nav-links">
+        <a href="download_center.html" class="nav-btn" style="background:var(--rust-primary); color:#FFF; font-weight:800; border-color:var(--rust-primary); box-shadow:0 2px 6px rgba(168,50,18,0.3);">📥 專案文檔下載中心 (全17份PDF/圖資)</a>
         <a href="#metaphor" class="nav-btn">🍯 蜂巢架構意象</a>
         <a href="#pipeline" class="nav-btn">🚀 6階段推進</a>
         <a href="#phase1" class="nav-btn">1️⃣ 第一階段 9大任務</a>
         <a href="#phase2" class="nav-btn">2️⃣ 後續 6大應用</a>
         <a href="#decisions" class="nav-btn">⚖️ 專案裁決事項</a>
-        <a href="engineer_skills_inventory.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">📝 8大領域綜合評鑑表 (含雷達/缺口)</a>
-        <a href="it_skills_8domains_assessment.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">📋 8大領域同仁問卷版</a>
-        <a href="modular_skills_inventory.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">📑 分項獨立填報表</a>
-        <a href="it_infrastructure_inventory.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">🏢 基礎設施盤點表</a>
-        <a href="api_platform_drawio.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">📐 API架構/時序圖</a>
-        <a href="datalake_etl_elt_drawio.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">🍯 湖倉ETL/ELT圖</a>
+        <a href="it_skills_8domains_assessment.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">📋 技術職能問卷</a>
+        <a href="engineer_skills_inventory.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">📝 高階技術評鑑表</a>
+        <a href="platforms_architecture_showcase.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">🏛️ 雙平台架構展廳</a>
+        <a href="cloud_platforms_deepdive_architecture.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">🌐 三大雲端體系評估</a>
+        <a href="togaf_api_quality_standards.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">💻 TOGAF與API品質</a>
+        <a href="waap_api_security_architecture.html" class="nav-btn" style="background:#FFF8EE; border:1px solid var(--orange-vibrant); color:var(--rust-primary); font-weight:800;">🛡️ 邊界WAAP與API安全</a>
         <a href="#preview-doc" class="nav-btn active">📑 線上審閱 PDF</a>
         <a href="../index.html" class="nav-btn">🌐 RSI 總體白皮書</a>
         <button onclick="window.print()" class="nav-btn" style="cursor: pointer;">🖨️ 列印手冊</button>
@@ -1030,12 +1031,29 @@
       </div>
     </section>
 
-    <!-- Section 4: Official Document Online Previewer (Strictly Preview Only) -->
+    <!-- Section 4: Official Document Download Center & Previewer -->
     <section id="preview-doc" class="section-block">
       <div class="section-head">
-        <div class="section-eyebrow">OFFICIAL PUBLICATION · PREVIEW ONLY</div>
-        <h2 class="section-h2">四、蜂巢計畫實施手冊 ｜ 官方 PDF 線上即時審閱預覽 (嚴禁下載)</h2>
-        <p class="section-p">完整收錄上述蜂巢架構意象、9 大優先任務、6 大後續應用與 6 大決策事項，已轉製為向量 PDF 供線上即時審閱，恪守資安機密規範，不提供直接下載。</p>
+        <div class="section-eyebrow">OFFICIAL PUBLICATION · DOCUMENT & REPORT HUB</div>
+        <h2 class="section-h2">四、蜂巢計畫官方專案文檔與高階報表下載中心 (Official Download Center)</h2>
+        <p class="section-p">本專案全系列 17 份出版級向量 PDF 報告、Draw.io 原始架構圖資與同仁填表數據庫已集中歸檔，支援單鍵直接下載與線上即時審閱。</p>
+      </div>
+
+      <!-- Quick Category Downloads Bar -->
+      <div style="background:#FFF8EE; border:1.5px solid var(--border-accent); border-radius:var(--radius-md); padding:20px 24px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+        <div>
+          <div style="font-weight:800; font-size:1.05rem; color:var(--rust-primary); margin-bottom:4px;">
+            📥 蜂巢計畫全域文檔與報表下載中心 (Download Center)
+          </div>
+          <div style="font-size:0.82rem; color:var(--text-body);">
+            收錄：蜂巢藍圖、周副總交辦清單、TOGAF 與 API 品質規範、邊界 WAAP 與 API 安全、三大雲端體系圖資、13 大角色問卷與 Draw.io 工程原檔。
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a href="download_center.html" class="nav-btn" style="background:var(--rust-primary); color:#FFF; font-weight:800; padding:10px 22px; font-size:0.85rem; border-color:var(--rust-primary); box-shadow:0 4px 12px rgba(168,50,18,0.25);">
+            🚀 進入完整文檔下載中心 (全17份)
+          </a>
+        </div>
       </div>
 
       <div class="pdf-preview-box">
@@ -1045,9 +1063,9 @@
             <span>RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf (高畫質向量審批版)</span>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="pdf-toolbar-badge">
-              <span>🔒</span> 機密審批件 · 僅供線上即時預覽 (Preview Only · Do Not Download)
-            </span>
+            <a href="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" download="RSI_2027_蜂巢計畫實施藍圖_Project_Hive.pdf" class="nav-btn" style="background:var(--rust-primary); color:#FFF; font-weight:bold;">
+              📥 直接下載本檔 (PDF)
+            </a>
             <button onclick="toggleFullscreen()" class="nav-btn" style="cursor: pointer; background: #FFF; border: 1px solid var(--border-subtle);">
               ⛶ 全螢幕審閱
             </button>
