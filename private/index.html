@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="milan-amber">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>RSI 顧問文件</title>
+<style>
+  :root, [data-theme="milan-amber"] {
+    --bg-primary: #FFFFFF; --bg-surface: #FBFBFA; --bg-card: #F6EEE8; --border-color: #E7E2DC;
+    --text-primary: #2D3748; --text-muted: #6B7280; --accent-primary: #DE5814; --accent-rust: #A83212; --accent-amber: #D97706;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg-primary); color: var(--text-primary);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; line-height: 1.6; }
+  main { max-width: 760px; margin: 0 auto; padding: 56px 16px 80px; }
+  .kicker { color: var(--accent-rust); font-weight: 700; font-size: 12px; letter-spacing: .28em; }
+  h1 { font-size: clamp(28px, 6vw, 40px); margin: 10px 0 4px; line-height: 1.25; }
+  .en { font-family: Cambria, Georgia, serif; font-style: italic; color: var(--accent-primary); font-size: 18px; margin: 0 0 28px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--accent-primary); }
+  .panel { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 24px; }
+  label { display: block; font-weight: 700; color: var(--accent-rust); margin-bottom: 8px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  input { flex: 1 1 220px; font: inherit; padding: 12px 14px; border: 1px solid var(--border-color); background: #fff; color: var(--text-primary); }
+  input:focus { outline: 2px solid var(--accent-primary); outline-offset: 1px; }
+  button { font: inherit; font-weight: 700; padding: 12px 22px; border: 0; background: var(--accent-rust); color: #fff; cursor: pointer; }
+  button:hover { background: var(--accent-primary); }
+  button:disabled { opacity: .6; cursor: progress; }
+  .msg { min-height: 1.6em; margin-top: 10px; color: var(--accent-rust); font-size: 14px; }
+  .note { color: var(--text-muted); font-size: 13px; margin-top: 14px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    background: var(--bg-card); padding: 18px 20px; margin-bottom: 12px; }
+  .ft { font-family: Cambria, Georgia, serif; font-style: italic; color: var(--accent-primary); font-size: 14px; }
+  .t { font-weight: 700; font-size: 17px; }
+  .size { color: var(--text-muted); font-size: 13px; }
+  [hidden] { display: none !important; }
+  footer { margin-top: 40px; color: var(--text-muted); font-size: 12px; font-family: Cambria, Georgia, serif; font-style: italic; }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">RSI GROUP · PRIVATE DOCUMENTS</div>
+  <h1>RSI 顧問文件</h1>
+  <p class="en">Consulting Agreement, Profile &amp; Hive WBS</p>
+
+  <section id="lock" class="panel">
+    <form id="f">
+      <label for="pw">請輸入密碼</label>
+      <div class="row">
+        <input id="pw" type="password" autocomplete="current-password" required>
+        <button id="go" type="submit">解鎖</button>
+      </div>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    </form>
+    <p class="note">檔案以 AES-256 加密存放，只在你的瀏覽器內解密，密碼不會送到任何伺服器。</p>
+  </section>
+
+  <section id="list" hidden>
+    <ul id="items"></ul>
+    <p class="note">點選下載後，檔案於瀏覽器內解密並儲存。</p>
+  </section>
+
+  <footer>Howard Liao, Ph.D.</footer>
+</main>
+<script>
+(() => {
+  const te = new TextEncoder();
+  let pw = "", iter = 600000;
+  async function open(buf, it) {
+    const b = new Uint8Array(buf);
+    if (new TextDecoder().decode(b.slice(0, 5)) !== "RSIE1") throw new Error("format");
+    const salt = b.slice(5, 21), iv = b.slice(21, 33), ct = b.slice(33);
+    const base = await crypto.subtle.importKey("raw", te.encode(pw), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: it, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    return crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, ct);
+  }
+  async function fetchBuf(p) {
+    const r = await fetch(p, { cache: "no-store" });
+    if (!r.ok) throw new Error("fetch " + r.status);
+    return r.arrayBuffer();
+  }
+  const fmt = (n) => n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.round(n / 1024) + " KB";
+  const $ = (id) => document.getElementById(id);
+
+  $("f").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    pw = $("pw").value; $("go").disabled = true; $("msg").textContent = "驗證中…";
+    try {
+      const man = JSON.parse(new TextDecoder().decode(await open(await fetchBuf("manifest.enc"), iter)));
+      iter = man.iter || iter;
+      const ul = $("items"); ul.innerHTML = "";
+      man.files.forEach((f) => {
+        const li = document.createElement("li");
+        li.innerHTML = '<div><div class="ft"></div><div class="t"></div><div class="size"></div></div><button type="button">下載</button>';
+        li.querySelector(".ft").textContent = f.kind;
+        li.querySelector(".t").textContent = f.title;
+        li.querySelector(".size").textContent = f.name + " · " + fmt(f.size);
+        const btn = li.querySelector("button");
+        btn.addEventListener("click", async () => {
+          btn.disabled = true; btn.textContent = "解密中…";
+          try {
+            const data = await open(await fetchBuf(f.id), iter);
+            const url = URL.createObjectURL(new Blob([data], { type: f.mime }));
+            const a = document.createElement("a"); a.href = url; a.download = f.name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 4000);
+            btn.textContent = "下載";
+          } catch (err) { btn.textContent = "失敗，請重試"; }
+          btn.disabled = false;
+        });
+        ul.appendChild(li);
+      });
+      $("lock").hidden = true; $("list").hidden = false;
+    } catch (err) {
+      $("msg").textContent = "密碼不正確，或檔案無法讀取。";
+    }
+    $("go").disabled = false;
+  });
+})();
+</script>
+</body>
+</html>
