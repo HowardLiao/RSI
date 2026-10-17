@@ -33,17 +33,38 @@ TARGETS = {
 }
 
 
+# Tabbed pages hide every panel except the active one (display:none), so a plain
+# print only captured the first tab. Print a temporary copy with all panels shown,
+# each panel starting on a new page, and nothing clipped by scroll containers.
+PRINT_ALL = """<style id="print-all-panels">
+@media print {
+  .panel, .diagram-panel, .subform-panel { display: block !important; opacity: 1 !important;
+    transform: none !important; animation: none !important; visibility: visible !important; }
+  :is(.panel, .diagram-panel, .subform-panel) ~ :is(.panel, .diagram-panel, .subform-panel) { break-before: page; }
+  .tab-btn, .module-nav-tabs, .tab-nav, .tabs-nav { display: none !important; }
+  .table-wrap, .table-container, .scroll-x, pre, .code-block { overflow: visible !important; max-height: none !important; }
+  .rsi-music { display: none !important; }
+}
+</style>"""
+
+
 def export(pdf: str, html: str) -> None:
-    src = (ROOT / html).as_uri()
+    page = ROOT / html
+    tmp = page.with_name(".print_tmp_" + page.name)
+    text = page.read_text(encoding="utf-8")
+    tmp.write_text(text.replace("</head>", PRINT_ALL + "\n</head>", 1), encoding="utf-8")
     out = ROOT / pdf
-    subprocess.run(
-        [
-            CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-            "--hide-scrollbars", "--run-all-compositor-stages-before-draw",
-            "--virtual-time-budget=15000", f"--print-to-pdf={out}", src,
-        ],
-        check=True, capture_output=True,
-    )
+    try:
+        subprocess.run(
+            [
+                CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                "--hide-scrollbars", "--run-all-compositor-stages-before-draw",
+                "--virtual-time-budget=15000", f"--print-to-pdf={out}", tmp.as_uri(),
+            ],
+            check=True, capture_output=True,
+        )
+    finally:
+        tmp.unlink(missing_ok=True)
     print(f"{out.stat().st_size / 1e6:6.2f} MB  {pdf}  <-  {html}")
 
 
