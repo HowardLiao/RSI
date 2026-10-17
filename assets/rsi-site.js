@@ -48,8 +48,7 @@
     ] },
     { label: '文件', items: [
       ['Hive/index.html', '蜂巢計畫實施藍圖'],
-      ['Hive/download_center.html', '文檔中心'],
-      ['Hive/RSI_Group_會議紀錄_2026-10-16.html', '會議紀錄 2026-10-16']
+      ['Hive/download_center.html', '文檔中心']
     ] }
   ];
   var EXTRA = { 'mobile.html': '首頁（行動版）', 'mobile_simulator.html': '手機真機模擬', 'index_legacy_swiss.html': '首頁（舊版）' };

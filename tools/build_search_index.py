@@ -17,7 +17,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "assets", "search-index.json")
 
 # Duplicates or tooling pages that would only repeat other results.
-SKIP = {"mobile.html", "index_legacy_swiss.html", "mobile_simulator.html"}
+SKIP = {"mobile.html", "index_legacy_swiss.html", "mobile_simulator.html",
+        "Hive/RSI_Group_會議紀錄_2026-10-16.html"}  # password-protected; kept out of public search
 SKIP_TAGS = {"script", "style", "noscript", "template", "svg", "nav", "header", "footer", "select", "option", "button"}
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 HEADINGS = {"h1", "h2", "h3", "h4"}
