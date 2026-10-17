@@ -97,7 +97,7 @@
       "font:600 13px/1 'Microsoft JhengHei','PingFang TC',system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(45,55,72,.12)}" +
       ".rsi-music[aria-pressed=true]{background:#A83212;color:#FFFFFF}" +
       ".rsi-music .n{font-size:15px}.rsi-music .t{font-family:Cambria,Georgia,serif;font-style:italic;font-weight:400}" +
-      "@media print{.rsi-music{display:none}}";
+      "@media print{.rsi-music{display:none}}@media(max-width:900px){.rsi-music{bottom:76px!important;left:12px!important;padding:5px 10px!important;font-size:11px!important;box-shadow:0 2px 8px rgba(0,0,0,0.15)!important;z-index:2147482000!important}}";
     document.head.appendChild(css);
     var b = document.createElement("button");
     b.type = "button"; b.className = "rsi-music"; b.setAttribute("aria-pressed", "false");

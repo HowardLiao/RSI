@@ -383,6 +383,18 @@
     }
   
     /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+    }
+
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
     .watermark-overlay {
       position: fixed !important;
       top: 0 !important;
@@ -427,6 +439,7 @@
 </head>
 <body>
   <div class="watermark-overlay"></div>
+  
 
   
 

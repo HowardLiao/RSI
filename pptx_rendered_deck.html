@@ -35,6 +35,18 @@
     }
   
     /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+    }
+
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
     .watermark-overlay {
       position: fixed !important;
       top: 0 !important;
@@ -80,6 +92,7 @@
 </head>
 <body>
   <div class="watermark-overlay"></div>
+  
 
     <div class="slide" id="slide-1" style="width: 13.333in; height: 7.500in; position: relative; background: #FFFFFF; page-break-after: always; break-after: page; overflow: hidden; box-sizing: border-box;">
       

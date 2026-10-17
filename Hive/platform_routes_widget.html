@@ -1,0 +1,213 @@
+<style>
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+</style>
+<div class="watermark-overlay"></div>
+<div style="font-family: var(--font-sans, system-ui, sans-serif); color: var(--foreground, #222); width: 100%; max-width: 980px; box-sizing: border-box; text-align: left; position: relative;">
+
+  <!-- Header Card (Milan Style) -->
+  <div style="background: var(--card, #FFFDF9); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 18px 20px; margin-bottom: 16px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
+      <div>
+        <div style="font-size: 0.75rem; font-weight: 800; color: #A83212; letter-spacing: 1px; text-transform: uppercase;">
+          RSI GROUP · PROJECT HIVE 2027 · MULTI-CLOUD SELECTION
+        </div>
+        <h2 style="font-size: 1.25rem; font-weight: 800; margin: 2px 0 4px 0; color: var(--foreground, #111);">
+          RSI 蜂巢計畫 · 4 大主流路線深度評估 ＆ MuleSoft 定位分析
+        </h2>
+        <div style="font-size: 0.85rem; color: #DE5814; font-weight: 600;">
+          分層選型原則 · 業務交易 (API) 與資料分析 (湖倉) 分流
+        </div>
+      </div>
+      <div style="font-size: 0.78rem; text-align: right; color: var(--muted-foreground, #666);">
+        <div>計劃主持：<strong>周文津 副總</strong></div>
+        <div>執行負責：<strong>Howard Liao Ph.D.</strong></div>
+      </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div style="background: #FFF8EE; border-left: 4px solid #D97706; padding: 8px 12px; font-size: 0.82rem; color: #7C2D12; border-radius: 4px; line-height: 1.5;">
+      <strong>📌 核心建議：</strong>業務交易路徑（API Gateway/iPaaS）與巨量分析路徑（CDC/湖倉）分道揚鑣；MuleSoft 解決應用編排而非資料分析，第一階段不宜一次性採購。
+    </div>
+  </div>
+
+  <!-- Interactive Route Buttons -->
+  <div style="display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap;">
+    <button onclick="showRTab('r-matrix')" id="btn-r-matrix" style="padding: 7px 12px; border-radius: 20px; border: 1px solid #A83212; background: #A83212; color: #FFF; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+      ⚖️ 4 大路線橫向對照
+    </button>
+    <button onclick="showRTab('r-azure')" id="btn-r-azure" style="padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border, #DDD); background: var(--card, #FFF); color: var(--foreground, #333); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+      🏆 路線 1：Azure 原生
+    </button>
+    <button onclick="showRTab('r-gcp')" id="btn-r-gcp" style="padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border, #DDD); background: var(--card, #FFF); color: var(--foreground, #333); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+      🔴 路線 2：GCP 受管
+    </button>
+    <button onclick="showRTab('r-aws')" id="btn-r-aws" style="padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border, #DDD); background: var(--card, #FFF); color: var(--foreground, #333); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+      🟠 路線 3：AWS 受管
+    </button>
+    <button onclick="showRTab('r-oss')" id="btn-r-oss" style="padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border, #DDD); background: var(--card, #FFF); color: var(--foreground, #333); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+      🟢 路線 4：Open Source
+    </button>
+    <button onclick="showRTab('r-mulesoft')" id="btn-r-mulesoft" style="padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border, #DDD); background: var(--card, #FFF); color: var(--foreground, #333); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+      ⚠️ MuleSoft 特例剖析
+    </button>
+  </div>
+
+  <!-- Panel: Matrix -->
+  <div id="r-matrix" style="display: block;">
+    <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 14px; margin-bottom: 14px; overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.76rem; line-height: 1.4;">
+        <tr style="background: var(--bg-surface, #F5F5F4); border-bottom: 2px solid var(--border, #DDD);">
+          <th style="padding: 6px; text-align: left;">層級</th>
+          <th style="padding: 6px; text-align: left; background:#FFF8EE; color:#9A3412;">🏆 1. Azure 原生</th>
+          <th style="padding: 6px; text-align: left;">🔴 2. GCP 受管</th>
+          <th style="padding: 6px; text-align: left;">🟠 3. AWS 受管</th>
+          <th style="padding: 6px; text-align: left;">🟢 4. Open Source</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border, #EEE);">
+          <td style="padding: 6px;"><strong>API 閘道</strong></td>
+          <td style="padding: 6px; background:#FFF8EE; font-weight:700;">Azure APIM</td>
+          <td style="padding: 6px;">Apigee X</td>
+          <td style="padding: 6px;">API Gateway</td>
+          <td style="padding: 6px;">APISIX / Kong</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border, #EEE);">
+          <td style="padding: 6px;"><strong>D365 整合</strong></td>
+          <td style="padding: 6px; background:#FFF8EE; font-weight:700;">Synapse Link (原生)</td>
+          <td style="padding: 6px;">需經 Azure 跨雲中繼</td>
+          <td style="padding: 6px;">需經 Azure 跨雲中繼</td>
+          <td style="padding: 6px;">無法直連封閉 SaaS</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border, #EEE);">
+          <td style="padding: 6px;"><strong>SQL CDC</strong></td>
+          <td style="padding: 6px; background:#FFF8EE; font-weight:700;">ADF ＋ SHIR 離峰排程</td>
+          <td style="padding: 6px;">Datastream CDC</td>
+          <td style="padding: 6px;">DMS (經 S3 暫存)</td>
+          <td style="padding: 6px;">Debezium ＋ Kafka</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border, #EEE);">
+          <td style="padding: 6px;"><strong>湖倉儲存</strong></td>
+          <td style="padding: 6px; background:#FFF8EE; font-weight:700;">ADLS Gen2 (Delta)</td>
+          <td style="padding: 6px;">Cloud Storage ＋ BQ</td>
+          <td style="padding: 6px;">S3 ＋ Redshift</td>
+          <td style="padding: 6px;">MinIO ＋ Iceberg</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border, #EEE);">
+          <td style="padding: 6px;"><strong>邊緣自律</strong></td>
+          <td style="padding: 6px; background:#FFF8EE;">Edge Proxy ＋ 快取</td>
+          <td style="padding: 6px;">GDC Edge Proxy</td>
+          <td style="padding: 6px;">Greengrass</td>
+          <td style="padding: 6px; font-weight:700; color:#15803D;">Envoy ＋ SQLite (極輕)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border, #EEE);">
+          <td style="padding: 6px;"><strong>三年 TCO</strong></td>
+          <td style="padding: 6px; background:#FFF8EE; font-weight:700; color:#9A3412;">隱性成本最低 / 易換SI</td>
+          <td style="padding: 6px;">中等 (跨雲流量費)</td>
+          <td style="padding: 6px;">偏高 (服務拼裝繁碎)</td>
+          <td style="padding: 6px;">實質最貴 (SRE 人事)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Panel: Azure -->
+  <div id="r-azure" style="display: none;">
+    <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 14px; margin-bottom: 14px; font-size: 0.82rem; line-height: 1.6;">
+      <h4 style="margin: 0 0 6px 0; color: #0078D4;">🏆 路線 1：Microsoft Azure 原生組合 (APIM ＋ ADF ＋ ADLS Gen2)</h4>
+      <div>• <strong>優勢</strong>：D365 F&amp;O (C++) 唯一官方原生 Synapse Link 入湖；地端 MS SQL 經 ADF SHIR 安全穿透內網；全微軟技術棧內部接手最容易；微軟金級 SI 合作夥伴極為充足。</div>
+      <div>• <strong>風險防禦</strong>：規避微軟 2026-11-30 Export to Data Lake 永久終止之重大生命週期風險；以 Delta Lake 開放格式存於 ADLS，保有未來跨雲資料自主性。</div>
+    </div>
+  </div>
+
+  <!-- Panel: GCP -->
+  <div id="r-gcp" style="display: none;">
+    <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 14px; margin-bottom: 14px; font-size: 0.82rem; line-height: 1.6;">
+      <h4 style="margin: 0 0 6px 0; color: #EA4335;">🔴 路線 2：Google Cloud Platform 受管組合 (Apigee ＋ Datastream ＋ BigQuery)</h4>
+      <div>• <strong>優勢</strong>：BigQuery SQL 分析性能與無伺服器擴展性極佳；Datastream 原生支援地端 MS SQL 日誌捕獲。</div>
+      <div>• <strong>挑戰</strong>：D365 SaaS 無法直連 GCP，需於 Azure 落地再跨雲搬遷；內部 IT 需重新學習 GCP IAM 權限與 BigQuery 方言。</div>
+    </div>
+  </div>
+
+  <!-- Panel: AWS -->
+  <div id="r-aws" style="display: none;">
+    <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 14px; margin-bottom: 14px; font-size: 0.82rem; line-height: 1.6;">
+      <h4 style="margin: 0 0 6px 0; color: #FF9900;">🟠 路線 3：Amazon Web Services 受管組合 (API GW ＋ DMS ＋ S3 / Redshift)</h4>
+      <div>• <strong>優勢</strong>：全球機房與 CDN 覆蓋最完整，微服務配套最成熟。</div>
+      <div>• <strong>挑戰</strong>：組件顆粒度過碎（API GW + Step Functions + DMS + S3 + Glue + Redshift），跨服務權限與觀測鏈條繁雜；DMS 需經 S3 暫存批次套用延遲較高。</div>
+    </div>
+  </div>
+
+  <!-- Panel: OSS -->
+  <div id="r-oss" style="display: none;">
+    <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 14px; margin-bottom: 14px; font-size: 0.82rem; line-height: 1.6;">
+      <h4 style="margin: 0 0 6px 0; color: #10B981;">🟢 路線 4：Open Source 開源自建組合 (APISIX ＋ Debezium ＋ MinIO / Iceberg)</h4>
+      <div>• <strong>優勢</strong>：軟體零授權費、資料 100% 留存在地端機房；海外各廠邊緣採用 <strong>Envoy Proxy ＋ SQLite</strong> 能以極致輕量實現 48~72hr 斷網自律生產！</div>
+      <div>• <strong>致命短板</strong>：D365 封閉 SaaS 無法直連；總部自建 K8s/Kafka 需長期供養高階 SRE，一旦核心離職形成嚴重單點黑數（Bus Factor=1）。</div>
+    </div>
+  </div>
+
+  <!-- Panel: MuleSoft -->
+  <div id="r-mulesoft" style="display: none;">
+    <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E0D8); border-radius: 8px; padding: 14px; margin-bottom: 14px; font-size: 0.82rem; line-height: 1.6;">
+      <h4 style="margin: 0 0 6px 0; color: #00A1E0;">⚠️ 特例剖析：為什麼第一階段不宜採購 MuleSoft Anypoint？</h4>
+      <div>• <strong>定位錯誤</strong>：MuleSoft 是 <strong>iPaaS 業務交易整合平台</strong>，不是「巨量資料分析與 Lakehouse」；它無法取代 CDC 日誌擷取、ADLS 湖倉與 BI 報表。</div>
+      <div>• <strong>授權極度昂貴</strong>：按 Core/vCore 計價，三年 TCO 數千萬元；在需求未成熟前採購會造成巨大資本浪費。第一階段先以受管輕量 APIM 滿足需求即可。</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showRTab(id) {
+    document.querySelectorAll('#r-matrix, #r-azure, #r-gcp, #r-aws, #r-oss, #r-mulesoft').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('#btn-r-matrix, #btn-r-azure, #btn-r-gcp, #btn-r-aws, #btn-r-oss, #btn-r-mulesoft').forEach(btn => {
+      btn.style.background = 'var(--card, #FFF)';
+      btn.style.color = 'var(--foreground, #333)';
+      btn.style.borderColor = 'var(--border, #DDD)';
+    });
+    
+    document.getElementById(id).style.display = 'block';
+    const activeBtn = document.getElementById('btn-' + id);
+    if (activeBtn) {
+      activeBtn.style.background = '#A83212';
+      activeBtn.style.color = '#FFF';
+      activeBtn.style.borderColor = '#A83212';
+    }
+  }
+</script>

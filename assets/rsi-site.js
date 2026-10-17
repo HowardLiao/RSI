@@ -36,6 +36,9 @@
       ['Hive/platform_tools_comparison_matrix.html', '工具選型評估'],
       ['Hive/api_platform_drawio.html', 'API Platform 架構圖'],
       ['Hive/datalake_etl_elt_drawio.html', 'Data Lake ETL/ELT 架構圖'],
+      ['Hive/azure_native_architecture_showcase.html', 'Azure 原生選型報告'],
+      ['Hive/platform_selection_4routes_showcase.html', '多雲選型與 MuleSoft 評估'],
+      ['RSI-data-architecture.html', 'APIM＋ADF 資料整合架構'],
       ['Hive/togaf_api_quality_standards.html', 'TOGAF 與 API 品質規範'],
       ['Hive/waap_api_security_architecture.html', 'WAAP 與 API 安全架構']
     ] },
@@ -51,7 +54,20 @@
       ['Hive/download_center.html', '文檔中心']
     ] }
   ];
-  var EXTRA = { 'mobile.html': '首頁（行動版）', 'mobile_simulator.html': '手機真機模擬', 'index_legacy_swiss.html': '首頁（舊版）' };
+  var EXTRA = {
+    'mobile.html': '首頁（行動版）',
+    'mobile_simulator.html': '手機真機模擬',
+    'index_legacy_swiss.html': '首頁（舊版）',
+    'RSI-data-architecture.html': 'APIM＋ADF 資料整合架構（米蘭風格）',
+    'Hive/RSI-data-architecture.html': 'APIM＋ADF 資料整合架構（米蘭風格）',
+    'Hive/azure_native_architecture_showcase.html': 'Azure 原生架構選型報告',
+    'Hive/platform_selection_4routes_showcase.html': '多雲選型與 MuleSoft 評估',
+    'RSI-meeting-brief.html': '2026-10-16 會談備忘',
+    'RSI-meeting-minutes.html': '2026-10-16 會談紀錄全文',
+    'RSI-meeting-report.html': '2026-10-16 會談高階報告',
+    'hive-review.html': '蜂巢計畫藍圖健檢',
+    'private/index.html': '機密顧問文件庫'
+  };
 
   var CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
   var BURGER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
@@ -130,7 +146,7 @@
     search.type = 'button'; search.setAttribute('aria-label', '全站搜尋');
     search.addEventListener('click', open);
 
-    var burger = el('button', 'rsi-menu-btn', BURGER);
+    var burger = el('button', 'rsi-menu-btn', BURGER + '<span class="rsi-menu-txt">導覽</span>');
     burger.type = 'button'; burger.setAttribute('aria-label', '開啟網站選單'); burger.setAttribute('aria-expanded', 'false');
     burger.addEventListener('click', function () {
       var o = !top.classList.contains('is-open');
@@ -139,7 +155,18 @@
       burger.setAttribute('aria-label', o ? '關閉網站選單' : '開啟網站選單');
     });
 
-    inner.appendChild(brand); inner.appendChild(nav); inner.appendChild(search); inner.appendChild(burger);
+    var navBtn = el('a', 'rsi-header-nav-btn', '<span>🧭</span><span>導覽鍵</span>');
+    navBtn.href = 'javascript:void(0)';
+    navBtn.setAttribute('role', 'button');
+    navBtn.type = 'button';
+    navBtn.setAttribute('aria-label', '開啟全景導覽選單');
+    navBtn.addEventListener('click', openMobileDrawer);
+
+    inner.appendChild(brand);
+    inner.appendChild(nav);
+    inner.appendChild(search);
+    inner.appendChild(navBtn);
+    inner.appendChild(burger);
     top.appendChild(inner);
 
     var trail = crumbsFor(cur);
@@ -156,12 +183,62 @@
       bc.appendChild(ol); top.appendChild(bc);
     }
 
-    // Full-bleed at the very top even when the page pads its <body>.
-    var bs = getComputedStyle(document.body);
-    var pt = parseFloat(bs.paddingTop) || 0, pl = parseFloat(bs.paddingLeft) || 0, pr = parseFloat(bs.paddingRight) || 0;
-    top.style.margin = (-pt) + 'px ' + (-pr) + 'px ' + pt + 'px ' + (-pl) + 'px';
-    if (bs.display.indexOf('flex') >= 0 || bs.display.indexOf('grid') >= 0) { top.style.width = 'calc(100% + ' + (pl + pr) + 'px)'; top.style.gridColumn = '1 / -1'; top.style.order = '-1'; }
+    // Clean top bar sizing without breaking mobile viewport
+    if (window.innerWidth > 768) {
+      var bs = getComputedStyle(document.body);
+      var pt = parseFloat(bs.paddingTop) || 0, pl = parseFloat(bs.paddingLeft) || 0, pr = parseFloat(bs.paddingRight) || 0;
+      top.style.margin = (-pt) + 'px ' + (-pr) + 'px ' + pt + 'px ' + (-pl) + 'px';
+      if (bs.display.indexOf('flex') >= 0 || bs.display.indexOf('grid') >= 0) { top.style.width = 'calc(100% + ' + (pl + pr) + 'px)'; top.style.gridColumn = '1 / -1'; top.style.order = '-1'; }
+    } else {
+      top.style.margin = '0';
+      top.style.width = '100%';
+      top.style.maxWidth = '100vw';
+      top.style.boxSizing = 'border-box';
+    }
     document.body.insertBefore(top, document.body.firstChild);
+
+    // Mobile Bottom Floating Dock (手機專屬底部導覽列 ＋ 導覽鍵)
+    try {
+      var dock = el('nav', 'rsi-mobile-dock');
+      dock.setAttribute('aria-label', '手機快速導覽列');
+      
+      var dockHome = el('a', 'rsi-dock-item', '<span class="rsi-dock-icon">🏠</span><span class="rsi-dock-label">首頁</span>');
+      dockHome.href = url('index.html');
+      if (cur === 'index.html') dockHome.classList.add('is-active');
+
+      var dockHive = el('a', 'rsi-dock-item', '<span class="rsi-dock-icon">🐝</span><span class="rsi-dock-label">蜂巢</span>');
+      dockHive.href = url('Hive/index.html');
+      if (cur === 'Hive/index.html') dockHive.classList.add('is-active');
+
+      var dockAzure = el('a', 'rsi-dock-item', '<span class="rsi-dock-icon">🔷</span><span class="rsi-dock-label">Azure選型</span>');
+      dockAzure.href = url('Hive/azure_native_architecture_showcase.html');
+      if (cur.indexOf('azure_native') >= 0) dockAzure.classList.add('is-active');
+
+      var dockDocs = el('a', 'rsi-dock-item', '<span class="rsi-dock-icon">📑</span><span class="rsi-dock-label">文檔</span>');
+      dockDocs.href = url('Hive/download_center.html');
+      if (cur.indexOf('download_center') >= 0) dockDocs.classList.add('is-active');
+
+      var dockMenu = el('a', 'rsi-dock-item rsi-dock-btn', '<span class="rsi-dock-icon">🧭</span><span class="rsi-dock-label">導覽鍵</span>');
+      dockMenu.href = 'javascript:void(0)';
+      dockMenu.setAttribute('role', 'button');
+      dockMenu.setAttribute('aria-label', '切換導覽選單');
+      dockMenu.addEventListener('click', function (e) { e.preventDefault(); openMobileDrawer(); return;
+        var o = !top.classList.contains('is-open');
+        top.classList.toggle('is-open', o);
+        burger.setAttribute('aria-expanded', String(o));
+        dockMenu.classList.toggle('is-active', o);
+        if (o) window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      dock.appendChild(dockHome);
+      dock.appendChild(dockHive);
+      dock.appendChild(dockAzure);
+      dock.appendChild(dockDocs);
+      dock.appendChild(dockMenu);
+      document.body.appendChild(dock);
+    } catch (e) {
+      console.warn('Dock init:', e);
+    }
 
     document.addEventListener('click', function (e) { if (!top.contains(e.target)) closeMenus(); });
     document.addEventListener('keydown', function (e) {
@@ -487,6 +564,98 @@
 
   var rt = 0;
   function scheduleFit() { clearTimeout(rt); rt = setTimeout(function () { fitMobile(); placeFab(); }, 150); }
+
+  
+  /* ---------------- Mobile Navigation Fullscreen Drawer ---------------- */
+  var drawerModal = null;
+  function openMobileDrawer() {
+    if (!drawerModal) {
+      drawerModal = el('div', 'rsi-mobile-drawer');
+      drawerModal.innerHTML = 
+        '<div class="rsi-drawer-sheet">' +
+          '<div class="rsi-drawer-head">' +
+            '<div class="rsi-drawer-title"><span>🧭</span> RSI 蜂巢計畫 · 全景導覽</div>' +
+            '<button type="button" class="rsi-drawer-close">✕ 關閉</button>' +
+          '</div>' +
+          '<div class="rsi-drawer-body">' +
+            '<div>' +
+              '<div class="rsi-drawer-group-title">⭐ 核心推薦方案</div>' +
+              '<a href="' + url('Hive/azure_native_architecture_showcase.html') + '" class="rsi-drawer-item is-prime">' +
+                '<span class="rsi-drawer-item-icon">🏆</span>' +
+                '<div class="rsi-drawer-item-text">Azure 原生架構選型報告<div class="rsi-drawer-item-sub">D365 F&O (C++) ＋ 各廠 MS SQL 雙軌合流</div></div>' +
+              '</a>' +
+              '<a href="' + url('Hive/platform_selection_4routes_showcase.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">⚖️</span>' +
+                '<div class="rsi-drawer-item-text">4 大多雲路線 ＆ MuleSoft 評估<div class="rsi-drawer-item-sub">Azure / GCP / AWS / OpenSource 全面對標</div></div>' +
+              '</a>' +
+              '<a href="' + url('RSI-data-architecture.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">📊</span>' +
+                '<div class="rsi-drawer-item-text">資料整合架構（APIM＋ADF）<div class="rsi-drawer-item-sub">米蘭暖琥珀風格 · 雙泳道互動圖資</div></div>' +
+              '</a>' +
+            '</div>' +
+            '<div>' +
+              '<div class="rsi-drawer-group-title">🐝 蜂巢計畫專案中心</div>' +
+              '<a href="' + url('Hive/index.html') + '" class="rsi-drawer-item">' +
+                '<span class="rsi-drawer-item-icon">🐝</span>' +
+                '<div class="rsi-drawer-item-text">蜂巢計畫實施藍圖首頁<div class="rsi-drawer-item-sub">六大推進階段、RACI 與決策閘門</div></div>' +
+              '</a>' +
+              '<a href="' + url('Hive/download_center.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">📑</span>' +
+                '<div class="rsi-drawer-item-text">官方文檔與出版級報表中心<div class="rsi-drawer-item-sub">11 份高畫質 PDF 線上預覽與 Draw.io 原始檔</div></div>' +
+              '</a>' +
+              '<a href="' + url('gantt_chart_2027.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">📅</span>' +
+                '<div class="rsi-drawer-item-text">2027 全專案甘特圖與 WBS<div class="rsi-drawer-item-sub">四大主架構 25 項核心專案排程</div></div>' +
+              '</a>' +
+            '</div>' +
+            '<div>' +
+              '<div class="rsi-drawer-group-title">🏛️ 戰略藍圖與治理手冊</div>' +
+              '<a href="' + url('index.html') + '" class="rsi-drawer-item">' +
+                '<span class="rsi-drawer-item-icon">🏠</span>' +
+                '<div class="rsi-drawer-item-text">2027 IT 營運計畫首頁</div>' +
+              '</a>' +
+              '<a href="' + url('ceo_strategic_plan.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">🏢</span>' +
+                '<div class="rsi-drawer-item-text">CEO 戰略營運計畫白皮書</div>' +
+              '</a>' +
+              '<a href="' + url('vp_chou_worklist.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">📋</span>' +
+                '<div class="rsi-drawer-item-text">周副總交辦工作清單</div>' +
+              '</a>' +
+              '<a href="' + url('organization_resources.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">👥</span>' +
+                '<div class="rsi-drawer-item-text">組織職能與資源配置藍圖</div>' +
+              '</a>' +
+              '<a href="' + url('Hive/it_skills_8domains_assessment.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">📝</span>' +
+                '<div class="rsi-drawer-item-text">內部 IT 8 大領域技術職能問卷</div>' +
+              '</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      
+      document.body.appendChild(drawerModal);
+      drawerModal.querySelector('.rsi-drawer-close').addEventListener('click', closeMobileDrawer);
+      drawerModal.addEventListener('click', function(e) {
+        if (e.target === drawerModal) closeMobileDrawer();
+      });
+    }
+    document.body.style.overflow = 'hidden';
+    drawerModal.removeAttribute('hidden');
+    requestAnimationFrame(function() {
+      drawerModal.classList.add('is-open');
+    });
+  }
+
+  function closeMobileDrawer() {
+    if (!drawerModal) return;
+    document.body.style.overflow = '';
+    drawerModal.classList.remove('is-open');
+    setTimeout(function() {
+      drawerModal.setAttribute('hidden', '');
+    }, 280);
+  }
+  window.rsiOpenDrawer = openMobileDrawer;
 
   function start() {
     var topSearch = buildTop();

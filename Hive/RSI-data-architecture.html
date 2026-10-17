@@ -1,10 +1,60 @@
+<style>
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+</style>
+<div class="watermark-overlay"></div>
 <title>RSI 資料整合架構</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: 頁首決策列 → 兩條泳道的架構圖（業務 API／分析資料）→ CDC 順序、第二階段開源、技轉驗收 */
-:root, [data-theme="deep-obsidian"] {
+:root, [data-theme="milan-amber"] {
+  --bg-primary:#FDFCF7; --bg-surface:#FFFFFF; --bg-card:#FFFFFF; --border-color:#E7E0D8;
+  --text-primary:#222222; --text-muted:#6B625A;
+  --accent-primary:#A83212; --accent-secondary:#DE5814; --accent-warm:#D97706; --warn:#B91C1C;
+  --font-display:"Noto Serif TC", "Songti TC", serif;
+  --font-body:"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+[data-theme="deep-obsidian"] {
   --bg-primary:#020617; --bg-surface:#0F172A; --bg-card:#0B1428; --border-color:#1E3A5F;
   --text-primary:#F8FAFC; --text-muted:#94A3B8;
   --accent-primary:#38BDF8; --accent-secondary:#0284C7; --accent-warm:#F59E0B; --warn:#F87171;
@@ -12,12 +62,6 @@
   --font-body:"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   --font-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
   color-scheme: dark;
-}
-[data-theme="milan-amber"] {
-  --bg-primary:#FBFBFA; --bg-surface:#FFFFFF; --bg-card:#FFFFFF; --border-color:#E3DBD2;
-  --text-primary:#2D3748; --text-muted:#6B625A;
-  --accent-primary:#DE5814; --accent-secondary:#A83212; --accent-warm:#D97706; --warn:#B91C1C;
-  color-scheme: light;
 }
 [data-theme="egyptian-pharaoh"] {
   --bg-primary:#FAF7F0; --bg-surface:#F3ECDD; --bg-card:#FFFDF8; --border-color:#D9C9A3;
@@ -169,8 +213,8 @@ footer a { color: var(--accent-primary); }
     <div class="ctl">
       <label class="ctl-label" for="themeSel">風格</label>
       <select id="themeSel">
+        <option value="milan-amber" selected>米蘭編排暖琥珀 (Milan Warm Amber)</option>
         <option value="deep-obsidian">曜石黑高階戰情</option>
-        <option value="milan-amber">米蘭編排暖琥珀</option>
         <option value="egyptian-pharaoh">埃及法老美學</option>
         <option value="gustav-klimt">古斯塔夫·克林姆</option>
         <option value="mika-ninagawa">蜷川實花</option>
@@ -420,7 +464,7 @@ footer a { color: var(--accent-primary); }
     b.addEventListener("click", function () { setMode(b.dataset.mode); });
   });
 
-  document.body.setAttribute("data-theme", "deep-obsidian");
+  document.body.setAttribute("data-theme", "milan-amber");
   var sel = document.getElementById("themeSel");
   function setTheme(t) { document.body.setAttribute("data-theme", t); sel.value = t; }
   try { var saved = localStorage.getItem("rsi-arch-theme"); if (saved) setTheme(saved); } catch (e) {}
@@ -436,3 +480,5 @@ footer a { color: var(--accent-primary); }
 })();
 </script>
 
+
+  <script src="../assets/rsi-site.js" defer></script>

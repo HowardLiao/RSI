@@ -1,23 +1,64 @@
+<style>
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+</style>
+<div class="watermark-overlay"></div>
 <div style="font-family: var(--font-sans, system-ui, sans-serif); color: var(--foreground, #222); width: 100%; max-width: 980px; box-sizing: border-box; text-align: left;">
   
   <!-- Header Card -->
   <div style="background: var(--card, #FAFAF9); border: 1px solid var(--border, #E7E5E4); border-radius: 8px; padding: 18px 20px; margin-bottom: 16px;">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
       <div>
-        <div style="font-size: 0.75rem; font-weight: 800; color: #0078D4; letter-spacing: 1px; text-transform: uppercase;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #A83212; letter-spacing: 1px; text-transform: uppercase;">
           RSI GROUP · PROJECT HIVE 2027 · AZURE NATIVE UPGRADE
         </div>
         <h2 style="font-size: 1.25rem; font-weight: 800; margin: 2px 0 4px 0; color: var(--foreground, #111);">
           RSI 蜂巢計畫 · Azure 原生架構深度選型與技術升級藍圖
         </h2>
         <div style="font-size: 0.85rem; color: #A83212; font-weight: 600;">
-          D365 F&amp;O (X++) ＋ 各廠自管 MS SQL 雙軌合流 · 規避 2026-11-30 官方停用風險
+          D365 F&amp;O (C++) ＋ 各廠自管 MS SQL 雙軌合流 · 規避 2026-11-30 官方停用風險
         </div>
       </div>
       <div style="font-size: 0.78rem; text-align: right; color: var(--muted-foreground, #666);">
         <div>計劃主持：<strong>周文津 副總</strong></div>
         <div>執行負責：<strong>Howard Liao Ph.D.</strong></div>
-        <div style="margin-top: 4px; display: inline-block; background: #EBF3FC; color: #004C87; padding: 2px 8px; border-radius: 4px; font-weight: 700;">
+        <div style="margin-top: 4px; display: inline-block; background: #FFF8EE; color: #7C2D12; padding: 2px 8px; border-radius: 4px; font-weight: 700;">
           首選推薦方案 (Rank #1)
         </div>
       </div>
@@ -31,7 +72,7 @@
 
   <!-- Interactive Tabs Bar -->
   <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
-    <button onclick="showWTab('w-arch')" id="btn-w-arch" style="padding: 7px 14px; border-radius: 20px; border: 1px solid #0078D4; background: #0078D4; color: #FFF; font-size: 0.82rem; font-weight: 700; cursor: pointer;">
+    <button onclick="showWTab('w-arch')" id="btn-w-arch" style="padding: 7px 14px; border-radius: 20px; border: 1px solid #A83212; background: #A83212; color: #FFF; font-size: 0.82rem; font-weight: 700; cursor: pointer;">
       🏛️ 5 層全域架構拓撲
     </button>
     <button onclick="showWTab('w-dual')" id="btn-w-dual" style="padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border, #DDD); background: var(--card, #FFF); color: var(--foreground, #333); font-size: 0.82rem; font-weight: 700; cursor: pointer;">
@@ -48,7 +89,7 @@
   <!-- Tab 1: 5-Layer Architecture -->
   <div id="w-arch" style="display: block;">
     <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E5E4); border-radius: 8px; padding: 14px; margin-bottom: 14px;">
-      <div style="font-size: 0.86rem; font-weight: 800; color: #004C87; margin-bottom: 10px;">
+      <div style="font-size: 0.86rem; font-weight: 800; color: #7C2D12; margin-bottom: 10px;">
         【架構圖】RSI 蜂巢計畫 Azure 原生 5 層全域架構拓撲
       </div>
 
@@ -58,7 +99,7 @@
         <rect x="10" y="10" width="900" height="70" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
         <text x="25" y="30" font-size="11" font-weight="800" fill="#334155">【層級 1：多國數據源與終端】</text>
         <rect x="25" y="38" width="200" height="34" rx="4" fill="#EFF6FF" stroke="#93C5FD"/>
-        <text x="35" y="58" font-size="10" font-weight="700" fill="#1E40AF">D365 F&amp;O (X++ 雲端 SaaS)</text>
+        <text x="35" y="58" font-size="10" font-weight="700" fill="#1E40AF">D365 F&amp;O (C++ 雲端 SaaS)</text>
         <rect x="235" y="38" width="220" height="34" rx="4" fill="#FFF7ED" stroke="#FDBA74"/>
         <text x="245" y="58" font-size="10" font-weight="700" fill="#C2410C">越/柬/印/孟 工廠 MES (MS SQL)</text>
         <rect x="465" y="38" width="210" height="34" rx="4" fill="#F0FDF4" stroke="#86EFAC"/>
@@ -123,13 +164,13 @@
   <!-- Tab 2: Dual Track Specs -->
   <div id="w-dual" style="display: none;">
     <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E5E4); border-radius: 8px; padding: 14px; margin-bottom: 14px;">
-      <div style="font-size: 0.86rem; font-weight: 800; color: #004C87; margin-bottom: 8px;">
+      <div style="font-size: 0.86rem; font-weight: 800; color: #7C2D12; margin-bottom: 8px;">
         【雙軌規格】D365 F&amp;O 核心 ERP vs 海外工廠現場 MS SQL
       </div>
       <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; line-height: 1.5;">
         <tr style="background: var(--bg-surface, #F5F5F4); border-bottom: 2px solid var(--border, #DDD);">
           <th style="padding: 8px; text-align: left; width: 20%;">項目</th>
-          <th style="padding: 8px; text-align: left; width: 40%; color: #0078D4;">軌道 A：D365 F&amp;O (雲端 SaaS)</th>
+          <th style="padding: 8px; text-align: left; width: 40%; color: #A83212;">軌道 A：D365 F&amp;O (雲端 SaaS)</th>
           <th style="padding: 8px; text-align: left; width: 40%; color: #C2410C;">軌道 B：工廠 MS SQL (現場自管)</th>
         </tr>
         <tr style="border-bottom: 1px solid var(--border, #EEE);">
@@ -159,7 +200,7 @@
   <!-- Tab 3: Sequence -->
   <div id="w-seq" style="display: none;">
     <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E5E4); border-radius: 8px; padding: 14px; margin-bottom: 14px;">
-      <div style="font-size: 0.86rem; font-weight: 800; color: #004C87; margin-bottom: 8px;">
+      <div style="font-size: 0.86rem; font-weight: 800; color: #7C2D12; margin-bottom: 8px;">
         【跨日夜時序】保護白天跨國 SD-WAN 頻寬 ＋ 重大特例通道
       </div>
       <div style="font-size: 0.82rem; line-height: 1.6; color: var(--foreground, #333);">
@@ -182,7 +223,7 @@
   <!-- Tab 4: Comparison Matrix -->
   <div id="w-matrix" style="display: none;">
     <div style="background: var(--card, #FFF); border: 1px solid var(--border, #E7E5E4); border-radius: 8px; padding: 14px; margin-bottom: 14px;">
-      <div style="font-size: 0.86rem; font-weight: 800; color: #004C87; margin-bottom: 8px;">
+      <div style="font-size: 0.86rem; font-weight: 800; color: #7C2D12; margin-bottom: 8px;">
         【選型對比】Azure 原生 vs GCP vs AWS vs Open Source
       </div>
       <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; line-height: 1.4;">
@@ -243,9 +284,9 @@
     document.getElementById(id).style.display = 'block';
     const activeBtn = document.getElementById('btn-' + id);
     if (activeBtn) {
-      activeBtn.style.background = '#0078D4';
+      activeBtn.style.background = '#A83212';
       activeBtn.style.color = '#FFF';
-      activeBtn.style.borderColor = '#0078D4';
+      activeBtn.style.borderColor = '#A83212';
     }
   }
 </script>

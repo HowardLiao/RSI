@@ -160,12 +160,53 @@
     section { break-inside: avoid-page; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-</style>
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+  </style>
   <!-- rsi-site -->
   <link rel="stylesheet" href="../assets/rsi-site.css">
 </head>
 <body>
-<div class="watermark" aria-hidden="true"></div>
+  <div class="watermark-overlay"></div>
+
 
 <header class="top">
   <div class="top-inner">
@@ -262,7 +303,7 @@
     </div>
     <div class="gov">
       <div><b>ITS · Infra</b><p>網路、機房等基礎設施，含總部與各產區之間的 SD-WAN 連線。</p></div>
-      <div><b>ERP Team</b><p>業務流程系統，從研發、採購一路到帳務結算；ERP 為 D365，以 X++ 開發。</p></div>
+      <div><b>ERP Team</b><p>業務流程系統，從研發、採購一路到帳務結算；ERP 為 D365，以 C++ 開發。</p></div>
       <div><b>IS</b><p>工廠與台北總部的系統，例如 MES、IE 與品管系統的開發與推動。</p></div>
       <div><b>各廠 IT</b><p>越南、柬埔寨、印尼、孟加拉各產區的 IT 團隊：機房、系統上線與日常問題處理，不負責開發。</p></div>
     </div>

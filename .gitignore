@@ -11,3 +11,11 @@ RSI_Hive_WBS_甘特圖.pdf
 # 會議紀錄：改為加密版（private/f4.enc），明文不發布
 Hive/RSI_Group_會議紀錄_2026-10-16.pdf
 Hive/RSI_Group_會議紀錄_2026-10-16.html
+# 會談紀錄／備忘／報告（明文）：僅保留於本機
+RSI-meeting-minutes.html
+RSI-meeting-brief.html
+RSI-meeting-report.html
+# 個人簡介簡報原始檔（明文）：網站只放加密版 PDF（private/f2.enc）
+RSI_Group_個人簡介與顧問報告_米蘭風格_HowardLiao.pptx
+# macOS 系統檔
+.DS_Store

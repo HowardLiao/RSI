@@ -3039,6 +3039,18 @@
 
 
     /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+    }
+
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
     .watermark-overlay {
       position: fixed !important;
       top: 0 !important;
@@ -3083,6 +3095,7 @@
 </head>
 <body>
   <div class="watermark-overlay"></div>
+  
   <a href="#main-content" class="skip-to-content-link">跳至主要內容 (Skip to Main Content)</a>
   <a href="#main-content" class="skip-link">跳至主要內容區 (Skip to main content)</a>
 

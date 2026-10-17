@@ -1,0 +1,484 @@
+<style>
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+</style>
+<div class="watermark-overlay"></div>
+<title>RSI 資料整合架構</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 頁首決策列 → 兩條泳道的架構圖（業務 API／分析資料）→ CDC 順序、第二階段開源、技轉驗收 */
+:root, [data-theme="milan-amber"] {
+  --bg-primary:#FDFCF7; --bg-surface:#FFFFFF; --bg-card:#FFFFFF; --border-color:#E7E0D8;
+  --text-primary:#222222; --text-muted:#6B625A;
+  --accent-primary:#A83212; --accent-secondary:#DE5814; --accent-warm:#D97706; --warn:#B91C1C;
+  --font-display:"Noto Serif TC", "Songti TC", serif;
+  --font-body:"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+[data-theme="deep-obsidian"] {
+  --bg-primary:#020617; --bg-surface:#0F172A; --bg-card:#0B1428; --border-color:#1E3A5F;
+  --text-primary:#F8FAFC; --text-muted:#94A3B8;
+  --accent-primary:#38BDF8; --accent-secondary:#0284C7; --accent-warm:#F59E0B; --warn:#F87171;
+  --font-display:"Noto Serif TC", "Songti TC", serif;
+  --font-body:"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+[data-theme="egyptian-pharaoh"] {
+  --bg-primary:#FAF7F0; --bg-surface:#F3ECDD; --bg-card:#FFFDF8; --border-color:#D9C9A3;
+  --text-primary:#1C1917; --text-muted:#6B5E4B;
+  --accent-primary:#1E3A8A; --accent-secondary:#0D9488; --accent-warm:#D97706; --warn:#B91C1C;
+  color-scheme: light;
+}
+[data-theme="gustav-klimt"] {
+  --bg-primary:#1A150D; --bg-surface:#241C10; --bg-card:#2A2113; --border-color:#5C4520;
+  --text-primary:#FEF3C7; --text-muted:#C9B27E;
+  --accent-primary:#F59E0B; --accent-secondary:#E3A955; --accent-warm:#B45309; --warn:#F87171;
+  color-scheme: dark;
+}
+[data-theme="mika-ninagawa"] {
+  --bg-primary:#0A0512; --bg-surface:#150A22; --bg-card:#1A0D2A; --border-color:#4A1D4F;
+  --text-primary:#FFF1F2; --text-muted:#D6A9B8;
+  --accent-primary:#06B6D4; --accent-secondary:#F43F6E; --accent-warm:#E11D48; --warn:#FDA4AF;
+  color-scheme: dark;
+}
+[data-theme="joan-miro"] {
+  --bg-primary:#FAF9F6; --bg-surface:#FFFFFF; --bg-card:#FFFFFF; --border-color:#18181B;
+  --text-primary:#18181B; --text-muted:#52525B;
+  --accent-primary:#2563EB; --accent-secondary:#DC2626; --accent-warm:#FBBF24; --warn:#DC2626;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg-primary); color: var(--text-primary);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: grid; gap: 36px; }
+h1, h2 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.3; }
+h1 { font-size: clamp(26px, 4vw, 38px); }
+h2 { font-size: 21px; }
+p { margin: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-primary); }
+.muted { color: var(--text-muted); }
+
+header { display: grid; gap: 14px; }
+.lede { max-width: 68ch; color: var(--text-muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+.ctl { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.ctl-label { font-size: 13px; color: var(--text-muted); }
+.seg { display: inline-flex; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.seg button {
+  font: inherit; font-size: 13.5px; padding: 7px 14px; border: 0; cursor: pointer;
+  background: var(--bg-surface); color: var(--text-muted);
+}
+.seg button + button { border-left: 1px solid var(--border-color); }
+.seg button[aria-pressed="true"] { background: var(--accent-primary); color: var(--bg-primary); font-weight: 700; }
+select {
+  font: inherit; font-size: 13.5px; padding: 6px 10px; border-radius: 8px;
+  background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color);
+}
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent-warm); outline-offset: 2px; }
+
+.risk {
+  display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap;
+  border: 1px solid var(--warn); border-radius: 10px; padding: 12px 16px;
+  background: color-mix(in srgb, var(--warn) 9%, var(--bg-surface));
+}
+.risk .days { font-family: var(--font-mono); font-size: 22px; font-weight: 500; color: var(--warn); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.risk p { flex: 1 1 320px; min-width: 0; font-size: 14px; }
+
+.diagram-frame { border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-surface); overflow-x: auto; }
+.diagram-frame svg { display: block; min-width: 1000px; width: 100%; height: auto; }
+.mode-note { font-size: 14px; color: var(--text-muted); max-width: 90ch; }
+.mode-note strong { color: var(--text-primary); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--text-muted); }
+.legend span { display: inline-flex; gap: 8px; align-items: center; }
+.sw { width: 28px; height: 0; border-top: 2px solid var(--accent-primary); }
+.sw.dash { border-top-style: dashed; border-color: var(--text-muted); }
+.sw.warn { border-top: 10px solid color-mix(in srgb, var(--warn) 30%, transparent); width: 16px; }
+
+/* SVG */
+.lane { fill: none; stroke: var(--border-color); stroke-width: 1; }
+.lane-tag { font: 700 13px var(--font-body); letter-spacing: .08em; fill: var(--text-muted); }
+.lane-tag b, .lane-key { fill: var(--accent-primary); }
+.col-h { font: 500 11px var(--font-mono); letter-spacing: .14em; fill: var(--text-muted); text-transform: uppercase; }
+.box { fill: var(--bg-card); stroke: var(--border-color); stroke-width: 1.2; }
+.box.az { stroke: var(--accent-primary); stroke-width: 1.6; }
+.box.src { stroke: var(--accent-warm); }
+.box.alt { stroke: var(--text-muted); stroke-dasharray: 6 5; fill: none; }
+.box.warnbox { stroke: var(--warn); stroke-dasharray: 6 4; }
+.chip { fill: color-mix(in srgb, var(--warn) 14%, transparent); stroke: var(--warn); stroke-width: 1; }
+.zone { fill: color-mix(in srgb, var(--accent-primary) 10%, transparent); stroke: none; }
+.inner { fill: color-mix(in srgb, var(--accent-secondary) 16%, transparent); stroke: var(--accent-secondary); stroke-width: 1; }
+.t-title { font: 700 15px var(--font-body); fill: var(--text-primary); }
+.t-sub { font: 400 12.5px var(--font-body); fill: var(--text-muted); }
+.t-mono { font: 500 12px var(--font-mono); fill: var(--accent-primary); }
+.t-warn { font: 500 12px var(--font-body); fill: var(--warn); }
+.t-edge { font: 500 11px var(--font-body); fill: var(--text-muted); }
+.flow { stroke: var(--accent-primary); stroke-width: 2; fill: none; }
+.flow.anim { stroke-dasharray: 7 5; animation: run 1.4s linear infinite; }
+.flow.alt { stroke: var(--text-muted); stroke-dasharray: 5 5; animation: none; }
+.ah { fill: var(--accent-primary); }
+.ah-alt { fill: var(--text-muted); }
+@keyframes run { to { stroke-dashoffset: -24; } }
+@media (prefers-reduced-motion: reduce) { .flow.anim { animation: none; } }
+
+/* Lower sections */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 36px; }
+section { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 460px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border-color); }
+th { font-weight: 500; font-size: 12.5px; color: var(--text-muted); }
+td:first-child { width: 2.2em; font-family: var(--font-mono); color: var(--accent-primary); }
+.pill { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--border-color); color: var(--text-muted); white-space: nowrap; }
+.pill.now { border-color: var(--accent-primary); color: var(--accent-primary); }
+
+.oss { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.oss div { border: 1px dashed var(--border-color); border-radius: 10px; padding: 12px 14px; display: grid; gap: 4px; align-content: start; }
+.oss .name { font-family: var(--font-mono); font-size: 14px; color: var(--accent-primary); }
+.oss .layer { font-size: 12px; color: var(--text-muted); }
+.oss p { font-size: 13.5px; }
+
+.accept { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 0 28px; }
+.accept li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--border-color); }
+.accept .k { font-family: var(--font-mono); font-size: 12px; color: var(--accent-warm); padding-top: 3px; }
+.accept b { font-weight: 700; }
+.accept span { grid-column: 2; font-size: 13.5px; color: var(--text-muted); }
+.criterion { font-size: 14px; border-left: 3px solid var(--accent-warm); padding: 4px 0 4px 14px; max-width: 75ch; }
+
+footer { font-size: 12.5px; color: var(--text-muted); display: grid; gap: 8px; border-top: 1px solid var(--border-color); padding-top: 18px; }
+footer a { color: var(--accent-primary); }
+</style>
+
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">RSI · 第一階段 · Azure 原生</div>
+  <h1>RSI 資料整合架構：APIM＋ADF＋ADLS Gen2</h1>
+  <p class="lede">業務整合與分析資料分成兩條路徑。D365 走 Microsoft 官方支援的介面，工廠自有 MS SQL 走 ADF 擷取。選型目標是讓 RSI 內部 IT 容易接手、容易換維運商。</p>
+  <div class="controls">
+    <div class="ctl" role="group" aria-label="D365 類型">
+      <span class="ctl-label">D365 類型（待確認）</span>
+      <div class="seg" id="d365seg">
+        <button type="button" data-mode="fscm" aria-pressed="true">F&amp;SCM 雲端</button>
+        <button type="button" data-mode="bc" aria-pressed="false">Business Central</button>
+        <button type="button" data-mode="onprem" aria-pressed="false">D365 地端</button>
+      </div>
+    </div>
+    <div class="ctl">
+      <label class="ctl-label" for="themeSel">風格</label>
+      <select id="themeSel">
+        <option value="milan-amber" selected>米蘭編排暖琥珀 (Milan Warm Amber)</option>
+        <option value="deep-obsidian">曜石黑高階戰情</option>
+        <option value="egyptian-pharaoh">埃及法老美學</option>
+        <option value="gustav-klimt">古斯塔夫·克林姆</option>
+        <option value="mika-ninagawa">蜷川實花</option>
+        <option value="joan-miro">胡安·米羅</option>
+      </select>
+    </div>
+  </div>
+  <div class="risk" role="note">
+    <div class="days" id="riskDays">剩 44 天</div>
+    <p><strong>生命週期風險：</strong>F&amp;SCM 舊版 Export to Data Lake 將於 <strong>2026-11-30</strong> 永久停止匯出新資料與異動。此通知不代表 Synapse Link 或 Link to Fabric 停用。請現有 D365 廠商先盤點 RSI 是否受影響。</p>
+  </div>
+</header>
+
+<section aria-label="架構圖">
+  <div class="diagram-frame">
+  <svg viewBox="0 0 1200 650" role="img" aria-labelledby="svgT">
+    <title id="svgT">RSI 第一階段架構：業務系統經 APIM 呼叫 D365 官方 API；分析資料由 D365 官方同步與 ADF 擷取工廠 MS SQL 落入 ADLS Gen2，再供查詢層與既有 BI 使用。</title>
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker>
+      <marker id="ahAlt" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah-alt"/></marker>
+    </defs>
+
+    <!-- Lane A -->
+    <rect class="lane" x="10" y="10" width="1180" height="200" rx="12"/>
+    <text class="lane-tag" x="30" y="38"><tspan class="lane-key">A</tspan>　業務系統整合　<tspan class="t-sub">同步 API 呼叫</tspan></text>
+
+    <rect class="box src" x="30" y="60" width="210" height="125" rx="10"/>
+    <text class="t-title" x="48" y="92">呼叫端系統</text>
+    <text class="t-sub" x="48" y="116">總部・工廠・合作系統</text>
+    <text class="t-sub" x="48" y="138">以 API 存取 ERP 業務資料</text>
+
+    <rect class="box az" x="300" y="60" width="230" height="125" rx="10"/>
+    <text class="t-title" x="318" y="92">Azure API Management</text>
+    <text class="t-sub" x="318" y="116">認證・限流・版本・Policy</text>
+    <text class="t-sub" x="318" y="138">OpenAPI 文件集中管理</text>
+    <text class="t-warn" x="318" y="166">不取代業務整合邏輯</text>
+
+    <rect class="box az" x="590" y="60" width="250" height="125" rx="10"/>
+    <text class="t-title" x="608" y="92">整合服務／業務邏輯</text>
+    <text class="t-sub" x="608" y="116">資料轉換・驗證・錯誤處理</text>
+    <text class="t-sub" x="608" y="138">程式碼與設定由 RSI 持有</text>
+
+    <rect class="box src" id="a4box" x="900" y="60" width="270" height="125" rx="10"/>
+    <text class="t-title" x="918" y="92" id="a4t">D365 F&amp;SCM（雲端）</text>
+    <text class="t-sub" x="918" y="116" id="a4s1">官方 API・Data Entities</text>
+    <text class="t-sub" x="918" y="138" id="a4s2">OData／相關服務</text>
+
+    <path class="flow anim" d="M240,122 H298" marker-end="url(#ah)"/>
+    <text class="t-edge" x="269" y="112" text-anchor="middle">HTTPS</text>
+    <path class="flow anim" d="M530,122 H588" marker-end="url(#ah)"/>
+    <text class="t-edge" x="559" y="112" text-anchor="middle">路由</text>
+    <path class="flow anim" d="M840,122 H898" marker-end="url(#ah)"/>
+    <text class="t-edge" x="869" y="112" text-anchor="middle" id="a4edge">OData</text>
+
+    <!-- Lane B -->
+    <rect class="lane" x="10" y="230" width="1180" height="410" rx="12"/>
+    <text class="lane-tag" x="30" y="258"><tspan class="lane-key">B</tspan>　分析資料整合　<tspan class="t-sub">每小時更新・每日結算</tspan></text>
+    <text class="col-h" x="30" y="284">來源</text>
+    <text class="col-h" x="300" y="284">擷取與同步</text>
+    <text class="col-h" x="590" y="284">Data Lake</text>
+    <text class="col-h" x="900" y="284">查詢與應用</text>
+
+    <!-- D365 source -->
+    <rect class="box src" x="30" y="298" width="210" height="100" rx="10"/>
+    <text class="t-title" x="48" y="328" id="b1t">D365 F&amp;SCM</text>
+    <text class="t-sub" x="48" y="352" id="b1s">雲端 SaaS・ERP 資料</text>
+    <text class="t-sub" x="48" y="374">不可視為自管 SQL Server</text>
+
+    <rect class="chip" x="30" y="410" width="210" height="46" rx="8"/>
+    <text class="t-warn" x="44" y="429">限制：不直接對 ERP 底層</text>
+    <text class="t-warn" x="44" y="447">開 SQL CDC 或裝 Debezium</text>
+
+    <!-- MS SQL source -->
+    <rect class="box src" x="30" y="476" width="210" height="140" rx="10"/>
+    <text class="t-title" x="48" y="506">工廠／周邊 MS SQL</text>
+    <text class="t-sub" x="48" y="530">地端・自有資料庫</text>
+    <text class="t-sub" x="48" y="552">依版本・權限・負載・</text>
+    <text class="t-sub" x="48" y="572">日誌保留設計 CDC</text>
+
+    <!-- Official sync -->
+    <rect class="box az" id="b3box" x="300" y="298" width="230" height="100" rx="10"/>
+    <text class="t-title" x="318" y="328" id="b3t">官方同步路徑</text>
+    <text class="t-mono" x="318" y="352" id="b3s1">Azure Synapse Link</text>
+    <text class="t-sub" x="318" y="374" id="b3s2">或 Link to Fabric（擇一）</text>
+
+    <!-- ADF -->
+    <rect class="box az" x="300" y="440" width="230" height="176" rx="10"/>
+    <text class="t-title" x="318" y="468">Azure Data Factory</text>
+    <rect class="inner" x="316" y="482" width="198" height="40" rx="6"/>
+    <text class="t-mono" x="328" y="507">Self-hosted IR（地端）</text>
+    <text class="t-sub" x="318" y="546">Watermark 增量 或 SQL CDC</text>
+    <text class="t-sub" x="318" y="568">排程：ADF Pipeline</text>
+    <text class="t-warn" x="318" y="596">Native CDC 部分為 Preview</text>
+
+    <!-- ADLS -->
+    <rect class="box az" x="590" y="298" width="250" height="318" rx="10"/>
+    <text class="t-title" x="608" y="328">ADLS Gen2</text>
+    <text class="t-sub" x="608" y="350">資料儲存，可供多種工具讀取</text>
+    <rect class="zone" x="606" y="366" width="218" height="50" rx="6"/>
+    <text class="t-mono" x="620" y="387">原始層</text>
+    <text class="t-sub" x="620" y="406">來源資料原樣落地</text>
+    <path class="flow" d="M715,416 V434" marker-end="url(#ah)"/>
+    <rect class="zone" x="606" y="436" width="218" height="50" rx="6"/>
+    <text class="t-mono" x="620" y="457">清洗・對帳</text>
+    <text class="t-sub" x="620" y="476">主鍵・刪除規則・公司別</text>
+    <path class="flow" d="M715,486 V504" marker-end="url(#ah)"/>
+    <rect class="zone" x="606" y="506" width="218" height="50" rx="6"/>
+    <text class="t-mono" x="620" y="527">彙總</text>
+    <text class="t-sub" x="620" y="546">KPI 定義・每日結算</text>
+    <text class="t-sub" x="608" y="590">目錄・治理・查詢層需另規劃</text>
+
+    <!-- Consumption -->
+    <rect class="box" x="900" y="298" width="270" height="92" rx="10"/>
+    <text class="t-title" x="918" y="328">查詢層</text>
+    <text class="t-sub" x="918" y="352">SQL 查詢層，依需求評估</text>
+    <text class="t-sub" x="918" y="374">不是裝好 ADLS 就自動有</text>
+
+    <rect class="box" x="900" y="404" width="270" height="92" rx="10"/>
+    <text class="t-title" x="918" y="434">既有 BI</text>
+    <text class="t-sub" x="918" y="458">第一階段保留，不重做</text>
+    <text class="t-sub" x="918" y="480">報表改接查詢層／彙總層</text>
+
+    <rect class="box alt" x="900" y="514" width="270" height="102" rx="10"/>
+    <text class="t-title" x="918" y="542">替代路線：Microsoft Fabric</text>
+    <text class="t-mono" x="918" y="566">Link to Fabric → OneLake</text>
+    <text class="t-sub" x="918" y="590">同批資料 PoC，與 ADLS 擇一</text>
+
+    <!-- Lane B flows -->
+    <path class="flow anim" id="e-b1b3" d="M240,348 H298" marker-end="url(#ah)"/>
+    <text class="t-edge" x="269" y="338" text-anchor="middle">官方</text>
+    <path class="flow anim" d="M530,348 H588" marker-end="url(#ah)"/>
+    <text class="t-edge" x="559" y="338" text-anchor="middle">同步</text>
+    <path class="flow anim" d="M240,502 H298" marker-end="url(#ah)"/>
+    <text class="t-edge" x="269" y="492" text-anchor="middle">地端連線</text>
+    <path class="flow anim" d="M530,530 H588" marker-end="url(#ah)"/>
+    <text class="t-edge" x="559" y="520" text-anchor="middle">增量</text>
+    <path class="flow anim" d="M840,344 H898" marker-end="url(#ah)"/>
+    <path class="flow anim" d="M840,450 H898" marker-end="url(#ah)"/>
+    <path class="flow alt" d="M840,566 H898" marker-end="url(#ahAlt)"/>
+    <text class="t-edge" x="869" y="556" text-anchor="middle">擇一</text>
+  </svg>
+  </div>
+  <p class="mode-note" id="modeNote" aria-live="polite"><strong>F&amp;SCM 雲端：</strong>業務整合用 Data Entities／OData；分析資料評估 Synapse Link 或 Link to Fabric。圖中以此版本示意。</p>
+  <div class="legend">
+    <span><i class="sw"></i>第一階段導入</span>
+    <span><i class="sw dash"></i>替代路線或待驗證</span>
+    <span><i class="sw warn"></i>限制與風險</span>
+  </div>
+</section>
+
+<div class="cols">
+  <section>
+    <div class="eyebrow">CDC 評估順序</div>
+    <h2>先用批次增量，不預設即時串流</h2>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>情境</th><th>優先方式</th><th>技轉注意</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>每小時更新，主要處理新增／修改</td><td>ADF＋Watermark 增量 <span class="pill now">第一階段</span></td><td>相同時間戳、補登、重跑；時間戳無法辨識刪除</td></tr>
+        <tr><td>2</td><td>每小時更新，也要處理刪除</td><td>ADF 讀取 SQL CDC 異動</td><td>CDC 保留期、處理位置、失敗補跑、刪除套用規則</td></tr>
+        <tr><td>3</td><td>多系統同時消費近即時事件</td><td>Debezium＋Kafka <span class="pill">需求確立後</span></td><td>多一套訊息平台與事件重播維運</td></tr>
+        <tr><td>—</td><td>D365 雲端資料</td><td>產品支援的同步／匯出路徑</td><td>不假設能控制 ERP 底層資料庫</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">局部混合</div>
+    <h2>開源元件只在條件成立時加入</h2>
+    <div class="oss">
+      <div><span class="name">Apache APISIX</span><span class="layer">API Gateway</span><p>API 需求以路由、認證、限流為主，且有維運承接者。</p></div>
+      <div><span class="name">Debezium</span><span class="layer">自有 SQL Server CDC</span><p>確認來源支援、權限與下游異動套用方式。不套用到 D365 SaaS。</p></div>
+      <div><span class="name">Airflow</span><span class="layer">跨工具排程</span><p>已有 Airflow 團隊，或 ADF 以外的工作流程多到值得另建編排層。</p></div>
+      <div><span class="name">Parquet／Iceberg＋Trino</span><span class="layer">資料可攜性</span><p>明確要求多雲或開放 Lakehouse 時才評估。Delta 與 Iceberg 是不同格式，需驗證讀寫相容性。</p></div>
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="eyebrow">技轉驗收條件</div>
+  <h2>廠商交付項目，由 RSI 實際操作驗收</h2>
+  <p class="criterion">技轉成功的標準是 RSI 能自行操作與排障，不是廠商辦完教育訓練。</p>
+  <ul class="accept">
+    <li><span class="k">01</span><b>平台與帳號所有權</b><span>環境、訂閱、程式碼、設定及服務身分由 RSI 掌控</span></li>
+    <li><span class="k">02</span><b>可重建部署</b><span>提供 IaC 或可重複部署程序，RSI 在測試環境重新建置</span></li>
+    <li><span class="k">03</span><b>API 文件</b><span>OpenAPI、Policy、身分驗證、錯誤碼與測試案例</span></li>
+    <li><span class="k">04</span><b>資料規格</b><span>來源到目的欄位映射、主鍵、刪除規則、公司別、KPI 定義</span></li>
+    <li><span class="k">05</span><b>補跑與對帳</b><span>RSI 人員實際完成斷線恢復、失敗補跑及結算對帳</span></li>
+    <li><span class="k">06</span><b>資安操作</b><span>自行撤銷憑證、調整權限、查閱稽核與執行復原</span></li>
+    <li><span class="k">07</span><b>成本管理</b><span>辨識 API、擷取、運算、儲存與網路的分項費用</span></li>
+    <li><span class="k">08</span><b>廠商退場</b><span>不依賴廠商私人帳號、不可取得的元件或未揭露授權</span></li>
+  </ul>
+</section>
+
+<footer>
+  <p>產品能力依 Microsoft 官方文件；「較容易技轉」是依同一供應商生態、工具集中與減少自管元件所做的架構判斷，未經實測證明成本最低。最終選擇仍受 RSI 團隊能力、既有雲端與 D365 版本影響。</p>
+  <p>參考：
+    <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts" target="_blank" rel="noopener">APIM</a> ·
+    <a href="https://learn.microsoft.com/en-us/azure/data-factory/connector-sql-server" target="_blank" rel="noopener">ADF SQL Server Connector</a> ·
+    <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction" target="_blank" rel="noopener">ADLS Gen2</a> ·
+    <a href="https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/data-entities/data-entities" target="_blank" rel="noopener">F&amp;SCM Data Entities</a> ·
+    <a href="https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/api-reference/v2.0/endpoints-apis-for-dynamics" target="_blank" rel="noopener">Business Central API</a> ·
+    <a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/azure-synapse-link-transition-faq" target="_blank" rel="noopener">Export to Data Lake 轉移 FAQ</a>
+  </p>
+  <p>Howard Liao Ph.D. · 2026-10-17</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var MODES = {
+    fscm: {
+      a4t: "D365 F&SCM（雲端）", a4s1: "官方 API・Data Entities", a4s2: "OData／相關服務", a4edge: "OData",
+      b1t: "D365 F&SCM", b1s: "雲端 SaaS・ERP 資料",
+      b3t: "官方同步路徑", b3s1: "Azure Synapse Link", b3s2: "或 Link to Fabric（擇一）", warn: false,
+      note: "<strong>F&amp;SCM 雲端：</strong>業務整合用 Data Entities／OData；分析資料評估 Synapse Link 或 Link to Fabric。圖中以此版本示意。"
+    },
+    bc: {
+      a4t: "D365 Business Central", a4s1: "官方 REST API（v2.0）", a4s2: "優先使用標準 API 端點", a4edge: "REST",
+      b1t: "Business Central", b1s: "雲端・ERP 資料",
+      b3t: "D365 擷取路徑（待設計）", b3s1: "REST API 擷取", b3s2: "大量分析擷取需另驗證", warn: true,
+      note: "<strong>Business Central：</strong>不可沿用 F&amp;SCM 的 Synapse Link 同步架構。業務整合優先用官方 REST API，大量分析資料的擷取方式須另行驗證。"
+    },
+    onprem: {
+      a4t: "D365 地端部署", a4s1: "依產品與版本確認介面", a4s2: "API 限制與雲端版不同", a4edge: "API",
+      b1t: "D365 地端", b1s: "地端部署・ERP 資料",
+      b3t: "D365 擷取路徑（待確認）", b3s1: "依版本確認支援方式", b3s2: "雲端同步方式不一定適用", warn: true,
+      note: "<strong>D365 地端：</strong>雲端版的整合與同步方式不一定適用，Finance and Operations 地端版有不同的 API 限制。須依產品與版本確認支援的介面。"
+    }
+  };
+  function setMode(m) {
+    var d = MODES[m]; if (!d) return;
+    ["a4t","a4s1","a4s2","a4edge","b1t","b1s","b3t","b3s1","b3s2"].forEach(function (id) {
+      document.getElementById(id).textContent = d[id];
+    });
+    document.getElementById("b3box").setAttribute("class", "box " + (d.warn ? "warnbox" : "az"));
+    document.getElementById("e-b1b3").setAttribute("class", "flow " + (d.warn ? "alt" : "anim"));
+    document.getElementById("e-b1b3").setAttribute("marker-end", d.warn ? "url(#ahAlt)" : "url(#ah)");
+    document.getElementById("modeNote").innerHTML = d.note;
+    document.querySelectorAll("#d365seg button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.mode === m));
+    });
+  }
+  document.querySelectorAll("#d365seg button").forEach(function (b) {
+    b.addEventListener("click", function () { setMode(b.dataset.mode); });
+  });
+
+  document.body.setAttribute("data-theme", "milan-amber");
+  var sel = document.getElementById("themeSel");
+  function setTheme(t) { document.body.setAttribute("data-theme", t); sel.value = t; }
+  try { var saved = localStorage.getItem("rsi-arch-theme"); if (saved) setTheme(saved); } catch (e) {}
+  sel.addEventListener("change", function () {
+    setTheme(sel.value);
+    try { localStorage.setItem("rsi-arch-theme", sel.value); } catch (e) {}
+  });
+
+  var target = new Date("2026-11-30T23:59:59+08:00");
+  var days = Math.floor((target - new Date()) / 86400000);
+  var el = document.getElementById("riskDays");
+  el.textContent = days > 0 ? "剩 " + days + " 天" : "已停止";
+})();
+</script>
+
+
+  <script src="assets/rsi-site.js" defer></script>

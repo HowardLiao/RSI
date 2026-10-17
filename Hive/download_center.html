@@ -39,42 +39,14 @@
     }
 
     /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
-    .watermark-overlay {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      pointer-events: none !important;
-      z-index: 999999 !important;
-      opacity: 0.055 !important;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
-      background-repeat: repeat !important;
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
+    
 
     @media print {
       html, body {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
-      .watermark-overlay {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        z-index: 999999 !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 0.075 !important;
-        pointer-events: none !important;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
-        background-repeat: repeat !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
+      
     }
 
     .container {
@@ -273,13 +245,54 @@
       font-size: 0.82rem;
       min-width: 260px;
     }
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
   </style>
   <!-- rsi-site -->
   <link rel="stylesheet" href="../assets/rsi-site.css">
 </head>
 <body>
-
   <div class="watermark-overlay"></div>
+
+  
 
   <div class="container">
     
@@ -366,15 +379,49 @@
           <span>🏛️</span>
           <span>類別 B：企業架構、平台設計與安全規範書 (Enterprise Architecture & Cloud Specs)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">共 9 份技術規範</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 11 份技術規範</span>
       </div>
 
       <div class="doc-grid">
+        <!-- Doc B0000: Multi-cloud & MuleSoft Evaluation Report -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_API與資料平台四大多雲路線與MuleSoft評估報告_HowardLiao.pdf</div>
+            <div class="doc-desc">RSI 蜂巢計畫 · API 與資料平台多雲選型深度評鑑報告：4 大主流候選路線（Azure 原生 ｜ GCP 受管 ｜ AWS 受管 ｜ Open Source）全層級組件對標 ＋ MuleSoft Anypoint 定位與三年 TCO 分析。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.5 MB · 米蘭暖琥珀</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-pdf="RSI_API與資料平台四大多雲路線與MuleSoft評估報告_HowardLiao.pdf">👁️ 線上預覽</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B000: Milan Style Data Architecture -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_資料整合架構_第一階段_米蘭風格.pdf</div>
+            <div class="doc-desc">RSI 第一階段資料整合架構圖與技術規範手冊（米蘭暖琥珀風格）：APIM 業務整合泳道 ＋ ADF/ADLS Gen2 分析資料泳道、D365 F&O 官方路徑、2026-11-30 倒數預警與 8 項技轉驗收條件。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：1.7 MB · 米蘭暖琥珀</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-pdf="RSI_資料整合架構_第一階段_米蘭風格.pdf">👁️ 線上預覽</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Doc B00: Azure Native Upgrade Report -->
         <div class="doc-item">
           <div>
             <div class="doc-name">RSI_Azure原生架構選型升級報告_HowardLiao.pdf</div>
-            <div class="doc-desc">RSI Group · 蜂巢計畫 Azure 原生架構深度選型與技術升級報告（升級討論稿 v1.1）：D365 F&O (X++) ＋ 各廠自管 MS SQL 雙軌合流、規避 2026-11-30 官方停用風險、5 層全域架構拓撲、跨國 SD-WAN 離峰時序與 4 大雲端體系選型矩陣。</div>
+            <div class="doc-desc">RSI Group · 蜂巢計畫 Azure 原生架構深度選型與技術升級報告（升級討論稿 v1.1）：D365 F&O (C++) ＋ 各廠自管 MS SQL 雙軌合流、規避 2026-11-30 官方停用風險、5 層全域架構拓撲、跨國 SD-WAN 離峰時序與 4 大雲端體系選型矩陣。</div>
           </div>
           <div>
             <div class="doc-meta">
@@ -617,20 +664,20 @@
       </div>
 
       <div class="doc-grid">
-        <!-- Doc D0: Claude Generated Azure Data Architecture -->
+        <!-- Doc D0: Claude Generated Azure Data Architecture (Milan Style) -->
         <div class="doc-item">
           <div>
-            <div class="doc-name">RSI_資料整合架構_第一階段.drawio</div>
-            <div class="doc-desc">Claude 原生生成之第一階段 Azure 原生資料整合架構圖（曜石黑可編輯版）：A 業務 API 路徑 ＋ B 分析資料路徑、ADLS 三層分區、Fabric 備選與 Export to Data Lake 退役提醒。</div>
+            <div class="doc-name">RSI_資料整合架構_第一階段_米蘭風格.drawio</div>
+            <div class="doc-desc">第一階段 Azure 原生資料整合架構圖（米蘭暖琥珀風格 · 可編輯版）：A 業務 API 泳道 ＋ B 分析資料泳道、ADLS 三層分區、Fabric 備選與 Export to Data Lake 退役提醒。</div>
           </div>
           <div>
             <div class="doc-meta">
               <span class="badge-fmt badge-drawio">DRAW.IO</span>
-              <span>大小：21 KB</span>
+              <span>大小：20 KB · 米蘭暖琥珀</span>
             </div>
             <div class="doc-actions">
-              <a href="RSI_資料整合架構_第一階段.drawio" download class="btn-download">💾 下載 Draw.io 檔</a>
-              <a href="RSI-data-architecture.html" class="btn-preview" target="_blank">👁️ 檢視多主題 HTML</a>
+              <a href="RSI_資料整合架構_第一階段_米蘭風格.drawio" download class="btn-download">💾 下載米蘭風格 Draw.io</a>
+              <a href="RSI-data-architecture.html" class="btn-preview" target="_blank">👁️ 檢視米蘭風格 HTML</a>
             </div>
           </div>
         </div>

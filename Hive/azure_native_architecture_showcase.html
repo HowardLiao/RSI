@@ -41,20 +41,7 @@
     }
 
     /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
-    .watermark-overlay {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      pointer-events: none !important;
-      z-index: 999999 !important;
-      opacity: 0.055 !important;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
-      background-repeat: repeat !important;
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
+    
 
     @media print {
       html, body {
@@ -332,11 +319,55 @@
       flex-wrap: wrap;
       gap: 12px;
     }
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
   </style>
+  <link rel="stylesheet" href="../assets/rsi-site.css">
+  <!-- rsi-site -->
+  <link rel="stylesheet" href="../assets/rsi-site.css">
 </head>
 <body>
-
   <div class="watermark-overlay"></div>
+
+  
 
   <div class="container">
     
@@ -345,12 +376,12 @@
       <div>
         <div class="header-tag">RSI GROUP · PROJECT HIVE 2027 · STRATEGIC BLUEPRINT UPGRADE</div>
         <h1 class="header-title">RSI Group · 蜂巢計畫 Azure 原生架構深度選型與技術升級報告</h1>
-        <div class="header-subtitle">D365 F&O (X++) ＋ 各廠自管 MS SQL 雙軌合流 · 降低技術移轉門檻與換廠阻力</div>
+        <div class="header-subtitle">D365 F&O (C++) ＋ 各廠自管 MS SQL 雙軌合流 · 降低技術移轉門檻與換廠阻力</div>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
         <div>執行負責：<strong>Howard Liao Ph.D. 外部架構顧問</strong></div>
-        <div>技術協同：<strong>元翔 架構技術主管</strong></div>
+        
         <div style="margin-top: 4px;">
           <span class="badge-primary">正式升級討論稿 v1.1</span>
           <span class="badge-alert">2026-11-30 舊版過渡預警</span>
@@ -367,7 +398,7 @@
     <!-- Callout Box: Core Executive Directive -->
     <div class="callout-box">
       <strong>📌 選型策略升級定調（為什麼 Azure 原生架構應列為第一候選？）：</strong><br>
-      1. <strong>D365 F&O 核心壁壘</strong>：D365 採 X++ 核心雲端 SaaS，微軟嚴格封鎖底層資料庫日誌，<strong>無法直接掛載 Debezium、Datastream 或 DMS 等第三方 CDC</strong>。只有 Azure 原生 <strong>Synapse Link / Fabric Link</strong> 具備官方唯一支援的零衝擊持續增量入湖能力。<br>
+      1. <strong>D365 F&O 核心壁壘</strong>：D365 採 C++ 核心雲端 SaaS，微軟嚴格封鎖底層資料庫日誌，<strong>無法直接掛載 Debezium、Datastream 或 DMS 等第三方 CDC</strong>。只有 Azure 原生 <strong>Synapse Link / Fabric Link</strong> 具備官方唯一支援的零衝擊持續增量入湖能力。<br>
       2. <strong>內部團隊與 SI 廠商生態匹配</strong>：RSI 台北總部與海外各廠 IT 均深耕微軟技術棧（C# .NET Core, MS SQL AlwaysOn, Windows AD/Entra ID）。選擇 Azure 原生組合（APIM ＋ ADF ＋ ADLS Gen2），<strong>內部維運交接門檻最低、在台灣與東南亞更換 SI 維運廠商最容易</strong>，大幅降低 Bus Factor 單點人為黑數。<br>
       3. <strong>外點 SD-WAN 離峰頻寬保護</strong>：各廠現場 MES / WMS 的 MS SQL 透過 <strong>Azure Data Factory (ADF) ＋ Self-hosted Integration Runtime (SHIR)</strong>，落實<strong>「外點深夜 01:00~03:00 離峰打包傳輸一次」</strong>，完全不擠壓日間車縫生產頻寬。<br>
       4. <strong>開放格式防原廠鎖定</strong>：底層以 <strong>Parquet / Delta Lake</strong> 開放格式存放於 ADLS Gen2，未來若有跨雲需求，資料資產 100% 可攜，達成「維運管理集中、資料主權自主」。
@@ -460,7 +491,7 @@
             
             <rect x="45" y="66" width="250" height="48" rx="6" fill="#EFF6FF" stroke="#93C5FD"/>
             <text x="55" y="86" font-size="11" font-weight="700" fill="#1E40AF">D365 F&amp;O 核心 ERP (雲端 SaaS)</text>
-            <text x="55" y="102" font-size="9" fill="#3B82F6">X++ 客製流程 ｜ 訂單/採購/財務 ｜ OData</text>
+            <text x="55" y="102" font-size="9" fill="#3B82F6">C++ 客製流程 ｜ 訂單/採購/財務 ｜ OData</text>
 
             <rect x="310" y="66" width="270" height="48" rx="6" fill="#FFF7ED" stroke="#FDBA74"/>
             <text x="320" y="86" font-size="11" font-weight="700" fill="#C2410C">越/柬/印/孟 海外各廠現場 MES</text>
@@ -677,7 +708,7 @@
         <div class="pillar-card-header">
           <div class="pillar-title">
             <span>🔄</span>
-            <span>D365 F&amp;O (X++) vs 海外各廠自有 MS SQL 雙軌資料分流技術規格表</span>
+            <span>D365 F&amp;O (C++) vs 海外各廠自有 MS SQL 雙軌資料分流技術規格表</span>
           </div>
           <span class="badge-primary">Architecture Governance Directive</span>
         </div>
@@ -686,7 +717,9 @@
           嚴格釐清「D365 ERP 核心」與「周邊/工廠現場 MS SQL」之本質差異，禁止將兩者混為一談或企圖對 D365 SaaS 強行套用通用 CDC 工具：
         </p>
 
-        <table class="matrix-table">
+        <div class="mobile-swipe-tip"><span>👈</span><span>左右滑動檢視完整技術規格與評估</span><span>👉</span></div>
+<div class="table-scroll-wrap">
+<table class="matrix-table">
           <thead>
             <tr>
               <th style="width:16%;">架構維度</th>
@@ -697,7 +730,7 @@
           <tbody>
             <tr>
               <td><strong>系統定位與所有權</strong></td>
-              <td>集團營運與財務核心，託管於 Microsoft Azure SaaS 雲端，原始碼採用 <strong>X++</strong> 深度客製。</td>
+              <td>集團營運與財務核心，託管於 Microsoft Azure SaaS 雲端，原始碼採用 <strong>C++</strong> 深度客製。</td>
               <td>台北總部與越/柬/印/孟各產區車間現場系統，部署於地端實體 Dell/HP 伺服器，由 RSI IT 自主管控。</td>
             </tr>
             <tr>
@@ -737,6 +770,7 @@
             </tr>
           </tbody>
         </table>
+</div>
       </div>
     </div>
 
@@ -753,7 +787,9 @@
           <span class="badge-primary">Full Comparison Matrix</span>
         </div>
 
-        <table class="matrix-table">
+        <div class="mobile-swipe-tip"><span>👈</span><span>左右滑動檢視完整技術規格與評估</span><span>👉</span></div>
+<div class="table-scroll-wrap">
+<table class="matrix-table">
           <thead>
             <tr>
               <th style="width:13%;">評估維度</th>
@@ -822,6 +858,7 @@
             </tr>
           </tbody>
         </table>
+</div>
       </div>
     </div>
 
@@ -842,7 +879,9 @@
           選型不應停留在簡報評估，必須以<strong>「一個示範廠（建議柬埔寨或越南廠）、一個 D365 模組、一個工廠 MS SQL 來源、2~3 支 API、一份既有聯銓 BI 報表」</strong>為基準，在 6~8 週內完成小規模實體驗收：
         </div>
 
-        <table class="matrix-table">
+        <div class="mobile-swipe-tip"><span>👈</span><span>左右滑動檢視完整技術規格與評估</span><span>👉</span></div>
+<div class="table-scroll-wrap">
+<table class="matrix-table">
           <thead>
             <tr>
               <th style="width:20%;">驗收檢核項目</th>
@@ -888,6 +927,7 @@
             </tr>
           </tbody>
         </table>
+</div>
       </div>
     </div>
 
@@ -915,5 +955,7 @@
       if (targetPanel) targetPanel.classList.add('active');
     }
   </script>
+  <script src="../assets/rsi-site.js" defer></script>
+  <script src="../assets/rsi-site.js" defer></script>
 </body>
 </html>

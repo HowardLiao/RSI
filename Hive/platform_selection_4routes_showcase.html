@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSI Group · 蜂巢計畫 API 與資料平台多雲選型深度評估報告 (4 大候選路線 ＋ MuleSoft 定位分析)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFFFFF;
+      --bg-surface: #FAFAF9;
+      --bg-warm-tint: #FFF8EE;
+      --rust-primary: #A83212;
+      --orange-vibrant: #DE5814;
+      --amber-gold: #D97706;
+      --azure-blue: #0078D4;
+      --azure-dark: #004C87;
+      --azure-light: #EBF3FC;
+      --gcp-red: #EA4335;
+      --gcp-blue: #4285F4;
+      --aws-orange: #FF9900;
+      --oss-green: #10B981;
+      --mulesoft-cyan: #00A1E0;
+      --text-charcoal: #222222;
+      --text-body: #44403C;
+      --text-muted: #666666;
+      --border-subtle: #E7E0D8;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #FDFCF7;
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0; margin: 0;
+    }
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background: #FFFFFF !important;
+        padding: 0 !important;
+      }
+      .no-print { display: none !important; }
+      .container { max-width: 100% !important; margin: 0 !important; padding: 12mm !important; }
+      .pillar-card { break-inside: avoid; page-break-inside: avoid; }
+      
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-subtle);
+      padding: 36px 40px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--rust-primary);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--rust-primary);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .header-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+    }
+    .header-subtitle {
+      font-size: 1.02rem;
+      color: var(--orange-vibrant);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .header-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .callout-box {
+      background: var(--bg-warm-tint);
+      border: 1px solid #FED7AA;
+      border-radius: var(--radius-sm);
+      padding: 18px 24px;
+      font-size: 0.88rem;
+      color: #7C2D12;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 9px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-charcoal);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--rust-primary);
+      color: var(--rust-primary);
+      background: var(--bg-warm-tint);
+    }
+    .tab-btn.active {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .pillar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+    .pillar-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1.5px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+    .pillar-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--rust-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .tool-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      background: var(--bg-surface);
+    }
+    .tool-card-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    table.matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      margin-top: 14px;
+    }
+    table.matrix-table th {
+      background: var(--bg-surface);
+      color: var(--text-charcoal);
+      font-weight: 800;
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--border-subtle);
+      border-top: 1px solid var(--border-subtle);
+    }
+    table.matrix-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-body);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    table.matrix-table tr:hover td {
+      background: #FFFDF9;
+    }
+    .rank-first {
+      background: #FFF8EE !important;
+      font-weight: 700;
+      color: #9A3412 !important;
+    }
+
+    .footer-bar {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+  
+    /* Mobile-first in-page responsive overrides */
+    html, body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0 0 76px 0 !important;
+        background-color: #FDFCF7 !important;
+      }
+      .container {
+        width: 100% !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 14px 12px 24px 12px !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .header-bar {
+        flex-direction: column !important;
+        gap: 10px !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 16px !important;
+      }
+      .header-tag {
+        font-size: 0.68rem !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        letter-spacing: 0.5px !important;
+      }
+      .header-title {
+        font-size: 1.25rem !important;
+        line-height: 1.35 !important;
+        letter-spacing: -0.3px !important;
+        word-break: break-word !important;
+      }
+      .header-subtitle {
+        font-size: 0.82rem !important;
+        line-height: 1.4 !important;
+        margin-top: 4px !important;
+        word-break: break-word !important;
+      }
+      .header-meta {
+        text-align: left !important;
+        font-size: 0.76rem !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px 12px !important;
+        border-top: 1px dashed #E7E0D8 !important;
+        padding-top: 8px !important;
+      }
+      .callout-box, .alert-box {
+        padding: 12px 14px !important;
+        font-size: 0.8rem !important;
+        line-height: 1.55 !important;
+        margin-bottom: 16px !important;
+      }
+      .pillar-card {
+        padding: 14px 12px !important;
+        margin-bottom: 16px !important;
+      }
+      .pillar-title {
+        font-size: 1.05rem !important;
+        word-break: break-word !important;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+      .nav-tabs {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 6px !important;
+        padding: 4px 2px 10px 2px !important;
+        margin-bottom: 14px !important;
+        scrollbar-width: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .nav-tabs::-webkit-scrollbar { display: none !important; }
+      .tab-btn {
+        flex: 0 0 auto !important;
+        padding: 7px 12px !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap !important;
+      }
+      .table-scroll-wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        margin: 8px 0 16px !important;
+        border: 1px solid #E7E0D8 !important;
+        border-radius: 8px !important;
+        background: #FFFFFF !important;
+      }
+      table.matrix-table, table {
+        min-width: 660px !important;
+        width: max-content !important;
+        font-size: 0.76rem !important;
+      }
+      table th, table td {
+        padding: 8px 10px !important;
+      }
+    }
+
+  </style>
+  <link rel="stylesheet" href="../assets/rsi-site.css">
+  <!-- rsi-site -->
+  <link rel="stylesheet" href="../assets/rsi-site.css">
+</head>
+<body>
+  <div class="watermark-overlay"></div>
+
+  
+
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <div class="header-tag">RSI GROUP · PROJECT HIVE 2027 · MULTI-CLOUD &amp; INTEGRATION SELECTION</div>
+        <h1 class="header-title">RSI Group · API 與資料平台多雲選型深度評鑑報告</h1>
+        <div class="header-subtitle">四大候選路線深度剖析（Azure 原生 ｜ GCP 受管 ｜ AWS 受管 ｜ Open Source）＋ MuleSoft 定位分析</div>
+      </div>
+      <div class="header-meta">
+        <div>專案指導：<strong>周文津 副總經理</strong></div>
+        <div>執行負責：<strong>Howard Liao Ph.D. 外部架構顧問</strong></div>
+        
+        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--rust-primary); margin-top:4px;">
+          FORM SUITE: RSI-MULTICLOUD-EVALUATION-2027
+        </div>
+      </div>
+    </div>
+
+    <!-- Executive Directive Callout -->
+    <div class="callout-box">
+      <strong>📌 核心架構原則：分層選型與業務/分析分流（避免包裹採購或買錯平台）：</strong><br>
+      1. <strong>嚴格分流兩大主線</strong>：<strong>應用整合主線</strong>（API Gateway / iPaaS 解決系統間即時交易呼叫）與 <strong>資料分析主線</strong>（CDC / Data Lakehouse 解決多廠資料彙總與 BI 對帳）解決不同問題，進入分析平台的資料不必一律繞經 API Gateway。<br>
+      2. <strong>四大路線定位</strong>：以 <strong>Azure 原生體系</strong> 為首選基準（與 D365 F&amp;O 及 MS SQL 零阻力匹配、維運技轉門檻最低）；以 <strong>GCP 體系</strong> 為巨量數據分析對照；以 <strong>AWS 體系</strong> 為全球節點對照；以 <strong>Open Source 體系</strong> 保留海外廠區 48~72hr 斷網自律生產能力。<br>
+      3. <strong>MuleSoft Anypoint 定位釐清</strong>：MuleSoft 屬大型企業級 iPaaS，本質為「複雜交易流程編排與 API 發布」，無法取代「巨量資料分析、CDC 與湖倉平台」；其數千萬元計價模式不適合作為第一階段資料底座。
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs no-print">
+      <button class="tab-btn active" onclick="switchRouteTab('tab-summary')">
+        <span>⚖️</span> 四大體系全景對照矩陣
+      </button>
+      <button class="tab-btn" onclick="switchRouteTab('tab-azure')">
+        <span>🏆</span> 路線 1：Azure 原生體系 (推薦首選)
+      </button>
+      <button class="tab-btn" onclick="switchRouteTab('tab-gcp')">
+        <span>🔴</span> 路線 2：GCP 受管體系 (分析導向)
+      </button>
+      <button class="tab-btn" onclick="switchRouteTab('tab-aws')">
+        <span>🟠</span> 路線 3：AWS 受管體系 (生態導向)
+      </button>
+      <button class="tab-btn" onclick="switchRouteTab('tab-oss')">
+        <span>🟢</span> 路線 4：Open Source 自建 (自主導向)
+      </button>
+      <button class="tab-btn" onclick="switchRouteTab('tab-mulesoft')">
+        <span>⚠️</span> 特例剖析：MuleSoft Anypoint 評估
+      </button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 0: COMPARATIVE SUMMARY MATRIX          -->
+    <!-- ========================================== -->
+    <div id="tab-summary" class="panel active">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title">
+            <span>⚖️</span>
+            <span>四大主流路線橫向架構對照矩陣 (跨層級組件與能力對標)</span>
+          </div>
+          <span style="font-size:0.75rem; color:var(--rust-primary); font-weight:bold;">Cross-Platform Comparison</span>
+        </div>
+
+        <div class="mobile-swipe-tip"><span>👈</span><span>左右滑動檢視完整 4 大體系比較表</span><span>👉</span></div>
+<div class="table-scroll-wrap">
+<table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width:14%;">架構層級</th>
+              <th style="width:23%;" class="rank-first">🏆 路線一：Azure 原生<br>(官方首選基準)</th>
+              <th style="width:21%;">🔴 路線二：GCP 受管<br>(巨量分析導向)</th>
+              <th style="width:21%;">🟠 路線三：AWS 受管<br>(全球生態導向)</th>
+              <th style="width:21%;">🟢 路線四：Open Source<br>(地端完全自主)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>API 閘道與管理</strong></td>
+              <td class="rank-first">Azure API Management (APIM)</td>
+              <td>Apigee X ＋ Cloud API Gateway</td>
+              <td>Amazon API Gateway</td>
+              <td>Apache APISIX / Kong Gateway OSS</td>
+            </tr>
+            <tr>
+              <td><strong>跨系統應用整合</strong></td>
+              <td class="rank-first">Container Apps ＋ Service Bus</td>
+              <td>Application Integration ＋ Connectors</td>
+              <td>Step Functions ＋ EventBridge</td>
+              <td>Apache Camel / WSO2 Integrator</td>
+            </tr>
+            <tr>
+              <td><strong>微服務運算 (.NET)</strong></td>
+              <td class="rank-first">Azure Container Apps (.NET 8)</td>
+              <td>Cloud Run (Serverless 容器)</td>
+              <td>AWS ECS (Fargate)</td>
+              <td>K3s 輕量 K8s / Windows IIS</td>
+            </tr>
+            <tr>
+              <td><strong>地端 MS SQL 擷取</strong></td>
+              <td class="rank-first">ADF ＋ Self-hosted IR (SHIR)</td>
+              <td>Google Datastream (CDC)</td>
+              <td>AWS DMS (持續增量複製)</td>
+              <td>Debezium ＋ Kafka Connect</td>
+            </tr>
+            <tr>
+              <td><strong>D365 ERP 整合</strong></td>
+              <td class="rank-first">Synapse Link / Fabric Link (原生)</td>
+              <td>需經 Azure 導出再跨雲搬遷</td>
+              <td>需經 Azure 導出再跨雲搬遷</td>
+              <td>無法直連 SaaS，需微軟中繼</td>
+            </tr>
+            <tr>
+              <td><strong>湖倉儲存與表格</strong></td>
+              <td class="rank-first">ADLS Gen2 (Delta Lake / Parquet)</td>
+              <td>Cloud Storage ＋ BigQuery (Iceberg)</td>
+              <td>Amazon S3 ＋ Apache Iceberg</td>
+              <td>MinIO 私有 S3 ＋ Apache Iceberg</td>
+            </tr>
+            <tr>
+              <td><strong>排程調度與編排</strong></td>
+              <td class="rank-first">ADF Pipeline (首階段集中)</td>
+              <td>Cloud Composer (Airflow)</td>
+              <td>Amazon MWAA (Airflow)</td>
+              <td>Apache Airflow (自建自管)</td>
+            </tr>
+            <tr>
+              <td><strong>分析與 BI 消費</strong></td>
+              <td class="rank-first">聯銓 Smart eVision ＋ Power BI</td>
+              <td>聯銓 BI ＋ BigQuery SQL / Looker</td>
+              <td>聯銓 BI ＋ Redshift / QuickSight</td>
+              <td>聯銓 BI ＋ Apache Superset</td>
+            </tr>
+            <tr>
+              <td><strong>邊緣離線自治能力</strong></td>
+              <td class="rank-first">Edge Proxy ＋ 本地快取</td>
+              <td>GDC Edge Proxy ＋ 本地快取</td>
+              <td>AWS IoT Greengrass / ECS Anywhere</td>
+              <td><strong>Envoy Proxy ＋ SQLite (極輕量)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>三年 TCO 總體評鑑</strong></td>
+              <td class="rank-first"><strong>隱性成本最低</strong> (複用微軟棧與EA)</td>
+              <td><strong>中等</strong> (需計入跨雲出站與查詢費)</td>
+              <td><strong>偏高</strong> (服務拼裝過碎，堆疊計費)</td>
+              <td><strong>實質最貴</strong> (高薪維運 SRE 人力沉沒)</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: AZURE NATIVE                        -->
+    <!-- ========================================== -->
+    <div id="tab-azure" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title" style="color:var(--azure-dark);">
+            <span>🏆</span>
+            <span>路線 1：Microsoft Azure 原生體系 (官方推薦基準首選)</span>
+          </div>
+          <span style="font-size:0.75rem; color:var(--azure-blue); font-weight:bold;">Baseline Candidate</span>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--azure-blue);"><span>🛡️</span> 邊界安全：Front Door ＋ Private Link</div>
+            <div class="tool-card-desc">Layer 7 WAF 阻斷 OWASP 攻擊、海外廠 IP 白名單綁定、全 PaaS 私網隔離。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--azure-blue);"><span>🚪</span> 企業 API 閘道：Azure APIM</div>
+            <div class="tool-card-desc">OpenAPI 3.0 契約治理、JWT 驗證、依海外廠區配額限流、微軟官方託管。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--azure-blue);"><span>⚡</span> 微服務與佇列：Container Apps ＋ Service Bus</div>
+            <div class="tool-card-desc">託管 C# .NET 8 微服務（ERP 訂單、4-Gate 產前門禁），秒級自動擴展；Service Bus 保證 FIFO 交易完整性。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--azure-blue);"><span>📥</span> 雙軌資料管線：Synapse Link ＋ ADF SHIR</div>
+            <div class="tool-card-desc">D365 經官方 Synapse Link 零代碼入湖；各廠現場 MS SQL 經 ADF 離峰排程打包傳輸。</div>
+          </div>
+        </div>
+
+        <div style="background:#F0F9FF; border:1px solid #BAE6FD; border-radius:var(--radius-sm); padding:16px; font-size:0.86rem; color:#0369A1; line-height:1.7;">
+          <strong>💡 為什麼將 Azure 列為第 1 候選？</strong><br>
+          1. <strong>D365 F&amp;O 核心壁壘</strong>：D365 採 C++ 核心雲端 SaaS，微軟封閉底層 SQL 日誌，只有 Azure 原生 Synapse Link 具備官方唯一支援的零衝擊增量入湖能力。<br>
+          2. <strong>規避 2026-11-30 舊版停用風險</strong>：微軟已公告永久停用舊版 Export to Data Lake，採 Azure 可平滑直通 Synapse Link。<br>
+          3. <strong>團隊技能匹配與最低換廠商阻力</strong>：內部 IT 100% 熟悉微軟技術棧，台灣與東南亞微軟金級 SI 夥伴充沛，徹底消滅單點黑數（Bus Factor）。
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: GCP MANAGED                         -->
+    <!-- ========================================== -->
+    <div id="tab-gcp" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title" style="color:var(--gcp-red);">
+            <span>🔴</span>
+            <span>路線 2：Google Cloud Platform (GCP) 受管體系 (巨量數據分析導向)</span>
+          </div>
+          <span style="font-size:0.75rem; color:var(--gcp-blue); font-weight:bold;">Analytics Oriented</span>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--gcp-red);"><span>🚪</span> 閘道核心：Apigee X ＋ Cloud API Gateway</div>
+            <div class="tool-card-desc">企業級契約治理，JWT 簽章驗證、Developer Portal 開發者訂閱門戶。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--gcp-blue);"><span>⚡</span> 運算託管：Cloud Run (.NET 8 容器)</div>
+            <div class="tool-card-desc">無伺服器容器秒級自動擴展，運行 C# 微服務，無流量縮容至 0 節省費用。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--gcp-red);"><span>📥</span> 增量捕獲：Google Datastream (CDC)</div>
+            <div class="tool-card-desc">無伺服器 CDC，原生解析 MS SQL Server 交易日誌，不鎖表捕獲工單異動。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--gcp-blue);"><span>🗄️</span> 湖倉核心：Cloud Storage ＋ BigQuery (Iceberg)</div>
+            <div class="tool-card-desc">Medallion 3 層架構，BigQuery SQL 秒級查詢數十萬筆海外廠結算資料，支援 BigLake。</div>
+          </div>
+        </div>
+
+        <div style="background:#FEF2F2; border:1px solid #FECACA; border-radius:var(--radius-sm); padding:16px; font-size:0.86rem; color:#991B1B; line-height:1.7;">
+          <strong>⚠️ GCP 面對 RSI 的挑戰與風險：</strong><br>
+          • <strong>D365 跨雲中繼阻力</strong>：D365 位於 Azure，無法直通 BigQuery，必須先在 Azure 存檔再經跨雲傳輸至 GCS，產生雙重儲存與出站流量費。<br>
+          • <strong>維運學習曲線</strong>：內部 IT 需重新學習 GCP IAM、BigQuery SQL 方言與 Cloud Composer (Airflow) 維運。
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: AWS MANAGED                         -->
+    <!-- ========================================== -->
+    <div id="tab-aws" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title" style="color:var(--aws-orange);">
+            <span>🟠</span>
+            <span>路線 3：Amazon Web Services (AWS) 受管體系 (全球公有雲生態導向)</span>
+          </div>
+          <span style="font-size:0.75rem; color:var(--aws-orange); font-weight:bold;">Global Ecosystem</span>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--aws-orange);"><span>🚪</span> 閘道核心：Amazon API Gateway</div>
+            <div class="tool-card-desc">REST / HTTP API 支援，Usage Plans 金鑰配額限制，整合 IAM 與 CloudWatch。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--aws-orange);"><span>⚡</span> 運算託管：AWS ECS (Fargate)</div>
+            <div class="tool-card-desc">Serverless 容器運算，託管 C# .NET Core 微服務，ALB 負載平衡器分流。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--aws-orange);"><span>📥</span> 增量捕獲：AWS DMS (CDC)</div>
+            <div class="tool-card-desc">讀取 MS SQL Server 交易日誌，持續增量複製 (Ongoing Replication) 至 S3。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--aws-orange);"><span>🗄️</span> 湖倉核心：Amazon S3 ＋ Redshift Serverless</div>
+            <div class="tool-card-desc">S3 作為開放 Data Lake，配合 AWS Glue Data Catalog 與 Redshift 分析。</div>
+          </div>
+        </div>
+
+        <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:var(--radius-sm); padding:16px; font-size:0.86rem; color:#B45309; line-height:1.7;">
+          <strong>⚠️ AWS 面對 RSI 的挑戰與風險：</strong><br>
+          • <strong>服務拼裝過碎</strong>：API GW + Lambda + EventBridge + DMS + S3 + Glue + Redshift，組件極多，除錯跨度大。<br>
+          • <strong>DMS 批次套用延遲</strong>：DMS 寫入 Redshift 必須先經過 S3 落地作為暫存，延遲較高。<br>
+          • <strong>同樣面臨跨雲中繼</strong>：D365 需自 Azure 落地再跨雲搬遷至 S3。
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: OPEN SOURCE HYBRID                  -->
+    <!-- ========================================== -->
+    <div id="tab-oss" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title" style="color:var(--oss-green);">
+            <span>🟢</span>
+            <span>路線 4：Open Source 開源混合體系 (地端自主與零授權費)</span>
+          </div>
+          <span style="font-size:0.75rem; color:var(--oss-green); font-weight:bold;">Sovereignty &amp; Zero-License</span>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--oss-green);"><span>🚪</span> 閘道核心：Apache APISIX / Kong OSS</div>
+            <div class="tool-card-desc">高效能 Nginx/Lua 核心，外掛實作 Rate Limiting、JWT 認證與動態路由。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--oss-green);"><span>⚡</span> 運算託管：K3s 輕量 K8s / Windows IIS</div>
+            <div class="tool-card-desc">部署於地端實體伺服器，運行 C# .NET 8 微服務，無任何雲端運算帳單。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--oss-green);"><span>📥</span> 增量捕獲：Debezium ＋ Kafka Connect</div>
+            <div class="tool-card-desc">開源 CDC 引擎，解析 MS SQL 日誌為事件流拋入 Apache Kafka。</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-title" style="color:var(--oss-green);"><span>🗄️</span> 湖倉核心：MinIO (私有 S3) ＋ Apache Iceberg</div>
+            <div class="tool-card-desc">地端物件儲存池，Iceberg 提供 ACID 交易，Spark / DuckDB 進行清洗編排。</div>
+          </div>
+        </div>
+
+        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:var(--radius-sm); padding:16px; font-size:0.86rem; color:#15803D; line-height:1.7;">
+          <strong>🛡️ 開源在 RSI 的真正價值：海外各廠「邊緣自律 (Edge Autonomy)」！</strong><br>
+          • <strong>極致輕量推薦</strong>：海外各廠工控機運行 <strong>Envoy Proxy ＋ SQLite</strong>，海纜中斷時本地暫存，達成 <strong>48~72hr 斷網自律生產保障</strong>。<br>
+          • <strong>總部不建議全套自建</strong>：全套開源需要聘用 3~5 位高級 SRE / 大數據工程師維護 K8s 與 Kafka，內部 IT 極難接手，實質人事維運成本遠高於受管雲端。
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: MULESOFT ANYPOINT EVALUATION        -->
+    <!-- ========================================== -->
+    <div id="tab-mulesoft" class="panel">
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-title" style="color:var(--mulesoft-cyan);">
+            <span>⚠️</span>
+            <span>特例定位剖析：MuleSoft Anypoint Platform 評估與定位界線</span>
+          </div>
+          <span style="font-size:0.75rem; color:#0284C7; font-weight:bold;">iPaaS vs Data Platform</span>
+        </div>
+
+        <div style="font-size:0.88rem; line-height:1.7; margin-bottom:20px; color:var(--text-charcoal);">
+          企業在評估「系統整合」時經常提及 <strong>MuleSoft Anypoint Platform</strong>，但本報告明確建議 RSI <strong>不要在第一階段採購 MuleSoft</strong>，原因在於其產品定位、技術解決的問題與成本結構完全不同：
+        </div>
+
+        <div class="mobile-swipe-tip"><span>👈</span><span>左右滑動檢視完整 4 大體系比較表</span><span>👉</span></div>
+<div class="table-scroll-wrap">
+<table class="matrix-table" style="margin-bottom:24px;">
+          <thead>
+            <tr>
+              <th style="width:20%;">比較項目</th>
+              <th style="width:40%;">MuleSoft Anypoint Platform (iPaaS)</th>
+              <th style="width:40%;">RSI 第一階段需求 (Data Platform / Lakehouse)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>本質定位</strong></td>
+              <td><strong>企業應用整合 (EAI / iPaaS)</strong><br>專注於跨系統 API 治理、訊息轉換、企業服務匯流排 (ESB) 與業務工作流編排。</td>
+              <td><strong>資料湖倉與批次結算 (Data Lakehouse)</strong><br>專注於 MS SQL 資料日誌擷取 (CDC)、外點 SD-WAN 離峰傳輸、對帳與 BI 分析。</td>
+            </tr>
+            <tr>
+              <td><strong>解決的核心問題</strong></td>
+              <td>解決「系統 A 與系統 B 如何即時互相呼叫」（如 Salesforce 觸發 ERP 建立訂單）。</td>
+              <td>解決「各海外廠生產工單如何集中到總部進行每日切帳對帳與主管晨會 BI」。</td>
+            </tr>
+            <tr>
+              <td><strong>巨量數據與分析能力</strong></td>
+              <td><strong>無資料倉儲與分析能力</strong>。<br>資料進入 MuleSoft 後必須再轉拋至 BigQuery、Snowflake 或 ADLS，無法取代湖倉。</td>
+              <td><strong>具備原生湖倉與 SQL 分析</strong>。<br>ADLS Gen2 / BigQuery 直接儲存歷史大數據並支援 BI 直連秒級開檔。</td>
+            </tr>
+            <tr>
+              <td><strong>商用授權與 TCO</strong></td>
+              <td><strong>門檻極高</strong>。<br>採 vCore / Core 計價模式，單年授權常達數十萬美金，三年 TCO 數千萬元，極度昂貴。</td>
+              <td><strong>按用量彈性計費</strong>。<br>受管雲端（ADF/Datastream + 儲存）每月僅數千至數萬元台幣，性價比極高。</td>
+            </tr>
+            <tr>
+              <td><strong>技術移轉與維運</strong></td>
+              <td>需專門精通 MuleSoft DataWeave 語法與 Mule Runtime 的稀缺工程師，換廠商極難。</td>
+              <td>微軟技術棧與 SQL 方言，內部 IT 與一般 SI 廠商皆可輕鬆承接與排障。</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+
+        <div style="background:#FEF2F2; border:1px solid #FECACA; border-radius:var(--radius-sm); padding:16px; font-size:0.86rem; color:#991B1B; line-height:1.7;">
+          <strong>🛑 MuleSoft 決策結論：</strong><br>
+          MuleSoft 與「Airflow ＋ Datastream/ADF ＋ BigQuery/ADLS」解決的是完全不同的問題，兩者不能等價替代！<strong>在 RSI 各廠業務 API 與跨系統整合需求尚未成熟前，切忌一次性包裹採購 MuleSoft</strong>。第一階段只需採用輕量受管 Gateway（如 Azure APIM），把資源全力集中在打通資料湖倉最小閉環。
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-bar">
+      <div>
+        <strong>RSI Group 蜂巢計畫（Project Hive 2027）</strong> · 多雲與企業整合選型白皮書
+      </div>
+      <div>
+        計劃主持：<strong>周文津 副總經理</strong> ｜ 執行負責：<strong>Howard Liao Ph.D.</strong>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchRouteTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+      
+      const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (targetBtn) targetBtn.classList.add('active');
+      
+      const targetPanel = document.getElementById(tabId);
+      if (targetPanel) targetPanel.classList.add('active');
+    }
+  </script>
+  <script src="../assets/rsi-site.js" defer></script>
+  <script src="../assets/rsi-site.js" defer></script>
+</body>
+</html>
