@@ -300,9 +300,14 @@
     </div>
 
     <!-- Quick Navigation / Search -->
-    <div class="callout-box" style="justify-content: flex-end;">
+    <div class="callout-box" style="justify-content: space-between;">
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <span style="font-weight: 700; font-size: 0.8rem; color: var(--rust-primary);">🚀 快速捷徑：</span>
+        <a href="azure_native_architecture_showcase.html" class="btn-preview" style="background:#EBF3FC; color:#004C87; border-color:#B9D7F2; font-weight:700;">🔷 Azure 原生選型報告</a>
+        <a href="RSI-data-architecture.html" class="btn-preview" style="background:#F8FAFC; color:#1E293B; font-weight:700;" target="_blank">📊 APIM＋ADF 多主題互動圖</a>
+      </div>
       <div style="display: flex; gap: 10px; align-items: center;">
-        <input type="text" id="docSearchInput" class="search-input" placeholder="🔍 搜尋文檔關鍵字 (如：API / 湖倉 / 問卷)..." oninput="filterDocuments()">
+        <input type="text" id="docSearchInput" class="search-input" placeholder="🔍 搜尋文檔關鍵字 (如：Azure / APIM / 湖倉)..." oninput="filterDocuments()">
         <a href="index.html" class="btn-preview" style="background:#FFF;">🏠 返回蜂巢首頁</a>
       </div>
     </div>
@@ -361,10 +366,44 @@
           <span>🏛️</span>
           <span>類別 B：企業架構、平台設計與安全規範書 (Enterprise Architecture & Cloud Specs)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">共 7 份技術規範</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 9 份技術規範</span>
       </div>
 
       <div class="doc-grid">
+        <!-- Doc B00: Azure Native Upgrade Report -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_Azure原生架構選型升級報告_HowardLiao.pdf</div>
+            <div class="doc-desc">RSI Group · 蜂巢計畫 Azure 原生架構深度選型與技術升級報告（升級討論稿 v1.1）：D365 F&O (X++) ＋ 各廠自管 MS SQL 雙軌合流、規避 2026-11-30 官方停用風險、5 層全域架構拓撲、跨國 SD-WAN 離峰時序與 4 大雲端體系選型矩陣。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>大小：2.5 MB</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-pdf="RSI_Azure原生架構選型升級報告_HowardLiao.pdf">👁️ 線上預覽</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doc B0: Latest Selection Report -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_Platform_Selection_Report.pdf</div>
+            <div class="doc-desc">RSI Group 信源｜API 與資料平台選型報告（討論稿 v1.0）：分層選型原則、兩條主線分流、三大候選路線、PoC 閉環驗收門檻與三年 TCO 決策框架。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>7 頁 · 22 KB</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-pdf="RSI_Platform_Selection_Report.pdf">👁️ 線上預覽</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Doc B1 -->
         <div class="doc-item">
           <div>
@@ -574,10 +613,28 @@
           <span>📐</span>
           <span>類別 D：工程圖資線上檢視 (Draw.io)</span>
         </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">共 2 份 · 線上互動檢視</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">共 3 份 · 可編輯向量圖資</span>
       </div>
 
       <div class="doc-grid">
+        <!-- Doc D0: Claude Generated Azure Data Architecture -->
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_資料整合架構_第一階段.drawio</div>
+            <div class="doc-desc">Claude 原生生成之第一階段 Azure 原生資料整合架構圖（曜石黑可編輯版）：A 業務 API 路徑 ＋ B 分析資料路徑、ADLS 三層分區、Fabric 備選與 Export to Data Lake 退役提醒。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-drawio">DRAW.IO</span>
+              <span>大小：21 KB</span>
+            </div>
+            <div class="doc-actions">
+              <a href="RSI_資料整合架構_第一階段.drawio" download class="btn-download">💾 下載 Draw.io 檔</a>
+              <a href="RSI-data-architecture.html" class="btn-preview" target="_blank">👁️ 檢視多主題 HTML</a>
+            </div>
+          </div>
+        </div>
+
         <!-- Doc D1 -->
         <div class="doc-item">
           <div>
