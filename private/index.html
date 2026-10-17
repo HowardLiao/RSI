@@ -13,29 +13,36 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg-primary); color: var(--text-primary);
     font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; line-height: 1.6; }
-  main { max-width: 760px; margin: 0 auto; padding: 56px 16px 80px; }
+  main { max-width: 1080px; margin: 0 auto; padding: 48px 16px 72px; }
   .kicker { color: var(--accent-rust); font-weight: 700; font-size: 12px; letter-spacing: .28em; }
   h1 { font-size: clamp(28px, 6vw, 40px); margin: 10px 0 4px; line-height: 1.25; }
   .en { font-family: Cambria, Georgia, serif; font-style: italic; color: var(--accent-primary); font-size: 18px; margin: 0 0 28px;
     padding-bottom: 16px; border-bottom: 1px solid var(--accent-primary); }
-  .panel { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 24px; }
+  .panel { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 24px; max-width: 640px; }
   label { display: block; font-weight: 700; color: var(--accent-rust); margin-bottom: 8px; }
   .row { display: flex; gap: 10px; flex-wrap: wrap; }
   input { flex: 1 1 220px; font: inherit; padding: 12px 14px; border: 1px solid var(--border-color); background: #fff; color: var(--text-primary); }
   input:focus { outline: 2px solid var(--accent-primary); outline-offset: 1px; }
-  button { font: inherit; font-weight: 700; padding: 12px 22px; border: 0; background: var(--accent-rust); color: #fff; cursor: pointer; }
-  button:hover { background: var(--accent-primary); }
+  button { font: inherit; font-weight: 700; padding: 10px 18px; border: 0; background: var(--accent-rust); color: #fff; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent-rust); border: 1px solid var(--accent-rust); }
+  button:hover { background: var(--accent-primary); color: #fff; }
   button:disabled { opacity: .6; cursor: progress; }
   .msg { min-height: 1.6em; margin-top: 10px; color: var(--accent-rust); font-size: 14px; }
   .note { color: var(--text-muted); font-size: 13px; margin-top: 14px; }
+  .grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
   ul { list-style: none; padding: 0; margin: 0; }
-  li { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-    background: var(--bg-card); padding: 18px 20px; margin-bottom: 12px; }
+  li { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 16px 18px; margin-bottom: 12px; }
+  li.on { background: var(--bg-card); border-color: var(--accent-primary); }
   .ft { font-family: Cambria, Georgia, serif; font-style: italic; color: var(--accent-primary); font-size: 14px; }
-  .t { font-weight: 700; font-size: 17px; }
-  .size { color: var(--text-muted); font-size: 13px; }
+  .t { font-weight: 700; font-size: 16px; margin: 2px 0 4px; }
+  .size { color: var(--text-muted); font-size: 12px; overflow-wrap: anywhere; }
+  .acts { display: flex; gap: 8px; margin-top: 10px; }
+  .viewer { border: 1px solid var(--border-color); background: var(--bg-surface); min-height: 70vh; display: flex; }
+  .viewer iframe { width: 100%; height: 82vh; border: 0; background: #fff; }
+  .empty { margin: auto; color: var(--text-muted); padding: 40px; text-align: center; }
   [hidden] { display: none !important; }
   footer { margin-top: 40px; color: var(--text-muted); font-size: 12px; font-family: Cambria, Georgia, serif; font-style: italic; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } .viewer iframe { height: 75vh; } }
 </style>
 </head>
 <body>
@@ -56,9 +63,12 @@
     <p class="note">檔案以 AES-256 加密存放，只在你的瀏覽器內解密，密碼不會送到任何伺服器。</p>
   </section>
 
-  <section id="list" hidden>
-    <ul id="items"></ul>
-    <p class="note">點選下載後，檔案於瀏覽器內解密並儲存。</p>
+  <section id="list" class="grid" hidden>
+    <div>
+      <ul id="items"></ul>
+      <p class="note">所有文件皆為 PDF，並附 Howard Liao Ph.D. 浮水印。</p>
+    </div>
+    <div class="viewer" id="viewer"><div class="empty">選擇左側文件以預覽</div></div>
   </section>
 
   <footer>Howard Liao, Ph.D.</footer>
@@ -67,6 +77,10 @@
 (() => {
   const te = new TextEncoder();
   let pw = "", iter = 600000;
+  const cache = new Map();
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.round(n / 1024) + " KB";
+
   async function open(buf, it) {
     const b = new Uint8Array(buf);
     if (new TextDecoder().decode(b.slice(0, 5)) !== "RSIE1") throw new Error("format");
@@ -80,8 +94,18 @@
     if (!r.ok) throw new Error("fetch " + r.status);
     return r.arrayBuffer();
   }
-  const fmt = (n) => n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.round(n / 1024) + " KB";
-  const $ = (id) => document.getElementById(id);
+  async function blobUrl(f) {
+    if (!cache.has(f.id)) {
+      const data = await open(await fetchBuf(f.id), iter);
+      cache.set(f.id, URL.createObjectURL(new Blob([data], { type: "application/pdf" })));
+    }
+    return cache.get(f.id);
+  }
+  async function busy(btn, label, fn) {
+    const old = btn.textContent; btn.disabled = true; btn.textContent = label;
+    try { await fn(); btn.textContent = old; } catch (e) { btn.textContent = "失敗，請重試"; }
+    btn.disabled = false;
+  }
 
   $("f").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -90,26 +114,29 @@
       const man = JSON.parse(new TextDecoder().decode(await open(await fetchBuf("manifest.enc"), iter)));
       iter = man.iter || iter;
       const ul = $("items"); ul.innerHTML = "";
-      man.files.forEach((f) => {
+      man.files.forEach((f, i) => {
         const li = document.createElement("li");
-        li.innerHTML = '<div><div class="ft"></div><div class="t"></div><div class="size"></div></div><button type="button">下載</button>';
+        li.innerHTML = '<div class="ft"></div><div class="t"></div><div class="size"></div>' +
+          '<div class="acts"><button type="button" class="pv">預覽</button><button type="button" class="ghost dl">下載 PDF</button></div>';
         li.querySelector(".ft").textContent = f.kind;
         li.querySelector(".t").textContent = f.title;
         li.querySelector(".size").textContent = f.name + " · " + fmt(f.size);
-        const btn = li.querySelector("button");
-        btn.addEventListener("click", async () => {
-          btn.disabled = true; btn.textContent = "解密中…";
-          try {
-            const data = await open(await fetchBuf(f.id), iter);
-            const url = URL.createObjectURL(new Blob([data], { type: f.mime }));
-            const a = document.createElement("a"); a.href = url; a.download = f.name;
-            document.body.appendChild(a); a.click(); a.remove();
-            setTimeout(() => URL.revokeObjectURL(url), 4000);
-            btn.textContent = "下載";
-          } catch (err) { btn.textContent = "失敗，請重試"; }
-          btn.disabled = false;
-        });
+        const pv = li.querySelector(".pv"), dl = li.querySelector(".dl");
+        pv.addEventListener("click", () => busy(pv, "解密中…", async () => {
+          const url = await blobUrl(f);
+          document.querySelectorAll("#items li").forEach((x) => x.classList.remove("on"));
+          li.classList.add("on");
+          $("viewer").innerHTML = "";
+          const fr = document.createElement("iframe");
+          fr.title = f.title; fr.src = url + "#view=FitH&navpanes=0";
+          $("viewer").appendChild(fr);
+        }));
+        dl.addEventListener("click", () => busy(dl, "解密中…", async () => {
+          const a = document.createElement("a"); a.href = await blobUrl(f); a.download = f.name;
+          document.body.appendChild(a); a.click(); a.remove();
+        }));
         ul.appendChild(li);
+        if (i === 0) setTimeout(() => pv.click(), 0);
       });
       $("lock").hidden = true; $("list").hidden = false;
     } catch (err) {
