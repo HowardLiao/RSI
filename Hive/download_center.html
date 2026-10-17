@@ -289,7 +289,7 @@
         <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--rust-primary); text-transform: uppercase; margin-bottom: 4px;">
           RSI GROUP · HIVE PROJECT 2027
         </div>
-        <h1 class="header-title">RSI Group · 蜂巢計畫專案文檔與出版級報表官方文檔中心<br><span>13 份 PDF 手冊與 2 份 Draw.io 工程圖資（僅供線上預覽）· 會議紀錄提供下載</span></h1>
+        <h1 class="header-title">RSI Group · 蜂巢計畫專案文檔與出版級報表官方文檔中心</h1>
       </div>
       <div class="header-meta">
         <div>專案指導：<strong>周文津 副總經理</strong></div>
@@ -567,6 +567,77 @@
       </div>
     </div>
 
+    <!-- Category F: Encrypted consulting documents (password required) -->
+    <div class="category-card" data-category="encrypted" id="vault">
+      <div class="category-header">
+        <div class="category-title">
+          <span>🔒</span>
+          <span>類別 F：顧問合約與報告（加密文件）</span>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted);">需密碼 · AES-256 加密 · 浮水印 PDF</span>
+      </div>
+
+      <form id="vaultForm" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:0 0 14px;">
+        <label for="vaultPw" style="font-weight:700; font-size:0.85rem;">請輸入密碼</label>
+        <input id="vaultPw" type="password" class="search-input" autocomplete="current-password" required style="flex:1 1 200px; max-width:280px;">
+        <button type="submit" id="vaultGo" class="btn-download" style="flex:0 0 auto; width:auto;">🔓 解鎖</button>
+        <span id="vaultMsg" role="status" aria-live="polite" style="font-size:0.8rem; color:var(--text-muted);">文件只在瀏覽器內解密，密碼不會送到任何伺服器。</span>
+      </form>
+
+      <div class="doc-grid">
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_Group_IT策略暨數位底座架構顧問委任契約_v3.pdf</div>
+            <div class="doc-desc">IT 策略暨數位底座（Pillar I）架構顧問委任契約精簡版 v3：委任範圍、每週一服務日、顧問費與實領保障、保密與資安，附件含工作說明書、服務紀錄及 WBS 排程。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>8 頁 · 加密</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-enc="../private/f1.enc" disabled>👁️ 線上預覽</button>
+              <button type="button" class="btn-preview" data-enc-dl="../private/f1.enc" disabled>📥 下載 PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_Group_個人簡介與顧問報告_HowardLiao.pdf</div>
+            <div class="doc-desc">個人簡介、現階段計劃與委任範圍（Pillar I 八大領域）、2027 IT 資訊策略四大主架構、施行 WBS 與整體甘特圖。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>30 頁 · 加密</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-enc="../private/f2.enc" disabled>👁️ 線上預覽</button>
+              <button type="button" class="btn-preview" data-enc-dl="../private/f2.enc" disabled>📥 下載 PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-item">
+          <div>
+            <div class="doc-name">RSI_Hive_WBS_甘特圖.pdf</div>
+            <div class="doc-desc">蜂巢計畫全案 WBS 甘特圖（2026.11–2027.12，六大工作包、三十項工作細項、決策閘門）及顧問合約 17 個服務日排程。</div>
+          </div>
+          <div>
+            <div class="doc-meta">
+              <span class="badge-fmt badge-pdf">PDF</span>
+              <span>2 頁 · 加密</span>
+            </div>
+            <div class="doc-actions">
+              <button type="button" class="btn-download" data-enc="../private/f3.enc" disabled>👁️ 線上預覽</button>
+              <button type="button" class="btn-preview" data-enc-dl="../private/f3.enc" disabled>📥 下載 PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Category E: Meeting Minutes (downloadable) -->
     <div class="category-card" data-category="minutes">
       <div class="category-header">
@@ -697,7 +768,9 @@
         if (!window.pdfjsLib) { status('預覽元件載入失敗，請重新整理頁面後再試。'); return; }
         status('文件載入中…');
         var my = ++run;
-        task = pdfjsLib.getDocument({ url: url, cMapUrl: LIB + 'cmaps/', cMapPacked: true });
+        var src = (typeof url === 'string') ? { url: url } : { data: url.data };
+        src.cMapUrl = LIB + 'cmaps/'; src.cMapPacked = true;
+        task = pdfjsLib.getDocument(src);
         task.promise.then(function (pdf) {
           if (my !== run) return;
           body.innerHTML = '';
@@ -738,6 +811,7 @@
           open(btn.getAttribute('data-pdf'), name, btn);
         });
       });
+      window.rsiPreview = open;
       document.getElementById('pvClose').addEventListener('click', close);
       backdrop.addEventListener('click', close);
       modal.addEventListener('contextmenu', function (e) { e.preventDefault(); });
@@ -746,6 +820,62 @@
         if (e.key === 'Escape') close();
         var k = (e.key || '').toLowerCase();
         if ((e.metaKey || e.ctrlKey) && (k === 's' || k === 'p')) e.preventDefault();
+      });
+    })();
+  </script>
+  <script>
+    // Category F: password-gated documents (AES-256-GCM, PBKDF2-SHA256), decrypted in the browser only
+    (function () {
+      var te = new TextEncoder(), pw = '', iter = 600000, cache = {};
+      var form = document.getElementById('vaultForm'), msg = document.getElementById('vaultMsg');
+      if (!form) return;
+      function open(buf) {
+        var b = new Uint8Array(buf);
+        if (new TextDecoder().decode(b.slice(0, 5)) !== 'RSIE1') return Promise.reject(new Error('format'));
+        var salt = b.slice(5, 21), iv = b.slice(21, 33), ct = b.slice(33);
+        return crypto.subtle.importKey('raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']).then(function (base) {
+          return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+        }).then(function (key) { return crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, ct); });
+      }
+      function get(path) {
+        if (cache[path]) return Promise.resolve(cache[path]);
+        return fetch(path, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+          .then(open).then(function (d) { cache[path] = d; return d; });
+      }
+      function busy(btn, fn) {
+        var old = btn.textContent; btn.disabled = true; btn.textContent = '解密中…';
+        fn().then(function () { btn.textContent = old; }, function () { btn.textContent = '失敗，請重試'; })
+          .then(function () { btn.disabled = false; });
+      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        pw = document.getElementById('vaultPw').value;
+        msg.textContent = '驗證中…'; msg.style.color = '';
+        fetch('../private/manifest.enc', { cache: 'no-store' }).then(function (r) { return r.arrayBuffer(); }).then(open).then(function (d) {
+          var man = JSON.parse(new TextDecoder().decode(d)); iter = man.iter || iter;
+          document.querySelectorAll('#vault button[data-enc], #vault button[data-enc-dl]').forEach(function (b) { b.disabled = false; });
+          msg.textContent = '已解鎖，可預覽或下載。'; msg.style.color = 'var(--orange-vibrant)';
+          form.querySelector('input').disabled = true; document.getElementById('vaultGo').disabled = true;
+        }).catch(function () { msg.textContent = '密碼不正確，或檔案無法讀取。'; msg.style.color = '#A83212'; });
+      });
+      document.querySelectorAll('#vault button[data-enc]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var name = btn.closest('.doc-item').querySelector('.doc-name').textContent.trim();
+          busy(btn, function () { return get(btn.getAttribute('data-enc')).then(function (d) { window.rsiPreview({ data: new Uint8Array(d.slice(0)) }, name, btn); }); });
+        });
+      });
+      document.querySelectorAll('#vault button[data-enc-dl]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var name = btn.closest('.doc-item').querySelector('.doc-name').textContent.trim();
+          busy(btn, function () {
+            return get(btn.getAttribute('data-enc-dl')).then(function (d) {
+              var url = URL.createObjectURL(new Blob([d], { type: 'application/pdf' }));
+              var a = document.createElement('a'); a.href = url; a.download = name;
+              document.body.appendChild(a); a.click(); a.remove();
+              setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+            });
+          });
+        });
       });
     })();
   </script>
