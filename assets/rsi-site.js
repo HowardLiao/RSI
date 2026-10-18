@@ -51,6 +51,7 @@
     ] },
     { label: '文件', items: [
       ['Hive/index.html', '蜂巢計畫實施藍圖'],
+      ['Hive/index.html#gantt', '全案 WBS 甘特圖'],
       ['Hive/download_center.html', '文檔中心']
     ] }
   ];
@@ -523,7 +524,7 @@
     for (var y = H - 8; y > H - 260; y -= 14) {
       for (var x = W - 24; x > W - 80; x -= 24) {
         document.elementsFromPoint(x, y).forEach(function (n) {
-          if (isUI(n)) return;
+          if (n.closest && n.closest('.rsi-search, .rsi-search-fab')) return; // the dock counts: the button must clear it
           var f = fixedAncestor(n);
           if (!f || seen.indexOf(f) >= 0) return;
           seen.push(f);
@@ -582,6 +583,10 @@
               '<a href="' + url('Hive/download_center.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
                 '<span class="rsi-drawer-item-icon">📑</span>' +
                 '<div class="rsi-drawer-item-text">官方文檔與出版級報表中心<div class="rsi-drawer-item-sub">PDF 線上預覽與 Draw.io 圖資</div></div>' +
+              '</a>' +
+              '<a href="' + url('Hive/index.html#gantt') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
+                '<span class="rsi-drawer-item-icon">🗓️</span>' +
+                '<div class="rsi-drawer-item-text">蜂巢計畫全案 WBS 甘特圖<div class="rsi-drawer-item-sub">2026.11–2027.12 · 三十項工作細項與決策閘門</div></div>' +
               '</a>' +
               '<a href="' + url('gantt_chart_2027.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
                 '<span class="rsi-drawer-item-icon">📅</span>' +
