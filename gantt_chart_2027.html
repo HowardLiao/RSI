@@ -244,7 +244,9 @@
       width: 100%;
       min-width: 1420px;
       border-collapse: collapse;
+      table-layout: fixed; /* equal month columns via <colgroup> */
     }
+    .gantt-table col.col-info { width: 460px; }
     .gantt-table th, .gantt-table td {
       border: 1px solid var(--border-subtle);
       padding: 8px 8px;
@@ -262,7 +264,7 @@
       min-width: 460px;
     }
     .month-header {
-      width: calc((100% - 460px) / 12);
+      width: auto;
       font-family: var(--font-mono);
       font-size: 0.72rem;
     }
@@ -397,6 +399,8 @@
       align-items: center;
     }
     .gantt-bar {
+      flex: 1 1 auto;
+      min-width: 0;
       height: 100%;
       border-radius: 4px;
       display: flex;
@@ -533,7 +537,30 @@
       }
     }
 
-  </style>
+      /* Print / PDF: 14 month columns need a landscape page; table fits the page width */
+    @media print {
+      @page { size: letter landscape; margin: 10mm; }
+      .gantt-table { min-width: 0 !important; width: 100% !important; font-size: 9px; }
+      .gantt-table col.col-info { width: 300px !important; }
+      .bar-container { top: 50% !important; bottom: auto !important; height: 18px !important; transform: translateY(-50%); }
+      .gantt-cell { height: auto !important; }
+      .project-meta { gap: 2px !important; font-size: 8px !important; }
+      .project-name { font-size: 9.5px !important; }
+      .project-date-pill { font-size: 8px !important; padding: 2px 6px !important; white-space: nowrap; }
+      .workdays-badge { font-size: 7.5px !important; white-space: nowrap; }
+      .project-id-title { gap: 4px !important; }
+      .project-row td:first-child { padding: 4px 6px !important; }
+      .gantt-table thead th { position: static !important; }
+      .th-info { min-width: 0 !important; width: auto !important; }
+      .month-header { font-size: 9px !important; padding: 4px 2px !important; }
+      .month-header .month-sub, .month-header .freeze-badge, .month-header .target-badge { font-size: 7.5px !important; }
+      .gantt-bar { font-size: 7.5px !important; }
+      .bar-date-label { display: none !important; }
+      .project-subline { font-size: 8px !important; }
+      thead { display: table-header-group; }
+      tr { break-inside: avoid; }
+    }
+</style>
   <!-- rsi-site -->
   <link rel="stylesheet" href="assets/rsi-site.css?v=d8c3ab7bca">
 </head>
@@ -547,7 +574,7 @@
     <!-- Header -->
     <header class="gantt-header">
       <div class="header-dateline">
-        <div>RSI GROUP · 2027 IT STRATEGIC TIMELINE</div>
+        <div>RSI GROUP · 2027 IT STRATEGIC TIMELINE · 2026.11 – 2027.12</div>
         <div style="display: flex; gap: 8px; align-items: center;">
           <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">🌐 白皮書首頁</a> 
           <span>·</span>
@@ -556,7 +583,7 @@
       </div>
       <div class="title-row">
         <div>
-          <h1 class="main-title">2027 年度 IT 營運計畫全專案進度甘特圖<br><span>整合運用・智能營運 (25 項核心專案精確起訖年月日與實質工期)</span></h1>
+          <h1 class="main-title">2027 年度 IT 營運計畫全專案進度甘特圖<br><span>25 項專案起訖日期與工期（依蜂巢計畫第一階段 WBS 同步）</span></h1>
         </div>
         <div class="leadership-chips">
           <div class="chip" style="border-left: 3px solid var(--orange-vibrant); background: var(--bg-amber-soft);">
@@ -573,12 +600,11 @@
     <div class="calendar-notice-banner">
       <div class="notice-icon">📅</div>
       <div>
-        <div class="notice-title">2027 跨國年節假日、連續假日與系統封網（Code Freeze）排程管制原則</div>
+        <div class="notice-title">排程基準：蜂巢計畫（Project Hive）第一階段 WBS</div>
         <div>
-          本排程嚴格排除週休二日與跨國重大連續假日，並明確標記每個專案的<strong>【精確開工日 ➔ 驗收完成日】</strong>與<strong>【實質工作天數（Workdays）】</strong>：<br>
-          • <strong>2月春節與越南 Tet 年假（2/5～2/14，工廠全停工 10 天）嚴格實施系統封網（Code Freeze）</strong>，禁止核心生產變更。<br>
-          • <strong>3月印尼開齋節（3/9～3/12）</strong> 與 <strong>4月中旬柬埔寨新年（4/13～4/16）</strong> 均排開產線停工週。<br>
-          • 避開 <strong>9月越南國慶、10月國慶連假與柬埔寨亡人節</strong>，確保與現場排產大貨交付零衝突。
+          • <strong>W1 = 2026/11/02</strong>：現況盤點（W1–W4）→ 範圍確認（W5–W6）→ 平台選型（W7–W10）→ PoC 驗證（2027/01/11–03/19）→ 首廠建置上線（2027/04/01–06/30）。<br>
+          • <strong>Pillar I 數位底座</strong>依 Hive WBS；<strong>Pillar II–IV</strong>屬第二階段，PoC 驗收通過且首批工廠連續 30 天每日結算無差異後啟動（預計 2027/08/09）；BPM、RPA、BI、Tech Pack AI 依 Hive 年度系統排程。<br>
+          • <strong>春節封網 2027/02/05–02/15</strong>，禁止核心生產變更；工作天已扣除週末與春節封網。平台與產品依 D04 選型定案，預算為預估參考值。
         </div>
       </div>
     </div>
@@ -586,31 +612,31 @@
     <!-- 4-Quarter Pipeline -->
     <div class="quarter-pipeline">
       <div class="quarter-card q1">
-        <div class="quarter-title">Q1 · 總部基底成型</div>
-        <div class="quarter-stats">2027/01/04 ～ 2027/03/31 · 15項專案啟動</div>
+        <div class="quarter-title">2026 Q4 · 盤點與選型</div>
+        <div class="quarter-stats">2026/11/02 ～ 2027/01/08 · W1–W10</div>
         <div class="quarter-desc">
-          台北總部雙活 Kong 網關、Entra ID 400 核心幹部 SSO、CrowdStrike 24/7 MDR、Zerto 秒級災備與 SD-WAN HA 雙機骨幹就緒（排除2月春節封網）。
+          現況盤點、窗口指派（D02）、範圍與首批標的（D01、D03）；三方案選型與 TCO（D04）、資料落地法規檢核（D06）。
         </div>
       </div>
       <div class="quarter-card q2">
-        <div class="quarter-title">Q2 · 越南示範</div>
-        <div class="quarter-stats">2027/04/01 ～ 2027/06/30 · 24項專案攻堅</div>
+        <div class="quarter-title">2027 Q1 · PoC 驗證</div>
+        <div class="quarter-stats">2027/01/11 ～ 2027/03/19</div>
         <div class="quarter-desc">
-          避開柬埔寨新年，集中資源在越南廠打通 4-Gate 產前門禁、72h 斷網離線自律、Camunda 8 履約流與 Flink PCD 缺料預警。
+          依驗收標準驗證首批 API、每日離峰結算、斷線補傳與既有聯銓 BI 取數；春節 2/5–2/15 封網。
         </div>
       </div>
       <div class="quarter-card q3">
-        <div class="quarter-title">Q3 · 柬印新廠複製</div>
-        <div class="quarter-stats">2027/07/01 ～ 2027/09/30 · 23項專案推廣</div>
+        <div class="quarter-title">2027 Q2 · 首廠建置上線</div>
+        <div class="quarter-stats">2027/04/01 ～ 2027/06/30</div>
         <div class="quarter-desc">
-          善用暑期無長假黃金期，將標準樣板交鑰匙複製至柬埔寨與印尼基地；貫通 Databricks 30TB 湖倉中台與多國語 Tech Pack RAG。
+          API 平台與 Data Lake 正式建置，首廠每日結算入湖；試點廠依 D03 裁示（建議柬埔寨廠）。BPM 與 RPA 年度系統啟動。
         </div>
       </div>
       <div class="quarter-card q4">
-        <div class="quarter-title">Q4 · 全集團驗收</div>
-        <div class="quarter-stats">2027/10/01 ～ 2027/12/31 · 12項專案收官</div>
+        <div class="quarter-title">2027 H2 · 第二階段</div>
+        <div class="quarter-stats">2027/07/01 ～ 2027/12/31</div>
         <div class="quarter-desc">
-          Agentic AI 生管跟單、OR-Tools 動態線平衡人機排程、完工交期預測全面投產，實戰檢驗 Run Cost -10% 與工時釋放 15~25% 全年收官。
+          維運交接（D05）、第二產區複製、BI 改由 Data Lake 取數；8 月進入第二階段後啟動流程、智能與製造應用，年底檢討並規劃 2028。
         </div>
       </div>
     </div>
@@ -627,83 +653,95 @@
       </div>
 
       <div class="legend-pills">
-        <div class="legend-item"><div class="legend-dot" style="background: var(--green-run);"></div><span>55% Run (維運穩固 8項)</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--green-run);"></div><span>55% Run (維運穩固 9項)</span></div>
         <div class="legend-item"><div class="legend-dot" style="background: var(--blue-grow);"></div><span>25% Grow (擴展賦能 8項)</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background: var(--purple-trans);"></div><span>20% Transform (智能躍升 9項)</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background: var(--purple-trans);"></div><span>20% Transform (智能躍升 8項)</span></div>
       </div>
     </div>
 
     <!-- Gantt Chart Main Table -->
     <div class="gantt-wrapper">
       <table class="gantt-table" id="ganttTable">
+        <colgroup><col class="col-info"><col><col><col><col><col><col><col><col><col><col><col><col><col><col></colgroup>
         <thead>
           <tr>
             <th rowspan="2" class="th-info">專案編號 / 專案名稱 / 精確起訖日期 / 負責團隊 / 關鍵成果</th>
-            <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">Q1 (第一季) · 總部築底</th>
-            <th colspan="3" style="background: #FFF7ED; border-bottom: 2px solid #FDBA74;">Q2 (第二季) · 越南示範</th>
-            <th colspan="3" style="background: #EFF6FF; border-bottom: 2px solid #93C5FD;">Q3 (第三季) · 柬印複製</th>
-            <th colspan="3" style="background: #FAF5FF; border-bottom: 2px solid #D8B4FE;">Q4 (第四季) · 集團驗收</th>
+            <th colspan="2" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">2026 Q4 · 盤點與選型</th>
+            <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">2027 Q1 · PoC 驗證</th>
+            <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">Q2 · 首廠建置</th>
+            <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">Q3 · 第二階段進入</th>
+            <th colspan="3" style="background: #F0FDF4; border-bottom: 2px solid #86EFAC;">Q4 · 擴展與檢討</th>
           </tr>
           <tr>
             <th class="month-header">
+              2026/11月
+              <span class="month-sub">21工作天</span>
+              <span class="month-sub">W1 啟動 · D02 窗口</span>
+            </th>
+            <th class="month-header">
+              2026/12月
+              <span class="month-sub">23工作天</span>
+              <span class="month-sub">D01·D03 範圍與首批標的</span>
+            </th>
+            <th class="month-header">
               1月
-              <span class="month-sub">20工作天</span>
-              <span class="month-sub">專案啟動 / 總部架構</span>
+              <span class="month-sub">21工作天</span>
+              <span class="month-sub">D04–D06 裁示 · PoC 啟動</span>
             </th>
             <th class="month-header">
               2月
-              <span class="month-sub">14工作天</span>
-              <span class="freeze-badge">🛑 春節封網期 (Code Freeze)</span>
+              <span class="month-sub">13工作天</span>
+              <span class="freeze-badge">🛑 春節封網 2/5–2/15</span>
             </th>
             <th class="month-header">
               3月
-              <span class="month-sub">22工作天</span>
-              <span class="month-sub">年後復工 / 總部雙活驗收</span>
+              <span class="month-sub">23工作天</span>
+              <span class="target-badge">🎯 PoC 驗收 3/19</span>
             </th>
             <th class="month-header">
               4月
-              <span class="month-sub">18工作天</span>
-              <span class="month-sub">避開柬新年 / 越南集中上線</span>
+              <span class="month-sub">22工作天</span>
+              <span class="month-sub">正式建置啟動</span>
             </th>
             <th class="month-header">
               5月
-              <span class="month-sub">20工作天</span>
-              <span class="month-sub">越南 4-Gate 產前門禁實戰</span>
+              <span class="month-sub">21工作天</span>
+              <span class="month-sub">建置與測試</span>
             </th>
             <th class="month-header">
               6月
-              <span class="month-sub">21工作天</span>
-              <span class="target-badge">🎯 越南試點廠完整收官</span>
+              <span class="month-sub">22工作天</span>
+              <span class="target-badge">🎯 首廠上線 6/30</span>
             </th>
             <th class="month-header">
               7月
               <span class="month-sub">22工作天</span>
-              <span class="month-sub">柬埔寨/印尼交鑰匙複製啟動</span>
+              <span class="month-sub">維運交接 · 第二產區複製</span>
             </th>
             <th class="month-header">
               8月
               <span class="month-sub">22工作天</span>
-              <span class="month-sub">30TB 湖倉與 MDM 主數據貫通</span>
+              <span class="target-badge">🎯 第二階段進入</span>
             </th>
             <th class="month-header">
               9月
-              <span class="month-sub">20工作天</span>
-              <span class="target-badge">🎯 柬印新廠複製驗收 / RAG就緒</span>
+              <span class="month-sub">22工作天</span>
+              <span class="month-sub">BI 改由 Data Lake 取數</span>
             </th>
             <th class="month-header">
               10月
-              <span class="month-sub">19工作天</span>
-              <span class="month-sub">AI Agent 生管跟單試點</span>
+              <span class="month-sub">21工作天</span>
+              <span class="month-sub">Agentic AI／RAG 驗證</span>
             </th>
             <th class="month-header">
               11月
-              <span class="month-sub">21工作天</span>
-              <span class="month-sub">OR-Tools 動態排線全線尋優</span>
+              <span class="month-sub">22工作天</span>
+              <span class="month-sub">年度檢討</span>
             </th>
             <th class="month-header">
               12月
-              <span class="month-sub">22工作天</span>
-              <span class="target-badge">🎯 全集團 2,500 席全面驗收審計</span>
+              <span class="month-sub">23工作天</span>
+              <span class="target-badge">🎯 2028 規劃</span>
             </th>
           </tr>
         </thead>
@@ -717,9 +755,9 @@
     <div class="schedule-table-wrap">
       <div style="padding: 14px 18px; border-bottom: 1px solid var(--border-subtle); background: #FAF8F5; display: flex; justify-content: space-between; align-items: center;">
         <h3 style="font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: var(--text-charcoal);">
-          📋 2027 年度 25 項專案起訖日期、實質工期與交付明細清單
+          📋 25 項專案起訖日期、工期與交付明細（2026.11 – 2027.12）
         </h3>
-        <span style="font-size: 0.75rem; color: var(--text-muted);">已完整扣除週休二日、國定連假與春節封網期</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">工作天已扣除週末與春節封網；預算為預估參考值，依 D04 選型核定</span>
       </div>
       <table class="schedule-table">
         <thead>
@@ -753,352 +791,352 @@
     {
         "id": "P1-1",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "API Management (Kong 雙活架構與跨國邊緣節點)",
+        "name": "API 管理平台（依 D04 選型定案）",
         "cat": "Run",
         "start_m": 1,
-        "end_m": 5,
-        "startDate": "2027/01/04",
-        "endDate": "2027/05/28",
-        "workdays": 92,
-        "lead": "雲端架構組",
-        "deliverable": "總部雙活網關 + 3 海外廠邊緣 Kong 叢集",
-        "budget": "$52,000 USD"
+        "end_m": 8,
+        "startDate": "2026/11/30",
+        "endDate": "2027/06/30",
+        "workdays": 146,
+        "lead": "IS／SI",
+        "deliverable": "首批串接情境與目標架構（12 月）→ PoC 驗證（1/11–3/19）→ 正式建置與上線（4–6 月）",
+        "budget": "$52,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-2",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "Access Governance (Entra ID 分層 SSO + Vault 金鑰輪替)",
+        "name": "存取治理與身分（Entra ID 分層 SSO＋金鑰管理）",
         "cat": "Run",
         "start_m": 1,
-        "end_m": 6,
-        "startDate": "2027/01/04",
+        "end_m": 8,
+        "startDate": "2026/11/09",
         "endDate": "2027/06/30",
-        "workdays": 115,
-        "lead": "資安身分組",
-        "deliverable": "全集團 2,500 席分層身分 + 核心 DB 動態金鑰 + AI Agent 沙盒",
-        "budget": "$105,000 USD"
+        "workdays": 161,
+        "lead": "ITS",
+        "deliverable": "身分盤點（11/09–11/27）→ 身分治理原則 → 依方案審查建置分層 SSO 與核心 DB 金鑰輪替",
+        "budget": "$105,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-3",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "Enterprise Data Layer (Databricks 30TB+ 企業湖倉)",
+        "name": "企業資料層 Data Lake（依 D04 選型定案）",
         "cat": "Grow",
-        "start_m": 2,
-        "end_m": 9,
-        "startDate": "2027/02/15",
-        "endDate": "2027/09/30",
-        "workdays": 155,
-        "lead": "數據工程組",
-        "deliverable": "4 廠 CDC 實時串流 + 30TB 湖倉中台 + 按需運算節點",
-        "budget": "$115,000 USD"
+        "start_m": 1,
+        "end_m": 8,
+        "startDate": "2026/11/30",
+        "endDate": "2027/06/30",
+        "workdays": 146,
+        "lead": "IS／ERP Team",
+        "deliverable": "資料來源與納入範圍、每日離峰結算傳輸與對帳規則 → PoC → 首廠每日結算入湖（4–6 月）",
+        "budget": "$115,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-4",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "Data Governance (Profisee MDM 主數據與品質門禁)",
+        "name": "資料治理與主數據（MDM 與品質門禁，依選型）",
         "cat": "Grow",
-        "start_m": 3,
-        "end_m": 10,
-        "startDate": "2027/03/01",
-        "endDate": "2027/10/29",
-        "workdays": 164,
-        "lead": "數據治理組",
-        "deliverable": "原副料/款號主數據清洗 + 自動品質門禁 (SAM>0, PCD檢核)",
-        "budget": "$80,000 USD"
+        "start_m": 1,
+        "end_m": 8,
+        "startDate": "2026/11/30",
+        "endDate": "2027/06/30",
+        "workdays": 146,
+        "lead": "顧問／IS",
+        "deliverable": "分層設計與資料治理原則（至 1/08）；原副料／款號主數據與品質門禁隨 Data Lake 落地",
+        "budget": "$80,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-5",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "AI Governance (Portkey / LiteLLM 多模型調度與專利遮罩)",
+        "name": "AI 治理（AI 閘道與機敏內容遮罩，依選型）",
         "cat": "Transform",
-        "start_m": 4,
-        "end_m": 11,
-        "startDate": "2027/04/06",
-        "endDate": "2027/11/30",
-        "workdays": 161,
-        "lead": "AI 架構組",
-        "deliverable": "多模型路由 + 1,000 萬 Token 配額管控 + Tech Pack 專利保護",
-        "budget": "$48,000 USD"
+        "start_m": 2,
+        "end_m": 14,
+        "startDate": "2026/12/14",
+        "endDate": "2027/12/31",
+        "workdays": 268,
+        "lead": "顧問／IS",
+        "deliverable": "AI 治理原則於 PoC 前訂定；配合 Agentic AI／RAG 場景驗證（10–12 月）落地",
+        "budget": "$48,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-6",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "Cybersecurity (CrowdStrike 24/7 MDR + Cloudflare ZTNA)",
+        "name": "資訊安全（24/7 MDR＋零信任存取，依方案審查）",
         "cat": "Run",
         "start_m": 1,
-        "end_m": 12,
-        "startDate": "2027/01/04",
+        "end_m": 14,
+        "startDate": "2026/11/09",
         "endDate": "2027/12/31",
-        "workdays": 240,
-        "lead": "資安維運組",
-        "deliverable": "2,500 席 ZTNA 零信任 + 800 台端點 24/7 全託管防勒索",
-        "budget": "$100,000 USD"
+        "workdays": 293,
+        "lead": "ITS",
+        "deliverable": "資安盤點 → 資安方案審查（P1-6～8）→ 依選型建置並全年維運",
+        "budget": "$100,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-7",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "Backup / DR / BCP (Zerto CDP 秒級災備 + S3 WORM)",
+        "name": "備份與災備（CDP 連續複製＋WORM 不可篡改，依方案審查）",
         "cat": "Run",
         "start_m": 1,
         "end_m": 8,
-        "startDate": "2027/01/04",
-        "endDate": "2027/08/31",
-        "workdays": 159,
-        "lead": "系統維運組",
-        "deliverable": "12~16 台核心生產 VM 秒級複製 + 30TB 不可篡改備份 (RPO<15m, RTO<2h)",
-        "budget": "$68,000 USD"
+        "startDate": "2026/11/09",
+        "endDate": "2027/06/30",
+        "workdays": 161,
+        "lead": "ITS",
+        "deliverable": "災備盤點 → 方案審查 → 核心生產 VM 連續複製與不可篡改備份（RPO<15m, RTO<2h）",
+        "budget": "$68,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P1-8",
         "pillar": "Pillar I 數位底座與治理",
-        "name": "Network & Edge (Fortinet SD-WAN HA + 8台車間邊緣主機)",
+        "name": "網路與邊緣（SD-WAN 頻寬管制與雙軌備援）",
         "cat": "Run",
         "start_m": 1,
-        "end_m": 7,
-        "startDate": "2027/01/04",
-        "endDate": "2027/07/30",
-        "workdays": 137,
-        "lead": "網路通訊組",
-        "deliverable": "4 基地雙軌 SD-WAN HA + 8 台車間工業邊緣主機 (48~72h 自治)",
-        "budget": "$72,000 USD"
+        "end_m": 8,
+        "startDate": "2026/11/09",
+        "endDate": "2027/06/30",
+        "workdays": 161,
+        "lead": "ITS／各廠 IT",
+        "deliverable": "量測各廠 SD-WAN 頻寬、離峰結算流量管制；依方案審查建置雙軌備援",
+        "budget": "$72,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P2-1",
         "pillar": "Pillar II 營運流程整合",
-        "name": "Production Fulfillment (Camunda 8 端到端履約編排)",
+        "name": "訂單履約流程編排（依選型）",
         "cat": "Grow",
-        "start_m": 3,
-        "end_m": 9,
-        "startDate": "2027/03/01",
-        "endDate": "2027/09/30",
-        "workdays": 145,
-        "lead": "生管系統組",
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "ERP Team／IS",
         "deliverable": "訂單至出貨 9 大工序端到端履約可視化與節點阻礙預警",
-        "budget": "$45,000 USD"
+        "budget": "$45,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P2-2",
         "pillar": "Pillar II 營運流程整合",
-        "name": "Material Flow & Risk (供應鏈 Control Tower 物料流)",
+        "name": "用料與 WMS 風險看板",
         "cat": "Grow",
-        "start_m": 2,
-        "end_m": 8,
-        "startDate": "2027/02/15",
-        "endDate": "2027/08/31",
-        "workdays": 135,
-        "lead": "供應鏈組",
-        "deliverable": "BOM/採購/海運 ETA 與 WMS 庫存即時風險看板，避開2月Tet年假停工",
-        "budget": "$40,000 USD"
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "ERP Team",
+        "deliverable": "BOM／採購／海運 ETA 與 WMS 庫存風險看板",
+        "budget": "$40,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P2-3",
         "pillar": "Pillar II 營運流程整合",
-        "name": "Pre-production 4-Gate (Ready-to-Sew 產前門禁引擎)",
+        "name": "4-Gate 產前門禁",
         "cat": "Transform",
-        "start_m": 3,
-        "end_m": 9,
-        "startDate": "2027/03/01",
-        "endDate": "2027/09/30",
-        "workdays": 145,
-        "lead": "產前技術組",
-        "deliverable": "Gate 1~4 齊套硬性攔截引擎，未達標鎖死發料，提升換線效率35%",
-        "budget": "$50,000 USD"
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "IS",
+        "deliverable": "Gate 1~4 齊套硬性攔截，未達標鎖定發料",
+        "budget": "$50,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P2-4",
         "pillar": "Pillar II 營運流程整合",
-        "name": "IE Digital Process (GSDCost 標準工時與技能矩陣串接)",
+        "name": "IE 標準工時與技能矩陣（自建 IE 系統）",
         "cat": "Grow",
-        "start_m": 5,
-        "end_m": 10,
-        "startDate": "2027/05/03",
-        "endDate": "2027/10/29",
-        "workdays": 124,
-        "lead": "IE 工程組",
-        "deliverable": "標準工時庫與員工技能矩陣整合，線上效率與人機配比即時核算",
-        "budget": "$35,000 USD"
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "IS",
+        "deliverable": "標準工時庫與員工技能矩陣整合，線上效率與人機配比核算",
+        "budget": "$35,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P2-5",
         "pillar": "Pillar II 營運流程整合",
-        "name": "Enterprise Workflow (Flowable BPM 跨部門營運協同)",
+        "name": "BPM／電子簽核與跨部門異常派工",
         "cat": "Run",
-        "start_m": 2,
-        "end_m": 7,
-        "startDate": "2027/02/15",
-        "endDate": "2027/07/30",
-        "workdays": 113,
-        "lead": "BPM 開發組",
-        "deliverable": "行政簽核延伸至產銷跨部門異常工單自動派工與 SLA 追蹤",
-        "budget": "$25,000 USD"
+        "start_m": 6,
+        "end_m": 11,
+        "startDate": "2027/04/01",
+        "endDate": "2027/09/30",
+        "workdays": 131,
+        "lead": "IS",
+        "deliverable": "Hive 5.1：行政簽核延伸至產銷跨部門異常工單派工與 SLA 追蹤",
+        "budget": "$25,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-1",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "Exception Management (Apache Flink CEP 實時預警)",
+        "name": "缺料預警規則引擎（依選型）",
         "cat": "Transform",
-        "start_m": 4,
-        "end_m": 10,
-        "startDate": "2027/04/06",
-        "endDate": "2027/10/29",
-        "workdays": 140,
-        "lead": "流計算組",
-        "deliverable": "PCD 裁剪前 72h 缺料主動預警規則引擎上線，攔截非預期停工",
-        "budget": "$42,000 USD"
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "IS",
+        "deliverable": "PCD 裁剪前缺料預警規則，以每日結算資料為基礎",
+        "budget": "$42,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-2",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "Production & Material Analytics (Power BI 跨廠戰情室)",
+        "name": "BI 戰情（既有聯銓 BI 改由 Data Lake 取數）",
         "cat": "Run",
-        "start_m": 4,
-        "end_m": 9,
-        "startDate": "2027/04/06",
+        "start_m": 9,
+        "end_m": 11,
+        "startDate": "2027/07/01",
         "endDate": "2027/09/30",
-        "workdays": 121,
-        "lead": "BI 報表組",
-        "deliverable": "Power BI + Superset 跨廠產量、效率、損耗中控大屏",
-        "budget": "$30,000 USD"
+        "workdays": 66,
+        "lead": "IS",
+        "deliverable": "Hive 6.3：既有聯銓 BI 報表改由 Data Lake 取數且數值一致；跨廠產量、效率、損耗看板",
+        "budget": "$30,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-3",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "Capacity / Completion Forecast (XGBoost 交期完工預估)",
+        "name": "交期風險預估模型",
         "cat": "Transform",
-        "start_m": 6,
-        "end_m": 11,
-        "startDate": "2027/06/01",
-        "endDate": "2027/11/30",
-        "workdays": 126,
-        "lead": "演算法組",
-        "deliverable": "XGBoost 剩餘工時與準時交貨 (OTD) 風險預估模型",
-        "budget": "$45,000 USD"
+        "start_m": 12,
+        "end_m": 14,
+        "startDate": "2027/10/01",
+        "endDate": "2027/12/31",
+        "workdays": 66,
+        "lead": "IS",
+        "deliverable": "剩餘工時與準時交貨（OTD）風險預估模型",
+        "budget": "$45,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-4",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "IE Optimization & Simulation (OR-Tools 線平衡動態模擬)",
+        "name": "動態人機配置模擬器",
         "cat": "Transform",
-        "start_m": 7,
-        "end_m": 12,
-        "startDate": "2027/07/01",
+        "start_m": 12,
+        "end_m": 14,
+        "startDate": "2027/10/01",
         "endDate": "2027/12/31",
-        "workdays": 126,
-        "lead": "智能 IE 組",
-        "deliverable": "動態人機配置模擬器，自動尋優換線損失最低解，提升平衡率至95%+",
-        "budget": "$55,000 USD"
+        "workdays": 66,
+        "lead": "IS",
+        "deliverable": "換線損失最低解尋優，提升線平衡率",
+        "budget": "$55,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-5",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "AI Agent (生管跟單代理人與客訴自動追蹤協同)",
+        "name": "Agentic AI 生管跟單",
         "cat": "Transform",
-        "start_m": 6,
-        "end_m": 12,
-        "startDate": "2027/06/01",
+        "start_m": 12,
+        "end_m": 14,
+        "startDate": "2027/10/01",
         "endDate": "2027/12/31",
-        "workdays": 147,
-        "lead": "Agent 研發組",
-        "deliverable": "跨系統跨語言生管問答與客訴自動跟催 Agent，釋放15~25%特定工時",
-        "budget": "$60,000 USD"
+        "workdays": 66,
+        "lead": "IS",
+        "deliverable": "Hive 6.4：Agentic AI／RAG 場景驗證；跨系統生管問答與客訴跟催",
+        "budget": "$60,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-6",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "Enterprise Knowledge / RAG (多國語 Tech Pack 知識庫)",
+        "name": "多國語工藝知識檢索（Tech Pack 自動翻譯 AI）",
         "cat": "Transform",
-        "start_m": 5,
-        "end_m": 10,
-        "startDate": "2027/05/03",
-        "endDate": "2027/10/29",
-        "workdays": 124,
-        "lead": "知識中台組",
-        "deliverable": "Qdrant 語意檢索，英中技術手冊即時轉譯越/高棉/印尼，做工檢索提效70%",
-        "budget": "$48,000 USD"
+        "start_m": 9,
+        "end_m": 14,
+        "startDate": "2027/07/01",
+        "endDate": "2027/12/31",
+        "workdays": 132,
+        "lead": "IS",
+        "deliverable": "Hive 5.4：英中技術手冊即時轉譯越／高棉／印尼文，做工語意檢索",
+        "budget": "$48,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P3-7",
         "pillar": "Pillar III 智能營運與決策",
-        "name": "RPA 流程自動化 (Power Automate 跨系統行政拋單)",
+        "name": "RPA 辦公室自動化（報關與採購拋單）",
         "cat": "Run",
-        "start_m": 3,
-        "end_m": 8,
-        "startDate": "2027/03/01",
-        "endDate": "2027/08/31",
-        "workdays": 125,
-        "lead": "RPA 開發組",
-        "deliverable": "重複性進出口報關與採購拋單機器人上線，消除人工抄寫轉錄",
-        "budget": "$20,000 USD"
+        "start_m": 6,
+        "end_m": 14,
+        "startDate": "2027/04/01",
+        "endDate": "2027/12/31",
+        "workdays": 197,
+        "lead": "IS",
+        "deliverable": "Hive 5.2：重複性進出口報關與採購拋單機器人",
+        "budget": "$20,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P4-1",
         "pillar": "Pillar IV 智慧製造與設備",
-        "name": "Smart Equipment (AGV / 自動模板機與 MES 實時介接)",
+        "name": "機台通訊整合（OPC-UA＋MQTT，依選型）",
         "cat": "Grow",
-        "start_m": 4,
-        "end_m": 11,
-        "startDate": "2027/04/06",
-        "endDate": "2027/11/30",
-        "workdays": 161,
-        "lead": "OT 整合組",
-        "deliverable": "Kepware OPC-UA + EMQX 實現模板機自動派單與裁片計工",
-        "budget": "$45,000 USD"
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "IS／各廠 IT",
+        "deliverable": "模板機自動派單與裁片計工資料採集",
+        "budget": "$45,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P4-2",
         "pillar": "Pillar IV 智慧製造與設備",
-        "name": "AI / Computing Infra (總部 vLLM 算力與海外 K3s 輕量邊緣)",
+        "name": "AI 算力（依 AI 主機與硬體評估）",
         "cat": "Transform",
-        "start_m": 3,
-        "end_m": 8,
-        "startDate": "2027/03/01",
-        "endDate": "2027/08/31",
-        "workdays": 125,
-        "lead": "基礎算力組",
-        "deliverable": "總部 4x GPU 伺服器叢集 + 4 廠 K3s 邊緣推論節點就緒",
-        "budget": "$65,000 USD"
+        "start_m": 12,
+        "end_m": 14,
+        "startDate": "2027/10/01",
+        "endDate": "2027/12/31",
+        "workdays": 66,
+        "lead": "IS／ITS",
+        "deliverable": "第二階段 #14：依 AI 應用需求評估總部 GPU 與產區邊緣推論節點",
+        "budget": "$65,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P4-3",
         "pillar": "Pillar IV 智慧製造與設備",
-        "name": "Network & Edge Infra (車間 OT 實體隔離與 48~72h 離線自治)",
+        "name": "車間 OT 隔離與邊緣離線運轉",
         "cat": "Run",
-        "start_m": 2,
-        "end_m": 7,
-        "startDate": "2027/02/15",
-        "endDate": "2027/07/30",
-        "workdays": 113,
-        "lead": "網路基礎組",
-        "deliverable": "車間 OT 實體隔離 + Moxa/研華邊緣網關 Delta 雙向同步 (100% 斷網零停機)",
-        "budget": "$40,000 USD"
+        "start_m": 10,
+        "end_m": 14,
+        "startDate": "2027/08/09",
+        "endDate": "2027/12/31",
+        "workdays": 105,
+        "lead": "ITS／各廠 IT",
+        "deliverable": "車間 OT 實體隔離；邊緣主機斷網離線運轉，恢復後增量同步",
+        "budget": "$40,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P4-4",
         "pillar": "Pillar IV 智慧製造與設備",
-        "name": "Production Data Collection (RFID 產線讀寫與光電計工)",
+        "name": "RFID 與產線計工感測",
         "cat": "Grow",
-        "start_m": 3,
-        "end_m": 10,
-        "startDate": "2027/03/01",
-        "endDate": "2027/10/29",
-        "workdays": 164,
-        "lead": "物聯傳感組",
-        "deliverable": "Impinj RFID 讀寫器 + 產線光電計工 Sensor 實時回傳 MES",
-        "budget": "$50,000 USD"
+        "start_m": 12,
+        "end_m": 14,
+        "startDate": "2027/10/01",
+        "endDate": "2027/12/31",
+        "workdays": 66,
+        "lead": "IS／各廠 IT",
+        "deliverable": "RFID 讀寫器與產線計工感測回傳 MES",
+        "budget": "$50,000 USD（預估參考值，依 D04 選型核定）"
     },
     {
         "id": "P4-5",
         "pillar": "Pillar IV 智慧製造與設備",
-        "name": "特種自動化設備整合 (自動裁床/吊掛/印尼無縫貼合監控)",
+        "name": "貼合溫壓 IoT 與自動裁床接口",
         "cat": "Grow",
-        "start_m": 5,
-        "end_m": 12,
-        "startDate": "2027/05/03",
+        "start_m": 12,
+        "end_m": 14,
+        "startDate": "2027/10/01",
         "endDate": "2027/12/31",
-        "workdays": 166,
-        "lead": "自動化工藝組",
-        "deliverable": "印尼貼合基地溫壓 IoT 監控 + 自動拉布裁床接口，保障大貨零脫膠",
-        "budget": "$55,000 USD"
+        "workdays": 66,
+        "lead": "IS／各廠 IT",
+        "deliverable": "貼合車間溫壓 IoT 監控與自動拉布裁床接口",
+        "budget": "$55,000 USD（預估參考值，依 D04 選型核定）"
     }
 ];
     let activeGanttFilter = 'ALL';
@@ -1134,7 +1172,7 @@
         // Group header
         const groupRow = document.createElement('tr');
         groupRow.className = 'pillar-group-row';
-        groupRow.innerHTML = `<td colspan="13">${pillarName} (${filteredProjects.length} 項專案)</td>`;
+        groupRow.innerHTML = `<td colspan="15">${pillarName} (${filteredProjects.length} 項專案)</td>`;
         tbody.appendChild(groupRow);
 
         filteredProjects.forEach(proj => {
@@ -1170,7 +1208,7 @@
           let monthTds = '';
           const barClass = proj.cat === 'Run' ? 'bar-run' : (proj.cat === 'Grow' ? 'bar-grow' : 'bar-trans');
           
-          for (let m = 1; m <= 12; m++) {
+          for (let m = 1; m <= 14; m++) {
             if (m >= proj.start_m && m <= proj.end_m) {
               const isFirst = (m === proj.start_m);
               const duration = proj.end_m - proj.start_m + 1;

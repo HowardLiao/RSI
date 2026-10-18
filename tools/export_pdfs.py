@@ -30,6 +30,19 @@ TARGETS = {
     "Hive/RSI_資訊基礎設施與系統6大領域盤點表.pdf": "Hive/it_infrastructure_inventory.html",
     "Hive/RSI_內部工程師6大領域分項盤點表.pdf": "Hive/modular_skills_inventory.html",
     "Hive/RSI_Group_會議紀錄_2026-10-16.pdf": "Hive/RSI_Group_會議紀錄_2026-10-16.html",
+    # Root (2027 IT plan) documents, each published under a Chinese and an English file name
+    "RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf": "ceo_strategic_plan.html",
+    "RSI_2027_CEO_Strategic_Plan.pdf": "ceo_strategic_plan.html",
+    "RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf": "pptx_rendered_deck.html",
+    "RSI_2027_IT_Strategic_Plan.pdf": "pptx_rendered_deck.html",
+    "RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf": "gantt_chart_2027.html",
+    "RSI_2027_Project_Gantt_WBS.pdf": "gantt_chart_2027.html",
+    "RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf": "organization_resources.html",
+    "RSI_2027_Org_Resources.pdf": "organization_resources.html",
+    "RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf": "inventory_discovery.html",
+    "RSI_2027_Inventory_Discovery.pdf": "inventory_discovery.html",
+    "RSI_2027_周副總交辦工作清單與實施規劃_HowardLiao.pdf": "vp_chou_worklist.html",
+    "RSI_2027_VP_Chou_Worklist.pdf": "vp_chou_worklist.html",
 }
 
 

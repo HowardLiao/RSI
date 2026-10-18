@@ -439,7 +439,7 @@
           <span>推動執行負責：</span><strong>Howard Liao Ph.D. (Lead Architect & Advisor)</strong>
         </div>
         <div class="chip">
-          <span>顧問投入原則：</span><strong>每週最多兩天顧問投入 · 主責規劃審查與進度回報</strong>
+          <span>顧問投入原則：</span><strong>每週平均投入 1–2 天 · 主責規劃審查與進度回報</strong>
         </div>
       </div>
     </header>
@@ -449,7 +449,7 @@
       <div class="mandate-title">📌 核心執行原則與職責邊界宣告 (Governance & Boundaries)</div>
       <div class="mandate-desc">
         1. <strong>職責定調</strong>：本工作列表為「周副總交辦、Howard 協助推動」之跨國架構藍圖，非由周副總或顧問單點親自寫碼操作，而是確立責任矩陣（RACI）驅動內部團隊與協力廠商落地。<br>
-        2. <strong>顧問承諾</strong>：Howard Liao Ph.D. 每週最多投入兩天，聚焦於「需求統整、架構規劃、跨廠協調、方案審查與高階進度回報」；實際開發、部署與日常維運由指派之專責單位承接。<br>
+        2. <strong>顧問承諾</strong>：Howard Liao Ph.D. 每週平均投入 1–2 天，聚焦於「需求統整、架構規劃、跨廠協調、方案審查與高階進度回報」；實際開發、部署與日常維運由指派之專責單位承接。<br>
         3. <strong>決策開放性</strong>：當前平台選型（Commercial vs Open Source）、預算額度與建置時程均為待盤點推演方案，尚未最終定案，待周副總裁示後正式立案。
       </div>
     </div>
@@ -511,7 +511,7 @@
             <tr>
               <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">1</td>
               <td style="font-weight: 800; color: var(--text-charcoal);">現況與需求盤點</td>
-              <td>了解總部與各工廠（越南、柬埔寨、印尼）既有系統、資料庫（MS SQL 等）、介面、資料交換方式及各事業部管理需求。</td>
+              <td>了解台北總部與越南、柬埔寨、印尼、孟加拉各產區既有系統、資料庫（MS SQL 等）、介面、資料交換方式及各事業部管理需求。</td>
               <td><strong>《現況架構清單》<br>《業務需求清單》<br>《跨國對接窗口名單》</strong></td>
               <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
             </tr>
@@ -525,7 +525,7 @@
             <tr>
               <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">3</td>
               <td style="font-weight: 800; color: var(--text-charcoal);">Data Lake Platform 規劃與建置</td>
-              <td>盤點既有 MS SQL 與海外工廠即時資料，確認資料納入範圍、冷熱儲存架構、整合管道及資料治理管理機制。</td>
+              <td>盤點既有 MS SQL 與工廠資料，確認資料納入範圍、冷熱儲存架構、整合管道及資料治理管理機制。</td>
               <td><strong>《全集團資料來源清單》<br>《資料湖中台規劃方案》</strong></td>
               <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
             </tr>
@@ -545,9 +545,9 @@
             </tr>
             <tr>
               <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">6</td>
-              <td style="font-weight: 800; color: var(--text-charcoal);">每小時更新與每日結算</td>
-              <td>確認業務更新頻率、每日結算時間點、自動對帳稽核規則、作業失敗重跑機制及跨國斷線補傳（Delta Sync）需求。</td>
-              <td><strong>《排程作業規格書》<br>《每日結算對帳規則》<br>《階段驗收檢核項目》</strong></td>
+              <td style="font-weight: 800; color: var(--text-charcoal);">每日結算傳輸與重大特例通道</td>
+              <td>外點結算原則上每日離峰傳輸一次，重大緊急事項才走特例通道多次傳輸，以保護外點 SD-WAN 頻寬；確認結算時間、對帳規則、失敗補跑及斷線補傳。</td>
+              <td><strong>《離峰排程規格》<br>《每日結算對帳規則》<br>《SD-WAN 流量管制項目》</strong></td>
               <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
             </tr>
             <tr>
@@ -560,7 +560,7 @@
             <tr>
               <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">8</td>
               <td style="font-weight: 800; color: var(--text-charcoal);">PoC 與階段驗收</td>
-              <td>小規模實境驗證首批 API 介接、跨國資料增量同步、每日自動對帳及既有 BI 報表取數可行性與穩定性。</td>
+              <td>小規模實境驗證首批 API 介接、每日離峰結算、每日自動對帳及既有 BI 報表取數可行性與穩定性。</td>
               <td><strong>《PoC 概念驗證報告》<br>《技術挑戰與問題清單》<br>《階段驗收評估成果》</strong></td>
               <td style="text-align: center;"><span class="badge-status status-priority">優先推動</span></td>
             </tr>
@@ -607,7 +607,7 @@
             <tr>
               <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">12</td>
               <td style="font-weight: 800; color: var(--text-charcoal);">品質驗證</td>
-              <td>確認成衣品質驗證具體目標（縫紉針距瑕疵、面料縮率公差）、盤點可用生產/品質歷史數據品質及模型驗證可行性。</td>
+              <td>資料串回後，確認資料品質並驗證產品品質差異（如 6 Sigma 分析），作為改善依據。</td>
               <td style="text-align: center;"><span class="badge-status status-phase2">數據成熟度評估</span></td>
             </tr>
             <tr>
@@ -625,8 +625,8 @@
             <tr>
               <td style="text-align: center; font-family: var(--font-mono); font-weight: 800;">15</td>
               <td style="font-weight: 800; color: var(--text-charcoal);">Global Control Center 治理模式確認</td>
-              <td>務實釐清原始交辦內容中涉及大陸廠區之具體需求、使用地點、跨境法規與網路限制，暫不視為已定案方案，嚴守合規邊界。</td>
-              <td style="text-align: center;"><span class="badge-status status-phase2">合規性前置調研</span></td>
+              <td>總部集中決策與控管，各產區營運與維護（O&M）需求回饋後校正；報表呈現可因地制宜，背後管理邏輯必須一致。</td>
+              <td style="text-align: center;"><span class="badge-status status-phase2">模式定調</span></td>
             </tr>
           </tbody>
         </table>
@@ -648,31 +648,31 @@
         <div class="decision-card">
           <div class="decision-num">Decision 02 · 窗口指派</div>
           <div class="decision-title">指定跨部門合作對接窗口</div>
-          <div class="decision-body">由周副總正式指定總部 IT 主管、海外各工廠（越南、柬埔寨、印尼）及關鍵業務單位窗口，確保調研與盤點推動順暢。</div>
+          <div class="decision-body">由周副總正式指定 ITS、IS、ERP Team、各產區（越南、柬埔寨、印尼、孟加拉）IT 主管與業務單位各一位專責窗口，確保調研與盤點推動順暢。期限：階段 1 第 2 週（W2）。</div>
         </div>
 
         <div class="decision-card">
           <div class="decision-num">Decision 03 · 首批標的</div>
           <div class="decision-title">確認首批納入之系統與工廠</div>
-          <div class="decision-body">確認以哪個核心系統（如 MES / SAP WMS）與海外示範廠（如越南廠）作為首批資料串接與 PoC 驗證標的。</div>
+          <div class="decision-body">確認首批納入之核心系統（如 MES / WMS）與試點廠。依試點慣例：新技術／自動化議題由柬埔寨廠試點、管理面議題由越南廠試點；本案屬新平台導入，建議柬埔寨廠（待確認）。期限：階段 2 結束（W6）。</div>
         </div>
 
         <div class="decision-card">
           <div class="decision-num">Decision 04 · 預算時程</div>
           <div class="decision-title">確認預算區間與期望時程</div>
-          <div class="decision-body">定調第一階段建置之總體預算容許範圍、期望 PoC 上線時間節點，以及高階專案審批的決策流程。</div>
+          <div class="decision-body">依平台選型比較表提出三種方案；建議先核定 PoC 預算，正式建置預算於 PoC 後核定。期限：階段 3 結束（W10）。</div>
         </div>
 
         <div class="decision-card">
           <div class="decision-num">Decision 05 · 承接單位</div>
           <div class="decision-title">指定實際開發部署與維運單位</div>
-          <div class="decision-body">明確指定未來實際從事平台開發、雲端部署與日常 7x24 維運之內部專責單位，或選定之外部協力廠商。</div>
+          <div class="decision-body">明確指定未來實際從事平台開發、雲端部署與日常 7x24 維運之內部專責單位或外部協力廠商；建議 PoC 前確定，並讓承接團隊參與 PoC。期限：階段 4 開始前（W10）。</div>
         </div>
 
         <div class="decision-card">
-          <div class="decision-num">Decision 06 · 顧問角色</div>
-          <div class="decision-title">確認每週 2 天顧問投入模式</div>
-          <div class="decision-body">確認 Howard Liao Ph.D. 每週最多兩天顧問投入，主責「需求統整、架構規劃、跨廠協調、方案審查及定期進度回報」，不涉及常態性日常維運。</div>
+          <div class="decision-num">Decision 06 · 資料落地</div>
+          <div class="decision-title">確認資料落地區域與雲端主區</div>
+          <div class="decision-body">集中於單一雲端區域，或各國在地留存後彙總；建議先完成各廠所在國法規檢核再決定。期限：階段 3 結束（W10）。外部顧問每週平均投入 1–2 天，主責需求統整、架構規劃、跨廠協同、方案審查與進度回報，不涉及常態性日常維運。</div>
         </div>
       </div>
     </section>

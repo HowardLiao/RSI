@@ -550,11 +550,11 @@
         <ul class="item-list">
           <li class="item-row">
             <strong>《全集團 IT/OT 專業技能熱力圖 (Competency Heatmap)》：</strong><br>
-            以紅黃綠色標示內部在 Kong、Entra ID、Databricks、Profisee、Camunda、K3s 的成熟度，明確指出哪些自建、哪些需外部 SI 駐廠。
+            以紅黃綠色標示內部在 API 平台、Entra ID、Data Lake、MDM、流程編排、邊緣容器 的成熟度，明確指出哪些自建、哪些需外部 SI 駐廠。
           </li>
           <li class="item-row">
             <strong>《資通架構技術債與斷網風險清冊 (Risk Register)》：</strong><br>
-            列管過保硬體（如 Dell R740）、停止支援 OS（Windows 2016）及斷網即停擺設備，正當化 2027 邊緣主機與 Zerto 災備預算。
+            列管過保硬體（如 Dell R740）、停止支援 OS（Windows 2016）及斷網即停擺設備，正當化 2027 邊緣主機與 CDP 災備預算。
           </li>
           <li class="item-row">
             <strong>《2027 軟體授權 FinOps 降本具體提議書》：</strong><br>
@@ -583,7 +583,7 @@
           ["[職位樣本 02] 總部身分資安工程師", "台北營運總部", "身分治理與資安", "Microsoft Entra ID / 條件式存取 / 網域", "<span class='badge-score score-4'>4 (進階排錯)</span>", "5 年", "集團 1,200 帳號混合雲 AD 同步建置", "Microsoft SC-300", "<span class='badge-score score-4'>4</span>", "技術成熟，可擔綱 2027 分層 SSO 主責"],
           ["[職位樣本 03] 柬埔寨廠邊緣網路工程師", "柬埔寨廠", "網路與邊緣系統", "Fortinet 防火牆 / 工業交換器 / 4G 備援", "<span class='badge-score score-3'>3 (獨立維運)</span>", "3 年", "柬埔寨二廠車間 Aruba Wi-Fi 6 佈線工程", "CCNA", "<span class='badge-score score-3'>3</span>", "現場反應敏捷，需加強英文技術溝通"],
           ["[職位樣本 04] 印尼廠自動化工程師", "印尼廠", "工業自動化與感測", "Moxa 溫壓 IoT 網關 / Python 數據擷取", "<span class='badge-score score-2'>2 (基礎概念)</span>", "1 年", "無縫熱壓貼合機台溫控感應測試", "無", "<span class='badge-score score-2'>2</span>", "新進同仁，建議指派總部資深專家一對一帶教"],
-          ["[職位樣本 05] 總部數據中台工程師", "台北營運總部", "數據架構與中台", "SQL Server / Databricks Delta Lake / CDC", "<span class='badge-score score-3'>3 (獨立維運)</span>", "4 年", "供應鏈每日訂單進度 ETL 排程開發", "Azure DP-203", "<span class='badge-score score-4'>4</span>", "具備湖倉思維，可作為 30TB 數據中台主將"]
+          ["[職位樣本 05] 總部數據中台工程師", "台北營運總部", "數據架構與中台", "SQL Server / Data Lake / 增量擷取", "<span class='badge-score score-3'>3 (獨立維運)</span>", "4 年", "供應鏈每日訂單進度 ETL 排程開發", "Azure DP-203", "<span class='badge-score score-4'>4</span>", "具備湖倉思維，可作為 30TB 數據中台主將"]
         ]
       },
       form2: {
@@ -593,18 +593,18 @@
         headers: ["工號/姓名", "職稱/單位", "跨國外語溝通", "專案管理 (PMP)", "成衣業務理解", "外部廠商管理", "危機應變 (BCP)", "綜合評定", "管理職能重點佐證"],
         rows: [
           ["[管理崗位 01] 總部系統維運課長", "總部系統課長", "<span class='badge-score score-4'>4 (流利商務)</span>", "<span class='badge-score score-4'>4 (精通WBS)</span>", "<span class='badge-score score-3'>3 (熟稔生管)</span>", "<span class='badge-score score-4'>4 (合約控管)</span>", "<span class='badge-score score-4'>4 (冷靜決策)</span>", "<span class='badge-score score-4'>優良</span>", "能以英文主持海外跨廠技術會議，具備大局觀"],
-          ["[管理崗位 02] 越南示範廠資訊主管", "越南示範廠 IT 主管", "<span class='badge-score score-3'>3 (日常英文)</span>", "<span class='badge-score score-3'>3 (進度追蹤)</span>", "<span class='badge-score score-5'>5 (極熟車間)</span>", "<span class='badge-score score-2'>2 (依賴總部)</span>", "<span class='badge-score score-4'>4 (現地解決)</span>", "<span class='badge-score score-3'>良好</span>", "深入理解成衣車縫瓶頸，能弭平產線與資訊代溝"],
+          ["[管理崗位 02] 越南廠資訊主管", "越南廠 IT 主管", "<span class='badge-score score-3'>3 (日常英文)</span>", "<span class='badge-score score-3'>3 (進度追蹤)</span>", "<span class='badge-score score-5'>5 (極熟車間)</span>", "<span class='badge-score score-2'>2 (依賴總部)</span>", "<span class='badge-score score-4'>4 (現地解決)</span>", "<span class='badge-score score-3'>良好</span>", "深入理解成衣車縫瓶頸，能弭平產線與資訊代溝"],
           ["[管理崗位 03] 總部跨國流程專案經理", "總部流程 PM", "<span class='badge-score score-4'>4 (流利英文)</span>", "<span class='badge-score score-5'>5 (PMP證照)</span>", "<span class='badge-score score-4'>4 (通曉產前)</span>", "<span class='badge-score score-3'>3 (對接順暢)</span>", "<span class='badge-score score-3'>3 (按SOP應處)</span>", "<span class='badge-score score-4'>優良</span>", "掌管 4-Gate 產前門禁時程，執行力與溝通力極強"]
         ]
       },
       form3: {
         title: "表單三：跨國伺服器、虛擬化與災備儲存資源盤點表 (Infrastructure Inventory)",
         target: "填寫對象：總部系統工程師、海外廠伺服器管理員（需附 vCenter / 雲端清冊）",
-        desc: "清查全集團實體伺服器、VMware 虛擬機與雲端主機之負載率、過保狀態及 RPO/RTO 災備水準，為 2027 Zerto 與雲地混合配置提供依據。",
+        desc: "清查全集團實體伺服器、VMware 虛擬機與雲端主機之負載率、過保狀態及 RPO/RTO 災備水準，為 2027 災備方案審查與雲地混合配置提供依據。",
         headers: ["資產標籤", "所在地點", "架構型態", "規格 (CPU/RAM/Disk)", "作業系統版本", "承載核心業務", "平均負載", "原廠保固", "現有災備方式", "2027 建議處置"],
         rows: [
-          ["SRV-VN-01", "越南 機房", "實體機 (Dell R740)", "32C / 128G / 4TB SSD", "VMware ESXi 7.0u3", "越南現場 MES 資料庫", "CPU 45% / RAM 80%", "<span class='badge-score score-1'>已過保 (2024到期)</span>", "Veeam 本地每日差異備份", "建議淘汰更新，納入 Zerto CDP 秒級災備"],
-          ["SRV-TP-03", "台北總部 機房", "虛擬機 (VM)", "16C / 64G / 2TB", "Windows Server 2016", "供應鏈採購管理系統", "CPU 80% / 磁碟剩15%", "<span class='badge-score score-2'>OS即將停止支援</span>", "每日本地快照", "資料結構遷移至 Databricks 30TB 湖倉中台"],
+          ["SRV-VN-01", "越南 機房", "實體機 (Dell R740)", "32C / 128G / 4TB SSD", "VMware ESXi 7.0u3", "越南現場 MES 資料庫", "CPU 45% / RAM 80%", "<span class='badge-score score-1'>已過保 (2024到期)</span>", "Veeam 本地每日差異備份", "建議淘汰更新，納入 CDP 秒級災備（依方案審查）"],
+          ["SRV-TP-03", "台北總部 機房", "虛擬機 (VM)", "16C / 64G / 2TB", "Windows Server 2016", "供應鏈採購管理系統", "CPU 80% / 磁碟剩15%", "<span class='badge-score score-2'>OS即將停止支援</span>", "每日本地快照", "資料結構遷移至 30TB 企業湖倉"],
           ["CLD-AWS-01", "AWS 新加坡區", "EC2 (t3.xlarge)", "4 vCPU / 16G RAM", "Ubuntu 22.04 LTS", "品牌客戶訂單 EDI 轉檔", "CPU 8% (高度閒置)", "隨付計費", "AWS S3 跨區快照", "納入 FinOps 治理，降規為 t3.medium 節省成本"],
           ["SRV-KH-02", "柬埔寨 機房", "實體機 (HP DL380)", "16C / 64G / 2TB", "Windows Server 2019", "柬埔寨廠 WMS 倉儲資料庫", "CPU 35% / RAM 55%", "<span class='badge-score score-3'>保固至 2027/08</span>", "本地每週完整備份", "增設雙軌異地同步，強化備份不可篡改性"]
         ]
@@ -628,7 +628,7 @@
         headers: ["系統名稱", "供應商/原廠", "部署模式", "購買授權數", "活躍使用人數", "授權版本規格", "年合約費用 (TWD/USD)", "到期日", "現場痛點與浪費分析"],
         rows: [
           ["Microsoft 365", "台灣微軟", "公有雲 SaaS", "1,200 席", "650 人常態使用", "高級企業版 (E3/P2)", "約 NT$ 620 萬 / 年", "2027/06/30", "嚴重過度授權：車間幹部不需全套 E3，改採 Frontline F-SKU 可省百萬"],
-          ["傳統端點防毒", "某知名資安商", "地端主控台", "800 台", "610 台在線", "端點防毒版", "約 NT$ 95 萬 / 年", "2027/03/31", "無法防禦新形態勒索病毒，且海外假日無人值守，建議直升 CrowdStrike MDR"],
+          ["傳統端點防毒", "某知名資安商", "地端主控台", "800 台", "610 台在線", "端點防毒版", "約 NT$ 95 萬 / 年", "2027/03/31", "無法防禦新形態勒索病毒，且海外假日無人值守，建議升級為 24/7 MDR 託管（依方案審查）"],
           ["某國外雲端排班", "未報備外部廠商", "海外信用卡扣款", "150 帳號", "120 人活躍", "團隊版 SaaS", "約 $4,500 USD / 年", "每月自動扣款", "【影子 IT 風險】柬埔寨廠私下租用，員工個資在未知公有雲，無資安稽核防護"],
           ["舊版排程 Excel 巨集", "同仁自行編寫", "個人電腦 本機", "無限制", "5 位生管人員", "VBA 腳本程式", "0 元 (高維護風險)", "無到期日", "核心公式僅原作者理解，無法與 MES 即時對接，存在嚴重人員離職單點風險"]
         ]
