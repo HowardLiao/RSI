@@ -51,7 +51,7 @@
     ] },
     { label: '文件', items: [
       ['Hive/index.html', '蜂巢計畫實施藍圖'],
-      ['Hive/index.html#gantt', '全案 WBS 甘特圖'],
+      ['Hive/index.html#gantt', '合約期間 WBS 甘特圖'],
       ['Hive/download_center.html', '文檔中心']
     ] }
   ];
@@ -586,7 +586,7 @@
               '</a>' +
               '<a href="' + url('Hive/index.html#gantt') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
                 '<span class="rsi-drawer-item-icon">🗓️</span>' +
-                '<div class="rsi-drawer-item-text">蜂巢計畫全案 WBS 甘特圖<div class="rsi-drawer-item-sub">2026.11–2027.12 · 三十項工作細項與決策閘門</div></div>' +
+                '<div class="rsi-drawer-item-text">蜂巢計畫合約期間 WBS 甘特圖<div class="rsi-drawer-item-sub">2026/11/02–2027/02/28 · 工作細項與決策閘門</div></div>' +
               '</a>' +
               '<a href="' + url('gantt_chart_2027.html') + '" class="rsi-drawer-item" style="margin-top:6px;">' +
                 '<span class="rsi-drawer-item-icon">📅</span>' +
