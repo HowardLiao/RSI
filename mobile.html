@@ -3165,29 +3165,17 @@
             <span id="t-searchBtnText">搜尋 ⌘K</span>
           </button>
 
-          <!-- Segmented Multi-Language Switcher (ZH / EN / JA / VI) -->
-          <div class="lang-pill-switcher" id="langSwitcherBar" role="tablist" aria-label="語言切換 (Language Switcher)" style="display: inline-flex; align-items: center; background: #F5F5F4; border: 1.5px solid #E7E5E4; border-radius: 9999px; padding: 2px 3px; gap: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-            <button type="button" class="lang-switch-btn active" id="langBtn-zh" onclick="setLanguage('zh')" role="tab" aria-selected="true" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 800; cursor: pointer; background: #E87524; color: #FFFFFF; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 6px rgba(232, 117, 36, 0.3);">
-              <span style="font-size: 0.85rem;">🇹🇼</span>
-              <span>中文</span>
-            </button>
-            <button type="button" class="lang-switch-btn" id="langBtn-en" onclick="setLanguage('en')" role="tab" aria-selected="false" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 700; cursor: pointer; background: transparent; color: #44403C; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
-              <span style="font-size: 0.85rem;">🇬🇧</span>
-              <span>English</span>
-            </button>
-            <button type="button" class="lang-switch-btn" id="langBtn-ja" onclick="setLanguage('ja')" role="tab" aria-selected="false" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 700; cursor: pointer; background: transparent; color: #44403C; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
-              <span style="font-size: 0.85rem;">🇯🇵</span>
-              <span>日本語</span>
-            </button>
-            <button type="button" class="lang-switch-btn" id="langBtn-vi" onclick="setLanguage('vi')" role="tab" aria-selected="false" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; border: none; font-size: 0.76rem; font-weight: 700; cursor: pointer; background: transparent; color: #44403C; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
-              <span style="font-size: 0.85rem;">🇻🇳</span>
-              <span>Tiếng Việt</span>
-            </button>
-          </div>
-
-          <button onclick="window.print()" class="executive-search-btn" style="padding: 6px 12px; border-radius: 9999px; font-size: 0.75rem;">
-            🖨️ 列印
-          </button>
+          <!-- Language menu (ZH / EN / JA / VI) -->
+          <label for="langSelect" class="lang-select-wrap" style="display: inline-flex; align-items: center; gap: 6px; background: #F5F5F4; border: 1.5px solid #E7E5E4; border-radius: 9999px; padding: 0 4px 0 12px; height: 32px; font-size: 0.76rem; font-weight: 700; color: #44403C; cursor: pointer;">
+            <span aria-hidden="true">🌐</span>
+            <span class="sr-only" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;">語言 Language</span>
+            <select id="langSelect" onchange="setLanguage(this.value)" style="border: 0; background: transparent; font: inherit; color: inherit; padding: 0 6px 0 0; height: 30px; cursor: pointer; outline-offset: 2px;">
+              <option value="zh" selected>🇹🇼 中文</option>
+              <option value="en">🇬🇧 English</option>
+              <option value="ja">🇯🇵 日本語</option>
+              <option value="vi">🇻🇳 Tiếng Việt</option>
+            </select>
+          </label>
         </div>
       </div>
         </div>
@@ -5534,6 +5522,9 @@
           }
         });
       });
+
+      const langSel = document.getElementById('langSelect');
+      if (langSel) langSel.value = currentLang;
 
       // Update Dropdown Header Display
       const disp = document.getElementById("currentLangDisplay");
