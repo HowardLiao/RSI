@@ -3,6 +3,7 @@
 
 Idempotent: pages that already carry the <!-- rsi-site --> marker are skipped.
 Run from the repo root:  python3 tools/inject_site_assets.py
+then python3 tools/stamp_assets.py to add the cache-busting versions.
 """
 import os
 import subprocess
