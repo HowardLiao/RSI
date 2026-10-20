@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="pharaoh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>信源全球 (RSI Group) · 2027 蜂巢計畫 Howard 企業架構藍圖 | 參考 8436 大江生醫規格</title>
+  
+  <meta name="description" content="信源全球 (RSI) 2027 蜂巢計畫 Howard 企業級資訊架構藍圖：參考 8436 大江生醫架構規格，整合 HowardAGent 應用中樞、HowardRoute 模型網關、HowardPro 製造大腦、雙環 Data Bus、邊界 WAAP 與旁路 API 安全雙向閉環，全面對齊微軟技術棧與跨國營運韌性。">
+  <meta name="author" content="Howard Liao Ph.D.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Default Theme: Egyptian Pharaoh */
+      --bg-body: #FBF9F5;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F5EFEB;
+      --text-main: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --border-color: #E2D7CE;
+      --border-light: #EFE8E1;
+      
+      --accent-primary: #A83212;   /* Pharaoh Rust / Gold */
+      --accent-secondary: #C2410C;
+      --accent-hover: #E87524;
+      --accent-light: #FFF8EE;
+      --accent-border: #FED7AA;
+
+      --blue-main: #2563EB;
+      --blue-light: #EFF6FF;
+      --blue-border: #93C5FD;
+
+      --emerald-main: #059669;
+      --emerald-light: #ECFDF5;
+      --emerald-border: #6EE7B7;
+
+      --purple-main: #7C3AED;
+      --purple-light: #F5F3FF;
+      --purple-border: #C4B5FD;
+
+      --danger-main: #DC2626;
+      --danger-light: #FEF2F2;
+      --danger-border: #FCA5A5;
+
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --card-hover-shadow: 0 10px 15px -3px rgba(168, 50, 18, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="milan"] {
+      --bg-body: #FAF7F2;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F3ECE2;
+      --text-main: #1C1917;
+      --text-secondary: #44403C;
+      --border-color: #E7DFD5;
+      --accent-primary: #C2410C;
+      --accent-hover: #EA580C;
+      --accent-light: #FFF7ED;
+      --accent-border: #FDBA74;
+    }
+
+    [data-theme="obsidian"] {
+      --bg-body: #0A0F1D;
+      --bg-surface: #111827;
+      --bg-subtle: #1F2937;
+      --text-main: #F9FAFB;
+      --text-secondary: #D1D5DB;
+      --text-muted: #9CA3AF;
+      --border-color: #374151;
+      --border-light: #1F2937;
+      --accent-primary: #F59E0B;
+      --accent-hover: #FBBF24;
+      --accent-light: rgba(245, 158, 11, 0.1);
+      --accent-border: #D97706;
+      --blue-light: rgba(37, 99, 235, 0.15);
+      --emerald-light: rgba(5, 150, 105, 0.15);
+      --purple-light: rgba(124, 58, 237, 0.15);
+      --danger-light: rgba(220, 38, 38, 0.15);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .theme-bar, .player-controls, .btn-action { display: none !important; }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Sticky Header */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 0;
+    }
+    [data-theme="obsidian"] .top-header {
+      background: rgba(17, 24, 39, 0.95);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-badge {
+      background: var(--accent-primary);
+      color: #FFF;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .theme-select {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 40px 0 20px;
+      border-bottom: 1.5px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+    .hero-pretitle {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .hero-title span {
+      color: var(--accent-hover);
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      max-width: 1050px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .hero-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.82rem;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 12px;
+    }
+    .meta-left { color: var(--text-muted); }
+    .meta-right {
+      text-align: right;
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    /* Bento Section */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .bento-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      border-top: 4px solid var(--accent-primary);
+      transition: var(--transition);
+    }
+    .bento-card:hover {
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-2px);
+    }
+    .bento-card.blue { border-top-color: var(--blue-main); }
+    .bento-card.green { border-top-color: var(--emerald-main); }
+    .bento-card.purple { border-top-color: var(--purple-main); }
+    .bento-num {
+      font-family: var(--font-mono);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .bento-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      margin-bottom: 6px;
+    }
+    .bento-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Flagship Diagram Section */
+    .section-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      margin-bottom: 30px;
+      box-shadow: var(--card-shadow);
+    }
+    .section-head {
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .section-h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* 6 Core Modules Grid */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .module-card {
+      background: var(--bg-body);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      border-left: 4px solid var(--accent-primary);
+    }
+    .module-card.blue { border-left-color: var(--blue-main); }
+    .module-card.green { border-left-color: var(--emerald-main); }
+    .module-card.purple { border-left-color: var(--purple-main); }
+    .module-card.amber { border-left-color: var(--accent-hover); }
+    .module-card.cyan { border-left-color: #06B6D4; }
+
+    .module-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .module-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* 32 Views Filter Buttons */
+    .filter-btn-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+    }
+    .f-btn {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .f-btn:hover, .f-btn.active {
+      background: var(--accent-primary);
+      color: #FFF;
+      border-color: var(--accent-primary);
+    }
+
+    .views-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      max-height: 580px;
+      overflow-y: auto;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-body);
+    }
+    .view-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .view-card:hover {
+      border-color: var(--accent-hover);
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-1px);
+    }
+    .view-id {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+    .view-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .view-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Action Buttons */
+    .btn-action {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-action:hover {
+      background: var(--accent-primary);
+      color: #FFF;
+      border-color: var(--accent-primary);
+    }
+    .btn-action.primary {
+      background: var(--accent-primary);
+      color: #FFF;
+      border-color: var(--accent-primary);
+    }
+    .btn-action.primary:hover {
+      background: var(--accent-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <!-- Top Sticky Header -->
+  <header class="top-header">
+    <div class="container header-inner">
+      <div class="brand-group">
+        <span class="brand-badge">RSI · 2027 HIVE</span>
+        <span class="brand-title">信源全球 · Howard 企業資訊架構 (參考 8436 大江生醫規格)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <select id="themeSelector" onchange="changeTheme(this.value)" class="theme-select" aria-label="切換視覺主題">
+          <option value="pharaoh">🏛️ 主題：法老琥珀金 (Pharaoh)</option>
+          <option value="milan">🎨 主題：米蘭暖大地 (Milan)</option>
+          <option value="obsidian">🌑 主題：深邃曜石黑 (Obsidian)</option>
+        </select>
+        <a href="index.html" class="btn-action">🏠 蜂巢計畫首頁</a>
+        <a href="download_center.html" class="btn-action primary">📥 下載中心</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-pretitle">
+        <span>🏛️ HOWARD ENTERPRISE ARCHITECTURE FRAMEWORK</span> ｜ <span>⚖️ 參考 8436 大江生醫 32 視圖旗艦規格</span>
+      </div>
+      <h1 class="hero-title">信源全球 (RSI Group) 企業資訊策略與 <span>Howard 企業架構藍圖</span></h1>
+      <p class="hero-subtitle">
+        以 <b>HowardAGent</b> (應用編排中樞)、<b>HowardRoute</b> (多模型網關) 與 <b>HowardPro</b> (車間排線與IE尋優大腦) 為核心支柱，立足現有<b>微軟全棧技術基底 (C# .NET 8 / MS SQL Server AlwaysOn / Windows Server)</b>，結合<b>邊界 WAAP ＋ 旁路 API 安全雙向閉環聯防</b>與<b>外點結算一日一次（深夜 01:00~03:00 離峰傳輸保護 SD-WAN 頻寬）</b>，打造具備國際可稽核性與海外三廠 48~72hr 斷網自律的現代化成衣跨國製造架構。
+      </p>
+      <div class="hero-meta-row">
+        <div class="meta-left">
+          專案指導：<strong style="color:var(--text-main);">周文津 副總經理 (計劃主持人)</strong> ｜ 
+          架構規劃與執行：<strong style="color:var(--text-main);">Howard Liao Ph.D. 外部顧問 (執行負責人)</strong>
+        </div>
+        <div class="meta-right">
+          FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid: 4 C-Level Impact Metrics -->
+    <section class="bento-grid">
+      <div class="bento-card">
+        <div class="bento-num" id="cnt_roi">NT$ 3,705 萬</div>
+        <div class="bento-label">年硬性現金節省 ($1.17M+ USD)</div>
+        <div class="bento-desc">空運包機違約防禦 (省NT$1,500萬) ＋ 大貨布損改善 1.2% (省NT$2,205萬)，投資回收期 6.5 個月，ROI 1:1.84。</div>
+      </div>
+      <div class="bento-card blue">
+        <div class="bento-num" id="cnt_resilience">48 ～ 72 小時</div>
+        <div class="bento-label">海外三廠斷網自律 (Zero Outage)</div>
+        <div class="bento-desc">越/柬/印尼海外廠 Edge Proxy ＋ SQLite 本地快取，海纜中斷車間正常生產，復網自動批次平帳。</div>
+      </div>
+      <div class="bento-card green">
+        <div class="bento-num" id="cnt_tco">-12% 降幅</div>
+        <div class="bento-label">可控 IT 維運成本 (FinOps)</div>
+        <div class="bento-desc">雲端實例最佳化、微軟授權整併與外點離峰傳輸，實質降低跨國伺服器與網絡費用。</div>
+      </div>
+      <div class="bento-card purple">
+        <div class="bento-num" id="cnt_rto">RPO&lt;15m · RTO&lt;2h</div>
+        <div class="bento-label">Tier-1 核心生產復原力</div>
+        <div class="bento-desc">MS SQL Server AlwaysOn AG 叢集 ＋ Veeam 3-2-1 原則 ＋ WORM 不可篡改儲存池，通過外部審計。</div>
+      </div>
+    </section>
+
+    <!-- Section 1: Flagship Architecture Topology -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--accent-primary); letter-spacing:1px; text-transform:uppercase;">
+            FLAGSHIP ARCHITECTURE · FULL PANORAMA
+          </div>
+          <h2 class="section-h2">一、信源全球 (RSI) 企業資訊策略與總體旗艦架構圖</h2>
+          <p class="section-p">涵蓋業務價值鏈、微軟 C# .NET 中台、邊界 WAAP ＋ 旁路 API 安全雙軌聯防、MS SQL CDC 湖倉 3 層與海外三廠邊緣自律</p>
+        </div>
+        <button onclick="window.print()" class="btn-action">🖨️ 列印本頁圖資</button>
+      </div>
+
+      <div style="background:var(--bg-surface); border:1.5px solid var(--border-color); border-radius:var(--radius-sm); padding:20px; overflow-x:auto; text-align:center;">
+        <svg viewBox="0 0 1180 820" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="max-width:1180px; font-family:var(--font-sans); user-select:none;">
+          <defs>
+            <marker id="arrAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="#A83212" />
+            </marker>
+            <marker id="arrBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="#2563EB" />
+            </marker>
+            <marker id="arrGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="#059669" />
+            </marker>
+          </defs>
+
+          <!-- Row 1: Business Value Chain -->
+          <rect x="20" y="20" width="1140" height="90" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="40" y="45" font-size="12" font-weight="800" fill="#0F172A">【層級 1：成衣製造業務價值鏈】 (Garment Value Chain)</text>
+          
+          <rect x="40" y="55" width="165" height="42" rx="4" fill="#FFFFFF" stroke="#94A3B8"/><text x="122" y="80" text-anchor="middle" font-size="10" font-weight="700">① 客戶訂單 / 打樣確認</text>
+          <rect x="230" y="55" width="165" height="42" rx="4" fill="#FEF3C7" stroke="#FDE68A"/><text x="312" y="80" text-anchor="middle" font-size="10" font-weight="800" fill="#B45309">② 4-Gate 產前門禁防呆</text>
+          <rect x="420" y="55" width="165" height="42" rx="4" fill="#FFFFFF" stroke="#94A3B8"/><text x="502" y="80" text-anchor="middle" font-size="10" font-weight="700">③ 智能裁剪 / 裁片超市</text>
+          <rect x="610" y="55" width="165" height="42" rx="4" fill="#FFFFFF" stroke="#94A3B8"/><text x="692" y="80" text-anchor="middle" font-size="10" font-weight="700">④ 車縫計件 / 產線平衡</text>
+          <rect x="800" y="55" width="165" height="42" rx="4" fill="#FFFFFF" stroke="#94A3B8"/><text x="882" y="80" text-anchor="middle" font-size="10" font-weight="700">⑤ 吊掛後整 / 條碼外箱</text>
+          <rect x="990" y="55" width="150" height="42" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/><text x="1065" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">⑥ 報關結關 / 出貨防禦</text>
+
+          <!-- Row 2: Security Edge (WAAP & API Security Closed Loop) -->
+          <rect x="20" y="130" width="1140" height="150" rx="6" fill="#FFF8EE" stroke="#FED7AA" stroke-width="1.5"/>
+          <text x="40" y="155" font-size="12" font-weight="800" fill="#A83212">【層級 2：邊界安全與雙軌 API 防護體系】 (WAAP & API Security Closed-Loop)</text>
+
+          <rect x="40" y="170" width="380" height="95" rx="6" fill="#FFFFFF" stroke="#FDBA74"/>
+          <text x="60" y="195" font-size="11" font-weight="800" fill="#C2410C">🛡️ 邊界次世代 WAAP (在線代理 · Inline)</text>
+          <text x="60" y="215" font-size="9" fill="#7C2D12">• Layer 7 DDoS 流量清洗 ＆ 惡意爬蟲防禦</text>
+          <text x="60" y="230" font-size="9" fill="#7C2D12">• OWASP Top 10 已知攻擊 (SQLi / XSS) 毫秒級攔截</text>
+          <text x="60" y="245" font-size="9" fill="#7C2D12">• 成衣海外廠 IP 白名單 ＆ 請求速率限制 (Rate Limit)</text>
+
+          <rect x="450" y="170" width="400" height="95" rx="6" fill="#EFF6FF" stroke="#93C5FD"/>
+          <text x="470" y="195" font-size="11" font-weight="800" fill="#1D4ED8">🔍 旁路 API 安全態勢與行為分析 (旁路 · Out-of-Band)</text>
+          <text x="470" y="215" font-size="9" fill="#1E3A8A">• 影子 API 資產發現：動態比對 Swagger 契約，盤點殭屍端點</text>
+          <text x="470" y="230" font-size="9" fill="#1E3A8A">• AI 異常行為基準線：防範 BOLA 物件級越權與成衣報價爬取</text>
+          <text x="470" y="245" font-size="9" fill="#1E3A8A">• 敏感數據暴露稽核：防止工序計件工資與客戶合約明文外洩</text>
+
+          <rect x="880" y="170" width="260" height="95" rx="6" fill="#FEF2F2" stroke="#FCA5A5"/>
+          <text x="900" y="195" font-size="11" font-weight="800" fill="#DC2626">🔄 雙向動態閉環聯防</text>
+          <text x="900" y="215" font-size="9" fill="#991B1B">旁路安全偵測到 BOLA 越權或</text>
+          <text x="900" y="230" font-size="9" fill="#991B1B">異常實體時，自動推送封鎖規則</text>
+          <text x="900" y="245" font-size="9" fill="#991B1B">至邊界 WAAP 執行在線阻斷！</text>
+
+          <!-- Row 3: Application Middle & Microsoft Stack -->
+          <rect x="20" y="300" width="1140" height="150" rx="6" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+          <text x="40" y="325" font-size="12" font-weight="800" fill="#15803D">【層級 3：微軟 C# .NET 核心應用中台 ＆ AlwaysOn 資料庫】 (Microsoft Stack & Middle Core)</text>
+
+          <rect x="40" y="340" width="260" height="95" rx="6" fill="#FFFFFF" stroke="#86EFAC"/>
+          <text x="60" y="365" font-size="11" font-weight="800" fill="#15803D">💻 核心微服務 (C# .NET 8)</text>
+          <text x="60" y="385" font-size="9" fill="#166534">• 成衣 ERP 訂單排產 Web API</text>
+          <text x="60" y="400" font-size="9" fill="#166534">• 車間 MES 車縫計件服務</text>
+          <text x="60" y="415" font-size="9" fill="#166534">• 4-Gate 產前門禁防呆服務</text>
+
+          <rect x="330" y="340" width="260" height="95" rx="6" fill="#FFFFFF" stroke="#86EFAC"/>
+          <text x="350" y="365" font-size="11" font-weight="800" fill="#15803D">🗄️ MS SQL Server 叢集</text>
+          <text x="350" y="385" font-size="9" fill="#166534">• AlwaysOn 可用性群組 (AG)</text>
+          <text x="350" y="400" font-size="9" fill="#166534">• T-SQL 存儲程序與交易控制</text>
+          <text x="350" y="415" font-size="9" fill="#166534">• 啟用原生 CDC 增量異動捕獲</text>
+
+          <rect x="620" y="340" width="260" height="95" rx="6" fill="#FFFFFF" stroke="#86EFAC"/>
+          <text x="640" y="365" font-size="11" font-weight="800" fill="#15803D">🤖 Howard 智能中樞</text>
+          <text x="640" y="385" font-size="9" fill="#166534">• HowardAGent：Tech Pack RAG</text>
+          <text x="640" y="400" font-size="9" fill="#166534">• HowardRoute：多模型安全網關</text>
+          <text x="640" y="415" font-size="9" fill="#166534">• HowardPro：車縫線平衡優化</text>
+
+          <rect x="910" y="340" width="230" height="95" rx="6" fill="#FFFFFF" stroke="#86EFAC"/>
+          <text x="930" y="365" font-size="11" font-weight="800" fill="#15803D">📊 商業智慧 (雙軌協同)</text>
+          <text x="930" y="385" font-size="9" fill="#166534">• 聯銓 Smart eVision (晨會)</text>
+          <text x="930" y="400" font-size="9" fill="#166534">• Microsoft Power BI (戰略)</text>
+          <text x="930" y="415" font-size="9" fill="#166534">• 每日清晨 06:00 自動轉檔派送</text>
+
+          <!-- Row 4: Data Lakehouse & Night Off-Peak Batch -->
+          <rect x="20" y="470" width="1140" height="150" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="40" y="495" font-size="12" font-weight="800" fill="#1D4ED8">【層級 4：現代數據湖倉 ＆ 外點深夜離峰傳輸 (保護 SD-WAN 頻寬)】 (Lakehouse & Off-Peak Ingestion)</text>
+
+          <rect x="40" y="510" width="340" height="95" rx="6" fill="#FFFFFF" stroke="#93C5FD"/>
+          <text x="60" y="535" font-size="11" font-weight="800" fill="#1D4ED8">📡 外點離峰傳輸 (深夜 01:00~03:00)</text>
+          <text x="60" y="555" font-size="9" fill="#1E3A8A">• 【原則一日一次傳輸】保護 SD-WAN 頻寬</text>
+          <text x="60" y="570" font-size="9" fill="#1E3A8A">• Zstandard 高比率壓縮打包海外廠結算資料</text>
+          <text x="60" y="585" font-size="9" fill="#1E3A8A">• 重大特例通道 (4-Gate/結關) 始啟動即時傳輸</text>
+
+          <rect x="410" y="510" width="420" height="95" rx="6" fill="#FFFFFF" stroke="#93C5FD"/>
+          <text x="430" y="535" font-size="11" font-weight="800" fill="#1D4ED8">🍯 Medallion 3 層湖倉 (Parquet / Iceberg)</text>
+          <text x="430" y="555" font-size="9" fill="#1E3A8A">• 🥉 Bronze 青銅層：保留 MS SQL CDC 原始異動 JSON/Parquet</text>
+          <text x="430" y="570" font-size="9" fill="#1E3A8A">• 🥈 Silver 白銀層：清洗去重、時區校正、款式代碼對齊</text>
+          <text x="430" y="585" font-size="9" fill="#1E3A8A">• 🥇 Gold 黃金層：每日切帳總表、跨廠產線平衡率、FTY 良率</text>
+
+          <rect x="860" y="510" width="280" height="95" rx="6" fill="#FFFFFF" stroke="#93C5FD"/>
+          <text x="880" y="535" font-size="11" font-weight="800" fill="#1D4ED8">⏱️ 排程編排 (Airflow)</text>
+          <text x="880" y="555" font-size="9" fill="#1E3A8A">• 01:00 外點接收結算包</text>
+          <text x="880" y="570" font-size="9" fill="#1E3A8A">• 03:00 Silver 轉換與對帳</text>
+          <text x="880" y="585" font-size="9" fill="#1E3A8A">• 05:00 Gold 指標物化視圖</text>
+
+          <!-- Row 5: Edge Autonomy (48-72hr) -->
+          <rect x="20" y="640" width="1140" height="150" rx="6" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="1.5"/>
+          <text x="40" y="665" font-size="12" font-weight="800" fill="#7C3AED">【層級 5：東南亞海外三廠邊緣自律節點 (48~72hr 斷網生產)】 (Edge Offline Autonomy)</text>
+
+          <rect x="40" y="680" width="340" height="95" rx="6" fill="#FFFFFF" stroke="#C4B5FD"/>
+          <text x="60" y="705" font-size="11" font-weight="800" fill="#6B21A8">🇻🇳 越南隆安示範旗艦廠</text>
+          <text x="60" y="725" font-size="9" fill="#581C87">• 邊緣模式：Local Autonomous (72h 離線容限)</text>
+          <text x="60" y="740" font-size="9" fill="#581C87">• 研華工控機 Edge Proxy ＋ SQLite 本地佇列</text>
+          <text x="60" y="755" font-size="9" fill="#581C87">• 車縫 MES 本地延遲 12ms，斷網自動回傳 202</text>
+
+          <rect x="410" y="680" width="340" height="95" rx="6" fill="#FFFFFF" stroke="#C4B5FD"/>
+          <text x="430" y="705" font-size="11" font-weight="800" fill="#6B21A8">🇰🇭 柬埔寨金邊廠</text>
+          <text x="430" y="725" font-size="9" fill="#581C87">• 邊緣模式：Local Autonomous (48h 離線容限)</text>
+          <text x="430" y="740" font-size="9" fill="#581C87">• 針織運動成衣現場工控機群離線自律</text>
+          <text x="430" y="755" font-size="9" fill="#581C87">• 海纜切斷時工單本地快取，產線不停擺</text>
+
+          <rect x="780" y="680" width="360" height="95" rx="6" fill="#FFFFFF" stroke="#C4B5FD"/>
+          <text x="800" y="705" font-size="11" font-weight="800" fill="#6B21A8">🇮🇩 印尼中爪哇廠</text>
+          <text x="800" y="725" font-size="9" fill="#581C87">• 邊緣模式：Offline Edge Active (48h 離線容限)</text>
+          <text x="800" y="740" font-size="9" fill="#581C87">• 無縫貼合工位本地佇列快取安全平帳</text>
+          <text x="800" y="755" font-size="9" fill="#581C87">• 國際海纜復網後，背景自動壓縮批次追平</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Section 2: 6 Core Middle Modules (Howard EA) -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--accent-primary); letter-spacing:1px; text-transform:uppercase;">
+            HOWARD ENTERPRISE CORE MODULES
+          </div>
+          <h2 class="section-h2">二、Howard 企業架構 6 大核心中樞模組 (Core Modules)</h2>
+          <p class="section-p">參考 8436 大江生醫架構標準，為信源全球量身打造之高階中樞引擎矩陣</p>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <!-- Module 1 -->
+        <div class="module-card">
+          <div class="module-title"><span>🤖</span> 1. 應用與業務編排中樞：HowardAGent</div>
+          <div class="module-desc">
+            針對成衣跨國製造，提供企業級 Agentic RAG（Tech Pack 多國語言工藝包知識庫 95% 準確率檢索）、智慧客服跟單協同、財務傳票 OCR 自動化，以及 4-Gate 產前門禁智慧規則引擎。
+          </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-card blue">
+          <div class="module-title"><span>⚡</span> 2. 多模型調度與網關：HowardRoute</div>
+          <div class="module-desc">
+            統一單一標準 API 端點，智慧路由調度多款公私有大模型；0% Markup 原廠價開票，動態任務分流平均節省 20~40% Token 成本，具備跨模型毫秒級 Failover 備援能力。
+          </div>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-card green">
+          <div class="module-title"><span>🏭</span> 3. 車間排線與IE尋優大腦：HowardPro</div>
+          <div class="module-desc">
+            成衣工業大腦：即時計算車縫線平衡率 (Line Balancing Rate)、瓶頸工序 SAM 預警、工位多技能熟練度派工尋優，結合車間工控機與機台訊號進行 OEE 虛擬量測。
+          </div>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="module-card purple">
+          <div class="module-title"><span>🛡️</span> 4. 邊界 WAAP ＋ 旁路 API 安全雙軌聯防</div>
+          <div class="module-desc">
+            非取代、非合併：邊界 WAAP 在線毫秒級攔截 DDoS 與已知威脅；旁路 API 安全零延遲鏡像分析，秒級盤點影子 API 與 BOLA 業務邏輯越權，自動閉環回饋封鎖。
+          </div>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="module-card amber">
+          <div class="module-title"><span>📡</span> 5. 跨國雙環 Data Bus 數據總線</div>
+          <div class="module-desc">
+            IT 骨幹（MS SQL CDC ＋ 深夜 01:00~03:00 外點離峰傳輸）＋ OT 現場（車間 OPC-UA ＋ MQTT 物聯網連線），徹底保護跨國 SD-WAN 白天頻寬不被佔用。
+          </div>
+        </div>
+
+        <!-- Module 6 -->
+        <div class="module-card cyan">
+          <div class="module-title"><span>💎</span> 6. 成衣製造主數據治理與單一真理源 (SSOT)</div>
+          <div class="module-desc">
+            清洗全球布料、副料、款號與工序 SAM 主數據，配置 Great Expectations 自動品質門禁，雙軌驅動「聯銓 Smart eVision 廠長晨會」與「Power BI 集團經營看板」。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: 32 Views Catalog (TOGAF ADM) -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--accent-primary); letter-spacing:1px; text-transform:uppercase;">
+            TOGAF 10 ADM 32 VIEWS CATALOG
+          </div>
+          <h2 class="section-h2">三、信源全球 · Howard 企業架構 32 全架構視圖清冊 (32 Views)</h2>
+          <p class="section-p">全面映射信源全球跨國成衣製造版圖，完整覆蓋 TOGAF ADM Phase A 至 Phase H 生命週期</p>
+        </div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filter-btn-row">
+        <button class="f-btn active" onclick="filter32Views('all', this)">全部 32 視圖</button>
+        <button class="f-btn" onclick="filter32Views('phase-a', this)">Phase A 願景戰略 (00-03)</button>
+        <button class="f-btn" onclick="filter32Views('phase-b', this)">Phase B 業務架構 (04-11)</button>
+        <button class="f-btn" onclick="filter32Views('phase-c-data', this)">Phase C 數據架構 (12-16)</button>
+        <button class="f-btn" onclick="filter32Views('phase-c-app', this)">Phase C 應用架構 (17-21)</button>
+        <button class="f-btn" onclick="filter32Views('phase-d', this)">Phase D 技術工程 (22-27)</button>
+        <button class="f-btn" onclick="filter32Views('phase-eh', this)">Phase E-H 實施治理 (28-31)</button>
+      </div>
+
+      <!-- 32 View Cards Grid -->
+      <div class="views-grid" id="viewsGridContainer">
+        <!-- Injected by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Section 4: RTL 5-Station Architecture Flow -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--accent-primary); letter-spacing:1px; text-transform:uppercase;">
+            RIGHT-TO-LEFT ARCHITECTURE EVOLUTION
+          </div>
+          <h2 class="section-h2">四、五站式右至左 (Right-to-Left RTL) 架構演進流向</h2>
+          <p class="section-p">由終端業務成果與高管損益價值，反推智能決策、製程門禁、數據湖倉與底層微軟實體底座</p>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-body); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:20px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px;">
+          
+          <div style="background:var(--bg-surface); border:1.5px solid var(--accent-primary); border-radius:6px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:800; color:var(--accent-primary); font-family:var(--font-mono);">STATION 01 · RESULT</div>
+            <div style="font-size:0.92rem; font-weight:800; color:var(--text-main); margin:4px 0;">🎯 業務成果與價值</div>
+            <div style="font-size:0.76rem; color:var(--text-muted); line-height:1.45;">年省 NT$3,705 萬現金流、防禦海外空運包機違約、提升大貨布料利用率 1.2%。</div>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1.5px solid var(--blue-main); border-radius:6px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:800; color:var(--blue-main); font-family:var(--font-mono);">STATION 02 · DECISION</div>
+            <div style="font-size:0.92rem; font-weight:800; color:var(--text-main); margin:4px 0;">🧠 智能決策中樞</div>
+            <div style="font-size:0.76rem; color:var(--text-muted); line-height:1.45;">HowardPro 車縫排線尋優、HowardRoute 多模型調度、高管 3 秒晨會決策看板。</div>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1.5px solid var(--emerald-main); border-radius:6px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:800; color:var(--emerald-main); font-family:var(--font-mono);">STATION 03 · PROCESS</div>
+            <div style="font-size:0.92rem; font-weight:800; color:var(--text-main); margin:4px 0;">⚙️ 流程履約與門禁</div>
+            <div style="font-size:0.76rem; color:var(--text-muted); line-height:1.45;">4-Gate 產前門禁流體聯鎖防呆、車間 MES 車縫計件、裁片超市智能調度。</div>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1.5px solid var(--purple-main); border-radius:6px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:800; color:var(--purple-main); font-family:var(--font-mono);">STATION 04 · DATA/API</div>
+            <div style="font-size:0.92rem; font-weight:800; color:var(--text-main); margin:4px 0;">🌊 湖倉與 API 雙軌</div>
+            <div style="font-size:0.76rem; color:var(--text-muted); line-height:1.45;">MS SQL CDC ➔ 湖倉 3 層、深夜 01:00 離峰結算傳輸、邊界 WAAP ＋ 旁路 API 閉環。</div>
+          </div>
+
+          <div style="background:var(--bg-surface); border:1.5px solid #F59E0B; border-radius:6px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:800; color:#B45309; font-family:var(--font-mono);">STATION 05 · INFRA</div>
+            <div style="font-size:0.92rem; font-weight:800; color:var(--text-main); margin:4px 0;">🏭 邊緣自律與底座</div>
+            <div style="font-size:0.76rem; color:var(--text-muted); line-height:1.45;">海外三廠 48~72hr 斷網自律生產、MS SQL AlwaysOn AG 叢集、Windows Server AD。</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: 4 Playbooks -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--accent-primary); letter-spacing:1px; text-transform:uppercase;">
+            FOUR IMMEDIATE VALUE SCENARIOS
+          </div>
+          <h2 class="section-h2">五、信源全球四大立竿見影實戰場景 (Immediate Value Playbooks)</h2>
+          <p class="section-p">短週期驗收驗證成效，為全集團高管與海外廠長創造顯著商業價值</p>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <div class="module-card">
+          <div class="module-title"><span>🛑</span> 場景 1：4-Gate 產前門禁流體聯鎖與智慧排產</div>
+          <div class="module-desc">
+            物料 100% 齊套、紙樣封樣簽核、MQP 缺失改善結案、裁片封包檢驗。四道門禁未全齊系統強制鎖定禁止開裁與投產，根除現場盲目上線停工窩工，首日換線效率提升 35%。
+          </div>
+        </div>
+
+        <div class="module-card blue">
+          <div class="module-title"><span>📡</span> 場景 2：跨國海纜中斷 48～72 小時邊緣離線自律</div>
+          <div class="module-desc">
+            越/柬/爪哇海外廠工控機部署 Envoy Edge Proxy ＋ SQLite 本地快取。國際海纜切斷時機台自動收到 202 Accepted 暫存，車間連續離線生產不停擺，復網 15 分鐘內批次自動平帳。
+          </div>
+        </div>
+
+        <div class="module-card green">
+          <div class="module-title"><span>🍯</span> 場景 3：MS SQL CDC 湖倉與外點深夜離峰結算</div>
+          <div class="module-desc">
+            外點結算資料原則上一天傳輸一次（深夜 01:00~03:00 離峰打包），保護跨國 SD-WAN 白天生產頻寬；無侵入捕獲 MS SQL CDC 匯入湖倉 3 層，年對沖節省 NT$3,705 萬現金流。
+          </div>
+        </div>
+
+        <div class="module-card purple">
+          <div class="module-title"><span>🛡️</span> 場景 4：邊界 WAAP ＋ 旁路 API 安全雙向動態閉環</div>
+          <div class="module-desc">
+            邊界 WAAP 毫秒級在線攔截已知攻擊；旁路 API 安全系統零生產延遲鏡像分析，秒級盤點影子 API 並精準識別 BOLA 越權攻擊，自動反饋推送動態黑名單至 WAAP 進行在線阻斷！
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script for 32 views and dynamic logic -->
+  <script>
+    // 32 Views Catalog Data
+    const VIEWS_32_DATA = [
+      { id: "00", phase: "phase-a", code: "00 ADM", title: "00 ADM 總覽", desc: "TOGAF 10 / Howard ADM 演進循環與信源蜂巢計畫 2027 實施對齊" },
+      { id: "01", phase: "phase-a", code: "01 STK", title: "01 Stakeholder Map", desc: "利害關係人地圖：董事會、周副總、海外廠長、生管、品管、IT與外部SI" },
+      { id: "02", phase: "phase-a", code: "02 VAL", title: "02 Value Chain", desc: "成衣跨國製造端到端價值鏈：打樣、4-Gate門禁、裁剪、車縫、後整與報關" },
+      { id: "03", phase: "phase-a", code: "03 SOL", title: "03 Solution Concept", desc: "總體解決方案概念：微軟C# .NET基底 ＋ 雙平台中台 ＋ 邊緣離線自律" },
+      
+      { id: "04", phase: "phase-b", code: "04 BCM", title: "04 Business Capability Map", desc: "業務能力地圖：訂單管理、生產排產、物料齊套、工序計件與品質追溯" },
+      { id: "05", phase: "phase-b", code: "05 ACT", title: "05 Organization & Actor", desc: "跨國組織角色地圖：台北總部管理端、海外三廠廠長、IE工程師與品檢員" },
+      { id: "06", phase: "phase-b", code: "06 BFP", title: "06 Business Footprint", desc: "業務足跡矩陣：台北總部、越南隆安廠、柬埔寨金邊廠與印尼中爪哇廠" },
+      { id: "07", phase: "phase-b", code: "07 BSI", title: "07 Business Service-Info", desc: "業務服務資訊圖：成衣Tech Pack工藝包、BOM表、工單與車縫計件紀錄" },
+      { id: "08", phase: "phase-b", code: "08 FND", title: "08 Functional Decomposition", desc: "功能分解圖：生管MRP排程、4-Gate門禁審查、產線平衡演算法、WMS倉儲" },
+      { id: "09", phase: "phase-b", code: "09 GOS", title: "09 Goal-Objective-Service", desc: "目標指標映射：年省NT$3,700萬、OTD>98%、線平衡率96.2%、RPO<15m" },
+      { id: "10", phase: "phase-b", code: "10 BUC", title: "10 Business Use-Case", desc: "業務使用案例：早班打卡換款派工、現場缺料攔截、緊急特許雙簽審批" },
+      { id: "11", phase: "phase-b", code: "11 PRF", title: "11 Process Flow", desc: "成衣端到端核心流程圖：從客審工藝包就緒到大貨裝箱出貨全流程" },
+
+      { id: "12", phase: "phase-c-data", code: "12 CCD", title: "12 Conceptual Data", desc: "概念數據模型：成衣訂單、物料批次、工位技能矩陣、SAM標準工時" },
+      { id: "13", phase: "phase-c-data", code: "13 LGD", title: "13 Logical Data Schema", desc: "邏輯數據綱要：MS SQL Server 實體關聯圖 (ERD)、DDL正規化與索引結構" },
+      { id: "14", phase: "phase-c-data", code: "14 DDF", title: "14 Data Dissemination", desc: "數據分發流：MS SQL 原生 CDC ➔ 湖倉3層 ➔ 外點深夜01:00離峰傳輸" },
+      { id: "15", phase: "phase-c-data", code: "15 DSC", title: "15 Data Security", desc: "數據安全分級：成衣底價與工資加密、Nike/Lululemon 版型實體隔離" },
+      { id: "16", phase: "phase-c-data", code: "16 DLC", title: "16 Data Lifecycle", desc: "數據生命週期：線上即時交易 ➔ 每日切帳 ➔ 湖倉冷熱分層 ➔ WORM封存" },
+
+      { id: "17", phase: "phase-c-app", code: "17 APC", title: "17 Application Comm", desc: "應用通訊矩陣：微軟 C# .NET 8 Web API、gRPC 內部調用、JWT Bearer 驗證" },
+      { id: "18", phase: "phase-c-app", code: "18 AUL", title: "18 App & User Location", desc: "應用與使用者拓撲：台北總部、海外三廠車間工位一體機與行動平板分布" },
+      { id: "19", phase: "phase-c-app", code: "19 AUC", title: "19 Application Use-Case", desc: "應用案例圖：車間條碼掃描刷件、4-Gate門禁審查API、清晨06:00報表派送" },
+      { id: "20", phase: "phase-c-app", code: "20 APR", title: "20 Process-App Realization", desc: "流程應用實現矩陣：成衣業務步驟對應微服務Controller與資料庫Table" },
+      { id: "21", phase: "phase-c-app", code: "21 EPM", title: "21 Enterprise Manageability", desc: "企業可管理性：OpenTelemetry 全鏈路追蹤、Prometheus/Grafana IT 戰情面板" },
+
+      { id: "22", phase: "phase-d", code: "22 SWE", title: "22 Software Engineering", desc: "安全軟體工程：C# .NET 8 標準API規範、測試金字塔 (xUnit/k6/Postman)" },
+      { id: "23", phase: "phase-d", code: "23 ENV", title: "23 Environments & Locations", desc: "環境與機房拓撲：開發、測試、UAT、台北主機房與東南亞三廠邊緣機房" },
+      { id: "24", phase: "phase-d", code: "24 PFD", title: "24 Platform Decomposition", desc: "平台分解圖：邊界 WAAP ＋ 旁路 API 安全 ＋ API Gateway ＋ 數據湖倉" },
+      { id: "25", phase: "phase-d", code: "25 PCD", title: "25 Processing Diagram", desc: "處理流程圖：跨國海纜中斷 ➔ Edge Proxy 202 暫存 ➔ 復通批次補傳時序" },
+      { id: "26", phase: "phase-d", code: "26 NWC", title: "26 Networked Computing", desc: "網絡運算硬體配置：Dell/HP 伺服器、研華工業邊緣主機 IPC、Cisco 交換機" },
+      { id: "27", phase: "phase-d", code: "27 CME", title: "27 Communications Eng", desc: "網絡分區工程：車間工控 VLAN、伺服器專網、SD-WAN 離峰 QoS 優先級" },
+
+      { id: "28", phase: "phase-eh", code: "28 ARM", title: "28 Architecture Roadmap", desc: "架構路線圖：2025底座 ➔ 2026流程連通 ➔ 2027蜂巢智能營運三階段演進" },
+      { id: "29", phase: "phase-eh", code: "29 PJC", title: "29 Project Context", desc: "專案情境圖：WBS 25 項任務甘特里程碑、預算配置 (55/25/20) 與責任分工" },
+      { id: "30", phase: "phase-eh", code: "30 BRM", title: "30 Benefits Realization", desc: "效益實現矩陣：工時釋放 15~25%、維運降本 8~12%、空運違約零發生" },
+      { id: "31", phase: "phase-eh", code: "31 ACM", title: "31 Governance & Change", desc: "架構合規與變更管理：13 角色技術職能評鑑、Bus Factor 排查與 SI 合約審查" }
+    ];
+
+    function render32Views(filter = 'all') {
+      const container = document.getElementById('viewsGridContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      
+      const filtered = filter === 'all' ? VIEWS_32_DATA : VIEWS_32_DATA.filter(v => v.phase === filter);
+      
+      filtered.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'view-card';
+        card.innerHTML = `
+          <div class="view-id">[${v.code}]</div>
+          <div class="view-title">${v.title}</div>
+          <div class="view-desc">${v.desc}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filter32Views(phase, btn) {
+      document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render32Views(phase);
+    }
+
+    function changeTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      render32Views('all');
+    });
+  </script>
+</body>
+</html>
