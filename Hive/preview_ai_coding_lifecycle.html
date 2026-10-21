@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AI Coding 生命週期管理導入專案報告 (V1.0) ｜ 線上安全審閱 (Preview Only)</title>
+  
+  <meta name="description" content="AI Coding 生命週期管理導入專案報告 (AIC-PRJ-01 · V1.0) - 僅供線上預覽審查，嚴禁下載與複製。">
+  <meta name="author" content="Howard Liao Ph.D.">
+
+  <!-- PDF.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <style>
+    :root {
+      --bg-body: #1E293B;
+      --bg-panel: #0F172A;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent: #E87524;
+      --accent-hover: #C2410C;
+      --border-color: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Watermark Overlay */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.085 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%23FFFFFF' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Print protection */
+    @media print {
+      body * {
+        visibility: hidden !important;
+        display: none !important;
+      }
+      body:after {
+        content: "⚠️ 本文件受最高安全等級保護，禁止列印或匯出。請於線上安全閱覽系統中檢視。";
+        visibility: visible !important;
+        display: block !important;
+        font-size: 20pt;
+        color: red;
+        text-align: center;
+        margin-top: 100px;
+      }
+    }
+
+    /* Top Sticky Control Bar */
+    .viewer-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .doc-meta-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .doc-badge {
+      background: var(--accent);
+      color: #FFF;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .doc-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFF;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .security-notice {
+      background: rgba(220, 38, 38, 0.2);
+      border: 1px solid #DC2626;
+      color: #FCA5A5;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .tool-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-ctrl {
+      background: #334155;
+      border: 1px solid #475569;
+      color: #F8FAFC;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .btn-ctrl:hover {
+      background: #475569;
+      color: #FFF;
+    }
+
+    /* Canvas Display Area */
+    .viewer-body {
+      flex: 1;
+      padding: 24px 16px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .page-wrapper {
+      position: relative;
+      background: #FFF;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    canvas {
+      display: block;
+      max-width: 100%;
+      height: auto !important;
+      pointer-events: none; /* Disable right click / inspect on canvas */
+    }
+
+    .page-indicator {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      color: #FFF;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    #loading-spinner {
+      padding: 50px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+  <div class="watermark-overlay"></div>
+
+  <!-- Sticky Top Control Bar -->
+  <header class="viewer-toolbar">
+    <div class="doc-meta-info">
+      <span class="doc-badge">AIC-PRJ-01</span>
+      <span class="doc-title">AI Coding 生命週期管理導入專案報告 (V1.0)</span>
+      <span class="security-notice">🔒 僅供線上審閱 · 嚴禁下載</span>
+    </div>
+
+    <div class="tool-controls">
+      <span id="page-stat" style="font-size: 0.8rem; color: var(--text-muted); margin-right: 8px;">載入中...</span>
+      <button class="btn-ctrl" id="zoomOutBtn">🔍 -</button>
+      <button class="btn-ctrl" id="zoomInBtn">🔍 +</button>
+      <button class="btn-ctrl" id="fitWidthBtn">↔️ 寬度適應</button>
+      <a href="download_center.html" class="btn-ctrl" style="background:var(--accent); border-color:var(--accent);">📑 回文檔中心</a>
+    </div>
+  </header>
+
+  <!-- Viewer Canvas Container -->
+  <main class="viewer-body" id="viewer-container">
+    <div id="loading-spinner">
+      ⏳ 正在載入加密專案報告... 請稍候
+    </div>
+  </main>
+
+  <script>
+    // Security: Block shortcuts
+    document.addEventListener('keydown', function(e) {
+      var k = (e.key || '').toLowerCase();
+      // Block Ctrl+S, Cmd+S (Save), Ctrl+P, Cmd+P (Print), Ctrl+C, Cmd+C (Copy)
+      if ((e.metaKey || e.ctrlKey) && (k === 's' || k === 'p' || k === 'c')) {
+        e.preventDefault();
+        alert('【安全提示】本報告經授權配置為「線上安全審核專用」，已停用本地存檔、複製與列印功能。');
+      }
+    });
+
+    // Disable context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // Configure PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    var pdfUrl = 'AI_Coding生命週期管理導入專案報告_V1.0.pdf';
+    var pdfDoc = null;
+    var currentScale = 1.25;
+    var container = document.getElementById('viewer-container');
+    var spinner = document.getElementById('loading-spinner');
+    var stat = document.getElementById('page-stat');
+
+    function renderAllPages() {
+      if (!pdfDoc) return;
+      container.innerHTML = '';
+      stat.textContent = '共 ' + pdfDoc.numPages + ' 頁';
+
+      var ratio = window.devicePixelRatio || 1;
+      var renderChain = Promise.resolve();
+
+      for (var pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+        (function(num) {
+          renderChain = renderChain.then(function() {
+            return pdfDoc.getPage(num).then(function(page) {
+              var viewport = page.getViewport({ scale: currentScale });
+              
+              var pageWrapper = document.createElement('div');
+              pageWrapper.className = 'page-wrapper';
+              pageWrapper.style.width = viewport.width + 'px';
+
+              var canvas = document.createElement('canvas');
+              var ctx = canvas.getContext('2d');
+              canvas.width = viewport.width * ratio;
+              canvas.height = viewport.height * ratio;
+              canvas.style.width = viewport.width + 'px';
+              canvas.style.height = viewport.height + 'px';
+
+              var indicator = document.createElement('div');
+              indicator.className = 'page-indicator';
+              indicator.textContent = 'P. ' + num + ' / ' + pdfDoc.numPages;
+
+              pageWrapper.appendChild(canvas);
+              pageWrapper.appendChild(indicator);
+              container.appendChild(pageWrapper);
+
+              var renderContext = {
+                canvasContext: ctx,
+                transform: [ratio, 0, 0, ratio, 0, 0],
+                viewport: viewport
+              };
+              return page.render(renderContext).promise;
+            });
+          });
+        })(pageNum);
+      }
+    }
+
+    // Load PDF
+    pdfjsLib.getDocument({
+      url: pdfUrl,
+      cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+      cMapPacked: true
+    }).promise.then(function(doc) {
+      pdfDoc = doc;
+      renderAllPages();
+    }).catch(function(err) {
+      console.error(err);
+      spinner.innerHTML = '❌ 文件載入失敗，請確認檔案連結正確。';
+    });
+
+    // Zoom controls
+    document.getElementById('zoomInBtn').addEventListener('click', function() {
+      currentScale += 0.15;
+      renderAllPages();
+    });
+    document.getElementById('zoomOutBtn').addEventListener('click', function() {
+      if (currentScale > 0.6) {
+        currentScale -= 0.15;
+        renderAllPages();
+      }
+    });
+    document.getElementById('fitWidthBtn').addEventListener('click', function() {
+      var clientWidth = window.innerWidth - 60;
+      if (pdfDoc) {
+        pdfDoc.getPage(1).then(function(page) {
+          var unscaledVp = page.getViewport({ scale: 1.0 });
+          currentScale = clientWidth / unscaledVp.width;
+          renderAllPages();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
