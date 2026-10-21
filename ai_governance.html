@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="pharaoh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>信源全球 (RSI Group) · 企業級生成式 AI 治理架構與合規藍圖 | 參考 8436 大江生醫規格</title>
+  
+  <meta name="description" content="信源全球 (RSI Group) 企業級生成式 AI 治理架構 (AI Governance Framework)：參考 8436 大江生醫合規規格，全面對齊金管會生成式 AI 核心指引、證券交易所上市上櫃資通安全管控指引、內控準則第9條之1，以及成衣品牌客戶智財無菌室 (IP Clean Room) 與去識別化機制。">
+  <meta name="author" content="Howard Liao Ph.D.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-body: #FBF9F5;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F5EFEB;
+      --text-main: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --border-color: #E2D7CE;
+      
+      --accent-primary: #A83212;   /* Pharaoh Rust / Gold */
+      --accent-secondary: #C2410C;
+      --accent-hover: #E87524;
+      --accent-light: #FFF8EE;
+      --accent-border: #FED7AA;
+
+      --blue-main: #2563EB;
+      --blue-light: #EFF6FF;
+      --blue-border: #93C5FD;
+
+      --emerald-main: #059669;
+      --emerald-light: #ECFDF5;
+      --emerald-border: #6EE7B7;
+
+      --purple-main: #7C3AED;
+      --purple-light: #F5F3FF;
+      --purple-border: #C4B5FD;
+
+      --amber-main: #D97706;
+      --amber-light: #FEF3C7;
+      --amber-border: #FDE68A;
+
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --card-hover-shadow: 0 10px 15px -3px rgba(168, 50, 18, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="obsidian"] {
+      --bg-body: #0A0F1D;
+      --bg-surface: #111827;
+      --bg-subtle: #1F2937;
+      --text-main: #F9FAFB;
+      --text-secondary: #D1D5DB;
+      --text-muted: #9CA3AF;
+      --border-color: #374151;
+      --accent-primary: #F59E0B;
+      --accent-hover: #FBBF24;
+      --accent-light: rgba(245, 158, 11, 0.1);
+      --accent-border: #D97706;
+      --blue-light: rgba(37, 99, 235, 0.15);
+      --emerald-light: rgba(5, 150, 105, 0.15);
+      --purple-light: rgba(124, 58, 237, 0.15);
+      --amber-light: rgba(217, 119, 6, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Standard Unified Watermark for Screen and Print (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.075 !important;
+        pointer-events: none !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+        background-repeat: repeat !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .top-header, .btn-action { display: none !important; }
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Sticky Header */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 0;
+    }
+    [data-theme="obsidian"] .top-header {
+      background: rgba(17, 24, 39, 0.95);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-badge {
+      background: var(--accent-primary);
+      color: #FFF;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .hero-section {
+      padding: 36px 0 20px;
+      border-bottom: 1.5px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+    .hero-pretitle {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .hero-title span {
+      color: var(--accent-hover);
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      max-width: 1100px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .hero-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.82rem;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 12px;
+    }
+    .meta-left { color: var(--text-muted); }
+    .meta-right {
+      text-align: right;
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .section-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      margin-bottom: 26px;
+      box-shadow: var(--card-shadow);
+    }
+    .section-head {
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .section-h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .pillar-card {
+      background: var(--bg-body);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      border-left: 5px solid var(--accent-primary);
+    }
+    .pillar-card.blue { border-left-color: var(--blue-main); }
+    .pillar-card.green { border-left-color: var(--emerald-main); }
+    .pillar-card.purple { border-left-color: var(--purple-main); }
+    .pillar-card.amber { border-left-color: var(--amber-main); }
+    .pillar-card.teal { border-left-color: #0D9488; }
+
+    .pillar-card-title {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pillar-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .pillar-card-list {
+      margin: 8px 0 0 16px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .pillar-card-list li { margin-bottom: 4px; }
+
+    .pill-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .pill-red { background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5; }
+    .pill-blue { background: #EFF6FF; color: #2563EB; border: 1px solid #93C5FD; }
+    .pill-green { background: #ECFDF5; color: #059669; border: 1px solid #6EE7B7; }
+    .pill-purple { background: #F5F3FF; color: #7C3AED; border: 1px solid #C4B5FD; }
+
+    .btn-action {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-action:hover {
+      background: var(--accent-primary);
+      color: #FFF;
+      border-color: var(--accent-primary);
+    }
+    .btn-action.primary {
+      background: var(--accent-primary);
+      color: #FFF;
+      border-color: var(--accent-primary);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    table.data-table th {
+      background: #F3F4F6;
+      color: var(--text-charcoal);
+      padding: 10px 14px;
+      font-weight: 700;
+      border-bottom: 2px solid #D1D5DB;
+    }
+    table.data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.data-table tr:nth-child(even) { background: #FAFAF9; }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <!-- Top Sticky Header -->
+  <header class="top-header">
+    <div class="container header-inner">
+      <div class="brand-group">
+        <span class="brand-badge">RSI · AI GOVERNANCE</span>
+        <span class="brand-title">信源全球 · 企業級生成式 AI 治理架構 (參考 8436 大江生醫合規規格)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <a href="howard_ea_framework.html" class="btn-action">🏛️ Howard 企業架構</a>
+        <a href="index.html" class="btn-action">🐝 蜂巢計畫首頁</a>
+        <a href="download_center.html" class="btn-action primary">📥 下載中心</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-pretitle">
+        <span>⚖️ 參考 8436 大江生醫合規標竿</span> ｜ <span>📜 金管會生成式 AI 指引 ＆ 證交所資通管控標準</span>
+      </div>
+      <h1 class="hero-title">信源全球 (RSI Group) <span>企業級生成式 AI 治理架構藍圖</span></h1>
+      <p class="hero-subtitle">
+        全面引進 8436 大江生醫備受資本市場肯定之 AI 治理體系，結合<b>金管會生成式 AI 核心六大指引</b>、<b>證券交易所上市上櫃資通安全管控指引</b>與<b>內部控制準則第 9 條之 1</b>。針對成衣跨國製造建立<b>「品牌客戶智財無菌室 (IP Clean Room)」</b>、<b>「訂單款式結構圖去識別化」</b>、<b>「人機協同 (Human-in-the-Loop) 4-Gate 產前門禁聯鎖」</b>與<b>「全生命週期決策審計追蹤」</b>，確保 AI 創新與企業機密治理雙軌兼備。
+      </p>
+      <div class="hero-meta-row">
+        <div class="meta-left">
+          專案指導：<strong style="color:var(--text-main);">周文津 副總經理 (計劃主持人)</strong> ｜ 
+          架構規劃：<strong style="color:var(--text-main);">Howard Liao Ph.D. 外部顧問 (執行負責人)</strong>
+        </div>
+        <div class="meta-right">
+          FORM SUITE: RSI-SIMULTANEOUS-ROLES-2027
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: The 6 Pillars of AI Governance -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <h2 class="section-h2">一、信源全球 AI 治理六大核心支柱 (The 6 Pillars of AI Governance)</h2>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-top:4px;">全面落實金管會 GenAI 六大原則，杜絕演算法黑箱、資料外洩與 AI 幻覺引發的生產事故</p>
+        </div>
+        <button onclick="window.print()" class="btn-action">🖨️ 列印本頁手冊</button>
+      </div>
+
+      <div class="pillar-grid">
+        
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+          <div class="pillar-card-title">
+            <span>🏛️ 支柱一：治理組織與權責問責機制</span>
+            <span class="pill-badge pill-red">金管會原則一</span>
+          </div>
+          <div class="pillar-card-desc">
+            明定 AI 決策主體為企業本身，絕不將責任推託給演算法。
+            <ul class="pillar-card-list">
+              <li>成立跨部門「AI 治理與風險審查委員會」，由周副總親自主持。</li>
+              <li>明定各項 AI 應用（如 Tech Pack 翻譯、以圖找圖、生管排產）之業務權責主管。</li>
+              <li>建立 AI 事故分級與緊急阻斷機制，發生異常時可在 30 秒內降級回人工程序。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="pillar-card blue">
+          <div class="pillar-card-title">
+            <span>🛡️ 支柱二：品牌智財無菌室 ＆ 去識別化</span>
+            <span class="pill-badge pill-blue">金管會原則二</span>
+          </div>
+          <div class="pillar-card-desc">
+            參考 8436 大江生醫專利配方隔離架構，建立國際成衣大品牌（Nike / Lululemon）智財無菌室：
+            <ul class="pillar-card-list">
+              <li><strong>去識別化預處理</strong>：款式結構圖上傳前自動去除品牌 Logo、款號與工廠代碼。</li>
+              <li><strong>Zero Data Retention (ZDR)</strong>：要求 AWS 與外部模型供應商簽署不留存、不用於重訓協定。</li>
+              <li><strong>ABAC 租戶實體隔離</strong>：不同品牌客戶之版型資產與做工知識庫實施強制隔離。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card green">
+          <div class="pillar-card-title">
+            <span>⚖️ 支柱三：製程算法公平性與防偏見機制</span>
+            <span class="pill-badge pill-green">金管會原則三</span>
+          </div>
+          <div class="pillar-card-desc">
+            成衣生產排線與車縫計件直接牽涉基層技工薪資與工廠考核，演算法必須客觀公正：
+            <ul class="pillar-card-list">
+              <li>車縫線平衡率 (Line Balancing) 演算法必須基於標準工時 (SAM) 與技能矩陣客觀派工。</li>
+              <li>定期審查 AI 模型輸出結果，嚴禁出現特定工段、班組或國籍勞工的系統性歧視。</li>
+              <li>保留勞工計件工資人工覆核爭議申訴通道，維護跨國勞工人權合規。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="pillar-card purple">
+          <div class="pillar-card-title">
+            <span>🔍 支柱四：透明度與可解釋性 (Explainable AI)</span>
+            <span class="pill-badge pill-purple">金管會原則四</span>
+          </div>
+          <div class="pillar-card-desc">
+            拒絕黑箱決策，AI 產出之每一項成衣技術建議都必須具備引用依據：
+            <ul class="pillar-card-list">
+              <li><strong>RAG 引用溯源</strong>：Tech Pack 翻譯與工藝提醒，必須標註來源客審文件之頁碼與章節。</li>
+              <li><strong>以圖找圖相似度量化</strong>：輸出相似歷史訂單時，明確標註相似度百分比與比對依據。</li>
+              <li><strong>IE 瓶頸工序解釋</strong>：排產模擬預測產能時，需同步標出瓶頸工位之等待 SAM 損失。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 5 -->
+        <div class="pillar-card amber">
+          <div class="pillar-card-title">
+            <span>🤝 支柱五：人機協同 (Human-in-the-Loop · HITL)</span>
+            <span class="pill-badge pill-red">金管會原則五</span>
+          </div>
+          <div class="pillar-card-desc">
+            堅決落實人機協同，嚴禁 AI 自動下達未經人工覆核之成衣投產或採購指令：
+            <ul class="pillar-card-list">
+              <li><strong>4-Gate 產前門禁聯鎖</strong>：AI 提供物料齊套預測，但 Gate 1~4 放行必須由生管主管電子簽字。</li>
+              <li><strong>報價覆核機制</strong>：AI 輔助計算之大貨布損與成衣報價，業務副總/總監簽核前不得發出。</li>
+              <li><strong>Tech Pack 翻譯雙簽</strong>：技術部資深版師必須對關鍵特殊部位做工翻譯進行人工確認。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 6 -->
+        <div class="pillar-card teal">
+          <div class="pillar-card-title">
+            <span>🔐 支柱六：系統強韌度、護欄防禦與稽核日誌</span>
+            <span class="pill-badge pill-blue">金管會原則六</span>
+          </div>
+          <div class="pillar-card-desc">
+            防禦 Prompt 注入攻擊 (Prompt Injection)，保障 AI 中台高可用性：
+            <ul class="pillar-card-list">
+              <li><strong>輸入/輸出雙向護欄</strong>：配置 Llama-Guard 3 與 DLP 模組，過濾敏感報價與異常提問。</li>
+              <li><strong>決策審計日誌 (Audit Trail)</strong>：完整留存每次呼叫之時間戳、操作人、Prompt 與輸出，留存 3 年。</li>
+              <li><strong>海外廠斷網韌性</strong>：海外三廠具備 48~72hr 離線生產自律，海纜斷網時 AI 服務自動優雅降級。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Internal Control & Listed Company Compliance -->
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <h2 class="section-h2">二、公開發行內控準則第 9 條之一 ＆ 上市上櫃資通安全管控對齊</h2>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-top:4px;">將生成式 AI 與 API 平台納入集團年度內部控制查核計畫，杜絕法規與治理漏洞</p>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">法規與準則項目</th>
+              <th style="width: 40%;">大江生醫 (8436.TW) 標竿做法</th>
+              <th style="width: 40%;">信源全球 (RSI Group) 落地實施機制</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>公開發行公司內控第 9 條之 1<br>(資通安全查核)</strong></td>
+              <td>將大型語言模型、API 閘道與生物資料庫列為年度內部稽核重點，每季出具稽核報告。</td>
+              <td>
+                • 將「Tech Pack 翻譯知識庫」、「以圖找圖模型」與「API 閘道」納入年度內控查核。<br>
+                • 每季清查模型存取帳號權限，離職同仁當日即時封鎖停權。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>證交所資通安全管控指引<br>(特權存取與金鑰)</strong></td>
+              <td>使用 HashiCorp Vault 實施核心資料庫動態金鑰自動輪替，杜絕明文金鑰外洩。</td>
+              <td>
+                • AWS API 金鑰與 MS SQL 連線字串全數封裝於安全金鑰庫，禁止寫死在代碼中。<br>
+                • 核心管理員強制推行 Authenticator App MFA 雙因子認證。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>智慧財產權與專利保護<br>(IP Protection)</strong></td>
+              <td>專利配方與發酵菌種機密在專屬安全沙盒中運算，嚴禁進入公共模型訓練池。</td>
+              <td>
+                • 客人「訂單款式結構圖」與版型檔案經去識別化後始調用 AWS 進行向量比對。<br>
+                • 外部協力廠商使用 Clientless Portal 隔離存取，禁止下載原始版型檔案。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>AI 運算成本治理<br>(FinOps Token Quota)</strong></td>
+              <td>以 HowardRoute 實施部門 Token 消耗配額監控，動態任務分流節省成本。</td>
+              <td>
+                • 建立生管、業務、開發各部門月度 Token 消耗限額，防止算力與費用失控。<br>
+                • 採「地端私有模型 ＋ 雲端商業大模型」混合架構，兼顧成本與效能。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
