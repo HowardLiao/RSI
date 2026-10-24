@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>信源全球 · 2027 蜂巢群島 (RSI Hive Archipelago) ｜ 3D 跨國製造數據治理與智能營運數位孿生</title>
+  
+  <meta name="description" content="信源全球 (RSI Group) 蜂巢計畫 3D 互動微縮群島平台：把複雜的跨國成衣製造、雙軌資料湖倉、海外三廠邊緣離線自治與 AI-SDLC 藍圖，化為一座可直觀探索的 3D 微縮工業群島。">
+  <meta name="author" content="Howard Liao Ph.D.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Three.js & TWEEN CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+
+  <style>
+    :root {
+      /* Milan Warm Amber & Pharaoh Palette */
+      --bg-ocean: #DCEAF4;
+      --surface-card: #FFFFFF;
+      --surface-subtle: #F8F9FA;
+      --border-subtle: #E2E8F0;
+      
+      --accent-rust: #A83212;   /* Milan Rust */
+      --accent-amber: #D97706;  /* Warm Amber */
+      --accent-blue: #0284C7;   /* Azure Blue */
+      --accent-emerald: #059669;/* Edge Green */
+      --accent-purple: #7C3AED; /* AI Purple */
+      --accent-dark: #1E293B;
+
+      --text-main: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-lg: 0 16px 36px -4px rgba(15,23,42,0.14), 0 8px 16px -4px rgba(15,23,42,0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-ocean);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Standard Watermark Overlay (Howard Liao Ph.D.) */
+    .watermark-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      opacity: 0.055 !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='140' viewBox='0 0 260 140'%3E%3Ctext x='20' y='75' fill='%231C1917' font-family='-apple-system, BlinkMacSystemFont, Arial, sans-serif' font-weight='700' font-size='14' transform='rotate(-22 130 75)' letter-spacing='2'%3EHoward Liao Ph.D.%3C/text%3E%3C/svg%3E") !important;
+      background-repeat: repeat !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* 3D Viewport */
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      cursor: grab;
+    }
+    #canvas-container:active { cursor: grabbing; }
+
+    /* Top Floating Header */
+    .top-nav {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+    .nav-bar {
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: var(--shadow-lg);
+      border-radius: 999px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      color: var(--text-main);
+    }
+    .brand-badge {
+      background: var(--accent-rust);
+      color: #FFF;
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-sponsor {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      border-left: 1px solid var(--border-subtle);
+      padding-left: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-sponsor strong { color: var(--accent-rust); }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      pointer-events: auto;
+    }
+    .search-input {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 8px 14px 8px 34px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      width: 260px;
+      outline: none;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      width: 320px;
+      border-color: var(--accent-rust);
+      box-shadow: 0 0 0 3px rgba(168, 50, 18, 0.15);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Mode Switcher */
+    .mode-switch {
+      display: flex;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 3px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+      pointer-events: auto;
+    }
+    .mode-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition);
+    }
+    .mode-btn.active {
+      background: var(--accent-rust);
+      color: #FFF;
+      box-shadow: 0 2px 6px rgba(168, 50, 18, 0.25);
+    }
+
+    /* Floating View Controls */
+    .view-controls {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ctrl-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-main);
+    }
+    .ctrl-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      background: #FFF;
+      color: var(--accent-rust);
+    }
+
+    /* Bottom Island Selector Bar */
+    .islands-bar {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: var(--shadow-lg);
+      padding: 6px 10px;
+      border-radius: 999px;
+      max-width: 90vw;
+      overflow-x: auto;
+    }
+    .island-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      background: var(--surface-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .island-pill:hover, .island-pill.active {
+      background: #FFF;
+      color: var(--accent-rust);
+      border-color: var(--accent-rust);
+      box-shadow: 0 2px 8px rgba(168, 50, 18, 0.2);
+      transform: translateY(-1px);
+    }
+
+    /* Slide-out Drawer Panel */
+    .detail-drawer {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      bottom: 16px;
+      width: 480px;
+      max-width: calc(100vw - 32px);
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(110%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .detail-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 20px 22px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      background: #FFF;
+    }
+    .drawer-title-group h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .drawer-title-group p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    .close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    .close-btn:hover { background: #E2E8F0; color: var(--text-main); }
+
+    .drawer-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Architecture Cards Inside Drawer */
+    .arch-card {
+      background: #FFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition);
+      border-left: 4px solid var(--accent-rust);
+    }
+    .arch-card:hover {
+      border-color: #CBD5E1;
+      border-left-color: var(--accent-amber);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .card-tag {
+      background: #FFF8EE;
+      color: var(--accent-rust);
+      border: 1px solid #FED7AA;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+    }
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+    .card-summary {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .card-insight {
+      background: #FFF8EE;
+      border-left: 3px solid var(--accent-amber);
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      color: #92400E;
+      line-height: 1.45;
+    }
+    .card-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-subtle);
+      font-size: 0.76rem;
+    }
+    .action-link {
+      font-weight: 700;
+      color: var(--accent-rust);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .action-link:hover { text-decoration: underline; }
+
+    /* Fullscreen List View Overlay */
+    .list-view-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-ocean);
+      z-index: 15;
+      display: none;
+      flex-direction: column;
+      padding: 80px 24px 24px;
+      overflow-y: auto;
+    }
+    .list-view-overlay.active { display: flex; }
+    .list-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .list-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    /* Floating Tooltip */
+    #tooltip {
+      position: absolute;
+      z-index: 50;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      color: #FFF;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      pointer-events: none;
+      transform: translate(-50%, -120%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 768px) {
+      .detail-drawer {
+        top: auto;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        height: 68vh;
+        transform: translateY(110%);
+      }
+      .detail-drawer.open {
+        transform: translateY(0);
+      }
+      .search-input { width: 140px; }
+      .search-input:focus { width: 180px; }
+      .meta-sponsor { display: none; }
+      .islands-bar { bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark-overlay"></div>
+
+  <!-- Top Floating Nav -->
+  <header class="top-nav">
+    <div class="nav-bar">
+      <div class="brand-logo">
+        <span>🐝</span>
+        <span>蜂巢群島 (RSI Hive)</span>
+        <span class="brand-badge">2027 BLUEPRINT</span>
+      </div>
+      <div class="meta-sponsor">
+        <span>計劃主持：<strong>周文津 副總</strong> ｜ 架構負責：<strong>Howard Liao Ph.D.</strong></span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="檢索 4-Gate / 25G / ASUS GX10 / CQS...">
+      </div>
+
+      <div class="mode-switch">
+        <button class="mode-btn active" id="modeCityBtn">🏙️ 3D 蜂巢群島</button>
+        <button class="mode-btn" id="modeListBtn">📋 戰略清單</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3D Canvas Viewport -->
+  <div id="canvas-container"></div>
+
+  <!-- View Controls -->
+  <div class="view-controls">
+    <button class="ctrl-btn" id="resetCamBtn" title="回到群島全景">🔄</button>
+    <button class="ctrl-btn" id="zoomInBtn" title="放大視角">➕</button>
+    <button class="ctrl-btn" id="zoomOutBtn" title="縮小視角">➖</button>
+  </div>
+
+  <!-- Island Quick Selector (Bottom Center) -->
+  <div class="islands-bar" id="islandsBar"></div>
+
+  <!-- Slide-out Detail Drawer -->
+  <aside class="detail-drawer" id="detailDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <h2 id="drawerTitle">🏛️ Pillar I · 數位底座島</h2>
+        <p id="drawerSubtitle">跨國 API 平台、雙軌資料湖倉與深夜離峰傳輸政策</p>
+      </div>
+      <button class="close-btn" id="closeDrawerBtn">✕</button>
+    </div>
+    <div class="drawer-content" id="drawerContent"></div>
+  </aside>
+
+  <!-- Fullscreen List View Overlay -->
+  <div class="list-view-overlay" id="listViewOverlay">
+    <div class="list-container">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h2 style="font-size:1.4rem; font-weight:800; color:var(--text-main);">📋 信源全球 · 2027 蜂巢計畫全戰略情報清單</h2>
+        <span style="font-size:0.85rem; color:var(--text-secondary);" id="listCount">共 18 則關鍵架構規範</span>
+      </div>
+      <div class="list-grid" id="listGrid"></div>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div id="tooltip"></div>
+
+  <script>
+    // 1. Data Store: 6 Core Pillars of Project Hive
+    const RSI_HIVE_DATA = [
+      {
+        id: "pillar-1-foundation",
+        name: "Pillar I 數位底座島",
+        tag: "數位底座",
+        icon: "🏛️",
+        color: 0xA83212, // Milan Rust
+        hexPos: { q: 0, r: 0 },
+        desc: "跨國 API 總平台、雙軌資料湖倉與外點深夜 01:00~03:00 離峰傳輸鐵律",
+        articles: [
+          {
+            title: "外點深夜 01:00~03:00 離峰傳輸鐵律：保護跨國 SD-WAN 日間頻寬",
+            summary: "外點所有的結算堅持一天傳一次（排定離峰），除非極重要才多次傳輸。在東南亞跨國專線 80% 空閒時段增量打包，杜絕車間吊掛與生產連線逾時中斷。",
+            tag: "網路韌性",
+            time: "周副總審定",
+            why: "💡 跨國 SD-WAN 白天尖峰頻寬佔用高達 85% 以上，嚴禁在日間執行大數據搬遷。",
+            action: "在 Integration Runtime 配置 Qos 限速閥與 SHA-256 完整性雜湊驗證。"
+          },
+          {
+            title: "C# .NET 8 Web API 標準分層與 ApiResponse<T> 統一信封規範",
+            summary: "嚴格遵守 Controller -> Service -> Repository 三層職責分離。Controller 嚴禁下 Raw SQL，一律回傳標準信封與全鏈路 TraceId。",
+            tag: "API 標準",
+            time: "工程手冊定稿",
+            why: "💡 消除過去一支 Controller 寫 2000 行的義大利麵代碼，為 AI 自動審查建立客觀尺規。",
+            action: "在專案根目錄配置 .cursorrules 注入三層剛性檢查規則。"
+          }
+        ]
+      },
+      {
+        id: "pillar-2-gate",
+        name: "Pillar II 流程門禁島",
+        tag: "產前門禁",
+        icon: "🧵",
+        color: 0xD97706, // Warm Amber
+        hexPos: { q: 1, r: -1 },
+        desc: "Ready-to-Sew 4-Gate 產前剛性門禁防呆與端到端成衣製造流程整合",
+        articles: [
+          {
+            title: "Ready-to-Sew 4-Gate 產前剛性門禁：物料未齊套直接鎖死裁床",
+            summary: "如同民航機起飛前 Check-list，大貨開裁前依序通過物料齊套 (Gate 1)、紙樣封樣 (Gate 2)、MQP 異常改善 (Gate 3)、裁片超市齊套 (Gate 4)，缺一不可！",
+            tag: "品質防呆",
+            time: "生產標準發布",
+            why: "💡 寧可在產前把問題攔下來，絕不冒然開裁造成整批半成品堆積與布料浪費。",
+            action: "實施裁剪課長、車縫課長與品管組長在邊緣工控機上的三方實體電子會簽。"
+          },
+          {
+            title: "成衣專業術語全面正名：正式定調『訂單款式結構圖』(Technical Flat)",
+            summary: "全面淘汰業界非正式俗稱『娃娃圖』，正式技術與管理文件統一採用國際標準名詞『訂單款式結構圖』或『款式平面工藝圖』。",
+            tag: "術語正名",
+            time: "高管決策核定",
+            why: "💡 對齊國際品牌買家（Nike, Lululemon）專業驗廠標準，彰顯高階製造品質形象。",
+            action: "全站所有 API 規格書、資料庫欄位註解與系統畫面全面替換為正式學名。"
+          }
+        ]
+      },
+      {
+        id: "pillar-3-ai",
+        name: "Pillar III 智能決策島",
+        tag: "AI 規模化",
+        icon: "🤖",
+        color: 0x7C3AED, // Cyber Violet
+        hexPos: { q: -1, r: 0 },
+        desc: "Gartner 2026 雙層語意層、成衣款式圖以圖找圖與生管 AI Agent",
+        articles: [
+          {
+            title: "Gartner 2026 雙層語意層：消滅生管 AI 預測與廠長晨會報表矛盾",
+            summary: "落實『不搬資料、不重構架構』的雙層語意層。生管 AI Agent 與清晨 06:00 晨會看板（聯銓/Power BI）調用同一個 Semantic Model，共享單一計算定義！",
+            tag: "Gartner 2026",
+            time: "架構手冊更新",
+            why: "💡 Gartner 警告：沒有語意豐富的資料層，AI Agent 脆弱、不可信、難以協調。",
+            action: "以 CQS 剪裁品質為試點，固化車縫線平衡率與大貨布損率等 20 大指標公式。"
+          },
+          {
+            title: "AWS 雲端算力年費約 38 萬釐清：維持極低 OpEx、零折舊負擔",
+            summary: "澄清 30~50 萬為『全年度總額（年費）』，月均僅約 3~4 萬元！圖檔經本地去識別化後調用 AWS Bedrock 與向量比對，兼顧保密與資本節約。",
+            tag: "FinOps 算力",
+            time: "預算對齊確認",
+            why: "💡 總部 450 萬實體主機年折舊達 150 萬，前期算力未飽和時繼續走 AWS 最省錢！",
+            action: "與 AWS 簽署 Zero Data Retention (ZDR) 協定，確保模型廠商絕不留存資料。"
+          }
+        ]
+      },
+      {
+        id: "pillar-4-edge",
+        name: "Pillar IV 智慧製造島",
+        tag: "邊緣韌性",
+        icon: "🏭",
+        color: 0x059669, // Emerald Green
+        hexPos: { q: 0, r: 1 },
+        desc: "海外三廠 ASUS Ascent GX10 部署、48~72h 斷網離線自律與 Delta Sync",
+        articles: [
+          {
+            title: "海外三廠 ASUS Ascent GX10 選型定案：輕量迷你、高耐用工控機",
+            summary: "周副總指導：海外工廠環境惡劣且不需買數百萬昂貴伺服器，改採華碩 GX10 邊緣工控機，單台僅數萬元，具備邊緣 GPU 推論與耐高溫防粉塵特性。",
+            tag: "硬體選型",
+            time: "採購清單核定",
+            why: "💡 徹底破除海外廠需配置笨重大型伺服器的迷思，性價比極高，為公司節省 80% 成本。",
+            action: "每廠部署 2~3 台壁掛於車間控制箱，運行 Docker Alpine 輕量化容器環境。"
+          },
+          {
+            title: "越南隆安示範廠 72 小時拔線實兵演習：海纜斷網車間照常生產",
+            summary: "實測模擬海底電纜中斷 72 小時。邊緣主機 3 秒無感切換 SQLite WAL 預寫日誌，車間完成 42,000 件服裝車縫，復網後 38 分鐘無衝突增量過帳！",
+            tag: "實兵驗證",
+            time: "演習成果報告",
+            why: "💡 實證邊緣離線自治協議具備世界級軍規製造韌性，產線不停擺、計件零遺失。",
+            action: "依越南示範廠樣板，於 2027 上半年複製推廣至柬埔寨二廠與印尼新廠。"
+          }
+        ]
+      },
+      {
+        id: "scm-teams",
+        name: "SCM 與團隊治理島",
+        tag: "工程治理",
+        icon: "👥",
+        color: 0x0284C7, // Blue
+        hexPos: { q: -1, r: 1 },
+        desc: "16 人工程師團隊收斂至 GitLab ＋ Notion，以 CQS 系統作為 AI 示範燈塔",
+        articles: [
+          {
+            title: "收斂 Wrike 10 人專案至 GitLab ＋ Notion：消滅資訊孤島與授權浪費",
+            summary: "拍板將團隊全數整併至集團統一 GitLab，專案與工時追蹤收斂至 Notion 關聯資料庫。省下 Wrike 每年十幾萬年費，建立全集團單一真實來源。",
+            tag: "團隊治理",
+            time: "流程整合定案",
+            why: "💡 團隊工具的分裂本質是組織文化的斷層，統一工具鏈才能奠定 AI-SDLC 基礎。",
+            action: "在 GitLab 啟用 main 分支鎖定保護，嚴禁任何人直接 push main 主幹。"
+          },
+          {
+            title: "CQS 剪裁品質系統 (.NET 8 + Vue 3)：集團首波 AI 導入示範燈塔",
+            summary: "CQS 技術最新、架構最乾淨。以此系統率先試行 AI Coding 生命週期管理 (2 個 Sprint)，產出 35 道 xUnit 單元測試，研發效率實測躍升 28%！",
+            tag: "示範燈塔",
+            time: "試行成果核定",
+            why: "💡 藉由 CQS 現代樣板先看到具體成效，再逐步藉助 AI 翻新 Knockout.js 舊系統。",
+            action: "將 CQS 架構分層與信封模式封裝為集團標準樣板，推廣全體同仁。"
+          }
+        ]
+      },
+      {
+        id: "finops-capital",
+        name: "資本治理與合規島",
+        tag: "FinOps合規",
+        icon: "⚖️",
+        color: 0xDC2626, // Red
+        hexPos: { q: 1, r: 0 },
+        desc: "機房 85 萬升級 (DAC直連降本)、外部 SI 0 元自研與內控第 9 條之 1",
+        articles: [
+          {
+            title: "總部機房 85 萬升級案：NetApp 25G 網卡 ＋ Core Switch 換模組",
+            summary: "副總確認網路層缺乏 25G 介面，預算編列方向精準！顧問建議相鄰機櫃採用 25G SFP28 DAC 直連銅纜降本 70%，並於 2027 上半年先行施作。",
+            tag: "機房基礎設施",
+            time: "規格核定通過",
+            why: "💡 骨幹升至 25G，現有 D365 備份與大型報表查詢立即受惠，防範未來的 GPU 飢餓。",
+            action: "配置 NetApp Quad 25G 網卡其中 2 埠做 LACP 雙迴路備援，支援 RoCE v2 無損網路。"
+          },
+          {
+            title: "外部系統整合開發費 (SI Cost) 內部自行承接：預算直接調整為 0 元",
+            summary: "信源內部 16 位同仁具備 C# API 與 Vue 3 實戰戰力。將 AI 模組與 ERP 畫面串接交由內部同仁自行開發，為公司直接省下 80~120 萬元委外開銷！",
+            tag: "降本增效",
+            time: "預算收斂拍板",
+            why: "💡 避免外部軟體廠商流動率高形成維護孤兒，代碼自主掌控，培養信源核心戰力。",
+            action: "由 ITS 內部同仁依照標準 API 規範自主撰寫 C# 介接與畫面按鈕調用。"
+          }
+        ]
+      }
+    ];
+
+    // 2. Three.js Scene Setup (Hexagonal Hive Archipelago)
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xDCEAF4);
+
+    const aspect = window.innerWidth / window.innerHeight;
+    const camera = new THREE.PerspectiveCamera(36, aspect, 1, 1000);
+    const DEFAULT_CAM_POS = { x: 34, y: 40, z: 46 };
+    const DEFAULT_LOOK_AT = { x: 0, y: 0, z: 0 };
+    camera.position.set(DEFAULT_CAM_POS.x, DEFAULT_CAM_POS.y, DEFAULT_CAM_POS.z);
+    camera.lookAt(DEFAULT_LOOK_AT.x, DEFAULT_LOOK_AT.y, DEFAULT_LOOK_AT.z);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    // Warm Sun & Sky Fill Light
+    const ambientLight = new THREE.AmbientLight(0xFFFBF5, 0.72);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xFFFAF0, 0.88);
+    dirLight.position.set(28, 45, 24);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.camera.near = 0.5;
+    dirLight.shadow.camera.far = 130;
+    dirLight.shadow.camera.left = -32;
+    dirLight.shadow.camera.right = 32;
+    dirLight.shadow.camera.top = 32;
+    dirLight.shadow.camera.bottom = -32;
+    scene.add(dirLight);
+
+    const fillLight = new THREE.DirectionalLight(0xBAE6FD, 0.38);
+    fillLight.position.set(-22, 16, -22);
+    scene.add(fillLight);
+
+    // Translucent Ocean
+    const waterGeo = new THREE.PlaneGeometry(350, 350);
+    const waterMat = new THREE.MeshLambertMaterial({
+      color: 0xCDE4F0,
+      transparent: true,
+      opacity: 0.82
+    });
+    const water = new THREE.Mesh(waterGeo, waterMat);
+    water.rotation.x = -Math.PI / 2;
+    water.position.y = -1.2;
+    water.receiveShadow = true;
+    scene.add(water);
+
+    // Hexagon math
+    const HEX_RADIUS = 7.8;
+    const HEX_SPACING = HEX_RADIUS * 1.84;
+    function hexToWorld(q, r) {
+      const x = HEX_SPACING * (Math.sqrt(3) * q + Math.sqrt(3)/2 * r);
+      const z = HEX_SPACING * (3/2 * r);
+      return { x, z };
+    }
+
+    // Hexagonal Tile Generator
+    function createHexTile(colorHex, name) {
+      const group = new THREE.Group();
+      
+      const shape = new THREE.Shape();
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 3) * i + (Math.PI / 6);
+        const x = HEX_RADIUS * Math.cos(angle);
+        const z = HEX_RADIUS * Math.sin(angle);
+        if (i === 0) shape.moveTo(x, z);
+        else shape.lineTo(x, z);
+      }
+      shape.closePath();
+
+      const extrudeSettings = {
+        depth: 2.4,
+        bevelEnabled: true,
+        bevelSegments: 3,
+        steps: 1,
+        bevelSize: 0.4,
+        bevelThickness: 0.4
+      };
+
+      const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      geo.rotateX(Math.PI / 2);
+
+      const mat = new THREE.MeshLambertMaterial({
+        color: 0xFFFFFF,
+        roughness: 0.8
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      group.add(mesh);
+
+      // Gold / Rust Accent Rim
+      const rimGeo = new THREE.RingGeometry(HEX_RADIUS * 0.88, HEX_RADIUS * 0.95, 6);
+      const rimMat = new THREE.MeshBasicMaterial({ color: colorHex, side: THREE.DoubleSide });
+      const rim = new THREE.Mesh(rimGeo, rimMat);
+      rim.rotation.x = -Math.PI / 2;
+      rim.position.y = 0.05;
+      group.add(rim);
+
+      return { group, mesh };
+    }
+
+    // Architectural Props per Island
+    function addPropsToHiveIsland(group, island) {
+      const color = island.color;
+      
+      // Main Factory / Tech Hub Building
+      const b1Mat = new THREE.MeshLambertMaterial({ color: 0xF8FAFC });
+      const b1Geo = new THREE.BoxGeometry(2.8, 2.6, 2.6);
+      const b1 = new THREE.Mesh(b1Geo, b1Mat);
+      b1.position.set(-1.6, 1.3, -0.8);
+      b1.castShadow = true;
+      b1.receiveShadow = true;
+      group.add(b1);
+
+      // Roof with brand accent
+      const roofMat = new THREE.MeshLambertMaterial({ color: color });
+      const roofGeo = new THREE.ConeGeometry(2.3, 1.4, 4);
+      const roof = new THREE.Mesh(roofGeo, roofMat);
+      roof.position.set(-1.6, 3.3, -0.8);
+      roof.rotation.y = Math.PI / 4;
+      roof.castShadow = true;
+      group.add(roof);
+
+      // Industrial Workshop / Server Room
+      const b2Mat = new THREE.MeshLambertMaterial({ color: 0x334155 });
+      const b2Geo = new THREE.BoxGeometry(2.2, 1.8, 2.0);
+      const b2 = new THREE.Mesh(b2Geo, b2Mat);
+      b2.position.set(1.8, 0.9, 1.2);
+      b2.castShadow = true;
+      b2.receiveShadow = true;
+      group.add(b2);
+
+      // Cute Antenna / Relay Tower on building 2
+      const antMat = new THREE.MeshLambertMaterial({ color: 0xD97706 });
+      const antGeo = new THREE.CylinderGeometry(0.08, 0.12, 1.6, 6);
+      const ant = new THREE.Mesh(antGeo, antMat);
+      ant.position.set(1.8, 2.6, 1.2);
+      group.add(ant);
+
+      // 3 Stylized Green Trees
+      const treeMat = new THREE.MeshLambertMaterial({ color: 0x10B981 });
+      const trunkMat = new THREE.MeshLambertMaterial({ color: 0x78350F });
+      function createTree(x, z, s) {
+        const tg = new THREE.Group();
+        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.2, 0.9, 6), trunkMat);
+        trunk.position.y = 0.45;
+        tg.add(trunk);
+        const top = new THREE.Mesh(new THREE.DodecahedronGeometry(0.85 * s), treeMat);
+        top.position.y = 1.3 * s;
+        top.castShadow = true;
+        tg.add(top);
+        tg.position.set(x, 0, z);
+        return tg;
+      }
+      group.add(createTree(2.4, -2.4, 0.9));
+      group.add(createTree(-3.2, 1.8, 1.1));
+      group.add(createTree(-0.3, 3.2, 0.8));
+
+      // Floating Holographic Badge
+      const badgeCanvas = document.createElement('canvas');
+      badgeCanvas.width = 280;
+      badgeCanvas.height = 130;
+      const ctx = badgeCanvas.getContext('2d');
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.roundRect(10, 20, 260, 90, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#CBD5E1';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      ctx.fillStyle = '#0F172A';
+      ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(island.name, 140, 78);
+
+      const badgeTex = new THREE.CanvasTexture(badgeCanvas);
+      const badgeSpriteMat = new THREE.SpriteMaterial({ map: badgeTex });
+      const badgeSprite = new THREE.Sprite(badgeSpriteMat);
+      badgeSprite.position.set(0, 5.4, 0);
+      badgeSprite.scale.set(4.5, 2.1, 1);
+      group.add(badgeSprite);
+      group.userData.badge = badgeSprite;
+    }
+
+    // Build Archipelago
+    const islandMeshes = [];
+    RSI_HIVE_DATA.forEach(island => {
+      const pos = hexToWorld(island.hexPos.q, island.hexPos.r);
+      const { group, mesh } = createHexTile(island.color, island.name);
+      group.position.set(pos.x, 0, pos.z);
+      
+      addPropsToHiveIsland(group, island);
+      
+      group.userData = {
+        islandData: island,
+        baseY: 0,
+        mesh: mesh
+      };
+      
+      scene.add(group);
+      islandMeshes.push(group);
+    });
+
+    // Populate Islands Bar & List View
+    const bar = document.getElementById('islandsBar');
+    const listGrid = document.getElementById('listGrid');
+
+    RSI_HIVE_DATA.forEach(island => {
+      const pill = document.createElement('button');
+      pill.className = 'island-pill';
+      pill.innerHTML = `<span>${island.icon}</span><span>${island.name}</span>`;
+      pill.onclick = () => selectIsland(island.id);
+      bar.appendChild(pill);
+
+      island.articles.forEach(art => {
+        const item = document.createElement('div');
+        item.className = 'arch-card';
+        item.innerHTML = `
+          <div class="card-meta">
+            <span class="card-tag">${island.name}</span>
+            <span>${art.time}</span>
+          </div>
+          <div class="card-title">${art.title}</div>
+          <div class="card-summary">${art.summary}</div>
+          <div class="card-insight">${art.why}</div>
+          <div class="card-action">
+            <span style="font-size:0.75rem; color:var(--text-secondary);">${art.action}</span>
+            <a href="#" class="action-link" onclick="event.preventDefault(); selectIsland('${island.id}')">聚焦島嶼 ➔</a>
+          </div>
+        `;
+        listGrid.appendChild(item);
+      });
+    });
+
+    // 3. Selection, Camera Tweening & Drawer Interactions
+    let selectedIsland = null;
+    const drawer = document.getElementById('detailDrawer');
+    const drawerTitle = document.getElementById('drawerTitle');
+    const drawerSubtitle = document.getElementById('drawerSubtitle');
+    const drawerContent = document.getElementById('drawerContent');
+
+    function selectIsland(islandId) {
+      const island = RSI_HIVE_DATA.find(i => i.id === islandId);
+      if (!island) return;
+      selectedIsland = island;
+
+      document.querySelectorAll('.island-pill').forEach((p, idx) => {
+        p.classList.toggle('active', RSI_HIVE_DATA[idx].id === islandId);
+      });
+
+      const targetPos = hexToWorld(island.hexPos.q, island.hexPos.r);
+      const camTarget = {
+        x: targetPos.x + 18,
+        y: 22,
+        z: targetPos.z + 24
+      };
+
+      new TWEEN.Tween(camera.position)
+        .to(camTarget, 1000)
+        .easing(TWEEN.Easing.Cubic.Out)
+        .start();
+
+      new TWEEN.Tween(DEFAULT_LOOK_AT)
+        .to({ x: targetPos.x, y: 0, z: targetPos.z }, 1000)
+        .easing(TWEEN.Easing.Cubic.Out)
+        .onUpdate(() => {
+          camera.lookAt(DEFAULT_LOOK_AT.x, DEFAULT_LOOK_AT.y, DEFAULT_LOOK_AT.z);
+        })
+        .start();
+
+      drawerTitle.innerHTML = `${island.icon} ${island.name}`;
+      drawerSubtitle.textContent = island.desc;
+      drawerContent.innerHTML = '';
+
+      island.articles.forEach(art => {
+        const card = document.createElement('div');
+        card.className = 'arch-card';
+        card.innerHTML = `
+          <div class="card-meta">
+            <span class="card-tag">${art.tag}</span>
+            <span>${art.time}</span>
+          </div>
+          <div class="card-title">${art.title}</div>
+          <div class="card-summary">${art.summary}</div>
+          <div class="card-insight">${art.why}</div>
+          <div class="card-action">
+            <span style="font-size:0.75rem; color:var(--text-secondary);">${art.action}</span>
+            <a href="#" class="action-link" onclick="event.preventDefault(); alert('已為您複製工程行動指南！');">複製指南 📋</a>
+          </div>
+        `;
+        drawerContent.appendChild(card);
+      });
+
+      drawer.classList.add('open');
+    }
+
+    function resetToOverview() {
+      selectedIsland = null;
+      drawer.classList.remove('open');
+      document.querySelectorAll('.island-pill').forEach(p => p.classList.remove('active'));
+
+      new TWEEN.Tween(camera.position)
+        .to(DEFAULT_CAM_POS, 1000)
+        .easing(TWEEN.Easing.Cubic.Out)
+        .start();
+
+      new TWEEN.Tween(DEFAULT_LOOK_AT)
+        .to({ x: 0, y: 0, z: 0 }, 1000)
+        .easing(TWEEN.Easing.Cubic.Out)
+        .onUpdate(() => {
+          camera.lookAt(0, 0, 0);
+        })
+        .start();
+    }
+
+    document.getElementById('resetCamBtn').onclick = resetToOverview;
+    document.getElementById('closeDrawerBtn').onclick = () => {
+      drawer.classList.remove('open');
+      resetToOverview();
+    };
+
+    document.getElementById('zoomInBtn').onclick = () => {
+      new TWEEN.Tween(camera.position)
+        .to({ x: camera.position.x * 0.85, y: camera.position.y * 0.85, z: camera.position.z * 0.85 }, 400)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    };
+    document.getElementById('zoomOutBtn').onclick = () => {
+      new TWEEN.Tween(camera.position)
+        .to({ x: camera.position.x * 1.15, y: camera.position.y * 1.15, z: camera.position.z * 1.15 }, 400)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    };
+
+    // Mode Switcher
+    const modeCityBtn = document.getElementById('modeCityBtn');
+    const modeListBtn = document.getElementById('modeListBtn');
+    const listOverlay = document.getElementById('listViewOverlay');
+
+    modeCityBtn.onclick = () => {
+      modeCityBtn.classList.add('active');
+      modeListBtn.classList.remove('active');
+      listOverlay.classList.remove('active');
+    };
+    modeListBtn.onclick = () => {
+      modeListBtn.classList.add('active');
+      modeCityBtn.classList.remove('active');
+      listOverlay.classList.add('active');
+      drawer.classList.remove('open');
+    };
+
+    // Raycaster Hover & Click
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const tooltip = document.getElementById('tooltip');
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(islandMeshes, true);
+
+      if (intersects.length > 0) {
+        let parentGroup = intersects[0].object;
+        while (parentGroup.parent && !parentGroup.userData.islandData) {
+          parentGroup = parentGroup.parent;
+        }
+
+        if (parentGroup.userData && parentGroup.userData.islandData) {
+          const data = parentGroup.userData.islandData;
+          tooltip.textContent = `${data.icon} ${data.name} · ${data.articles.length} 項戰略規範`;
+          tooltip.style.left = e.clientX + 'px';
+          tooltip.style.top = e.clientY + 'px';
+          tooltip.style.opacity = 1;
+          document.body.style.cursor = 'pointer';
+          return;
+        }
+      }
+
+      tooltip.style.opacity = 0;
+      document.body.style.cursor = 'default';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('.top-nav') || e.target.closest('.detail-drawer') || e.target.closest('.islands-bar') || e.target.closest('.view-controls')) return;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(islandMeshes, true);
+
+      if (intersects.length > 0) {
+        let parentGroup = intersects[0].object;
+        while (parentGroup.parent && !parentGroup.userData.islandData) {
+          parentGroup = parentGroup.parent;
+        }
+        if (parentGroup.userData && parentGroup.userData.islandData) {
+          selectIsland(parentGroup.userData.islandData.id);
+        }
+      }
+    });
+
+    // Orbit Drag
+    let isDragging = false;
+    let prevMousePos = { x: 0, y: 0 };
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      prevMousePos = { x: e.clientX, y: e.clientY };
+    });
+    window.addEventListener('mouseup', () => isDragging = false);
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging || selectedIsland) return;
+      const deltaX = e.clientX - prevMousePos.x;
+      const deltaY = e.clientY - prevMousePos.y;
+
+      const angle = deltaX * 0.005;
+      const radius = Math.sqrt(camera.position.x * camera.position.x + camera.position.z * camera.position.z);
+      const currentAngle = Math.atan2(camera.position.z, camera.position.x);
+
+      camera.position.x = radius * Math.cos(currentAngle - angle);
+      camera.position.z = radius * Math.sin(currentAngle - angle);
+      camera.position.y = Math.max(16, Math.min(68, camera.position.y - deltaY * 0.1));
+      camera.lookAt(DEFAULT_LOOK_AT.x, DEFAULT_LOOK_AT.y, DEFAULT_LOOK_AT.z);
+
+      prevMousePos = { x: e.clientX, y: e.clientY };
+    });
+
+    // Instant Search
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if (!q) {
+        document.querySelectorAll('.arch-card').forEach(c => c.style.display = 'flex');
+        return;
+      }
+
+      document.querySelectorAll('#listGrid .arch-card').forEach(c => {
+        const text = c.textContent.toLowerCase();
+        c.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+
+      if (!listOverlay.classList.contains('active') && q.length >= 2) {
+        modeListBtn.click();
+      }
+    });
+
+    // Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Animation Loop
+    let clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      TWEEN.update();
+
+      const time = clock.getElapsedTime();
+      islandMeshes.forEach((mesh, idx) => {
+        mesh.position.y = Math.sin(time * 1.5 + idx * 0.8) * 0.12;
+        if (mesh.userData.badge) {
+          mesh.userData.badge.position.y = 5.4 + Math.sin(time * 2.2 + idx) * 0.15;
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
