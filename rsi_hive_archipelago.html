@@ -444,7 +444,184 @@
       margin-top: 16px;
     }
 
-    /* Floating Tooltip */
+    
+    
+    .txt-mob { display: none; }
+    .txt-desk { display: inline; }
+
+    /* Mobile Backdrop */
+    .drawer-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 28;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .drawer-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Mobile Sheet Drag Handle */
+    .sheet-handle {
+      display: none;
+      width: 44px;
+      height: 4px;
+      background: #CBD5E1;
+      border-radius: 999px;
+      margin: 2px auto 12px;
+      cursor: pointer;
+    }
+
+    /* Mobile-first Perfect Responsive Design */
+    @media (max-width: 768px) {
+      .txt-mob { display: inline !important; }
+      .txt-desk { display: none !important; }
+      .sheet-handle { display: block !important; }
+
+      /* Top Navigation: Strict 2 Rows, Zero Horizontal Overflow */
+      .top-nav {
+        top: 8px !important;
+        left: 8px !important;
+        right: 8px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 6px !important;
+        pointer-events: none !important;
+      }
+
+      /* Row 1: Brand Logo + Mode Switch (Left & Right) */
+      .nav-bar {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 6px 12px !important;
+        border-radius: 999px !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08) !important;
+      }
+      .brand-logo {
+        font-size: 0.9rem !important;
+        gap: 6px !important;
+      }
+      .brand-badge { display: none !important; }
+      .meta-sponsor { display: none !important; }
+
+      /* Row 2: Full Width Search Input */
+      .top-nav > div:last-child {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+      .search-wrapper {
+        flex: 1 !important;
+        width: 100% !important;
+      }
+      .search-input {
+        width: 100% !important;
+        padding: 7px 12px 7px 32px !important;
+        font-size: 0.78rem !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+      }
+      .search-input:focus {
+        width: 100% !important;
+      }
+
+      /* Compact Mode Switch */
+      .mode-switch {
+        flex-shrink: 0 !important;
+        padding: 2px !important;
+      }
+      .mode-btn {
+        padding: 4px 10px !important;
+        font-size: 0.72rem !important;
+      }
+
+      /* View Controls: Upper Right Floating Column, No Collision with Bottom Bar */
+      .view-controls {
+        top: 100px !important;
+        right: 10px !important;
+        bottom: auto !important;
+        left: auto !important;
+        gap: 6px !important;
+      }
+      .ctrl-btn {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 0.85rem !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.12) !important;
+      }
+
+      /* Bottom Island Bar: Full Width Scrollable, No Overlap with Controls */
+      .islands-bar {
+        bottom: max(10px, env(safe-area-inset-bottom)) !important;
+        left: 8px !important;
+        right: 8px !important;
+        transform: none !important;
+        max-width: none !important;
+        width: auto !important;
+        padding: 6px 8px !important;
+        gap: 6px !important;
+        justify-content: flex-start !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .island-pill {
+        padding: 6px 12px !important;
+        font-size: 0.74rem !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* Detail Drawer: Smooth Native Bottom Sheet */
+      .detail-drawer {
+        top: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        height: 72vh !important;
+        max-height: 82vh !important;
+        border-radius: 22px 22px 0 0 !important;
+        border-bottom: none !important;
+        transform: translateY(105%) !important;
+        box-shadow: 0 -12px 35px rgba(0,0,0,0.3) !important;
+        z-index: 40 !important;
+      }
+      .detail-drawer.open {
+        transform: translateY(0) !important;
+      }
+      .drawer-header {
+        padding: 12px 18px 10px !important;
+        position: relative !important;
+      }
+      .drawer-title-group h2 { font-size: 1.15rem !important; }
+      .drawer-title-group p { font-size: 0.75rem !important; }
+      .drawer-content {
+        padding: 12px 16px 36px !important;
+        gap: 12px !important;
+      }
+      .close-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.8rem !important;
+      }
+
+      /* List View Overlay */
+      .list-view-overlay {
+        padding: 95px 12px 24px !important;
+      }
+      .list-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+    }
+
+
     #tooltip {
       position: absolute;
       z-index: 50;
@@ -461,25 +638,6 @@
       transition: opacity 0.15s ease;
       white-space: nowrap;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    @media (max-width: 768px) {
-      .detail-drawer {
-        top: auto;
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-        width: auto;
-        height: 68vh;
-        transform: translateY(110%);
-      }
-      .detail-drawer.open {
-        transform: translateY(0);
-      }
-      .search-input { width: 140px; }
-      .search-input:focus { width: 180px; }
-      .meta-sponsor { display: none; }
-      .islands-bar { bottom: 12px; }
     }
   </style>
 </head>
@@ -507,8 +665,8 @@
       </div>
 
       <div class="mode-switch">
-        <button class="mode-btn active" id="modeCityBtn">🏙️ 3D 蜂巢群島</button>
-        <button class="mode-btn" id="modeListBtn">📋 戰略清單</button>
+        <button class="mode-btn active" id="modeCityBtn"><span>🏙️</span> <span class="txt-desk">3D 蜂巢群島</span><span class="txt-mob">3D</span></button>
+        <button class="mode-btn" id="modeListBtn"><span>📋</span> <span class="txt-desk">戰略清單</span><span class="txt-mob">清單</span></button>
       </div>
     </div>
   </header>
@@ -527,7 +685,9 @@
   <div class="islands-bar" id="islandsBar"></div>
 
   <!-- Slide-out Detail Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <aside class="detail-drawer" id="detailDrawer">
+    <div class="sheet-handle"></div>
     <div class="drawer-header">
       <div class="drawer-title-group">
         <h2 id="drawerTitle">🏛️ Pillar I · 數位底座島</h2>
@@ -1041,6 +1201,34 @@
         })
         .start();
     }
+
+    
+    // Backdrop & Sheet Handle close handlers
+    const backdrop = document.getElementById('drawerBackdrop');
+    if (backdrop) {
+      backdrop.onclick = () => {
+        document.getElementById('closeDrawerBtn').click();
+      };
+    }
+    const sheetHandle = document.querySelector('.sheet-handle');
+    if (sheetHandle) {
+      sheetHandle.onclick = () => {
+        document.getElementById('closeDrawerBtn').click();
+      };
+    }
+
+    // Enhance selectIsland to show backdrop and hide bottom bar if on mobile
+    const origSelectIsland = selectIsland;
+    selectIsland = function(islandId) {
+      origSelectIsland(islandId);
+      if (backdrop) backdrop.classList.add('active');
+    };
+
+    const origResetToOverview = resetToOverview;
+    resetToOverview = function() {
+      origResetToOverview();
+      if (backdrop) backdrop.classList.remove('active');
+    };
 
     document.getElementById('resetCamBtn').onclick = resetToOverview;
     document.getElementById('closeDrawerBtn').onclick = () => {
