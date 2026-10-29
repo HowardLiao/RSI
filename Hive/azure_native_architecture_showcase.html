@@ -461,7 +461,7 @@
           <div style="font-weight:700; font-size:0.85rem; color:var(--text-charcoal); margin-bottom:8px;">
             【架構圖】RSI Group 蜂巢計畫 Azure 原生 5 層全域架構拓撲圖
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 760" width="100%" style="height:auto; max-width:1160px; font-family:var(--font-sans);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 810" width="100%" style="height:auto; max-width:1160px; font-family:var(--font-sans);">
             <defs>
               <linearGradient id="gradAzure" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#0078D4"/>
@@ -474,10 +474,19 @@
               <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
                 <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
               </filter>
+              <marker id="pipeArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#EA580C" />
+              </marker>
+              <marker id="blueArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#0284C7" />
+              </marker>
+              <marker id="purpleArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#7E22CE" />
+              </marker>
             </defs>
 
             <!-- Background Box -->
-            <rect x="10" y="10" width="1140" height="740" rx="10" fill="#FAFAF9" stroke="#E2E8F0" stroke-width="1.5"/>
+            <rect x="10" y="10" width="1140" height="790" rx="10" fill="#FAFAF9" stroke="#E2E8F0" stroke-width="1.5"/>
 
             <!-- TIER 1: CLIENTS & DATA SOURCES -->
             <rect x="30" y="30" width="1100" height="95" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" filter="url(#shadow)"/>
@@ -542,61 +551,152 @@
             <text x="775" y="347" font-size="9" fill="#0284C7">• 事件驅動 (Event-driven)：D365 商業事件主動通知</text>
 
             <!-- TIER 4: DUAL-TRACK DATA INTEGRATION & PIPELINES -->
-            <rect x="30" y="395" width="1100" height="135" rx="8" fill="#FFFFFF" stroke="#FED7AA" stroke-width="1.5" filter="url(#shadow)"/>
+            <rect x="30" y="395" width="1100" height="145" rx="8" fill="#FFFFFF" stroke="#FED7AA" stroke-width="1.5" filter="url(#shadow)"/>
             <rect x="30" y="395" width="1100" height="26" rx="8" fill="#FFF7ED"/>
-            <text x="45" y="413" font-size="11" font-weight="800" fill="#C2410C">【層級 4：雙軌資料整合管線（D365 原生入湖 ＋ 工廠 MS SQL 離峰打包）】(Dual-Track Pipelines)</text>
+            <text x="45" y="413" font-size="11" font-weight="800" fill="#C2410C">【層級 4：雙軌資料整合管線】(Dual-Track Pipelines · SaaS 原生入湖 ＆ 工廠邊緣離峰打包)</text>
 
-            <!-- Track A Box -->
-            <rect x="45" y="431" width="510" height="85" rx="6" fill="#FFF8F0" stroke="#FDBA74"/>
-            <text x="55" y="451" font-size="11" font-weight="800" fill="#9A3412">🔷 軌道 A：D365 F&amp;O 官方認證入湖管線 (SaaS 原生)</text>
-            <text x="55" y="470" font-size="9.5" fill="#44403C">• 工具：<strong>Azure Synapse Link for Dataverse / F&amp;O</strong> (或 Link to Fabric)</text>
-            <text x="55" y="488" font-size="9.5" fill="#44403C">• 特色：微軟全託管，零衝擊讀取 ERP 實體，自動拋轉為 Parquet/Delta 格式</text>
-            <text x="55" y="506" font-size="9" font-weight="700" fill="#DC2626">⚡ 效益：徹底規避 2026-11-30 Export to Data Lake 停用風險，免自建 CDC 軟體！</text>
+            <!-- TRACK A: SaaS Native Pipeline -->
+            <!-- Source Node -->
+            <rect x="45" y="430" width="175" height="42" rx="6" fill="#EFF6FF" stroke="#3B82F6"/>
+            <text x="132" y="447" text-anchor="middle" font-size="10" font-weight="700" fill="#1D4ED8">🏢 D365 F&amp;O (雲端 SaaS)</text>
+            <text x="132" y="462" text-anchor="middle" font-size="8" fill="#3B82F6">ERP 實體 ｜ Dataverse</text>
 
-            <!-- Track B Box -->
-            <rect x="575" y="431" width="540" height="85" rx="6" fill="#FFF8F0" stroke="#FDBA74"/>
-            <text x="585" y="451" font-size="11" font-weight="800" fill="#9A3412">🏭 軌道 B：各產區現場 MS SQL 離峰排程管線 (保護 SD-WAN)</text>
-            <text x="585" y="470" font-size="9.5" fill="#44403C">• 工具：<strong>Azure Data Factory (ADF) ＋ Self-hosted Integration Runtime (SHIR)</strong></text>
-            <text x="585" y="488" font-size="9.5" fill="#44403C">• 機制：<strong>【外點一日一次】深夜 01:00~03:00 打包壓縮傳輸</strong>；白天車間 100% 零頻寬佔用</text>
-            <text x="585" y="506" font-size="9" font-weight="700" fill="#15803D">🛡️ 容錯：海外海纜斷線支援 48~72hr 本地暫存，復網自動批次追平且對帳零差異</text>
+            <!-- Flow A1 -->
+            <line x1="220" y1="451" x2="285" y2="451" stroke="#0284C7" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#blueArrow)"/>
+            <text x="252" y="444" text-anchor="middle" font-size="7.5" font-weight="700" fill="#0369A1">原生 CDC</text>
+
+            <!-- Engine Node A -->
+            <rect x="290" y="430" width="325" height="42" rx="6" fill="#F0F9FF" stroke="#0284C7"/>
+            <text x="452" y="446" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0369A1">⚡ Azure Synapse Link for Dataverse / F&amp;O</text>
+            <text x="452" y="462" text-anchor="middle" font-size="8" font-weight="600" fill="#0284C7">微軟全託管 ｜ 零代碼免維護 ｜ 零衝擊讀取</text>
+
+            <!-- Flow A2 -->
+            <line x1="615" y1="451" x2="705" y2="451" stroke="#0284C7" stroke-width="2" marker-end="url(#blueArrow)"/>
+            <text x="660" y="444" text-anchor="middle" font-size="7.5" font-weight="700" fill="#0369A1">拋轉 Parquet/Delta</text>
+
+            <!-- Target Node A -->
+            <rect x="710" y="430" width="180" height="42" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+            <text x="800" y="447" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">📥 落地 ADLS Gen2 湖倉</text>
+            <text x="800" y="462" text-anchor="middle" font-size="8" fill="#64748B">Bronze 原始層 (無感持續同步)</text>
+
+            <!-- Shield Badge A -->
+            <rect x="905" y="430" width="210" height="42" rx="6" fill="#FEF2F2" stroke="#F87171" stroke-dasharray="3 2"/>
+            <text x="1010" y="447" text-anchor="middle" font-size="9" font-weight="800" fill="#DC2626">⚡ 徹底規避 2026-11-30 停用風險</text>
+            <text x="1010" y="462" text-anchor="middle" font-size="8" fill="#B91C1C">淘汰舊版 Export to Data Lake · 免自建 CDC</text>
+
+            <!-- TRACK B: Factory Edge Off-Peak Pipeline -->
+            <!-- Source Node -->
+            <rect x="45" y="485" width="175" height="44" rx="6" fill="#FFF7ED" stroke="#EA580C"/>
+            <text x="132" y="502" text-anchor="middle" font-size="10" font-weight="700" fill="#C2410C">🏭 各產區工廠 MES 系統</text>
+            <text x="132" y="517" text-anchor="middle" font-size="8" fill="#EA580C">MS SQL AlwaysOn ｜ 裁剪/車縫</text>
+
+            <!-- Flow B1 -->
+            <line x1="220" y1="507" x2="285" y2="507" stroke="#EA580C" stroke-width="2" marker-end="url(#pipeArrow)"/>
+            <text x="252" y="500" text-anchor="middle" font-size="7.5" font-weight="700" fill="#C2410C">SHIR 代理</text>
+
+            <!-- Engine Node B -->
+            <rect x="290" y="485" width="325" height="44" rx="6" fill="#FFFBEB" stroke="#D97706"/>
+            <text x="452" y="501" text-anchor="middle" font-size="10.5" font-weight="800" fill="#B45309">🌙 ADF ＋ Self-hosted IR 離峰排程引擎</text>
+            <text x="452" y="518" text-anchor="middle" font-size="8" font-weight="700" fill="#92400E">【外點一日一次】深夜 01:00~03:00 打包壓縮 ｜ 白天 0% 頻寬佔用</text>
+
+            <!-- Flow B2 -->
+            <line x1="615" y1="507" x2="705" y2="507" stroke="#EA580C" stroke-width="2" marker-end="url(#pipeArrow)"/>
+            <text x="660" y="500" text-anchor="middle" font-size="7.5" font-weight="700" fill="#C2410C">加密壓縮傳輸</text>
+
+            <!-- Target Node B -->
+            <rect x="710" y="485" width="180" height="44" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
+            <text x="800" y="502" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">📥 落地 ADLS Gen2 湖倉</text>
+            <text x="800" y="518" text-anchor="middle" font-size="8" fill="#64748B">Bronze 原始層 (日結切帳零差異)</text>
+
+            <!-- Resilience Badge B -->
+            <rect x="905" y="485" width="210" height="44" rx="6" fill="#F0FDF4" stroke="#86EFAC" stroke-dasharray="3 2"/>
+            <text x="1010" y="502" text-anchor="middle" font-size="9" font-weight="800" fill="#15803D">🛡️ 海外海纜斷線 48~72hr 暫存容錯</text>
+            <text x="1010" y="518" text-anchor="middle" font-size="8" fill="#16A34A">本地暫存排隊 ｜ 復網自動批次追平</text>
 
             <!-- TIER 5: MEDALLION DATA LAKEHOUSE & CONSUMPTION -->
-            <rect x="30" y="550" width="1100" height="175" rx="8" fill="#FFFFFF" stroke="#BBF7D0" stroke-width="1.5" filter="url(#shadow)"/>
-            <rect x="30" y="550" width="1100" height="26" rx="8" fill="#F0FDF4"/>
-            <text x="45" y="568" font-size="11" font-weight="800" fill="#15803D">【層級 5：Medallion 3 層數據湖倉 ＆ 業務分析消費層】(Data Lakehouse &amp; BI Analytics)</text>
+            <rect x="30" y="555" width="1100" height="235" rx="8" fill="#FFFFFF" stroke="#BBF7D0" stroke-width="1.5" filter="url(#shadow)"/>
+            <rect x="30" y="555" width="1100" height="26" rx="8" fill="#F0FDF4"/>
+            <text x="45" y="573" font-size="11" font-weight="800" fill="#15803D">【層級 5：Medallion 3 層數據湖倉 ＆ 業務決策多端消費應用】(Data Lakehouse &amp; BI Analytics)</text>
 
-            <!-- Lakehouse Layers -->
-            <rect x="45" y="586" width="680" height="125" rx="6" fill="#F8FAFC" stroke="#CBD5E1"/>
-            <text x="55" y="606" font-size="11" font-weight="700" fill="#0F172A">Azure Data Lake Storage Gen2 (ADLS Gen2) 湖倉分層 (支援 Delta Lake / Parquet)</text>
+            <!-- Medallion Lakehouse Container -->
+            <rect x="45" y="590" width="665" height="188" rx="6" fill="#F8FAFC" stroke="#CBD5E1"/>
+            <text x="55" y="608" font-size="10" font-weight="800" fill="#0F172A">Azure Data Lake Storage Gen2 (ADLS Gen2) 湖倉自動流轉管線 (Delta Lake / Parquet)</text>
+
+            <!-- 1. Bronze -->
+            <rect x="55" y="620" width="175" height="145" rx="6" fill="#FEF2F2" stroke="#FECACA"/>
+            <rect x="55" y="620" width="175" height="26" rx="6" fill="#FEE2E2"/>
+            <text x="142" y="637" text-anchor="middle" font-size="10.5" font-weight="800" fill="#991B1B">🥉 Bronze (原始層)</text>
             
-            <rect x="55" y="618" width="205" height="82" rx="4" fill="#FEF2F2" stroke="#FECACA"/>
-            <text x="65" y="636" font-size="10" font-weight="700" fill="#991B1B">🥉 Bronze (原始層)</text>
-            <text x="65" y="652" font-size="8.5" fill="#7F1D1D">• 保留 D365 與工廠原始日誌</text>
-            <text x="65" y="666" font-size="8.5" fill="#7F1D1D">• Append-only 不可篡改</text>
-            <text x="65" y="680" font-size="8.5" fill="#7F1D1D">• 斷線回補與歷史稽核源頭</text>
+            <rect x="65" y="654" width="155" height="24" rx="4" fill="#FFFFFF" stroke="#FCA5A5"/>
+            <text x="142" y="670" text-anchor="middle" font-size="8" font-weight="700" fill="#991B1B">🔒 Append-only 不可篡改</text>
+            
+            <rect x="65" y="686" width="155" height="24" rx="4" fill="#FFFFFF" stroke="#FCA5A5"/>
+            <text x="142" y="702" text-anchor="middle" font-size="8" fill="#7F1D1D">📥 保留 D365 ＆ 工廠原始日誌</text>
+            
+            <rect x="65" y="718" width="155" height="24" rx="4" fill="#FFFFFF" stroke="#FCA5A5"/>
+            <text x="142" y="734" text-anchor="middle" font-size="8" fill="#7F1D1D">🔄 斷線回補與歷史稽核源頭</text>
 
-            <rect x="270" y="618" width="215" height="82" rx="4" fill="#F0F9FF" stroke="#BAE6FD"/>
-            <text x="280" y="636" font-size="10" font-weight="700" fill="#0369A1">🥈 Silver (清洗層)</text>
-            <text x="280" y="652" font-size="8.5" fill="#0C4A6E">• 時間戳標準化與跨國時區校正</text>
-            <text x="280" y="666" font-size="8.5" fill="#0C4A6E">• 主數據 MDM 去重與欄位對齊</text>
-            <text x="280" y="680" font-size="8.5" fill="#0C4A6E">• 每日 24:00 結算對帳稽核</text>
+            <!-- Flow Bronze -> Silver -->
+            <line x1="235" y1="692" x2="265" y2="692" stroke="#0284C7" stroke-width="2" marker-end="url(#blueArrow)"/>
+            <text x="250" y="678" text-anchor="middle" font-size="7.5" font-weight="700" fill="#0369A1">清洗</text>
+            <text x="250" y="710" text-anchor="middle" font-size="7.5" fill="#64748B">校正</text>
 
-            <rect x="495" y="618" width="215" height="82" rx="4" fill="#FEFCE8" stroke="#FEF08A"/>
-            <text x="505" y="636" font-size="10" font-weight="700" fill="#854D0E">🥇 Gold (聚合層)</text>
-            <text x="505" y="652" font-size="8.5" fill="#713F12">• 每日結算切帳寬表 (日結零差異)</text>
-            <text x="505" y="666" font-size="8.5" fill="#713F12">• 訂單交期 (OTD) 與布損模型</text>
-            <text x="505" y="680" font-size="8.5" fill="#713F12">• 支援 DirectLake / SQL 直查</text>
+            <!-- 2. Silver -->
+            <rect x="270" y="620" width="180" height="145" rx="6" fill="#F0F9FF" stroke="#BAE6FD"/>
+            <rect x="270" y="620" width="180" height="26" rx="6" fill="#E0F2FE"/>
+            <text x="360" y="637" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0369A1">🥈 Silver (清洗層)</text>
+            
+            <rect x="280" y="654" width="160" height="24" rx="4" fill="#FFFFFF" stroke="#7DD3FC"/>
+            <text x="360" y="670" text-anchor="middle" font-size="8" font-weight="700" fill="#0369A1">🌐 時間戳標準化 ＆ 時區校正</text>
+            
+            <rect x="280" y="686" width="160" height="24" rx="4" fill="#FFFFFF" stroke="#7DD3FC"/>
+            <text x="360" y="702" text-anchor="middle" font-size="8" fill="#0C4A6E">🧩 主數據 MDM 去重與欄位對齊</text>
+            
+            <rect x="280" y="718" width="160" height="24" rx="4" fill="#FFFFFF" stroke="#7DD3FC"/>
+            <text x="360" y="734" text-anchor="middle" font-size="8" font-weight="700" fill="#0284C7">⚖️ 每日 24:00 結算對帳稽核</text>
 
-            <!-- BI Consumption Box -->
-            <rect x="740" y="586" width="375" height="125" rx="6" fill="#FAF5FF" stroke="#E9D5FF"/>
-            <text x="750" y="606" font-size="11" font-weight="800" fill="#6B21A8">📊 業務決策與多端消費應用 (BI &amp; Analytics)</text>
-            <rect x="750" y="618" width="355" height="40" rx="4" fill="#FFFFFF" stroke="#D8B4FE"/>
-            <text x="760" y="634" font-size="9.5" font-weight="700" fill="#7E22CE">1. 既有「聯銓 Smart eVision」晨會報表直連</text>
-            <text x="760" y="648" font-size="8.5" fill="#6B21A8">清晨 06:00 前完成結算寬表推送，海外各廠廠長開檔秒級即查</text>
+            <!-- Flow Silver -> Gold -->
+            <line x1="455" y1="692" x2="485" y2="692" stroke="#D97706" stroke-width="2" marker-end="url(#pipeArrow)"/>
+            <text x="470" y="678" text-anchor="middle" font-size="7.5" font-weight="700" fill="#B45309">建模</text>
+            <text x="470" y="710" text-anchor="middle" font-size="7.5" fill="#64748B">聚合</text>
 
-            <rect x="750" y="663" width="355" height="40" rx="4" fill="#FFFFFF" stroke="#D8B4FE"/>
-            <text x="760" y="679" font-size="9.5" font-weight="700" fill="#7E22CE">2. 台北總部 Power BI 跨國戰情室看板</text>
-            <text x="760" y="693" font-size="8.5" fill="#6B21A8">周副總與高管層直觀監控全球 OTD 準交率、布損率與產線即時效率</text>
+            <!-- 3. Gold -->
+            <rect x="490" y="620" width="210" height="145" rx="6" fill="#FEFCE8" stroke="#FEF08A"/>
+            <rect x="490" y="620" width="210" height="26" rx="6" fill="#FEF9C3"/>
+            <text x="595" y="637" text-anchor="middle" font-size="10.5" font-weight="800" fill="#854D0E">🥇 Gold (聚合業務市集)</text>
+            
+            <rect x="500" y="654" width="190" height="24" rx="4" fill="#FFFFFF" stroke="#FDE047"/>
+            <text x="595" y="670" text-anchor="middle" font-size="8" font-weight="700" fill="#854D0E">📊 每日結算切帳寬表 (日結零差異)</text>
+            
+            <rect x="500" y="686" width="190" height="24" rx="4" fill="#FFFFFF" stroke="#FDE047"/>
+            <text x="595" y="702" text-anchor="middle" font-size="8" fill="#713F12">⏱️ 訂單交期 (OTD) ＆ 布損模型</text>
+            
+            <rect x="500" y="718" width="190" height="24" rx="4" fill="#FFFFFF" stroke="#FDE047"/>
+            <text x="595" y="734" text-anchor="middle" font-size="8" font-weight="700" fill="#A16207">⚡ 支援 DirectLake / SQL 直查</text>
+
+            <!-- Connecting Pipelines Gold -> BI Applications -->
+            <path d="M 700 692 L 720 692 L 720 655 L 735 655" fill="none" stroke="#7E22CE" stroke-width="2" marker-end="url(#purpleArrow)"/>
+            <path d="M 700 692 L 720 692 L 720 730 L 735 730" fill="none" stroke="#7E22CE" stroke-width="2" marker-end="url(#purpleArrow)"/>
+
+            <!-- BI Consumption Container -->
+            <rect x="740" y="590" width="375" height="188" rx="6" fill="#FAF5FF" stroke="#E9D5FF"/>
+            <text x="750" y="608" font-size="10" font-weight="800" fill="#6B21A8">📊 業務決策與多端消費應用 (BI &amp; Executive Cockpit)</text>
+
+            <!-- BI App 1: Smart eVision -->
+            <rect x="750" y="620" width="355" height="68" rx="6" fill="#FFFFFF" stroke="#D8B4FE"/>
+            <text x="762" y="639" font-size="10.5" font-weight="800" fill="#7E22CE">1. 既有「聯銓 Smart eVision」晨會報表直連</text>
+            <rect x="762" y="648" width="160" height="22" rx="4" fill="#F3E8FF" stroke="#D8B4FE"/>
+            <text x="842" y="663" text-anchor="middle" font-size="8" font-weight="700" fill="#6B21A8">清晨 06:00 結算寬表推送</text>
+            <rect x="932" y="648" width="163" height="22" rx="4" fill="#F3E8FF" stroke="#D8B4FE"/>
+            <text x="1013" y="663" text-anchor="middle" font-size="8" font-weight="700" fill="#6B21A8">海外各廠廠長開檔秒級即查</text>
+
+            <!-- BI App 2: Power BI -->
+            <rect x="750" y="697" width="355" height="68" rx="6" fill="#FFFFFF" stroke="#D8B4FE"/>
+            <text x="762" y="716" font-size="10.5" font-weight="800" fill="#7E22CE">2. 台北總部 Power BI 跨國戰情室看板</text>
+            <rect x="762" y="725" width="160" height="22" rx="4" fill="#EFF6FF" stroke="#93C5FD"/>
+            <text x="842" y="740" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">周副總與高管層直觀監控</text>
+            <rect x="932" y="725" width="163" height="22" rx="4" fill="#EFF6FF" stroke="#93C5FD"/>
+            <text x="1013" y="740" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">全域 OTD 準交率 ｜ 布損模型</text>
           </svg>
         </div>
       </div>
