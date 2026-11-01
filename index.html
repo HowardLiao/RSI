@@ -3089,6 +3089,508 @@
       }
     }
 
+    /* =====================================================================
+       HIVE 3D INTERACTIVE MAP STYLES
+       風格：埃及法老 / 米蘭暖琥珀 (Rust #E87524, Amber #D98B19, Charcoal #1C1917)
+       ===================================================================== */
+    .hive-viewport-container {
+      position: relative;
+      width: 100%;
+      height: 640px;
+      background: radial-gradient(circle at 50% 30%, #FFFDF9 0%, #F5F1E9 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 48px;
+      user-select: none;
+    }
+
+    .hive-canvas-host {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      cursor: grab;
+    }
+    .hive-canvas-host:active {
+      cursor: grabbing;
+    }
+
+    /* 頂部受眾導覽分流列 (HUD Header) */
+    .hive-hud-top {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 6px 14px 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid rgba(231, 229, 228, 0.85);
+      box-shadow: var(--shadow-sm);
+      max-width: calc(100% - 180px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .hive-hud-top::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hive-route-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      white-space: nowrap;
+      padding-right: 8px;
+      border-right: 1px solid var(--border-subtle);
+    }
+
+    .route-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--rust-primary);
+      box-shadow: 0 0 0 0 rgba(232, 117, 36, 0.7);
+      animation: hivePulse 1.8s infinite;
+    }
+
+    @keyframes hivePulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(232, 117, 36, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(232, 117, 36, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(232, 117, 36, 0); }
+    }
+
+    .hive-route-buttons {
+      display: flex;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .hive-route-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .hive-route-btn:hover {
+      color: var(--text-charcoal);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .hive-route-btn.active {
+      background: var(--rust-primary);
+      color: #FFFFFF;
+      border-color: var(--rust-primary);
+      box-shadow: 0 2px 6px rgba(232, 117, 36, 0.25);
+    }
+
+    /* 右上角懸浮工具列 (Floating HUD) */
+    .hive-floating-hud {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      z-index: 20;
+      display: flex;
+      gap: 8px;
+    }
+
+    .hive-hud-action-btn {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .hive-hud-action-btn:hover {
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      border-color: var(--amber-gold);
+      color: var(--rust-primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .hive-hud-action-btn .hud-tip {
+      position: absolute;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-charcoal);
+      color: #FFF;
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .hive-hud-action-btn:hover .hud-tip {
+      opacity: 1;
+    }
+
+    /* 操作指引浮水印 */
+    .hive-hud-hint {
+      position: absolute;
+      bottom: 14px;
+      left: 20px;
+      z-index: 10;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      border: 1px solid rgba(231, 229, 228, 0.6);
+      pointer-events: none;
+    }
+
+    /* 2D 懸浮 HTML 站點標籤層 (由 3D 投影定位) */
+    .hive-screen-labels {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .hive-beacon-pin {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      pointer-events: auto;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hive-beacon-pin:hover {
+      transform: translate(-50%, -108%) scale(1.05);
+    }
+
+    .beacon-pill-box {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 9999px;
+      padding: 4px 10px 4px 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      white-space: nowrap;
+    }
+    .hive-beacon-pin.active .beacon-pill-box {
+      border-color: var(--rust-primary);
+      box-shadow: 0 4px 16px rgba(232, 117, 36, 0.3);
+    }
+
+    .beacon-badge {
+      background: var(--text-charcoal);
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+    }
+    .hive-beacon-pin.active .beacon-badge {
+      background: var(--rust-primary);
+    }
+
+    .beacon-title {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+    }
+
+    .beacon-indicator-stem {
+      width: 2px;
+      height: 12px;
+      background: var(--amber-gold);
+    }
+
+    .beacon-pulse-ring {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--rust-primary);
+      border: 2px solid #FFF;
+      box-shadow: 0 0 6px rgba(232, 117, 36, 0.6);
+    }
+
+    /* 右側高管抽屜面板 (Inspector Drawer) */
+    .hive-inspector-drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 380px;
+      max-width: 90%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 1px solid var(--border-subtle);
+      box-shadow: -8px 0 24px rgba(0, 0, 0, 0.08);
+      z-index: 30;
+      transform: translateX(105%);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hive-inspector-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px 14px 22px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .drawer-eyebrow-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-code-pill {
+      background: var(--rust-primary);
+      color: #FFF;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+
+    .drawer-phase-badge {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--amber-gold);
+    }
+
+    .drawer-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .drawer-close-btn:hover {
+      background: #F5F5F4;
+      color: var(--text-charcoal);
+    }
+
+    .drawer-scrollable-content {
+      flex: 1;
+      padding: 20px 22px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .drawer-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      line-height: 1.3;
+    }
+
+    .drawer-timeline-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--rust-primary);
+      background: #FFF8EE;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(232, 117, 36, 0.2);
+      display: inline-block;
+    }
+
+    .drawer-card-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+    .drawer-card-box.highlight-amber {
+      background: #FFFDF9;
+      border-color: rgba(217, 139, 25, 0.4);
+    }
+
+    .drawer-card-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      margin-bottom: 8px;
+    }
+
+    .drawer-bullet-list {
+      padding-left: 18px;
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+    .drawer-bullet-list li {
+      margin-bottom: 6px;
+    }
+
+    .gate-deliverable-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .gate-tag {
+      display: inline-block;
+      background: #FFF1F2;
+      color: #BE123C;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #FECDD3;
+      width: fit-content;
+    }
+    .gate-rule-desc {
+      font-size: 0.82rem;
+      color: var(--text-body);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .drawer-wbs-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .wbs-ref-chip {
+      background: #F5F5F4;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .wbs-ref-chip:hover {
+      background: var(--rust-primary);
+      color: #FFF;
+      border-color: var(--rust-primary);
+    }
+
+    .drawer-summary-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* 地鐵風格底部站點切換 (Metro Style Navigation) */
+    .drawer-footer-metro {
+      display: flex;
+      padding: 14px 20px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      gap: 8px;
+    }
+
+    .metro-nav-btn {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .metro-nav-btn:hover {
+      background: #FFF8EE;
+      border-color: var(--orange-vibrant);
+      color: var(--rust-primary);
+    }
+    .metro-nav-btn.reset-btn {
+      flex: 0 0 54px;
+    }
+
+    /* 響應式規範 (Mobile Bottom Sheet) */
+    @media (max-width: 768px) {
+      .hive-viewport-container {
+        height: 540px;
+      }
+      .hive-hud-top {
+        left: 10px;
+        right: auto;
+        max-width: calc(100% - 100px);
+      }
+      .hive-floating-hud {
+        right: 10px;
+      }
+      .hive-inspector-drawer {
+        width: 100%;
+        max-width: 100%;
+        height: 72%;
+        top: auto;
+        bottom: 0;
+        border-left: none;
+        border-top: 2px solid var(--rust-primary);
+        transform: translateY(105%);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+      .hive-inspector-drawer.open {
+        transform: translateY(0);
+      }
+    }
+
+
   </style>
   <!-- rsi-site -->
   <link rel="stylesheet" href="assets/rsi-site.css?v=d8c3ab7bca">
@@ -3244,6 +3746,7 @@
         <a href="#pillars" id="nav-pillars">四大主架構 (Four Pillars)</a>
         <a href="#logic-flow" id="nav-logic">價值鏈與層級邏輯</a>
         <a href="#simulator" id="nav-gate">Ready-to-Sew 產前門禁</a>
+        <a href="#hive-3d-map" id="nav-hive-3d" style="color: var(--rust-primary); font-weight: 800;">🐝 蜂巢 3D 戰略地圖</a>
         <a href="#wbs-gantt" id="nav-wbs" style="color: var(--rust-primary); font-weight: 800;">📅 2027 WBS 甘特圖</a>
         <a href="#recommendations" id="nav-recom">國際 IT 主管 6 大建議</a>
       </nav>
@@ -4012,8 +4515,142 @@
       </div>
     </div>
 
-    <!-- Section: Executive IT Recommendations -->
-    
+    <!-- =====================================================================
+         SECTION: 🐝 蜂巢計畫跨國架構與六階段決策 3D 全景地圖 (Hive 3D Interactive Map)
+         ===================================================================== -->
+    <section id="hive-3d-map" class="section-header" style="margin-top: 64px; margin-bottom: 24px;">
+      <div class="section-eyebrow">Interactive Strategic Map & Decision Gates · Project Hive 2027</div>
+      <h2 class="section-title">🐝 蜂巢計畫跨國架構與六階段決策 3D 全景地圖</h2>
+      <p class="section-description">
+        融合 TOGAF BDAT 企業架構與實體地理拓撲，呈現台北總部數據中樞、海外三大產區（柬埔寨首廠試點、越南 72h 自治、印尼 48h 離線）及六大剛性決策站點（S1～S6）。
+        <span style="display: block; margin-top: 4px; font-weight: 700; color: var(--rust-primary);">
+          計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D.
+        </span>
+      </p>
+    </section>
+
+    <!-- 3D 視口沉浸容器 -->
+    <div id="hive-3d-viewport" class="hive-viewport-container">
+
+      <!-- 頂部受眾分流路徑 (Audience Route Selector) -->
+      <header class="hive-hud-top">
+        <div class="hive-route-badge">
+          <span class="route-pulse-dot"></span>
+          <span>戰略導覽路線</span>
+        </div>
+        <div class="hive-route-buttons" role="tablist" aria-label="受眾分流導覽">
+          <button type="button" class="hive-route-btn active" data-route="wbs" onclick="Hive3DEngine.switchRoute('wbs')">
+            <span class="btn-icon">🧭</span>
+            <span class="btn-text">完整 WBS 推進 (S1~S6)</span>
+          </button>
+          <button type="button" class="hive-route-btn" data-route="clevel" onclick="Hive3DEngine.switchRoute('clevel')">
+            <span class="btn-icon">💼</span>
+            <span class="btn-text">C-Level 資本與財務防禦</span>
+          </button>
+          <button type="button" class="hive-route-btn" data-route="edge" onclick="Hive3DEngine.switchRoute('edge')">
+            <span class="btn-icon">🏭</span>
+            <span class="btn-text">廠長與海外邊緣韌性</span>
+          </button>
+          <button type="button" class="hive-route-btn" data-route="arch" onclick="Hive3DEngine.switchRoute('arch')">
+            <span class="btn-icon">🤖</span>
+            <span class="btn-text">架構師與數據整合</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- WebGL 3D 畫布本體 -->
+      <div id="hive-canvas-host" class="hive-canvas-host"></div>
+
+      <!-- 2D 懸浮投影站點 HTML 標籤層 (由 3D 座標即時投影) -->
+      <div id="hive-screen-labels" class="hive-screen-labels" aria-hidden="true"></div>
+
+      <!-- 懸浮快捷工具列 (HUD Floating Toolbar) -->
+      <div class="hive-floating-hud">
+        <button type="button" class="hive-hud-action-btn" onclick="Hive3DEngine.resetCamera()" title="⌖ 全景俯瞰（重置鏡頭）">
+          <span>⌖</span>
+          <span class="hud-tip">全景俯瞰</span>
+        </button>
+        <button type="button" class="hive-hud-action-btn" id="btn-toggle-daynight" onclick="Hive3DEngine.toggleDayNight()" title="☀︎ 光影切換 (暖陽 ⇄ 夜航)">
+          <span id="daynight-icon">☀︎</span>
+          <span class="hud-tip">光影切換</span>
+        </button>
+        <button type="button" class="hive-hud-action-btn" id="btn-speed-flow" onclick="Hive3DEngine.accelerateFlow()" title="〰 航線流動加速">
+          <span>〰</span>
+          <span class="hud-tip">航線流速</span>
+        </button>
+      </div>
+
+      <!-- 操作小提示 (微浮水印) -->
+      <div class="hive-hud-hint">
+        <span>左鍵旋轉 ‧ 右鍵平移 ‧ 滾輪縮放 ‧ 點擊站點查看決策詳情</span>
+      </div>
+
+      <!-- 右側高管抽屜面板 (Executive Station Inspector Drawer) -->
+      <aside id="hive-inspector" class="hive-inspector-drawer" aria-label="決策站點詳情面板">
+        <div class="drawer-header-bar">
+          <div class="drawer-eyebrow-wrap">
+            <span class="drawer-code-pill" id="ins-code">S1</span>
+            <span class="drawer-phase-badge" id="ins-phase">階段 1 · 進行中</span>
+          </div>
+          <button type="button" class="drawer-close-btn" onclick="Hive3DEngine.closeDrawer()" aria-label="關閉面板" title="關閉">✕</button>
+        </div>
+
+        <div class="drawer-scrollable-content">
+          <h3 class="drawer-title" id="ins-title">現況盤點區</h3>
+          <div class="drawer-timeline-badge" id="ins-timeline">W1–W4 ｜ 窗口指派與資產清查</div>
+
+          <!-- 關鍵任務清單 -->
+          <div class="drawer-card-box">
+            <div class="drawer-card-label">🎯【關鍵任務】</div>
+            <ul class="drawer-bullet-list" id="ins-tasks">
+              <li>清查台北總部與三大海外廠現行 DB Schema 與 API 對接現況。</li>
+              <li>建立海外四大廠區各別專責 IT / 生管協同窗口名單。</li>
+              <li>盤點既有聯銓 BI 報表依存性與跨國網路品質基線（Latency / Jitter）。</li>
+            </ul>
+          </div>
+
+          <!-- 決策閘門與交付規約 -->
+          <div class="drawer-card-box highlight-amber">
+            <div class="drawer-card-label">⚖️【決策閘門與交付規約】</div>
+            <div class="gate-deliverable-wrap" id="ins-gates">
+              <div class="gate-tag">D02 窗口指派確立</div>
+              <p class="gate-rule-desc">產出《全集團 IT 資產與 API 規格白皮書》，由副總與各廠長正式簽核。</p>
+            </div>
+          </div>
+
+          <!-- 對應 25 項子領域清單 (可錨點跳轉) -->
+          <div class="drawer-card-box">
+            <div class="drawer-card-label">🔗【對應 25 項 WBS 子領域清單】</div>
+            <div class="drawer-wbs-tags" id="ins-wbs">
+              <a href="#wbs-gantt" class="wbs-ref-chip">P1-1</a>
+              <a href="#wbs-gantt" class="wbs-ref-chip">P1-2</a>
+            </div>
+          </div>
+
+          <!-- 戰略效益與架構亮點 -->
+          <div class="drawer-card-box" style="background: var(--bg-surface);">
+            <div class="drawer-card-label">💡【架構戰略亮點】</div>
+            <p class="drawer-summary-text" id="ins-highlight">
+              以 APIM 雙泳道隔離業務即時流與離峰數據入湖，避免巨量報表拖垮產線 MES 運作。
+            </p>
+          </div>
+        </div>
+
+        <!-- 底部地鐵風格導航 (Metro Switcher) -->
+        <div class="drawer-footer-metro">
+          <button type="button" class="metro-nav-btn" id="btn-prev-station" onclick="Hive3DEngine.navigateStation(-1)">
+            <span>← 上一站</span>
+          </button>
+          <button type="button" class="metro-nav-btn reset-btn" onclick="Hive3DEngine.resetCamera(); Hive3DEngine.closeDrawer();">
+            <span>⌖ 全景</span>
+          </button>
+          <button type="button" class="metro-nav-btn" id="btn-next-station" onclick="Hive3DEngine.navigateStation(1)">
+            <span>下一站 →</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+
     <!-- Section 9: 2027 Project WBS & Gantt Schedule -->
     <section id="wbs-gantt" class="section-header" style="margin-top: 56px;">
       <div class="section-eyebrow">Project Work Breakdown Structure & Timeline</div>
@@ -7005,8 +7642,8 @@
 
   function initScrollSpy() {
     const sectionIds = [
-      'invest-framework', 'evolution', 'visual-analytics', 'dynamic-sim', 
-      'factory-monitor', 'pillars', 'logic-flow', 'simulator', 'wbs-gantt', 'doc-center', 'recommendations'
+      'invest-framework', 'evolution', 'visual-analytics', 'dynamic-sim',
+      'factory-monitor', 'pillars', 'logic-flow', 'simulator', 'hive-3d-map', 'wbs-gantt', 'doc-center', 'recommendations'
     ];
 
     const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
@@ -7101,6 +7738,813 @@
 
 <!-- Modal Backdrop -->
 <div id="pdfPreviewBackdrop" onclick="closePdfPreview()" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.55); z-index:2147483646; backdrop-filter:blur(3px);"></div>
+
+  <!-- CDN: Three.js, OrbitControls, GSAP for Hive 3D Interactive Map -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <script>
+  /**
+   * =====================================================================
+   * RSI Group · Project Hive 3D Interactive Map Engine
+   * 蜂巢計畫跨國架構與六階段決策 3D 全景地圖核心引擎
+   * 執行負責人：Howard Liao Ph.D.
+   * =====================================================================
+   */
+  window.Hive3DEngine = (function () {
+    'use strict';
+
+    // 1. 站點與節點資料結構 (JSON 陣列結構獨立宣告，利於後續擴充維護)
+    const STATIONS_DATA = [
+      {
+        id: 'S1',
+        code: 'S1',
+        title: '現況盤點區',
+        phase: '階段 1 · 進行中',
+        timeline: 'W1–W4 ｜ 窗口指派與資產清查',
+        pos: { x: 4, y: 1.6, z: 4 },
+        camPos: { x: 14, y: 10, z: 14 },
+        target: { x: 4, y: 1.5, z: 4 },
+        tasks: [
+          '清查台北總部與三大海外廠現行 DB Schema 與 API 對接現況。',
+          '建立海外四大廠區各別專責 IT / 生管協同窗口名單。',
+          '盤點既有聯銓 BI 報表依存性與跨國網路品質基線（Latency / Jitter）。'
+        ],
+        gate: {
+          code: 'D02',
+          title: 'D02 窗口指派確立',
+          rule: '產出《全集團 IT 資產與 API 規格白皮書》，由各廠長正式簽核確認責任歸屬。'
+        },
+        wbs: ['P1-1', 'P1-2'],
+        highlight: '啟動全局基礎審計，排除跨國影子 IT 與單點資料斷層。'
+      },
+      {
+        id: 'S2',
+        code: 'S2',
+        title: '範圍確認區',
+        phase: '階段 2',
+        timeline: 'W5–W6 ｜ 標的核定與邊界界定',
+        pos: { x: -4, y: 2.0, z: 2 },
+        camPos: { x: 6, y: 11, z: 12 },
+        target: { x: -4, y: 2.0, z: 2 },
+        tasks: [
+          '核定首批核心 API 清單（訂單、物料庫存、在製品追蹤 WIP）。',
+          '劃定 Data Lake 首波拋轉資料範圍，排除非即時巨量歷史孤島。',
+          '定義 ERP 官方標準 API 與邊緣微服務的權限邊界。'
+        ],
+        gate: {
+          code: 'D01 / D03',
+          title: 'D01 範圍核定 ｜ D03 標的核定',
+          rule: '嚴格鎖定首批導入範圍，防範專案範疇潛變（Scope Creep）導致成本失控。'
+        },
+        wbs: ['P1-3', 'P1-4'],
+        highlight: '聚焦 3,700 萬空運包機與布損防護場景，鎖定高價值資料資產。'
+      },
+      {
+        id: 'S3',
+        code: 'S3',
+        title: '平台選型區',
+        phase: '階段 3',
+        timeline: 'W7–W10 ｜ 三方案評估與 TCO 精算',
+        pos: { x: -10, y: 2.4, z: -4 },
+        camPos: { x: 0, y: 12, z: 6 },
+        target: { x: -10, y: 2.4, z: -4 },
+        tasks: [
+          '實測三種架構方案：雲端託管、地端容器化 vs 混合輕量邊緣節點。',
+          '精算 3 年跨國 TCO，導入 FinOps 機制預測頻寬與計算成本。',
+          '評估 DuckDB WAL 離峰入湖可行性，達成外部 SI 建置 0 元化。'
+        ],
+        gate: {
+          code: 'D04 / D06',
+          title: 'D04 選型定案 ｜ D06 資料落地架構',
+          rule: '完成跨國 PoC 效能與資安合規評審，副總審批最終技術棧架構。'
+        },
+        wbs: ['P1-5', 'P1-6'],
+        highlight: '確保架構具備 8~12% 維運降本空間，徹底擺脫外部原廠授權綁定。'
+      },
+      {
+        id: 'S4',
+        code: 'S4',
+        title: 'PoC 驗證區',
+        phase: '階段 4',
+        timeline: 'W11–W18 ｜ 2/5–2/15 春節封網',
+        pos: { x: -15, y: 2.8, z: 3 },
+        camPos: { x: -5, y: 13, z: 13 },
+        target: { x: -15, y: 2.8, z: 3 },
+        tasks: [
+          '驗證 APIM 雙泳道負載平衡與春節封網期間之唯讀容災機制。',
+          '完成既有聯銓 BI 取數一致性對帳，達成數值 100% 精準對齊。',
+          '確立交接承接單位之運維職能與自動化巡檢腳本。'
+        ],
+        gate: {
+          code: 'D05',
+          title: 'D05 承接單位確立',
+          rule: '完成跨國生管端點端壓力測試，簽署春節安全封網備忘錄。'
+        },
+        wbs: ['P1-7', 'P2-1', 'P2-2'],
+        highlight: '嚴格遵守跨國封網安全協議，保障節慶期間全球不中斷營運。'
+      },
+      {
+        id: 'S5',
+        code: 'S5',
+        title: '首廠建置驗收區',
+        phase: '階段 5',
+        timeline: 'W19+ ｜ 柬埔寨試點廠上線',
+        pos: { x: -18, y: 3.2, z: 14 },
+        camPos: { x: -8, y: 14, z: 24 },
+        target: { x: -18, y: 3.2, z: 14 },
+        tasks: [
+          '柬埔寨針織運動廠正式環境部署與邊緣輕量化節點通網。',
+          '連續 30 天每日無差異離峰結算入湖監控與差異報警。',
+          '落實車間 4-Gate 上線防護機制，防範剪裁與車縫錯誤。'
+        ],
+        gate: {
+          code: 'Gate S5',
+          title: '首廠 30 天每日無差異結算',
+          rule: '柬埔寨廠連續 30 天數據結算 0 誤差，方可獲准進行第二批廠區複製。'
+        },
+        wbs: ['P2-3', 'P2-4', 'P3-1'],
+        highlight: '海外旗艦示範基地，驗證 48h 斷網離線排產與邊緣自律。'
+      },
+      {
+        id: 'S6',
+        code: 'S6',
+        title: '常態維運交接區',
+        phase: '階段 6',
+        timeline: '2027 Q3 ｜ 全面常態維運生效',
+        pos: { x: 12, y: 2.2, z: 8 },
+        camPos: { x: 22, y: 12, z: 18 },
+        target: { x: 12, y: 2.2, z: 8 },
+        tasks: [
+          '交接維運 SOP 與跨國分工矩陣（總部 Global Control Center）。',
+          '正式啟用 SLA 監控看板與 Prometheus / Grafana 自動告警。',
+          '對接歐盟 DPP 數位產品護照與客戶資安無菌室審查。'
+        ],
+        gate: {
+          code: 'Gate S6',
+          title: 'SLA 正式生效與顧問交接完成',
+          rule: '維運手冊 100% 知識轉移至集團內部 IT，通過資安紅藍攻防驗收。'
+        },
+        wbs: ['P3-5', 'P4-1', 'P4-5'],
+        highlight: '實現可持續發展之跨國 IT 自主營運體系，護航 2027 全球戰略。'
+      }
+    ];
+
+    // 跨國島嶼核心資料
+    const ISLANDS_DATA = [
+      {
+        id: 'HQ',
+        name: '台北總部核心島',
+        en: 'Taipei HQ Nexus',
+        pos: { x: 0, y: 0, z: 0 },
+        camPos: { x: 12, y: 16, z: 16 },
+        target: { x: 0, y: 1, z: 0 },
+        desc: '最高六角指揮堡壘，駐紮主數據核心、APIM 雙泳道閘道器與企業 GPU 叢集。',
+        color: 0xE87524
+      },
+      {
+        id: 'Cambodia',
+        name: '柬埔寨試點廠',
+        en: 'Cambodia Pilot Plant',
+        pos: { x: -18, y: -0.5, z: 14 },
+        camPos: { x: -9, y: 12, z: 23 },
+        target: { x: -18, y: 0.5, z: 14 },
+        desc: '首廠試點建置（針織運動旗艦廠），連續 30 天每日無差異結算入湖。',
+        color: 0xD98B19
+      },
+      {
+        id: 'Vietnam',
+        name: '越南產區',
+        en: 'Vietnam Region',
+        pos: { x: -22, y: 0.2, z: -10 },
+        camPos: { x: -12, y: 13, z: -1 },
+        target: { x: -22, y: 1, z: -10 },
+        desc: '72h 邊緣自律生產節點，具備自動裁床與離峰 WAL 佇列快取。',
+        color: 0x10B981
+      },
+      {
+        id: 'Indonesia',
+        name: '印尼產區',
+        en: 'Indonesia Plant',
+        pos: { x: 16, y: -0.6, z: 18 },
+        camPos: { x: 25, y: 11, z: 27 },
+        target: { x: 16, y: 0.5, z: 18 },
+        desc: '無縫貼合專線，具備 48h 斷網離線自治與本地 MES 容災。',
+        color: 0x3B82F6
+      },
+      {
+        id: 'Global',
+        name: '全球市場與 DPP',
+        en: 'Global Market & DPP',
+        pos: { x: 22, y: -1.2, z: -15 },
+        camPos: { x: 31, y: 10, z: -6 },
+        target: { x: 22, y: 0.5, z: -15 },
+        desc: '歐盟 DPP 數位產品護照對接網關與品牌客戶資安無菌室。',
+        color: 0x8B5CF6
+      }
+    ];
+
+    // 4 條受眾路線定義
+    const ROUTES_CONFIG = {
+      wbs: { name: '完整 WBS 推進', sequence: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'] },
+      clevel: { name: 'C-Level 資本與財務防禦', sequence: ['HQ', 'S2', 'S3', 'S5'] },
+      edge: { name: '廠長與海外邊緣韌性', sequence: ['Cambodia', 'Vietnam', 'Indonesia', 'S5'] },
+      arch: { name: '架構師與數據整合', sequence: ['HQ', 'S3', 'S4', 'Global'] }
+    };
+
+    // 私有變數
+    let scene, camera, renderer, controls;
+    let canvasHost, labelContainer;
+    let interactiveObjects = [];
+    let beaconPins = [];
+    let tubeMesh, flowTexture;
+    let flowSpeed = 0.003;
+    let isNight = false;
+    let currentActiveId = 'S1';
+    let ambientLight, sunLight;
+    let currentRouteKey = 'wbs';
+    const tempV = new THREE.Vector3();
+
+    // 初始化入口
+    function init() {
+      canvasHost = document.getElementById('hive-canvas-host');
+      labelContainer = document.getElementById('hive-screen-labels');
+      if (!canvasHost) return;
+
+      const width = canvasHost.clientWidth || 800;
+      const height = canvasHost.clientHeight || 640;
+
+      // 1. 場景
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xFBF9F5);
+      scene.fog = new THREE.FogExp2(0xFBF9F5, 0.012);
+
+      // 2. 鏡頭
+      camera = new THREE.PerspectiveCamera(38, width / height, 0.5, 500);
+      camera.position.set(28, 26, 28);
+
+      // 3. 渲染器
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      canvasHost.appendChild(renderer.domElement);
+
+      // 4. 鏡頭控制器 (OrbitControls)
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.minDistance = 12;
+      controls.maxDistance = 85;
+      controls.maxPolarAngle = Math.PI / 2.05; // 限制仰角防穿底
+      controls.target.set(0, 1, 0);
+
+      // 5. 光影系統 (米蘭暖陽)
+      setupLighting();
+
+      // 6. 幾何世界生成
+      buildLowPolyOcean();
+      buildIslandNodes();
+      buildFlowRoutePipes();
+      buildStationPins();
+
+      // 7. 事件監聽
+      setupInteractions();
+      window.addEventListener('resize', onWindowResize);
+
+      // 8. 檢查 URL Hash (如 #S1, #S4, #HQ)
+      checkInitialHash();
+
+      // 9. 動畫循環
+      animate();
+    }
+
+    // 光影設定
+    function setupLighting() {
+      ambientLight = new THREE.AmbientLight(0xFFF7ED, 1.2);
+      scene.add(ambientLight);
+
+      sunLight = new THREE.DirectionalLight(0xFFEDD5, 1.8);
+      sunLight.position.set(30, 45, 20);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 1024;
+      sunLight.shadow.mapSize.height = 1024;
+      sunLight.shadow.camera.near = 0.5;
+      sunLight.shadow.camera.far = 120;
+      const d = 30;
+      sunLight.shadow.camera.left = -d;
+      sunLight.shadow.camera.right = d;
+      sunLight.shadow.camera.top = d;
+      sunLight.shadow.camera.bottom = -d;
+      sunLight.shadow.bias = -0.0005;
+      scene.add(sunLight);
+    }
+
+    // 微縮海洋基底
+    function buildLowPolyOcean() {
+      const oceanGeo = new THREE.PlaneGeometry(160, 160, 24, 24);
+      oceanGeo.rotateX(-Math.PI / 2);
+      const oceanMat = new THREE.MeshStandardMaterial({
+        color: 0xF2ECE1,
+        roughness: 0.8,
+        metalness: 0.05,
+        flatShading: true
+      });
+      const ocean = new THREE.Mesh(oceanGeo, oceanMat);
+      ocean.position.y = -2.2;
+      ocean.receiveShadow = true;
+      scene.add(ocean);
+    }
+
+    // 跨國六角浮島模型群
+    function buildIslandNodes() {
+      ISLANDS_DATA.forEach(data => {
+        const group = new THREE.Group();
+        group.position.set(data.pos.x, data.pos.y, data.pos.z);
+        group.userData = { id: data.id, type: 'island', raw: data };
+
+        // 六角浮島底座 (Cylinder 6 面)
+        const baseRadius = data.id === 'HQ' ? 6.5 : 4.5;
+        const baseHeight = data.id === 'HQ' ? 2.5 : 1.8;
+        const baseGeo = new THREE.CylinderGeometry(baseRadius, baseRadius * 1.12, baseHeight, 6);
+        const baseMat = new THREE.MeshStandardMaterial({
+          color: 0xE7E5E4,
+          roughness: 0.6,
+          metalness: 0.1,
+          flatShading: true
+        });
+        const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+        baseMesh.castShadow = true;
+        baseMesh.receiveShadow = true;
+        group.add(baseMesh);
+
+        // 上層草坪/作業地塊 (六角頂面)
+        const topGeo = new THREE.CylinderGeometry(baseRadius * 0.94, baseRadius * 0.94, 0.4, 6);
+        const topMat = new THREE.MeshStandardMaterial({
+          color: data.id === 'HQ' ? 0xFEF3C7 : 0xFAFAF9,
+          roughness: 0.5,
+          flatShading: true
+        });
+        const topMesh = new THREE.Mesh(topGeo, topMat);
+        topMesh.position.y = baseHeight / 2 + 0.2;
+        topMesh.receiveShadow = true;
+        group.add(topMesh);
+
+        // 島上幾何微縮建物
+        if (data.id === 'HQ') {
+          // 總部中央資料大廈 (Hex Tower)
+          const towerGeo = new THREE.CylinderGeometry(2, 2.4, 4.5, 6);
+          const towerMat = new THREE.MeshStandardMaterial({ color: 0xE87524, roughness: 0.3, metalness: 0.3 });
+          const tower = new THREE.Mesh(towerGeo, towerMat);
+          tower.position.y = baseHeight / 2 + 2.4;
+          tower.castShadow = true;
+          group.add(tower);
+
+          // 機櫃矩陣立方體
+          for (let i = -1; i <= 1; i++) {
+            const rackGeo = new THREE.BoxGeometry(0.7, 1.2, 0.7);
+            const rackMat = new THREE.MeshStandardMaterial({ color: 0x1C1917, roughness: 0.4 });
+            const rack = new THREE.Mesh(rackGeo, rackMat);
+            rack.position.set(i * 1.8, baseHeight / 2 + 0.6, 2.2);
+            rack.castShadow = true;
+            group.add(rack);
+          }
+        } else {
+          // 廠房幾何模型群
+          const plantGeo = new THREE.BoxGeometry(2.4, 1.4, 3.2);
+          const plantMat = new THREE.MeshStandardMaterial({ color: data.color, roughness: 0.5, metalness: 0.2 });
+          const plant = new THREE.Mesh(plantGeo, plantMat);
+          plant.position.set(0, baseHeight / 2 + 0.7, 0);
+          plant.castShadow = true;
+          group.add(plant);
+
+          // 煙囪 / 塔樓
+          const stackGeo = new THREE.CylinderGeometry(0.3, 0.4, 2, 8);
+          const stackMat = new THREE.MeshStandardMaterial({ color: 0x78716C });
+          const stack = new THREE.Mesh(stackGeo, stackMat);
+          stack.position.set(1.4, baseHeight / 2 + 1, -1);
+          stack.castShadow = true;
+          group.add(stack);
+        }
+
+        scene.add(group);
+        interactiveObjects.push(baseMesh);
+        baseMesh.parent = group;
+      });
+    }
+
+    // 蜂巢六階段動態發光管道 (CatmullRomCurve3 + TubeGeometry)
+    function buildFlowRoutePipes() {
+      const points = STATIONS_DATA.map(s => new THREE.Vector3(s.pos.x, s.pos.y, s.pos.z));
+      points.push(new THREE.Vector3(STATIONS_DATA[0].pos.x, STATIONS_DATA[0].pos.y, STATIONS_DATA[0].pos.z));
+
+      const curve = new THREE.CatmullRomCurve3(points);
+      curve.curveType = 'centripetal';
+      curve.tension = 0.5;
+
+      const tubeGeo = new THREE.TubeGeometry(curve, 120, 0.18, 8, false);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, 256, 0);
+      grad.addColorStop(0, 'rgba(232, 117, 36, 0.1)');
+      grad.addColorStop(0.5, 'rgba(217, 139, 25, 0.95)');
+      grad.addColorStop(0.8, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(1, 'rgba(232, 117, 36, 0.1)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 256, 32);
+
+      flowTexture = new THREE.CanvasTexture(canvas);
+      flowTexture.wrapS = THREE.RepeatWrapping;
+      flowTexture.wrapT = THREE.RepeatWrapping;
+      flowTexture.repeat.set(6, 1);
+
+      const tubeMat = new THREE.MeshStandardMaterial({
+        map: flowTexture,
+        roughness: 0.2,
+        metalness: 0.5,
+        emissive: 0xD98B19,
+        emissiveIntensity: 0.6,
+        transparent: true,
+        opacity: 0.88
+      });
+
+      tubeMesh = new THREE.Mesh(tubeGeo, tubeMat);
+      tubeMesh.position.y = 0;
+      scene.add(tubeMesh);
+    }
+
+    // 構建站點信標 (3D 實體 + 2D HTML 標籤同步映射)
+    function buildStationPins() {
+      STATIONS_DATA.forEach((station) => {
+        const pinGeo = new THREE.OctahedronGeometry(0.42, 0);
+        const pinMat = new THREE.MeshStandardMaterial({
+          color: 0xE87524,
+          emissive: 0xD98B19,
+          emissiveIntensity: 0.8,
+          roughness: 0.2,
+          metalness: 0.8
+        });
+        const pinMesh = new THREE.Mesh(pinGeo, pinMat);
+        pinMesh.position.set(station.pos.x, station.pos.y, station.pos.z);
+        pinMesh.userData = { id: station.id, type: 'station', raw: station };
+        scene.add(pinMesh);
+        interactiveObjects.push(pinMesh);
+
+        // 建立對應之 2D HTML 浮動標籤
+        const pinEl = document.createElement('div');
+        pinEl.className = 'hive-beacon-pin';
+        pinEl.id = 'pin-' + station.id;
+        pinEl.innerHTML = `
+          <div class="beacon-pill-box">
+            <span class="beacon-badge">${station.code}</span>
+            <span class="beacon-title">${station.title}</span>
+          </div>
+          <div class="beacon-indicator-stem"></div>
+          <div class="beacon-pulse-ring"></div>
+        `;
+        pinEl.onclick = () => focusStation(station.id);
+        labelContainer.appendChild(pinEl);
+
+        beaconPins.push({ el: pinEl, pos: new THREE.Vector3(station.pos.x, station.pos.y, station.pos.z) });
+      });
+    }
+
+    // 滑鼠點擊與 Raycaster 射線檢測
+    function setupInteractions() {
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
+      renderer.domElement.addEventListener('pointerdown', (e) => {
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(interactiveObjects, true);
+
+        if (intersects.length > 0) {
+          let obj = intersects[0].object;
+          while (obj && !obj.userData.id && obj.parent) {
+            obj = obj.parent;
+          }
+          if (obj && obj.userData.id) {
+            if (obj.userData.type === 'station') {
+              focusStation(obj.userData.id);
+            } else if (obj.userData.type === 'island') {
+              focusIsland(obj.userData.id);
+            }
+          }
+        }
+      });
+
+      // 監聽鍵盤 ESC 關閉抽屜
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDrawer();
+      });
+
+      // 監聽 Hash 變更
+      window.addEventListener('hashchange', () => {
+        checkInitialHash();
+      });
+    }
+
+    // 聚焦至特定站點 (GSAP 平滑過渡)
+    function focusStation(stationId, updateHash = true) {
+      const station = STATIONS_DATA.find(s => s.id === stationId);
+      if (!station) return;
+
+      currentActiveId = stationId;
+
+      document.querySelectorAll('.hive-beacon-pin').forEach(el => el.classList.remove('active'));
+      const targetPin = document.getElementById('pin-' + stationId);
+      if (targetPin) targetPin.classList.add('active');
+
+      gsap.killTweensOf(camera.position);
+      gsap.killTweensOf(controls.target);
+
+      gsap.to(camera.position, {
+        x: station.camPos.x,
+        y: station.camPos.y,
+        z: station.camPos.z,
+        duration: 1.25,
+        ease: 'power3.inOut'
+      });
+
+      gsap.to(controls.target, {
+        x: station.target.x,
+        y: station.target.y,
+        z: station.target.z,
+        duration: 1.25,
+        ease: 'power3.inOut',
+        onUpdate: () => controls.update()
+      });
+
+      populateDrawer(station);
+      openDrawer();
+
+      if (updateHash) {
+        history.replaceState(null, null, '#' + station.id);
+      }
+    }
+
+    // 聚焦至特定島嶼節點
+    function focusIsland(islandId, updateHash = true) {
+      const island = ISLANDS_DATA.find(i => i.id === islandId);
+      if (!island) return;
+
+      currentActiveId = islandId;
+
+      gsap.killTweensOf(camera.position);
+      gsap.killTweensOf(controls.target);
+
+      gsap.to(camera.position, {
+        x: island.camPos.x,
+        y: island.camPos.y,
+        z: island.camPos.z,
+        duration: 1.25,
+        ease: 'power3.inOut'
+      });
+
+      gsap.to(controls.target, {
+        x: island.target.x,
+        y: island.target.y,
+        z: island.target.z,
+        duration: 1.25,
+        ease: 'power3.inOut',
+        onUpdate: () => controls.update()
+      });
+
+      populateIslandDrawer(island);
+      openDrawer();
+
+      if (updateHash) {
+        history.replaceState(null, null, '#' + island.id);
+      }
+    }
+
+    // 抽屜數據填入（站點）
+    function populateDrawer(data) {
+      document.getElementById('ins-code').textContent = data.code;
+      document.getElementById('ins-phase').textContent = data.phase;
+      document.getElementById('ins-title').textContent = data.title;
+      document.getElementById('ins-timeline').textContent = data.timeline;
+
+      const tasksEl = document.getElementById('ins-tasks');
+      tasksEl.innerHTML = data.tasks.map(t => `<li>${t}</li>`).join('');
+
+      const gatesEl = document.getElementById('ins-gates');
+      gatesEl.innerHTML = `
+        <div class="gate-tag">${data.gate.title}</div>
+        <p class="gate-rule-desc">${data.gate.rule}</p>
+      `;
+
+      const wbsEl = document.getElementById('ins-wbs');
+      wbsEl.innerHTML = data.wbs.map(w => `<a href="#wbs-gantt" class="wbs-ref-chip">${w}</a>`).join('');
+
+      document.getElementById('ins-highlight').textContent = data.highlight;
+    }
+
+    // 抽屜數據填入（島嶼）
+    function populateIslandDrawer(island) {
+      document.getElementById('ins-code').textContent = island.id;
+      document.getElementById('ins-phase').textContent = '跨國實體節點';
+      document.getElementById('ins-title').textContent = island.name;
+      document.getElementById('ins-timeline').textContent = island.en;
+
+      document.getElementById('ins-tasks').innerHTML = `
+        <li>實體拓撲維運：專屬 SD-WAN 加密隧道連通。</li>
+        <li>邊緣資料快取：DuckDB 離線 WAL 本地結算。</li>
+        <li>合規防禦：72h 斷網離線排產與產線自律。</li>
+      `;
+
+      document.getElementById('ins-gates').innerHTML = `
+        <div class="gate-tag">NODE 營運狀態正常</div>
+        <p class="gate-rule-desc">${island.desc}</p>
+      `;
+
+      document.getElementById('ins-wbs').innerHTML = `<a href="#wbs-gantt" class="wbs-ref-chip">Pillar I ~ IV</a>`;
+      document.getElementById('ins-highlight').textContent = island.desc;
+    }
+
+    function openDrawer() {
+      const drawer = document.getElementById('hive-inspector');
+      if (drawer) drawer.classList.add('open');
+    }
+
+    function closeDrawer() {
+      const drawer = document.getElementById('hive-inspector');
+      if (drawer) drawer.classList.remove('open');
+      document.querySelectorAll('.hive-beacon-pin').forEach(el => el.classList.remove('active'));
+    }
+
+    // 地鐵風格切換站點
+    function navigateStation(direction) {
+      const currentIndex = STATIONS_DATA.findIndex(s => s.id === currentActiveId);
+      let nextIndex = 0;
+      if (currentIndex !== -1) {
+        nextIndex = (currentIndex + direction + STATIONS_DATA.length) % STATIONS_DATA.length;
+      }
+      focusStation(STATIONS_DATA[nextIndex].id);
+    }
+
+    // 重置全景鏡頭
+    function resetCamera() {
+      gsap.to(camera.position, {
+        x: 28,
+        y: 26,
+        z: 28,
+        duration: 1.2,
+        ease: 'power3.inOut'
+      });
+      gsap.to(controls.target, {
+        x: 0,
+        y: 1,
+        z: 0,
+        duration: 1.2,
+        ease: 'power3.inOut',
+        onUpdate: () => controls.update()
+      });
+      history.replaceState(null, null, ' ');
+    }
+
+    // 光影模式切換
+    function toggleDayNight() {
+      isNight = !isNight;
+      const icon = document.getElementById('daynight-icon');
+      if (isNight) {
+        if (icon) icon.textContent = '☾';
+        scene.background.setHex(0x131215);
+        scene.fog.color.setHex(0x131215);
+        ambientLight.color.setHex(0x3B3836);
+        sunLight.color.setHex(0xE87524);
+        sunLight.intensity = 1.0;
+      } else {
+        if (icon) icon.textContent = '☀︎';
+        scene.background.setHex(0xFBF9F5);
+        scene.fog.color.setHex(0xFBF9F5);
+        ambientLight.color.setHex(0xFFF7ED);
+        sunLight.color.setHex(0xFFEDD5);
+        sunLight.intensity = 1.8;
+      }
+    }
+
+    // 航線流速加速
+    function accelerateFlow() {
+      flowSpeed = flowSpeed === 0.003 ? 0.012 : 0.003;
+    }
+
+    // 切換受眾路線
+    function switchRoute(routeKey) {
+      currentRouteKey = routeKey;
+
+      document.querySelectorAll('.hive-route-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`.hive-route-btn[data-route="${routeKey}"]`);
+      if (btn) btn.classList.add('active');
+
+      const route = ROUTES_CONFIG[routeKey];
+      if (route && route.sequence.length > 0) {
+        const firstTarget = route.sequence[0];
+        if (firstTarget.startsWith('S')) {
+          focusStation(firstTarget);
+        } else {
+          focusIsland(firstTarget);
+        }
+      }
+    }
+
+    // 檢查初始 Hash
+    function checkInitialHash() {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (!hash) return;
+
+      const station = STATIONS_DATA.find(s => s.id.toLowerCase() === hash.toLowerCase());
+      if (station) {
+        focusStation(station.id, false);
+        return;
+      }
+
+      const island = ISLANDS_DATA.find(i => i.id.toLowerCase() === hash.toLowerCase());
+      if (island) {
+        focusIsland(island.id, false);
+      }
+    }
+
+    // 視窗調整
+    function onWindowResize() {
+      if (!canvasHost || !camera || !renderer) return;
+      const width = canvasHost.clientWidth;
+      const height = canvasHost.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+
+    // 2D 標籤空間投影更新
+    function updateScreenLabels() {
+      if (!labelContainer || !camera || !canvasHost) return;
+      const halfW = canvasHost.clientWidth / 2;
+      const halfH = canvasHost.clientHeight / 2;
+
+      beaconPins.forEach(pin => {
+        tempV.copy(pin.pos);
+        tempV.y += 0.8;
+        tempV.project(camera);
+
+        if (tempV.z < 1 && tempV.x >= -1 && tempV.x <= 1 && tempV.y >= -1 && tempV.y <= 1) {
+          const x = (tempV.x * halfW) + halfW;
+          const y = -(tempV.y * halfH) + halfH;
+          pin.el.style.display = 'flex';
+          pin.el.style.left = `${x}px`;
+          pin.el.style.top = `${y}px`;
+        } else {
+          pin.el.style.display = 'none';
+        }
+      });
+    }
+
+    // 逐幀動畫
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (flowTexture) {
+        flowTexture.offset.x -= flowSpeed;
+      }
+
+      if (controls) controls.update();
+
+      updateScreenLabels();
+
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
+    }
+
+    return {
+      init,
+      focusStation,
+      focusIsland,
+      closeDrawer,
+      navigateStation,
+      resetCamera,
+      toggleDayNight,
+      accelerateFlow,
+      switchRoute
+    };
+  })();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (window.Hive3DEngine) {
+        window.Hive3DEngine.init();
+      }
+    }, 150);
+  });
+  </script>
 
   <script src="assets/rsi-site.js?v=5dc788ce5f" defer></script>
 </body>
