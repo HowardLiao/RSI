@@ -31,6 +31,9 @@
   ];
   var HIVE = [
     { label: '架構與平台', items: [
+      ['Hive/rsi_hive_archipelago.html', '3D 蜂巢群島數位孿生'],
+      ['Hive/howard_ea_framework.html', 'Howard 企業架構藍圖'],
+      ['ai_governance.html', '企業級 AI 治理架構'],
       ['Hive/platforms_architecture_showcase.html', '雙核心架構展廳'],
       ['Hive/cloud_platforms_deepdive_architecture.html', '三大雲端深度架構'],
       ['Hive/platform_tools_comparison_matrix.html', '工具選型評估'],
@@ -49,10 +52,11 @@
       ['Hive/modular_skills_inventory.html', '6 大領域分項盤點表'],
       ['Hive/it_infrastructure_inventory.html', '資訊基礎設施盤點表']
     ] },
-    { label: '文件', items: [
+    { label: '文件與文檔中心', items: [
+      ['Hive/download_center.html', '官方文檔下載中心 (雙料旗艦結案)'],
       ['Hive/index.html', '蜂巢計畫實施藍圖'],
       ['Hive/index.html#gantt', '合約期間 WBS 甘特圖'],
-      ['Hive/download_center.html', '文檔中心']
+      ['preview_ai_coding_lifecycle.html', 'AI Coding 生命週期手冊']
     ] }
   ];
   var EXTRA = {
