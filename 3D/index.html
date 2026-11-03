@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>生活黑客群島 · RSI 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: one-screen app. Header + section/filter rail, then the 3D table; reading happens in a right panel (desktop) or bottom sheet (phone). List mode replaces the table with the full original-order page on the same data and filters. */
+:root {
+  --cream: #FBF7EF; --paper: #F3ECE0; --beige: #E7D9C3;
+  --sage: #7F9F86; --sage-deep: #4F6E5A; --coral: #DD7C5E; --coral-deep: #B65A3E;
+  --sea: #A5C3CA; --sea-deep: #4F7885; --ink: #36322C; --ink-soft: #6B6358; --line: #E1D5C1; --card: #FFFDF8; --focus: #2F6E7E;
+  --run: #6F8F9A; --grow: #7F9F86; --transform: #DD7C5E;
+  --f-display: "LXGW WenKai TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", serif;
+  --f-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --r-s: 8px; --r-m: 14px; --r-l: 22px;
+  --shadow: 0 1px 0 rgba(80,60,30,.06), 0 8px 24px -10px rgba(80,60,30,.28);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; overflow: hidden; margin: 0; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--cream); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--sea-deep); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.app { height: 100%; display: grid; grid-template-rows: auto auto 1fr; }
+.top { background: var(--cream); border-bottom: 1px solid var(--line); padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; position: relative; z-index: 5; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand-name { font-family: var(--f-display); font-weight: 700; font-size: 21px; letter-spacing: .04em; line-height: 1.1; }
+.brand-tag { font-size: 12px; color: var(--ink-soft); line-height: 1.25; }
+.search { flex: 1 1 240px; display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; min-width: 0; max-width: 420px; }
+.search input { border: 0; background: transparent; outline: none; flex: 1; min-width: 0; padding: 2px 0; }
+.search input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+.search:focus-within { border-color: var(--focus); box-shadow: 0 0 0 3px rgba(47,110,126,.18); }
+.search .clear { border: 0; background: none; color: var(--ink-soft); padding: 0 4px; font-size: 18px; line-height: 1; }
+.top-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.seg { display: inline-flex; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.seg button { border: 0; background: none; padding: 5px 14px; border-radius: 999px; font-size: 14px; color: var(--ink-soft); white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: var(--shadow); font-weight: 700; }
+.btn { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 14px; font-size: 14px; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ink); }
+.btn:hover { border-color: var(--beige); background: #fff; }
+.btn-primary { background: var(--coral); border-color: var(--coral); color: #fff; font-weight: 700; }
+.btn-primary:hover { background: var(--coral-deep); border-color: var(--coral-deep); }
+.rail { background: var(--cream); border-bottom: 1px solid var(--line); padding-block: 8px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; gap: 12px; align-items: center; overflow-x: auto; scrollbar-width: none; position: relative; z-index: 4; }
+.rail::-webkit-scrollbar { display: none; }
+.rail-label { font-size: 12px; color: var(--ink-soft); letter-spacing: .08em; white-space: nowrap; }
+.chips { display: flex; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 3px 12px; font-size: 13px; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.chip .dot { width: 9px; height: 9px; border-radius: 3px; transform: rotate(45deg); flex: none; }
+.rail .sep { width: 1px; align-self: stretch; background: var(--line); flex: none; }
+.main { position: relative; min-height: 0; overflow: hidden; }
+.stage { position: absolute; inset: 0; touch-action: none; outline: none; }
+.stage canvas { display: block; width: 100%; height: 100%; }
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.lbl { position: absolute; left: 0; top: 0; pointer-events: auto; border: 1px solid var(--line); background: rgba(255,253,248,.95); border-radius: 12px; padding: 4px 10px 5px; text-align: center; box-shadow: var(--shadow); white-space: nowrap; transition: opacity .2s; }
+.lbl .n { font-family: var(--f-display); font-weight: 700; font-size: 15px; display: block; line-height: 1.25; }
+.lbl .m { font-size: 11.5px; color: var(--ink-soft); display: block; font-variant-numeric: tabular-nums; }
+.lbl.pillar { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.lbl.pillar .m { color: #D8CDBB; }
+.lbl.small { padding: 2px 8px 3px; }
+.lbl.small .n { font-size: 13px; }
+.lbl[data-active="true"] { border-color: var(--coral); box-shadow: 0 0 0 3px rgba(221,124,94,.3), var(--shadow); }
+.lbl[data-dim="true"] { opacity: .45; }
+.tip { position: absolute; z-index: 3; width: 270px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-m); padding: 12px 14px; box-shadow: var(--shadow); pointer-events: none; font-size: 13px; }
+.tip h3 { margin: 0 0 4px; font-family: var(--f-display); font-size: 16px; }
+.tip p { margin: 0 0 6px; color: var(--ink-soft); }
+.tip .hint { color: var(--sea-deep); font-weight: 500; }
+.intro { position: absolute; z-index: 3; left: max(16px, env(safe-area-inset-left, 0px)); top: 16px; width: min(400px, calc(100% - 32px)); background: var(--card); border: 1px solid var(--line); border-radius: var(--r-l); padding: 20px 22px; box-shadow: var(--shadow); }
+.intro .eyebrow { padding-right: 28px; font-size: 12px; letter-spacing: .1em; color: var(--sage-deep); font-weight: 700; }
+.intro h1 { font-family: var(--f-display); font-size: 23px; line-height: 1.35; margin: 4px 0 8px; text-wrap: balance; }
+.intro p { margin: 0 0 12px; color: var(--ink-soft); font-size: 14px; }
+.intro .stats { display: flex; gap: 18px; margin-bottom: 14px; font-variant-numeric: tabular-nums; }
+.intro .stats b { display: block; font-family: var(--f-display); font-size: 22px; line-height: 1.1; color: var(--ink); }
+.intro .stats span { font-size: 12px; color: var(--ink-soft); }
+.intro .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.intro .x { position: absolute; right: 10px; top: 10px; border: 0; background: none; font-size: 20px; color: var(--ink-soft); width: 32px; height: 32px; }
+.ctrl { position: absolute; z-index: 2; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.ctrl .stack { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.ctrl .stack button { border: 0; background: none; width: 40px; height: 40px; font-size: 20px; }
+.ctrl .stack button + button { border-top: 1px solid var(--line); }
+.status { position: absolute; z-index: 2; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px; max-width: calc(100% - 140px); }
+.pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pill.src { background: #EEF4EE; border-color: #C9DACB; color: var(--sage-deep); font-weight: 700; }
+.panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(460px, 100%); background: var(--cream); border-left: 1px solid var(--line); box-shadow: -12px 0 30px -18px rgba(80,60,30,.45); display: flex; flex-direction: column; transform: translateX(105%); transition: transform .32s cubic-bezier(.2,.8,.2,1); }
+.panel.open { transform: none; }
+.panel-head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.panel-head .grab { display: none; }
+.panel-head .spacer { flex: 1; }
+.panel-body { overflow-y: auto; padding: 18px 20px calc(28px + env(safe-area-inset-bottom, 0px)); flex: 1; min-height: 0; }
+.eyb { font-size: 12px; letter-spacing: .08em; color: var(--sage-deep); font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.h2 { font-family: var(--f-display); font-size: 25px; line-height: 1.32; margin: 2px 0 6px; text-wrap: balance; outline: none; }
+.lead { color: var(--ink-soft); margin: 0 0 12px; }
+.meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.meta b { color: var(--ink); }
+.cards { display: grid; gap: 10px; }
+.icard { text-align: left; width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-m); padding: 12px 14px; display: grid; gap: 4px; min-width: 0; }
+button.icard:hover { border-color: var(--beige); box-shadow: var(--shadow); }
+.icard h3 { margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; }
+.icard p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+.icard .foot { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.tag { background: var(--paper); border-radius: 6px; padding: 1px 7px; font-size: 12px; color: var(--ink-soft); }
+.code { font-weight: 700; color: var(--sea-deep); font-variant-numeric: tabular-nums; }
+.rgt { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 0 7px; border: 1px solid; }
+.rgt.Run { color: #3E5A64; border-color: #B8CDD3; background: #EAF1F3; }
+.rgt.Grow { color: #3F5E48; border-color: #BFD3C3; background: #EBF2EC; }
+.rgt.Transform { color: #8D3A22; border-color: #E9B3A1; background: #FBE3DB; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0 0 14px; font-size: 13px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-m); padding: 12px 14px; }
+.facts dt { color: var(--ink-soft); white-space: nowrap; }
+.facts dd { margin: 0; min-width: 0; font-variant-numeric: tabular-nums; }
+.h3 { font-size: 14px; letter-spacing: .06em; color: var(--sage-deep); margin: 18px 0 6px; }
+.note { font-size: 12px; color: #6A5414; background: #FBF1D3; border-radius: var(--r-s); padding: 6px 10px; }
+.origin { font-size: 12px; color: var(--ink-soft); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+.origin .o { background: #EEF4EE; color: var(--sage-deep); border-radius: 6px; padding: 1px 7px; font-weight: 700; }
+.origin .n { background: #FBE3DB; color: #8D3A22; border-radius: 6px; padding: 1px 7px; font-weight: 700; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 12px; }
+.bars { display: grid; gap: 6px; }
+.bar { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; font-size: 13px; }
+.bar .track { grid-column: 1 / -1; height: 9px; background: var(--paper); border-radius: 5px; overflow: hidden; display: flex; }
+.bar .fill { height: 100%; }
+.legend { display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); margin: 4px 0 8px; }
+.legend i { width: 10px; height: 10px; display: inline-block; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+.slider { display: grid; gap: 4px; margin-bottom: 12px; }
+.slider label { display: flex; justify-content: space-between; font-size: 13px; }
+.slider input { width: 100%; accent-color: var(--coral); }
+.outgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.out { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-m); padding: 10px 12px; }
+.out b { display: block; font-family: var(--f-display); font-size: 22px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.out span { font-size: 12px; color: var(--ink-soft); }
+.gate { display: flex; gap: 10px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-m); padding: 10px 12px; margin-bottom: 8px; cursor: pointer; }
+.gate input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--sage-deep); flex: none; }
+.gate b { display: block; font-size: 14px; }
+.gate span { font-size: 12.5px; color: var(--ink-soft); }
+.result { border-radius: var(--r-m); padding: 12px 14px; margin-top: 4px; }
+.result.ok { background: #EBF2EC; border: 1px solid #BFD3C3; }
+.result.block { background: #FBE3DB; border: 1px solid #E9B3A1; }
+.result b { display: block; font-family: var(--f-display); font-size: 18px; }
+.wtable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.wtable th { text-align: left; font-weight: 700; color: var(--ink-soft); border-bottom: 1px solid var(--line); padding: 6px 6px; white-space: nowrap; }
+.wtable td { border-bottom: 1px solid var(--line); padding: 7px 6px; vertical-align: top; }
+.scroll-x { overflow-x: auto; }
+.layer { display: grid; grid-template-columns: 36px 1fr; gap: 8px; align-items: start; }
+.layer .num { font-family: var(--f-display); font-size: 20px; color: var(--coral-deep); font-weight: 700; }
+ul.clean { margin: 0; padding-left: 18px; font-size: 13.5px; }
+ul.clean li { margin: 2px 0; }
+.list { position: absolute; inset: 0; overflow-y: auto; padding-block: 22px 60px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.list-inner { max-width: 1120px; margin: 0 auto; }
+.lsec { margin-bottom: 30px; scroll-margin-top: 10px; }
+.lsec > h2 { font-family: var(--f-display); font-size: 24px; margin: 0 0 4px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.lsec > h2 .hex { width: 16px; height: 16px; clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%); background: var(--sage); flex: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.loading { position: absolute; inset: 0; z-index: 7; display: grid; place-items: center; background: var(--paper); text-align: center; }
+.loading .hexspin { width: 46px; height: 46px; background: var(--sage); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%); margin: 0 auto 12px; animation: spin 1.6s ease-in-out infinite; }
+@keyframes spin { 50% { transform: rotate(180deg) scale(.85); background: var(--coral); } }
+.toast { position: absolute; z-index: 8; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 0); background: var(--ink); color: var(--cream); border-radius: 14px; padding: 10px 12px 10px 16px; display: flex; gap: 12px; align-items: center; max-width: min(520px, calc(100% - 32px)); font-size: 14px; }
+.toast .x { border: 0; background: none; color: #D8CDBB; font-size: 18px; }
+.modal { position: fixed; inset: 0; z-index: 20; background: rgba(54,50,44,.35); display: grid; place-items: center; padding: 16px; }
+.modal-box { background: var(--cream); border-radius: var(--r-l); max-width: 1000px; width: 100%; max-height: 100%; overflow-y: auto; padding: 22px 24px; box-shadow: var(--shadow); }
+.modal-box h2 { font-family: var(--f-display); margin: 0 0 8px; font-size: 24px; }
+.modal-box p, .modal-box li { color: var(--ink-soft); font-size: 14px; }
+@media (max-width: 760px) {
+  .brand-tag { display: none; }
+  .search { order: 3; flex-basis: 100%; max-width: none; }
+  .top-actions .btn .lbltext { display: none; }
+  .panel { top: auto; left: 0; width: 100%; height: 66%; border-left: 0; border-top: 1px solid var(--line); border-radius: var(--r-l) var(--r-l) 0 0; transform: translateY(105%); }
+  .panel.tall { height: 92%; }
+  .panel-head .grab { display: inline-flex; }
+  .intro { padding: 16px 18px; }
+  .intro h1 { font-size: 18px; }
+  .intro p, .intro .stats { display: none; }
+  .tip { display: none; }
+  .lbl .n { font-size: 13px; }
+  .lbl .m { display: none; }
+  .lbl.small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><path d="M17 2 30 9.5v15L17 32 4 24.5v-15z" fill="#7F9F86"/><path d="M17 9 23.5 12.8v7.4L17 24l-6.5-3.8v-7.4z" fill="#FBF7EF"/><circle cx="17" cy="16.5" r="2.6" fill="#DD7C5E"/></svg>
+      <div><div class="brand-name">生活黑客群島</div><div class="brand-tag">RSI 2027 IT 營運計畫・群島版</div></div>
+    </div>
+    <label class="search" for="q">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5.2" fill="none" stroke="#6B6358" stroke-width="1.6"/><path d="m11 11 3.5 3.5" stroke="#6B6358" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="sr-only">搜尋藍圖</span>
+      <input id="q" type="search" placeholder="搜尋藍圖：API、MDM、4-Gate、P3-5…" autocomplete="off">
+      <button class="clear" id="qClear" type="button" aria-label="清除搜尋" hidden>×</button>
+    </label>
+    <div class="top-actions">
+      <div class="seg" role="group" aria-label="瀏覽模式"><button type="button" id="mCity" aria-pressed="true">城市模式</button><button type="button" id="mList" aria-pressed="false">清單模式</button></div>
+      <button class="btn" type="button" id="mapBtn"><span aria-hidden="true">⇄</span><span class="lbltext">映射表</span><span class="sr-only">原站與群島映射表</span></button>
+      <a class="btn" id="srcLink" target="_blank" rel="noopener"><span aria-hidden="true">↗</span><span class="lbltext">原站</span><span class="sr-only">開啟原站</span></a>
+    </div>
+  </header>
+  <nav class="rail" aria-label="原站章節與篩選">
+    <span class="rail-label">原站章節</span><div class="chips" id="navChips"></div>
+    <span class="sep" aria-hidden="true"></span>
+    <span class="rail-label">主架構</span><div class="chips" id="pChips"></div>
+    <span class="sep" aria-hidden="true"></span>
+    <span class="rail-label">資本屬性</span><div class="chips" id="rChips"></div>
+  </nav>
+  <main class="main" id="main">
+    <div class="stage" id="stage" tabindex="0" role="application" aria-label="RSI 群島地圖。拖曳或方向鍵平移，滾輪或加減鍵縮放，按 0 回到全景，Tab 選擇島嶼與地標。">
+      <div class="labels" id="labels"></div>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <div class="list" id="list" hidden></div>
+    <section class="intro" id="intro" aria-labelledby="introTitle">
+      <button class="x" type="button" id="introClose" aria-label="關閉介紹">×</button>
+      <div class="eyebrow" id="introEyebrow"></div>
+      <h1 id="introTitle"></h1>
+      <p id="introText"></p>
+      <div class="stats" id="introStats"></div>
+      <div class="row"><button class="btn btn-primary" type="button" id="introHive">看蜂巢時程</button><button class="btn" type="button" id="exploreBtn">探索四大主架構</button></div>
+    </section>
+    <div class="status" id="status"></div>
+    <div class="ctrl" id="ctrl">
+      <button class="btn" type="button" id="homeBtn">⌂ 回到全景</button>
+      <div class="stack"><button type="button" id="zin" aria-label="放大">+</button><button type="button" id="zout" aria-label="縮小">−</button></div>
+    </div>
+    <aside class="panel" id="panel" aria-label="內容面板">
+      <div class="panel-head"><button class="btn grab" type="button" id="grow" aria-label="展開面板">⌃</button><button class="btn" type="button" id="backBtn" hidden>← 返回</button><span class="spacer"></span><button class="btn" type="button" id="panelClose">關閉 ×</button></div>
+      <div class="panel-body" id="panelBody"></div>
+    </aside>
+    <div class="loading" id="loading" role="status"><div><div class="hexspin"></div><p>正在搭建群島…</p></div></div>
+    <div class="toast" id="toast" hidden role="status"></div>
+    <div id="live" class="sr-only" aria-live="polite"></div>
+  </main>
+</div>
+<div class="modal" id="mapModal" hidden role="dialog" aria-modal="true" aria-labelledby="mapTitle"><div class="modal-box" id="mapBox"></div></div>
+
+<script type="application/json" id="rsi-data">{"src": "../", "extracted": "2026-10-25", "pillars": [{"id": "PI", "no": 1, "roman": "I", "title": "數位底座與治理", "en": "Digital Foundation & Governance", "position": "建立未來系統整合、資料運用及 AI 發展所需的共同底層架構與治理規則。", "desc": "2027 不再只將資訊安全、網路或系統穩定視為單一基礎設施工作，而是進一步建立企業級的資料交換、存取、治理及 AI 管理能力，使不同系統與新應用能在一致規則下運作。", "items": [{"id": "p1-1", "tag": "API 管理機制", "title": "API Management", "desc": "建立系統間資料交換與服務介接的共同管理機制，統一治理跨 ERP、MES、WMS、供應商與跨境物聯網的高頻 API 路由、限流與零信任安全監控。", "tools": "API 管理平台＋OpenAPI 3.0 規格＋API 測試工具（產品依 D04 選型定案）", "sizing": "台北總部核心網關＋越南、柬埔寨、印尼、孟加拉產區介接＋首批串接範圍依 D01／D03 核定", "budget": "$52,000 USD / 年 (約 $45k～$60k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 164 萬 / 年", "rgt": "70% Run ($36.4k) / 30% Grow ($15.6k)"}, {"id": "p1-2", "tag": "存取治理與身分", "title": "Access Governance", "desc": "建立全集團 2,500 席分層身分 SSO（跨國幹部 P2＋現場幹部 F-SKU）＋核心 DB 動態金鑰輪替＋AI Agent 身分沙盒授權。", "tools": "Microsoft Entra ID 分層 SSO＋金鑰管理（依方案審查）＋AI Agent 身分隔離", "sizing": "全集團 2,500 席分層身分 SSO + 跨廠核心 DB 動態金鑰輪替 + AI Agent 身分沙盒", "budget": "$105,000 USD / 年 (約 $95k～$118k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 331 萬 / 年", "rgt": "70% Run ($73.5k) / 10% Grow ($10.5k) / 20% Transform ($21.0k)"}, {"id": "p1-3", "tag": "企業資料層", "title": "Enterprise Data Layer", "desc": "建立跨 ERP、MES、WMS、自動化設備之單一真實數據來源（SSOT）：外點結算每日離峰傳輸一次，重大緊急事項才走特例通道，以保護 SD-WAN 頻寬；建置 30TB+ 企業湖倉。", "tools": "企業湖倉平台＋增量擷取＋每日離峰結算排程（產品依 D04 選型定案）", "sizing": "越南、柬埔寨、印尼、孟加拉產區每日離峰結算入湖＋重大特例通道＋30TB+ 企業湖倉", "budget": "$115,000 USD / 年 (約 $100k～$130k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 362 萬 / 年", "rgt": "20% Run ($23.0k) / 40% Grow ($46.0k) / 40% Transform ($46.0k)"}, {"id": "p1-4", "tag": "資料治理與標準", "title": "Data Governance", "desc": "建立核心主數據定義、Source of Truth、資料品質門禁及共用標準，清洗全球布料、副料、款號與工序 SAM 數據，消除跨廠同料不同號與數據孤島。", "tools": "主數據管理（MDM）＋資料目錄＋自動品質門禁（產品依選型定案）", "sizing": "全集團 2,500 席共用主數據目錄 + 50 萬筆跨廠原物料清洗 + 核心數據品質稽核", "budget": "$80,000 USD / 年 (約 $70k～$92k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 252 萬 / 年", "rgt": "50% Run ($40.0k) / 30% Grow ($24.0k) / 20% Transform ($16.0k)"}, {"id": "p1-5", "tag": "AI 治理與管理機制", "title": "AI Governance", "desc": "建立符合 ISO/IEC 42001 之企業級安全沙盒：控管 Token 消耗、動態過濾品牌機敏圖資（Tech Pack 遮罩）、記錄 Agent 決策軌跡與紅隊防護。", "tools": "AI 閘道（多模型調度與機敏遮罩）＋追蹤評測＋安全防護模型（產品依選型定案）", "sizing": "全集團 400 位核心幹部 Copilot 訪問安全沙盒 + 每月 $4,000 USD Token 消耗配額監控治理", "budget": "$48,000 USD / 年 (約 $40k～$55k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 151 萬 / 年", "rgt": "10% Run ($4.8k) / 30% Grow ($14.4k) / 60% Transform ($28.8k)"}, {"id": "p1-6", "tag": "資訊安全全面防禦", "title": "Cybersecurity", "desc": "建立零信任架構、端點偵測、OT 車間網路實體隔離及 24/7 全託管威脅獵捕，確保海外廠區遭遇勒索病毒時具備 15 分鐘內主動隔離與反制能力。", "tools": "24/7 端點託管偵測回應（MDR）＋零信任存取（ZTNA）（依 P1-6～8 方案審查）", "sizing": "全集團 2,500 個端點覆蓋 (400 核心 PC + 800 車間終端 + 8x Edge IPC + 機房伺服器) + 24/7 MDR 原廠專家監控", "budget": "$100,000 USD / 年 (約 $85k～$115k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 315 萬 / 年", "rgt": "80% Run ($80.0k) / 20% Grow ($20.0k)"}, {"id": "p1-7", "tag": "備份、災備與營運持續", "title": "Backup, DR & BCP", "desc": "建立防勒索 WORM 不可篡改備份、Tier-1 核心生產秒級複製與異地快速切換，確保當機時 RPO < 15 分鐘、RTO < 2 小時，通過外部國際審計。", "tools": "CDP 連續資料保護＋雲端 WORM 不可篡改封存（依方案審查）", "sizing": "台北與越南、柬埔寨、印尼、孟加拉產區 Tier-1 核心 MES/DB（共 20TB）連續複製異地熱備＋50TB 雲端 WORM 封存", "budget": "$68,000 USD / 年 (約 $60k～$78k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 214 萬 / 年", "rgt": "70% Run ($47.6k) / 20% Grow ($13.6k) / 10% Transform ($6.8k)"}, {"id": "p1-8", "tag": "網路與基礎設施現代化", "title": "Network & Infra", "desc": "建立跨國軟體定義廣域網（SD-WAN）、海外機房雙活備援，並部署車間工業級邊緣主機，確保外部海底電纜中斷時現場具備 48~72h 離線自主運轉能力。", "tools": "SD-WAN 雙機備援＋車間工業邊緣主機（依 P1-6～8 方案審查）", "sizing": "台北總部＋越南、柬埔寨、印尼、孟加拉產區雙軌連線＋各廠 SD-WAN 頻寬量測與離峰流量管制", "budget": "$72,000 USD / 年 (約 $62k～$82k)（預估參考值，依 D04 選型核定）", "budgetTWD": "約 NT$ 227 萬 / 年", "rgt": "65% Run ($46.7k) / 35% Grow ($25.3k)"}]}, {"id": "PII", "no": 2, "roman": "II", "title": "營運流程整合", "en": "Operational Process Integration", "position": "打破系統孤島，實現由訂單至出貨的端到端即時資訊流與嚴謹門禁管理。", "desc": "貫穿業務訂單、物料供應鏈、產前技術、車間生產及例外處理，確保產前條件具備才上線，降低停工窩工與做工返修損失。", "items": [{"id": "p2-1", "tag": "訂單交付追蹤", "title": "Order Fulfillment & Tracking", "desc": "建立業務訂單至海外工廠生產排程之即時追蹤機制，掌握工單即時進度與交期偏差。", "tools": "流程編排引擎（產品依選型定案）", "sizing": "跨 4 廠年生產 7,500 萬件成衣之工單生命週期狀態流轉監控", "budget": "納入總體流程現代化項目", "budgetTWD": "依專案範圍分配", "rgt": "50% Run / 50% Grow"}, {"id": "p2-2", "tag": "用料全流程管理", "title": "Material Flow & WMS", "desc": "整合大貨布料採購、進廠檢驗、倉庫儲位、自動拉布裁剪至裁片超市之條碼/RFID 閉環管理。", "tools": "WMS 與 D365 整合＋工業級條碼／RFID 手持機", "sizing": "全集團 4 座主原副料倉庫與 12 座車間線邊超市即時庫存盤點", "budget": "納入供應鏈現代化項目", "budgetTWD": "依專案範圍分配", "rgt": "60% Run / 40% Grow"}, {"id": "p2-3", "tag": "產前門禁管制機制", "title": "Ready-to-Sew 4-Gate", "desc": "落實 4 道硬性門禁：BOM 齊套、Tech Pack 工藝、MQP 封樣、特工半成品超市，未達標自動鎖死排程。", "tools": "自研產前門禁規則引擎 (Node.js/Python) + 廠長/副總雙簽特許 SOP", "sizing": "覆蓋全集團 80 條成衣車縫線之日常換線開線檢核", "budget": "納入流程治理項目", "budgetTWD": "依專案範圍分配", "rgt": "40% Run / 60% Grow"}, {"id": "p2-4", "tag": "工程工時與線平衡", "title": "IE & Line Balancing", "desc": "標準工時 (SAM) 與車縫工位技能矩陣聯動，動態演算線平衡率，消滅在線節拍瓶頸。", "tools": "自建 IE 系統（標準工時 SAM）＋線平衡動態演算模組", "sizing": "集團 1,200 位車工技能矩陣與 80 條車縫線平衡率即時最佳化", "budget": "納入製造工程項目", "budgetTWD": "依專案範圍分配", "rgt": "30% Run / 70% Grow"}, {"id": "p2-5", "tag": "跨廠異常預警引擎", "title": "Exception Management", "desc": "監控採購交期（ETA）與計畫裁剪日（PCD），提前 72 小時主動推播缺料或品質異常預警。", "tools": "事件處理與預警引擎（以每日結算資料為基礎，依選型）＋Teams 即時通知", "sizing": "每日處理 10 萬筆跨廠供應鏈事件串流與 72h 前瞻預警", "budget": "納入異常監控項目", "budgetTWD": "依專案範圍分配", "rgt": "20% Run / 80% Transform"}]}, {"id": "PIII", "no": 3, "roman": "III", "title": "智能營運與決策", "en": "Intelligent Operations & Decision", "position": "自「資料事後呈現」邁向「預測分析、異常介入與 Agentic AI 輔助決策」。", "desc": "建構多維度指標體系、排程動態演算與多國語工藝 RAG 助手，釋放 15%～25% 核心流程工時。", "items": [{"id": "p3-1", "tag": "商業智慧中台", "title": "BI & Analytics Platform", "desc": "建立全集團統一之經營管理看板，提供多廠多維度毛利、效率、品質與能耗交叉分析。", "tools": "既有聯銓 BI 改由 Data Lake 取數＋自助分析（依選型）", "sizing": "總部與各廠 150 位管理幹部即時決策調閱權限", "budget": "納入數據平台項目", "budgetTWD": "依專案範圍分配", "rgt": "60% Run / 40% Grow"}, {"id": "p3-2", "tag": "交期預測與風險模型", "title": "Delivery Predictive Modeling", "desc": "結合歷史工期、海關清關週期與季節天氣數據，訓練交期延遲預測模型，提前識別違約風險。", "tools": "機器學習預測模型＋模型管理（依選型）", "sizing": "每年預測 1,500 個大貨訂單款號之出貨達成率", "budget": "納入智慧演算法項目", "budgetTWD": "依專案範圍分配", "rgt": "30% Grow / 70% Transform"}, {"id": "p3-3", "tag": "物料排程模擬器", "title": "Material Simulation Engine", "desc": "針對大貨布料縮水率、門幅公差與換線損失進行排程演算，提供最佳裁剪與發料組合方案。", "tools": "最佳化求解器＋自研成衣排料算力模組", "sizing": "每日演算 4 廠裁片排產組合，降低大貨布損 1.0%~1.2%", "budget": "納入排料最佳化項目", "budgetTWD": "依專案範圍分配", "rgt": "20% Run / 80% Transform"}, {"id": "p3-4", "tag": "領域型智慧代理人", "title": "Domain-Specific Agentic AI", "desc": "針對生管排程諮詢、做工難點診斷與客戶交期跟單，構建具備主動行動能力的智慧 Agent 群。", "tools": "多代理人框架＋地端模型推論（依 AI 主機與硬體評估）", "sizing": "釋放 400 位核心幹部 15%~25% 特定重複性作業工時", "budget": "納入 AI 創新項目", "budgetTWD": "依專案範圍分配", "rgt": "10% Grow / 90% Transform"}, {"id": "p3-5", "tag": "多國語工藝 RAG 庫", "title": "Multilingual Tech Pack RAG", "desc": "解析品牌英文/繁中 Tech Pack 技術包，建立向量庫，支援越文、高棉語與印尼文車間術語即時查詢。", "tools": "向量資料庫＋檢索框架＋成衣專屬 Embedding（依選型）", "sizing": "建置 10 萬份工藝規範與疵點圖鑑之跨國多語即時檢索庫", "budget": "納入知識中台項目", "budgetTWD": "依專案範圍分配", "rgt": "20% Grow / 80% Transform"}, {"id": "p3-6", "tag": "單證智能辨識 (OCR)", "title": "Intelligent Document Processing", "desc": "自動解析供應商發票、裝箱單 (Packing List) 與原物料檢驗報告 (COA)，自動檢核並拋單至系統。", "tools": "OCR 與版面結構化擷取模型（依選型）", "sizing": "每月自動化處理 3 萬份跨國進出口與採購報關單證", "budget": "納入自動化工程項目", "budgetTWD": "依專案範圍分配", "rgt": "50% Run / 50% Grow"}, {"id": "p3-7", "tag": "高管動態決策戰情室", "title": "Dynamic Executive Dashboards", "desc": "將跨國 4 廠產能利用率、財務損益、人均產值與資安風險熱圖聚合於單一大屏，支援鑽取與例外介入。", "tools": "自研即時戰情大屏（以 Data Lake 與 KPI 定義為資料來源）", "sizing": "集團董事會與周副總等高管指揮中心實時遙測大屏", "budget": "納入戰情室系統項目", "budgetTWD": "依專案範圍分配", "rgt": "40% Run / 60% Grow"}]}, {"id": "PIV", "no": 4, "roman": "IV", "title": "智慧製造與設備", "en": "Smart Manufacturing & Equipment", "position": "推動現場設備聯網化、通訊標準化、感知自動化與邊緣離線自律運轉。", "desc": "消除紙本工票與隨身碟拷貝，打造高可靠的物聯網感知邊界與工業邊緣計算節點。", "items": [{"id": "p4-1", "tag": "機台通訊協定整合", "title": "Machine Communication Gateway", "desc": "統一採集自動裁床、電腦車機、自動模板機與燙壓機之 PLC 訊號，消除串口協定孤島。", "tools": "OPC-UA 伺服器＋工業級 MQTT 訊息中介（產品依選型定案）", "sizing": "全集團 1,500 台自動化成衣機台與溫控設備即時數據擷取", "budget": "納入 OT 物聯網項目", "budgetTWD": "依專案範圍分配", "rgt": "60% Run / 40% Grow"}, {"id": "p4-2", "tag": "RFID 智慧吊掛與在製品追蹤", "title": "Real-Time RFID WIP Tracking", "desc": "車縫吊掛線與分揀站點全工位 RFID 感應，實現單件成衣流動即時定位與個人計件工資秒級計算。", "tools": "RFID 讀寫器＋工業觸控工位屏（依選型）", "sizing": "覆蓋各產區吊掛生產線與讀寫感應節點（試點廠依 D03）", "budget": "納入吊掛自動化項目", "budgetTWD": "依專案範圍分配", "rgt": "50% Run / 50% Grow"}, {"id": "p4-3", "tag": "車間工業邊緣節點 (IPC)", "title": "Industrial Edge Computing", "desc": "各廠車間部署工業級無風扇邊緣主機，本地快取生產排程與 MES 交易，確保外部斷網時持續運轉 72 小時。", "tools": "工業電腦＋輕量容器平台＋本地離線快取（依選型）", "sizing": "各產區車間邊緣節點（雙機熱備援，數量依現況盤點）", "budget": "納入邊緣韌性項目", "budgetTWD": "依專案範圍分配", "rgt": "40% Run / 60% Grow"}, {"id": "p4-4", "tag": "車間視覺 AI 瑕疵檢測", "title": "Shopfloor Vision Inspection", "desc": "裁片印花定位與車縫針距疵點自動辨識，利用邊緣相機進行初檢，減少人為品檢漏網之魚。", "tools": "輕量視覺模型＋工業相機（依選型）", "sizing": "試點廠（依 D03 裁示，新技術建議柬埔寨廠）試點無縫運動服貼合與印花品質初檢", "budget": "納入智慧品管項目", "budgetTWD": "依專案範圍分配", "rgt": "20% Grow / 80% Transform"}, {"id": "p4-5", "tag": "設備預防性維護 (PdM)", "title": "Predictive Maintenance", "desc": "監控自動裁床刀頭振動、熱壓貼合機溫度曲線與馬達電流，提前預警機械故障與磨耗。", "tools": "振動感測器＋時序資料庫＋異常警示模組（依選型）", "sizing": "海外 4 廠共 32 台主力自動裁床與貼合設備之主動維修告警", "budget": "納入設備運維項目", "budgetTWD": "依專案範圍分配", "rgt": "30% Run / 70% Transform"}]}], "wbs": [{"id": "P1-1", "name": "API 管理平台（依 D04 選型定案）", "pillar": "Pillar I 數位底座與治理", "cat": "Run", "start": "2026/11/30", "end": "2027/06/30", "days": "146 天", "team": "IS／SI", "milestone": "首批串接情境與目標架構（12 月）→ PoC 驗證（1/11–3/19）→ 正式建置與上線（4–6 月）", "budget": "$52,000 USD・預估參考值"}, {"id": "P1-2", "name": "存取治理與身分（Entra ID 分層 SSO＋金鑰管理）", "pillar": "Pillar I 數位底座與治理", "cat": "Run", "start": "2026/11/09", "end": "2027/06/30", "days": "161 天", "team": "ITS", "milestone": "身分盤點（11/09–11/27）→ 身分治理原則 → 依方案審查建置分層 SSO 與核心 DB 金鑰輪替", "budget": "$105,000 USD・預估參考值"}, {"id": "P1-3", "name": "企業資料層 Data Lake（依 D04 選型定案）", "pillar": "Pillar I 數位底座與治理", "cat": "Grow", "start": "2026/11/30", "end": "2027/06/30", "days": "146 天", "team": "IS／ERP Team", "milestone": "資料來源與納入範圍、每日離峰結算傳輸與對帳規則 → PoC → 首廠每日結算入湖（4–6 月）", "budget": "$115,000 USD・預估參考值"}, {"id": "P1-4", "name": "資料治理與主數據（MDM 與品質門禁，依選型）", "pillar": "Pillar I 數位底座與治理", "cat": "Grow", "start": "2026/11/30", "end": "2027/06/30", "days": "146 天", "team": "顧問／IS", "milestone": "分層設計與資料治理原則（至 1/08）；原副料／款號主數據與品質門禁隨 Data Lake 落地", "budget": "$80,000 USD・預估參考值"}, {"id": "P1-5", "name": "AI 治理（AI 閘道與機敏內容遮罩，依選型）", "pillar": "Pillar I 數位底座與治理", "cat": "Transform", "start": "2026/12/14", "end": "2027/12/31", "days": "268 天", "team": "顧問／IS", "milestone": "AI 治理原則於 PoC 前訂定；配合 Agentic AI／RAG 場景驗證（10–12 月）落地", "budget": "$48,000 USD・預估參考值"}, {"id": "P1-6", "name": "資訊安全（24/7 MDR＋零信任存取，依方案審查）", "pillar": "Pillar I 數位底座與治理", "cat": "Run", "start": "2026/11/09", "end": "2027/12/31", "days": "293 天", "team": "ITS", "milestone": "資安盤點 → 資安方案審查（P1-6～8）→ 依選型建置並全年維運", "budget": "$100,000 USD・預估參考值"}, {"id": "P1-7", "name": "備份與災備（CDP 連續複製＋WORM 不可篡改，依方案審查）", "pillar": "Pillar I 數位底座與治理", "cat": "Run", "start": "2026/11/09", "end": "2027/06/30", "days": "161 天", "team": "ITS", "milestone": "災備盤點 → 方案審查 → 核心生產 VM 連續複製與不可篡改備份（RPO<15m, RTO<2h）", "budget": "$68,000 USD・預估參考值"}, {"id": "P1-8", "name": "網路與邊緣（SD-WAN 頻寬管制與雙軌備援）", "pillar": "Pillar I 數位底座與治理", "cat": "Run", "start": "2026/11/09", "end": "2027/06/30", "days": "161 天", "team": "ITS／各廠 IT", "milestone": "量測各廠 SD-WAN 頻寬、離峰結算流量管制；依方案審查建置雙軌備援", "budget": "$72,000 USD・預估參考值"}, {"id": "P2-1", "name": "訂單履約流程編排（依選型）", "pillar": "Pillar II 營運流程整合", "cat": "Grow", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "ERP Team／IS", "milestone": "訂單至出貨 9 大工序端到端履約可視化與節點阻礙預警", "budget": "$45,000 USD・預估參考值"}, {"id": "P2-2", "name": "用料與 WMS 風險看板", "pillar": "Pillar II 營運流程整合", "cat": "Grow", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "ERP Team", "milestone": "BOM／採購／海運 ETA 與 WMS 庫存風險看板", "budget": "$40,000 USD・預估參考值"}, {"id": "P2-3", "name": "4-Gate 產前門禁", "pillar": "Pillar II 營運流程整合", "cat": "Transform", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "IS", "milestone": "Gate 1~4 齊套硬性攔截，未達標鎖定發料", "budget": "$50,000 USD・預估參考值"}, {"id": "P2-4", "name": "IE 標準工時與技能矩陣（自建 IE 系統）", "pillar": "Pillar II 營運流程整合", "cat": "Grow", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "IS", "milestone": "標準工時庫與員工技能矩陣整合，線上效率與人機配比核算", "budget": "$35,000 USD・預估參考值"}, {"id": "P2-5", "name": "BPM／電子簽核與跨部門異常派工", "pillar": "Pillar II 營運流程整合", "cat": "Run", "start": "2027/04/01", "end": "2027/09/30", "days": "131 天", "team": "IS", "milestone": "Hive 5.1：行政簽核延伸至產銷跨部門異常工單派工與 SLA 追蹤", "budget": "$25,000 USD・預估參考值"}, {"id": "P3-1", "name": "缺料預警規則引擎（依選型）", "pillar": "Pillar III 智能營運與決策", "cat": "Transform", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "IS", "milestone": "PCD 裁剪前缺料預警規則，以每日結算資料為基礎", "budget": "$42,000 USD・預估參考值"}, {"id": "P3-2", "name": "BI 戰情（既有聯銓 BI 改由 Data Lake 取數）", "pillar": "Pillar III 智能營運與決策", "cat": "Run", "start": "2027/07/01", "end": "2027/09/30", "days": "66 天", "team": "IS", "milestone": "Hive 6.3：既有聯銓 BI 報表改由 Data Lake 取數且數值一致；跨廠產量、效率、損耗看板", "budget": "$30,000 USD・預估參考值"}, {"id": "P3-3", "name": "交期風險預估模型", "pillar": "Pillar III 智能營運與決策", "cat": "Transform", "start": "2027/10/01", "end": "2027/12/31", "days": "66 天", "team": "IS", "milestone": "剩餘工時與準時交貨（OTD）風險預估模型", "budget": "$45,000 USD・預估參考值"}, {"id": "P3-4", "name": "動態人機配置模擬器", "pillar": "Pillar III 智能營運與決策", "cat": "Transform", "start": "2027/10/01", "end": "2027/12/31", "days": "66 天", "team": "IS", "milestone": "換線損失最低解尋優，提升線平衡率", "budget": "$55,000 USD・預估參考值"}, {"id": "P3-5", "name": "Agentic AI 生管跟單", "pillar": "Pillar III 智能營運與決策", "cat": "Transform", "start": "2027/10/01", "end": "2027/12/31", "days": "66 天", "team": "IS", "milestone": "Hive 6.4：Agentic AI／RAG 場景驗證；跨系統生管問答與客訴跟催", "budget": "$60,000 USD・預估參考值"}, {"id": "P3-6", "name": "多國語工藝知識檢索（Tech Pack 自動翻譯 AI）", "pillar": "Pillar III 智能營運與決策", "cat": "Transform", "start": "2027/07/01", "end": "2027/12/31", "days": "132 天", "team": "IS", "milestone": "Hive 5.4：英中技術手冊即時轉譯越／高棉／印尼文，做工語意檢索", "budget": "$48,000 USD・預估參考值"}, {"id": "P3-7", "name": "RPA 辦公室自動化（報關與採購拋單）", "pillar": "Pillar III 智能營運與決策", "cat": "Run", "start": "2027/04/01", "end": "2027/12/31", "days": "197 天", "team": "IS", "milestone": "Hive 5.2：重複性進出口報關與採購拋單機器人", "budget": "$20,000 USD・預估參考值"}, {"id": "P4-1", "name": "機台通訊整合（OPC-UA＋MQTT，依選型）", "pillar": "Pillar IV 智慧製造與設備", "cat": "Grow", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "IS／各廠 IT", "milestone": "模板機自動派單與裁片計工資料採集", "budget": "$45,000 USD・預估參考值"}, {"id": "P4-2", "name": "AI 算力（依 AI 主機與硬體評估）", "pillar": "Pillar IV 智慧製造與設備", "cat": "Transform", "start": "2027/10/01", "end": "2027/12/31", "days": "66 天", "team": "IS／ITS", "milestone": "第二階段 #14：依 AI 應用需求評估總部 GPU 與產區邊緣推論節點", "budget": "$65,000 USD・預估參考值"}, {"id": "P4-3", "name": "車間 OT 隔離與邊緣離線運轉", "pillar": "Pillar IV 智慧製造與設備", "cat": "Run", "start": "2027/08/09", "end": "2027/12/31", "days": "105 天", "team": "ITS／各廠 IT", "milestone": "車間 OT 實體隔離；邊緣主機斷網離線運轉，恢復後增量同步", "budget": "$40,000 USD・預估參考值"}, {"id": "P4-4", "name": "RFID 與產線計工感測", "pillar": "Pillar IV 智慧製造與設備", "cat": "Grow", "start": "2027/10/01", "end": "2027/12/31", "days": "66 天", "team": "IS／各廠 IT", "milestone": "RFID 讀寫器與產線計工感測回傳 MES", "budget": "$50,000 USD・預估參考值"}, {"id": "P4-5", "name": "貼合溫壓 IoT 與自動裁床接口", "pillar": "Pillar IV 智慧製造與設備", "cat": "Grow", "start": "2027/10/01", "end": "2027/12/31", "days": "66 天", "team": "IS／各廠 IT", "milestone": "貼合車間溫壓 IoT 監控與自動拉布裁床接口", "budget": "$55,000 USD・預估參考值"}], "timeline": [{"year": "2025", "stage": "Phase 1 · Foundation", "title": "系統建置與基礎完善 (把系統建起來)", "desc": "各功能系統逐步建立，串聯生產、研發、品管、IE、倉儲、BI、RPA、IoT、自動化及資訊安全等基礎能力，奠定集團數位化營運之硬底層。", "gap": null, "pill": "奠基期 · Infrastructure Establishment"}, {"year": "2026", "stage": "Phase 2 · Connectivity", "title": "流程完善與資訊即時化・AI運用研究 (把流程補完整)", "desc": "補齊跨系統與跨作業流程斷點，強化 MES 工序架構、行動化、生產資訊即時收集、用料全流程、BPM、BI、ML／RAG 與智能設備整合。", "gap": "標註：部分跨系統端到端流程、全用料閉環與進階 AI 研究為當年度需加強之未竟事宜。", "pill": "連通期 · Workflow & Real-Time Sync"}, {"year": "2027", "stage": "Phase 3 · Intelligence", "title": "整合運用與智能營運 (整合運用與決策輔助)", "desc": "將既有系統、流程、資料、設備及 AI 能力整合運用，逐步由單純資料呈現走向異常管理、預測分析、決策支援與 AI Agent 協同，全面形成高階營運戰略價值。", "gap": null, "pill": "躍升期 · Integrated Intelligent Operations"}], "advice": [{"num": "01", "pill": "Business P&L & Hedging", "title": "商業價值與硬性財務對沖矩陣", "desc": "架構直接錨定跨國成衣 4 大核心 KPI：OTD（準時交貨率）、Line Balancing（線平衡率）、Fabric Yield（布料利用率）及 WIP 水位。將軟性工時釋放具體轉化為「空運包機違約金對沖（年防禦2次=省NT$1,500萬）」與「大貨布損降1.2%（年省NT$2,200萬）」，使 IT 投資在第 14.8 個月實現純現金回本。", "metric": "🎯 財務硬回報：年節省現金流 NT$ 3,700 萬 · 靜態回收期 14~16 個月 · ROI 1:3.8"}, {"num": "02", "pill": "Survivability & Sovereignty", "title": "跨國離線自治與東南亞數據主權", "desc": "現場 MES、RFID 採集與自動裁床具備 48～72 小時離線自主生產能力，抵禦海底電纜波動。同時嚴格合規越南《網絡安全法》(Decree 53) 與印尼《個人數據保護法》(PDP)：海外員工個資與生產日誌優先儲存於境內邊緣資料庫，僅去機敏特徵數據回傳台北總部。", "metric": "🛡️ 韌性與法規：100% 斷網零停機 · 零跨國法規觸法罰款風險"}, {"num": "03", "pill": "4-Gate & Override SOP", "title": "Ready-to-Sew 門禁與人性化特許審批", "desc": "前端硬性落實 4-Gate 產前門禁（BOM齊套 + CAD馬克 + Tech Pack + 特工半成品入超市），根除盲目上線拆工。針對現場應急需求增設「廠長與副總雙簽緊急特許通行機制（Override SOP）」，允許 85% 齊套有條件投產但系統標註為紅色風險工單，兼顧制度剛性與現場彈性。", "metric": "⚙️ 現場成效：首日換線效率 +35% · 拆工返修 -50% · 消除車間組織阻力 80%"}, {"num": "04", "pill": "AI Phased & Brand Clean Room", "title": "AI 三階階梯與品牌客戶 IP 無菌室", "desc": "AI 遵循務實梯隊：① 規則異常預警 ➔ ② 多國語 Tech Pack RAG 知識庫 ➔ ③ 人機配置動態排線 Agent。落實 ISO/IEC 27001:2022 數據無菌室：以 Entra ID ABAC 實體隔離 Nike 與 Lululemon 版型資產，並以 AI 閘道建立機敏圖資外洩防護，兼顧歐盟數位產品護照 (DPP) 單件碳足跡追溯。", "metric": "🤖 資安與效率：技術手冊檢索提效 70% · 品牌客戶資安驗廠通過率 100%"}, {"num": "05", "pill": "IT & OT Governance", "title": "IT 與 OT 權責邊界與敏捷突擊隊", "desc": "總部 IT 掌管雲端中台、資安堡壘與資料標準（建跑道）；海外工廠 OT 掌管現場機台通訊、工位屏與感測維護（開賽車）。首廠建置期（2027 Q2）由總部派遣「IT/IE 敏捷突擊隊」駐點試點廠（依 D03 裁示，建議柬埔寨廠）60 天，與第一線幹部同甘共苦調校演算法，徹底消滅總部與車間的對立。", "metric": "🤝 組織協同：現場工單即時回饋率 99.8% · 跨國專案落地阻力消弭"}, {"num": "06", "pill": "Pilot Rollout", "title": "1+N 試點廠與全集團複製標準", "desc": "由首批試點廠（依 D03 裁示，新平台建議柬埔寨廠）打通「4-Gate 產前門禁 ➔ 裁片超市 ➔ 智能吊掛 ➔ 48h 離線邊緣」，驗證成熟後封裝為標準容器化開箱映像檔（輕量容器＋MQTT＋本地離線快取），第二階段（2027 H2）複製至其他產區。", "metric": "🚀 擴張效能：海外新廠數位化上線週期縮短 60% · 跨廠營運管理成本下降 25%"}], "valueChain": [{"step": "01", "tag": "L1 物理邊緣與資料基底", "en": "Infrastructure / Data", "title": "基礎設備與資料層", "mission": "建構東南亞跨國邊緣離線自治能力與企業單一真實資料來源（SSOT），為全集團營運築起不可中斷之數位底座。", "tech": ["淘汰老舊 Dell R740 伺服器，導入 VMware vSAN 雙重容錯虛擬化叢集", "海外產區部署工業邊緣主機 (IPC)，支援輕量容器", "30TB 企業湖倉 (Bronze/Silver/Gold 三層架構)", "MDM 主數據平台全球主數據去重，配置自動品質門禁"], "ot": ["車間智慧電錶、蒸汽流量計與水錶 IoT 連網，即時採集環境與能源數據", "OPC-UA 與 MQTT 邊緣採集，直連裁床與模板機控制器", "本地嵌入式 DuckDB 高速快取，支撐海外產線 48～72 小時斷網自律", "全集團原副料唯一編碼字典，徹底消滅跨廠同料不同號與重複採購呆料"], "kpis": [{"label": "海外廠斷網離線自主運轉時長", "val": "48 ～ 72 小時"}, {"label": "Tier-1 核心資料庫災備復原點 (RPO)", "val": "< 15 分鐘"}, {"label": "Tier-1 系統災難復原時間 (RTO)", "val": "< 2 小時"}, {"label": "跨廠同料不同號衝突率", "val": "0% (徹底清零)"}, {"label": "湖倉跨國報表同步時效", "val": "24h ➔ 5 分鐘"}], "owner": "雲端基礎架構組長 ＋ 數據治理主管 ＋ 系統維運主管"}, {"step": "02", "tag": "L2 服務匯流與身分邊界", "en": "Integration / Security", "title": "API / 服務介接與身分整合", "mission": "統一跨國安全通訊標準，實現台北總部雙活與大客戶即時拋單，嚴格恪守東南亞各國數據主權合規邊界。", "tech": ["API 管理平台 企業級 API 網關，統一跨廠微服務路由與流量治理", "Microsoft Entra ID P2 零信任條件存取 (ABAC) ＋ 全面強制 MFA 雙因子", "雙軌 SD-WAN (專線 ＋ 商業寬頻 ＋ 4G/5G 容錯)，智慧動態選路", "AI 閘道 AI 模型網關，配置機敏提示詞動態遮罩與 Token 預算控制"], "ot": ["品牌大客戶 (Nike/Lululemon) 3D CAD 與馬克版型實體無菌室隔離", "跨境數據本地化：敏感人事薪資在地邊緣留存，符合越南 Decree 53 與印尼 PDP", "提供大客戶採購端安全加密 EDI API，即時調閱車間生產進度與 QA 報告", "拔除海外本機管理員權限，結合 CrowdStrike Falcon 端點即時防護"], "kpis": [{"label": "跨國專線與網路可用性 (SLA)", "val": "≥ 99.95%"}, {"label": "跨廠核心 API 呼叫平均延遲", "val": "< 80 ms"}, {"label": "全集團帳號雙因子認證 (MFA) 覆蓋率", "val": "100% 覆蓋"}, {"label": "國際頂級品牌客戶資安驗廠合格率", "val": "100% 零缺失"}, {"label": "未授權外部連線攔截率", "val": "100% 阻斷"}], "owner": "身分資安組長 (CISO) ＋ 網路通訊組長 ＋ 法務合規顧問"}, {"step": "03", "tag": "L3 業務編排與製造執行", "en": "Process / Manufacturing", "title": "端到端營運履約流程", "mission": "串聯跨國接單、採購、裁剪、車縫至包裝出運之全價值鏈，消弭跨廠資訊時差、停工待料與換線窩工。", "tech": ["流程編排 BPMN 企業級流程引擎，驅動跨系統工作流自動化流轉", "核心 MES 製造執行系統，深度採集工序進度、工時 SAM 與疵點代碼", "WMS 條碼與 RFID 智能倉儲，原副料入庫、檢驗、上架與發料精確對齊", "RPA 進出口報關拋單機器人，自動比對海關品名代碼與提單數據"], "ot": ["接單 (Order) ➔ 採購 (Sourcing) ➔ 裁剪 (Cutting) ➔ 車縫 (Sewing) ➔ 報關 (Shipping) 貫通", "裁片超市特工齊套檢核，確保裁片、印繡花與熱壓配件 100% 齊套再上線", "跨國生產工藝 IE 系統標準工時庫比對，確立各款式人機標準作業標準", "現場吊掛線站點 RFID 刷卡即時計工，產出日報與工時自動拋轉總帳"], "kpis": [{"label": "集團整體準時交貨率 (OTD)", "val": "≥ 98.5% (基線 94.2%)"}, {"label": "換線首日生產達標率", "val": "60.5% ➔ 85.0% (▲ 35%)"}, {"label": "跨國進出口報關單證處理時長", "val": "大幅縮短 80%"}, {"label": "車間換線等待與拆線返工損失", "val": "工時減少 30%"}, {"label": "WMS 倉庫帳實相符率", "val": "≥ 99.2%"}], "owner": "營運流程架構組長 ＋ 各海外基地總廠長 ＋ 供應鏈物流處長"}, {"step": "04", "tag": "L4 營運遙測與全球可視化", "en": "Visibility / Control Tower", "title": "即時透明戰情看板", "mission": "打破跨國製造黑盒子，將 4 大基地所有生產節拍、物料在製品與機台狀態化為 CEO 與現場主管的即時戰情。", "tech": ["Power BI 企業級決策戰情儀表板，提供董事會按季審核之可稽核指標", "Grafana 機房基礎設施與車間 OT 邊緣即時遙測，微秒級掌握主機負載", "供應鏈 Control Tower 全球控制塔，串接上游布廠出貨與海運船期追蹤", "邊緣即時資料串流管道，將車間 MES 數據低延遲匯聚至台北總部湖倉"], "ot": ["4 大基地（台北、越南、柬埔寨、印尼、孟加拉）產能達成率與目標產出實時並列", "車間各線工段首檢良率、車縫在製品 (WIP) 庫存與瓶頸工位水位透視", "智慧機台稼動率 (OEE) 與故障停機告警，現場看板與手機端同步廣播", "歐盟 DPP 數位產品護照單件成衣 Scope 3 碳足跡動態追蹤大屏"], "kpis": [{"label": "車間產出數據實時刷新頻率", "val": "≤ 5 秒 (近即時)"}, {"label": "跨國經營決策報表產出時效", "val": "24h ➔ 5 分鐘"}, {"label": "車間關鍵設備綜合稼動率 (OEE) 可視化", "val": "覆蓋率 100%"}, {"label": "產線瓶頸在製品水位告警響應", "val": "< 3 分鐘"}, {"label": "歐盟 DPP 碳足跡單件追溯覆蓋", "val": "100% 批次"}], "owner": "數據中台組長 ＋ 製造營運處長 ＋ 永續 ESG 專案小組"}, {"step": "05", "tag": "L5 即時流運算與硬性門禁", "en": "Exception / 4-Gate", "title": "主動異常辨識與門禁", "mission": "由被動事後補救升級為主動事前攔截，以硬性門禁與複雜事件處理 (CEP) 徹底撲滅空運包機違約風險。", "tech": ["Apache 預警引擎 實時流運算引擎，比對上游染整廠 ETA 與預計裁剪日 (PCD)", "Ready-to-Sew 4-Gate 產前門禁硬性攔截系統，未齊套自動鎖死發料", "自動品質門禁 數據品質自動校驗門禁，未經 MDM 審核禁止採購下單", "24/7 MDR 威脅主動隔離，異常端點 15 分鐘內拔線遏止"], "ot": ["PCD 提前 72 小時主動推播缺料告警，提供大貨採購催料與調撥緩衝時效", "門禁雙簽特許流程 (Override SOP)：緊急急件鎖定海外總廠長 ＋ 周副總線上雙簽", "車縫品質疵點率突發超標即時紅燈示警，自動觸發巡檢品管師駐點檢驗", "異地備份不可篡改防禦：雲端 WORM 不可篡改鎖定，防勒索銷毀"], "kpis": [{"label": "PCD 缺料主動預警時長", "val": "提前 72 小時"}, {"label": "防禦跨國空運包機違約罰款", "val": "年防 2 次 (省 NT$ 15,000,000)"}, {"label": "Ready-to-Sew 4-Gate 硬鎖放行率", "val": "100% (無漏放)"}, {"label": "重大勒索與資安中斷事件", "val": "0 件 (Zero Breach)"}, {"label": "異常工單責任歸屬追蹤率", "val": "100% 可稽核"}], "owner": "生管處長 ＋ 數據架構組長 ＋ 資安長 (CISO) ＋ 品保處長"}, {"step": "06", "tag": "L6 運籌演算法與動態模擬", "en": "Decision / Line Balance", "title": "模擬與決策輔助", "mission": "運用數理優化與數位分身模擬，為排線平衡、物料利用與跨廠產能調配提供最佳決策處方。", "tech": ["最佳化求解器 混合整數線性規劃 (MILP)，求解人機最佳工序配比", "IE 車縫線平衡即時動態模擬器，依標準工時與技能矩陣動態平衡節拍", "CAD 布料馬克排料利用率演算法，極大化裁剪碼長利用率", "FinOps 雲端成本預測模擬器，分層授權動態配置降低維運費用"], "ot": ["換線前預先模擬生產線平衡率，預測潛在節拍瓶頸並建議輔助工位配置", "跨國 4 大基地產能負荷動態模擬，最佳化各廠大單與急單分流配比", "大貨布料利用率提升，結合 MDM 主數據治理將裁損率實質壓低 1.2%", "2,500 席企業軟體分層授權 (400 核心 + 2,100 現場)，降低維運成本 8%~12%"], "kpis": [{"label": "車縫排線平衡率 (Line Balance Rate)", "val": "88.0% ➔ 95.0%+"}, {"label": "大貨布料損耗率降低幅度", "val": "降低 1.2% (省 NT$ 22,000,000)"}, {"label": "全集團年硬性現金流節省總額", "val": "NT$ 37,000,000 / 年"}, {"label": "靜態投資現金全額回本期", "val": "14.8 個月 (ROI 1:3.84)"}, {"label": "單件成衣數位成本 (DCPG)", "val": "NT$ 0.27 / 件 (▼ 40%)"}], "owner": "IE 工程總監 ＋ 流程架構師 ＋ 採購副總 ＋ 財務長"}, {"step": "07", "tag": "L7 自主智能體與工藝智庫", "en": "Agent / Autonomous AI", "title": "AI Copilot 協同與自主代理", "mission": "在 ISO 42001 安全框架下，以自主多智能體傳承跨國工藝智識，自動跟單催料，釋放高階幹部核心工時。", "tech": ["Enterprise RAG 工藝知識庫 (LangChain / LlamaIndex)，限縮溫度係數 < 0.2", "Agentic AI 生管追單代理人，自主解析訂單進度並比對物料齊套狀態", "做工規範多國語 (中/英/越/高棉/印尼) 即時轉譯與視覺對比代理", "Human-in-the-Loop 雙簽審批機制，禁止 AI 自主變更車間 MES 參數"], "ot": ["第一線組長隨身調閱越語/高棉語 Tech Pack 工藝標準，做工細節零歧義", "智能跟單代理人接管生管向外部布廠/副料廠詢單催料，拋出異常提醒", "車間換線前 AI 自動比對歷史類似款號易錯工藝，生成產前會議備忘錄", "員工禁止私用 Shadow AI，專利圖資強制透過 AI 模型閘道遮罩"], "kpis": [{"label": "做工手冊 (Tech Pack) 檢索提效", "val": "提效 70%"}, {"label": "跨語言誤解引發之拆工返修率", "val": "4.8% ➔ 2.4% (▼ 50%)"}, {"label": "400 核心知識幹部特定工時釋放", "val": "釋放 15% ～ 25%"}, {"label": "Agentic AI 全年淨營運經濟效益", "val": "$900,000 USD (ROI 1:20)"}, {"label": "客戶專利版型與 CAD 外洩事件", "val": "0 件 (Zero Leak)"}], "owner": "AI 研發組長 ＋ 技術研發副總 ＋ 營業副總 ＋ CISO"}], "site": {"title": "2027 IT 營運計畫架構討論", "org": "RSI Group", "tagline": "跨國製造數據治理、營運韌性與智能營運架構藍圖", "sponsor": "周文津 副總經理（計劃主持人）", "lead": "Howard Liao Ph.D.（執行負責人）", "thesis": "2027 的重點不是增加更多單點系統，而是讓既有資訊能力形成跨流程、跨廠區、跨系統的實質營運效益。", "heroStats": [["4 大", "核心戰略主架構"], ["25 項", "數位子領域清單"], ["48~72h", "海外邊緣離線自治"]], "phases": ["2025 建置系統", "2026 補齊流程", "2027 整合運用與智能營運"]}, "nav": [["hive", "🐝 蜂巢計畫時程與閘門", "#hive-pipeline"], ["invest", "2027 投資主軸與預算", "#invest-framework"], ["evolution", "發展演進 (2025–2027)", "#evolution"], ["analytics", "戰略數據與動態圖表", "#visual-analytics"], ["iesim", "線平衡動態演算", "#dynamic-sim"], ["edge", "跨國廠區邊緣韌性", "#factory-monitor"], ["pillars", "四大主架構 (Four Pillars)", "#pillars"], ["valuechain", "價值鏈與層級邏輯", "#logic-flow"], ["gate", "Ready-to-Sew 產前門禁", "#simulator"], ["hivearch", "蜂巢全景圖資展廳", "#hive-architecture"], ["wbs", "2027 WBS 甘特圖", "#wbs-gantt"], ["docs", "官方文檔中心", "#doc-center"], ["advice", "國際 IT 主管 6 大建議", "#recommendations"]], "invest": {"lead": "2027 年 IT 投資主軸為「營運韌性、AI 規模化、資料可信任、成本可控化」；預計將 IT 預算配置為 55% Run、25% Grow、20% Transform。透過 FinOps、授權整併與架構現代化降低維運成本，由 Agentic AI 驅動工時釋放，並使 Tier-1 核心復原力達到國際可稽核水準。", "themes": [["營運韌性", "Operational Resilience", "建立東南亞跨國邊緣離線自治能力與零信任資安縱深防禦，確保 Tier-1 生產核心具備不可篡改備份與可稽核復原力。"], ["AI 規模化", "AI at Scale & Agentic AI", "全面導入 Agentic AI 貫通客服、營運生管、做工規範知識庫（RAG）及工程 IE 流程，將被動查詢升級為主動協同代理。"], ["資料可信任", "Data Trustworthiness", "建立企業單一真實資料來源（Single Source of Truth），統一主數據 MDM 定義，實行嚴謹存取控制與資料生命週期稽核。"], ["成本可控化", "Cost Governance & FinOps", "落實雲端與基礎設施 FinOps、整併軟體授權並進行架構現代化，將維運開銷轉化為驅動業務成長與創新的資本。"]], "rgt": [["Run（維運穩固）", 55, 352000], ["Grow（業務增長）", 25, 160000], ["Transform（創新躍升）", 20, 128000]], "budgetNote": "2027 年 IT 總預算 $640,000 USD（約 NT$ 2,016 萬，預估參考值，依 D04 選型核定）", "metrics": [["可控 IT 維運成本降幅", "▼ 8% ～ 12%", "透過 FinOps 雲端權限與執行個體優化、閒置資源釋放、重複軟體授權整併與基礎架構現代化，實質降低可控 IT Run Cost 8–12%。"], ["特定核心流程工時釋放", "▲ 15% ～ 25%", "透過 Agentic AI 導入客服、營運生管追蹤、做工規範知識庫（RAG）及工程 IE 流程，目標釋放 15–25% 的特定作業工時。"], ["Tier-1 系統災難復原與資安合規", "RPO<15m · RTO<2h", "核心生產系統達到國際標準之高可用性，將 Tier-1 系統的 RTO/RPO 與資安復原能力提升至外部審計可稽核水準。"]]}, "charts": {"note": "以下為原站「戰略數據與動態圖表」的規劃預測值，不是實際量測結果。", "shift": {"title": "2025–2027 IT 資源配置重心轉移", "sub": "資源從單點軟硬體採購移轉至「數據整合與智能決策」", "labels": ["2025 奠基期", "2026 完善期", "2027 智能期"], "series": [["單點硬體設備採購", [45, 25, 12]], ["流程與 MES 整合", [35, 45, 28]], ["數據治理與 API 底座", [15, 20, 32]], ["智能決策與 AI 協同", [5, 10, 28]]]}, "kpi": {"title": "關鍵製造 KPI 效益提升預測 (2025 vs 2027)", "sub": "成衣製造核心財務與交付指標對比", "labels": ["準時交貨率 OTD", "換線工時損失率", "布料損耗率", "產前異常事前攔截"], "series": [["2025 現況基準", [88.5, 28.0, 5.8, 35.0]], ["2027 目標預期", [98.2, 10.5, 4.1, 94.0]]]}, "ai": {"title": "2027 智能營運與 AI 應用權重規劃", "sub": "以可信、務實的三階階梯式實踐推動 AI 落地", "labels": ["階段一：規則型預警 (Quick-Win)", "階段二：成衣工藝 RAG 助手 (知識沉澱)", "階段三：IE/生管 Copilot (人機協同)"], "values": [45, 35, 20]}, "radar": {"title": "四大主架構關鍵任務覆蓋分佈", "sub": "25 項核心功能之系統健全度與整備規劃", "labels": ["API & 治理", "端到端履約", "物料閉環", "主動異常辨識", "IE 模擬優化", "邊緣離線自治", "自動設備整合"], "series": [["2025 基礎現況", [40, 50, 45, 30, 35, 40, 50]], ["2027 整合目標", [95, 92, 90, 88, 85, 95, 92]]]}}, "sites": {"lead": "落實 Edge Survivability 邊緣離線自治架構：東南亞海外廠區即便海底電纜中斷，現場 MES、裁床與吊掛依然具備 48～72 小時離線生產能力。", "list": [["越南廠", "Vietnam Region（產區節點）", [["邊緣模式", "Local Autonomous"], ["離線可用容限", "72 Hours"], ["MES 延遲", "12 ms (本地)"], ["待同步佇列", "0 件 (已同步)"]]], ["柬埔寨廠", "Cambodia Plant（針織運動）", [["邊緣模式", "Local Autonomous"], ["離線可用容限", "48 Hours"], ["MES 延遲", "18 ms (本地)"], ["待同步佇列", "14 件 (同步中)"]]], ["印尼廠", "Indonesia Plant（無縫貼合）", [["邊緣模式", "Offline Edge Active"], ["離線可用容限", "48 Hours"], ["公網狀態", "海纜波動 · 本地自治"], ["待同步佇列", "128 件 (快取安全)"]]], ["台北營運總部", "Taipei HQ（Data Layer / AI）", [["治理核心", "Group Master MDM"], ["API 閘道", "API 管理平台"], ["AI 運算叢集", "4x GPU Server (Serving)"], ["安全防禦", "Zero-Trust Active"]]]]}, "gates": {"lead": "成衣車縫現場最忌『料件未齊盲目上線』。透過 4 道剛性門禁硬性鎖定，達標率 100% 始准排產發料。", "list": [["門禁一：BOM 與原副料全數齊套 (WMS)", "主布縮率已檢測完畢、色號批次相符、副料已入裁片超市", "物料原副料未齊套", true], ["門禁二：工藝包與工序標準確認 (Tech Pack / IE)", "最新客審工藝包就緒、標準工時 SAM 確認、針距與針種規範確立", "工藝包 Tech Pack 未確立", true], ["門禁三：MQP 產前樣與做工樣確認 (Quality)", "PP 會議結論已簽核、品管封樣件確認、特殊部位做工無異議", "MQP 產前樣品未封樣", false], ["門禁四：裁剪配套與特殊工序完成 (Sewing Ready)", "自動裁床拉布完成、印花/繡花/熱壓等特工件全數歸入裁片超市", "裁片或特工件未入超市", true]]}, "ie": {"lead": "動態調整在線技工熟練度與物料齊套率，即時模擬換線學習曲線、線平衡率（Line Balance Rate）與單線日產出成效。"}, "periods": [["2026 Q4 · 盤點與選型", "2026/11/02 ～ 2027/01/08 ｜ W1–W10", "現況盤點、窗口指派（D02）、範圍與首批標的（D01、D03）、三方案選型與 TCO（D04）。"], ["2027 Q1 · PoC 驗證", "2027/01/11 ～ 03/19 ｜ 春節 2/5–2/15 封網", "驗證首批 API、每日離峰結算、斷線補傳與既有聯銓 BI 取數。"], ["2027 Q2 · 首廠建置上線", "2027/04/01 ～ 06/30 ｜ 試點廠依 D03", "API 平台與 Data Lake 正式建置，首廠每日結算入湖；BPM、RPA 年度系統啟動。"], ["2027 H2 · 第二階段", "2027/07/01 ～ 12/31 ｜ 8 月進入", "維運交接、第二產區複製、BI 改由 Data Lake 取數；流程、智能與製造應用依 PoC 成果啟動。"]], "docs": [["34 頁簡報", "2027 IT 營運計畫高階簡報（周文津副總審批版）", "由「單點建置」躍升為數據治理、邊緣韌性、AI 協同與智慧決策之跨國藍圖。", "pptx_rendered_deck.html"], ["白皮書全文", "2027 執行長戰略藍圖白皮書", "總體數位轉型白皮書：業務痛點根因分析、數位底座 8 大關鍵領域、端到端營運履約、智慧製造 OT 與 P&L 財務映射模型。", "ceo_strategic_plan.html"], ["WBS 實施手冊", "2027 全專案 WBS 工作分解結構與實施甘特圖手冊", "收錄 25 項核心專案之 WBS 代號、精確起訖年月日與實質工期。", "gantt_chart_2027.html"], ["組織與資源", "2027 跨國組織職能與資源配置實施手冊", "內部核心編制與外部戰略支援；明確界定 RACI 權責矩陣。", "organization_resources.html"], ["盤點 SOP 手冊", "2027 現有技術職能與資通設備盤點實施手冊（SOP 與 5 大表單）", "標準化表單填報、網路自動探勘對帳與現場視訊抽查三道防弊門禁。", "inventory_discovery.html"]], "related": {"p1-1": ["P1-1"], "p1-2": ["P1-2"], "p1-3": ["P1-3"], "p1-4": ["P1-4"], "p1-5": ["P1-5"], "p1-6": ["P1-6"], "p1-7": ["P1-7"], "p1-8": ["P1-8"], "p2-1": ["P2-1"], "p2-2": ["P2-2"], "p2-3": ["P2-3"], "p2-4": ["P2-4"], "p2-5": ["P2-5"], "p3-1": ["P3-2"], "p3-2": ["P3-3"], "p3-4": ["P3-5"], "p3-5": ["P3-6"], "p3-6": ["P3-7"], "p3-7": ["P3-2"], "p4-1": ["P4-1"], "p4-2": ["P4-4"], "p4-3": ["P4-3"], "p4-5": ["P4-5"]}, "buildings": {"p1-1": "gateway", "p1-2": "keyhouse", "p1-3": "silo", "p1-4": "archive", "p1-5": "lab", "p1-6": "watchtower", "p1-7": "vault", "p1-8": "antenna", "p2-1": "station", "p2-2": "warehouse", "p2-3": "gate4", "p2-4": "factory", "p2-5": "belltower", "p3-1": "screenhall", "p3-2": "clocktower", "p3-3": "lab", "p3-4": "studio", "p3-5": "library", "p3-6": "office", "p3-7": "screentower", "p4-1": "factory", "p4-2": "railhouse", "p4-3": "serverhut", "p4-4": "camera", "p4-5": "workshop"}, "hive": {"title": "蜂巢計畫（Project Hive）六階段推進時程與決策閘門", "lead": "第一階段打通台北總部與越南、柬埔寨、印尼、孟加拉各產區的 API Platform 與 Data Lake，作為後續 BI、KPI 與 AI 應用的共同資料底座。週數自專案啟動日起算，W1 = 2026/11/02。", "version": "蜂巢計畫實施藍圖 v2.2（2026-10-16）", "contract": "顧問合約期間 2026/11/02 – 2027/02/28 · 每週一服務日", "current": "階段 1 現況盤點 · 進行中", "phases": [["現況盤點", "W1–W4", "11/02–11/27", "清查總部與各廠系統、資料庫、API 與窗口名單。", ["D02"]], ["範圍確認", "W5–W6", "11/30–12/11", "核定首批 API、Data Lake 與資料納入範圍。", ["D01", "D03"]], ["平台選型", "W7–W10", "12/14–01/08", "比較三種架構，產出成本估算與建議方案。", ["D04", "D06"]], ["PoC 驗證", "W11–W18", "01/11–03/19（含春節 2/5–2/15 封網順延）", "依驗收標準驗證首批串接與 BI 取數。", ["D05"]], ["建置與驗收", "W19 起 · 依選型", "首廠暫定 2027/04–06", "正式環境部署、每日離峰結算傳輸與階段驗收。", []], ["維運交接", "建置後 4 週", "暫定 2027 Q3", "維運手冊交接、分工表生效、SLA 監控上線。", []]], "gates": [["D01", "範圍核定", "第一階段優先範圍", "僅底座，集中資源先打通資料", "階段 2 結束（W6）", "任務 2、3、5、6"], ["D02", "窗口指派", "跨部門對接窗口", "ITS、IS、ERP Team、各產區 IT 主管與業務單位各一位專責窗口", "階段 1 第 2 週（W2）", "任務 1"], ["D03", "首批標的", "首批納入的系統與工廠", "新平台導入建議柬埔寨廠試點（待確認）", "階段 2 結束（W6）", "任務 5、8"], ["D04", "預算時程", "預算範圍與期望時程", "先核定 PoC 預算，正式建置預算於 PoC 後核定", "階段 3 結束（W10）", "任務 8 及階段 5"], ["D05", "承接單位", "開發與維運承接團隊", "PoC 前確定，並讓承接團隊參與 PoC", "階段 4 開始前（W10）", "任務 8、9"], ["D06", "資料落地", "資料落地區域與雲端主區", "先完成各廠所在國法規檢核再決定", "階段 3 結束（W10）", "任務 3、4、7"]], "gateDates": [["D02 窗口", "11/13"], ["D01・D03", "12/11"], ["D04–D06", "1/08"], ["PoC 驗收", "3/19"]], "tasks": [["1", "現況與需求盤點", "現況清單、需求清單、窗口名單", "1"], ["2", "API Platform 規劃與建置", "API 清單、平台方案、首批串接範圍", "2 → 5"], ["3", "Data Lake Platform 規劃與建置", "資料來源清單、資料平台方案", "2 → 5"], ["4", "平台選型與成本評估", "選型比較表、成本估算、建議方案", "3"], ["5", "總部與工廠資料串接", "串接規格、資料管線、測試結果", "2 → 5"], ["6", "每日結算傳輸與重大特例通道", "離峰排程規格、結算規則、SD-WAN 流量管制項目", "2 → 5"], ["7", "雲端部署與網路資安配套", "部署架構、網路及資安需求清單", "3"], ["8", "PoC 與階段驗收", "PoC 報告、問題清單、驗收結果", "4"], ["9", "執行與維運分工", "分工表、維運責任及交接清單", "6"]], "poc": [["首批 API 串接", "首批範圍內 API 全數上線並納入權限管理"], ["每日離峰結算", "前一日結算資料於上班前（如 07:00）完成入湖，傳輸全程落在離峰時段"], ["重大特例通道", "特例傳輸需經核准觸發，單次傳輸不使該廠 SD-WAN 使用率超過約定上限"], ["每日結算對帳", "連續 10 個工作日差異筆數為 0"], ["斷線補傳", "模擬工廠斷線 4 小時，恢復後自動補傳且無重複"], ["來源系統影響", "擷取期間來源系統回應時間增加 ≤ 10%"], ["BI 取數", "既有聯銓 BI 報表可改由 Data Lake 取數且數值一致"]], "phase2Entry": "PoC 驗收通過，且首批工廠資料連續 30 天每日結算無差異。第一階段只蒐集需求，不同步建置。", "phase2": [["10", "聯銓 BI 優化"], ["11", "KPI 系統化"], ["12", "品質驗證（資料品質確認）"], ["13", "Agentic AI／RAG 應用"], ["14", "AI 主機與硬體評估"], ["15", "Global Control Center 治理模式確認"]]}, "hivearch": {"title": "2027 蜂巢計畫企業架構與數據整合圖資全景", "lead": "整合雙泳道資料整合架構（APIM ＋ ADF ＋ ADLS Gen2）、海外廠邊緣離線自治拓撲、TOGAF 10 BDAT 四層拓撲與雙層語意層。", "cards": [["RSI 資料整合架構：APIM ＋ ADF ＋ ADLS Gen2", "A 泳道：業務系統經 APIM 呼叫 D365 官方 API；B 泳道：ADF 增量或 CDC 擷取工廠自管 MS SQL 落地 ADLS Gen2 湖倉（Bronze/Silver/Gold），供查詢層與既有聯銓 BI 使用。外點結算原則上每日離峰傳輸一次，以保護外點 SD-WAN 頻寬。", [["互動架構圖", "Hive/RSI-data-architecture.html"], ["Draw.io 架構圖與時序圖", "Hive/datalake_etl_elt_drawio.html"]]], ["ASUS Ascent GX10 海外廠 48～72h 離線自律拓撲", "海外三廠車間部署 ASUS Ascent GX10 工控工作站，運行本地推論與嵌入式 DuckDB 快取；國際海纜中斷時支援 48～72 小時連續離線生產，復通後自動差分對帳同步。", [["3D 蜂巢群島（原站版）", "rsi_hive_archipelago.html"], ["TOGAF 與 API 品質標準", "Hive/togaf_api_quality_standards.html"], ["雙層語意層架構手冊", "ai_governance.html"]]]]}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const D = JSON.parse($('#rsi-data').textContent);
+let reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const narrow = () => innerWidth <= 760;
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+const SRC = D.src;
+const navUrl = id => SRC + (D.nav.find(n => n[0] === id) || ['', '', ''])[2];
+const PCOL = { PI: '#7F9F86', PII: '#DD7C5E', PIII: '#5F8591', PIV: '#C49A5C' };
+const PGROUND = { PI: '#DCE6CF', PII: '#F2DCC6', PIII: '#DDE4E2', PIV: '#EAE1D1' };
+const itemById = {}; D.pillars.forEach(p => p.items.forEach(it => { it.pid = p.id; itemById[it.id] = it; }));
+const wbsById = Object.fromEntries(D.wbs.map(w => [w.id, w]));
+const pillarOfWbs = w => 'P' + w.pillar.split(' ')[1];
+D.wbs.forEach(w => w.pid = pillarOfWbs(w));
+
+/* ---------- state ---------- */
+const state = { mode: 'city', q: '', pf: 'all', rf: 'all', view: null, stack: [] };
+const RGTS = ['Run', 'Grow', 'Transform'];
+const itemRgt = it => RGTS.filter(r => it.rgt && it.rgt.includes(r));
+function itemMatch(it) {
+  if (state.pf !== 'all' && it.pid !== state.pf) return false;
+  if (state.rf !== 'all' && !itemRgt(it).includes(state.rf)) return false;
+  const q = state.q.trim().toLowerCase(); if (!q) return true;
+  return [it.id, it.tag, it.title, it.desc, it.tools, it.sizing, ...(D.related[it.id] || [])].join(' ').toLowerCase().includes(q);
+}
+function wbsMatch(w) {
+  if (state.pf !== 'all' && w.pid !== state.pf) return false;
+  if (state.rf !== 'all' && w.cat !== state.rf) return false;
+  const q = state.q.trim().toLowerCase(); if (!q) return true;
+  return [w.id, w.name, w.pillar, w.cat, w.team, w.milestone].join(' ').toLowerCase().includes(q);
+}
+const filtering = () => state.q.trim() || state.pf !== 'all' || state.rf !== 'all';
+
+/* ---------- small renderers ---------- */
+const rgtBadges = arr => arr.map(r => `<span class="rgt ${r}">${r}</span>`).join(' ');
+const origin = (id, extra) => `<div class="origin"><span class="o">原站內容</span><span>${esc(extra || '')}</span><a href="${navUrl(id)}" target="_blank" rel="noopener">在原站查看 ↗</a></div>`;
+const newNote = t => `<div class="origin"><span class="n">新設計</span><span>${esc(t)}</span></div>`;
+function itemCard(it, showPillar) {
+  const p = D.pillars.find(x => x.id === it.pid);
+  return `<button class="icard" type="button" data-item="${it.id}"><span class="foot"><span class="code">${it.id.toUpperCase()}</span>${showPillar ? `<span class="tag">Pillar ${p.roman} ${esc(p.title)}</span>` : ''}${rgtBadges(itemRgt(it))}</span><h3>${esc(it.tag)}<span style="font-weight:400;color:var(--ink-soft)">　${esc(it.title)}</span></h3><p>${esc(it.desc)}</p></button>`;
+}
+function wbsCard(w) {
+  return `<button class="icard" type="button" data-wbs="${w.id}"><span class="foot"><span class="code">${w.id}</span><span class="rgt ${w.cat}">${w.cat}</span><span>${esc(w.start)} – ${esc(w.end)}・${esc(w.days)}</span></span><h3>${esc(w.name)}</h3><p>${esc(w.milestone)}</p><span class="foot"><span class="tag">${esc(w.team)}</span><span>${esc(w.budget)}</span></span></button>`;
+}
+function wbsTable(list) {
+  if (!list.length) return emptyHTML();
+  return `<div class="scroll-x"><table class="wtable"><thead><tr><th>WBS</th><th>專案名稱</th><th>屬性</th><th>起訖</th><th>工期</th><th>團隊</th></tr></thead><tbody>${list.map(w => `<tr><td class="code"><a href="#" data-wbs="${w.id}">${w.id}</a></td><td>${esc(w.name)}</td><td><span class="rgt ${w.cat}">${w.cat}</span></td><td style="white-space:nowrap">${esc(w.start)}<br>${esc(w.end)}</td><td style="white-space:nowrap">${esc(w.days)}</td><td>${esc(w.team)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+const emptyHTML = () => `<div class="note" style="text-align:center;padding:16px">找不到符合條件的內容。<button class="btn" type="button" data-act="clear" style="margin-left:8px">清除搜尋與篩選</button></div>`;
+const legendHTML = (names, cols) => `<div class="legend">${names.map((n, i) => `<span><i style="background:${cols[i]}"></i>${esc(n)}</span>`).join('')}</div>`;
+const CC = ['#6F8F9A', '#7F9F86', '#C49A5C', '#DD7C5E'];
+
+const V = {
+  hive(ph) {
+    const H = D.hive; const cur = ph != null ? +ph : null;
+    const phaseCards = H.phases.map((p, i) => `<button class="icard" type="button" data-phase="${i}" style="${cur === i ? 'border-color:var(--coral);box-shadow:0 0 0 3px rgba(221,124,94,.25)' : ''}"><span class="foot"><span class="code">階段 ${i + 1}</span><span>${esc(p[1])}</span><span>${esc(p[2])}</span>${i === 0 ? '<span class="rgt Transform">進行中</span>' : ''}</span><h3>${esc(p[0])}</h3><p>${esc(p[3])}</p>${p[4].length ? `<span class="foot">${p[4].map(g => `<span class="rgt Transform">${g}</span>`).join(' ')}</span>` : ''}</button>`).join('');
+    const detail = cur != null ? (() => { const p = H.phases[cur]; const gs = H.gates.filter(g => p[4].includes(g[0])); const ts = H.tasks.filter(t => t[3].split('→').map(x => x.trim()).includes(String(cur + 1)) || (t[3].includes('→') && +t[3].split('→')[0] <= cur + 1 && +t[3].split('→')[1] >= cur + 1)); return `<div class="icard" style="border-color:var(--coral)"><span class="foot"><span class="code">階段 ${cur + 1}</span><span>${esc(p[1])}・${esc(p[2])}</span></span><h3 style="font-family:var(--f-display);font-size:20px">${esc(p[0])}</h3><p>${esc(p[3])}</p>${gs.length ? `<h3 class="h3" style="margin-top:8px">本階段決策閘門</h3>${gs.map(g => `<p style="margin:2px 0"><b>${g[0]} ${esc(g[1])}</b>：${esc(g[3])}（期限：${esc(g[4])}）</p>`).join('')}` : ''}${ts.length ? `<h3 class="h3" style="margin-top:8px">本階段任務</h3><ul class="clean">${ts.map(t => `<li>任務 ${t[0]} ${esc(t[1])}：${esc(t[2])}</li>`).join('')}</ul>` : ''}</div>`; })() : '';
+    return `<div class="eyb">🐝 蜂巢計畫時程與閘門・主時程基準</div><h2 class="h2" tabindex="-1" data-focus>${esc(H.title)}</h2><p class="lead">${esc(H.lead)}</p>
+      <div class="meta"><span>目前：<b>${esc(H.current)}</b></span><span>${esc(H.contract)}</span></div>
+      ${detail}<h3 class="h3">六階段推進</h3><div class="cards">${phaseCards}</div>
+      <h3 class="h3">決策閘門時點</h3><div class="meta">${H.gateDates.map(g => `<span><b>${esc(g[0])}</b> ${esc(g[1])}</span>`).join('')}</div>
+      <h3 class="h3">待裁示的 6 項決策</h3><div class="scroll-x"><table class="wtable"><thead><tr><th>決策</th><th>事項</th><th>建議</th><th>期限</th><th>延遲會卡住</th></tr></thead><tbody>${H.gates.map(g => `<tr><td class="code">${g[0]}</td><td>${esc(g[1])}<br><span style="color:var(--ink-soft)">${esc(g[2])}</span></td><td>${esc(g[3])}</td><td>${esc(g[4])}</td><td>${esc(g[5])}</td></tr>`).join('')}</tbody></table></div>
+      <h3 class="h3">第一階段 9 項任務</h3><div class="scroll-x"><table class="wtable"><thead><tr><th>#</th><th>工作項目</th><th>交付產出</th><th>階段</th></tr></thead><tbody>${H.tasks.map(t => `<tr><td class="code">${t[0]}</td><td>${esc(t[1])}</td><td>${esc(t[2])}</td><td style="white-space:nowrap">${esc(t[3])}</td></tr>`).join('')}</tbody></table></div>
+      <h3 class="h3">PoC 驗收標準（建議門檻）</h3><dl class="facts">${H.poc.map(x => `<dt>${esc(x[0])}</dt><dd>${esc(x[1])}</dd>`).join('')}</dl>
+      <h3 class="h3">第二階段應用</h3><p class="note">進入條件：${esc(H.phase2Entry)}</p><div class="meta">${H.phase2.map(x => `<span><b>${x[0]}</b> ${esc(x[1])}</span>`).join('')}</div>
+      ${origin('hive', H.version)}<div class="origin"><a href="${SRC}Hive/index.html" target="_blank" rel="noopener">開啟蜂巢實施藍圖全文 ↗</a></div>`;
+  },
+  hivearch() { const A = D.hivearch; return `<div class="eyb">蜂巢全景圖資展廳</div><h2 class="h2" tabindex="-1" data-focus>${esc(A.title)}</h2><p class="lead">${esc(A.lead)}</p><div class="cards">${A.cards.map(c => `<div class="icard"><h3>${esc(c[0])}</h3><p>${esc(c[1])}</p><span class="foot">${c[2].map(l => `<a href="${SRC}${l[1]}" target="_blank" rel="noopener">${esc(l[0])} ↗</a>`).join('　')}</span></div>`).join('')}</div>${origin('hivearch', '圖資卡片與連結')}`; },
+  invest() {
+    const I = D.invest; const tot = I.rgt.reduce((a, r) => a + r[2], 0);
+    let acc = 0; const arcs = I.rgt.map((r, i) => { const a0 = acc / tot * Math.PI * 2, a1 = (acc += r[2]) / tot * Math.PI * 2; const p = (a) => [60 + 48 * Math.sin(a), 60 - 48 * Math.cos(a)]; const [x0, y0] = p(a0), [x1, y1] = p(a1); return `<path d="M${x0} ${y0} A48 48 0 ${a1 - a0 > Math.PI ? 1 : 0} 1 ${x1} ${y1}" stroke="${['#6F8F9A', '#7F9F86', '#DD7C5E'][i]}" stroke-width="18" fill="none"/>`; }).join('');
+    return `<div class="eyb">投資主軸與預算</div><h2 class="h2" tabindex="-1" data-focus>2027 IT 投資主軸與資本配置治理</h2><p class="lead">${esc(I.lead)}</p>
+      <div class="cards">${I.themes.map(t => `<div class="icard"><h3>${esc(t[0])} <span class="tag">${esc(t[1])}</span></h3><p>${esc(t[2])}</p></div>`).join('')}</div>
+      <h3 class="h3">2027 IT 預算配置模型（Gartner R-G-T）</h3>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Run 55%、Grow 25%、Transform 20%">${arcs}<text x="60" y="64" text-anchor="middle" font-size="13" fill="#36322C" font-weight="700">R-G-T</text></svg>
+      <div class="bars" style="flex:1;min-width:180px">${I.rgt.map((r, i) => `<div class="bar"><span>${esc(r[0])}</span><b>${r[1]}%・$${r[2].toLocaleString()}</b></div>`).join('')}</div></div>
+      <p class="note" style="margin-top:8px">${esc(I.budgetNote)}</p>
+      <h3 class="h3">三大核心財務與效能承諾指標</h3>
+      <div class="cards">${I.metrics.map(m => `<div class="icard"><span class="foot">${esc(m[0])}</span><h3 style="font-family:var(--f-display);font-size:22px">${esc(m[1])}</h3><p>${esc(m[2])}</p></div>`).join('')}</div>
+      <h3 class="h3">硬性財務對沖與投資回收試算器（原站功能）</h3>${roiHTML()}
+      ${origin('invest', '投資主軸、預算模型、承諾指標與試算器')}`;
+  },
+  evolution(y) {
+    const t = D.timeline; const cur = t.find(x => x.year === y) || t[2];
+    return `<div class="eyb">發展演進</div><h2 class="h2" tabindex="-1" data-focus>2025～2027 IT 發展演進軌跡</h2><p class="lead">三年演進階段：由底層工具落地，推進至流程連貫，最終在 2027 年收斂至數據治理與智能代理支援。</p>
+      <div class="tabs">${t.map(x => `<button class="chip" type="button" data-year="${x.year}" aria-pressed="${x.year === cur.year}">${x.year}</button>`).join('')}</div>
+      <div class="icard"><span class="foot"><span class="tag">${esc(cur.stage)}</span><span>${esc(cur.pill)}</span></span><h3 style="font-family:var(--f-display);font-size:20px">${esc(cur.year)}　${esc(cur.title)}</h3><p>${esc(cur.desc)}</p>${cur.gap ? `<p class="note">${esc(cur.gap)}</p>` : ''}</div>
+      <h3 class="h3">2026 Q4 – 2027 實施時程</h3><div class="cards">${D.periods.map(p => `<div class="icard"><h3>${esc(p[0])}</h3><span class="foot">${esc(p[1])}</span><p>${esc(p[2])}</p></div>`).join('')}</div>
+      ${origin('evolution', '三年演進與 WBS 時程區段')}`;
+  },
+  analytics() {
+    const C = D.charts; const S = C.shift, K = C.kpi, A = C.ai, R = C.radar;
+    const shift = S.labels.map((l, i) => `<div class="bar"><span>${esc(l)}</span><b></b><div class="track">${S.series.map((s, k) => `<div class="fill" style="width:${s[1][i]}%;background:${CC[k]}" title="${esc(s[0])} ${s[1][i]}%"></div>`).join('')}</div></div>`).join('');
+    const kpi = K.labels.map((l, i) => `<div class="bar"><span>${esc(l)}</span><b>${K.series[0][1][i]} → ${K.series[1][1][i]}</b><div class="track"><div class="fill" style="width:${K.series[0][1][i]}%;background:#B8AFA3"></div></div><div class="track"><div class="fill" style="width:${K.series[1][1][i]}%;background:#DD7C5E"></div></div></div>`).join('');
+    const ai = A.labels.map((l, i) => `<div class="bar"><span>${esc(l)}</span><b>${A.values[i]}%</b><div class="track"><div class="fill" style="width:${A.values[i]}%;background:${CC[i + 1]}"></div></div></div>`).join('');
+    const n = R.labels.length, cx = 130, cy = 115, rr = 85; const pt = (v, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; return [cx + Math.cos(a) * rr * v / 100, cy + Math.sin(a) * rr * v / 100]; };
+    const poly = (vals, col, op) => `<polygon points="${vals.map((v, i) => pt(v, i).join(',')).join(' ')}" fill="${col}" fill-opacity="${op}" stroke="${col}" stroke-width="1.5"/>`;
+    const radar = `<svg viewBox="0 0 260 235" width="100%" style="max-width:340px" role="img" aria-label="${esc(R.title)}">${[25, 50, 75, 100].map(g => `<polygon points="${R.labels.map((_, i) => pt(g, i).join(',')).join(' ')}" fill="none" stroke="#E1D5C1"/>`).join('')}${poly(R.series[0][1], '#B8AFA3', .25)}${poly(R.series[1][1], '#DD7C5E', .2)}${R.labels.map((l, i) => { const [x, y] = pt(118, i); return `<text x="${x}" y="${y}" font-size="9.5" text-anchor="middle" fill="#6B6358">${esc(l)}</text>`; }).join('')}</svg>`;
+    return `<div class="eyb">戰略數據與動態圖表</div><h2 class="h2" tabindex="-1" data-focus>戰略數據與動態圖表分析</h2><p class="note">${esc(C.note)}</p>
+      <h3 class="h3">${esc(S.title)}</h3><p class="lead" style="margin:0">${esc(S.sub)}</p>${legendHTML(S.series.map(s => s[0]), CC)}<div class="bars">${shift}</div>
+      <h3 class="h3">${esc(K.title)}</h3>${legendHTML(K.series.map(s => s[0]), ['#B8AFA3', '#DD7C5E'])}<div class="bars">${kpi}</div>
+      <h3 class="h3">${esc(A.title)}</h3><p class="lead" style="margin:0 0 6px">${esc(A.sub)}</p><div class="bars">${ai}</div>
+      <h3 class="h3">${esc(R.title)}</h3>${legendHTML(R.series.map(s => s[0]), ['#B8AFA3', '#DD7C5E'])}${radar}
+      ${origin('analytics', '四張規劃圖表的原始數值')}`;
+  },
+  iesim() { return `<div class="eyb">線平衡動態演算</div><h2 class="h2" tabindex="-1" data-focus>IE 車縫線平衡與產能演算器</h2><p class="lead">${esc(D.ie.lead)}</p>${ieHTML()}${origin('iesim', '演算公式與原站一致')}`; },
+  edge() {
+    return `<div class="eyb">跨國廠區邊緣韌性</div><h2 class="h2" tabindex="-1" data-focus>信源跨國廠區邊緣韌性</h2><p class="lead">${esc(D.sites.lead)}</p><p class="note">原站此區為動態監控的示範展示；以下數值為原站顯示的示範值，不是即時遙測。</p>
+      <div class="cards">${D.sites.list.map(s => `<div class="icard"><h3>${esc(s[0])} <span class="tag">${esc(s[1])}</span></h3><dl class="facts" style="margin:4px 0 0">${s[2].map(k => `<dt>${esc(k[0])}</dt><dd>${esc(k[1])}</dd>`).join('')}</dl></div>`).join('')}</div>
+      ${origin('edge', '三個海外廠區與台北總部')}`;
+  },
+  pillars() {
+    return `<div class="eyb">四大主架構</div><h2 class="h2" tabindex="-1" data-focus>2027 四大主架構深層拆解</h2><p class="lead">以數位底座為基、營運流程為經緯、智慧硬體為感知、智能決策為頂層樞紐，構築端到端數位韌性。</p>
+      <div class="cards">${D.pillars.map(p => `<button class="icard" type="button" data-pillar="${p.id}"><span class="foot"><span class="code">Pillar ${p.roman}</span><span>${p.items.length} 項子領域・${D.wbs.filter(w => w.pid === p.id).length} 項 WBS 專案</span></span><h3>${esc(p.title)} <span class="tag">${esc(p.en)}</span></h3><p>${esc(p.position)}</p></button>`).join('')}</div>${origin('pillars', '4 大主架構、25 項子領域')}`;
+  },
+  pillar(pid, tab) {
+    const p = D.pillars.find(x => x.id === pid); tab = tab || 'items';
+    const items = p.items.filter(itemMatch), ws = D.wbs.filter(w => w.pid === pid && wbsMatch(w));
+    return `<div class="eyb"><span style="color:${PCOL[pid]}">⬢</span> Pillar ${p.roman}・主題島</div><h2 class="h2" tabindex="-1" data-focus>${esc(p.title)}</h2><p class="lead"><b>定位：</b>${esc(p.position)}</p><p style="margin:0 0 10px;font-size:14px">${esc(p.desc)}</p>
+      <div class="meta"><span>子領域 <b>${p.items.length}</b> 項</span><span>WBS 專案 <b>${D.wbs.filter(w => w.pid === pid).length}</b> 項</span>${filtering() ? `<span>符合篩選 <b>${items.length}</b>／<b>${ws.length}</b></span>` : ''}</div>
+      <div class="tabs" role="tablist"><button class="chip" type="button" data-tab="items" aria-pressed="${tab === 'items'}">子領域（街區）</button><button class="chip" type="button" data-tab="wbs" aria-pressed="${tab === 'wbs'}">WBS 專案</button></div>
+      <div class="cards">${tab === 'items' ? (items.length ? items.map(it => itemCard(it)).join('') : emptyHTML()) : (ws.length ? ws.map(wbsCard).join('') : emptyHTML())}</div>
+      ${origin('pillars', `Pillar ${p.roman} 的定位、子領域與 WBS 專案`)}`;
+  },
+  item(id) {
+    const it = itemById[id], p = D.pillars.find(x => x.id === it.pid); const rel = (D.related[id] || []).map(k => wbsById[k]);
+    return `<div class="eyb"><span style="color:${PCOL[p.id]}">⬢</span> Pillar ${p.roman} ${esc(p.title)}・<span class="code">${id.toUpperCase()}</span></div><h2 class="h2" tabindex="-1" data-focus>${esc(it.tag)}</h2><p class="lead">${esc(it.title)}</p><p style="font-size:15px">${esc(it.desc)}</p>
+      <dl class="facts"><dt>實戰工具</dt><dd>${esc(it.tools)}</dd><dt>規模基準</dt><dd>${esc(it.sizing)}</dd><dt>預估年預算</dt><dd>${esc(it.budget)}${it.budgetTWD ? `（${esc(it.budgetTWD)}）` : ''}</dd><dt>RGT 屬性</dt><dd>${esc(it.rgt)}</dd></dl>
+      ${id === 'p2-3' ? `<h3 class="h3">Ready-to-Sew 4-Gate 模擬器（原站功能）</h3><p class="lead" style="font-size:13px">${esc(D.gates.lead)}</p>${gateHTML()}` : ''}
+      ${id === 'p2-4' ? `<h3 class="h3">IE 線平衡演算器（原站功能）</h3>${ieHTML()}` : ''}
+      <h3 class="h3">相關 WBS 專案</h3>${rel.length ? `<div class="cards">${rel.map(wbsCard).join('')}</div>` : `<p class="note">原站沒有與此子領域明確對應的 WBS 專案。</p>`}
+      ${origin('pillars', '子領域內容與預算為原站預估參考值')}${rel.length ? newNote('子領域與 WBS 專案的對應，依名稱與內容比對建立') : ''}`;
+  },
+  wbsItem(id) {
+    const w = wbsById[id]; const items = Object.entries(D.related).filter(([k, v]) => v.includes(id)).map(([k]) => itemById[k]);
+    return `<div class="eyb">2027 WBS・<span class="code">${w.id}</span></div><h2 class="h2" tabindex="-1" data-focus>${esc(w.name)}</h2>
+      <dl class="facts"><dt>主架構</dt><dd>${esc(w.pillar)}</dd><dt>資本屬性</dt><dd><span class="rgt ${w.cat}">${w.cat}</span></dd><dt>開始</dt><dd>${esc(w.start)}</dd><dt>結束</dt><dd>${esc(w.end)}</dd><dt>實質工期</dt><dd>${esc(w.days)}</dd><dt>負責團隊</dt><dd>${esc(w.team)}</dd><dt>預算規模</dt><dd>${esc(w.budget)}</dd></dl>
+      <h3 class="h3">關鍵里程碑與交付成果</h3><p>${esc(w.milestone)}</p>
+      ${items.length ? `<h3 class="h3">對應的子領域</h3><div class="cards">${items.map(it => itemCard(it, true)).join('')}</div>` : ''}
+      ${origin('wbs', 'WBS 表格欄位')}<div class="origin"><a href="${SRC}gantt_chart_2027.html" target="_blank" rel="noopener">開啟原站全屏甘特圖 ↗</a></div>`;
+  },
+  valuechain(step) {
+    const L = D.valueChain; const cur = L.find(x => x.step === step) || L[0];
+    return `<div class="eyb">價值鏈與層級邏輯</div><h2 class="h2" tabindex="-1" data-focus>四大架構串聯之層級價值鏈</h2><p class="lead">由基底硬體向決策支援遞進，解決「不同系統、流程、資料與設備是否能在共同架構下真正整合」之挑戰。</p>
+      <div class="tabs">${L.map(x => `<button class="chip" type="button" data-step="${x.step}" aria-pressed="${x.step === cur.step}">${x.step} ${esc(x.title)}</button>`).join('')}</div>
+      <div class="icard"><span class="foot"><span class="tag">${esc(cur.tag)}</span><span>${esc(cur.en)}</span></span><h3 style="font-family:var(--f-display);font-size:20px">${esc(cur.step)}. ${esc(cur.title)}</h3><p>${esc(cur.mission)}</p></div>
+      <h3 class="h3">核心技術與架構模組</h3><ul class="clean">${cur.tech.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      <h3 class="h3">跨國製造現場對齊</h3><ul class="clean">${cur.ot.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      <h3 class="h3">量化關鍵承諾指標</h3><dl class="facts">${cur.kpis.map(k => `<dt>${esc(k.label)}</dt><dd><b>${esc(k.val)}</b></dd>`).join('')}</dl>
+      <h3 class="h3">當責單位</h3><p>${esc(cur.owner)}</p>${origin('valuechain', '七層價值鏈')}`;
+  },
+  gate() { return `<div class="eyb">Ready-to-Sew 產前門禁</div><h2 class="h2" tabindex="-1" data-focus>Ready-to-Sew（上線門禁檢核）模擬器</h2><p class="lead">${esc(D.gates.lead)}</p>${gateHTML()}${origin('gate', '門禁條件與攔截邏輯與原站一致')}`; },
+  wbs() {
+    const list = D.wbs.filter(wbsMatch);
+    return `<div class="eyb">2027 WBS 甘特圖</div><h2 class="h2" tabindex="-1" data-focus>2027 全專案 WBS 與實施時程</h2><p class="lead">四大主架構 25 項核心專案之 WBS 編號、資本屬性、起訖日期、實質工期與交付里程碑。上方「主架構」「資本屬性」即原站的 WBS 篩選。</p>
+      <div class="meta"><span>顯示 <b>${list.length}</b>／${D.wbs.length} 項</span></div>${wbsTable(list)}
+      <div class="origin"><a href="${SRC}gantt_chart_2027.html" target="_blank" rel="noopener">開啟原站 25 項全屏互動甘特圖 ↗</a></div>${origin('wbs', 'WBS 表格與篩選')}`;
+  },
+  docs() { return `<div class="eyb">官方文檔中心</div><h2 class="h2" tabindex="-1" data-focus>官方文檔中心</h2><p class="lead">RSI Group 2027 策略藍圖全套 5 大出版件。原站僅供線上審閱，以下連到原站的對應頁面。</p>
+      <div class="cards">${D.docs.map(d => `<a class="icard" href="${SRC}${d[3]}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="foot"><span class="tag">${esc(d[0])}</span></span><h3>${esc(d[1])}</h3><p>${esc(d[2])}</p><span class="foot" style="color:var(--sea-deep)">在原站開啟 ↗</span></a>`).join('')}</div>${origin('docs', '5 大出版件')}`; },
+  advice(num) {
+    const A = D.advice; const cur = num ? A.find(a => a.num === num) : null;
+    if (cur) return `<div class="eyb">國際 IT 主管 6 大建議・${cur.num}</div><h2 class="h2" tabindex="-1" data-focus>${esc(cur.title)}</h2><p class="lead">${esc(cur.pill)}</p><p>${esc(cur.desc)}</p><p class="note">${esc(cur.metric)}</p>
+      <div class="tabs">${A.map(a => `<button class="chip" type="button" data-advice="${a.num}" aria-pressed="${a.num === cur.num}">${a.num}</button>`).join('')}</div>${origin('advice', '建議內容與指標')}`;
+    return `<div class="eyb">國際 IT 主管 6 大關鍵升級節點</div><h2 class="h2" tabindex="-1" data-focus>6 大建議</h2><p class="lead">立足 RSI Group 跨國製造版圖，向董事會與事業部提供兼具技術韌性與業務損益之深化對策。</p><div class="cards">${A.map(a => `<button class="icard" type="button" data-advice="${a.num}"><span class="foot"><span class="code">${a.num}</span><span class="tag">${esc(a.pill)}</span></span><h3>${esc(a.title)}</h3><p>${esc(a.metric)}</p></button>`).join('')}</div>${origin('advice', '6 大建議')}`;
+  },
+  hub() { const L = [['hivearch', '圖資館', '蜂巢全景圖資展廳'], ['invest', '投資塔', '2027 投資主軸、R-G-T 預算配置、承諾指標與 ROI 試算'], ['analytics', '觀測台', '戰略數據與動態圖表'], ['valuechain', '七層塔', '價值鏈與層級邏輯（7 層）'], ['docs', '文檔館', '官方文檔中心 5 大出版件']]; return `<div class="eyb">戰略中樞</div><h2 class="h2" tabindex="-1" data-focus>群島中央的五座地標</h2><p class="lead">中樞收納原站中不屬於單一主架構的全局章節。</p><div class="cards">${L.map(l => `<button class="icard" type="button" data-nav="${l[0]}"><h3>${l[1]}</h3><p>${l[2]}</p></button>`).join('')}</div>${newNote('中樞為群島的新設計，用來放置原站的全局章節')}`; },
+  search() {
+    const its = D.pillars.flatMap(p => p.items).filter(itemMatch), ws = D.wbs.filter(wbsMatch);
+    const q = state.q.trim().toLowerCase();
+    const adv = q ? D.advice.filter(a => [a.title, a.desc, a.metric, a.pill].join(' ').toLowerCase().includes(q)) : [];
+    const vcs = q ? D.valueChain.filter(v => [v.title, v.mission, v.tech.join(' '), v.ot.join(' '), v.owner].join(' ').toLowerCase().includes(q)) : [];
+    const desc = [state.q.trim() && `「${esc(state.q.trim())}」`, state.pf !== 'all' && `Pillar ${D.pillars.find(p => p.id === state.pf).roman}`, state.rf !== 'all' && state.rf].filter(Boolean).join('・');
+    const n = its.length + ws.length + adv.length + vcs.length;
+    return `<div class="eyb">搜尋與篩選</div><h2 class="h2" tabindex="-1" data-focus>${n} 筆符合</h2><p class="lead">${desc}</p>
+      ${its.length ? `<h3 class="h3">子領域（${its.length}）</h3><div class="cards">${its.map(it => itemCard(it, true)).join('')}</div>` : ''}
+      ${ws.length ? `<h3 class="h3">WBS 專案（${ws.length}）</h3><div class="cards">${ws.map(wbsCard).join('')}</div>` : ''}
+      ${vcs.length ? `<h3 class="h3">價值鏈層級（${vcs.length}）</h3><div class="cards">${vcs.map(v => `<button class="icard" type="button" data-step="${v.step}"><h3>${v.step}. ${esc(v.title)}</h3><p>${esc(v.mission)}</p></button>`).join('')}</div>` : ''}
+      ${adv.length ? `<h3 class="h3">6 大建議（${adv.length}）</h3><div class="cards">${adv.map(a => `<button class="icard" type="button" data-advice="${a.num}"><h3>${a.num} ${esc(a.title)}</h3></button>`).join('')}</div>` : ''}
+      ${n ? '' : emptyHTML()}`;
+  },
+};
+function roiHTML() { return `<div class="slider"><label for="air"><span>每年成功防禦海外空運包機違約（次數）</span><b id="airV">2 次</b></label><input type="range" id="air" min="0" max="4" step="1" value="2"></div><div class="slider"><label for="fab"><span>大貨布料利用率改善（MDM＋CAD 排產）</span><b id="fabV">1.2 %</b></label><input type="range" id="fab" min="0" max="2.5" step="0.1" value="1.2"></div><div class="outgrid" id="roiOut"></div><p class="note" style="margin-top:8px">試算公式與原站相同：每次防禦 NT$ 7,500,000；布料每改善 1% 為 NT$ 18,375,000；總投資基準 NT$ 20,160,000。原站「6 大建議 01」另列靜態回收期 14~16 個月、ROI 1:3.8，兩處數字口徑不同，請以原站說明為準。</p>`; }
+function roiCalc(rt) { rt = rt || document; const q = s => rt.querySelector(s); if (!q('#air')) return; const a = +q('#air').value, f = +q('#fab').value; const ac = a * 7500000, fc = Math.round(f * 18375000), t = ac + fc, cap = 20160000; const pb = t > 0 ? (cap / t * 12).toFixed(1) : '99+', roi = t > 0 ? (t / cap).toFixed(2) : '0.00'; const o = q('#roiOut'); q('#airV').textContent = a + ' 次'; q('#fabV').textContent = f.toFixed(1) + ' %'; o.innerHTML = [['空運違約金對沖節省', 'NT$ ' + ac.toLocaleString()], ['大貨布料採購現金節省', 'NT$ ' + fc.toLocaleString()], ['年總節省現金流', 'NT$ ' + t.toLocaleString()], ['全額淨投資回收期', pb + ' 個月・ROI 1 : ' + roi]].map(x => `<div class="out"><span>${x[0]}</span><b>${x[1]}</b></div>`).join(''); }
+function ieHTML() { return `<div class="slider"><label for="skill"><span>車縫工段技能矩陣成熟度</span><b id="skillV">85%</b></label><input type="range" id="skill" min="50" max="100" value="85"></div><div class="slider"><label for="ready"><span>裁片超市特工齊套率</span><b id="readyV">92%</b></label><input type="range" id="ready" min="50" max="100" value="92"></div><div class="outgrid" id="ieOut"></div>`; }
+function ieCalc(rt) { rt = rt || document; const q = x => rt.querySelector(x); if (!q('#skill')) return; const s = +q('#skill').value, r = +q('#ready').value; const o = q('#ieOut'); q('#skillV').textContent = s + '%'; q('#readyV').textContent = r + '%'; const lb = (70 + s * .2 + r * .1).toFixed(1), eff = (s * .55 + r * .42).toFixed(1), out = Math.round(1000 * (eff / 70)), loss = Math.max(2.5, 30 - s * .18 - r * .12).toFixed(1); o.innerHTML = [['預估車縫線平衡率', lb + '%'], ['車間綜合效率 (OEE)', eff + '%'], ['單組標準日產能', out.toLocaleString() + ' 件'], ['節拍瓶頸等待損失 (SAM)', loss + ' min']].map(x => `<div class="out"><span>${x[0]}</span><b>${x[1]}</b></div>`).join(''); }
+const gateState = D.gates.list.map(g => g[3]);
+function gateHTML() { return `<div id="gateBox">${D.gates.list.map((g, i) => `<label class="gate"><input type="checkbox" data-gate="${i}" ${gateState[i] ? 'checked' : ''}><span><b>${esc(g[0])}</b><span>${esc(g[1])}</span></span></label>`).join('')}</div><div id="gateRes"></div>`; }
+function gateCalc(rt) { rt = rt || document; rt.querySelectorAll('[data-gate]').forEach(x => { x.checked = gateState[+x.dataset.gate]; }); const r = rt.querySelector('#gateRes'); if (!r) { gateFluid(); return; } if (gateState.every(Boolean)) r.innerHTML = `<div class="result ok"><b>✅ 條件齊套・放行排程發料上線</b>所有 4 大產前門禁檢核通過！物料、工藝、樣板與半成品全數就緒，MES 准予開線，預期達成 100% 首日換線效率！</div>`; else r.innerHTML = `<div class="result block"><b>⛔ 門禁攔截・嚴禁盲目上線</b>系統主動攔截阻擋！未符條件：<strong>${D.gates.list.filter((g, i) => !gateState[i]).map(g => esc(g[2])).join('、')}</strong>。生管排程已自動凍結，避免現場拆線停工窩工。</div>`; gateFluid(); }
+function wireInteractive(root) { root.querySelectorAll('#air,#fab').forEach(x => x.addEventListener('input', () => roiCalc(root))); root.querySelectorAll('#skill,#ready').forEach(x => x.addEventListener('input', () => ieCalc(root))); root.querySelectorAll('[data-gate]').forEach(x => x.addEventListener('change', e => { gateState[+e.target.dataset.gate] = e.target.checked; gateCalc(root); })); roiCalc(root); ieCalc(root); gateCalc(root); }
+
+/* ---------- panel navigation ---------- */
+const panel = $('#panel'), body = $('#panelBody'); let returnFocus = null;
+function open(view, arg, opts = {}) {
+  hideIntro();
+  if (!panel.classList.contains('open')) { returnFocus = opts.from || document.activeElement; state.stack = []; }
+  else if (state.view && !opts.replace) state.stack.push(state.view);
+  state.view = [view, arg]; render(); panel.classList.add('open'); layoutCtrl();
+  scene && scene.select(view, arg); if (!opts.noFly) scene && scene.flyTo(view, arg);
+  updateLabels();
+}
+function render() { const [v, a] = state.view; body.innerHTML = V[v](a); body.scrollTop = 0; wireInteractive(body); $('#backBtn').hidden = !state.stack.length; requestAnimationFrame(() => { const h = body.querySelector('[data-focus]'); h && h.focus({ preventScroll: true }); }); }
+function back() { if (!state.stack.length) return; state.view = state.stack.pop(); render(); scene && scene.select(...state.view); }
+function close() { if (!panel.classList.contains('open')) return; panel.classList.remove('open', 'tall'); state.view = null; state.stack = []; layoutCtrl(); scene && scene.select(null); scene && scene.restore(); updateLabels(); const rf = returnFocus; returnFocus = null; if (rf && document.contains(rf)) rf.focus({ preventScroll: true }); }
+$('#backBtn').addEventListener('click', back); $('#panelClose').addEventListener('click', close);
+$('#grow').addEventListener('click', () => panel.classList.toggle('tall'));
+function onContentClick(e) {
+  const t = e.target.closest('[data-item],[data-wbs],[data-pillar],[data-advice],[data-step],[data-year],[data-tab],[data-act],[data-nav],[data-phase]'); if (!t) return;
+  if (t.tagName === 'A' && t.dataset.wbs) e.preventDefault();
+  const d = t.dataset;
+  if (d.act === 'clear') return clearFilters();
+  if (d.tab) { state.view = ['pillar', state.view[1]]; body.innerHTML = V.pillar(state.view[1], d.tab); wireInteractive(body); return; }
+  if (d.year) { state.view = ['evolution', d.year]; render(); return; }
+  if (d.phase != null && d.phase !== undefined && 'phase' in d) { state.view = ['hive', d.phase]; render(); scene && scene.flyTo('hive', d.phase); return; }
+  if (d.step && state.view && state.view[0] === 'valuechain') { state.view = ['valuechain', d.step]; render(); return; }
+  if (d.advice && state.view && state.view[0] === 'advice' && state.view[1]) { state.view = ['advice', d.advice]; render(); scene && scene.select('advice', d.advice); return; }
+  const from = t;
+  if (d.item) open('item', d.item, { from }); else if (d.wbs) open('wbsItem', d.wbs, { from }); else if (d.pillar) open('pillar', d.pillar, { from }); else if (d.advice) open('advice', d.advice, { from }); else if (d.step) open('valuechain', d.step, { from }); else if (d.nav) openNav(d.nav, from);
+}
+body.addEventListener('click', onContentClick);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('#mapModal').hidden) return closeMap(); if (state.stack.length) back(); else close(); } });
+function openNav(id, from) {
+  if (state.mode === 'list') { const el = document.getElementById('L-' + id); el && el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); return; }
+  open(id === 'pillars' ? 'pillars' : id, undefined, { from });
+}
+
+/* ---------- chips, search, filters ---------- */
+function renderChips() {
+  $('#navChips').innerHTML = D.nav.map(n => `<button class="chip" type="button" data-nav="${n[0]}" aria-pressed="${!!(state.view && (state.view[0] === n[0] || (n[0] === 'pillars' && ['pillar', 'item', 'pillars'].includes(state.view[0])) || (n[0] === 'wbs' && state.view[0] === 'wbsItem')))}">${esc(n[1])}</button>`).join('');
+  $('#pChips').innerHTML = `<button class="chip" type="button" data-pf="all" aria-pressed="${state.pf === 'all'}">全部</button>` + D.pillars.map(p => `<button class="chip" type="button" data-pf="${p.id}" aria-pressed="${state.pf === p.id}"><span class="dot" style="background:${PCOL[p.id]}"></span>Pillar ${p.roman}</button>`).join('');
+  $('#rChips').innerHTML = ['all', ...RGTS].map(r => `<button class="chip" type="button" data-rf="${r}" aria-pressed="${state.rf === r}">${r === 'all' ? '全部' : r}</button>`).join('');
+}
+$('#navChips').addEventListener('click', e => { const b = e.target.closest('[data-nav]'); if (b) openNav(b.dataset.nav, b); });
+$('#pChips').addEventListener('click', e => { const b = e.target.closest('[data-pf]'); if (b) { state.pf = b.dataset.pf; onFilter(); } });
+$('#rChips').addEventListener('click', e => { const b = e.target.closest('[data-rf]'); if (b) { state.rf = b.dataset.rf; onFilter(); } });
+let qT; $('#q').addEventListener('input', e => { state.q = e.target.value; $('#qClear').hidden = !state.q; clearTimeout(qT); qT = setTimeout(onFilter, 200); });
+$('#q').addEventListener('keydown', e => { if (e.key === 'Enter') { clearTimeout(qT); onFilter(); } });
+$('#qClear').addEventListener('click', () => { $('#q').value = ''; state.q = ''; $('#qClear').hidden = true; onFilter(); $('#q').focus(); });
+function clearFilters() { state.q = ''; state.pf = 'all'; state.rf = 'all'; $('#q').value = ''; $('#qClear').hidden = true; onFilter(); }
+function onFilter() {
+  renderChips(); updateLabels(); scene && scene.applyFilter();
+  const n = D.pillars.flatMap(p => p.items).filter(itemMatch).length + D.wbs.filter(wbsMatch).length;
+  announce(filtering() ? `${n} 筆符合` : '已清除篩選');
+  if (state.mode === 'list') { renderList(); return; }
+  if (state.view && ['pillar', 'wbs'].includes(state.view[0])) { render(); return; }
+  if (state.q.trim()) { if (!state.view || state.view[0] !== 'search') open('search', undefined, { noFly: true }); else render(); }
+  else if (state.view && state.view[0] === 'search') close();
+}
+const announce = t => { const l = $('#live'); l.textContent = ''; setTimeout(() => { l.textContent = t; }, 30); };
+
+/* ---------- list mode: original order ---------- */
+function renderList() {
+  const el = $('#list'); const keep = el.scrollTop;
+  const sec = (id, html) => `<section class="lsec" id="L-${id}">${html}</section>`;
+  const pillarsHTML = D.pillars.filter(p => state.pf === 'all' || state.pf === p.id).map(p => { const its = p.items.filter(itemMatch); return `<div style="margin:16px 0"><h3 style="font-family:var(--f-display);font-size:20px;margin:0 0 4px"><span style="color:${PCOL[p.id]}">⬢</span> Pillar ${p.roman}　${esc(p.title)}</h3><p class="lead" style="margin:0 0 8px">定位：${esc(p.position)}</p><div class="grid">${its.length ? its.map(it => itemCard(it)).join('') : '<p class="note">此主架構沒有符合篩選的子領域。</p>'}</div></div>`; }).join('');
+  el.innerHTML = `<div class="list-inner">
+    <div class="lsec"><div class="eyb">${esc(D.site.org)}・${esc(D.site.tagline)}</div><h2 class="h2" style="font-size:30px">${esc(D.site.title)}</h2><p class="lead">${esc(D.site.thesis)}</p><div class="meta">${D.site.heroStats.map(s => `<span><b>${esc(s[0])}</b> ${esc(s[1])}</span>`).join('')}</div><div class="meta"><span>${esc(D.site.sponsor)}</span><span>${esc(D.site.lead)}</span></div></div>
+    ${filtering() ? `<section class="lsec" style="background:var(--card);border:1px solid var(--line);border-radius:var(--r-l);padding:16px 18px">${V.search()}</section>` : ''}
+    ${sec('hive', V.hive())}
+    ${sec('invest', V.invest())}
+    ${sec('evolution', V.evolution('2027'))}${sec('analytics', V.analytics())}${sec('iesim', V.iesim())}${sec('edge', V.edge())}
+    ${sec('pillars', `<div class="eyb">四大主架構</div><h2 class="h2">2027 四大主架構深層拆解</h2>${filtering() ? `<p class="note">目前套用搜尋或篩選。</p>` : ''}${pillarsHTML}`)}
+    ${sec('valuechain', `<div class="eyb">價值鏈與層級邏輯</div><h2 class="h2">四大架構串聯之層級價值鏈</h2><div class="grid">${D.valueChain.map(v => `<button class="icard" type="button" data-step="${v.step}"><span class="foot"><span class="tag">${esc(v.tag)}</span></span><h3>${v.step}. ${esc(v.title)}</h3><p>${esc(v.mission)}</p></button>`).join('')}</div>`)}
+    ${sec('gate', V.gate())}${sec('hivearch', V.hivearch())}${sec('wbs', V.wbs())}${sec('docs', V.docs())}${sec('advice', V.advice())}
+  </div>`;
+  el.querySelectorAll('[data-focus]').forEach(h => h.removeAttribute('tabindex'));
+  wireInteractive(el); el.scrollTop = keep;
+}
+$('#list').addEventListener('click', e => { const t = e.target.closest('[data-item],[data-wbs],[data-pillar],[data-advice],[data-step],[data-year],[data-act],[data-phase]'); if (!t) return; if (t.tagName === 'A') e.preventDefault(); const d = t.dataset; if (d.act === 'clear') return clearFilters(); if ('phase' in d) { t.closest('section').innerHTML = V.hive(d.phase); return; } if (d.year) { t.closest('section').innerHTML = V.evolution(d.year); return; } if (d.item) open('item', d.item, { from: t, noFly: true }); else if (d.wbs) open('wbsItem', d.wbs, { from: t, noFly: true }); else if (d.advice) open('advice', d.advice, { from: t, noFly: true }); else if (d.step) open('valuechain', d.step, { from: t, noFly: true }); else if (d.pillar) open('pillar', d.pillar, { from: t, noFly: true }); });
+
+function setMode(m) {
+  state.mode = m; $('#mCity').setAttribute('aria-pressed', m === 'city'); $('#mList').setAttribute('aria-pressed', m === 'list');
+  const city = m === 'city'; $('#stage').hidden = !city; $('#list').hidden = city; $('#ctrl').hidden = !city || !scene; $('#status').hidden = !city;
+  if (!city) { close(); hideIntro(); renderList(); scene && scene.pause(true); } else { scene && scene.pause(false); }
+  announce(city ? '已切換為城市模式' : '已切換為清單模式');
+}
+$('#mCity').addEventListener('click', () => { if (!scene) { toast('此裝置無法顯示 3D 群島，請使用清單模式。'); return; } setMode('city'); });
+$('#mList').addEventListener('click', () => setMode('list'));
+function toast(t) { const el = $('#toast'); el.innerHTML = `<span>${esc(t)}</span><button class="x" type="button" aria-label="關閉提示">×</button>`; el.hidden = false; }
+$('#toast').addEventListener('click', e => { if (e.target.closest('.x')) $('#toast').hidden = true; });
+
+/* ---------- intro, status, mapping modal ---------- */
+$('#introEyebrow').textContent = `${D.site.org}・${D.site.tagline}`;
+$('#introTitle').textContent = D.site.title;
+$('#introText').textContent = '全站以蜂巢計畫時程為主時程基準（W1 = 2026/11/02）。北側六座小島是蜂巢六個推進階段；四座主題島對應原站的四大主架構，島上每一格是一項數位子領域。';
+$('#introStats').innerHTML = D.site.heroStats.map(s => `<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join('');
+function hideIntro() { const el = $('#intro'); if (!el.hidden) { el.hidden = true; store.set('rsi-intro', '1'); } }
+$('#introClose').addEventListener('click', () => { hideIntro(); $('#stage').focus(); });
+$('#exploreBtn').addEventListener('click', e => open('pillars', undefined, { from: e.currentTarget }));
+$('#introHive').addEventListener('click', e => open('hive', '0', { from: e.currentTarget }));
+$('#srcLink').href = SRC;
+$('#status').innerHTML = `<span class="pill src">內容來源：RSI 2027 IT 營運計畫網站</span><span class="pill">蜂巢 W1 = 2026/11/02・${esc(D.hive.current)}</span><span class="pill">內容擷取 ${esc(D.extracted)}・非即時資料</span>`;
+function mapRows() {
+  const r = [
+    ['蜂巢計畫時程與閘門（主時程基準）', '#hive-pipeline＋蜂巢實施藍圖 v2.2', '六階段、週次與日期、D01–D06、9 項任務、PoC 驗收標準、第二階段應用', '北側六座階段小島（航道）', '依階段逐級的踏腳石，閘門以旗幟標示', '階段明細、閘門、任務、驗收標準', '逐階段切換；所有時程以此為準'],
+    ['蜂巢全景圖資展廳', '#hive-architecture', '資料整合架構、邊緣離線自治拓撲與相關圖資連結', '中樞「圖資館」', '畫架展館', '圖資說明與原站連結', '外連原站圖資'],
+    ['第一層：四大主架構 (Pillar I–IV)', '#pillars 主架構切換卡', '定位、說明、子領域', '4 座主題島（顯示 Pillar 編號與原名）', '六角形地塊群；島色區分主架構，面積依子領域數量，不代表預算', '主架構定位＋子領域／WBS 兩個分頁', '主架構切換、WBS 依主架構篩選'],
+    ['第二層：25 項數位子領域', '各 Pillar 卡片（8／5／7／5 項）', '標題、標籤、說明、工具、規模、預算、RGT', '島內 25 格街區，每格一棟建築', '建築造型依子領域性質（閘道、資料湖儲槽、守望塔、工廠…）', '完整子領域內容＋相關 WBS 專案', '搜尋、依資本屬性篩選'],
+    ['2027 WBS 甘特圖（25 項專案）', '#wbs-gantt 表格與篩選', 'WBS、名稱、屬性、起訖、工期、團隊、里程碑、預算', '各島「WBS 專案」分頁；清單模式完整表格', '與子領域的對應依名稱與內容比對；無對應者只列在島上', 'WBS 專案明細', '主架構與 Run／Grow／Transform 篩選、全屏甘特圖外連'],
+    ['2027 投資主軸與預算', '#invest-framework', '四大主軸、R-G-T 配置、三大承諾指標、ROI 試算器', '中央「投資塔」', '多層塔樓地標', '主軸、預算模型、指標、試算器', 'ROI 試算（公式相同）'],
+    ['戰略數據與動態圖表', '#visual-analytics', '資源轉移、KPI 預測、AI 權重、覆蓋雷達', '中央「觀測台」', '圓頂觀測台', '四張圖表（原值）', '圖表閱讀'],
+    ['價值鏈與層級邏輯', '#logic-flow', '7 層任務、技術、OT、KPI、當責', '中央「七層塔」', '七層疊盤塔', '逐層切換', '上一層／下一層切換'],
+    ['官方文檔中心', '#doc-center', '5 大出版件', '中央「文檔館」', '圖書館', '連回原站文件頁', '外連原站'],
+    ['發展演進 2025–2027', '#evolution＋WBS 時程區段', '三階段說明、未竟事宜、四個實施時段', '北側三座年份小島', '依年份逐漸長高的島', '年份切換、實施時程', '年份切換'],
+    ['跨國廠區邊緣韌性', '#factory-monitor', '越南、柬埔寨、印尼、台北總部狀態', '南側四座廠區小島', '工廠與總部模型', '各廠狀態（標註原站示範值，非即時）', '—（原站斷網演練為動畫，未移植）'],
+    ['線平衡動態演算', '#dynamic-sim', '技能與齊套率滑桿、四項輸出', 'Pillar II「工程工時與線平衡」街區內', '—', '演算器（公式相同）', '滑桿演算'],
+    ['Ready-to-Sew 產前門禁', '#simulator', '4 道門禁條件與攔截訊息', 'Pillar II「產前門禁管制機制」街區（四拱門建築）', '四拱門的閘口建築；門禁未齊時拱門轉紅', '門禁模擬器', '勾選門禁、攔截判定'],
+    ['國際 IT 主管 6 大建議', '#recommendations', '6 項建議、說明、指標', '外海 6 座燈塔', '燈塔依編號排列', '建議內容', '逐項切換'],
+  ];
+  return r;
+}
+function openMap() {
+  $('#mapBox').innerHTML = `<h2 id="mapTitle">原站與群島映射表</h2><p>依 <a href="${SRC}" target="_blank" rel="noopener">${SRC}</a> 的實際章節與資料（${esc(D.extracted)} 擷取）建立。島嶼數量由原站的四大主架構決定，沒有自行新增主題島。全站時程以蜂巢計畫實施藍圖 v2.2 為準。</p>
+    <div class="scroll-x"><table class="wtable"><thead><tr><th>原站分類／功能</th><th>原站位置</th><th>原始內容與欄位</th><th>群島呈現</th><th>街區／建築設計</th><th>點選後</th><th>保留的功能</th></tr></thead><tbody>${mapRows().map(r => `<tr>${r.map((c, i) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+    <h3 class="h3">原站既有內容與新設計的區分</h3><ul><li>原站既有：所有文字、數字、預算預估值、公式與圖表數值，未改寫。</li><li>新設計：島嶼與建築造型、子領域與 WBS 專案的對應關係、海面裝飾（船隻、波紋、樹木不代表資料）。</li><li>未移植：多語系切換（原站有中、英、越文，本版僅中文）、斷網演練動畫、列印版面、背景音樂。</li><li>原站本身有兩組回收期數字口徑不同（試算器預設 6.5 個月、建議 01 列 14~16 個月），兩者都照原文呈現。</li></ul>
+    <div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="btn btn-primary" type="button" id="mapClose">關閉</button></div>`;
+  $('#mapModal').hidden = false; $('#mapClose').addEventListener('click', closeMap); $('#mapClose').focus();
+}
+function closeMap() { $('#mapModal').hidden = true; $('#mapBtn').focus(); }
+$('#mapBtn').addEventListener('click', openMap);
+$('#mapModal').addEventListener('click', e => { if (e.target.id === 'mapModal') closeMap(); });
+
+/* ---------- labels & tooltip ---------- */
+const labelsEl = $('#labels'); const labelEls = {};
+const LABELS = [
+  ...D.pillars.map(p => ({ key: 'pillar:' + p.id, cls: 'pillar', n: `Pillar ${p.roman}　${p.title}`, m: `${p.items.length} 項子領域・${D.wbs.filter(w => w.pid === p.id).length} 項 WBS`, act: () => ['pillar', p.id] })),
+  { key: 'hive', cls: 'pillar', n: '🐝 蜂巢計畫時程', m: '六階段・W1 = 2026/11/02', act: () => ['hive', '0'] },
+  { key: 'hivearch', cls: 'small', n: '圖資館', m: '蜂巢全景圖資', act: () => ['hivearch'] },
+  { key: 'hub', cls: '', n: '戰略中樞', m: '投資・圖表・價值鏈・文檔・圖資', act: () => ['hub'] },
+  { key: 'invest', cls: 'small', n: '投資塔', m: '投資主軸與預算', act: () => ['invest'] },
+  { key: 'analytics', cls: 'small', n: '觀測台', m: '戰略數據圖表', act: () => ['analytics'] },
+  { key: 'valuechain', cls: 'small', n: '七層塔', m: '價值鏈與層級', act: () => ['valuechain', '01'] },
+  { key: 'docs', cls: 'small', n: '文檔館', m: '官方文檔中心', act: () => ['docs'] },
+  { key: 'evolution', cls: '', n: '發展演進', m: '2025 → 2027', act: () => ['evolution', '2027'] },
+  { key: 'edge', cls: '', n: '跨國廠區邊緣韌性', m: '越南・柬埔寨・印尼・台北', act: () => ['edge'] },
+  { key: 'advice', cls: '', n: '6 大建議燈塔', m: '國際 IT 主管建議', act: () => ['advice'] },
+];
+function buildLabels() { labelsEl.innerHTML = ''; LABELS.forEach(L => { const b = document.createElement('button'); b.type = 'button'; b.className = 'lbl ' + L.cls; b.innerHTML = `<span class="n">${esc(L.n)}</span><span class="m">${esc(L.m)}</span>`; b.addEventListener('click', () => { const [v, a] = L.act(); open(v, a, { from: b }); }); labelsEl.appendChild(b); labelEls[L.key] = b; }); updateLabels(); }
+function updateLabels() {
+  D.pillars.forEach(p => { const b = labelEls['pillar:' + p.id]; if (!b) return; const n = p.items.filter(itemMatch).length; b.dataset.dim = String(filtering() && n === 0); b.dataset.active = String(!!(state.view && ((state.view[0] === 'pillar' && state.view[1] === p.id) || (state.view[0] === 'item' && itemById[state.view[1]].pid === p.id)))); b.querySelector('.m').textContent = filtering() ? `${n} 項子領域符合` : `${p.items.length} 項子領域・${D.wbs.filter(w => w.pid === p.id).length} 項 WBS`; });
+  ['hive', 'hivearch', 'hub', 'invest', 'analytics', 'valuechain', 'docs', 'evolution', 'edge', 'advice'].forEach(k => { const b = labelEls[k]; if (b) b.dataset.active = String(!!(state.view && state.view[0] === k)); });
+  renderChips();
+}
+const tip = $('#tip');
+function showTip(h, x, y) {
+  if (!h || narrow()) { tip.hidden = true; return; }
+  let t = '', s = '';
+  if (h.item) { const it = itemById[h.item]; t = `${it.id.toUpperCase()}　${it.tag}`; s = it.title + '・' + it.rgt; }
+  else if (h.kind) { const L = LABELS.find(l => l.key === h.kind || l.key === 'pillar:' + h.kind); t = L ? L.n : h.label || ''; s = h.label || (L ? L.m : ''); }
+  if (!t) { tip.hidden = true; return; }
+  tip.innerHTML = `<h3>${esc(t)}</h3><p>${esc(s)}</p><div class="hint">點選以開啟</div>`; tip.hidden = false;
+  const r = $('#stage').getBoundingClientRect(); tip.style.left = Math.min(r.width - 286, Math.max(8, x + 16)) + 'px'; tip.style.top = Math.min(r.height - 120, Math.max(8, y + 16)) + 'px';
+}
+function layoutCtrl() { $('#ctrl').style.right = (!narrow() && panel.classList.contains('open')) ? `calc(${panel.offsetWidth}px + 16px)` : ''; }
+addEventListener('resize', layoutCtrl);
+
+/* ---------- 3D scene ---------- */
+let scene = null; let gateFluid = () => {};
+function makeScene() {
+  if (!window.THREE) throw new Error('three');
+  const T = THREE, stage = $('#stage');
+  const renderer = new T.WebGLRenderer({ antialias: true, powerPreference: 'low-power' });
+  if (!renderer.getContext()) throw new Error('webgl');
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap; renderer.setClearColor(0xF3ECE0);
+  stage.insertBefore(renderer.domElement, stage.firstChild); renderer.domElement.setAttribute('aria-hidden', 'true');
+  const sc = new T.Scene(); const cam = new T.OrthographicCamera(-1, 1, 1, -1, 0.1, 300);
+  const OFF = new T.Vector3(18, 17, 18); const view = { target: new T.Vector3(0, 0, 0), zoom: 1 }; let baseH = 26;
+  sc.add(new T.HemisphereLight(0xFFF6E8, 0xB9A88E, 0.5));
+  const sun = new T.DirectionalLight(0xFFEFD8, 0.62); sun.position.set(12, 22, 7); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -22, right: 22, top: 22, bottom: -22, near: 1, far: 70 }); sun.shadow.bias = -0.0006; sc.add(sun);
+  const mats = {}; const M = (c, o) => { const k = c + JSON.stringify(o || {}); return mats[k] || (mats[k] = new T.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.9, metalness: 0 }, o || {}))); };
+  const mesh = (g, c, o) => { const m = new T.Mesh(g, M(c, o)); m.castShadow = true; m.receiveShadow = true; return m; };
+  const box = (w, h, d, c) => mesh(new T.BoxGeometry(w, h, d), c);
+  const cyl = (rt, rb, h, c, seg) => mesh(new T.CylinderGeometry(rt, rb, h, seg || 20), c);
+  const C = { cream: '#FBF6EC', beige: '#E8D8BF', sand: '#E6D3B4', wood: '#C59A6E', woodD: '#9C7550', sage: '#8FAE8B', sageD: '#6E8F74', coral: '#DD7C5E', glass: '#BCD3D6', ink: '#5A5148', mustard: '#D9B26A', seaD: '#7FA2AF' };
+  const BR = 15.5; // board radius
+  const board = cyl(BR, BR + 0.3, 0.7, '#CDB497', 6); board.position.y = -0.55; board.rotation.y = Math.PI / 6; sc.add(board);
+  const water = new T.Mesh(new T.CylinderGeometry(BR - 0.3, BR - 0.3, 0.3, 6), M('#A5C3CA', { roughness: 0.8 })); water.position.y = -0.12; water.rotation.y = Math.PI / 6; water.receiveShadow = true; sc.add(water);
+  const R = 1.05, SQ3 = Math.sqrt(3), TOP = 0.62;
+  const axial = (q, r) => [R * SQ3 * (q + r / 2), R * 1.5 * r];
+  const SPIRAL = [[0, 0], [1, 0], [0, 1], [-1, 1], [-1, 0], [0, -1], [1, -1], [2, -1], [2, 0], [1, 1], [0, 2], [-1, 2], [-2, 2]];
+  const interactive = []; const groups = {}; const tileOf = {}; const markers = []; const sway = [];
+  function tile(ground) { const g = new T.Group(); const b = cyl(R * 0.95, R * 0.99, 0.5, C.sand, 6); b.position.y = 0.25; const t = cyl(R * 0.93, R * 0.95, 0.12, ground, 6); t.position.y = 0.56; g.add(b, t); g.userData.top = t; return g; }
+  function tree(x, z, s) { const g = new T.Group(); const tr = cyl(0.035, 0.045, 0.2 * s, C.woodD, 8); tr.position.y = 0.1 * s; const f = mesh(new T.SphereGeometry(0.16 * s, 12, 9), Math.random() < .5 ? C.sage : C.sageD); f.position.y = 0.32 * s; g.add(tr, f); g.position.set(x, TOP, z); sway.push({ o: g, p: Math.random() * 6 }); return g; }
+  const roofPyr = (w, h, c) => { const r = cyl(0, w * 0.74, h, c, 4); r.rotation.y = Math.PI / 4; return r; };
+  const house = (w, d, h, wall, roof) => { const g = new T.Group(); const b = box(w, h, d, wall); b.position.y = h / 2; const r = roofPyr(Math.max(w, d), h * 0.55, roof); r.position.y = h + h * 0.27; r.scale.set(w / Math.max(w, d), 1, d / Math.max(w, d)); const door = box(0.13, 0.2, 0.02, C.woodD); door.position.set(0, 0.1, d / 2 + 0.01); g.add(b, r, door); return g; };
+  const add = (g, ...o) => { o.forEach(x => g.add(x)); return g; };
+  const at = (m, x, y, z) => { m.position.set(x, y, z); return m; };
+  const B = {
+    gateway: a => { const g = new T.Group(); add(g, at(box(0.16, 0.6, 0.3, C.cream), -0.32, 0.3, 0), at(box(0.16, 0.6, 0.3, C.cream), 0.32, 0.3, 0), at(box(0.84, 0.14, 0.34, a), 0, 0.66, 0), at(box(0.36, 0.06, 0.04, C.glass), 0, 0.45, 0.15)); return g; },
+    keyhouse: a => { const g = house(0.55, 0.5, 0.42, C.cream, a); const k = cyl(0.07, 0.07, 0.03, C.mustard, 16); k.rotation.x = Math.PI / 2; k.position.set(0, 0.28, 0.26); g.add(k); return g; },
+    silo: a => { const g = new T.Group(); [[-0.22, -0.1, 0.55], [0.18, 0.05, 0.75], [-0.02, 0.28, 0.45]].forEach(([x, z, h]) => { add(g, at(cyl(0.17, 0.17, h, C.cream), x, h / 2, z), at(cyl(0.18, 0.18, 0.05, a), x, h + 0.02, z)); }); return g; },
+    archive: a => { const g = new T.Group(); add(g, at(box(0.7, 0.4, 0.5, C.cream), 0, 0.2, 0), at(box(0.76, 0.05, 0.56, a), 0, 0.42, 0)); for (let i = 0; i < 3; i++) g.add(at(box(0.5, 0.03, 0.02, C.woodD), 0, 0.1 + i * 0.1, 0.26)); return g; },
+    lab: a => { const g = new T.Group(); add(g, at(box(0.62, 0.34, 0.54, C.cream), 0, 0.17, 0), at(mesh(new T.SphereGeometry(0.24, 18, 10, 0, Math.PI * 2, 0, Math.PI / 2), C.glass), -0.08, 0.34, 0), at(cyl(0.015, 0.015, 0.34, C.ink, 6), 0.22, 0.5, -0.14), at(mesh(new T.SphereGeometry(0.04, 10, 8), a), 0.22, 0.68, -0.14)); return g; },
+    watchtower: a => { const g = new T.Group(); [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([x, z]) => g.add(at(box(0.04, 0.55, 0.04, C.wood), x * 0.15, 0.27, z * 0.15))); add(g, at(box(0.42, 0.26, 0.42, C.cream), 0, 0.66, 0)); const r = roofPyr(0.46, 0.22, a); r.position.y = 0.9; g.add(r); return g; },
+    vault: a => { const g = new T.Group(); add(g, at(box(0.62, 0.42, 0.52, C.beige), 0, 0.21, 0), at(box(0.66, 0.06, 0.56, a), 0, 0.45, 0)); const d = cyl(0.13, 0.13, 0.03, C.ink, 18); d.rotation.x = Math.PI / 2; d.position.set(0, 0.22, 0.27); g.add(d); return g; },
+    antenna: a => { const g = new T.Group(); add(g, at(box(0.4, 0.26, 0.36, C.cream), 0, 0.13, 0), at(cyl(0.02, 0.05, 0.9, C.ink, 6), 0.1, 0.7, 0), at(mesh(new T.SphereGeometry(0.06, 10, 8), a), 0.1, 1.17, 0), at(cyl(0.16, 0.02, 0.06, C.cream, 16), -0.05, 0.32, 0.05)); return g; },
+    station: a => { const g = new T.Group(); add(g, at(box(0.86, 0.3, 0.38, C.cream), 0, 0.15, 0), at(box(0.96, 0.05, 0.54, a), 0, 0.33, 0), at(box(0.22, 0.22, 0.1, C.beige), 0, 0.46, 0), at(box(1.0, 0.02, 0.06, C.woodD), 0, 0.01, 0.42)); return g; },
+    warehouse: a => { const g = new T.Group(); add(g, at(box(0.8, 0.36, 0.56, C.cream), 0, 0.18, 0)); const r = cyl(0.29, 0.29, 0.82, a, 16, true); r.rotation.z = Math.PI / 2; r.position.y = 0.36; r.scale.set(1, 1, 0.5); g.add(r); g.add(at(box(0.26, 0.22, 0.02, C.woodD), 0, 0.11, 0.29)); return g; },
+    gate4: a => { const g = new T.Group(); g.userData.arches = []; for (let i = 0; i < 4; i++) { const x = -0.36 + i * 0.24; const arch = new T.Group(); add(arch, at(box(0.05, 0.42, 0.08, C.cream), -0.07, 0.21, 0), at(box(0.05, 0.42, 0.08, C.cream), 0.07, 0.21, 0)); const top = box(0.2, 0.06, 0.1, C.sageD); top.position.y = 0.45; arch.add(top); arch.userData.top = top; arch.position.set(x, 0, 0); g.add(arch); g.userData.arches.push(top); } g.add(at(box(0.9, 0.03, 0.3, C.beige), 0, 0.015, 0)); return g; },
+    factory: a => { const g = new T.Group(); add(g, at(box(0.8, 0.32, 0.56, C.cream), 0, 0.16, 0)); for (let i = 0; i < 3; i++) { const t = cyl(0, 0.17, 0.18, i === 1 ? a : C.beige, 3); t.rotation.z = Math.PI / 2; t.rotation.y = Math.PI / 2; t.position.set(-0.26 + i * 0.26, 0.4, 0); t.scale.set(1, 1, 1.5); g.add(t); } g.add(at(cyl(0.05, 0.06, 0.5, C.ink, 10), 0.32, 0.5, -0.18)); return g; },
+    belltower: a => { const g = new T.Group(); add(g, at(box(0.3, 0.7, 0.3, C.cream), 0, 0.35, 0), at(box(0.34, 0.04, 0.34, C.beige), 0, 0.72, 0), at(cyl(0.08, 0.12, 0.12, C.mustard, 14), 0, 0.82, 0)); const r = roofPyr(0.36, 0.24, a); r.position.y = 1.0; g.add(r); return g; },
+    screenhall: a => { const g = new T.Group(); add(g, at(box(0.76, 0.36, 0.5, C.cream), 0, 0.18, 0), at(box(0.5, 0.26, 0.03, '#40525A'), 0, 0.5, 0.05), at(box(0.44, 0.04, 0.035, a), 0, 0.46, 0.07)); return g; },
+    clocktower: a => { const g = new T.Group(); add(g, at(box(0.3, 0.85, 0.3, C.cream), 0, 0.43, 0)); const f = cyl(0.11, 0.11, 0.02, C.cream, 18); f.rotation.x = Math.PI / 2; f.position.set(0, 0.72, 0.16); const ring = cyl(0.13, 0.13, 0.015, a, 18); ring.rotation.x = Math.PI / 2; ring.position.set(0, 0.72, 0.155); g.add(ring, f); const r = roofPyr(0.34, 0.26, a); r.position.y = 0.98; g.add(r); return g; },
+    studio: a => { const g = new T.Group(); add(g, at(box(0.62, 0.5, 0.56, C.cream), 0, 0.25, 0), at(box(0.3, 0.22, 0.02, C.glass), 0.1, 0.28, 0.29)); const s = cyl(0.3, 0.3, 0.6, a, 3); s.rotation.z = Math.PI / 2; s.rotation.x = Math.PI / 2; s.position.y = 0.56; s.scale.set(1, 1, 0.5); g.add(s); return g; },
+    library: a => { const g = new T.Group(); add(g, at(box(0.76, 0.38, 0.5, C.cream), 0, 0.19, 0)); for (let i = 0; i < 4; i++) g.add(at(cyl(0.03, 0.03, 0.36, C.beige, 8), -0.27 + i * 0.18, 0.18, 0.28)); const r = cyl(0, 0.5, 0.2, a, 4); r.rotation.y = Math.PI / 4; r.scale.set(1.1, 1, 0.7); r.position.y = 0.48; g.add(r); return g; },
+    office: a => { const g = new T.Group(); add(g, at(box(0.5, 0.8, 0.46, C.cream), 0, 0.4, 0)); for (let i = 0; i < 3; i++) g.add(at(box(0.51, 0.06, 0.47, i % 2 ? C.glass : C.beige), 0, 0.22 + i * 0.22, 0)); g.add(at(box(0.54, 0.05, 0.5, a), 0, 0.82, 0)); return g; },
+    screentower: a => { const g = new T.Group(); add(g, at(cyl(0.22, 0.26, 1.0, C.cream), 0, 0.5, 0), at(box(0.36, 0.22, 0.03, '#40525A'), 0, 0.74, 0.24), at(cyl(0, 0.26, 0.24, a), 0, 1.12, 0)); return g; },
+    railhouse: a => { const g = B.warehouse(a); for (let i = 0; i < 3; i++) g.add(at(cyl(0.012, 0.012, 0.9, C.ink, 6), -0.3 + i * 0.3, 0.6, 0.35)); g.add(at(box(0.9, 0.02, 0.02, C.ink), 0, 0.82, 0.35)); return g; },
+    serverhut: a => { const g = new T.Group(); add(g, at(box(0.44, 0.34, 0.36, C.beige), 0, 0.17, 0), at(box(0.48, 0.04, 0.4, a), 0, 0.36, 0)); for (let i = 0; i < 3; i++) g.add(at(box(0.3, 0.025, 0.02, C.seaD), 0, 0.09 + i * 0.08, 0.19)); return g; },
+    camera: a => { const g = new T.Group(); add(g, at(cyl(0.05, 0.07, 0.6, C.ink, 10), 0, 0.3, 0), at(box(0.3, 0.16, 0.18, C.cream), 0, 0.68, 0)); const l = cyl(0.06, 0.06, 0.06, a, 14); l.rotation.x = Math.PI / 2; l.position.set(0, 0.68, 0.12); g.add(l); g.add(at(box(0.5, 0.2, 0.4, C.cream), -0.05, 0.1, -0.15)); return g; },
+    workshop: a => { const g = house(0.66, 0.52, 0.36, C.cream, a); const gear = cyl(0.12, 0.12, 0.04, C.mustard, 8); gear.rotation.x = Math.PI / 2; gear.position.set(0, 0.24, 0.28); g.add(gear); return g; },
+  };
+  // pillar islands
+  const PPOS = { PI: [-8.2, -6.0], PII: [8.2, -6.0], PIII: [8.2, 6.0], PIV: [-8.2, 6.0] };
+  const focusPt = {};
+  D.pillars.forEach(p => {
+    const g = new T.Group(); const [cx, cz] = PPOS[p.id]; g.position.set(cx, 0, cz); sc.add(g); groups[p.id] = g; g.userData = { lift: 0, liftTo: 0 }; focusPt['pillar:' + p.id] = new T.Vector3(cx, 0, cz);
+    p.items.forEach((it, i) => {
+      const [q, r] = SPIRAL[i]; const [x, z] = axial(q, r); const t = tile(PGROUND[p.id]); t.position.set(x, 0, z); g.add(t);
+      const b = (B[D.buildings[it.id]] || B.lab)(PCOL[p.id]); b.position.set(x, TOP, z); b.rotation.y = (i % 3 - 1) * 0.3 + Math.PI / 12; g.add(b);
+      if (it.id === 'p2-3') gateMesh = b;
+      if (Math.random() < 0.8) g.add(tree(x + 0.62 * (i % 2 ? 1 : -1), z + 0.45, 0.85));
+      [t, b].forEach(o => o.traverse(m => { if (m.isMesh) { m.userData.hit = { item: it.id }; interactive.push(m); } }));
+      tileOf[it.id] = { g, t, b, x, z }; focusPt['item:' + it.id] = new T.Vector3(cx + x, 0, cz + z);
+    });
+  });
+  // hub
+  const HUB = [['invest', 0, 0], ['analytics', 1, 0], ['valuechain', 0, 1], ['docs', -1, 1], ['hivearch', 1, -1]];
+  const hub = new T.Group(); hub.position.set(-0.9, 0, -0.8); sc.add(hub);
+  HUB.forEach(([k, q, r]) => {
+    const [x, z] = axial(q, r); const t = tile('#EFE6D6'); t.position.set(x, 0, z); hub.add(t); let b;
+    if (k === 'invest') { b = new T.Group(); add(b, at(box(0.6, 0.4, 0.6, C.cream), 0, 0.2, 0), at(box(0.46, 0.4, 0.46, C.beige), 0, 0.6, 0), at(box(0.32, 0.36, 0.32, C.cream), 0, 0.98, 0), at(cyl(0, 0.26, 0.3, C.coral), 0, 1.31, 0)); }
+    if (k === 'analytics') { b = new T.Group(); add(b, at(cyl(0.34, 0.36, 0.34, C.cream), 0, 0.17, 0), at(mesh(new T.SphereGeometry(0.32, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2), C.seaD), 0, 0.34, 0)); const tel = cyl(0.04, 0.06, 0.4, C.ink, 10); tel.rotation.z = -0.8; tel.position.set(0.18, 0.62, 0); b.add(tel); }
+    if (k === 'valuechain') { b = new T.Group(); for (let i = 0; i < 7; i++) b.add(at(cyl(0.42 - i * 0.045, 0.44 - i * 0.045, 0.14, i % 2 ? C.beige : (i === 6 ? C.coral : C.cream), 24), 0, 0.07 + i * 0.155, 0)); }
+    if (k === 'docs') b = B.library(C.sageD);
+    if (k === 'hivearch') { b = new T.Group(); add(b, at(box(0.66, 0.3, 0.5, C.cream), 0, 0.15, 0)); [-0.18, 0.18].forEach((x, j) => { const f = new T.Group(); add(f, at(box(0.03, 0.6, 0.03, C.woodD), 0, 0.3, 0), at(box(0.3, 0.24, 0.03, j ? '#40525A' : C.mustard), 0, 0.52, 0.02)); f.position.set(x, 0.3, 0.12); f.rotation.x = -0.2; b.add(f); }); }
+    b.position.set(x, TOP, z); hub.add(b);
+    [t, b].forEach(o => o.traverse(m => { if (m.isMesh) { m.userData.hit = { kind: k }; interactive.push(m); } }));
+    focusPt[k] = new T.Vector3(hub.position.x + x, 0, hub.position.z + z); tileOf[k] = { b };
+  });
+  // evolution islets (north)
+  ['2025', '2026', '2027'].forEach((y, i) => { const g = new T.Group(); const x = -12.9, z = -3.0 + i * 3.0; g.position.set(x, 0, z); sc.add(g); const t = tile('#E9E2D2'); g.add(t); const h = 0.3 + i * 0.35; const b = new T.Group(); add(b, at(box(0.42, h, 0.42, C.cream), 0, h / 2, 0), at(cyl(0, 0.32, 0.22, [C.sageD, C.mustard, C.coral][i], 4), 0, h + 0.11, 0)); b.children[1].rotation.y = Math.PI / 4; b.position.y = TOP; g.add(b); [t, b].forEach(o => o.traverse(m => { if (m.isMesh) { m.userData.hit = { kind: 'evolution', year: y, label: `${y}・${D.timeline[i].title}` }; interactive.push(m); } })); focusPt['evolution:' + y] = new T.Vector3(x, 0, z); });
+  focusPt.evolution = new T.Vector3(-12.9, 0, 0);
+  // Hive phase chain (north)
+  D.hive.phases.forEach((ph, i) => { const g = new T.Group(); const x = -7.0 + i * 2.8, z = -12.3; g.position.set(x, 0, z); sc.add(g); const t = tile(i === 0 ? '#F2DCC6' : '#EEE6D6'); g.add(t); const h = 0.18 + i * 0.12; const st = new T.Group(); add(st, at(cyl(0.38, 0.42, h, i === 0 ? C.coral : C.cream, 6), 0, h / 2, 0), at(cyl(0.22, 0.26, 0.08, C.beige, 6), 0, h + 0.04, 0)); st.position.y = TOP; g.add(st); if (ph[4].length) { const pole = cyl(0.015, 0.015, 0.7, C.ink, 6); pole.position.set(0.45, TOP + 0.35, -0.2); const fl = box(0.24, 0.14, 0.01, C.coral); fl.position.set(0.58, TOP + 0.62, -0.2); g.add(pole, fl); } [t, st].forEach(o => o.traverse(m => { if (m.isMesh) { m.userData.hit = { kind: 'hive', phase: String(i), label: `階段 ${i + 1} ${ph[0]}・${ph[1]}・${ph[2]}` }; interactive.push(m); } })); focusPt['hive:' + i] = new T.Vector3(x, 0, z); if (i < 5) { const br = box(1.0, 0.05, 0.22, C.wood); br.position.set(x + 1.4, 0.3, z); sc.add(br); } });
+  focusPt.hive = new T.Vector3(0, 0, -12.3);
+  // edge sites (south)
+  D.sites.list.forEach((s, i) => { const g = new T.Group(); const x = -4.8 + i * 3.2, z = 12.4; g.position.set(x, 0, z); sc.add(g); const t = tile(i === 3 ? '#E3E6DE' : '#ECE3D3'); g.add(t); const b = i === 3 ? B.office(C.seaD) : B.factory(C.coral); b.position.y = TOP; g.add(b); [t, b].forEach(o => o.traverse(m => { if (m.isMesh) { m.userData.hit = { kind: 'edge', label: s[0] + '・' + s[1] }; interactive.push(m); } })); });
+  focusPt.edge = new T.Vector3(0, 0, 12.4);
+  // lighthouses (east/west rim)
+  const LH = [[11.4, -6.6], [12.6, -4.0], [13.4, -1.3], [13.4, 1.3], [12.6, 4.0], [11.4, 6.6]];
+  D.advice.forEach((a, i) => { const g = new T.Group(); const [x, z] = LH[i]; g.position.set(x, 0, z); sc.add(g); const rock = cyl(0.55, 0.7, 0.45, C.sand, 7); rock.position.y = 0.22; g.add(rock); let y = 0.45; [[0.2, 0.24, 0.3, C.cream], [0.17, 0.2, 0.28, C.coral], [0.15, 0.17, 0.26, C.cream]].forEach(([rt, rb, h, c]) => { g.add(at(cyl(rt, rb, h, c), 0, y + h / 2, 0)); y += h; }); const lamp = new T.Mesh(new T.CylinderGeometry(0.12, 0.12, 0.14, 12), M('#F6E2A6', { emissive: '#F2C86A', emissiveIntensity: 0.35 })); lamp.position.y = y + 0.07; g.add(lamp, at(cyl(0, 0.17, 0.16, C.coral), 0, y + 0.22, 0)); g.traverse(m => { if (m.isMesh) { m.userData.hit = { kind: 'advice', num: a.num, label: `${a.num}　${a.title}` }; interactive.push(m); } }); focusPt['advice:' + a.num] = new T.Vector3(x, 0, z); markers.push({ o: lamp, p: i }); });
+  focusPt.advice = new T.Vector3(0, 0, 0);
+  // bridges hub → islands
+  Object.values(PPOS).forEach(([px, pz]) => { const dir = new T.Vector3(px, 0, pz); const len = dir.length() - 4.3; dir.normalize(); const br = new T.Group(); br.add(at(box(0.4, 0.06, len, C.wood), 0, 0.32, 0)); [-0.2, 0.2].forEach(x => br.add(at(box(0.03, 0.03, len, C.woodD), x, 0.46, 0))); br.position.copy(dir.clone().multiplyScalar(2.0 + len / 2)); br.lookAt(0, 0, 0); sc.add(br); });
+  // boats & ripples (decorative)
+  const boats = []; [[11.0, 0.04, 0.5], [10.0, -0.03, 3.3]].forEach(([r, s, a], i) => { const b = new T.Group(); b.add(at(box(0.44, 0.1, 0.18, i ? C.cream : C.wood), 0, 0.05, 0)); const sail = cyl(0, 0.16, 0.36, i ? C.coral : C.cream, 3); sail.position.y = 0.28; sail.scale.z = 0.2; b.add(sail); sc.add(b); boats.push({ o: b, r, s, a }); });
+  // camera
+  let W = 1, Hh = 1, dirty = true;
+  function resize() { const r = stage.getBoundingClientRect(); W = Math.max(1, r.width); Hh = Math.max(1, r.height); renderer.setSize(W, Hh, false); const asp = W / Hh; baseH = Math.max(24, (narrow() ? 22 : 36) / asp); cam.left = -baseH * asp / 2; cam.right = baseH * asp / 2; cam.top = baseH / 2; cam.bottom = -baseH / 2; cam.updateProjectionMatrix(); dirty = true; }
+  function applyCam() { cam.position.copy(view.target).add(OFF); cam.lookAt(view.target); cam.zoom = view.zoom; cam.updateProjectionMatrix(); cam.updateMatrixWorld(); }
+  const right = new T.Vector3(), fwd = new T.Vector3(); const ELEV = Math.atan2(OFF.y, Math.hypot(OFF.x, OFF.z));
+  function axes() { cam.updateMatrixWorld(); right.setFromMatrixColumn(cam.matrixWorld, 0); right.y = 0; right.normalize(); fwd.setFromMatrixColumn(cam.matrixWorld, 1); fwd.y = 0; fwd.normalize(); }
+  const upp = () => baseH / view.zoom / Hh;
+  function pan(dx, dy) { axes(); const u = upp(); view.target.addScaledVector(right, -dx * u).addScaledVector(fwd, dy * u / Math.sin(ELEV)); const r = Math.hypot(view.target.x, view.target.z); if (r > 14) view.target.multiplyScalar(14 / r); view.target.y = 0; dirty = true; }
+  function zoomBy(f) { view.zoom = Math.min(5, Math.max(0.7, view.zoom * f)); dirty = true; }
+  let tween = null, saved = null;
+  function animateTo(t, z) { if (reduce) { view.target.copy(t); view.zoom = z; tween = null; dirty = true; return; } tween = { t0: performance.now(), dur: 650, a: view.target.clone(), b: t.clone(), za: view.zoom, zb: z }; }
+  function flyTo(v, a) {
+    let key = v === 'pillar' ? 'pillar:' + a : v === 'item' ? 'item:' + a : v === 'evolution' ? 'evolution' : v === 'hive' ? (a != null ? 'hive:' + a : 'hive') : v === 'advice' ? (a ? 'advice:' + a : 'advice') : v;
+    if (v === 'wbsItem') { const w = wbsById[a]; key = 'pillar:' + w.pid; }
+    if (v === 'pillars' || v === 'wbs' || v === 'search') key = null; if (v === 'hub') key = 'valuechain';
+    const p = key && focusPt[key]; if (!p) return;
+    if (!saved) saved = { target: view.target.clone(), zoom: view.zoom };
+    const z = v === 'hive' ? 2.2 : v === 'item' ? 2.0 : v === 'advice' && !a ? 1.1 : ['pillar', 'evolution', 'edge'].includes(v) ? 1.9 : 2.3; const c = p.clone(); axes(); const u = baseH / z / Hh;
+    if (narrow()) c.addScaledVector(fwd, -((panel.offsetHeight || Hh * .66) / 2) * u / Math.sin(ELEV)); else c.addScaledVector(right, ((panel.offsetWidth || 460) / 2) * u);
+    animateTo(c, z);
+  }
+  function restore() { if (saved) { animateTo(saved.target, saved.zoom); saved = null; } }
+  function home() { saved = null; animateTo(new T.Vector3(0, 0, 0), 1); }
+  // selection & filter visuals
+  let hovered = null, selPillar = null, selItem = null;
+  const dimCache = new Map();
+  function tint(obj, d) { obj.traverse(m => { if (!m.isMesh || !m.material.color) return; if (!dimCache.has(m)) dimCache.set(m, { base: m.material, dim: null }); const e = dimCache.get(m); if (d) { if (!e.dim) { e.dim = e.base.clone(); e.dim.color = e.base.color.clone().lerp(new T.Color('#D9D2C6'), 0.65); } m.material = e.dim; } else m.material = e.base; }); }
+  function applyFilter() { D.pillars.forEach(p => p.items.forEach(it => { const t = tileOf[it.id]; tint(t.b, filtering() && !itemMatch(it)); })); dirty = true; }
+  function select(v, a) { selPillar = v === 'pillar' ? a : v === 'item' ? itemById[a].pid : v === 'wbsItem' ? wbsById[a].pid : null; selItem = v === 'item' ? a : null; dirty = true; }
+  function hover(h) { hovered = h; renderer.domElement.style.cursor = h ? 'pointer' : 'grab'; dirty = true; }
+  gateFluid = () => { if (!gateMesh) return; gateMesh.userData.arches.forEach((top, i) => { top.material = M(gateState[i] ? C.sageD : C.coral); }); dirty = true; };
+  // pointer
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(x, y) { ndc.set(x / W * 2 - 1, -(y / Hh) * 2 + 1); ray.setFromCamera(ndc, cam); const h = ray.intersectObjects(interactive, false)[0]; return h ? h.object.userData.hit : null; }
+  function activate(h, from) { if (!h) return; if (h.item) open('item', h.item, { from }); else if (h.kind === 'evolution') open('evolution', h.year, { from }); else if (h.kind === 'hive') open('hive', h.phase, { from }); else if (h.kind === 'advice') open('advice', h.num, { from }); else if (h.kind === 'valuechain') open('valuechain', '01', { from }); else open(h.kind, undefined, { from }); }
+  const pts = new Map(); let drag = null, pinch = null, moved = 0; const el = renderer.domElement; el.style.cursor = 'grab';
+  el.addEventListener('pointerdown', e => { el.setPointerCapture(e.pointerId); pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); moved = 0; if (pts.size === 1) drag = true; if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), z: view.zoom }; drag = null; } const i = $('#intro'); if (!i.hidden) { i.hidden = true; } });
+  el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (pts.has(e.pointerId)) { const p = pts.get(e.pointerId), dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; moved += Math.abs(dx) + Math.abs(dy); if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; view.zoom = Math.min(5, Math.max(0.7, pinch.z * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d)); dirty = true; } else if (drag) { pan(dx, dy); tween = null; saved = null; el.style.cursor = 'grabbing'; } return; }
+    if (e.pointerType === 'mouse') { const h = pick(x, y); hover(h); showTip(h, x, y); } });
+  function end(e) { if (!pts.has(e.pointerId)) return; pts.delete(e.pointerId); const r = el.getBoundingClientRect(); if (!pts.size) { if (drag && moved < 6) activate(pick(e.clientX - r.left, e.clientY - r.top), null); drag = null; pinch = null; el.style.cursor = hovered ? 'pointer' : 'grab'; } else if (pts.size === 1) { pinch = null; drag = true; } }
+  el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); el.addEventListener('pointerleave', () => { if (!pts.size) { hover(null); tip.hidden = true; } });
+  el.addEventListener('wheel', e => { e.preventDefault(); zoomBy(Math.exp(-e.deltaY * 0.0015)); tween = null; saved = null; }, { passive: false });
+  stage.addEventListener('keydown', e => { if (e.target !== stage) return; const k = e.key, s = 40; if (k === 'ArrowLeft') pan(s, 0); else if (k === 'ArrowRight') pan(-s, 0); else if (k === 'ArrowUp') pan(0, s); else if (k === 'ArrowDown') pan(0, -s); else if (k === '+' || k === '=') zoomBy(1.2); else if (k === '-') zoomBy(1 / 1.2); else if (k === '0') home(); else return; e.preventDefault(); });
+  // labels
+  const v3 = new T.Vector3();
+  const LPOS = () => ({ ...Object.fromEntries(D.pillars.map(p => ['pillar:' + p.id, new T.Vector3(PPOS[p.id][0], 2.6 + groups[p.id].position.y, PPOS[p.id][1] - 0.3)])), invest: focusPt.invest.clone().setY(2.4), analytics: focusPt.analytics.clone().setY(1.5), valuechain: focusPt.valuechain.clone().setY(1.9), docs: focusPt.docs.clone().setY(1.4), hub: new T.Vector3(-0.4, 3.2, -0.2), hive: new T.Vector3(0, 2.2, -12.3), hivearch: focusPt.hivearch.clone().setY(1.6), evolution: new T.Vector3(-12.9, 2.0, 0), edge: new T.Vector3(0, 2.0, 12.4), advice: new T.Vector3(13.0, 2.8, 0) });
+  function placeLabels() { const P = LPOS(); Object.entries(P).forEach(([k, p]) => { const lb = labelEls[k]; if (!lb) return; v3.copy(p).project(cam); const x = (v3.x + 1) / 2 * W, y = (1 - v3.y) / 2 * Hh; const small = lb.classList.contains('small'); const off = x < -80 || x > W + 80 || y < -20 || y > Hh + 60 || (small && view.zoom < 1.8) || (k === 'hub' && view.zoom >= 1.8); lb.style.visibility = off ? 'hidden' : 'visible'; lb.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px) translate(-50%, -100%)`; }); }
+  // loop
+  let paused = false, last = performance.now();
+  function frame(now) { requestAnimationFrame(frame); if (paused || document.hidden) { last = now; return; } const dt = Math.min(0.05, (now - last) / 1000); last = now; const t = now / 1000;
+    if (tween) { const k = Math.min(1, (now - tween.t0) / tween.dur), e = 1 - Math.pow(1 - k, 3); view.target.lerpVectors(tween.a, tween.b, e); view.zoom = tween.za + (tween.zb - tween.za) * e; if (k >= 1) tween = null; dirty = true; }
+    D.pillars.forEach(p => { const g = groups[p.id], u = g.userData; u.liftTo = (selPillar === p.id || (hovered && hovered.item && itemById[hovered.item].pid === p.id)) ? 0.14 : 0; const ny = reduce ? u.liftTo : u.lift + (u.liftTo - u.lift) * Math.min(1, dt * 10); if (Math.abs(ny - u.lift) > 1e-4) { u.lift = ny; g.position.y = ny; dirty = true; } });
+    Object.entries(tileOf).forEach(([id, o]) => { if (!o.t) return; const want = (selItem === id || (hovered && hovered.item === id)) ? 0.2 : 0; const cy = o.b.position.y - TOP, ny = reduce ? want : cy + (want - cy) * Math.min(1, dt * 12); if (Math.abs(ny - cy) > 1e-4) { o.b.position.y = TOP + ny; o.t.position.y = ny; dirty = true; } });
+    if (!reduce) { boats.forEach(b => { b.a += b.s * dt; b.o.position.set(Math.cos(b.a) * b.r, 0.02, Math.sin(b.a) * b.r); b.o.rotation.y = -b.a; }); sway.forEach(s => { s.o.rotation.z = Math.sin(t * 0.9 + s.p) * 0.03; }); markers.forEach(m => { m.o.material.emissiveIntensity = 0.3 + 0.15 * Math.sin(t * 2 + m.p); }); dirty = true; }
+    if (dirty) { applyCam(); renderer.render(sc, cam); placeLabels(); dirty = false; } }
+  new ResizeObserver(resize).observe(stage); resize(); applyCam(); requestAnimationFrame(frame);
+  return { flyTo, restore, home, select, applyFilter, zoomBy: f => { zoomBy(f); tween = null; }, pause: p => { paused = p; if (!p) { resize(); dirty = true; } } };
+}
+let gateMesh = null;
+
+/* ---------- boot ---------- */
+renderChips(); buildLabels();
+if (store.get('rsi-intro') === '1') $('#intro').hidden = true;
+try { scene = makeScene(); } catch (e) { scene = null; }
+$('#homeBtn').addEventListener('click', () => { close(); scene && scene.home(); });
+$('#zin').addEventListener('click', () => scene && scene.zoomBy(1.25)); $('#zout').addEventListener('click', () => scene && scene.zoomBy(0.8));
+if (!scene) { labelsEl.hidden = true; setMode('list'); toast('此裝置無法顯示 3D 群島，已改用清單模式，所有內容與搜尋都能正常使用。'); }
+else gateFluid();
+requestAnimationFrame(() => requestAnimationFrame(() => { $('#loading').hidden = true; }));
+const h = (location.hash || '').slice(1);
+if (h === 'list') setMode('list'); else if (h && D.nav.some(n => n[0] === h) && scene) setTimeout(() => openNav(h), 300);
+})();
+</script>
+
+</body>
+</html>
