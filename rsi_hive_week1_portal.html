@@ -2243,33 +2243,22 @@
     function exportCSV() {
       let csvContent = "﻿"; // UTF-8 BOM
       
-      csvContent += "=== 軟體系統與自研 API 盤點總表 ===
-";
-      csvContent += "系統代碼/名稱,運行廠區,架構圖狀態,部署圖狀態,自研API數,日均調用數,平均Payload,現行權限治理模式,架構升級目標,負責人,預計完成日,審核狀態
-";
+      csvContent += "=== 軟體系統與自研 API 盤點總表 ===\n";
+      csvContent += "系統代碼/名稱,運行廠區,架構圖狀態,部署圖狀態,自研API數,日均調用數,平均Payload,現行權限治理模式,架構升級目標,負責人,預計完成日,審核狀態\n";
       appData.software.forEach(s => {
-        csvContent += `"${s.name}","${s.plant}","${s.archStatus}","${s.deployStatus}","${s.apiCount}","${s.dailyCalls}","${s.payload}","${s.permission}","${s.upgradeTarget}","${s.owner}","${s.dueDate}","${s.auditStatus}"
-`;
+        csvContent += `"${s.name}","${s.plant}","${s.archStatus}","${s.deployStatus}","${s.apiCount}","${s.dailyCalls}","${s.payload}","${s.permission}","${s.upgradeTarget}","${s.owner}","${s.dueDate}","${s.auditStatus}"\n`;
       });
 
-      csvContent += "
-=== 自研 API 端點明細清單 ===
-";
-      csvContent += "系統代碼,端點路徑,方法,呼叫端系統,日均調用次數,尖峰QPS,傳輸大小,資料庫操作,現行身分驗證,升級後治理機制,負責人
-";
+      csvContent += "\n=== 自研 API 端點明細清單 ===\n";
+      csvContent += "系統代碼,端點路徑,方法,呼叫端系統,日均調用次數,尖峰QPS,傳輸大小,資料庫操作,現行身分驗證,升級後治理機制,負責人\n";
       appData.endpoints.forEach(e => {
-        csvContent += `"${e.system}","${e.uri}","${e.method}","${e.caller}",${e.dailyCalls},${e.qps},"${e.payload}","${e.crud}","${e.auth}","${e.target}","${e.owner}"
-`;
+        csvContent += `"${e.system}","${e.uri}","${e.method}","${e.caller}",${e.dailyCalls},${e.qps},"${e.payload}","${e.crud}","${e.auth}","${e.target}","${e.owner}"\n`;
       });
 
-      csvContent += "
-=== IS 基礎設施 BCP 與 SLA 分級清冊 ===
-";
-      csvContent += "系統/資料庫名稱,廠區,等級,可用度SLA,目標RTO,目標RPO,本地備份機制,異地備援機制,最近DR演練日期,專線監控狀態,負責網管,審核狀態
-";
+      csvContent += "\n=== IS 基礎設施 BCP 與 SLA 分級清冊 ===\n";
+      csvContent += "系統/資料庫名稱,廠區,等級,可用度SLA,目標RTO,目標RPO,本地備份機制,異地備援機制,最近DR演練日期,專線監控狀態,負責網管,審核狀態\n";
       appData.infra.forEach(i => {
-        csvContent += `"${i.name}","${i.plant}","${i.tier}","${i.sla}","${i.rto}","${i.rpo}","${i.localBackup}","${i.remoteBackup}","${i.drDate}","${i.netflow}","${i.owner}","${i.auditStatus}"
-`;
+        csvContent += `"${i.name}","${i.plant}","${i.tier}","${i.sla}","${i.rto}","${i.rpo}","${i.localBackup}","${i.remoteBackup}","${i.drDate}","${i.netflow}","${i.owner}","${i.auditStatus}"\n`;
       });
 
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
