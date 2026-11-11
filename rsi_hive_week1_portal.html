@@ -1058,6 +1058,650 @@
       </div>
       <div class="gallery-grid" id="galleryContainer"></div>
     </div>
+
+
+    <!-- Tab 6: 訪談紀錄與顧問評估報告 (Reports & Meeting Minutes) -->
+    <div id="tab-reports" class="tab-pane">
+      <div class="pane-toolbar">
+        <div>
+          <strong>信源全球 IT 決策會議紀錄、技術體檢與架構指引專區</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted); margin-left:10px;">收錄 11/09 會議 Duka 主管原始紀錄、Howard Liao 顧問指引與最新 Word 正式報告</span>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <a href="RSI_全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫及同仁辦理指引_20261112.docx" download class="btn btn-primary" style="text-decoration:none;">
+            <span>📥</span> 下載 11/12 最新五頁指引 (.docx)
+          </a>
+          <a href="RSI_IT_Infrastructure_Architecture_Assessment_Report_20261109.docx" download class="btn" style="text-decoration:none;">
+            <span>📥</span> 下載 11/09 評估報告 (.docx)
+          </a>
+        </div>
+      </div>
+
+      <!-- Sub Tabs Bar -->
+      <div class="report-tabs">
+        <button class="report-subtab-btn active" onclick="switchReportSubTab('rep-duka')">
+          <span>📑</span> Duka 11/09 會議訪談原始紀錄 (Notion)
+        </button>
+        <button class="report-subtab-btn" onclick="switchReportSubTab('rep-howard-notion')">
+          <span>🏛️</span> Howard 11/09 架構補充指導與蜂巢藍圖 (Notion)
+        </button>
+        <button class="report-subtab-btn" onclick="switchReportSubTab('rep-guide-5page')">
+          <span>📘</span> 11/12 全球軟體與IS盤點五頁指引 (最新發布 .docx)
+        </button>
+        <button class="report-subtab-btn" onclick="switchReportSubTab('rep-howard-docx')">
+          <span>📊</span> 11/09 資訊基礎架構正式評估報告 (.docx)
+        </button>
+      </div>
+
+      <!-- Panel 1: Duka Chen 主管 11/09 會議原始訪談紀錄 -->
+      <div id="rep-duka" class="report-panel active">
+        <div class="report-card">
+          <div class="report-header-banner">
+            <div>
+              <span class="badge badge-accent" style="margin-bottom:6px;">會議原始紀錄</span>
+              <h2 style="margin:0; font-size:1.35rem; color:var(--text);">IT與Howard第一次互動會議 訪談紀錄</h2>
+              <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">記錄整理：Duka Chen 主管 ｜ 會議日期：2026 年 11 月 09 日 (一) ｜ 雙節會議完整紀要</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <a href="https://rsiit.notion.site/IT-Howard-41475b430353804fb580d87a5d05cbde" target="_blank" class="btn" style="text-decoration:none;">
+                <span>🔗</span> 開啟 Duka Notion 原始頁面 ↗
+              </a>
+              <button class="btn" onclick="copyReportText('dukaTextContent')">
+                <span>📋</span> 複製文字
+              </button>
+            </div>
+          </div>
+
+          <div class="report-meta-grid">
+            <div class="report-meta-item">
+              <div class="report-meta-label">會議主題</div>
+              <div class="report-meta-val">IT 現況盤點：API／系統介接、基礎架構、資安與資料平台規劃</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">主持人</div>
+              <div class="report-meta-val">Howard Liao Ph.D.（向周文津副總報告）</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">與會主管</div>
+              <div class="report-meta-val">Howard、Alan、Jacken、Adonis、Allen、Tony</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">會議錄音檔</div>
+              <div class="report-meta-val">錄音 (1) 146.8 MiB ｜ 錄音 (2) 46.8 MiB</div>
+            </div>
+          </div>
+
+          <div class="report-prose" id="dukaTextContent">
+            <h3>📌 會議核心摘要與現況盤點</h3>
+            <p>本次會議由 Howard 盤點 IT 現況，決議先完成「API 盤點」及「各廠區系統與底層資料」整理，再據以規劃 API 管理平台、資料治理與集中監控。</p>
+            
+            <div class="callout-box">
+              <strong>經盤點，信源 IT 現況歸納如下：</strong><br>
+              1. <strong>廠區系統獨立</strong>：各廠區系統各自獨立運作，僅將資料定期拋轉至 ERP。<br>
+              2. <strong>缺乏 API 管理</strong>：現有 API 多屬內部 interface，尚無 API 管理工具及生命週期監控。<br>
+              3. <strong>流程標準待建</strong>：上版流程、備份復原順序及資料分級尚未建立統一規範。
+            </div>
+
+            <div class="principle-grid">
+              <div class="principle-card">
+                <h4>1. 現況盤點優先</h4>
+                <p>先盤點現況，再評估工具採購。工具以「不額外增加支出（開源自建）」為原則，明年預算聚焦頻寬升級。</p>
+              </div>
+              <div class="principle-card">
+                <h4>2. 舊系統包裝穩定</h4>
+                <p>舊系統以包裝方式維持穩定，原則上不大幅改動，確保產線持續順暢運轉。</p>
+              </div>
+              <div class="principle-card">
+                <h4>3. 營運優先擇要推動</h4>
+                <p>依公司營運優先順序擇要推動，首要聚焦生產、物料與 ERP/MES 拋轉核心場景。</p>
+              </div>
+              <div class="principle-card">
+                <h4>4. 全面透明化與儀表板</h4>
+                <p>軟體、硬體、網路、資安狀態全面透明化，最終以統一儀表板與戰情大屏呈現。</p>
+              </div>
+            </div>
+
+            <h2>第一節：技術全貌與深層體檢討論事項</h2>
+            
+            <h4>1. 工作方向與蜂巢計畫</h4>
+            <p>Howard 曾任多家上市櫃公司 CIO／CISO，提出「蜂巢計畫」：對外系統須「可整合、可量化」，並符合 GDPR 等規範；公司運作比照上市櫃標準。系統建置之重點在於是否符合使用者需求並可被整合，而非僅完成開發。</p>
+
+            <h4>2. API、微服務與文件標準</h4>
+            <p>採 API First：開發前先定義與其他系統之介接方式。操作手冊改以 HTML／Markdown 產出，以利 AI 讀取並提供使用者問答。組織分工依 DevSecOps：開發、資安、維運（維運再分雲端與地端）。未來與供應鏈串接採 SD-WAN；海外連線可採 SASE。Microsoft 365 授權等級另案討論。</p>
+
+            <h4>3. 雲端與 AI 應用方針</h4>
+            <p>地端系統整體搬遷上雲之成本最高；上雲應拆分為微服務，並考量高可用性與廠商綁定問題。AI 應用分「AI 輔助」與「AI 內嵌」；日常性工作交由 AI，人員專注於創造性工作。團隊已使用工具產生 API 及文件，新系統已導入，舊系統大多尚未導入。</p>
+
+            <h4>4. 現行 API 與系統介接現況</h4>
+            <p>廠區 API 透過 IIS 部署於內部網路，對外服務僅少數。廠區間採電信商 SD-WAN／MPLS，目前運作穩定，少數廠區當地網路品質較差。尚無 API Gateway 或管理工具，僅有維護單紀錄，未建立 API 清單。現有多數 API 實為內部 interface（前後端分離、跨系統呼叫），非可對外之標準 API；對外 API 須具備 Token、認證等資安機制。各廠 MES、WMS 等系統獨立運作，僅將訂單結果拋轉至 ERP（ERP 為唯一彙總資料庫）。目前無客戶 EDI 對接，以客戶平台上傳為主；惟客戶持續要求即時生產資訊，未來勢必建置。D365 內含廠商自行撰寫之預存程序，團隊無法修改。</p>
+
+            <h4>5. 資安原則</h4>
+            <p>使用者原則上不開放外網，需經申請；系統不對外可阻擋大部分入侵。不可連網之設備（如 Pantone 色卡機）須隔離，需對外時改用另一台電腦。廠商遠端連入 OT 設備（如 TeamViewer）須納管，建議改經 SASE 過濾。資安以符合規範為目標，不追求滿分。</p>
+
+            <h4>6. 監控與可觀測性</h4>
+            <p>API 須可追蹤生命週期（呼叫對象、頻率、狀態），自網路底層至應用層皆須可視。各節點負載須可監看：低於 30% 暫不調整；達 50%–90% 時須提前向副總報告。電信商專線報表目前僅有總量，未依系統分類。</p>
+
+            <h4>7. 上版流程與環境隔離</h4>
+            <p>現行由承辦人自行上版，經內部簽核與測試後由課長把關；廠區由當地 IT 自行選擇時間上版。建議區分開發、測試、正式環境，由少數主管統一上版，並以系統排程取代當地人員手動上版。廠區夜間連線曾於今年 3 月資安事件後關閉，現已恢復。目前無內部 API 撰寫規範，建議訂定後轉為團隊共用之 AI Skill。</p>
+
+            <h4>8. 資料庫、ODS 與資料頻率</h4>
+            <p>各系統資料庫分離，跨系統需求由排程 Job 轉入 ODS 資料庫。SQL Server 版本自 2014 至 2017 不等；舊版不可對外，對外系統至少須為 2022 版以上。廠區與 ERP 之拋轉多為每日一次或事件觸發；總部目前要求半天一次，未來可能提高至每小時。每小時拋轉應屬可行，無須做到即時；須先估算資料量與頻寬負載再定案。不一定需建置大型 Data Lake：商業情境未改變前不必強行打破資料孤島，但各系統仍須落實資料治理。</p>
+
+            <h4>9. 虛擬化、集中管理與開發工具</h4>
+            <p>各廠區 VM 與資料庫獨立運作（總部 ERP 採 Always On，廠區僅做 Mirror）；已購置 vCenter，但由各廠自行管理，尚未集中。建議改採集中管理，納入戰情儀表板，以彌補各廠區 IT 能力落差。團隊 AI Skill 多為個人使用，部分透過 Git 共享；建議整合為團隊共用之開發框架。端點防護已採購 Cortex XDR。</p>
+
+            <h4>10. 備份與營運持續 (BCP)</h4>
+            <p>已執行備份，但尚未依重要性分級（P1–P4），亦無 SLA；總公司已分級，分點尚未分級。須定義復原順序（如 AD 優先），並列出各廠區優先復原之主機。目前無異地備援（DR）；不一定需高額投資，備份存放於不同建物即可。BCP 以恢復最小營運為目標；公司刻正推動對客戶之營運持續計畫，IT 部分尚待補足。</p>
+
+            <h2>第二節：盤點規範、API平台與落地計畫</h2>
+            
+            <h4>1. 盤點資料需求與 draw.io 強制標準</h4>
+            <p>須提供各廠區系統清單、串接方式（如 MES 經 MES API 接入）、網路與軟體資料，<strong>繪圖工具統一使用 draw.io</strong>。API 應可被標準工具掃描。資料須定義更新頻率、品質與權限。系統異動文件依系統而異，軟體由台北控管。以 AI 工具為各系統產出架構文件，重點為資料關係圖及部署（實體）關係圖。</p>
+
+            <h4>2. API 管理平台與 Data Lake 規劃</h4>
+            <p>現況無 API Manager，亦無 Data Lake。方向：以開源方案建置 API 平台，先以第三方服務（如金流）試行串接。內部 API 現階段以優化為主，平台先於 Linux 測試機試裝。現有低程式碼系統無法直接移轉至容器平台。預算原則：工具盡量不額外支出；明年已規劃頻寬升級。</p>
+
+            <h4>3. 端點防護覆蓋率</h4>
+            <p>端點防護須達 100% 安裝，未安裝之設備即為漏洞。請廠商提供主機／AP／VM 之部署及存取關係資料以供檢核。</p>
+
+            <h4>4. 資料權限與自助報表</h4>
+            <p>目標：由 IT 提供整理完成之資料集，使用者以 AI／BI 工具自行產出報表，不再由 IT 逐一開發。現行權限綁定於前端程式；未來需於資料模型層設定權限（最小權限、依單位與層級）。資料分級（機密等級）為推動自助報表之前提。</p>
+
+            <h4>5. 儀表板與異常分析</h4>
+            <p>軟體、硬體、網路、資安之使用頻率與健康度須可於系統查詢，並可依週、月、季比較，作為向副總申請資源之依據。先蒐集 1 週、再蒐集 1 個月之運行資料，分析峰值與異常。</p>
+
+            <h4>6. 開發環境標準化</h4>
+            <p>以 VM 建置標準開發環境，內含所需工具，新進人員即可直接開發，避免個人電腦環境不一致。提供 2 台 VM，分別作為開發環境及測試環境。</p>
+
+            <h4>7. 後續議題</h4>
+            <p>分點之營運持續計畫（BCP）尚不完整，需再確認。應用場景於下次會議討論，先聚焦生產物料相關場景。新舊系統轉換議題（剩約 2 年時程）另行安排時間討論。</p>
+
+            <h2>三、決議事項清冊</h2>
+            <ul>
+              <li><strong>先盤點、後採購</strong>：工具以不額外支出為原則，確有成效再行投資；明年預算以頻寬升級為主。</li>
+              <li><strong>執行 API 盤點</strong>：以既有清單為基礎整合，區分「內部 interface」與「對外標準 API」。</li>
+              <li><strong>開源 API 管理</strong>：內部 API 以優化為主；API 管理平台先以開源方案於測試環境試裝，對外串接以金流等第三方服務為試點。</li>
+              <li><strong>資料治理先行</strong>：不強制建置大型 Data Lake；依商業情境決定是否打破資料孤島，各系統仍須落實資料治理。</li>
+              <li><strong>每小時拋轉評估</strong>：廠區資料拋轉頻率以每小時為目標，先行估算資料量與頻寬。</li>
+              <li><strong>集中控管與戰情屏</strong>：虛擬化、監控及上版逐步集中控管，並建立戰情儀表板。</li>
+              <li><strong>標準開發環境</strong>：提供 2 台 VM（開發、測試）作為標準開發環境。</li>
+              <li><strong>穩定為首要</strong>：舊系統以包裝方式維持穩定；新系統依新標準開發。</li>
+              <li><strong>資安合規導向</strong>：資安以符合規範為目標，對外連線優先封閉或納管。</li>
+            </ul>
+
+            <h2>四、待辦事項清冊 (Action Items)</h2>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>編號</th>
+                    <th>待辦事項</th>
+                    <th>負責單位</th>
+                    <th>完成期限</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>整理各廠區系統、串接方式與網路架構圖，提交 Howard</td><td>軟體組／網路組</td><td>11/17 (W1)</td></tr>
+                  <tr><td>2</td><td>API 盤點：整合既有清單，標註內部／對外、呼叫對象及使用頻率</td><td>軟體組</td><td>11/17 (W1)</td></tr>
+                  <tr><td>3</td><td>以 AI 工具產出各系統資料關係圖與部署關係圖</td><td>軟體組</td><td>11/17 (W1)</td></tr>
+                  <tr><td>4</td><td>蒐集 1 週及 1 個月之系統與網路運行資料，供峰值與異常分析</td><td>系統組／網路組</td><td>11/24 (W2)</td></tr>
+                  <tr><td>5</td><td>估算廠區資料每小時拋轉之資料量與頻寬負載；向電信商索取分類報表</td><td>網路組</td><td>11/24 (W2)</td></tr>
+                  <tr><td>6</td><td>確認端點防護安裝覆蓋率，請廠商提供主機／AP／VM 部署與存取資料</td><td>系統組</td><td>11/24 (W2)</td></tr>
+                  <tr><td>7</td><td>訂定備份分級（P1–P4）與復原順序，含各廠區優先主機；補足 BCP</td><td>系統組</td><td>11/24 (W2)</td></tr>
+                  <tr><td>8</td><td>訂定內部 API 撰寫規範，並轉為團隊共用 AI Skill</td><td>軟體組</td><td>11/17 (W1)</td></tr>
+                  <tr><td>9</td><td>建置 2 台標準開發／測試 VM</td><td>系統組</td><td>11/17 (W1)</td></tr>
+                  <tr><td>10</td><td>於測試環境試裝開源 API 管理平台</td><td>軟體組</td><td>12/01 (W3)</td></tr>
+                  <tr><td>11</td><td>規劃上版流程（開發 → 測試 → 正式）及集中排程上版</td><td>IT 主管</td><td>12/08 (W4)</td></tr>
+                  <tr><td>12</td><td>規劃資料分級及資料模型層權限</td><td>軟體組</td><td>12/08 (W4)</td></tr>
+                  <tr><td>13</td><td>安排下次會議（生產物料應用場景），另約新舊系統轉換討論</td><td>Howard</td><td>待備齊後排定</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>五、待確認事項清冊</h2>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>項次</th>
+                    <th>待確認內容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Microsoft 365 授權等級（E3／E5）及與微軟合作之內容</td></tr>
+                  <tr><td>2</td><td>電信商專線與視訊設備之處理方式（是否停用特定設備）</td></tr>
+                  <tr><td>3</td><td>明年頻寬升級之規格（會中提及「200」）</td></tr>
+                  <tr><td>4</td><td>舊 DB 監控工具名稱</td></tr>
+                  <tr><td>5</td><td>指派負責備份復原之同仁</td></tr>
+                  <tr><td>6</td><td>要求產出之文件名稱與數量</td></tr>
+                  <tr><td>7</td><td>後續約 12 次討論之時程內容</td></tr>
+                  <tr><td>8</td><td>剩約 2 年時程之系統轉換議題所指系統</td></tr>
+                  <tr><td>9</td><td>各待辦事項之負責人與完成期限</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Howard Liao Ph.D. 11/09 會議補充指導與蜂巢藍圖 -->
+      <div id="rep-howard-notion" class="report-panel">
+        <div class="report-card">
+          <div class="report-header-banner">
+            <div>
+              <span class="badge badge-success" style="margin-bottom:6px;">顧問架構指引</span>
+              <h2 style="margin:0; font-size:1.35rem; color:var(--text);">信源全球 IT 互動會議紀錄 · 補充指導與後續推進清單</h2>
+              <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">發布負責：Howard Liao Ph.D. ｜ 計劃主持：周文津 副總經理 ｜ 記錄整理：Duka Chen 主管</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <a href="https://asqr.notion.site/RSI_1109-_HowardLiaoPhD-41492d9a11cc806a8182dbadcc19109d" target="_blank" class="btn" style="text-decoration:none;">
+                <span>🔗</span> 開啟 Howard Notion 原始頁面 ↗
+              </a>
+              <button class="btn" onclick="copyReportText('howardNotionContent')">
+                <span>📋</span> 複製文字
+              </button>
+            </div>
+          </div>
+
+          <div class="report-meta-grid">
+            <div class="report-meta-item">
+              <div class="report-meta-label">專案名稱</div>
+              <div class="report-meta-val">信源全球 2027 蜂巢計畫 (Project Hive)</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">計劃主持</div>
+              <div class="report-meta-val">周文津 副總經理</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">發布負責</div>
+              <div class="report-meta-val">Howard Liao Ph.D.（外部資訊顧問）</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">基礎方針</div>
+              <div class="report-meta-val">依 Duka 紀錄為主・架構實務補充・全地端落實</div>
+            </div>
+          </div>
+
+          <div class="report-prose" id="howardNotionContent">
+            <h3>■ 前言與四大工作原則覆核 (Guiding Principles)</h3>
+            <p>感謝 Duka Chen 主管於會後迅速整理出客觀詳實的會議紀錄。團隊於 11/09 確立之四大工作原則，為全體資訊同仁推進的最高準繩：</p>
+            <ol>
+              <li><strong>先盤點現況，再評估工具採購</strong>：工具以「不額外增加支出（開源自建）」為原則，確有成效再行投資；明年預算以廠區頻寬升級為主。</li>
+              <li><strong>舊系統以包裝維持穩定</strong>：既有系統原則上不大幅改動，外層包裝標準 API，降低產線衝擊。</li>
+              <li><strong>依營運優先順序擇要推動</strong>：首要聚焦與生產、物料、ERP/MES 拋轉相關的核心業務場景。</li>
+              <li><strong>全面透明化與戰情儀表板</strong>：軟體、硬體、網路、資安狀態全面透明化，最終以統一儀表板呈現。</li>
+            </ol>
+
+            <h2>壹、 核心架構規範與標準定調</h2>
+            
+            <div class="callout-box gold">
+              <strong>1. 繪圖與流程工具【唯一強制標準】：統一使用 draw.io</strong><br>
+              全集團所有系統架構圖（邏輯關係圖）、實體部署拓撲圖（IP/Port/協定）與資料流向圖，一律統一使用 draw.io（.drawio 格式）。<br>
+              • <strong>效益</strong>：開源免費、跨平台、無授權門檻，產出之原始檔可直接納入自建 GitLab 進行版本控管，嚴禁使用未授權之 Visio 或手繪草圖。
+            </div>
+
+            <div class="callout-box success">
+              <strong>2. 技術平台架構定調：全數「自建在地端 (On-Premises)」</strong><br>
+              為保障信源數據絕對主權、達成海外廠區 48～72 小時斷網自律運轉，並避免公有雲長期昂貴租金：<br>
+              • <strong>API 平台</strong>：採微軟原生 C# 的 Microsoft YARP（或開源 Kong），團隊全為 C# 工程師，技術同構、零學習門檻，可在各廠 VMware 獨立運作。<br>
+              • <strong>Data Lake 平台</strong>：不搞複雜龐大的 Hadoop，採輕量地端「MinIO (S3相容) ＋ Apache Airflow (夜間排程) ＋ StarRocks (極速湖倉庫)」，相容 MySQL 協議，既有「聯銓 BI」完全零改動直接對接。<br>
+              • <strong>D365 資料回歸</strong>：遵循微軟官方路徑，自 D365 透過 Synapse Link 產出 Parquet 暫存於微軟 Blob，地端每晚離峰單向拉回 MinIO 永久保存，99.9% 歷史資料與運算完全留在自有機房。
+            </div>
+
+            <h2>貳、 五大監控工具平台 (PMC 平台監控中心) 整合落地架構</h2>
+            <p>解決軟硬網安透明化、節點負載 50%–90% 監控與專線系統分類流量：</p>
+            
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>平台名稱</th>
+                    <th>核心技術棧 (0 元軟體授權費)</th>
+                    <th>在信源落地的核心職能與管理效益</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>時序效能監控</strong></td>
+                    <td>Prometheus ＋ Node/Windows Exporters</td>
+                    <td>秒級採集伺服器 CPU、RAM、磁碟與 YARP API 延遲；當節點負載達 50%–90% 自動發出預警，供提前向副總規劃資源。</td>
+                  </tr>
+                  <tr>
+                    <td><strong>海量集中日誌</strong></td>
+                    <td>Graylog ＋ OpenSearch</td>
+                    <td>跨國匯聚主機、防火牆、IIS 與 API 存取日誌；建立 Lookup Table 動態關聯，事故發生時 5 秒內將 IP 關聯出實體廠區與機櫃。</td>
+                  </tr>
+                  <tr>
+                    <td><strong>跨國專線監控</strong></td>
+                    <td>LibreNMS ＋ NetFlow / sFlow</td>
+                    <td>以 SNMP v3 自動探索全網拓撲，監控總部至海外廠第一線專線；透過 NetFlow 精確產出「專線依系統分類流量報表」。</td>
+                  </tr>
+                  <tr>
+                    <td><strong>自動化資產清冊</strong></td>
+                    <td>Open-AudIT ＋ phpIPAM</td>
+                    <td>定時自動掃描海外廠與總部 IP 網段，自動建立硬體、軟體與 OS 版本清冊，隨時揪出未報備的影子設備或過保伺服器。</td>
+                  </tr>
+                  <tr>
+                    <td><strong>多來源戰情大屏</strong></td>
+                    <td>Grafana Enterprise</td>
+                    <td>將 Prometheus、Graylog、LibreNMS 與資料庫數據聚合於單一畫面上，打造四級戰情室（高管總覽、周副總決策屏、IT 運維 NOC、廠區現場屏）。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>■ 0 元資料庫監控替代方案 (平替 Quest Toad / Spotlight)</h3>
+            <p>會中確認過去精誠撰寫之 DB monitor 停用後，全面採用開源免費工具，不用花任何軟體授權費，功能比擬 Toad：</p>
+            <ul>
+              <li><strong>工程師日常連線排查</strong>：全員安裝 <strong>DBeaver Community</strong>（開源免費，內建 Session Manager 一鍵殺卡住連線），搭配各廠 MS-SQL 刷入微軟 MVP 開源經典「sp_Blitz 系列腳本」（sp_Blitz 全庫健檢、sp_BlitzFirst 秒抓死鎖、sp_BlitzWho 查慢查詢）。</li>
+              <li><strong>24 小時全自動持續監控</strong>：部署專為 MS-SQL 設計之開源王者 <strong>SQLWatch</strong>，或啟用 Prometheus <strong>mssql_exporter</strong> ＋ Grafana，全天候監控 CPU、PLE、死鎖次數與磁碟膨脹率，死鎖時自動發送 Teams 告警。</li>
+            </ul>
+
+            <h2>參、 針對 Duka 紀錄「第六節：9 大待確認事項」正式回覆</h2>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>項次</th>
+                    <th>Duka 會議紀錄之待確認內容</th>
+                    <th>Howard 正式回覆與團隊落地方針</th>
+                    <th>主責單位</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Microsoft 365 授權等級及與微軟合作內容</td><td>另案專案討論。維持會中結論，後續依實際盤點各單位業務真實使用需求後再行評估，以「不浪費、不盲目採購」為原則。</td><td>系統組主管<br>Howard</td></tr>
+                  <tr><td>2</td><td>電信商專線與視訊設備之處理方式</td><td>維持第一線 (DYXnet) 主專線穩定運作。由網路組透過 LibreNMS 導入 QoS 與流量分析，優先保障核心生產資料（MES/ERP），視訊維持現有 Teams 體系。</td><td>網路組主管</td></tr>
+                  <tr><td>3</td><td>明年頻寬升級之規格（會中提及「200」）</td><td>總部與主力海外廠對外頻寬目標提升至 200 Mbps，主要支撐廠區資料由半天拋轉升級為「每小時離峰增量拋轉」，並確保大容量更新不排擠生產。</td><td>網路組主管</td></tr>
+                  <tr><td>4</td><td>舊 DB 監控工具名稱與未來替代</td><td>過去精誠撰寫之 DB monitor 停用後，全面採用 100% 免費開源方案：日常排查採 DBeaver ＋ sp_Blitz，自動監控採 SQLWatch / Prometheus（功能平替 Toad，零預算支出）。</td><td>系統組主管<br>軟體組主管</td></tr>
+                  <tr><td>5</td><td>指派負責備份復原之同仁與 BCP 完善</td><td>由系統組主管指定總部與各廠專責窗口，建立 BCP 責任清冊，定義 P1（AD 網域優先）至 P4 復原順序，落實同廠不同建物之獨立冷備份。</td><td>系統組主管<br>各廠 IT 主管</td></tr>
+                  <tr><td>6</td><td>要求產出之文件名稱與標準規格</td><td>圖紙一律統一使用 draw.io 繪製（軟體架構圖、部署拓撲圖）；API 清冊產出 Swagger / OpenAPI 3.0；系統組填報 BCP 清查表與 SLA 等級表。</td><td>軟體組主管<br>系統組主管</td></tr>
+                  <tr><td>7</td><td>後續討論之時程規劃方式</td><td>待各組盤點資料（架構圖、API 清冊、流量試算等）全數備齊後，再行召集專案覆核與後續推進討論。</td><td>Howard<br>全體主管</td></tr>
+                  <tr><td>8</td><td>剩約 2 年時程之系統轉換議題所指系統</td><td>指涉部分廠區老舊自研系統（如舊 Delphi/VB/Access 巨集）與即將停更之 Win 2016。兩年內採「外層包裝 API、資料入湖」平滑過渡，不急於一次性重構。</td><td>軟體組主管</td></tr>
+                  <tr><td>9</td><td>各待辦事項之負責人與完成期限</td><td>軟體研發由軟體組主管主責，基建資安由系統組/網路組主管主責，海外由各廠 IT 主管協同，以本文件第四節待辦清冊為準。</td><td>各組主管</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: 11/12 最新五頁實施計畫與辦理指引 -->
+      <div id="rep-guide-5page" class="report-panel">
+        <div class="report-card">
+          <div class="report-header-banner">
+            <div>
+              <span class="badge badge-warning" style="margin-bottom:6px;">最新正式手冊 · 2026/11/12 發布</span>
+              <h2 style="margin:0; font-size:1.35rem; color:var(--text);">全球軟體架構與 IS 基礎設施 BCP / SLA 盤點實施計畫及同仁辦理指引</h2>
+              <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">計劃主持：周文津 副總經理 ｜ 執行負責：Howard Liao Ph.D. ｜ 記錄整理：Duka Chen 主管 ｜ 標準 A4 5 頁緊湊排版</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <a href="RSI_全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫及同仁辦理指引_20261112.docx" download class="btn btn-primary" style="text-decoration:none;">
+                <span>📥</span> 下載此 5 頁 Word 指引 (.docx)
+              </a>
+              <button class="btn" onclick="copyReportText('guide5PageContent')">
+                <span>📋</span> 複製指引全文
+              </button>
+            </div>
+          </div>
+
+          <div class="report-meta-grid">
+            <div class="report-meta-item">
+              <div class="report-meta-label">文件規格</div>
+              <div class="report-meta-val">完整 5 頁 A4 Word (.docx) · 頁碼嚴格獨立</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">涵蓋廠區</div>
+              <div class="report-meta-val">台北內湖總部、越南、柬埔寨、印尼各廠區</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">協同組別</div>
+              <div class="report-meta-val">軟體研發組、網路組、系統維運組、海外廠 IT</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">首週交付期限</div>
+              <div class="report-meta-val">2026 年 11 月 17 日（週二）17:00 截止</div>
+            </div>
+          </div>
+
+          <div class="report-prose" id="guide5PageContent">
+            <!-- Page 1 -->
+            <div style="border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:24px; background:var(--card-solid);">
+              <span class="doc-page-badge">第 1 頁 / 共 5 頁</span>
+              <h2 style="margin-top:8px;">壹、 專案背景與 11/09 會議核心戰略指示</h2>
+              <p>依據 2026 年 11 月 09 日由周文津副總經理主持之「信源全球 IT 基礎設施與軟體架構評估會議」及 Duka Chen 主管之訪談紀要，為落實信源全球「2027 蜂巢計畫（Project Hive）」，全面邁向「地端開源平替（0 元軟體授權費）」與「各廠區 48～72 小時斷網自律運轉」兩大戰略目標，現正式啟動全集團（含台北總部及越南、柬埔寨、印尼海外各廠區）軟體與基礎設施跨組聯合盤點專案。</p>
+              
+              <h4>■ 全體專案參與同仁必須嚴格落實四大核心推動原則：</h4>
+              <ul>
+                <li><strong>1. 現況盤點優先，杜絕盲目支出：</strong>先全面清查盤點現有系統負載與專線瓶頸，再審慎評估自建工具，2027 年度預算聚焦於改善海外廠區專線頻寬與備援，不盲目追求採購昂貴商業套件。</li>
+                <li><strong>2. 舊系統以包裝維持穩定運轉：</strong>針對運作中之老舊核心系統，嚴格禁止非必要之推倒重構。外層全面包裝標準微服務 API 與快取中繼，以確保產線 100% 不中斷為最高原則。</li>
+                <li><strong>3. 依營運優先順序推進關鍵場景：</strong>首要聚焦產線排程、智慧倉儲物料配送、ERP 與 MES 跨國拋轉等具高商業價值之核心場景。</li>
+                <li><strong>4. 軟硬網安全面透明化與戰情儀表板：</strong>全集團軟體、硬體、跨國專線及資安防護狀態全面量化透明，整合至單一戰情大屏實時可視化。</li>
+              </ul>
+              
+              <div class="callout-box">
+                <strong>各廠區 48～72 小時斷網自律運轉方針：</strong><br>
+                海外各成衣廠區（越南、柬埔寨、印尼）之 MES、裁剪、縫紉、印花、包裝與出貨系統，底層資料庫與運算邏輯必須具備完全的地端自治能力。當跨國 MPLS/SD-WAN 專線因海纜中斷或天災突發性斷線時，廠區本地產線必須持續運作 48 至 72 小時零停擺；待專線恢復後，由系統自動進行差量雙向對齊。
+              </div>
+            </div>
+
+            <!-- Page 2 -->
+            <div style="border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:24px; background:var(--card-solid);">
+              <span class="doc-page-badge">第 2 頁 / 共 5 頁</span>
+              <h2 style="margin-top:8px;">貳、 軟體研發同仁盤點任務與架構拓撲填報指引</h2>
+              <p>軟體研發同仁為本次盤點之核心驅動主力，請協同各廠區 IT 專責同仁，於第一週內全面完成總公司與各海外廠區之軟體架構圖與實體部署拓撲圖（Deploy Diagram）：</p>
+              
+              <h4>一、 軟體架構圖與 Deploy Diagram 繪製指引</h4>
+              <ul>
+                <li><strong>邏輯軟體架構圖 (Logical Software Architecture)：</strong>清楚標示系統前端（WinForms / Web UI / 行動 PDA）、後端商業邏輯服務層、共用模組、第三方套件及底層關聯資料庫。</li>
+                <li><strong>實體部署拓撲圖 (Physical Deploy Diagram)：</strong>必須精確標示各節點實體或虛擬伺服器之 Hostname、IP 位址、網段 VLAN、開放 Port 號、監聽協定（HTTP/HTTPS/TCP/gRPC），以及跨伺服器或跨國調用之依賴關係。</li>
+                <li><strong>安全網段隔離標示：</strong>海外廠區之辦公室網路（Office VLAN）與生產現場 OT 網路（MES/PLC/色卡機 VLAN）必須在拓撲圖上明確劃分防護邊界，標註防火牆通過策略。</li>
+              </ul>
+
+              <div class="callout-box gold">
+                <strong>繪圖工具【唯一強制標準】：統一使用 draw.io</strong><br>
+                為建立全集團標準化架構資產，所有架構圖與部署拓撲圖一律統一使用 draw.io（桌面版或線上開源版）繪製，產出檔格式為 <code>.drawio</code>（或帶 XML 格式之 <code>.drawio.png</code>）。<br>
+                • 嚴格禁止同仁使用未經授權之 Visio、手繪草圖拍照或非標準格式繪製。<br>
+                • 繪製完成後，原始 <code>.drawio</code> 檔案一律提交至地端 GitLab 專案倉庫版本控管。
+              </div>
+            </div>
+
+            <!-- Page 3 -->
+            <div style="border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:24px; background:var(--card-solid);">
+              <span class="doc-page-badge">第 3 頁 / 共 5 頁</span>
+              <h2 style="margin-top:8px;">參、 自研 API 與介面資料量 Payload 盤點規範（軟體組主責，IS 組協助）</h2>
+              <p>為達成集團 API 治理、微服務標準化及評估微軟原生 YARP (Yet Another Reverse Proxy) API Gateway 落地容量，軟體組同仁須全面清查所有對外與內部介面：</p>
+              
+              <h4>一、 跨組協同量測流程（軟體組 ＋ IS 組聯合作業）：</h4>
+              <ul>
+                <li><strong>步驟 1（軟體組標記端點）：</strong>軟體組同仁清查原始碼，標註系統所有 API Controller 與 WebService 端點，區分「內部 Interface」與「對外開放 API」。</li>
+                <li><strong>步驟 2（IS 組量測 Payload 與頻率）：</strong>IS 網路同仁透過 IIS Log 分析器（LogParser）或抓包工具，協助軟體組量測各端點之「平均 Payload 大小 (KB)」、「單次最大 Response 大小 (KB)」及「尖峰每秒查詢數 (Peak QPS)」。</li>
+                <li><strong>步驟 3（雙向交叉校驗）：</strong>共同鎖定「日調用 > 10 萬次」或「單次 Response > 50KB」之 API。針對大封包 API，納入非同步拋轉或批次排程分流清單，避免白天產線尖峰時段佔滿專線頻寬。</li>
+              </ul>
+
+              <h4>二、 身分鑑別雙軌制衡標準（兼顧資安與微軟授權預算控制）：</h4>
+              <ul>
+                <li><strong>辦公室同仁（AD / AAD SSO）：</strong>台北總部與海外廠辦公室行政、業務、財務人員，維持 Microsoft AD / Azure AD (AAD) 單一登入與 Kerberos / OAuth 鑑別機制，確保企業層級資安稽核合規。</li>
+                <li><strong>現場產線人員（工號＋自設密碼）：</strong>海外各廠成衣裁剪、縫紉、品管等第一線作業同仁，維持現行「工號＋自設密碼」之輕量化 JWT Token 驗證機制。嚴禁為產線人員盲目開立 AD 帳號，以避免每年產生數百萬元非必要之微軟客戶端存取授權（CAL）費用。</li>
+              </ul>
+            </div>
+
+            <!-- Page 4 -->
+            <div style="border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:24px; background:var(--card-solid);">
+              <span class="doc-page-badge">第 4 頁 / 共 5 頁</span>
+              <h2 style="margin-top:8px;">肆、 IS 基礎設施同仁 BCP 與重點等級 SLA 評定規範</h2>
+              <p>資訊基礎設施與資安維運組（IS 組）為集團營運連續性與數位主權之守護基石。請 IS 同仁主導全集團資料資產業務連續性計畫（BCP）清查與 SLA 等級評定：</p>
+              
+              <h4>一、 全集團系統服務等級劃分標準 (SLA Tiers)：</h4>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>等級分類</th>
+                      <th>系統服務定義範圍</th>
+                      <th>可用性 SLA</th>
+                      <th>最大容忍中斷 (RTO)</th>
+                      <th>最大容忍資料損失 (RPO)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge-danger">Tier 1 (關鍵核心)</span></td>
+                      <td>D365 ERP 核心資料庫、海外廠 MES 裁剪縫紉庫、AD 網域控制站</td>
+                      <td><strong>99.9%</strong></td>
+                      <td><strong>&lt; 2 小時</strong></td>
+                      <td><strong>&lt; 15 分鐘</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-warning">Tier 2 (重要營運)</span></td>
+                      <td>BPM 電子簽核、HR 差勤薪資、WMS 倉儲料位、自研 API Gateway</td>
+                      <td><strong>99.5%</strong></td>
+                      <td><strong>&lt; 8 小時</strong></td>
+                      <td><strong>&lt; 4 小時</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-neutral">Tier 3 (一般支援)</span></td>
+                      <td>聯銓 BI 分析報表、歷史資料查詢庫、內部測試/開發虛擬機</td>
+                      <td><strong>99.0%</strong></td>
+                      <td><strong>&lt; 24 小時</strong></td>
+                      <td><strong>&lt; 24 小時</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h4>二、 3-2-1-1 現代化地端資料備份架構標準</h4>
+              <p>全集團各廠區資料庫與虛擬機備份，必須嚴格落實「3-2-1-1」備份準則：保存 3 份資料副本、使用 2 種不同儲存介質、1 份存於同廠區不同實體建築物（或跨廠異地傳輸）、1 份採完全實體離線或不可變寫入（WORM / Immutable Object Storage），防範勒索軟體全網加密感染。</p>
+
+              <h4>三、 跨國專線流量依系統分類監控與負載預警</h4>
+              <p>落實周文津副總指示，網路組須透過開源 LibreNMS 啟用 NetFlow / sFlow 採集，產出「跨國專線依業務系統分類之流量報表」。監控節點負載：當海外專線或主機負載達到 50%～90% 區間時，自動觸發預警並提早規劃頻寬擴容。</p>
+            </div>
+
+            <!-- Page 5 -->
+            <div style="border:1px solid var(--border); border-radius:8px; padding:20px; background:var(--card-solid);">
+              <span class="doc-page-badge">第 5 頁 / 共 5 頁</span>
+              <h2 style="margin-top:8px;">伍、 跨組協同時間表、辦理範本與資訊脫敏規範</h2>
+              <p>為確保本次盤點作業嚴謹有序推進，請各組同仁依據以下甘特時間表落實查核與成果交付：</p>
+              
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>工作項目</th>
+                      <th>主責單位</th>
+                      <th>協同單位</th>
+                      <th>交付成果與驗收標準</th>
+                      <th>完成期限</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>發布盤點指引與範本</td><td>Howard Liao Ph.D.</td><td>Duka Chen 主管</td><td>發布五頁正式指引與線上協同門戶</td><td>11/12 (四) 完竣</td></tr>
+                    <tr><td>軟體架構圖與部署圖繪製</td><td>軟體研發組</td><td>各廠 IT 同仁</td><td>統一使用 draw.io 產出並上傳 GitLab</td><td>11/17 (二) 17:00</td></tr>
+                    <tr><td>自研 API 清冊與流量回填</td><td>軟體研發組</td><td>IS 基礎設施組</td><td>完成端點清冊，標註 QPS、Payload</td><td>11/17 (二) 17:00</td></tr>
+                    <tr><td>全集團 BCP 與 SLA 分級清查</td><td>IS 基礎設施組</td><td>各廠 IT 主管</td><td>完成資料庫備份檢核與 RTO/RPO 劃分</td><td>11/17 (二) 17:00</td></tr>
+                    <tr><td>跨國專線 NetFlow 流量試算</td><td>IS 網路維運組</td><td>軟體研發組</td><td>產出第一線專線依系統分類流量表</td><td>11/24 (二) 17:00</td></tr>
+                    <tr><td>全集團第一週成果覆核會議</td><td>周文津 副總</td><td>全體資訊主管</td><td>周副總主持盤點成果檢核與戰略指示</td><td>11/25 (三) 待排</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="callout-box" style="border-left-color:var(--danger); background:rgba(239, 68, 68, 0.05); margin-top:20px;">
+                <strong style="color:var(--danger);">資安防護與資訊脫敏【強制紅線】：</strong><br>
+                所有同仁於填報軟體架構、API 清冊、網路拓撲及伺服器資訊時，<strong>嚴格禁止外洩任何生產環境密碼、連線字串、API Key、Token 或機敏個人資訊</strong>！凡涉及敏感資訊，必須強制以 <code>[REDACTED]</code> 替代。未經脫敏之圖檔與表格嚴禁發布。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: Howard Liao Ph.D. 11/09 正式架構評估報告 (.docx) -->
+      <div id="rep-howard-docx" class="report-panel">
+        <div class="report-card">
+          <div class="report-header-banner">
+            <div>
+              <span class="badge badge-accent" style="margin-bottom:6px;">正式顧問評估報告 · 2026/11/09</span>
+              <h2 style="margin:0; font-size:1.35rem; color:var(--text);">信源全球資訊基礎架構與資料架構評估報告</h2>
+              <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">發布負責：Howard Liao Ph.D. ｜ 計劃主持：周文津 副總經理 ｜ 記錄整理：Duka Chen 主管 ｜ 正式 Word (.docx) 交付版本</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <a href="RSI_IT_Infrastructure_Architecture_Assessment_Report_20261109.docx" download class="btn btn-primary" style="text-decoration:none;">
+                <span>📥</span> 下載完整評估報告 (.docx)
+              </a>
+              <button class="btn" onclick="copyReportText('howardDocxSummaryContent')">
+                <span>📋</span> 複製報告導讀
+              </button>
+            </div>
+          </div>
+
+          <div class="report-meta-grid">
+            <div class="report-meta-item">
+              <div class="report-meta-label">文件檔案名稱</div>
+              <div class="report-meta-val">RSI_IT_Infrastructure_Architecture_Assessment_Report_20261109.docx</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">報告章節總數</div>
+              <div class="report-meta-val">4 大核心章節 ＋ 2 大填報規格範本</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">戰略核心目標</div>
+              <div class="report-meta-val">DataModel 權限下沉治理 ＆ GitLab CI/CD 主管審批</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">安全合規基線</div>
+              <div class="report-meta-val">全面落實地端自建與 0 元授權平替</div>
+            </div>
+          </div>
+
+          <div class="report-prose" id="howardDocxSummaryContent">
+            <h2>前言：信源全球背景與 2027 蜂巢計畫戰略脈絡</h2>
+            <p>信源全球（RSI Group）作為全球成衣與頂級運動休閒機能服飾智造領導企業，營運總部立足台灣，海外大規模生產聚落橫跨越南、柬埔寨、印尼等跨國生產基地。為因應跨國多廠敏捷智造、自動化產線排程與即時供應鏈協同之國際局勢，信源資訊架構正式由傳統多廠分散、手動維運模式，全面邁向「2027 蜂巢計畫（Project Hive）」新紀元。</p>
+
+            <h2>壹、 11/09 跨國現況訪談體檢與基礎架構全貌</h2>
+            <p>經 11/09 與集團跨部門 IT 同仁深度訪談，全盤檢視總公司與海外廠區現行運作實況。信源 IT 底層架構展現極高之微軟解決方案純度與本地自治能力，同時亦呈現邁向 2027 蜂巢計畫所需跨越之關鍵升級節點：</p>
+            <ul>
+              <li><strong>微軟解決方案純度極高</strong>：全集團深入採用微軟體系（Windows Server、IIS、MS-SQL、C# .NET、Microsoft 365），同仁研發素質精純，具備極佳架構演進潛力。</li>
+              <li><strong>地端虛擬化自主運作穩健</strong>：各廠區虛擬化（VMware vCenter）與本機資料庫獨立運轉，具備天然之斷網容錯彈性。</li>
+              <li><strong>跨廠網路依賴電信專線</strong>：依賴第一線（DYXnet）MPLS/SD-WAN 專線，目前運作穩定，惟缺乏依系統分類之精細化流量與 QPS 監控。</li>
+              <li><strong>關鍵升級節點</strong>：API 管理中樞（Gateway）尚未成形、權限過度綁定於前端 UI、發布流程有待自動化主管審核機制健全。</li>
+            </ul>
+
+            <h2>貳、 核心治理技術戰略：DataModel 權限下沉與 CI/CD 主管審批</h2>
+            
+            <div class="callout-box">
+              <strong>一、 資料權限下沉治理架構（前端控權轉移至 DataModel / RLS / CLS）：</strong><br>
+              現行由前端 C# 應用程式（如 WinForms/Web UI）控制資料權限之模式，存在重大資安架構瓶頸：使用者或惡意程式可輕易透過 Postman、腳本或第三方工具繞過前端驗證，直接呼叫後端 WebService 或直接查詢資料庫。<br>
+              • <strong>升級戰略</strong>：全面推動「資料存取控制下沉至資料模型層（DataModel）」。透過資料庫行級安全性（Row-Level Security, RLS）、欄位級遮蔽（Dynamic Data Masking）及後端微服務語意層權限強制檢查，確保無論連線發起於 UI、外部 API 或排程腳本，均一體適用最小權限原則。
+            </div>
+
+            <div class="callout-box success">
+              <strong>二、 GitLab CI/CD 主管審批自動化部署機制（Automated Release Pipeline）：</strong><br>
+              針對目前工程師可直接連線發布至 prd 生產環境之現況，導入權責劃分（Separation of Duties, SoD）。於自建 GitLab 建立三階段流水線，收回工程師直接存取生產主機權限，全面由系統自動化驗證部署：<br>
+              • <code>build / unit-test</code>：代碼提交自動建置與單元測試。<br>
+              • <code>deploy-test</code>：自動發布至測試環境供業務驗收。<br>
+              • <code>deploy-prd</code>：<strong>必須由課長/主管於 GitLab 介面按下「Manual Approval」簽核按鈕</strong>，系統方可自動執行生產環境零停機金絲雀部署（Canary Release）或藍綠切換。
+            </div>
+
+            <h2>參、 軟體研發同仁盤點任務與填報規格指南</h2>
+            <p>請軟體研發團隊協同海外各廠資訊同仁，全面盤點總公司與海外廠區所有自研系統、部署拓撲與 API 清冊，具體執行以下四大盤點工作：</p>
+            <ol>
+              <li>全面繪製各廠系統架構圖與實體部署拓撲圖（統一強制使用 draw.io）。</li>
+              <li>編制自研 API 清冊（Swagger / OpenAPI 3.0 標準格式，標註 QPS、Payload、驗證方式）。</li>
+              <li>梳理資料庫預存程序（Stored Procedures）與排程 Job，清查跨系統資料依賴。</li>
+              <li>檢核前端權限邏輯，標註過渡至 DataModel 行級安全（RLS）之改造成本與路徑。</li>
+            </ol>
+
+            <h2>肆、 基礎設施與資安（IS）同仁盤點任務與專案時程</h2>
+            <p>請 IS 同仁主導全集團資料資產業務連續性計畫（BCP）清查與核心系統 SLA 等級評定，並全力支援軟體團隊量測跨國 API 資料傳輸量：</p>
+            <ul>
+              <li><strong>BCP 與 SLA 盤點清查</strong>：清查全集團所有資料庫之備份排程、還原演練紀錄，精確填報 Tier 1 (99.9%)、Tier 2 (99.5%)、Tier 3 (99.0%) 之 RTO 與 RPO 指標。</li>
+              <li><strong>跨國專線流量與 Payload 量測</strong>：分析跨國第一線專線 NetFlow 數據，協助軟體組完成前十大高頻、大封包 API 之傳輸量分析。</li>
+              <li><strong>端點防護 100% 覆蓋</strong>：清查 Cortex XDR 安裝覆蓋率，針對工業色卡機等 OT 設備落實網段實體隔離與 SASE 代理連線。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Tab 6: 訪談紀錄與顧問評估報告 -->
+
   </div>
 
   <!-- Modal: 新增 / 編輯 軟體系統 -->
@@ -1650,6 +2294,51 @@
     }
 
     // 頁籤切換
+    
+    // 報告子分頁切換
+    function switchReportSubTab(subTabId) {
+      document.querySelectorAll(".report-panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".report-subtab-btn").forEach(b => b.classList.remove("active"));
+      
+      const panel = document.getElementById(subTabId);
+      if (panel) panel.classList.add("active");
+      
+      const btn = Array.from(document.querySelectorAll(".report-subtab-btn")).find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(subTabId));
+      if (btn) btn.classList.add("active");
+    }
+
+    // 複製報告文本至剪貼簿
+    function copyReportText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast("已成功複製報告內容至剪貼簿！");
+        }).catch(() => {
+          fallbackCopyText(text);
+        });
+      } else {
+        fallbackCopyText(text);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("已成功複製報告內容至剪貼簿！");
+      } catch (e) {
+        showToast("複製失敗，請手動選取文字");
+      }
+      document.body.removeChild(ta);
+    }
+
     function switchTab(tabId) {
       document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -1698,6 +2387,7 @@
       document.getElementById("countInfra").innerText = appData.infra.length;
       document.getElementById("countChecklist").innerText = appData.checklist.length;
       document.getElementById("countGallery").innerText = appData.software.filter(s => s.file && s.file.data).length;
+      if (document.getElementById("countReports")) { document.getElementById("countReports").innerText = "4"; }
     }
 
     // 表格 1 渲染：軟體系統
