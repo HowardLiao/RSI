@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 2027 蜂巢計畫 — 第一週任務填報與架構圖上傳系統</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(17, 24, 39, 0.85);
+      --card-solid: #111827;
+      --border: #1f2937;
+      --border-focus: #38bdf8;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --gold: #f59e0b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --tag-bg: #1e293b;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="milan"] {
+      --bg: #faf8f5;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-solid: #ffffff;
+      --border: #e7dfd5;
+      --border-focus: #d97706;
+      --text: #292524;
+      --text-muted: #78716c;
+      --accent: #d97706;
+      --accent-hover: #b45309;
+      --gold: #b45309;
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --tag-bg: #f5efe6;
+      --shadow: 0 10px 25px -5px rgba(180, 83, 9, 0.08);
+    }
+
+    [data-theme="pharaoh"] {
+      --bg: #fcfaf7;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-solid: #ffffff;
+      --border: #e2d5c3;
+      --border-focus: #c2410c;
+      --text: #1c1917;
+      --text-muted: #78716c;
+      --accent: #d97706;
+      --accent-hover: #9a3412;
+      --gold: #c2410c;
+      --success: #0f766e;
+      --warning: #d97706;
+      --danger: #b91c1c;
+      --tag-bg: #fbf0e4;
+      --shadow: 0 10px 25px -5px rgba(194, 65, 12, 0.1);
+    }
+
+    [data-theme="klimt"] {
+      --bg: #14110b;
+      --card-bg: rgba(26, 22, 16, 0.9);
+      --card-solid: #1a1610;
+      --border: #3d311d;
+      --border-focus: #fbbf24;
+      --text: #fef3c7;
+      --text-muted: #d97706;
+      --accent: #f59e0b;
+      --accent-hover: #fbbf24;
+      --gold: #fbbf24;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --tag-bg: #2d2415;
+      --shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15);
+    }
+
+    [data-theme="ninagawa"] {
+      --bg: #0d041a;
+      --card-bg: rgba(26, 11, 48, 0.85);
+      --card-solid: #1a0b30;
+      --border: #3b176d;
+      --border-focus: #ec4899;
+      --text: #fdf4ff;
+      --text-muted: #c084fc;
+      --accent: #ec4899;
+      --accent-hover: #db2777;
+      --gold: #a855f7;
+      --success: #06b6d4;
+      --warning: #f59e0b;
+      --danger: #f43f5e;
+      --tag-bg: #2e1053;
+      --shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.2);
+    }
+
+    [data-theme="miro"] {
+      --bg: #f8fafc;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-solid: #ffffff;
+      --border: #cbd5e1;
+      --border-focus: #2563eb;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --gold: #eab308;
+      --success: #10b981;
+      --warning: #f97316;
+      --danger: #dc2626;
+      --tag-bg: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      transition: background-color 0.25s, color 0.25s;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 16px 24px;
+    }
+
+    .header-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-block h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+    }
+
+    .brand-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-weight: 600;
+    }
+
+    .meta-line {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item strong {
+      color: var(--text);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .theme-select {
+      background: var(--card-solid);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+      background: var(--card-solid);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff !important;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #ffffff !important;
+      border-color: var(--gold);
+    }
+
+    .btn-danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #ffffff !important;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+
+    /* Bento Grid KPI */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bento-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .bento-card.gold::before {
+      background: var(--gold);
+    }
+    .bento-card.success::before {
+      background: var(--success);
+    }
+
+    .bento-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .bento-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 6px 0 2px 0;
+      font-feature-settings: "tnum";
+    }
+
+    .bento-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Tabs */
+    .tabs-bar {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-count {
+      font-size: 0.75rem;
+      background: var(--tag-bg);
+      padding: 2px 6px;
+      border-radius: 9999px;
+      color: var(--text-muted);
+    }
+
+    .tab-btn.active .tab-count {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Section & Toolbar */
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    .pane-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      background: var(--card-bg);
+      padding: 12px 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .search-filter-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .input-search, .select-filter {
+      background: var(--card-solid);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .input-search:focus, .select-filter:focus {
+      border-color: var(--accent);
+    }
+
+    /* Data Table */
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    thead th {
+      background: var(--card-solid);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    [data-theme="milan"] tbody tr:hover, [data-theme="pharaoh"] tbody tr:hover, [data-theme="miro"] tbody tr:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
+    .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-accent { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid var(--accent); }
+    .badge-neutral { background: var(--tag-bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+    .action-icons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--card-solid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 720px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      padding: 24px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .form-grid.full {
+      grid-template-columns: 1fr;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.col-span-2 {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+    }
+
+    /* File Drop Zone */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--accent);
+    }
+
+    .drop-zone-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .file-preview-card {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    .file-preview-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .file-preview-info {
+      flex: 1;
+      font-size: 0.8rem;
+    }
+
+    .file-preview-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .file-preview-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 20px;
+    }
+
+    /* Checklist Section */
+    .task-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .task-checkbox {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .task-content {
+      flex: 1;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .task-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .task-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .task-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .task-deliverable {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--card-solid);
+      color: var(--text);
+      border: 1px solid var(--accent);
+      box-shadow: var(--shadow);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      z-index: 200;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Lightbox Modal */
+    #lightboxModal .modal-box {
+      max-width: 90vw;
+      max-height: 90vh;
+      text-align: center;
+      background: #000;
+    }
+
+    #lightboxImg {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-img-container {
+      height: 180px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .gallery-body {
+      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media print {
+      header, .pane-toolbar, .action-icons, .btn, .tabs-bar, .modal-overlay, .toast {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .tab-pane {
+        display: block !important;
+        margin-bottom: 40px;
+        page-break-inside: avoid;
+      }
+      .table-container {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+      }
+      thead th {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        border-bottom: 2px solid #000 !important;
+      }
+      tbody td {
+        border-bottom: 1px solid #ddd !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body data-theme="obsidian">
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand-block">
+        <h1>
+          <span>🐝 信源全球 2027 蜂巢計畫</span>
+          <span class="brand-badge">Hive Week 1 Portal</span>
+        </h1>
+        <div class="meta-line">
+          <span class="meta-item">計劃主持人：<strong>周文津 副總經理</strong></span>
+          <span class="meta-item">執行負責人：<strong>Howard Liao Ph.D.</strong></span>
+          <span class="meta-item">推進週期：<strong>2026/11/11 ～ 11/17 (第一週)</strong></span>
+          <span class="meta-item">資料狀態：<strong id="syncStatus" style="color:var(--success)">已啟用本地安全暫存</strong></span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
+          <option value="obsidian" selected>Deep Obsidian (黑金深曜)</option>
+          <option value="milan">Milan Warm Amber (米蘭暖珀)</option>
+          <option value="pharaoh">Egyptian Pharaoh (埃及法老)</option>
+          <option value="klimt">Gustav Klimt (古斯塔夫金)</option>
+          <option value="ninagawa">Mika Ninagawa (蜷川實花)</option>
+          <option value="miro">Joan Miró (胡安米羅)</option>
+        </select>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          <span>➕</span> 新增填報
+        </button>
+        <button class="btn" onclick="exportCSV()">
+          <span>📥</span> 匯出 CSV
+        </button>
+        <button class="btn" onclick="exportJSON()">
+          <span>💾</span> 備份 JSON
+        </button>
+        <label class="btn" style="margin-bottom:0; cursor:pointer;">
+          <span>📂</span> 匯入備份
+          <input type="file" id="importJsonInput" accept=".json" style="display:none;" onchange="importJSON(event)">
+        </label>
+        <button class="btn btn-danger" onclick="resetToDefaults()" title="還原為報告官方範本數據">
+          <span>🔄</span> 重設範本
+        </button>
+        <button class="btn" onclick="window.print()">
+          <span>🖨️</span> 列印
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Bento Metrics -->
+    <div class="bento-grid">
+      <div class="bento-card">
+        <div class="bento-title">納管核心自研系統</div>
+        <div class="bento-value" id="metricSystems">4 系統</div>
+        <div class="bento-desc">跨越 台北總部、越、柬、印 海外廠</div>
+      </div>
+      <div class="bento-card gold">
+        <div class="bento-title">第一週盤點 API 總數</div>
+        <div class="bento-value" id="metricApis">100 支</div>
+        <div class="bento-desc">REST / Web API / SOAP 端點</div>
+      </div>
+      <div class="bento-card success">
+        <div class="bento-title">跨廠日均調用總量</div>
+        <div class="bento-value" id="metricCalls">740,000 次</div>
+        <div class="bento-desc">尖峰估計 555 QPS 負載</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-title">核心 Tier 1 資料庫</div>
+        <div class="bento-value" id="metricTier1">2 座 (99.9%)</div>
+        <div class="bento-desc">D365 營運庫 ＆ 越南裁縫 MES 庫</div>
+      </div>
+      <div class="bento-card gold">
+        <div class="bento-title">架構/拓撲圖資上傳</div>
+        <div class="bento-value" id="metricDiagrams">3 份已具備</div>
+        <div class="bento-desc">目標第一週 100% 補齊審核</div>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-software')">
+        <span>📑 軟體系統與 API 總表</span>
+        <span class="tab-count" id="countSoftware">4</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-endpoints')">
+        <span>🔌 自研 API 端點明細</span>
+        <span class="tab-count" id="countEndpoints">4</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-infra')">
+        <span>🛡️ IS 基礎設施 BCP / SLA</span>
+        <span class="tab-count" id="countInfra">4</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-checklist')">
+        <span>📋 第一週檢核甘特追蹤</span>
+        <span class="tab-count" id="countChecklist">8</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-gallery')">
+        <span>🖼️ 圖資上傳與審核藝廊</span>
+        <span class="tab-count" id="countGallery">3</span>
+      </button>
+    </div>
+
+    <!-- Tab 1: 軟體系統與 API 總表 -->
+    <div id="tab-software" class="tab-pane active">
+      <div class="pane-toolbar">
+        <div class="search-filter-box">
+          <input type="text" class="input-search" id="searchSoftware" placeholder="搜尋系統代碼、名稱或填報人..." oninput="renderSoftwareTable()">
+          <select class="select-filter" id="filterPlantSoftware" onchange="renderSoftwareTable()">
+            <option value="ALL">全廠區 (All Locations)</option>
+            <option value="總部（內湖）">台北總部（內湖）</option>
+            <option value="越南廠 (Vietnam)">越南廠 (Vietnam)</option>
+            <option value="柬埔寨廠 (Cambodia)">柬埔寨廠 (Cambodia)</option>
+            <option value="印尼廠 (Indonesia)">印尼廠 (Indonesia)</option>
+          </select>
+          <select class="select-filter" id="filterStatusSoftware" onchange="renderSoftwareTable()">
+            <option value="ALL">全部審核狀態</option>
+            <option value="待填報">待填報</option>
+            <option value="審核中">審核中</option>
+            <option value="待審核">待審核</option>
+            <option value="已審核">已審核</option>
+          </select>
+        </div>
+        <div style="font-size:0.8rem; color:var(--text-muted);">
+          提示：點選「編輯」可上傳架構圖 (Visio/PNG/PDF) 或更新 API 負載。
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>系統名稱 / 代碼</th>
+              <th>運行廠區</th>
+              <th>架構圖狀態</th>
+              <th>部署圖狀態</th>
+              <th>自研 API 數</th>
+              <th>日均調用數</th>
+              <th>平均 Payload</th>
+              <th>現行權限治理模式</th>
+              <th>架構升級目標</th>
+              <th>圖資預覽</th>
+              <th>負責人</th>
+              <th>審核狀態</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="softwareTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: 自研 API 端點明細 -->
+    <div id="tab-endpoints" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="search-filter-box">
+          <input type="text" class="input-search" id="searchEndpoint" placeholder="搜尋端點 URI、呼叫端或主責人..." oninput="renderEndpointsTable()">
+          <select class="select-filter" id="filterMethodEndpoint" onchange="renderEndpointsTable()">
+            <option value="ALL">全部 HTTP 方法</option>
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="DELETE">DELETE</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="openAddEndpointModal()">
+          <span>➕</span> 新增 API 端點規格
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>系統代碼</th>
+              <th>端點路徑 (URI)</th>
+              <th>方法</th>
+              <th>呼叫端系統</th>
+              <th>日均調用</th>
+              <th>尖峰 QPS</th>
+              <th>Req / Res 大小</th>
+              <th>DB 操作</th>
+              <th>現行身分驗證</th>
+              <th>升級後治理機制</th>
+              <th>負責人</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="endpointsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 3: IS 基礎設施 BCP / SLA -->
+    <div id="tab-infra" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="search-filter-box">
+          <input type="text" class="input-search" id="searchInfra" placeholder="搜尋資料庫、伺服器或網管人..." oninput="renderInfraTable()">
+          <select class="select-filter" id="filterTierInfra" onchange="renderInfraTable()">
+            <option value="ALL">全部重點等級</option>
+            <option value="Tier 1">Tier 1 (生產極關鍵)</option>
+            <option value="Tier 2">Tier 2 (營運重要)</option>
+            <option value="Tier 3">Tier 3 (一般內部)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="openAddInfraModal()">
+          <span>➕</span> 新增基礎設施 BCP
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>系統 / 資料庫名稱</th>
+              <th>廠區</th>
+              <th>等級</th>
+              <th>SLA</th>
+              <th>目標 RTO</th>
+              <th>目標 RPO</th>
+              <th>本地備份機制</th>
+              <th>異地備援機制</th>
+              <th>最近演練</th>
+              <th>專線監控 (NetFlow)</th>
+              <th>負責網管</th>
+              <th>狀態</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="infraTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 4: 第一週檢核甘特追蹤 -->
+    <div id="tab-checklist" class="tab-pane">
+      <div class="pane-toolbar">
+        <div>
+          <strong>第一週里程碑驗收檢核清單 (2026/11/11 ～ 11/17)</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted); margin-left:10px;">點選核取方塊以更新進度，資料自動儲存</span>
+        </div>
+        <div style="font-size:0.85rem;">
+          進度：<strong id="checklistProgressText" style="color:var(--accent);">0 / 8 完成</strong>
+        </div>
+      </div>
+      <div id="checklistContainer"></div>
+    </div>
+
+    <!-- Tab 5: 圖資上傳與審核藝廊 -->
+    <div id="tab-gallery" class="tab-pane">
+      <div class="pane-toolbar">
+        <div>
+          <strong>全集團架構圖與部署拓撲圖資總覽</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted); margin-left:10px;">點擊圖片可放大高解析度檢視，或下載原始圖檔</span>
+        </div>
+      </div>
+      <div class="gallery-grid" id="galleryContainer"></div>
+    </div>
+  </div>
+
+  <!-- Modal: 新增 / 編輯 軟體系統 -->
+  <div class="modal-overlay" id="softwareModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="softwareModalTitle">填報軟體系統與自研 API 資訊</h3>
+        <button class="icon-btn" onclick="closeModal('softwareModal')">✕</button>
+      </div>
+      <form id="softwareForm" onsubmit="saveSoftwareForm(event)">
+        <input type="hidden" id="softId">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>系統名稱與代碼 *</label>
+            <input type="text" class="form-control" id="softName" required placeholder="例如：D365 介接中繼 (RSI-D365-Hub)">
+          </div>
+          <div class="form-group">
+            <label>運行廠區 *</label>
+            <select class="form-control" id="softPlant" required>
+              <option value="總部（內湖）">總部（內湖）</option>
+              <option value="越南廠 (Vietnam)">越南廠 (Vietnam)</option>
+              <option value="柬埔寨廠 (Cambodia)">柬埔寨廠 (Cambodia)</option>
+              <option value="印尼廠 (Indonesia)">印尼廠 (Indonesia)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>架構圖狀態</label>
+            <select class="form-control" id="softArchStatus">
+              <option value="未開始">未開始</option>
+              <option value="草稿繪製中">草稿繪製中</option>
+              <option value="待審核">待審核</option>
+              <option value="架構圖已具備">架構圖已具備</option>
+              <option value="架構圖齊全">架構圖齊全 (最新版)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>部署拓撲圖狀態</label>
+            <select class="form-control" id="softDeployStatus">
+              <option value="未開始">未開始</option>
+              <option value="未繪製 (待清查 VM)">未繪製 (待清查 VM)</option>
+              <option value="部署圖草稿 (需補 Port)">部署圖草稿 (需補 Port)</option>
+              <option value="拓撲圖齊全">拓撲圖齊全 (vCenter 8)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>自研 API 支數</label>
+            <input type="text" class="form-control" id="softApiCount" placeholder="例如：28 支 REST API">
+          </div>
+          <div class="form-group">
+            <label>日均調用次數</label>
+            <input type="text" class="form-control" id="softDailyCalls" placeholder="例如：150,000 次/日">
+          </div>
+          <div class="form-group">
+            <label>平均 Payload (KB)</label>
+            <input type="text" class="form-control" id="softPayload" placeholder="例如：18.5 KB (JSON)">
+          </div>
+          <div class="form-group">
+            <label>審核狀態</label>
+            <select class="form-control" id="softAuditStatus">
+              <option value="待填報">待填報</option>
+              <option value="待審核">待審核</option>
+              <option value="審核中">審核中</option>
+              <option value="已審核">已審核</option>
+            </select>
+          </div>
+          <div class="form-group col-span-2">
+            <label>現行資料權限治理模式</label>
+            <input type="text" class="form-control" id="softPermission" placeholder="例如：D365 Data Entity ＋ 部分前端過濾">
+          </div>
+          <div class="form-group col-span-2">
+            <label>架構升級目標 (蜂巢計畫第二週推進路徑)</label>
+            <input type="text" class="form-control" id="softUpgradeTarget" placeholder="例如：推進 Tenant-Aware Repository 與 RLS 下沉">
+          </div>
+          <div class="form-group">
+            <label>填報負責人 *</label>
+            <input type="text" class="form-control" id="softOwner" required placeholder="例如：台北軟體組資深工程師">
+          </div>
+          <div class="form-group">
+            <label>預計完成日</label>
+            <input type="date" class="form-control" id="softDueDate" value="2026-11-16">
+          </div>
+          <div class="form-group col-span-2">
+            <label>上傳架構圖 / 部署拓撲圖檔 (支援 PNG, JPG, SVG, Visio, PDF)</label>
+            <div class="drop-zone" id="softDropZone" onclick="document.getElementById('softFileInput').click()">
+              <div class="drop-zone-text">點擊選擇檔案，或直接將架構圖拖曳至此處</div>
+              <input type="file" id="softFileInput" accept="image/*,.pdf,.vsdx,.drawio" style="display:none;" onchange="handleSoftFileUpload(event)">
+            </div>
+            <div id="softFilePreviewContainer"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeModal('softwareModal')">取消</button>
+          <button type="submit" class="btn btn-primary">儲存填報資料</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: 新增 / 編輯 API 端點 -->
+  <div class="modal-overlay" id="endpointModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="endpointModalTitle">新增自研 API 端點規格</h3>
+        <button class="icon-btn" onclick="closeModal('endpointModal')">✕</button>
+      </div>
+      <form id="endpointForm" onsubmit="saveEndpointForm(event)">
+        <input type="hidden" id="epId">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>所屬系統代碼 *</label>
+            <input type="text" class="form-control" id="epSystem" required placeholder="例如：RSI-D365-Hub">
+          </div>
+          <div class="form-group">
+            <label>HTTP 方法 *</label>
+            <select class="form-control" id="epMethod" required>
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
+            </select>
+          </div>
+          <div class="form-group col-span-2">
+            <label>端點路徑 (Endpoint URI) *</label>
+            <input type="text" class="form-control" id="epUri" required placeholder="例如：/api/v1/inventory/onhand">
+          </div>
+          <div class="form-group">
+            <label>呼叫端系統 (Caller) *</label>
+            <input type="text" class="form-control" id="epCaller" required placeholder="例如：成衣 MES 系統">
+          </div>
+          <div class="form-group">
+            <label>日均調用次數</label>
+            <input type="number" class="form-control" id="epDailyCalls" placeholder="65000">
+          </div>
+          <div class="form-group">
+            <label>尖峰預估 QPS</label>
+            <input type="number" class="form-control" id="epQps" placeholder="120">
+          </div>
+          <div class="form-group">
+            <label>Request / Response 大小 (KB)</label>
+            <input type="text" class="form-control" id="epPayload" placeholder="例如：Req 0.5KB / Res 18.5KB">
+          </div>
+          <div class="form-group">
+            <label>資料庫操作 (CRUD)</label>
+            <input type="text" class="form-control" id="epCrud" placeholder="例如：Read (D365 Data Entity)">
+          </div>
+          <div class="form-group">
+            <label>現行身分驗證方式</label>
+            <input type="text" class="form-control" id="epAuth" placeholder="例如：Bearer Token ＋ 廠區過濾">
+          </div>
+          <div class="form-group col-span-2">
+            <label>升級後治理機制</label>
+            <input type="text" class="form-control" id="epTarget" placeholder="例如：Tenant-Aware DAL 驗證 ＋ Token">
+          </div>
+          <div class="form-group col-span-2">
+            <label>填報人 *</label>
+            <input type="text" class="form-control" id="epOwner" required placeholder="填報工程師姓名">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeModal('endpointModal')">取消</button>
+          <button type="submit" class="btn btn-primary">儲存端點規格</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: 新增 / 編輯 IS 基礎設施 BCP -->
+  <div class="modal-overlay" id="infraModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="infraModalTitle">填報 IS 基礎設施 BCP / SLA 評定</h3>
+        <button class="icon-btn" onclick="closeModal('infraModal')">✕</button>
+      </div>
+      <form id="infraForm" onsubmit="saveInfraForm(event)">
+        <input type="hidden" id="infraId">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label>系統與資料庫名稱 *</label>
+            <input type="text" class="form-control" id="infraName" required placeholder="例如：D365 營運與財務庫 (MS-SQL 2019)">
+          </div>
+          <div class="form-group">
+            <label>所屬廠區 *</label>
+            <select class="form-control" id="infraPlant" required>
+              <option value="總部（內湖）">總部（內湖）</option>
+              <option value="越南廠 (Vietnam)">越南廠 (Vietnam)</option>
+              <option value="柬埔寨廠 (Cambodia)">柬埔寨廠 (Cambodia)</option>
+              <option value="印尼廠 (Indonesia)">印尼廠 (Indonesia)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>重點等級 (Tier) *</label>
+            <select class="form-control" id="infraTier" required>
+              <option value="Tier 1 (極關鍵)">Tier 1 (極關鍵)</option>
+              <option value="Tier 2 (關鍵營運)">Tier 2 (關鍵營運)</option>
+              <option value="Tier 3 (內部查詢)">Tier 3 (內部查詢)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>可用度 SLA (%)</label>
+            <input type="text" class="form-control" id="infraSla" value="99.9%">
+          </div>
+          <div class="form-group">
+            <label>目標 RTO</label>
+            <input type="text" class="form-control" id="infraRto" placeholder="例如：< 2 小時 (即時切換)">
+          </div>
+          <div class="form-group">
+            <label>目標 RPO</label>
+            <input type="text" class="form-control" id="infraRpo" placeholder="例如：< 15 分鐘 (交易日誌)">
+          </div>
+          <div class="form-group">
+            <label>最近 DR 演練日期</label>
+            <input type="text" class="form-control" id="infraDrDate" placeholder="例如：2026/08/15 (演練成功)">
+          </div>
+          <div class="form-group col-span-2">
+            <label>本地備份機制</label>
+            <input type="text" class="form-control" id="infraLocalBackup" placeholder="例如：每日全備 ＋ 每小時增量備份">
+          </div>
+          <div class="form-group col-span-2">
+            <label>異地備援與抄寫機制</label>
+            <input type="text" class="form-control" id="infraRemoteBackup" placeholder="例如：Azure 雲端熱備備援 ＋ 異地只讀副本">
+          </div>
+          <div class="form-group col-span-2">
+            <label>跨國專線監控狀態 (DYXnet / NetFlow)</label>
+            <input type="text" class="form-control" id="infraNetflow" placeholder="例如：NetFlow 監控中，尖峰流量正常">
+          </div>
+          <div class="form-group">
+            <label>負責網管工程師 *</label>
+            <input type="text" class="form-control" id="infraOwner" required placeholder="例如：台北 IS 組資深網管">
+          </div>
+          <div class="form-group">
+            <label>審核狀態</label>
+            <select class="form-control" id="infraAuditStatus">
+              <option value="待填報">待填報</option>
+              <option value="待審核">待審核</option>
+              <option value="已審核">已審核</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeModal('infraModal')">取消</button>
+          <button type="submit" class="btn btn-primary">儲存 BCP 評定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal for Diagram Preview -->
+  <div class="modal-overlay" id="lightboxModal" onclick="closeModal('lightboxModal')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 id="lightboxTitle" style="color:#fff;">架構圖高解析度預覽</h3>
+        <button class="icon-btn" onclick="closeModal('lightboxModal')">✕</button>
+      </div>
+      <img id="lightboxImg" src="" alt="架構圖預覽">
+      <div style="margin-top:14px; display:flex; justify-content:center; gap:12px;">
+        <a id="lightboxDownload" class="btn btn-primary" download="architecture_diagram.png">📥 下載完整圖檔</a>
+        <button class="btn" onclick="closeModal('lightboxModal')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">已成功更新資料！</div>
+
+  <script>
+    // 預設官方範本數據 (依據 2026/11/09 架構評估報告規範)
+    const DEFAULT_DATA = {
+      software: [
+        {
+          id: "SOFT-01",
+          name: "D365 介接中繼 (RSI-D365-Hub)",
+          plant: "總部（內湖）",
+          archStatus: "架構圖已具備",
+          deployStatus: "部署圖草稿 (需補 Port)",
+          apiCount: "28 支 REST API",
+          dailyCalls: "150,000 次/日",
+          payload: "18.5 KB (JSON)",
+          permission: "D365 Data Entity ＋ 部分前端過濾",
+          upgradeTarget: "推進 Tenant-Aware Repository 與 RLS",
+          owner: "台北軟體組資深工程師",
+          dueDate: "2026-11-15",
+          auditStatus: "待審核",
+          file: {
+            name: "RSI-D365-Hub_Architecture_v1.png",
+            size: "342 KB",
+            type: "image/png",
+            // 生成一張具象的架構示意圖 SVG Data URL
+            data: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'><rect width='100%25' height='100%25' fill='%23111827'/><text x='400' y='50' fill='%2338bdf8' font-size='22' font-family='sans-serif' font-weight='bold' text-anchor='middle'>RSI-D365-Hub Architecture Overview</text><rect x='80' y='120' width='180' height='220' rx='8' fill='%231f2937' stroke='%2338bdf8' stroke-width='2'/><text x='170' y='155' fill='%23f9fafb' font-size='16' font-family='sans-serif' text-anchor='middle'>Presentation Layer</text><text x='170' y='200' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• WinForms Client</text><text x='170' y='230' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• Web Management</text><text x='170' y='260' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• Mobile QC App</text><line x1='260' y1='230' x2='320' y2='230' stroke='%23f59e0b' stroke-width='3' stroke-dasharray='5,5'/><rect x='320' y='120' width='200' height='220' rx='8' fill='%231f2937' stroke='%23f59e0b' stroke-width='2'/><text x='420' y='155' fill='%23f9fafb' font-size='16' font-family='sans-serif' text-anchor='middle'>RSI Hub Service (API)</text><text x='420' y='195' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• 28 REST APIs</text><text x='420' y='225' fill='%2338bdf8' font-size='13' font-family='sans-serif' text-anchor='middle'>• Tenant-Aware DAL</text><text x='420' y='255' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• Jwt / Bearer Auth</text><line x1='520' y1='230' x2='580' y2='230' stroke='%2310b981' stroke-width='3'/><rect x='580' y='120' width='160' height='220' rx='8' fill='%231f2937' stroke='%2310b981' stroke-width='2'/><text x='660' y='155' fill='%23f9fafb' font-size='16' font-family='sans-serif' text-anchor='middle'>D365 Core ERP</text><text x='660' y='200' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• MS-SQL 2019</text><text x='660' y='230' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• OData Entities</text><text x='660' y='260' fill='%239ca3af' font-size='13' font-family='sans-serif' text-anchor='middle'>• Dual-Entity Isolation</text></svg>"
+          }
+        },
+        {
+          id: "SOFT-02",
+          name: "生產 MES 中繼服務 (VN-MES-API)",
+          plant: "越南廠 (Vietnam)",
+          archStatus: "草稿繪製中",
+          deployStatus: "未繪製 (待清查 VM)",
+          apiCount: "42 支 Web API",
+          dailyCalls: "480,000 次/日",
+          payload: "4.2 KB (XML/JSON)",
+          permission: "前端程式控管 (關鍵升級節點)",
+          upgradeTarget: "全面下沉至 C# DataModel 與 DAL 驗證",
+          owner: "越南廠軟體窗口",
+          dueDate: "2026-11-16",
+          auditStatus: "待填報",
+          file: null
+        },
+        {
+          id: "SOFT-03",
+          name: "出勤薪資拋轉模組 (CB-HR-Service)",
+          plant: "柬埔寨廠 (Cambodia)",
+          archStatus: "待審核",
+          deployStatus: "部署圖草稿 (需補 Port)",
+          apiCount: "12 支 SOAP/REST",
+          dailyCalls: "25,000 次/日",
+          payload: "85.0 KB (大封包報表)",
+          permission: "前端程式判斷工號 (待導入 RLS)",
+          upgradeTarget: "導入 MS-SQL RLS 欄位過濾與離峰分流",
+          owner: "柬埔寨廠軟體工程師",
+          dueDate: "2026-11-16",
+          auditStatus: "待填報",
+          file: {
+            name: "Cambodia_HR_Topology_Draft.png",
+            size: "210 KB",
+            type: "image/png",
+            data: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'><rect width='100%25' height='100%25' fill='%231e293b'/><text x='400' y='60' fill='%23f59e0b' font-size='22' font-family='sans-serif' font-weight='bold' text-anchor='middle'>Cambodia HR Service Network Topology</text><rect x='150' y='140' width='220' height='180' rx='8' fill='%230f172a' stroke='%23f59e0b' stroke-width='2'/><text x='260' y='180' fill='%23f8fafc' font-size='16' font-family='sans-serif' text-anchor='middle'>Cambodia Local Server</text><text x='260' y='220' fill='%2394a3b8' font-size='13' font-family='sans-serif' text-anchor='middle'>IP: 192.168.10.25</text><text x='260' y='250' fill='%2394a3b8' font-size='13' font-family='sans-serif' text-anchor='middle'>Port: 8080 (SOAP/REST)</text><line x1='370' y1='230' x2='470' y2='230' stroke='%2338bdf8' stroke-width='3'/><rect x='470' y='140' width='220' height='180' rx='8' fill='%230f172a' stroke='%2338bdf8' stroke-width='2'/><text x='580' y='180' fill='%23f8fafc' font-size='16' font-family='sans-serif' text-anchor='middle'>Taipei HQ Receiver</text><text x='580' y='220' fill='%2394a3b8' font-size='13' font-family='sans-serif' text-anchor='middle'>DYXnet VPN Tunnel</text><text x='580' y='250' fill='%2394a3b8' font-size='13' font-family='sans-serif' text-anchor='middle'>Payload: 85 KB Batch</text></svg>"
+          }
+        },
+        {
+          id: "SOFT-04",
+          name: "成衣品管檢驗系統 (ID-QC-Tracking)",
+          plant: "印尼廠 (Indonesia)",
+          archStatus: "架構圖齊全",
+          deployStatus: "拓撲圖齊全",
+          apiCount: "18 支 REST API",
+          dailyCalls: "85,000 次/日",
+          payload: "12.0 KB (含條碼字串)",
+          permission: "Data Access Layer 初步模型控制",
+          upgradeTarget: "優化 DAL 統一驗證與快取機制",
+          owner: "印尼廠軟體窗口",
+          dueDate: "2026-11-15",
+          auditStatus: "已審核",
+          file: {
+            name: "Indonesia_QC_vCenter_Architecture.png",
+            size: "415 KB",
+            type: "image/png",
+            data: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'><rect width='100%25' height='100%25' fill='%230f172a'/><text x='400' y='60' fill='%2310b981' font-size='22' font-family='sans-serif' font-weight='bold' text-anchor='middle'>Indonesia QC System (vCenter 8 Cluster)</text><rect x='100' y='150' width='180' height='160' rx='8' fill='%231e293b' stroke='%2310b981' stroke-width='2'/><text x='190' y='190' fill='%23fff' font-size='16' font-family='sans-serif' text-anchor='middle'>QC Mobile Tablet</text><text x='190' y='230' fill='%2394a3b8' font-size='13' font-family='sans-serif' text-anchor='middle'>Barcode Scan Engine</text><line x1='280' y1='230' x2='360' y2='230' stroke='%2310b981' stroke-width='3'/><rect x='360' y='150' width='200' height='160' rx='8' fill='%231e293b' stroke='%2310b981' stroke-width='2'/><text x='460' y='190' fill='%23fff' font-size='16' font-family='sans-serif' text-anchor='middle'>VMware VM (vCenter 8)</text><text x='460' y='230' fill='%2338bdf8' font-size='13' font-family='sans-serif' text-anchor='middle'>ID-QC-API (Core 4/RAM 16G)</text><line x1='560' y1='230' x2='640' y2='230' stroke='%2310b981' stroke-width='3'/><rect x='640' y='150' width='120' height='160' rx='8' fill='%231e293b' stroke='%2310b981' stroke-width='2'/><text x='700' y='200' fill='%23fff' font-size='15' font-family='sans-serif' text-anchor='middle'>MS-SQL</text><text x='700' y='230' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>Port 1433</text></svg>"
+          }
+        }
+      ],
+      endpoints: [
+        {
+          id: "EP-01",
+          system: "RSI-D365-Hub",
+          method: "GET",
+          uri: "/api/v1/inventory/onhand",
+          caller: "成衣 MES 系統",
+          dailyCalls: 65000,
+          qps: 120,
+          payload: "Req 0.5KB / Res 18.5KB",
+          crud: "Read (D365 Data Entity)",
+          auth: "Bearer Token ＋ 廠區代碼過濾",
+          target: "Tenant-Aware DAL ＋ Token 驗證",
+          owner: "台北軟體組資深工程師"
+        },
+        {
+          id: "EP-02",
+          system: "VN-MES-API",
+          method: "POST",
+          uri: "/api/mes/cutting/batch-sync",
+          caller: "裁剪產線機台 Client",
+          dailyCalls: 180000,
+          qps: 350,
+          payload: "Req 2.1KB / Res 1.2KB",
+          crud: "Create / Update (SQL)",
+          auth: "前端程式傳遞 PlantID",
+          target: "下沉至 C# DataModel 與 DAL 驗證",
+          owner: "越南廠軟體窗口"
+        },
+        {
+          id: "EP-03",
+          system: "CB-HR-Service",
+          method: "POST",
+          uri: "/soap/payroll/export-summary",
+          caller: "總部 HR 結算系統",
+          dailyCalls: 8500,
+          qps: 25,
+          payload: "Req 1.5KB / Res 85.0KB",
+          crud: "Read (大資料報表)",
+          auth: "前端工號字串判斷",
+          target: "導入 MS-SQL RLS 欄位級遮蔽與非同步下載",
+          owner: "柬埔寨廠軟體工程師"
+        },
+        {
+          id: "EP-04",
+          system: "ID-QC-Tracking",
+          method: "POST",
+          uri: "/api/qc/inspection/submit",
+          caller: "品管平板 App",
+          dailyCalls: 45000,
+          qps: 80,
+          payload: "Req 3.2KB / Res 0.8KB",
+          crud: "Create (MS-SQL)",
+          auth: "API Key ＋ DAL 模型驗證",
+          target: "DAL 統一驗證 ＋ 異常快取",
+          owner: "印尼廠軟體窗口"
+        }
+      ],
+      infra: [
+        {
+          id: "INFRA-01",
+          name: "D365 營運與財務庫 (MS-SQL 2019)",
+          plant: "總部（內湖）",
+          tier: "Tier 1 (極關鍵)",
+          sla: "99.9%",
+          rto: "< 2 小時 (即時切換)",
+          rpo: "< 15 分鐘 (交易日誌)",
+          localBackup: "每日全備 ＋ 每小時增量備份",
+          remoteBackup: "Azure 雲端熱備備援 ＋ 異地只讀副本",
+          drDate: "2026/08/15 (演練完成)",
+          netflow: "NetFlow 監控中，尖峰流量正常",
+          owner: "台北 IS 組資深網管",
+          auditStatus: "已審核"
+        },
+        {
+          id: "INFRA-02",
+          name: "成衣裁縫 MES 資料庫 (MS-SQL 2016)",
+          plant: "越南廠 (Vietnam)",
+          tier: "Tier 1 (極關鍵)",
+          sla: "99.9%",
+          rto: "< 2 小時 (本機還原)",
+          rpo: "< 30 分鐘 (即時備份)",
+          localBackup: "每日本地快照 ＋ 6小時差異備份",
+          remoteBackup: "專線備份至總部 (受限頻寬待強化)",
+          drDate: "2026/05/20 (演練完成)",
+          netflow: "量測中，API 尖峰頻寬待分析",
+          owner: "越南廠 IS 網管窗口",
+          auditStatus: "待審核"
+        },
+        {
+          id: "INFRA-03",
+          name: "跨廠物流報關系統 (MS-SQL 2014)",
+          plant: "柬埔寨廠 (Cambodia)",
+          tier: "Tier 2 (關鍵營運)",
+          sla: "99.5%",
+          rto: "< 8 小時 (半日內)",
+          rpo: "< 2 小時 (定時備份)",
+          localBackup: "每日本地全備 (保留 14 天)",
+          remoteBackup: "離線磁碟異地保存 (待升級自動化)",
+          drDate: "2025/11/10 (距今滿一年)",
+          netflow: "待部署 NetFlow 封包擷取",
+          owner: "柬埔寨廠 IS 網管窗口",
+          auditStatus: "待填報"
+        },
+        {
+          id: "INFRA-04",
+          name: "歷史訂單與樣品歸檔 (MS-SQL 2012)",
+          plant: "印尼廠 (Indonesia)",
+          tier: "Tier 3 (內部查詢)",
+          sla: "99.0%",
+          rto: "< 24 小時 (隔日復原)",
+          rpo: "< 24 小時 (每日一份)",
+          localBackup: "每週全備 ＋ 每季冷封存",
+          remoteBackup: "本地 NAS 備存 (穩健營運韌性待補強)",
+          drDate: "無演練紀錄 (建置後未測試)",
+          netflow: "封閉區網，無專線外溢",
+          owner: "印尼廠 IS 網管窗口",
+          auditStatus: "待填報"
+        }
+      ],
+      checklist: [
+        {
+          id: "CHK-01",
+          team: "軟體研發組（總部）",
+          title: "D365-Hub 軟體架構圖與部署拓撲圖編制",
+          desc: "完成總部 28 支自研 API 清冊盤點，補齊對外 Port 與 IP 區段，確立 Tenant-Aware DAL 規範。",
+          deliverable: "Visio / Draw.io / CSV 回填表",
+          owner: "台北軟體組資深工程師",
+          completed: true
+        },
+        {
+          id: "CHK-02",
+          team: "軟體研發組（越南廠）",
+          title: "VN-MES-API 軟體架構圖與 42 支 API 盤點",
+          desc: "清查 VMware 虛擬機部署拓撲，盤點 48 萬次日調用之負載與前端控權改寫清單。",
+          deliverable: "PNG 架構初稿 / API 清冊",
+          owner: "越南廠軟體窗口",
+          completed: false
+        },
+        {
+          id: "CHK-03",
+          team: "軟體研發組（柬埔寨廠）",
+          title: "出勤薪資拋轉模組 Visio 與大封包清查",
+          desc: "標定 85KB 大封包報表傳輸排程，繪製出勤系統拓撲圖，規劃 RLS 欄位級隔離。",
+          deliverable: "Visio 架構圖 / 網路拓撲圖",
+          owner: "柬埔寨廠軟體工程師",
+          completed: false
+        },
+        {
+          id: "CHK-04",
+          team: "軟體研發組（印尼廠）",
+          title: "ID-QC-Tracking 最新架構複核與 DAL 驗證",
+          desc: "檢驗 VMware vCenter 8 拓撲圖一致性，確認條碼高頻掃描 API 負載與快取架構。",
+          deliverable: "PDF 最新版圖資 / CSV",
+          owner: "印尼廠軟體窗口",
+          completed: true
+        },
+        {
+          id: "CHK-05",
+          team: "IS 基礎設施組（總部）",
+          title: "DYXnet 跨國專線 NetFlow 監控與 Tier 1 備份校驗",
+          desc: "啟動台北與海外廠專線封包監控，統籌全集團 MS-SQL 備份排程與 SLA 定級清冊。",
+          deliverable: "專線流量基線報告 / BCP 清冊",
+          owner: "台北 IS 組資深網管",
+          completed: true
+        },
+        {
+          id: "CHK-06",
+          team: "IS 基礎設施組（海外廠區）",
+          title: "海外各廠資料庫 BCP 盤點與 DR 演練缺口標定",
+          desc: "清查各廠本地備份保存天數、異地備援可用性，檢驗 Cortex XDR Broker VM 狀態。",
+          deliverable: "海外 BCP 清單 / DR 演練表",
+          owner: "各廠區網管工程師",
+          completed: false
+        },
+        {
+          id: "CHK-07",
+          team: "D365 / ERP 核心應用組",
+          title: "D365 Data Entities 介接清冊與權限邊界驗證",
+          desc: "檢視自研系統介接專屬 Security Role，驗證 Legal Entity 跨廠區權限實體隔離邊界。",
+          deliverable: "D365 介接清單 / 權限對照表",
+          owner: "D365 顧問組",
+          completed: false
+        },
+        {
+          id: "CHK-08",
+          team: "專案管理與架構主持",
+          title: "第一週任務彙整、答疑與第二週架構總結準備",
+          desc: "發布標準架構圖規格書與回填表，逐日答疑，審查各組初稿，籌備第二週總結提報。",
+          deliverable: "第一週總結報告 / 第二週草案",
+          owner: "Howard Liao Ph.D.",
+          completed: false
+        }
+      ]
+    };
+
+    // 本地持久化資料存取
+    const STORAGE_KEY = "RSI_HIVE_WEEK1_DATA_V1";
+    let appData = {};
+
+    function initData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          appData = JSON.parse(stored);
+        } catch (e) {
+          console.error("Failed to parse stored data", e);
+          appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        }
+      } else {
+        appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        saveData();
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+      updateMetrics();
+      updateTabCounts();
+    }
+
+    function resetToDefaults() {
+      if (confirm("確定要重設回官方第一週標準範本數據嗎？本機自訂填報將被覆蓋。")) {
+        appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        saveData();
+        renderAll();
+        showToast("已成功重設回官方第一週標準範本！");
+      }
+    }
+
+    // 主題切換
+    function changeTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("rsi_portal_theme", theme);
+    }
+
+    function loadSavedTheme() {
+      const saved = localStorage.getItem("rsi_portal_theme") || "obsidian";
+      document.body.setAttribute("data-theme", saved);
+      document.getElementById("themeSelect").value = saved;
+    }
+
+    // 頁籤切換
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      
+      const pane = document.getElementById(tabId);
+      if (pane) pane.classList.add("active");
+
+      const btn = Array.from(document.querySelectorAll(".tab-btn")).find(b => b.getAttribute("onclick").includes(tabId));
+      if (btn) btn.classList.add("active");
+    }
+
+    // Toast
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2500);
+    }
+
+    // 更新 Bento KPI
+    function updateMetrics() {
+      document.getElementById("metricSystems").innerText = `${appData.software.length} 系統`;
+      
+      const totalApis = appData.software.reduce((acc, curr) => {
+        const m = (curr.apiCount || "").match(/\d+/);
+        return acc + (m ? parseInt(m[0], 10) : 0);
+      }, 0);
+      document.getElementById("metricApis").innerText = `${totalApis} 支`;
+
+      const totalCalls = appData.software.reduce((acc, curr) => {
+        const m = (curr.dailyCalls || "").replace(/,/g, "").match(/\d+/);
+        return acc + (m ? parseInt(m[0], 10) : 0);
+      }, 0);
+      document.getElementById("metricCalls").innerText = `${totalCalls.toLocaleString()} 次`;
+
+      const tier1Count = appData.infra.filter(i => (i.tier || "").includes("Tier 1")).length;
+      document.getElementById("metricTier1").innerText = `${tier1Count} 座 (99.9%)`;
+
+      const diagCount = appData.software.filter(s => s.file && s.file.data).length;
+      document.getElementById("metricDiagrams").innerText = `${diagCount} 份已具備`;
+    }
+
+    function updateTabCounts() {
+      document.getElementById("countSoftware").innerText = appData.software.length;
+      document.getElementById("countEndpoints").innerText = appData.endpoints.length;
+      document.getElementById("countInfra").innerText = appData.infra.length;
+      document.getElementById("countChecklist").innerText = appData.checklist.length;
+      document.getElementById("countGallery").innerText = appData.software.filter(s => s.file && s.file.data).length;
+    }
+
+    // 表格 1 渲染：軟體系統
+    function renderSoftwareTable() {
+      const q = (document.getElementById("searchSoftware").value || "").toLowerCase();
+      const plant = document.getElementById("filterPlantSoftware").value;
+      const status = document.getElementById("filterStatusSoftware").value;
+
+      const tbody = document.getElementById("softwareTableBody");
+      tbody.innerHTML = "";
+
+      const filtered = appData.software.filter(item => {
+        const matchQ = (item.name + " " + item.plant + " " + item.owner).toLowerCase().includes(q);
+        const matchPlant = plant === "ALL" || item.plant === plant;
+        const matchStatus = status === "ALL" || item.auditStatus === status;
+        return matchQ && matchPlant && matchStatus;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="13" style="text-align:center; padding:30px; color:var(--text-muted);">無相符的自研軟體系統紀錄</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement("tr");
+
+        let auditBadgeClass = "badge-neutral";
+        if (item.auditStatus === "已審核") auditBadgeClass = "badge-success";
+        else if (item.auditStatus === "待審核") auditBadgeClass = "badge-warning";
+        else if (item.auditStatus === "審核中") auditBadgeClass = "badge-accent";
+
+        let archBadgeClass = (item.archStatus || "").includes("齊全") || (item.archStatus || "").includes("已具備") ? "badge-success" : "badge-warning";
+        let deployBadgeClass = (item.deployStatus || "").includes("齊全") ? "badge-success" : "badge-neutral";
+
+        let previewHtml = `<span style="color:var(--text-muted); font-size:0.75rem;">無圖檔</span>`;
+        if (item.file && item.file.data) {
+          previewHtml = `<img src="${item.file.data}" alt="${item.file.name}" style="width:40px; height:40px; object-fit:cover; border-radius:4px; border:1px solid var(--border); cursor:pointer;" onclick="openLightbox('${item.name}', '${item.file.data}')">`;
+        }
+
+        tr.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td><span class="badge badge-neutral">${item.plant}</span></td>
+          <td><span class="badge ${archBadgeClass}">${item.archStatus}</span></td>
+          <td><span class="badge ${deployBadgeClass}">${item.deployStatus}</span></td>
+          <td><strong>${item.apiCount}</strong></td>
+          <td>${item.dailyCalls}</td>
+          <td><code>${item.payload}</code></td>
+          <td style="font-size:0.8rem;">${item.permission}</td>
+          <td style="font-size:0.8rem; color:var(--accent);">${item.upgradeTarget}</td>
+          <td>${previewHtml}</td>
+          <td>${item.owner}</td>
+          <td><span class="badge ${auditBadgeClass}">${item.auditStatus}</span></td>
+          <td>
+            <div class="action-icons">
+              <button class="icon-btn" onclick="openEditSoftwareModal('${item.id}')">✏️ 編輯</button>
+              <button class="icon-btn" style="color:var(--danger);" onclick="deleteSoftware('${item.id}')">🗑️</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 表格 2 渲染：API 端點明細
+    function renderEndpointsTable() {
+      const q = (document.getElementById("searchEndpoint").value || "").toLowerCase();
+      const method = document.getElementById("filterMethodEndpoint").value;
+      const tbody = document.getElementById("endpointsTableBody");
+      tbody.innerHTML = "";
+
+      const filtered = appData.endpoints.filter(item => {
+        const matchQ = (item.system + " " + item.uri + " " + item.caller + " " + item.owner).toLowerCase().includes(q);
+        const matchMethod = method === "ALL" || item.method === method;
+        return matchQ && matchMethod;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="12" style="text-align:center; padding:30px; color:var(--text-muted);">無相符的 API 端點紀錄</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement("tr");
+
+        let methodBadge = "badge-neutral";
+        if (item.method === "GET") methodBadge = "badge-success";
+        else if (item.method === "POST") methodBadge = "badge-accent";
+        else if (item.method === "PUT") methodBadge = "badge-warning";
+        else if (item.method === "DELETE") methodBadge = "badge-danger";
+
+        tr.innerHTML = `
+          <td><strong>${item.system}</strong></td>
+          <td><code style="color:var(--accent); font-weight:600;">${item.uri}</code></td>
+          <td><span class="badge ${methodBadge}">${item.method}</span></td>
+          <td>${item.caller}</td>
+          <td>${Number(item.dailyCalls).toLocaleString()} 次</td>
+          <td><strong>${item.qps}</strong></td>
+          <td><code>${item.payload}</code></td>
+          <td style="font-size:0.8rem;">${item.crud}</td>
+          <td style="font-size:0.8rem;">${item.auth}</td>
+          <td style="font-size:0.8rem; color:var(--gold);">${item.target}</td>
+          <td>${item.owner}</td>
+          <td>
+            <div class="action-icons">
+              <button class="icon-btn" onclick="openEditEndpointModal('${item.id}')">✏️ 編輯</button>
+              <button class="icon-btn" style="color:var(--danger);" onclick="deleteEndpoint('${item.id}')">🗑️</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 表格 3 渲染：IS 基礎設施
+    function renderInfraTable() {
+      const q = (document.getElementById("searchInfra").value || "").toLowerCase();
+      const tier = document.getElementById("filterTierInfra").value;
+      const tbody = document.getElementById("infraTableBody");
+      tbody.innerHTML = "";
+
+      const filtered = appData.infra.filter(item => {
+        const matchQ = (item.name + " " + item.plant + " " + item.owner).toLowerCase().includes(q);
+        const matchTier = tier === "ALL" || (item.tier || "").includes(tier);
+        return matchQ && matchTier;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="13" style="text-align:center; padding:30px; color:var(--text-muted);">無相符的 IS 基礎設施紀錄</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement("tr");
+
+        let tierBadgeClass = "badge-neutral";
+        if (item.tier.includes("Tier 1")) tierBadgeClass = "badge-danger";
+        else if (item.tier.includes("Tier 2")) tierBadgeClass = "badge-warning";
+        else tierBadgeClass = "badge-neutral";
+
+        let auditBadgeClass = item.auditStatus === "已審核" ? "badge-success" : (item.auditStatus === "待審核" ? "badge-warning" : "badge-neutral");
+
+        tr.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td><span class="badge badge-neutral">${item.plant}</span></td>
+          <td><span class="badge ${tierBadgeClass}">${item.tier}</span></td>
+          <td><strong>${item.sla}</strong></td>
+          <td><code>${item.rto}</code></td>
+          <td><code>${item.rpo}</code></td>
+          <td style="font-size:0.8rem;">${item.localBackup}</td>
+          <td style="font-size:0.8rem; color:var(--accent);">${item.remoteBackup}</td>
+          <td style="font-size:0.8rem;">${item.drDate}</td>
+          <td style="font-size:0.8rem;">${item.netflow}</td>
+          <td>${item.owner}</td>
+          <td><span class="badge ${auditBadgeClass}">${item.auditStatus}</span></td>
+          <td>
+            <div class="action-icons">
+              <button class="icon-btn" onclick="openEditInfraModal('${item.id}')">✏️ 編輯</button>
+              <button class="icon-btn" style="color:var(--danger);" onclick="deleteInfra('${item.id}')">🗑️</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 表格 4 渲染：第一週檢核清單
+    function renderChecklist() {
+      const container = document.getElementById("checklistContainer");
+      container.innerHTML = "";
+
+      let completedCount = 0;
+      appData.checklist.forEach(task => {
+        if (task.completed) completedCount++;
+
+        const card = document.createElement("div");
+        card.className = "task-card";
+        card.innerHTML = `
+          <input type="checkbox" class="task-checkbox" ${task.completed ? "checked" : ""} onchange="toggleTask('${task.id}')">
+          <div class="task-content">
+            <div class="task-header">
+              <span class="task-title" style="${task.completed ? 'text-decoration:line-through; opacity:0.6;' : ''}">${task.title}</span>
+              <span class="badge badge-neutral">${task.team}</span>
+            </div>
+            <div class="task-desc">${task.desc}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <span class="task-deliverable">📦 交付物：${task.deliverable}</span>
+              <span class="task-meta">主責人：<strong>${task.owner}</strong></span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById("checklistProgressText").innerText = `${completedCount} / ${appData.checklist.length} 完成 (${Math.round(completedCount / appData.checklist.length * 100)}%)`;
+    }
+
+    function toggleTask(taskId) {
+      const task = appData.checklist.find(t => t.id === taskId);
+      if (task) {
+        task.completed = !task.completed;
+        saveData();
+        renderChecklist();
+        showToast("已更新任務進度！");
+      }
+    }
+
+    // 表格 5 渲染：圖資藝廊
+    function renderGallery() {
+      const container = document.getElementById("galleryContainer");
+      container.innerHTML = "";
+
+      const withDiagrams = appData.software.filter(s => s.file && s.file.data);
+      if (withDiagrams.length === 0) {
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted); background:var(--card-bg); border-radius:12px; border:1px solid var(--border);">目前尚無上傳之架構圖檔，請於「軟體系統與 API 總表」中編輯上傳。</div>`;
+        return;
+      }
+
+      withDiagrams.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "gallery-card";
+        card.innerHTML = `
+          <div class="gallery-img-container" onclick="openLightbox('${item.name}', '${item.file.data}')">
+            <img src="${item.file.data}" alt="${item.file.name}" class="gallery-img">
+          </div>
+          <div class="gallery-body">
+            <div>
+              <div style="font-weight:600; font-size:0.95rem; margin-bottom:4px;">${item.name}</div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">${item.plant} ｜ ${item.owner}</div>
+              <div style="font-size:0.75rem; color:var(--accent); margin-top:4px;">檔名：${item.file.name} (${item.file.size})</div>
+            </div>
+            <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+              <span class="badge badge-success">${item.archStatus}</span>
+              <a href="${item.file.data}" download="${item.file.name}" class="btn" style="font-size:0.75rem; padding:4px 8px;">📥 下載圖檔</a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderAll() {
+      renderSoftwareTable();
+      renderEndpointsTable();
+      renderInfraTable();
+      renderChecklist();
+      renderGallery();
+      updateMetrics();
+      updateTabCounts();
+    }
+
+    // Modal 與 表單操作
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add("active");
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove("active");
+    }
+
+    // 軟體系統 Form
+    let currentUploadedSoftFile = null;
+
+    function openAddModal() {
+      document.getElementById("softwareModalTitle").innerText = "填報軟體系統與自研 API 資訊";
+      document.getElementById("softId").value = "";
+      document.getElementById("softwareForm").reset();
+      document.getElementById("softFilePreviewContainer").innerHTML = "";
+      currentUploadedSoftFile = null;
+      openModal("softwareModal");
+    }
+
+    function openEditSoftwareModal(id) {
+      const item = appData.software.find(s => s.id === id);
+      if (!item) return;
+
+      document.getElementById("softwareModalTitle").innerText = `編輯：${item.name}`;
+      document.getElementById("softId").value = item.id;
+      document.getElementById("softName").value = item.name;
+      document.getElementById("softPlant").value = item.plant;
+      document.getElementById("softArchStatus").value = item.archStatus;
+      document.getElementById("softDeployStatus").value = item.deployStatus;
+      document.getElementById("softApiCount").value = item.apiCount || "";
+      document.getElementById("softDailyCalls").value = item.dailyCalls || "";
+      document.getElementById("softPayload").value = item.payload || "";
+      document.getElementById("softAuditStatus").value = item.auditStatus;
+      document.getElementById("softPermission").value = item.permission || "";
+      document.getElementById("softUpgradeTarget").value = item.upgradeTarget || "";
+      document.getElementById("softOwner").value = item.owner || "";
+      document.getElementById("softDueDate").value = item.dueDate || "2026-11-16";
+
+      currentUploadedSoftFile = item.file || null;
+      renderSoftFilePreview();
+      openModal("softwareModal");
+    }
+
+    function handleSoftFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        currentUploadedSoftFile = {
+          name: file.name,
+          size: (file.size / 1024).toFixed(1) + " KB",
+          type: file.type,
+          data: evt.target.result
+        };
+        renderSoftFilePreview();
+      };
+
+      if (file.type.startsWith("image/") || file.name.endsWith(".svg")) {
+        reader.readAsDataURL(file);
+      } else {
+        // 非圖片 (如 PDF 或 Visio) 記錄檔名與模擬圖標
+        currentUploadedSoftFile = {
+          name: file.name,
+          size: (file.size / 1024).toFixed(1) + " KB",
+          type: file.type || "application/octet-stream",
+          data: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='100%25' height='100%25' fill='%231e293b'/><text x='200' y='100' fill='%2338bdf8' font-size='16' font-family='sans-serif' text-anchor='middle'>📄 " + encodeURIComponent(file.name) + "</text></svg>"
+        };
+        renderSoftFilePreview();
+      }
+    }
+
+    function renderSoftFilePreview() {
+      const container = document.getElementById("softFilePreviewContainer");
+      if (!currentUploadedSoftFile) {
+        container.innerHTML = "";
+        return;
+      }
+      container.innerHTML = `
+        <div class="file-preview-card">
+          <img src="${currentUploadedSoftFile.data}" class="file-preview-thumb" alt="預覽" onclick="openLightbox('${currentUploadedSoftFile.name}', '${currentUploadedSoftFile.data}')">
+          <div class="file-preview-info">
+            <div class="file-preview-name">${currentUploadedSoftFile.name}</div>
+            <div class="file-preview-meta">${currentUploadedSoftFile.size} ｜ ${currentUploadedSoftFile.type}</div>
+          </div>
+          <button type="button" class="icon-btn" style="color:var(--danger);" onclick="removeSoftFile()">✕ 移除</button>
+        </div>
+      `;
+    }
+
+    function removeSoftFile() {
+      currentUploadedSoftFile = null;
+      renderSoftFilePreview();
+    }
+
+    function saveSoftwareForm(e) {
+      e.preventDefault();
+      const id = document.getElementById("softId").value;
+      const record = {
+        id: id || ("SOFT-" + Date.now().toString().slice(-4)),
+        name: document.getElementById("softName").value,
+        plant: document.getElementById("softPlant").value,
+        archStatus: document.getElementById("softArchStatus").value,
+        deployStatus: document.getElementById("softDeployStatus").value,
+        apiCount: document.getElementById("softApiCount").value,
+        dailyCalls: document.getElementById("softDailyCalls").value,
+        payload: document.getElementById("softPayload").value,
+        auditStatus: document.getElementById("softAuditStatus").value,
+        permission: document.getElementById("softPermission").value,
+        upgradeTarget: document.getElementById("softUpgradeTarget").value,
+        owner: document.getElementById("softOwner").value,
+        dueDate: document.getElementById("softDueDate").value,
+        file: currentUploadedSoftFile
+      };
+
+      if (id) {
+        const idx = appData.software.findIndex(s => s.id === id);
+        if (idx !== -1) appData.software[idx] = record;
+      } else {
+        appData.software.unshift(record);
+      }
+
+      saveData();
+      renderAll();
+      closeModal("softwareModal");
+      showToast("軟體系統資料已成功儲存！");
+    }
+
+    function deleteSoftware(id) {
+      if (confirm("確定要刪除此軟體系統填報紀錄嗎？")) {
+        appData.software = appData.software.filter(s => s.id !== id);
+        saveData();
+        renderAll();
+        showToast("已刪除紀錄！");
+      }
+    }
+
+    // API 端點 Form
+    function openAddEndpointModal() {
+      document.getElementById("endpointModalTitle").innerText = "新增自研 API 端點規格";
+      document.getElementById("epId").value = "";
+      document.getElementById("endpointForm").reset();
+      openModal("endpointModal");
+    }
+
+    function openEditEndpointModal(id) {
+      const item = appData.endpoints.find(e => e.id === id);
+      if (!item) return;
+
+      document.getElementById("endpointModalTitle").innerText = `編輯端點：${item.uri}`;
+      document.getElementById("epId").value = item.id;
+      document.getElementById("epSystem").value = item.system;
+      document.getElementById("epMethod").value = item.method;
+      document.getElementById("epUri").value = item.uri;
+      document.getElementById("epCaller").value = item.caller;
+      document.getElementById("epDailyCalls").value = item.dailyCalls;
+      document.getElementById("epQps").value = item.qps;
+      document.getElementById("epPayload").value = item.payload;
+      document.getElementById("epCrud").value = item.crud;
+      document.getElementById("epAuth").value = item.auth;
+      document.getElementById("epTarget").value = item.target;
+      document.getElementById("epOwner").value = item.owner;
+
+      openModal("endpointModal");
+    }
+
+    function saveEndpointForm(e) {
+      e.preventDefault();
+      const id = document.getElementById("epId").value;
+      const record = {
+        id: id || ("EP-" + Date.now().toString().slice(-4)),
+        system: document.getElementById("epSystem").value,
+        method: document.getElementById("epMethod").value,
+        uri: document.getElementById("epUri").value,
+        caller: document.getElementById("epCaller").value,
+        dailyCalls: parseInt(document.getElementById("epDailyCalls").value, 10) || 0,
+        qps: parseInt(document.getElementById("epQps").value, 10) || 0,
+        payload: document.getElementById("epPayload").value,
+        crud: document.getElementById("epCrud").value,
+        auth: document.getElementById("epAuth").value,
+        target: document.getElementById("epTarget").value,
+        owner: document.getElementById("epOwner").value
+      };
+
+      if (id) {
+        const idx = appData.endpoints.findIndex(e => e.id === id);
+        if (idx !== -1) appData.endpoints[idx] = record;
+      } else {
+        appData.endpoints.unshift(record);
+      }
+
+      saveData();
+      renderEndpointsTable();
+      updateTabCounts();
+      closeModal("endpointModal");
+      showToast("API 端點規格已成功儲存！");
+    }
+
+    function deleteEndpoint(id) {
+      if (confirm("確定要刪除此 API 端點規格嗎？")) {
+        appData.endpoints = appData.endpoints.filter(e => e.id !== id);
+        saveData();
+        renderEndpointsTable();
+        updateTabCounts();
+        showToast("已刪除端點規格！");
+      }
+    }
+
+    // IS 基礎設施 Form
+    function openAddInfraModal() {
+      document.getElementById("infraModalTitle").innerText = "填報 IS 基礎設施 BCP / SLA 評定";
+      document.getElementById("infraId").value = "";
+      document.getElementById("infraForm").reset();
+      openModal("infraModal");
+    }
+
+    function openEditInfraModal(id) {
+      const item = appData.infra.find(i => i.id === id);
+      if (!item) return;
+
+      document.getElementById("infraModalTitle").innerText = `編輯：${item.name}`;
+      document.getElementById("infraId").value = item.id;
+      document.getElementById("infraName").value = item.name;
+      document.getElementById("infraPlant").value = item.plant;
+      document.getElementById("infraTier").value = item.tier;
+      document.getElementById("infraSla").value = item.sla;
+      document.getElementById("infraRto").value = item.rto;
+      document.getElementById("infraRpo").value = item.rpo;
+      document.getElementById("infraDrDate").value = item.drDate;
+      document.getElementById("infraLocalBackup").value = item.localBackup;
+      document.getElementById("infraRemoteBackup").value = item.remoteBackup;
+      document.getElementById("infraNetflow").value = item.netflow;
+      document.getElementById("infraOwner").value = item.owner;
+      document.getElementById("infraAuditStatus").value = item.auditStatus;
+
+      openModal("infraModal");
+    }
+
+    function saveInfraForm(e) {
+      e.preventDefault();
+      const id = document.getElementById("infraId").value;
+      const record = {
+        id: id || ("INFRA-" + Date.now().toString().slice(-4)),
+        name: document.getElementById("infraName").value,
+        plant: document.getElementById("infraPlant").value,
+        tier: document.getElementById("infraTier").value,
+        sla: document.getElementById("infraSla").value,
+        rto: document.getElementById("infraRto").value,
+        rpo: document.getElementById("infraRpo").value,
+        drDate: document.getElementById("infraDrDate").value,
+        localBackup: document.getElementById("infraLocalBackup").value,
+        remoteBackup: document.getElementById("infraRemoteBackup").value,
+        netflow: document.getElementById("infraNetflow").value,
+        owner: document.getElementById("infraOwner").value,
+        auditStatus: document.getElementById("infraAuditStatus").value
+      };
+
+      if (id) {
+        const idx = appData.infra.findIndex(i => i.id === id);
+        if (idx !== -1) appData.infra[idx] = record;
+      } else {
+        appData.infra.unshift(record);
+      }
+
+      saveData();
+      renderInfraTable();
+      updateMetrics();
+      updateTabCounts();
+      closeModal("infraModal");
+      showToast("IS 基礎設施評定已成功儲存！");
+    }
+
+    function deleteInfra(id) {
+      if (confirm("確定要刪除此基礎設施紀錄嗎？")) {
+        appData.infra = appData.infra.filter(i => i.id !== id);
+        saveData();
+        renderInfraTable();
+        updateMetrics();
+        updateTabCounts();
+        showToast("已刪除基礎設施紀錄！");
+      }
+    }
+
+    // 燈箱大圖
+    function openLightbox(title, imgSrc) {
+      document.getElementById("lightboxTitle").innerText = title;
+      document.getElementById("lightboxImg").src = imgSrc;
+      document.getElementById("lightboxDownload").href = imgSrc;
+      document.getElementById("lightboxDownload").setAttribute("download", title.replace(/[^a-zA-Z0-9_\-一-龥]/g, "_") + ".png");
+      openModal("lightboxModal");
+    }
+
+    // 匯出 CSV (加入 UTF-8 BOM 支援 Excel)
+    function exportCSV() {
+      let csvContent = "﻿"; // UTF-8 BOM
+      
+      csvContent += "=== 軟體系統與自研 API 盤點總表 ===
+";
+      csvContent += "系統代碼/名稱,運行廠區,架構圖狀態,部署圖狀態,自研API數,日均調用數,平均Payload,現行權限治理模式,架構升級目標,負責人,預計完成日,審核狀態
+";
+      appData.software.forEach(s => {
+        csvContent += `"${s.name}","${s.plant}","${s.archStatus}","${s.deployStatus}","${s.apiCount}","${s.dailyCalls}","${s.payload}","${s.permission}","${s.upgradeTarget}","${s.owner}","${s.dueDate}","${s.auditStatus}"
+`;
+      });
+
+      csvContent += "
+=== 自研 API 端點明細清單 ===
+";
+      csvContent += "系統代碼,端點路徑,方法,呼叫端系統,日均調用次數,尖峰QPS,傳輸大小,資料庫操作,現行身分驗證,升級後治理機制,負責人
+";
+      appData.endpoints.forEach(e => {
+        csvContent += `"${e.system}","${e.uri}","${e.method}","${e.caller}",${e.dailyCalls},${e.qps},"${e.payload}","${e.crud}","${e.auth}","${e.target}","${e.owner}"
+`;
+      });
+
+      csvContent += "
+=== IS 基礎設施 BCP 與 SLA 分級清冊 ===
+";
+      csvContent += "系統/資料庫名稱,廠區,等級,可用度SLA,目標RTO,目標RPO,本地備份機制,異地備援機制,最近DR演練日期,專線監控狀態,負責網管,審核狀態
+";
+      appData.infra.forEach(i => {
+        csvContent += `"${i.name}","${i.plant}","${i.tier}","${i.sla}","${i.rto}","${i.rpo}","${i.localBackup}","${i.remoteBackup}","${i.drDate}","${i.netflow}","${i.owner}","${i.auditStatus}"
+`;
+      });
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `RSI_Hive_Week1_Report_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("已成功匯出 UTF-8 格式 CSV 報表！");
+    }
+
+    // 匯出 JSON 備份
+    function exportJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+      const a = document.createElement("a");
+      a.href = dataStr;
+      a.download = `RSI_Hive_Week1_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      showToast("已成功匯出 JSON 完整資料備份檔！");
+    }
+
+    // 匯入 JSON 備份
+    function importJSON(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const parsed = JSON.parse(evt.target.result);
+          if (parsed.software && parsed.infra) {
+            appData = parsed;
+            saveData();
+            renderAll();
+            showToast("JSON 備份資料匯入成功！");
+          } else {
+            alert("匯入失敗：檔案格式不符合 RSI 蜂巢計畫規範。");
+          }
+        } catch (err) {
+          alert("JSON 解析失敗，請確認檔案格式是否正確。");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // 初始化頁面
+    window.addEventListener("DOMContentLoaded", () => {
+      loadSavedTheme();
+      initData();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

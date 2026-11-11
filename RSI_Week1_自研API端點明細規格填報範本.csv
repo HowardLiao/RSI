@@ -1,0 +1,6 @@
+系統代碼,端點路徑 (Endpoint URL),HTTP方法,呼叫方系統 (Caller),日均調用次數,尖峰QPS,平均Request大小(KB),平均Response大小(KB),資料庫操作 (CRUD),現行身分與權限驗證,升級後目標驗證 (RLS/Token/DataModel),填報人
+RSI-D365-Hub,/api/v1/inventory/onhand,GET,成衣 MES 系統,65000,120,0.5 KB,18.5 KB,Read (D365 Data Entity),Bearer Token ＋ 廠區代碼過濾,Tenant-Aware DAL ＋ Token 驗證,軟體組資深工程師（台北）
+VN-MES-API,/api/mes/cutting/batch-sync,POST,裁剪產線機台 Client,180000,350,2.1 KB,1.2 KB,Create / Update (SQL),前端程式傳遞 PlantID,下沉至 C# DataModel 與 DAL 驗證,越南廠軟體窗口
+CB-HR-Service,/soap/payroll/export-summary,POST,總部 HR 結算系統,8500,25,1.5 KB,85.0 KB,Read (大資料報表),前端工號判斷,導入 MS-SQL RLS 欄位級遮蔽與非同步下載,柬埔寨廠軟體工程師
+ID-QC-Tracking,/api/qc/inspection/submit,POST,品管平板 App,45000,80,3.2 KB,0.8 KB,Create (MS-SQL),API Key ＋ DAL 模型驗證,DAL 統一驗證 ＋ 異常快取,印尼廠軟體窗口
+[系統代碼],[端點 URI，例如 /api/v1/...],[GET/POST/PUT/DELETE],[呼叫方，例如 MES/Web/外部],[次/日],[預估尖峰 QPS],[KB],[KB],[Select/Insert/Update/Delete],[前端/無/基本驗證],[目標治理機制],[填報人]
