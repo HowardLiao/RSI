@@ -181,10 +181,95 @@
     /* Filter & Search Bar */
     .filter-bar {
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .filter-section-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-label-group {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 135px;
+    }
+    .filter-action-row {
+      display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+    .th-content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      width: 100%;
+      user-select: none;
+    }
+    .th-text {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+    }
+    .th-filter-select {
+      background: #0f172a;
+      border: 1px solid #3b82f6;
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 5px;
+      padding: 3px 6px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      vertical-align: middle;
+      max-width: 140px;
+    }
+    .th-filter-select:hover {
+      background: #1e3a8a;
+      border-color: #60a5fa;
+      color: #ffffff;
+    }
+    .th-filter-select:focus {
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.35);
+    }
+    .th-filter-select option {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 4px 8px;
+    }
+    .badge-iaas { background: rgba(59, 130, 246, 0.18); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); cursor: pointer; }
+    .badge-iaas-storage { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); cursor: pointer; }
+    .badge-iaas-net { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.4); cursor: pointer; }
+    .badge-iaas-sec { background: rgba(239, 68, 68, 0.18); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); cursor: pointer; }
+    .badge-iaas-edge { background: rgba(20, 184, 166, 0.18); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.4); cursor: pointer; }
+    .badge-paas { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); cursor: pointer; }
+    .badge-paas-cloud { background: rgba(6, 182, 212, 0.18); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.4); cursor: pointer; }
+    .badge-saas { background: rgba(236, 72, 153, 0.18); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); cursor: pointer; }
+    .badge:hover {
+      filter: brightness(1.2);
+      transform: translateY(-1px);
     }
     .filter-chips {
       display: flex;
@@ -503,22 +588,57 @@
 
     <!-- Filter & Search Bar -->
     <div class="filter-bar">
-      <div class="filter-chips">
-        <span class="filter-label">站點篩選：</span>
-        <button class="chip active" onclick="filterBySite('all')">🌐 全部站點 (All)</button>
-        <button class="chip" onclick="filterBySite('HQ')">🏢 台北總部 (HQ)</button>
-        <button class="chip" onclick="filterBySite('RDV')">🏭 越南同奈廠 (RDV)</button>
-        <button class="chip" onclick="filterBySite('RDG')">🏭 柬埔寨柴楨廠 (RDG)</button>
-        <button class="chip" onclick="filterBySite('RDI')">🏭 印尼廠 (RDI)</button>
-        <button class="chip" onclick="filterBySite('AWS')">☁️ AWS 香港雲端 (ap-east-1)</button>
-      </div>
+      <div class="filter-section-wrapper">
+        <!-- Row 1: Site Filter Chips -->
+        <div class="filter-row">
+          <span class="filter-label-group">🌍 跨國站點：</span>
+          <div class="filter-chips site-chips">
+            <button class="chip active" data-site="all" onclick="filterBySite('all')">🌐 全部站點 (All)</button>
+            <button class="chip" data-site="HQ" onclick="filterBySite('HQ')">🏢 台北總部 (HQ)</button>
+            <button class="chip" data-site="RDV" onclick="filterBySite('RDV')">🏭 越南同奈廠 (RDV)</button>
+            <button class="chip" data-site="RDG" onclick="filterBySite('RDG')">🏭 柬埔寨柴楨廠 (RDG)</button>
+            <button class="chip" data-site="RDI" onclick="filterBySite('RDI')">🏭 印尼廠 (RDI)</button>
+            <button class="chip" data-site="AWS" onclick="filterBySite('AWS')">☁️ AWS 香港 (AWS)</button>
+          </div>
+        </div>
 
-      <div class="search-box">
-        <span style="color:var(--text-dim);">🔍</span>
-        <input type="text" id="globalSearchInput" class="search-input" placeholder="即時過濾：輸入 D365, DYXnet, 第一線, BCP, SLA, RDSMP2, AXDB, KOI..." oninput="handleGlobalSearch()">
-      </div>
+        <!-- Row 2: Architecture Tier Chips (IaaS / PaaS / SaaS) -->
+        <div class="filter-row">
+          <span class="filter-label-group">🏛️ 架構層級：</span>
+          <div class="filter-chips tier-chips">
+            <button class="chip active" data-tier="all" onclick="filterByTier('all')">🌟 全部層級</button>
+            <button class="chip" data-tier="IaaS" onclick="filterByTier('IaaS')">🏗️ IaaS 實體基建/儲存/網路</button>
+            <button class="chip" data-tier="PaaS" onclick="filterByTier('PaaS')">⚙️ PaaS 資料庫/中繼/平台</button>
+            <button class="chip" data-tier="SaaS" onclick="filterByTier('SaaS')">☁️ SaaS 核心業務軟體</button>
+          </div>
+        </div>
 
-      <div id="resultCount" class="result-count">顯示全部資料</div>
+        <!-- Row 3: Device & Service Category Chips -->
+        <div class="filter-row">
+          <span class="filter-label-group">🏷️ 設備與服務：</span>
+          <div class="filter-chips cat-chips">
+            <button class="chip active" data-cat="all" onclick="filterByCategory('all')">🌐 全部類型</button>
+            <button class="chip" data-cat="Server" onclick="filterByCategory('Server')">🖥️ 運算伺服器</button>
+            <button class="chip" data-cat="Storage" onclick="filterByCategory('Storage')">💾 集中存儲陣列</button>
+            <button class="chip" data-cat="Network" onclick="filterByCategory('Network')">🔀 核心網路交換</button>
+            <button class="chip" data-cat="Security" onclick="filterByCategory('Security')">🛡️ 資安與專線網關</button>
+            <button class="chip" data-cat="Database" onclick="filterByCategory('Database')">🗄️ 核心資料庫</button>
+            <button class="chip" data-cat="Middleware" onclick="filterByCategory('Middleware')">📦 中繼微服務</button>
+          </div>
+        </div>
+
+        <!-- Row 4: Search & Actions -->
+        <div class="filter-action-row">
+          <div class="search-box" style="flex:1; max-width: 620px;">
+            <span style="color:var(--text-dim);">🔍</span>
+            <input type="text" id="globalSearchInput" class="search-input" placeholder="即時過濾：輸入 D365, DYXnet, 第一線, BCP, SLA, RDSMP2, AXDB, KOI..." oninput="handleGlobalSearch()">
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button class="chip" style="background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.4); color:#fca5a5;" onclick="resetAllFilters()">🔄 重設全部篩選</button>
+            <div id="resultCount" class="result-count">顯示全部資料</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1181,22 +1301,58 @@
         <table id="table-bcp">
           <thead>
             <tr>
-              <th onclick="sortTable('table-bcp', 0)">系統/資料庫名稱 (System)</th>
-              <th onclick="sortTable('table-bcp', 1)">所屬廠區 (Site)</th>
-              <th onclick="sortTable('table-bcp', 2)">關鍵等級 (Tier)</th>
-              <th onclick="sortTable('table-bcp', 3)">可用度 SLA</th>
-              <th onclick="sortTable('table-bcp', 4)">目標 RTO</th>
-              <th onclick="sortTable('table-bcp', 5)">目標 RPO</th>
-              <th onclick="sortTable('table-bcp', 6)">本地備份與快照設備 (Local Backup)</th>
-              <th onclick="sortTable('table-bcp', 7)">異地備援與 DR 演練紀錄 (Disaster Recovery)</th>
-              <th onclick="sortTable('table-bcp', 8)">斷網自律運轉韌性 (Offline BCP)</th>
+              <th onclick="sortTable('table-bcp', 0)">
+                <div class="th-content"><span class="th-text">系統/資料庫名稱 (System)</span></div>
+              </th>
+              <th onclick="sortTable('table-bcp', 1)">
+                <div class="th-content">
+                  <span class="th-text">所屬廠區 (Site)</span>
+                  <select class="th-filter-select th-filter-site" onchange="filterBySite(this.value)" onclick="event.stopPropagation()" title="按站點篩選">
+                    <option value="all">全部站點</option>
+                    <option value="HQ">🏢 台北總部</option>
+                    <option value="RDV">🏭 越南同奈</option>
+                    <option value="RDG">🏭 柬埔寨柴楨</option>
+                    <option value="RDI">🏭 印尼廠</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-bcp', 2)">
+                <div class="th-content">
+                  <span class="th-text">關鍵等級 (Tier)</span>
+                  <select class="th-filter-select" id="th-filter-bcp-tier" onchange="filterByBcpTier(this.value)" onclick="event.stopPropagation()" title="按關鍵等級篩選">
+                    <option value="all">全部等級</option>
+                    <option value="Tier 1">Tier 1 極關鍵</option>
+                    <option value="Tier 2">Tier 2 關鍵營運</option>
+                    <option value="Tier 3">Tier 3 內部輔助</option>
+                    <option value="實體基建">實體基建</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-bcp', 3)">
+                <div class="th-content"><span class="th-text">可用度 SLA</span></div>
+              </th>
+              <th onclick="sortTable('table-bcp', 4)">
+                <div class="th-content"><span class="th-text">目標 RTO</span></div>
+              </th>
+              <th onclick="sortTable('table-bcp', 5)">
+                <div class="th-content"><span class="th-text">目標 RPO</span></div>
+              </th>
+              <th onclick="sortTable('table-bcp', 6)">
+                <div class="th-content"><span class="th-text">本地備份與快照設備 (Local Backup)</span></div>
+              </th>
+              <th onclick="sortTable('table-bcp', 7)">
+                <div class="th-content"><span class="th-text">異地備援與 DR 演練紀錄 (Disaster Recovery)</span></div>
+              </th>
+              <th onclick="sortTable('table-bcp', 8)">
+                <div class="th-content"><span class="th-text">斷網自律運轉韌性 (Offline BCP)</span></div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="SaaS" data-bcp="Tier 1" data-category="Database">
               <td><strong>D365 營運財務主庫 (AXDB)</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2022/2019 Enterprise</span></td>
-              <td><span class="badge badge-hq">台北總部</span></td>
-              <td><span class="badge badge-tier1">Tier 1 極關鍵</span></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td><span class="badge badge-tier1" onclick="filterByBcpTier('Tier 1')">Tier 1 極關鍵</span></td>
               <td><span class="port-num">99.9%</span></td>
               <td><span class="port-num">< 2 小時</span></td>
               <td><span class="port-num">< 15 分鐘</span></td>
@@ -1204,10 +1360,10 @@
               <td><strong>Azure 雲端熱備副本 + AWS S3 Glacier WORM 不可變存儲</strong><br><span style="font-size:11px;color:#34d399;">2026/08/15 實機切換演練成功</span></td>
               <td>WSFC 裸機 AlwaysOn 雙機鏡像，主節點故障於 30 秒內自動容錯切換</td>
             </tr>
-            <tr data-site="RDV">
+            <tr data-site="RDV" data-tier="SaaS" data-bcp="Tier 1" data-category="Server">
               <td><strong>成衣裁縫 MES 營運庫</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2016 (192.168.185.123)</span></td>
-              <td><span class="badge badge-rdv">越南同奈</span></td>
-              <td><span class="badge badge-tier1">Tier 1 生產核心</span></td>
+              <td><span class="badge badge-rdv" onclick="filterBySite('RDV')">越南同奈</span></td>
+              <td><span class="badge badge-tier1" onclick="filterByBcpTier('Tier 1')">Tier 1 生產核心</span></td>
               <td><span class="port-num">99.9%</span></td>
               <td><span class="port-num">< 2 小時</span></td>
               <td><span class="port-num">< 30 分鐘</span></td>
@@ -1215,10 +1371,10 @@
               <td><strong>第一線 DYXnet 專線定時異地鏡像至台北總部 SAN</strong><br><span style="font-size:11px;color:#34d399;">2026/05/20 演練成功</span></td>
               <td><strong>48～72 小時斷網自律運轉</strong>：內嵌雙軌快取，專線海纜斷線時產線裁床、車縫連續作業</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="SaaS" data-bcp="Tier 1" data-category="Database">
               <td><strong>打樣版單與核心工藝庫 (SAM)</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2019 on RDSMP2 (192.168.0.22)</span></td>
-              <td><span class="badge badge-hq">台北總部</span></td>
-              <td><span class="badge badge-tier1">Tier 1 極關鍵</span></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td><span class="badge badge-tier1" onclick="filterByBcpTier('Tier 1')">Tier 1 極關鍵</span></td>
               <td><span class="port-num">99.9%</span></td>
               <td><span class="port-num">< 2 小時</span></td>
               <td><span class="port-num">< 30 分鐘</span></td>
@@ -1226,10 +1382,10 @@
               <td><strong>RDSMP1 (192.168.0.23) 測試/備援機熱同步</strong><br><span style="font-size:11px;color:#34d399;">CI/CD 自動化 MSBuild 驗證</span></td>
               <td>VMware ESXi 8.0 vSphere HA 虛擬機熱備援，實體主機故障自動於 HQ02 啟動</td>
             </tr>
-            <tr data-site="RDG">
+            <tr data-site="RDG" data-tier="SaaS" data-bcp="Tier 2" data-category="Server">
               <td><strong>跨廠物流報關與人事庫</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2014 on RDG (192.168.193.65)</span></td>
-              <td><span class="badge badge-rdg">柬埔寨柴楨</span></td>
-              <td><span class="badge badge-tier2">Tier 2 關鍵營運</span></td>
+              <td><span class="badge badge-rdg" onclick="filterBySite('RDG')">柬埔寨柴楨</span></td>
+              <td><span class="badge badge-tier2" onclick="filterByBcpTier('Tier 2')">Tier 2 關鍵營運</span></td>
               <td><span class="port-num">99.5%</span></td>
               <td><span class="port-num">< 8 小時</span></td>
               <td><span class="port-num">< 2 小時</span></td>
@@ -1237,10 +1393,10 @@
               <td><strong>離線磁碟異地保存 ＋ 總部排程備份</strong><br><span style="font-size:11px;color:#f59e0b;">2025/11/10 演練 (列為 W1 待重演)</span></td>
               <td><strong>48～72 小時離線生產</strong>：車縫工票掃描本機暫存，復網後非同步對賬拋轉</td>
             </tr>
-            <tr data-site="RDI">
+            <tr data-site="RDI" data-tier="SaaS" data-bcp="Tier 3" data-category="Database">
               <td><strong>歷史訂單樣品庫與品管庫</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2012 (ID-QC-Tracking)</span></td>
-              <td><span class="badge badge-rdi">印尼廠</span></td>
-              <td><span class="badge badge-tier3">Tier 3 內部輔助</span></td>
+              <td><span class="badge badge-rdi" onclick="filterBySite('RDI')">印尼廠</span></td>
+              <td><span class="badge badge-tier3" onclick="filterByBcpTier('Tier 3')">Tier 3 內部輔助</span></td>
               <td><span class="port-num">99.0%</span></td>
               <td><span class="port-num">< 24 小時</span></td>
               <td><span class="port-num">< 24 小時</span></td>
@@ -1248,10 +1404,10 @@
               <td><strong>BCP 優先升級節點</strong>：後續統一納入 StarRocks 與 MinIO 離線備存體系</td>
               <td>品管 REST API 條碼本地高頻快取，支援斷網單機校驗</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="IaaS" data-bcp="實體基建" data-category="Storage">
               <td><strong>機房電力不斷電系統 (UPS & 發電機)</strong><br><span style="font-size:11px;color:#94a3b8;">APC Smart-UPS RT 10kVA 在線式雙迴路</span></td>
-              <td><span class="badge badge-hq">台北總部</span></td>
-              <td><span class="badge badge-tier1">實體基建</span></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td><span class="badge badge-tier1" onclick="filterByBcpTier('實體基建')">實體基建</span></td>
               <td><span class="port-num">99.99%</span></td>
               <td><span class="port-num">0 秒 (無縫)</span></td>
               <td><span class="port-num">0 損失</span></td>
@@ -1276,21 +1432,69 @@
         <table id="table-hardware">
           <thead>
             <tr>
-              <th onclick="sortTable('table-hardware', 0)">站點 (Site)</th>
-              <th onclick="sortTable('table-hardware', 1)">主機名稱 (Hostname)</th>
-              <th onclick="sortTable('table-hardware', 2)">實體機箱型號 (Model)</th>
-              <th onclick="sortTable('table-hardware', 3)">處理器 (CPU Cores)</th>
-              <th onclick="sortTable('table-hardware', 4)">記憶體 (RAM)</th>
-              <th onclick="sortTable('table-hardware', 5)">本機/集中儲存 (Storage)</th>
-              <th onclick="sortTable('table-hardware', 6)">實體網路介面 (NIC)</th>
-              <th onclick="sortTable('table-hardware', 7)">管理/業務 IP</th>
-              <th onclick="sortTable('table-hardware', 8)">角色定位與系統 (Role & OS)</th>
+              <th onclick="sortTable('table-hardware', 0)">
+                <div class="th-content">
+                  <span class="th-text">站點 (Site)</span>
+                  <select class="th-filter-select th-filter-site" onchange="filterBySite(this.value)" onclick="event.stopPropagation()" title="按站點篩選">
+                    <option value="all">全部站點</option>
+                    <option value="HQ">🏢 台北總部</option>
+                    <option value="RDV">🏭 越南同奈</option>
+                    <option value="RDG">🏭 柬埔寨柴楨</option>
+                    <option value="RDI">🏭 印尼廠</option>
+                    <option value="AWS">☁️ AWS 香港</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-hardware', 1)">
+                <div class="th-content">
+                  <span class="th-text">主機名稱 (Hostname)</span>
+                </div>
+              </th>
+              <th onclick="sortTable('table-hardware', 2)">
+                <div class="th-content">
+                  <span class="th-text">架構與服務分類</span>
+                  <select class="th-filter-select th-filter-cat" onchange="filterByCategory(this.value)" onclick="event.stopPropagation()" title="按架構與服務分類篩選">
+                    <option value="all">全部分類</option>
+                    <option value="IaaS">🏗️ IaaS 實體基建</option>
+                    <option value="PaaS">⚙️ PaaS 平台中繼</option>
+                    <option value="SaaS">☁️ SaaS 核心應用</option>
+                    <option value="Server">🖥️ 運算伺服器 (Server)</option>
+                    <option value="Storage">💾 集中儲存 (Storage)</option>
+                    <option value="Network">🔀 核心網路 (Network)</option>
+                    <option value="Security">🛡️ 資安專線網關 (Security)</option>
+                    <option value="Database">🗄️ 核心資料庫 (Database)</option>
+                    <option value="Middleware">📦 中繼微服務 (Middleware)</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-hardware', 3)">
+                <div class="th-content"><span class="th-text">實體機箱型號 (Model)</span></div>
+              </th>
+              <th onclick="sortTable('table-hardware', 4)">
+                <div class="th-content"><span class="th-text">處理器 (CPU Cores)</span></div>
+              </th>
+              <th onclick="sortTable('table-hardware', 5)">
+                <div class="th-content"><span class="th-text">記憶體 (RAM)</span></div>
+              </th>
+              <th onclick="sortTable('table-hardware', 6)">
+                <div class="th-content"><span class="th-text">本機/集中儲存 (Storage)</span></div>
+              </th>
+              <th onclick="sortTable('table-hardware', 7)">
+                <div class="th-content"><span class="th-text">實體網路介面 (NIC)</span></div>
+              </th>
+              <th onclick="sortTable('table-hardware', 8)">
+                <div class="th-content"><span class="th-text">管理/業務 IP</span></div>
+              </th>
+              <th onclick="sortTable('table-hardware', 9)">
+                <div class="th-content"><span class="th-text">角色定位與系統 (Role & OS)</span></div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="IaaS" data-category="Server">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-SRV-HQ01</strong></td>
+              <td><span class="badge badge-iaas" onclick="filterByCategory('Server')" title="點擊篩選運算伺服器">IaaS 運算伺服器</span></td>
               <td>Dell PowerEdge R760 (2U)</td>
               <td>2x Xeon Gold 6430 (64C/128T)</td>
               <td>256GB ECC DDR5-4800</td>
@@ -1299,9 +1503,10 @@
               <td><span class="ip-num">192.168.0.21 / 10.10.10.11(OOB)</span></td>
               <td>VMware ESXi 8.0 / 承載 <strong>RDSMP2 正式打樣主機 (192.168.0.22)</strong> 與 <strong>RDSMP1 (192.168.0.23)</strong></td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="IaaS" data-category="Server">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-SRV-HQ02</strong></td>
+              <td><span class="badge badge-iaas" onclick="filterByCategory('Server')" title="點擊篩選運算伺服器">IaaS 運算伺服器</span></td>
               <td>Dell PowerEdge R760 (2U)</td>
               <td>2x Xeon Gold 6430 (64C/128T)</td>
               <td>256GB ECC DDR5-4800</td>
@@ -1310,9 +1515,10 @@
               <td><span class="ip-num">192.168.0.25 / 10.10.10.12(OOB)</span></td>
               <td>VMware ESXi 8.0 / 承載 <strong>D365 AOS 交易叢集 (192.168.0.30)</strong> 與 <strong>YARP 網關 (192.168.0.35)</strong></td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="PaaS" data-category="Database">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-SRV-HQ03</strong></td>
+              <td><span class="badge badge-paas" onclick="filterByCategory('Database')" title="點擊篩選核心資料庫">PaaS 核心資料庫</span></td>
               <td>Dell PowerEdge R760 (2U 裸機)</td>
               <td>2x Xeon Gold 6430 (64C/128T)</td>
               <td>512GB ECC DDR5-4800</td>
@@ -1321,9 +1527,10 @@
               <td><span class="ip-num">192.168.0.10 / 10.10.10.13(OOB)</span></td>
               <td><strong>裸機 WSFC 叢集：rsiaxdb1 (192.168.0.131)</strong> / MS SQL 2022 AlwaysOn <strong>D365 AXDB 營運主庫</strong></td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="PaaS" data-category="Middleware">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSIMDW1</strong></td>
+              <td><span class="badge badge-paas" onclick="filterByCategory('Middleware')" title="點擊篩選中繼微服務">PaaS 中繼微服務</span></td>
               <td>Dell PowerEdge R660 (1U)</td>
               <td>2x Xeon Silver 4410Y (24C/48T)</td>
               <td>128GB ECC DDR5-4800</td>
@@ -1332,9 +1539,10 @@
               <td><span class="ip-num">192.168.0.95 / 10.10.10.14(OOB)</span></td>
               <td><strong>D365 外掛中繼主機</strong> / D365.Report.Service (:8085)、Local.WebApi (:80)、D365_Prod 唯讀庫</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="PaaS" data-category="Middleware">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-SRV-HQ04</strong></td>
+              <td><span class="badge badge-paas" onclick="filterByCategory('Middleware')" title="點擊篩選容器時序監控">PaaS 容器監控</span></td>
               <td>Dell PowerEdge R660 (1U)</td>
               <td>2x Xeon Silver 4410Y (24C/48T)</td>
               <td>128GB ECC DDR5-4800</td>
@@ -1343,9 +1551,10 @@
               <td><span class="ip-num">192.168.0.50 / 10.10.10.15(OOB)</span></td>
               <td>K8s v1.28 Master / Ingress Envoy、Prometheus TSDB 全球監控、Grafana 戰情看板</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="IaaS" data-category="Storage">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-SAN01</strong></td>
+              <td><span class="badge badge-iaas-storage" onclick="filterByCategory('Storage')" title="點擊篩選集中儲存">IaaS 集中儲存</span></td>
               <td>Dell Unity 480XT (2U SAN)</td>
               <td>Dual SP-A / SP-B (Intel Xeon 雙控)</td>
               <td>128GB 高速快取</td>
@@ -1354,9 +1563,10 @@
               <td><span class="ip-num">10.10.50.20 / 10.10.10.20(OOB)</span></td>
               <td><strong>全快閃集中儲存陣列</strong> / LUN_D365_DATA (30TB)、LUN_D365_LOG (10TB)、LUN_ESXI (25TB)、LUN_BACKUP (15TB)</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="IaaS" data-category="Network">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-SW-CORE01</strong></td>
+              <td><span class="badge badge-iaas-net" onclick="filterByCategory('Network')" title="點擊篩選核心網路">IaaS 核心網路</span></td>
               <td>Dell S5248F-ON (1U Switch)</td>
               <td>Broadcom Trident 3 晶片</td>
               <td>2.16 Tbps 交換背板容量</td>
@@ -1365,9 +1575,10 @@
               <td><span class="ip-num">10.10.10.1 (OOB)</span></td>
               <td>機房核心交換機 / VLAN 匯聚、iSCSI 低延遲 Jumbo Frame 9000 交換、RoCE v2 RDMA 支援</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">台北總部</span></td>
+            <tr data-site="HQ" data-tier="IaaS" data-category="Security">
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
               <td><strong>RSI-FW-HQ01/02</strong></td>
+              <td><span class="badge badge-iaas-sec" onclick="filterByCategory('Security')" title="點擊篩選資安專線網關">IaaS 資安專線網關</span></td>
               <td>FortiGate 200F HA (雙機熱備)</td>
               <td>FortiASIC CP9 + NP6XLite</td>
               <td>8GB RAM</td>
@@ -1376,9 +1587,10 @@
               <td><span class="ip-num">192.168.0.254 / 61.220.x.x (WAN)</span></td>
               <td>總部次世代防火牆 / <strong>第一線 (DYXnet) MPLS 專線終端</strong>、SD-WAN 智慧選路、DPI 資安防護</td>
             </tr>
-            <tr data-site="RDV">
-              <td><span class="badge badge-rdv">越南同奈</span></td>
+            <tr data-site="RDV" data-tier="IaaS" data-category="Server">
+              <td><span class="badge badge-rdv" onclick="filterBySite('RDV')">越南同奈</span></td>
               <td><strong>RDV-EDGE-SRV01</strong></td>
+              <td><span class="badge badge-iaas-edge" onclick="filterBySite('RDV')" title="點擊篩選邊緣自律節點">IaaS 邊緣自律節點</span></td>
               <td>Dell PowerEdge R650xs (1U)</td>
               <td>1x Xeon Silver 4314 (16C/32T)</td>
               <td>64GB ECC DDR4-3200</td>
@@ -1387,9 +1599,10 @@
               <td><span class="ip-num">172.16.10.10 / 192.168.185.123(DB)</span></td>
               <td>K3s 邊緣節點 / <strong>成衣 MES (VN-MES-API 42支)</strong>、本地快取庫、<strong>48～72 小時離線生產自治</strong></td>
             </tr>
-            <tr data-site="RDG">
-              <td><span class="badge badge-rdg">柬埔寨柴楨</span></td>
+            <tr data-site="RDG" data-tier="IaaS" data-category="Server">
+              <td><span class="badge badge-rdg" onclick="filterBySite('RDG')">柬埔寨柴楨</span></td>
               <td><strong>RDG-EDGE-SRV01</strong></td>
+              <td><span class="badge badge-iaas-edge" onclick="filterBySite('RDG')" title="點擊篩選邊緣自律節點">IaaS 邊緣自律節點</span></td>
               <td>Dell PowerEdge R650xs (1U)</td>
               <td>1x Xeon Silver 4314 (16C/32T)</td>
               <td>64GB ECC DDR4-3200</td>
@@ -1398,9 +1611,10 @@
               <td><span class="ip-num">172.16.20.10 / 192.168.193.65(DB)</span></td>
               <td>K3s 邊緣節點 / <strong>出勤薪資 (CB-HR-Service)</strong>、車間物聯網採集、<strong>48～72 小時離線自治</strong></td>
             </tr>
-            <tr data-site="AWS">
-              <td><span class="badge badge-aws">AWS 香港</span></td>
+            <tr data-site="AWS" data-tier="PaaS" data-category="Server">
+              <td><span class="badge badge-aws" onclick="filterBySite('AWS')">AWS 香港</span></td>
               <td><strong>AWS-GPU-INF01</strong></td>
+              <td><span class="badge badge-paas-cloud" onclick="filterBySite('AWS')" title="點擊篩選雲端AI算力">PaaS 雲端AI算力</span></td>
               <td>AWS EC2 g5.xlarge (Nitro)</td>
               <td>4 vCPU (AMD EPYC 7R32)</td>
               <td>16GB RAM + 24GB VRAM (A10G)</td>
@@ -1426,141 +1640,147 @@
         <table id="table-network">
           <thead>
             <tr>
-              <th onclick="sortTable('table-network', 0)">類別 (Type)</th>
-              <th onclick="sortTable('table-network', 1)">網段/線路識別 (ID/Subnet)</th>
-              <th onclick="sortTable('table-network', 2)">站點 (Site)</th>
-              <th onclick="sortTable('table-network', 3)">頻寬與傳輸介質 (Bandwidth)</th>
-              <th onclick="sortTable('table-network', 4)">延遲 SLA (Latency)</th>
-              <th onclick="sortTable('table-network', 5)">承載設備與閘道 (Gateway)</th>
-              <th onclick="sortTable('table-network', 6)">架構用途與安全規範 (Function & Security)</th>
+              <th onclick="sortTable('table-network', 0)">
+                <div class="th-content">
+                  <span class="th-text">類別 (Type)</span>
+                  <select class="th-filter-select" id="th-filter-net-type" onchange="filterByNetType(this.value)" onclick="event.stopPropagation()" title="按線路類別篩選">
+                    <option value="all">全部類別</option>
+                    <option value="MPLS">第一線 MPLS 專線</option>
+                    <option value="SD-WAN">雙 ISP SD-WAN</option>
+                    <option value="VLAN">VLAN 微切分</option>
+                    <option value="DirectConnect">雲端直連</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-network', 1)">
+                <div class="th-content"><span class="th-text">網段/線路識別 (ID/Subnet)</span></div>
+              </th>
+              <th onclick="sortTable('table-network', 2)">
+                <div class="th-content">
+                  <span class="th-text">站點 (Site)</span>
+                  <select class="th-filter-select th-filter-site" onchange="filterBySite(this.value)" onclick="event.stopPropagation()" title="按站點篩選">
+                    <option value="all">全部站點</option>
+                    <option value="HQ">🏢 台北總部</option>
+                    <option value="RDV">🏭 越南同奈</option>
+                    <option value="RDG">🏭 柬埔寨柴楨</option>
+                    <option value="RDI">🏭 印尼廠</option>
+                    <option value="AWS">☁️ AWS 香港</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-network', 3)">
+                <div class="th-content"><span class="th-text">頻寬與傳輸介質 (Bandwidth)</span></div>
+              </th>
+              <th onclick="sortTable('table-network', 4)">
+                <div class="th-content"><span class="th-text">延遲 SLA (Latency)</span></div>
+              </th>
+              <th onclick="sortTable('table-network', 5)">
+                <div class="th-content"><span class="th-text">承載設備與閘道 (Gateway)</span></div>
+              </th>
+              <th onclick="sortTable('table-network', 6)">
+                <div class="th-content"><span class="th-text">架構用途與安全規範 (Function & Security)</span></div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr data-site="HQ">
-              <td><span class="badge badge-net">集團專線 (WAN)</span></td>
-              <td><strong>第一線 DYXnet MPLS (台越骨幹)</strong></td>
-              <td>台北 HQ ↔ 越南 RDV</td>
-              <td>40 Mbps CIR=PIR (保證頻寬)</td>
-              <td><span class="port-num">< 42 ms (抖動<2ms)</span></td>
-              <td>第一線 PE 路由器 ↔ FortiGate 200F / 80F</td>
-              <td>集團第一優先專用通道，承載成衣 MES 數據即時雙向複製與 D365 API，SLA 99.99%</td>
+            <tr data-site="RDV" data-tier="IaaS" data-nettype="MPLS" data-category="Network">
+              <td><span class="badge badge-dyxnet" onclick="filterByNetType('MPLS')">第一線 MPLS 專線</span></td>
+              <td><strong>VPN-TPE-VN-01</strong></td>
+              <td><span class="badge badge-rdv" onclick="filterBySite('RDV')">越南同奈</span></td>
+              <td><span class="port-num">40 Mbps (CIR 100%)</span></td>
+              <td><span class="port-num">< 42 ms</span></td>
+              <td>FortiGate 200F ↔ FG-80F</td>
+              <td>成衣 MES 數據即時拋轉、D365 供應鏈採購、生產排程資料同動 (QoS 語音/資料保證)</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-net">集團專線 (WAN)</span></td>
-              <td><strong>第一線 DYXnet MPLS (台柬骨幹)</strong></td>
-              <td>台北 HQ ↔ 柬埔寨 RDG</td>
-              <td>20 Mbps CIR=PIR (保證頻寬)</td>
-              <td><span class="port-num">< 62 ms (抖動<3ms)</span></td>
-              <td>第一線 PE 路由器 ↔ FortiGate 200F / 60F</td>
-              <td>柴楨廠生管與物料出勤資料即時回傳台北，保證跨廠報關無抖動傳輸</td>
+            <tr data-site="RDG" data-tier="IaaS" data-nettype="MPLS" data-category="Network">
+              <td><span class="badge badge-dyxnet" onclick="filterByNetType('MPLS')">第一線 MPLS 專線</span></td>
+              <td><strong>VPN-TPE-CB-01</strong></td>
+              <td><span class="badge badge-rdg" onclick="filterBySite('RDG')">柬埔寨柴楨</span></td>
+              <td><span class="port-num">20 Mbps (CIR 100%)</span></td>
+              <td><span class="port-num">< 62 ms</span></td>
+              <td>FortiGate 200F ↔ FG-60F</td>
+              <td>跨國人事考勤計件、進出口報關數據、物流貨櫃動態拋送 (保證最低抖動 < 5ms)</td>
             </tr>
-            <tr data-site="AWS">
-              <td><span class="badge badge-net">集團專線 (WAN)</span></td>
-              <td><strong>第一線 DYXnet 雲直連 (Cloud Connect)</strong></td>
-              <td>台北 HQ ↔ AWS 香港雲端</td>
-              <td>100 Mbps 虛擬專線 (VXC)</td>
+            <tr data-site="AWS" data-tier="IaaS" data-nettype="DirectConnect" data-category="Network">
+              <td><span class="badge badge-dyxnet" onclick="filterByNetType('DirectConnect')">雲端直連 CloudConnect</span></td>
+              <td><strong>CC-TPE-AWS-HK</strong></td>
+              <td><span class="badge badge-aws" onclick="filterBySite('AWS')">AWS 香港</span></td>
+              <td><span class="port-num">100 Mbps (CIR 100%)</span></td>
               <td><span class="port-num">< 28 ms</span></td>
-              <td>第一線 Cloud Gateway ↔ AWS VGW (IPsec)</td>
-              <td>高速專屬通道傳送打樣影像特徵值至 AWS Triton AI 推論，完全繞過公網擁塞</td>
+              <td>第一線 Cloud Connect ↔ AWS DX</td>
+              <td>AI 視覺布料辨識、雲端異地容災備援 (Azure/AWS)、跨國打樣 3D 渲染圖檔高速同步</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-net">備援專線 (SD-WAN)</span></td>
-              <td><strong>IPSec Over Internet (自動容錯)</strong></td>
-              <td>全球所有跨站 (HQ / RDV / RDG)</td>
-              <td>視各廠對外光纖頻寬 (100M~500M)</td>
-              <td>50~90 ms</td>
-              <td>FortiGate 200F / 80F / 60F (SD-WAN Engine)</td>
-              <td>3秒無感切換！當第一線 MPLS 遭遇海纜事件時，自動發起 AES-256-GCM 備援穿隧</td>
+            <tr data-site="all" data-tier="IaaS" data-nettype="SD-WAN" data-category="Network">
+              <td><span class="badge badge-iaas-net" onclick="filterByNetType('SD-WAN')">雙 ISP SD-WAN</span></td>
+              <td><strong>SD-WAN-OVERLAY</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">全廠區備援</span></td>
+              <td>各廠區雙光纖 100M～300M</td>
+              <td><span class="port-num">3 秒無感切換</span></td>
+              <td>FortiGate 全系列 SD-WAN 叢集</td>
+              <td>第一線 MPLS 專線突發海纜事故時，FortiGate IPsec VPN 於 3 秒內自動接管關鍵業務</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
-              <td><strong>VLAN 10: OOB 頻外硬體管理網</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>10.10.10.0/24 (1 Gbps 隔離網)</td>
-              <td>< 1 ms</td>
-              <td>Dell iDRAC9, Switch Mgmt, PDU (GW: 10.10.10.254)</td>
-              <td>物理與邏輯嚴格隔離，禁止對外路由，僅允許來自跳板機之 SSH/HTTPS 登入</td>
+            <tr data-site="HQ" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas" onclick="filterByNetType('VLAN')">VLAN 微切分</span></td>
+              <td><strong>VLAN 10 / OOB 管理</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td>10.10.10.0/24 (1 Gbps)</td>
+              <td><span class="port-num">< 1 ms</span></td>
+              <td>Dell S5248F-ON / iDRAC 專網</td>
+              <td>實體伺服器與交換機硬體帶外管理專網，嚴禁任何一般 PC 或外部網段直連</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
-              <td><strong>VLAN 20: 虛擬化底層叢集網</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>10.10.20.0/24 (25 Gbps LACP)</td>
-              <td>< 1 ms</td>
-              <td>ESXi 8.0 Hypervisor Host (GW: 10.10.20.254)</td>
-              <td>承載 vSphere HA 心跳、vMotion 虛擬機即時遷移與底層節點通訊</td>
+            <tr data-site="HQ" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas" onclick="filterByNetType('VLAN')">VLAN 微切分</span></td>
+              <td><strong>VLAN 20 / 虛擬化平台</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td>10.10.20.0/24 (25 Gbps)</td>
+              <td><span class="port-num">< 1 ms</span></td>
+              <td>VMware ESXi 8.0 Management</td>
+              <td>ESXi 虛擬化宿主機通訊、vMotion 熱遷移流量專用隔離網</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
-              <td><strong>VLAN 30: 核心應用與微服務網</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>192.168.0.0/24 (25 Gbps SFP28)</td>
-              <td>< 1 ms</td>
-              <td>RDSMP2, RSIMDW1, YARP 網關 (GW: 192.168.0.254)</td>
-              <td>企業內部生產應用與打樣網絡，經 FortiGate 進行東西向流量檢查</td>
+            <tr data-site="HQ" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas" onclick="filterByNetType('VLAN')">VLAN 微切分</span></td>
+              <td><strong>VLAN 30 / 微服務與中繼</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td>10.10.30.0/24 (10 Gbps)</td>
+              <td><span class="port-num">< 1 ms</span></td>
+              <td>RSIMDW1 / K8s Ingress Envoy</td>
+              <td>承載 C# 80 支 APIs 轉譯、D365 報表調用服務、廠區 MES 網關中繼</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
-              <td><strong>VLAN 40: MS SQL 核心資料庫網</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>192.168.0.10~.131 (25 Gbps RoCE v2)</td>
-              <td>< 0.5 ms</td>
-              <td>rsiaxdb1 (D365 AXDB), SAM 庫 (GW: 192.168.0.254)</td>
-              <td>高敏感資料庫專網，拒絕公網直連，僅允許授權應用程式與廠端特定 IP 連線</td>
+            <tr data-site="HQ" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas" onclick="filterByNetType('VLAN')">VLAN 微切分</span></td>
+              <td><strong>VLAN 40 / 核心資料庫</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td>10.10.40.0/24 (25 Gbps)</td>
+              <td><span class="port-num">< 1 ms</span></td>
+              <td>rsiaxdb1 AlwaysOn 專屬網段</td>
+              <td>最高機密數據網段：僅開放微服務中繼與 AOS 叢集存取，全端口防禦白名單</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
-              <td><strong>VLAN 50: 集中儲存 iSCSI SAN 專網</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>10.10.50.0/24 (25 Gbps MPIO)</td>
-              <td>< 0.3 ms</td>
-              <td>Dell Unity 480XT All-Flash SAN (無外網閘道)</td>
-              <td>啟用 Jumbo Frame 9000，無路由隔離儲存網絡，雙控制器負載平衡與無中斷存取</td>
+            <tr data-site="HQ" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas" onclick="filterByNetType('VLAN')">VLAN 微切分</span></td>
+              <td><strong>VLAN 50 / SAN 全閃存存儲</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td>10.10.50.0/24 (2x25G iSCSI)</td>
+              <td><span class="port-num">< 0.5 ms</span></td>
+              <td>Dell Unity 480XT (Jumbo Frame 9000)</td>
+              <td>全快閃 SAN 專屬無阻斷光纖/iSCSI 存儲網，巨型訊框 MTU 9000，極致 I/O 輸送</td>
             </tr>
-            <tr data-site="RDV">
-              <td><span class="badge badge-rdv">內網 (VLAN)</span></td>
-              <td><strong>VLAN 100: 越南同奈 Edge 生產網</strong></td>
-              <td>越南同奈廠 (RDV)</td>
-              <td>172.16.10.0/24 (10 Gbps SFP+)</td>
-              <td>< 1 ms</td>
-              <td>RDV-EDGE-SRV01 邊緣伺服器 (GW: 172.16.10.254)</td>
-              <td>運行廠端 MES，與台北總部透過第一線專線同步，支援 48～72H 離線生產</td>
+            <tr data-site="HQ" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas" onclick="filterByNetType('VLAN')">VLAN 微切分</span></td>
+              <td><strong>VLAN 100 / 外網 DMZ 緩衝</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">台北總部</span></td>
+              <td>10.10.100.0/24 (10 Gbps)</td>
+              <td><span class="port-num">< 2 ms</span></td>
+              <td>FortiGate 200F 反向代理 / WAF</td>
+              <td>對外 Web API 與打樣客戶預覽服務，配置雙層次世代防禦與 DDoS 緩解</td>
             </tr>
-            <tr data-site="RDV">
-              <td><span class="badge badge-rdv">內網 (VLAN)</span></td>
-              <td><strong>VLAN 110: 越南廠區 OT 車間網</strong></td>
-              <td>越南同奈廠 (RDV)</td>
-              <td>172.16.11.0/24 (1 Gbps 工業乙太網)</td>
-              <td>< 2 ms</td>
-              <td>自動化裁床、吊掛機、PLC、感測器 (GW: 172.16.11.254)</td>
-              <td><strong>OT/IT 隔離區域</strong>，嚴禁設備商容器直接聯網，落實「五道紅線」邊界圍堵</td>
-            </tr>
-            <tr data-site="RDG">
-              <td><span class="badge badge-rdg">內網 (VLAN)</span></td>
-              <td><strong>VLAN 200: 柬埔寨柴楨 Edge 生產網</strong></td>
-              <td>柬埔寨柴楨廠 (RDG)</td>
-              <td>172.16.20.0/24 (10 Gbps SFP+)</td>
-              <td>< 1 ms</td>
-              <td>RDG-EDGE-SRV01 邊緣伺服器 (GW: 172.16.20.254)</td>
-              <td>柴楨廠生管與物聯網資料彙總，本機快取與台北總部非同步對賬</td>
-            </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-sec">外網 (Internet)</span></td>
-              <td><strong>總部主要公網出口 (Primary ISP)</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>中華電信 HiNet 固接光纖 500M/500M</td>
-              <td>< 5 ms (國內)</td>
-              <td>FortiGate 200F WAN1 (固定實體 IP)</td>
-              <td>承載對外業務流量，經由 Cloudflare Enterprise WAF 進行防護</td>
-            </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-sec">外網 (Internet)</span></td>
-              <td><strong>總部備援公網出口 (Secondary ISP)</strong></td>
-              <td>台北總部 (HQ)</td>
-              <td>遠傳企業光纖雙迴路 300M/300M</td>
-              <td>< 6 ms (國內)</td>
-              <td>FortiGate 200F WAN2 (固定實體 IP)</td>
-              <td>對外網路雙線 BGP/ECMP 負載平衡與斷線自動備援切換</td>
+            <tr data-site="all" data-tier="IaaS" data-nettype="VLAN" data-category="Network">
+              <td><span class="badge badge-iaas-sec" onclick="filterByNetType('VLAN')">OT 工控隔離網</span></td>
+              <td><strong>VLAN 200 / 車間工控隔離網</strong></td>
+              <td><span class="badge badge-hq" onclick="filterBySite('HQ')">各海外廠區</span></td>
+              <td>10.10.200.0/24 (1 Gbps)</td>
+              <td><span class="port-num">< 2 ms</span></td>
+              <td>FortiGate OT 邊界網關</td>
+              <td>設備商黑盒子五道紅線隔離：嚴禁連外、單向時序日誌回傳、嚴禁連回 IT 核心網</td>
             </tr>
           </tbody>
         </table>
@@ -1579,62 +1799,76 @@
         <table id="table-security">
           <thead>
             <tr>
-              <th onclick="sortTable('table-security', 0)">防禦層級 (Layer)</th>
-              <th onclick="sortTable('table-security', 1)">核心技術與模組 (Component)</th>
-              <th onclick="sortTable('table-security', 2)">保護目標與作用範圍 (Scope)</th>
-              <th onclick="sortTable('table-security', 3)">安全機制與防禦動作 (Security Policy & Action)</th>
-              <th onclick="sortTable('table-security', 4)">合規標準 (Compliance)</th>
+              <th onclick="sortTable('table-security', 0)">
+                <div class="th-content">
+                  <span class="th-text">防禦層級 (Layer)</span>
+                  <select class="th-filter-select" id="th-filter-sec-layer" onchange="filterBySecLayer(this.value)" onclick="event.stopPropagation()" title="按防禦層級篩選">
+                    <option value="all">全部層級</option>
+                    <option value="第 1 階">第 1 階 KOI 進入點</option>
+                    <option value="第 2 階">第 2 階 執行階段防護</option>
+                    <option value="第 3 階">第 3 階 憑證與管道</option>
+                    <option value="第 4 階">第 4 階 CI/CD 緩衝</option>
+                    <option value="第 5 階">第 5 階 隔離補救</option>
+                    <option value="黑盒子">OT 工控五道紅線</option>
+                  </select>
+                </div>
+              </th>
+              <th onclick="sortTable('table-security', 1)">
+                <div class="th-content"><span class="th-text">核心技術與模組 (Component)</span></div>
+              </th>
+              <th onclick="sortTable('table-security', 2)">
+                <div class="th-content"><span class="th-text">保護目標與作用範圍 (Scope)</span></div>
+              </th>
+              <th onclick="sortTable('table-security', 3)">
+                <div class="th-content"><span class="th-text">安全機制與防禦動作 (Security Policy & Action)</span></div>
+              </th>
+              <th onclick="sortTable('table-security', 4)">
+                <div class="th-content"><span class="th-text">合規標準 (Compliance)</span></div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr data-site="HQ">
-              <td><span class="badge badge-sec">第1階：進入點核心</span></td>
-              <td><strong>KOI 內嵌安全閘道 (Entry Gateway)</strong></td>
-              <td>全球所有外部相依性套件、代碼庫與容器映象檔</td>
-              <td>在任何第三方套件與模型下載觸及開發與生產主機前執行攔截，封鎖供應鏈投毒與惡意注入</td>
-              <td>ISO 27001 / SLSA-3</td>
+            <tr data-site="all" data-tier="PaaS" data-seclayer="第 1 階" data-category="Security">
+              <td><span class="badge badge-tier1" onclick="filterBySecLayer('第 1 階')">第 1 階 (核心)</span></td>
+              <td><strong>KOI 內嵌安全閘道</strong></td>
+              <td>所有開發者終端、CI/CD 節點、中繼主機</td>
+              <td><strong>在下載觸及裝置前攔截封鎖</strong>：全面解析 NPM/NuGet/PyPI 依賴套件，防範惡意供應鏈投毒</td>
+              <td>ISO 27001 / IEC 62443</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-sec">第2階：執行階段防護</span></td>
-              <td><strong>Cortex XDR 執行階段防護 (Runtime Shield)</strong></td>
-              <td>台北 HQ、越南 RDV、柬埔寨 RDG 全節點</td>
-              <td>主動阻斷惡意程式碼、記憶體緩衝區溢位、未經授權之開發工具外掛及可疑反彈 Shell</td>
-              <td>MITRE ATT&CK</td>
+            <tr data-site="all" data-tier="PaaS" data-seclayer="第 2 階" data-category="Security">
+              <td><span class="badge badge-tier2" onclick="filterBySecLayer('第 2 階')">第 2 階 (執行期)</span></td>
+              <td><strong>Cortex XDR 執行階段防護</strong></td>
+              <td>微服務容器、中繼虛擬機、生產資料庫宿主機</td>
+              <td><strong>阻止惡意程式碼與開發工具未授權擴充功能</strong>：即時攔截記憶體注入、Shell 逆向反彈與無檔案攻擊</td>
+              <td>MITRE ATT&CK Top 10</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-sec">第3階：憑證與管道防護</span></td>
-              <td><strong>Secret & Pipeline Protection</strong></td>
-              <td>CI/CD 管道、K8s Secrets、第一線專線組態與私鑰</td>
-              <td>防止開發與維運環境之私鑰、API Token、資料庫連線字串外洩；強制標記 <strong>[REDACTED]</strong> 脫敏</td>
-              <td>CIS Benchmark</td>
+            <tr data-site="all" data-tier="PaaS" data-seclayer="第 3 階" data-category="Security">
+              <td><span class="badge badge-tier2" onclick="filterBySecLayer('第 3 階')">第 3 階 (管道憑證)</span></td>
+              <td><strong>憑證與管道防護 (Secret Vault)</strong></td>
+              <td>D365 連線字串、API 金鑰、資料庫連線池</td>
+              <td><strong>防止開發環境未經授權存取</strong>：機敏金鑰不可硬編碼，強制統一由 HashiCorp Vault 動態注入</td>
+              <td>PCI-DSS / CIS Benchmark</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-sec">第4階：更新冷卻緩衝</span></td>
-              <td><strong>CI/CD 版本更新冷卻緩衝 (Release Buffer)</strong></td>
-              <td>生產版本發布管道 (MSBuild / GitLab CI/CD)</td>
-              <td>於 CI/CD 管道實施 24 小時安全冷卻與自動簽章比對驗證，杜絕未經檢驗之零日漏洞直通生產</td>
-              <td>DevSecOps SOP</td>
+            <tr data-site="all" data-tier="PaaS" data-seclayer="第 4 階" data-category="Security">
+              <td><span class="badge badge-tier3" onclick="filterBySecLayer('第 4 階')">第 4 階 (管線稽核)</span></td>
+              <td><strong>版本更新冷卻緩衝機制</strong></td>
+              <td>GitLab CI / Jenkins 建置發布管道</td>
+              <td><strong>CI/CD 管道執行封鎖</strong>：重大套件升級強制進入 48 小時沙盒觀察期，防範零日漏洞自動發布感染</td>
+              <td>DevSecOps Pipeline Guard</td>
             </tr>
-            <tr data-site="RDV">
-              <td><span class="badge badge-sec">第5階：持續補救措施</span></td>
-              <td><strong>自動化威脅隔離與自我修復 (Remediation)</strong></td>
-              <td>跨國所有邊緣節點與伺服器 Pods</td>
-              <td>當偵測到節點異常或指標偏離時，3秒內自動實體網絡隔離受入侵裝置，防止橫向擴散</td>
-              <td>NIST CSF</td>
+            <tr data-site="all" data-tier="PaaS" data-seclayer="第 5 階" data-category="Security">
+              <td><span class="badge badge-tier1" onclick="filterBySecLayer('第 5 階')">第 5 階 (補救復原)</span></td>
+              <td><strong>持續補救與端點隔離措施</strong></td>
+              <td>全集團所有終端與海外邊緣主機</td>
+              <td><strong>自動隔離遭入侵裝置</strong>：觸發異常威脅行為立即下發網路封鎖指令，啟動取證快照與還原復原</td>
+              <td>NIST CSF / SLA 15min</td>
             </tr>
-            <tr data-site="HQ">
-              <td><span class="badge badge-net">身分鑑別雙軌制</span></td>
-              <td><strong>AD/AAD SSO vs 產線工號+自設密碼</strong></td>
-              <td>辦公室行政/業務/財務 vs 工廠車縫/品管人員</td>
-              <td><strong>兼顧資安與成本</strong>：辦公室用 Kerberos/OAuth SSO；產線作業員用輕量 JWT，<strong>0元多餘微軟 CAL 授權費</strong></td>
-              <td>Zero Trust & 授權最佳化</td>
-            </tr>
-            <tr data-site="RDG">
-              <td><span class="badge badge-rdg">設備商黑盒子圍堵</span></td>
-              <td><strong>海外廠容器黑盒子「五道紅線」圍堵</strong></td>
-              <td>柬埔寨/越南廠自動化設備商交付之 Docker/K8s 主機</td>
-              <td>強制隔離於獨立 OT VLAN，設定嚴格 Egress 白名單，禁止直連外部網際網路與總部核心庫</td>
-              <td>工控資安 IEC 62443</td>
+            <tr data-site="all" data-tier="IaaS" data-seclayer="黑盒子" data-category="Security">
+              <td><span class="badge badge-iaas-sec" onclick="filterBySecLayer('黑盒子')">OT 實體紅線</span></td>
+              <td><strong>設備商黑盒子五道紅線隔離</strong></td>
+              <td>裁床、自動拉布機、吊掛流水線 PLC 機台</td>
+              <td><strong>五道紅線嚴格實體防禦</strong>：嚴禁直連外網、專用 VLAN 200、單向日誌回傳、物理阻斷跳板、動態白名單</td>
+              <td>產線資安實體隔離標準</td>
             </tr>
           </tbody>
         </table>
@@ -1868,103 +2102,191 @@
 
 <!-- JavaScript Logic -->
 <script>
-  // 1. Tab Switching Function
-  function switchTab(tabKey) {
-    const panes = document.querySelectorAll('.tab-pane');
-    panes.forEach(pane => pane.classList.remove('active'));
-    const targetPane = document.getElementById('tab-' + tabKey);
-    if (targetPane) targetPane.classList.add('active');
+  let currentSite = 'all';
+  let currentTier = 'all';
+  let currentCategory = 'all';
+  let currentBcpTier = 'all';
+  let currentNetType = 'all';
+  let currentSecLayer = 'all';
+  let globalQuery = '';
 
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-      btn.classList.remove('active');
-      const oc = btn.getAttribute('onclick') || '';
-      if (oc.indexOf("'" + tabKey + "'") !== -1 || oc.indexOf('"' + tabKey + '"') !== -1) {
-        btn.classList.add('active');
-      }
+  const siteLabels = {
+    all: '全球全部站點',
+    HQ: '台北總部 (HQ)',
+    RDV: '越南同奈廠 (RDV)',
+    RDG: '柬埔寨柴楨廠 (RDG)',
+    RDI: '印尼廠 (RDI)',
+    AWS: 'AWS 香港雲端 (ap-east-1)'
+  };
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+    const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => {
+      const oc = b.getAttribute('onclick') || '';
+      return oc.indexOf("'" + tabId + "'") !== -1;
     });
+    if (activeBtn) activeBtn.classList.add('active');
+
+    const pane = document.getElementById('tab-' + tabId);
+    if (pane) pane.classList.add('active');
 
     updateResultCount();
   }
 
-  // 2. Site Filtering Function
-  let currentSite = 'all';
-  const siteLabels = {
-    'all': '全部站點 (All)',
-    'HQ': '台北總部 (HQ)',
-    'RDV': '越南同奈 (RDV)',
-    'RDG': '柬埔寨柴楨 (RDG)',
-    'RDI': '印尼廠 (RDI)',
-    'AWS': 'AWS 香港雲端'
-  };
-
   function filterBySite(site) {
     currentSite = site;
-    const chips = document.querySelectorAll('.filter-chips .chip');
-    chips.forEach(c => {
-      c.classList.remove('active');
-      const oc = c.getAttribute('onclick') || '';
-      if (oc.indexOf("'" + site + "'") !== -1 || oc.indexOf('"' + site + '"') !== -1) {
-        c.classList.add('active');
-      }
+    document.querySelectorAll('.site-chips .chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-site') === site);
     });
-
-    // Link with SVG diagram nodes
-    const svgGroups = {
-      'HQ': document.getElementById('svg-group-HQ'),
-      'RDV': document.getElementById('svg-group-RDV'),
-      'RDG': document.getElementById('svg-group-RDG'),
-      'AWS': document.getElementById('svg-group-AWS')
-    };
-
-    Object.keys(svgGroups).forEach(k => {
-      const g = svgGroups[k];
-      if (g) {
-        if (site === 'all' || site === k) {
-          g.style.opacity = '1';
-          g.style.filter = (site === k) ? 'drop-shadow(0 0 16px rgba(59,130,246,0.9))' : 'none';
-        } else {
-          g.style.opacity = '0.2';
-          g.style.filter = 'none';
-        }
-      }
+    document.querySelectorAll('.th-filter-site').forEach(sel => {
+      sel.value = site;
     });
-
     applyFilters();
   }
 
-  // 3. Search Handler
+  function filterByTier(tier) {
+    currentTier = tier;
+    document.querySelectorAll('.tier-chips .chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-tier') === tier);
+    });
+    document.querySelectorAll('.th-filter-cat').forEach(sel => {
+      if (tier === 'all') sel.value = 'all';
+      else if (['IaaS', 'PaaS', 'SaaS'].indexOf(tier) !== -1) sel.value = tier;
+    });
+    applyFilters();
+  }
+
+  function filterByCategory(cat) {
+    currentCategory = cat;
+    document.querySelectorAll('.cat-chips .chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-cat') === cat);
+    });
+    document.querySelectorAll('.th-filter-cat').forEach(sel => {
+      sel.value = cat;
+    });
+    applyFilters();
+  }
+
+  function filterByBcpTier(tier) {
+    currentBcpTier = tier;
+    const sel = document.getElementById('th-filter-bcp-tier');
+    if (sel) sel.value = tier;
+    applyFilters();
+  }
+
+  function filterByNetType(type) {
+    currentNetType = type;
+    const sel = document.getElementById('th-filter-net-type');
+    if (sel) sel.value = type;
+    applyFilters();
+  }
+
+  function filterBySecLayer(layer) {
+    currentSecLayer = layer;
+    const sel = document.getElementById('th-filter-sec-layer');
+    if (sel) sel.value = layer;
+    applyFilters();
+  }
+
   function handleGlobalSearch() {
+    const input = document.getElementById('globalSearchInput');
+    globalQuery = input ? input.value.trim().toLowerCase() : '';
     applyFilters();
   }
 
-  // 4. Combined Filtering (Site + Search Query)
-  function applyFilters() {
-    const searchInput = document.getElementById('globalSearchInput');
-    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-    const tables = document.querySelectorAll('table');
+  function resetAllFilters() {
+    currentSite = 'all';
+    currentTier = 'all';
+    currentCategory = 'all';
+    currentBcpTier = 'all';
+    currentNetType = 'all';
+    currentSecLayer = 'all';
+    globalQuery = '';
 
+    const input = document.getElementById('globalSearchInput');
+    if (input) input.value = '';
+
+    document.querySelectorAll('.site-chips .chip').forEach(c => c.classList.toggle('active', c.getAttribute('data-site') === 'all'));
+    document.querySelectorAll('.tier-chips .chip').forEach(c => c.classList.toggle('active', c.getAttribute('data-tier') === 'all'));
+    document.querySelectorAll('.cat-chips .chip').forEach(c => c.classList.toggle('active', c.getAttribute('data-cat') === 'all'));
+
+    document.querySelectorAll('select.th-filter-select').forEach(sel => sel.value = 'all');
+
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const tables = document.querySelectorAll('table');
     tables.forEach(table => {
       const rows = table.querySelectorAll('tbody tr');
-      rows.forEach(row => {
-        const rowSite = row.getAttribute('data-site') || '';
-        const rowText = row.innerText.toLowerCase();
+      rows.forEach(tr => {
+        const rowSite = tr.getAttribute('data-site') || 'all';
+        const rowTier = tr.getAttribute('data-tier') || 'all';
+        const rowCat = tr.getAttribute('data-category') || 'all';
+        const rowBcp = tr.getAttribute('data-bcp') || 'all';
+        const rowNet = tr.getAttribute('data-nettype') || 'all';
+        const rowSec = tr.getAttribute('data-seclayer') || 'all';
 
-        const matchSite = (currentSite === 'all') || (rowSite === currentSite);
-        const matchQuery = !query || (rowText.indexOf(query) !== -1);
+        // Site match
+        let matchSite = (currentSite === 'all') || (rowSite === currentSite) || (rowSite === 'all');
 
-        if (matchSite && matchQuery) {
-          row.classList.remove('hidden-row');
+        // Tier match
+        let matchTier = (currentTier === 'all') || (rowTier.indexOf(currentTier) !== -1);
+
+        // Category match
+        let matchCat = true;
+        if (currentCategory !== 'all') {
+          if (['IaaS', 'PaaS', 'SaaS'].indexOf(currentCategory) !== -1) {
+            matchCat = (rowTier.indexOf(currentCategory) !== -1);
+          } else {
+            matchCat = (rowCat === currentCategory) || (rowCat.indexOf(currentCategory) !== -1);
+          }
+        }
+
+        // BCP Tier match
+        let matchBcp = (currentBcpTier === 'all') || (rowBcp.indexOf(currentBcpTier) !== -1);
+
+        // Net Type match
+        let matchNet = (currentNetType === 'all') || (rowNet.indexOf(currentNetType) !== -1);
+
+        // Sec Layer match
+        let matchSec = (currentSecLayer === 'all') || (rowSec.indexOf(currentSecLayer) !== -1);
+
+        // Query match
+        let matchQuery = true;
+        if (globalQuery) {
+          matchQuery = tr.innerText.toLowerCase().indexOf(globalQuery) !== -1;
+        }
+
+        if (matchSite && matchTier && matchCat && matchBcp && matchNet && matchSec && matchQuery) {
+          tr.classList.remove('hidden-row');
         } else {
-          row.classList.add('hidden-row');
+          tr.classList.add('hidden-row');
         }
       });
     });
 
+    highlightSvgSite(currentSite);
     updateResultCount();
   }
 
-  // 5. Update Result Indicator Count
+  function highlightSvgSite(site) {
+    const siteGroups = ['HQ', 'RDV', 'RDG', 'AWS'];
+    siteGroups.forEach(sg => {
+      const el = document.getElementById('svg-group-' + sg);
+      if (!el) return;
+      if (site === 'all' || site === sg) {
+        el.style.opacity = '1';
+        el.style.filter = (site === sg) ? 'drop-shadow(0 0 16px rgba(59,130,246,0.85))' : 'none';
+      } else {
+        el.style.opacity = '0.35';
+        el.style.filter = 'none';
+      }
+    });
+  }
+
   function updateResultCount() {
     const activePane = document.querySelector('.tab-pane.active');
     const countEl = document.getElementById('resultCount');
@@ -1972,9 +2294,9 @@
 
     if (!activePane || activePane.id === 'tab-diagram') {
       if (currentSite === 'all') {
-        countEl.innerText = '視覺圖檔：顯示全球核心拓撲';
+        countEl.innerText = '視覺拓撲：顯示全球核心拓撲';
       } else {
-        countEl.innerText = '視覺圖檔：聚焦 ' + (siteLabels[currentSite] || currentSite);
+        countEl.innerText = '視覺拓撲：聚焦 ' + (siteLabels[currentSite] || currentSite);
       }
       return;
     }
@@ -1987,10 +2309,13 @@
 
     const totalRows = table.querySelectorAll('tbody tr').length;
     const visibleRows = table.querySelectorAll('tbody tr:not(.hidden-row)').length;
-    countEl.innerText = '篩選結果：' + visibleRows + ' / ' + totalRows + ' 筆資料';
+    let label = '篩選結果：' + visibleRows + ' / ' + totalRows + ' 筆';
+    if (currentSite !== 'all') label += ' [' + (siteLabels[currentSite] || currentSite) + ']';
+    if (currentTier !== 'all') label += ' [' + currentTier + ']';
+    if (currentCategory !== 'all') label += ' [' + currentCategory + ']';
+    countEl.innerText = label;
   }
 
-  // 6. Multi-Column Sorting
   const sortDirections = {};
   function sortTable(tableId, colIndex) {
     const table = document.getElementById(tableId);
@@ -2027,13 +2352,12 @@
     rows.forEach(r => tbody.appendChild(r));
   }
 
-  // 7. CSV Export Utility (Uses String.fromCharCode to completely prevent any escape bugs)
   function exportActiveTableToCSV() {
     const activePane = document.querySelector('.tab-pane.active');
     if (!activePane) return;
     const table = activePane.querySelector('table');
     if (!table) {
-      alert('請先切換至「BCP/SLA矩陣」、「硬體規格表」、「網絡架構表」或「資安矩陣」後再匯出！');
+      alert('請先切換至表格頁面後再匯出！');
       return;
     }
 
@@ -2056,7 +2380,6 @@
     link.click();
   }
 
-  // 8. Diagram Viewport Utilities
   function resetZoom() {
     const vp = document.getElementById('diagramViewport');
     if (vp) vp.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
@@ -2073,7 +2396,6 @@
     }
   }
 
-  // Initialize
   window.addEventListener('DOMContentLoaded', () => {
     updateResultCount();
   });
