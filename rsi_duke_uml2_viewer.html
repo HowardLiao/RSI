@@ -370,7 +370,93 @@
       max-width: 100%;
       height: auto;
     }
-  </style>
+  
+    /* Duke 提問卡片樣式 */
+    .duke-questions-drawer {
+      background: rgba(22, 27, 34, 0.95);
+      border: 1.5px solid #d29922;
+      border-radius: 12px;
+      margin: 20px 40px;
+      padding: 24px 28px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+      display: block;
+      transition: all 0.3s ease;
+    }
+    [data-theme="milan"] .duke-questions-drawer {
+      background: #ffffff;
+      border-color: #d97706;
+      box-shadow: 0 10px 30px rgba(180, 83, 9, 0.12);
+    }
+    .duke-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+    .duke-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .duke-q-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-left: 4px solid #38bdf8;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+    [data-theme="milan"] .duke-q-item {
+      background: #fdfbf7;
+      border-color: #e2ddd5;
+      border-left-color: #0284c7;
+    }
+    .duke-q-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+    [data-theme="milan"] .duke-q-title {
+      color: #0284c7;
+    }
+    .duke-bg-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    .duke-ask-text {
+      font-size: 14px;
+      color: var(--text-main);
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 6px;
+      padding: 10px 14px;
+      line-height: 1.6;
+    }
+    [data-theme="milan"] .duke-ask-text {
+      background: #f0f9ff;
+    }
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 9999;
+    }
+
+</style>
 </head>
 <body data-theme="dark">
 
@@ -385,7 +471,7 @@
 
     <h1>信源全球 2027 蜂巢計畫 (Project Hive) UML 2.0 架構總覽圖冊</h1>
     <div class="subtitle">
-      依據 Duka (Duke) 主管交付之真實 API List (三章 26 服務) 與 RD_SAMPLE-v0-1 示範範本 (21 條拓撲、1,490 處直接 SQL、13 項排程)，遵循 D365 C# 服務定義，產出符合 ISO/IEC 19505 之 UML 2.0 全量架構圖資。
+      依據 Duke交付之真實 API List (三章 26 服務) 與 RD_SAMPLE-v0-1 示範範本 (21 條拓撲、1,490 處直接 SQL、13 項排程)，遵循 D365 C# 服務定義，產出符合 ISO/IEC 19505 之 UML 2.0 全量架構圖資。
     </div>
 
     <div class="role-grid">
@@ -401,7 +487,7 @@
       </div>
       <div class="role-card">
         <span class="role-title">記錄整理</span>
-        <span class="role-name">Duka Chen (Duke) 主管</span>
+        <span class="role-name">Duka Chen (Duke)</span>
         <span class="role-desc">研發資訊主管 ｜ 交付 RD_SAMPLE-v0-1 與集團真實 API 清單</span>
       </div>
     </div>
@@ -606,6 +692,69 @@
           ${d.name.split(' ')[0]} ${d.name.split(' ')[1]}
         </button>
       `).join('');
+    }
+
+    
+    function toggleDukeCard() {
+      const body = document.getElementById('dukeContentBody');
+      if (body.style.display === 'none') {
+        body.style.display = 'block';
+      } else {
+        body.style.display = 'none';
+      }
+    }
+
+    const DUKE_FULL_LETTER = `Duke 您好，辛苦了！
+
+非常感謝您在 11/12 如此高效率且條理分明地盤點並交付了集團核心的 API List 與 RD_SAMPLE-v0-1 完整規格！這份技術資產梳理得非常清晰，不僅將複雜的跨系統介面（21 條拓撲）與 13 項核心排程完整透明化，更為我們推進周副總主持的「2027 蜂巢計畫（Project Hive）」奠定了極為扎實、可靠的工程基石。
+
+為了協助團隊在後續落地「在地端 48~72 小時斷網自律運轉」與「0 元開源平替架構」時更加平穩順暢，並最大程度降低對您與開發團隊日常維運的負擔，我們在深入研讀這兩份寶貴資料後，整理出以下 5 個面向的協同確認與探討點。想請教並聆聽您的實務經驗與建議：
+
+1. D365 C# 外掛 API 的邊界防護與 Gateway 平滑收攏
+現況背景：
+清冊中清楚標記了主機 192.168.0.95 上的 Report API（:8085 / :8082）與 Local API（:80 / :8081），主要供各系統取得報表下載 URL 與成衣業務資料（馬克、PCT、WIP 等），目前採取內部信任（無驗證）模式。
+想請教 Duke：
+目前呼叫這兩組 API 的主要來源端（如 RD_SAMPLE 站台、現場特定工作站或批次程式），在底層網路上是否已有既定的 IP 白名單或網段限制？
+未來若由在地端輕量 API Gateway（如開源 YARP）在前端統籌掛載 JWT/Token 鑑權做為資安防護閘道，現有呼叫端在配合改帶 Authorization Header 方面，哪一種推進節奏對團隊來說最為平穩（例如：維持既有端口不變、由 Gateway 對外開新路由並設置平行過渡期）？
+
+2. 跨國專線同步與廠區「48～72 小時斷網自律」落地銜接
+現況背景：
+Sync_RSV.bat 與 Sync_RSG.bat 每 30 分鐘透過 DYXnet 專線直連越柬廠區 SQL Server（1433）同步工單與日報資料，維繫了跨國打樣與生產節奏。
+想請教 Duke：
+依據過往經驗，當遇上海纜檢修或跨國專線瞬斷時，海外廠端若無法即時回寫，目前同仁的排解方式主要依賴重跑排程，或是有人工批次對齊的機制？是否有遇過主鍵衝突或時間戳鎖定需要手動處理的情形？
+若我們在廠區邊緣端（Local Edge）導入離線暫存隊列，讓越南與柬埔寨在海纜斷線時仍可自律開單、打樣與填報達 72 小時，待專線復原後全自動非同步對齊，生管與打樣現場最核心、最不能中斷的關鍵欄位會建議優先鎖定哪些？
+
+3. RD_SAMPLE 資料庫存取與 AXDB 正式庫連線收斂
+現況背景：
+RD_SAMPLE 內部包含 1,490 處存取 SAM 資料庫的 SQL，並有 23 處跨庫直連 AXDB 營運主庫（192.168.0.131）進行資料讀取。
+想請教 Duke：
+這 23 處直讀 AXDB 的查詢需求（例如料號基本檔、訂單狀態），是否有部分在您梳理的「D365 C# 80 Operations」中已具備對應的 API 服務可供直接調用？
+針對高頻查詢部分，若未來透過夜間批次先將 AXDB 所需的唯讀視圖（Read-Only View）鏡像至地端暫存庫，解除直接對 AXDB 的連線依賴，這樣的架構調整是否符合團隊對資料即時性的預期？
+
+4. 13 項核心排程之運作觀測與維運儀表體驗
+現況背景：
+SendNotification.bat 具備 5 分鐘高頻輪詢機制，且夜間 23:01 起有密集的顏色、物料主檔同步排程，是維持集團營運神經中樞的功臣。
+想請教 Duke：
+目前這些排程若在半夜遇到網路逾時或執行例外，內部現行的監控機制是透過文字 Log 巡檢，還是已串接特定的通訊軟體 / 郵件告警？
+未來若規劃一個輕量、視覺化的地端任務儀表板（可直接線上查看各排程心跳狀態、執行成功率與一鍵手動補跑），您與團隊在維運習慣上，最希望在儀表板首頁看到哪些即時指標？
+
+5. CQS 品質微服務 (.NET 8) 現代化架構經驗借鏡
+現況背景：
+CQS 已成功建構於 .NET 8 現代化微服務框架上，並由 IIS ARR（8012 轉發至 8011）負責負載調度，架構十分先進！
+想請教 Duke：
+CQS 的升級經驗非常適合作為其他系統現代化的示範標竿！想請教目前 IIS ARR 在實際承載高頻品質審核請求時的效能與記憶體表現如何？
+正式機環境上的 Swagger 頁面，團隊目前是否有預定的排程做內部權限隔離，或是未來可直接收納至統一的開發者門戶中統一管理？
+
+再次感謝 Duke 與研發團隊的扎實梳理，以上問題旨在協助後續架構對齊時能最大程度保護現有程式碼、零衝擊產線營運，期待與 Duke 共同推進計畫！`;
+
+    function copyDukeLetter() {
+      navigator.clipboard.writeText(DUKE_FULL_LETTER).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 2500);
+      });
     }
 
     function switchTab(index) {
