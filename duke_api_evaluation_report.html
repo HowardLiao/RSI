@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 2027 蜂巢計畫｜Duka 11/12 API 清單與 RD_SAMPLE 示範範本深度剖析與落地處方</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: rgba(22, 27, 34, 0.9);
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #d29922;
+      --accent-glow: rgba(210, 153, 34, 0.2);
+      --primary: #58a6ff;
+      --success: #3fb950;
+      --warning: #f0883e;
+      --danger: #f85149;
+      --code-bg: #161b22;
+      --nav-bg: rgba(13, 17, 23, 0.95);
+      --table-stripe: rgba(255, 255, 255, 0.02);
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    [data-theme="milan"] {
+      --bg: #f7f5f0;
+      --card-bg: #ffffff;
+      --border: #e2ddd5;
+      --text: #2c2523;
+      --text-muted: #706863;
+      --accent: #b25d2b;
+      --accent-glow: rgba(178, 93, 43, 0.15);
+      --primary: #2d68c4;
+      --success: #2e7d32;
+      --warning: #e65100;
+      --danger: #c62828;
+      --code-bg: #f0ece1;
+      --nav-bg: rgba(247, 245, 240, 0.95);
+      --table-stripe: rgba(0, 0, 0, 0.02);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    header.hero-header {
+      background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px 30px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .action-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      opacity: 0.9;
+      color: #fff;
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      max-width: 960px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    /* Bento Cards */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .bento-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+    .bento-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
+    }
+    .bento-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .bento-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--border);
+      margin: 24px 0;
+      padding-bottom: 2px;
+    }
+    .nav-tab {
+      padding: 10px 18px;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    .nav-tab:hover {
+      color: var(--text);
+    }
+    .nav-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Content Cards */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .section-badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-weight: 600;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 16px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    th {
+      background: var(--code-bg);
+      color: var(--text);
+      font-weight: 600;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background: var(--table-stripe);
+    }
+    tr:hover td {
+      background: rgba(210, 153, 34, 0.04);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .tag-danger { background: rgba(248, 81, 73, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+    .tag-warning { background: rgba(240, 136, 62, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+    .tag-success { background: rgba(63, 185, 80, 0.15); color: var(--success); border: 1px solid var(--success); }
+    .tag-primary { background: rgba(88, 166, 255, 0.15); color: var(--primary); border: 1px solid var(--primary); }
+
+    /* Code & Callout */
+    pre, code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+    pre {
+      background: var(--code-bg);
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      margin: 12px 0;
+    }
+    code {
+      background: var(--code-bg);
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: var(--text);
+    }
+
+    .callout {
+      padding: 16px 20px;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-glow);
+      margin: 16px 0;
+      font-size: 0.92rem;
+    }
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .prescription-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+      background: var(--card-bg);
+    }
+    .prescription-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .prescription-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .action-controls, .nav-tabs { display: none !important; }
+      .tab-pane { display: block !important; margin-bottom: 40px; }
+      .section-card { border: 1px solid #ccc !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <header class="hero-header">
+    <div class="container">
+      <div class="header-top">
+        <div class="brand-badge">
+          <span>⚡ RSI HIVE 2027</span>
+          <span>｜</span>
+          <span>架構評估專案報告</span>
+        </div>
+        <div class="action-controls">
+          <button class="btn" id="themeToggleBtn" onclick="toggleTheme()">🎨 切換米蘭暖琥珀</button>
+          <a class="btn" href="https://rsiit.notion.site/API-List-41475b4303538069a392c2f052157625" target="_blank">🔗 Notion API List</a>
+          <a class="btn" href="https://rsiit.notion.site/RD_SAMPLE-v0-1-41475b430353816c862ed0679bfe9718" target="_blank">🔗 Notion RD_SAMPLE</a>
+          <button class="btn btn-primary" onclick="window.print()">🖨️ 列印/導出 PDF</button>
+        </div>
+      </div>
+
+      <h1 class="hero-title">Duka 11/12 交付之集團三大 API 清單與 RD_SAMPLE 示範範本深度剖析與落地處方</h1>
+      <p class="hero-subtitle">
+        全面體檢 D365 C# 外掛、X++ 80 支 Custom Service、CQS 品質服務，並以研發樣品管理系統為「金牌示範標竿」，確立全集團跨國廠區資料交換與 48~72 小時斷網自律運轉處方。
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="meta-label">專案計畫</span>
+          <span class="meta-value">信源全球 2027 蜂巢計畫 (Project Hive)</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">計畫主持人</span>
+          <span class="meta-value">周文津 副總</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">執行負責人 / 外部資訊顧問</span>
+          <span class="meta-value">Howard Liao Ph.D.</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">記錄整理 / 研發資訊主管</span>
+          <span class="meta-value">Duka Chen (Duke)</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">發布日期 / 密級</span>
+          <span class="meta-value">2026-11-12 ｜ 內部機密</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Bento Overview -->
+    <div class="bento-grid">
+      <div class="bento-card">
+        <div class="bento-num">3 大體系</div>
+        <div class="bento-title">API 架構資安體檢</div>
+        <div class="bento-desc">D365 C# 外掛 (無驗證)、X++ 80 Operations (Entra ID Bearer)、CQS (.NET 8 ARR)。</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-num">21 條</div>
+        <div class="bento-title">跨系統串接拓撲矩陣</div>
+        <div class="bento-desc">覆蓋 I01～I21 全量介面，深挖專線直連 TDS 1433 與 23 處 AXDB 直讀風險。</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-num">13 項</div>
+        <div class="bento-title">核心排程與批次作業</div>
+        <div class="bento-desc">每 5 分鐘派工、每 30 分鐘跨國專線推送、每日 ERP 顏色與物料主檔同步。</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-num">4 大處方</div>
+        <div class="bento-title">落地升級與斷網自律</div>
+        <div class="bento-desc">YARP API Gateway 零改舊碼收攏、本地端自律快取隊列、StarRocks 唯讀鏡像、全集團填報推廣。</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="switchTab('tab-api')">1. 三大 API 體系體檢</button>
+      <button class="nav-tab" onclick="switchTab('tab-rdsample')">2. RD_SAMPLE 示範範本</button>
+      <button class="nav-tab" onclick="switchTab('tab-matrix')">3. 21 條介面拓撲矩陣</button>
+      <button class="nav-tab" onclick="switchTab('tab-schedules')">4. Windows 排程清查</button>
+      <button class="nav-tab" onclick="switchTab('tab-prescriptions')">5. 顧問四大工程處方</button>
+    </div>
+
+    <!-- Tab 1: API Architecture -->
+    <div id="tab-api" class="tab-pane active">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>集團三大 API 體系深度解構與體檢</h2>
+          <span class="section-badge">核心技術資產</span>
+        </div>
+
+        <p style="margin-bottom: 20px; color: var(--text-muted);">
+          Duka 今日交付之清冊釐清了信源內部最重要的核心介面，涵蓋 D365 外部整合、ERP 內部 X++ 原生服務與品質管控微服務：
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>體系名稱</th>
+                <th>技術棧 / 伺服器</th>
+                <th>驗證機制現況</th>
+                <th>核心介面與特性</th>
+                <th>架構關鍵升級節點</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>D365 C# 外掛 API</strong><br>• Report API<br>• Local API</td>
+                <td>• C# (.NET Framework 4.8)<br>• Web API 2<br>• 主機：<code>192.168.0.95</code><br>• Report: 8085 / Local: 80</td>
+                <td><span class="tag tag-danger">完全無驗證 (None)</span><br>內網連通即可任意調用</td>
+                <td>• 繼承 <code>RqtBaseForm</code><br>• 回傳「檔案下載網址」<br>• 覆蓋馬克、PCT、WIP、F單、Order Form、MRP等</td>
+                <td><strong>【最高優先級】</strong><br>首波納入 YARP API Gateway 收攏，零改動舊程式碼掛載 JWT 鑑權。</td>
+              </tr>
+              <tr>
+                <td><strong>D365 X++ Custom Service</strong></td>
+                <td>• X++ Custom Service<br>• Model: <code>JCOM_WebServices</code>, <code>RSI_WebServices</code><br>• 共 31 Service / 80 Operation</td>
+                <td><span class="tag tag-success">Azure AD Bearer Token</span><br>微軟 Entra ID 應用程式授權</td>
+                <td>• 標準 <code>POST /api/services/...</code><br>• 統一回傳 <code>RSI_RT</code> 物件<br>• 附 <code>Generate-ApiDoc.ps1</code> 文檔腳本</td>
+                <td>• 架構穩健度佳。<br>• 納入 CI/CD 自動產生最新 OpenAPI 規格。</td>
+              </tr>
+              <tr>
+                <td><strong>CQS 品質管控服務</strong></td>
+                <td>• .NET 8 / ASP.NET Core<br>• 測試機：<code>192.168.0.23:8011</code><br>• 正式機：<code>192.168.0.22:8011</code></td>
+                <td><span class="tag tag-warning">userId 參數控管</span><br>Query String / Header</td>
+                <td>• 前端 8012 經 IIS ARR 反向代理至 8011<br>• Swagger 正式與測試機皆開啟</td>
+                <td>• 已屬現代化微服務。<br>• 需收斂正式機 Swagger 外露，補齊 DTO 欄位說明。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">🚨 顧問特別提醒：D365 C# 外掛無認證現狀之營運衝擊</div>
+          由於 <code>192.168.0.95</code> 之 80 與 8085 端口未設置驗證機制，且直接開放成衣主布馬克用量、採購單與報價訂單下載，若內網遭受橫向滲透，機密資料極易外洩。周副總要求之「自建在地端零信任防護」應以此處為突破口。
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: RD_SAMPLE -->
+    <div id="tab-rdsample" class="tab-pane">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>RD_SAMPLE (SOFT-00) 示範範本全貌</h2>
+          <span class="section-badge">金牌標竿 (Gold Standard)</span>
+        </div>
+
+        <p style="margin-bottom: 20px; color: var(--text-muted);">
+          Duka 主管嚴格貫徹周副總指示，以研發樣品管理系統（RD_SAMPLE）為示範，繳出了標準的規範範本：
+        </p>
+
+        <div class="bento-grid" style="margin: 16px 0;">
+          <div class="bento-card">
+            <div class="bento-title">🎨 draw.io 雙頁規範</div>
+            <div class="bento-desc"><code>RD_SAMPLE_架構與部署.drawio.xml</code>：第一頁「系統架構圖」、第二頁「部署拓撲圖」，嚴禁 Visio。</div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-title">📦 系統架構卡</div>
+            <div class="bento-desc">ASP.NET WebForms (.NET 4.8) + jQuery + Knockout + Python TechPack CLI 解析器。</div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-title">🔍 直接 SQL 耦合體檢</div>
+            <div class="bento-desc">自寫 <code>DataAcess</code>，全系統共 <strong>1,490 處直接 SQL</strong> 連線 SAM 庫；另有 23 處直接 SQL 讀取 D365 AXDB。</div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-title">🚀 CI/CD 部署現狀</div>
+            <div class="bento-desc">GitLab Runner (RDSMP1) 執行 msbuild 編譯後，透過 SMB 445 <code>robocopy</code> 複製至正式機 <code>\\192.168.0.22\d$</code>。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: 21 Matrix -->
+    <div id="tab-matrix" class="tab-pane">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>21 條跨系統串接拓撲矩陣 (I01～I21 全覽)</h2>
+          <span class="section-badge">完整拓撲盤點</span>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>編號</th>
+                <th>目標系統</th>
+                <th>協定 / 端口</th>
+                <th>驗證方式</th>
+                <th>業務說明與風險評估</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>I01</code></td><td>前端瀏覽器</td><td>HTTPS 443</td><td>Windows 帳密</td><td>內網 WebForms 介面操作</td></tr>
+              <tr><td><code>I02</code></td><td>SAM 樣品資料庫</td><td>TDS 1433</td><td>SQL Auth</td><td>約 1,490 處直接下 SQL，高耦合</td></tr>
+              <tr><td><code>I03</code></td><td>PDFTAG 資料庫</td><td>TDS 1433</td><td>SQL Auth</td><td>樣品標籤圖資管理</td></tr>
+              <tr><td><code>I04</code></td><td>TechPack 解析器</td><td>Local Process</td><td>CLI 執行</td><td>本機 Python 程序，相依本機環境</td></tr>
+              <tr style="background: rgba(248, 81, 73, 0.08);">
+                <td><code>I05</code></td>
+                <td><strong>跨國廠區資料庫</strong><br>(越南 RDV / 柬埔寨 RDG)</td>
+                <td><strong>DYXnet 專線<br>TDS 1433</strong></td>
+                <td>SQL Auth</td>
+                <td><span class="tag tag-danger">重大營運風險</span> 每 30 分鐘總部專線直連寫入海外 SQL，海纜抖動即引發排單死鎖</td>
+              </tr>
+              <tr style="background: rgba(248, 81, 73, 0.08);">
+                <td><code>I06</code></td>
+                <td><strong>廠區反向同步總部</strong></td>
+                <td><strong>SQL Linked Server</strong></td>
+                <td>Linked Server</td>
+                <td><span class="tag tag-danger">重大營運風險</span> 廠區以 Linked Server 連總部 MERGE，延遲將鎖死總部庫</td>
+              </tr>
+              <tr style="background: rgba(240, 136, 62, 0.08);">
+                <td><code>I07</code></td>
+                <td><strong>D365 AXDB 營運主庫</strong></td>
+                <td><strong>TDS 1433 (直接 SQL)</strong></td>
+                <td>SQL Auth</td>
+                <td><span class="tag tag-warning">資料治理挑戰</span> 23 處直接 SQL 讀取 ERP 主庫，缺乏讀寫分離</td>
+              </tr>
+              <tr><td><code>I08</code></td><td>D365 OData / Custom API</td><td>HTTPS 443</td><td>Azure AD Bearer</td><td>標準微服務調用，架構合規</td></tr>
+              <tr><td><code>I09</code></td><td>D365_Prod 唯讀庫</td><td>TDS 1433</td><td>SQL Auth</td><td>報表直接查詢唯讀庫</td></tr>
+              <tr><td><code>I10</code></td><td>D365 舊 SOAP 服務</td><td>HTTP 80</td><td>Basic Auth</td><td>歷史介面，待清理淘汰</td></tr>
+              <tr><td><code>I11</code></td><td>舊 MSC2003 系統</td><td>TDS 1433</td><td>SQL Auth</td><td><span class="tag tag-muted">已停用</span> 待下線封存</td></tr>
+              <tr><td><code>I12</code></td><td>MES IEPortal (工時系統)</td><td>HTTPS 443</td><td>API Key</td><td>樣品標準工時 (SMV) 同步</td></tr>
+              <tr><td><code>I13</code></td><td>CQS 品質系統</td><td>TDS 1433 + HTTP</td><td>DB + ARR Proxy</td><td>樣品檢驗報告與品質追蹤</td></tr>
+              <tr><td><code>I14</code></td><td>BPM 簽核系統</td><td>SOAP 80 + SMB 445</td><td>Service Auth + 網芳</td><td>樣品放行單據與簽核狀態交換</td></tr>
+              <tr><td><code>I15</code></td><td>FindImage 影像比對</td><td>HTTP REST</td><td>API Key</td><td>樣品照片特徵比對</td></tr>
+              <tr><td><code>I16</code></td><td>AWS EC2 AI 推論</td><td>HTTP 8000</td><td>Token 鑑權</td><td>樣品材料自動化辨識模型</td></tr>
+              <tr><td><code>I17</code></td><td>LLM 跨國語言翻譯</td><td>HTTP REST</td><td>Bearer Token</td><td>工藝單英越柬多語系翻譯</td></tr>
+              <tr><td><code>I18</code></td><td>企業 SMTP 郵件通知</td><td>SMTP 587</td><td>TLS Auth</td><td>指派與逾期警示信 (每 5 分鐘輪詢)</td></tr>
+              <tr><td><code>I19</code></td><td>HRM 人資打卡系統</td><td>SMB 445 (CSV)</td><td>網芳權限</td><td>請假記錄批次檔案同步</td></tr>
+              <tr><td><code>I20</code></td><td>本機檔案儲存</td><td>Local File I/O</td><td>Windows ACL</td><td>樣品工藝圖與版型暫存檔</td></tr>
+              <tr><td><code>I21</code></td><td>GitLab CI/CD 部署</td><td>SMB 445 (robocopy)</td><td>Domain 帳號</td><td>MSBuild 後網芳覆蓋至正式機</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Schedules -->
+    <div id="tab-schedules" class="tab-pane">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>Windows 排程器 13 項重要定時任務清查</h2>
+          <span class="section-badge">正式機 192.168.0.22 D:\EXP</span>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>排程腳本名稱</th>
+                <th>執行週期 / 時間</th>
+                <th>呼叫介面</th>
+                <th>業務職能說明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>SendNotification.bat</code></td><td>每 5 分鐘</td><td>I02, I18</td><td>掃描待辦通知信並發送 SMTP 郵件</td></tr>
+              <tr><td><code>Sync_RSV.bat</code></td><td>每 30 分鐘</td><td>I05</td><td>推送總部樣品與工單數據至越南廠 (RDV)</td></tr>
+              <tr><td><code>Sync_RSG.bat</code></td><td>每 30 分鐘</td><td>I05</td><td>推送總部樣品與工單數據至柬埔寨廠 (RDG)</td></tr>
+              <tr><td><code>DailySewnReport.bat</code></td><td>週一至週六 06:01</td><td>I02</td><td>產出前一日全廠車縫日報表</td></tr>
+              <tr><td><code>SyncHRM.bat</code></td><td>每天 10:45</td><td>I19</td><td>同步集團 HRM 請假與出勤數據</td></tr>
+              <tr><td><code>ScheduleSummary.bat</code></td><td>週一至週六 21:01</td><td>I02</td><td>計算當日排單與產能負載彙總</td></tr>
+              <tr><td><code>updateColorFromERP.bat</code></td><td>每天 23:01</td><td>I07, I02</td><td>從 D365 ERP 同步最新顏色主檔</td></tr>
+              <tr><td><code>updateColorMappingFromERP.bat</code></td><td>每天 23:11</td><td>I07, I02</td><td>同步買主顏色對照映射表</td></tr>
+              <tr><td><code>InsertMaterialERP.bat</code></td><td>每天 23:21</td><td>I07, I02</td><td>同步 D365 ERP 新增物料至 SAM</td></tr>
+              <tr><td><code>updateMaterialERP.bat</code></td><td>每天 23:31</td><td>I07, I02</td><td>同步 D365 ERP 變更物料主檔至 SAM</td></tr>
+              <tr><td><code>SP_FITSOP_NT.bat</code></td><td>每週日 20:00</td><td>I02</td><td>執行試身標準作業程序 (Fit SOP) 批次計算</td></tr>
+              <tr><td><code>DeleteRpaFile.bat</code></td><td>每週日 02:07</td><td>I20</td><td>自動清理歷史 RPA 與日誌暫存檔</td></tr>
+              <tr><td><code>UpdateCustEstSMV.bat</code></td><td>每半年 (1/1, 7/1 10:58)</td><td>I12, I02</td><td>校正客戶預估標準工時 (SMV) 模型</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Prescriptions -->
+    <div id="tab-prescriptions" class="tab-pane">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>Howard Liao Ph.D. 首席顧問四大工程處方</h2>
+          <span class="section-badge">落地實施指南</span>
+        </div>
+
+        <div class="prescription-card">
+          <div class="prescription-header">
+            <span class="prescription-title">處方一（資安防禦）：以地端開源 YARP API Gateway 收攏無認證 C# 外掛</span>
+            <span class="tag tag-danger">資安急迫性：極高</span>
+          </div>
+          <p style="margin-bottom: 12px; color: var(--text-muted);">
+            <strong>【現狀挑戰】</strong> <code>192.168.0.95</code> 的 Report API 與 Local API 無驗證機制，若修改舊有的 .NET 4.8 程式碼需耗時重構與全面迴歸測試。
+          </p>
+          <p style="margin-bottom: 12px;">
+            <strong>【處方作為】</strong>
+            1. 在測試機 <code>192.168.0.23</code> 部署開源 .NET 8 <strong>Microsoft YARP Gateway</strong>。<br>
+            2. 伺服器 <code>192.168.0.95</code> 設定 Windows 防火牆，阻斷一般辦公網段直連，僅允許 YARP Gateway IP 訪問。<br>
+            3. 由 YARP Gateway 統一掛載 JWT 驗證、API Key、來源 IP 白名單與速率限制（Rate Limiting）。<br>
+            <strong>【落地成效】</strong> 零改舊程式碼、0 元軟體授權費，24 小時內達成 100% 零信任資安收攏。
+          </p>
+        </div>
+
+        <div class="prescription-card">
+          <div class="prescription-header">
+            <span class="prescription-title">處方二（營運韌性）：解耦 I05/I06 跨國專線 TDS 1433 直連與 Linked Server</span>
+            <span class="tag tag-warning">韌性急迫性：高</span>
+          </div>
+          <p style="margin-bottom: 12px; color: var(--text-muted);">
+            <strong>【現狀挑戰】</strong> 總部每 30 分鐘直連越南/柬埔寨 SQL 寫庫，廠區以 Linked Server 連總部 MERGE。跨國海纜中斷或延遲飆高時，會造成資料庫長期鎖定（Locking），無法達到周副總要求的「48~72 小時斷網自律」。
+          </p>
+          <p style="margin-bottom: 12px;">
+            <strong>【處方作為】</strong>
+            1. 廢止跨國資料庫直連 RPC 與 Linked Server MERGE。<br>
+            2. 改採 <strong>「非同步 API 隊列 ＋ 本地端 SQLite / SQL Express 緩存」</strong> 機制。<br>
+            3. 總部將工單排單異動寫入本地發布佇列；廠區 Agent 透過斷點續傳 Pull 機制抓取並落庫。<br>
+            <strong>【落地成效】</strong> 斷網時廠區產線維持正常運作達 72 小時以上，專線復原後自動對齊 Reconciliation。
+          </p>
+        </div>
+
+        <div class="prescription-card">
+          <div class="prescription-header">
+            <span class="prescription-title">處方三（資料治理）：解耦 I07 程式內 23 處直接 SQL 讀取 ERP 主庫 (AXDB)</span>
+            <span class="tag tag-primary">治理急迫性：中</span>
+          </div>
+          <p style="margin-bottom: 12px; color: var(--text-muted);">
+            <strong>【現狀挑戰】</strong> 研發系統與排程程式直接下 SQL 查詢 ERP 營運與財務主庫（AXDB），高頻查詢容易爭搶資源，造成鎖表風險。
+          </p>
+          <p style="margin-bottom: 12px;">
+            <strong>【處方作為】</strong>
+            1. 實踐 CQRS 讀寫分離架構。<br>
+            2. 透過 D365 變更追蹤（Change Tracking）將物料、顏色、客戶主檔鏡像至地端 <strong>StarRocks 高性能湖倉</strong> 或只讀複本庫。<br>
+            3. 將 23 處 Direct SQL 全數遷移至只讀視圖或快取 API。<br>
+            <strong>【落地成效】</strong> 消除主庫讀取鎖定，ERP 主庫負載降低 40% 以上。
+          </p>
+        </div>
+
+        <div class="prescription-card">
+          <div class="prescription-header">
+            <span class="prescription-title">處方四（制度推廣）：正式將 Duka `RD_SAMPLE` 定為全集團 Week 1 統一填報標準</span>
+            <span class="tag tag-success">管理成熟度：標竿</span>
+          </div>
+          <p style="margin-bottom: 12px; color: var(--text-muted);">
+            <strong>【現狀挑戰】</strong> 海外廠區與各部門系統眾多，缺乏統一盤點標準容易導致資訊斷層。
+          </p>
+          <p style="margin-bottom: 12px;">
+            <strong>【處方作為】</strong>
+            1. PMO 以 Duka 之 <code>RD_SAMPLE</code> 為母版，通令越南、柬埔寨、印尼與總部所有系統窗口（MES、BPM、WMS、HRM 等）比照填報。<br>
+            2. 統一交付要件：draw.io 雙頁圖、系統卡、跨系統接口清冊（I01～IN）、Windows 排程任務表。<br>
+            <strong>【落地成效】</strong> 於 11/16 召開跨廠區審查會，全面建立集團統一架構資產基線。
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.getElementById('themeToggleBtn');
+      if (body.getAttribute('data-theme') === 'milan') {
+        body.setAttribute('data-theme', 'dark');
+        btn.innerHTML = '🎨 切換米蘭暖琥珀';
+      } else {
+        body.setAttribute('data-theme', 'milan');
+        btn.innerHTML = '🎨 切換曜石黑夜';
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) targetPane.classList.add('active');
+      
+      const activeBtn = Array.from(document.querySelectorAll('.nav-tab')).find(btn => btn.getAttribute('onclick').includes(tabId));
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
