@@ -559,7 +559,7 @@ def generate_viewer_html():
         id: "d05_object",
         name: "05. Object Diagram (物件圖)",
         category: "結構型圖 (Structure)",
-        desc: "<strong>核心重點：</strong>運行時期的真實物件快照實例。包含 activeMo: MoHeader (\"MO-202611-0089\")、itemBlackL: MoDetail、exportRqt: RqtBaseForm (由 duka.chen 發起之打樣匯出)、d365Rt: RSI_RT (C# 回應實例) 及 rsvSyncTask: ScheduledTask 排程實例。"
+        desc: "<strong>核心重點：</strong>運行時期的真實物件快照實例。包含 activeMo: MoHeader (&#39;MO-202611-0089&#39;)、itemBlackL: MoDetail、exportRqt: RqtBaseForm (由 duka.chen 發起之打樣匯出)、d365Rt: RSI_RT (C# 回應實例) 及 rsvSyncTask: ScheduledTask 排程實例。"
       }},
       {{
         id: "d06_composite",
