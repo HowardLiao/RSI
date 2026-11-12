@@ -378,14 +378,14 @@
     <div class="meta-tags">
       <span class="tag tag-blue">信源全球 (RSI) 2027 蜂巢計畫</span>
       <span class="tag tag-amber">依據 Duke 2026-11-12 真實交付規格</span>
-      <span class="tag tag-purple">不是 X++ 是 C# (全量 C# 架構)</span>
+      <span class="tag tag-purple">D365 C# 服務體系</span>
       <span class="tag tag-green">UML 2.0 完整 14 張圖資</span>
       <span class="tag tag-red">0 元開源平替 & 在地自律運轉</span>
     </div>
 
     <h1>信源全球 2027 蜂巢計畫 (Project Hive) UML 2.0 架構總覽圖冊</h1>
     <div class="subtitle">
-      依據 Duka (Duke) 主管交付之真實 API List (三章 26 服務) 與 RD_SAMPLE-v0-1 示範範本 (21 條拓撲、1,490 處直接 SQL、13 項排程)，修正 D365 C# 服務定義，產出符合 ISO/IEC 19505 之 UML 2.0 全量架構圖資。
+      依據 Duka (Duke) 主管交付之真實 API List (三章 26 服務) 與 RD_SAMPLE-v0-1 示範範本 (21 條拓撲、1,490 處直接 SQL、13 項排程)，遵循 D365 C# 服務定義，產出符合 ISO/IEC 19505 之 UML 2.0 全量架構圖資。
     </div>
 
     <div class="role-grid">
@@ -467,7 +467,7 @@
 
     <div class="spec-grid">
       <div class="spec-card">
-        <h3>1. D365 C# 服務體系 (不是 X++ 是 C#)</h3>
+        <h3>1. D365 C# 服務體系</h3>
         <ul>
           <li><strong>D365 C# 外掛 API:</strong> 運行於 <code>192.168.0.95</code> (.NET 4.8 / Web API 2)，包含 Report API (:8085 正式/:8082 UAT) 與 Local API (:80 正式/:8081 UAT)。</li>
           <li><strong>全無驗證風險:</strong> 外掛 API 完全無 Token/身份驗證，僅需提供參數即可下載 PDF/Excel，須透過 API Gateway 收攏。</li>

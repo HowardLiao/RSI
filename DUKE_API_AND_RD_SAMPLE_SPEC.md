@@ -14,7 +14,7 @@
 ## 一、執行摘要與標竿定位 (Executive Summary)
 
 研發資訊主管 Duka Chen 於 2026 年 11 月 12 日正式交付了信源內部兩份關鍵技術資產清冊：
-1. **集團三大 API 清單 (`API-List`)**：完整盤點了 D365 C# 外掛 API、D365 X++ 原生 Custom Service、CQS 品質服務以及 13 項 Windows 排程作業。
+1. **集團三大 API 清單 (`API-List`)**：完整盤點了 D365 C# 外掛 API、D365 C# 80 Operations (Custom Service)、CQS 品質服務以及 13 項 Windows 排程作業。
 2. **樣品管理系統示範範本 (`RD_SAMPLE-v0-1`)**：依據周文津副總「統一使用 draw.io（.drawio 格式）」的最高指導原則，完成了包含系統卡、draw.io 雙頁圖、21 條跨系統串接拓撲矩陣（I01～I21）與 Windows 排程清查。
 
 **顧問評估結論**：
@@ -43,9 +43,9 @@ Duka 主管所建立的 `RD_SAMPLE` 規格具備極高成熟度與條理性，�
   * 🚨 **全無認證機制 (Zero Authentication)**：目前連線至該主機之 80 與 8085 端口無需任何 Token 或憑證，內網任何工作站皆可呼叫。
   * ⚠️ **檔案傳輸模式**：報表 API 僅回傳「內部檔案下載 URL 字串」，而非二進位資料流（Binary Stream），強烈依賴後端內部靜態伺服器之連通性。
 
-### 2. D365 X++ Custom Service (原生服務)
+### 2. D365 C# Custom Service (80 Operations)
 
-* **技術棧**：Microsoft Dynamics 365 Finance & Operations 原生 X++ Custom Service
+* **技術棧**：Microsoft Dynamics 365 Finance & Operations C# Custom Service
 * **管理模型**：`JCOM_WebServices`、`RSI_WebServices`
 * **規模現況**：共計 **31 個 Service**、**80 個 Operation**
 * **呼叫協定**：
@@ -60,7 +60,7 @@ Duka 主管所建立的 `RD_SAMPLE` 規格具備極高成熟度與條理性，�
     "DataList": [ ... ]
   }
   ```
-* **自動化文檔工具**：Duka 撰寫之 `Generate-ApiDoc.ps1` 可自動剖析 X++ 元數據並導出 OpenAPI/Swagger JSON。
+* **自動化文檔工具**：Duka 撰寫之 `Generate-ApiDoc.ps1` 可自動剖析 C# 元數據並導出 OpenAPI/Swagger JSON。
 
 ### 3. CQS 品質管控系統 API
 
