@@ -901,6 +901,10 @@
         <span>🖼️ 圖資上傳與審核藝廊</span>
         <span class="tab-count" id="countGallery">3</span>
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-reports')">
+        <span>📜 訪談紀錄與顧問報告</span>
+        <span class="tab-count" id="countReports">5</span>
+      </button>
     </div>
 
     <!-- Tab 1: 軟體系統與 API 總表 -->
@@ -1090,6 +1094,9 @@
         </button>
         <button class="report-subtab-btn" onclick="switchReportSubTab('rep-howard-docx')">
           <span>📊</span> 11/09 資訊基礎架構正式評估報告 (.docx)
+        </button>
+        <button class="report-subtab-btn" onclick="switchReportSubTab('rep-duka-api')">
+          <span>⚡</span> Duka 11/12 交付：API 清單與 RD_SAMPLE 示範範本 (21 條介面全剖析)
         </button>
       </div>
 
@@ -1699,6 +1706,436 @@
           </div>
         </div>
       </div>
+
+      <!-- Panel 5: Duka Chen 主管 11/12 交付之 API 清單與 RD_SAMPLE 示範範本深度剖析 -->
+      <div id="rep-duka-api" class="report-panel">
+        <div class="report-card">
+          <div class="report-header-banner">
+            <div>
+              <span class="badge badge-accent" style="margin-bottom:6px;">軟體組關鍵交付 · 2026/11/12 最新進度</span>
+              <h2 style="margin:0; font-size:1.35rem; color:var(--text);">Duka Chen 主管 11/12 交付：集團 API 清單與 RD_SAMPLE 標準示範範本</h2>
+              <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">整理提供：Duka Chen 主管 (軟體組) ｜ 顧問審核：Howard Liao Ph.D. ｜ 計劃主持：周文津 副總經理 ｜ 含 21 條串接拓撲全剖析</div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <a href="https://rsiit.notion.site/API-List-41475b4303538069a392c2f052157625" target="_blank" class="btn" style="text-decoration:none;">
+                <span>🔗</span> 開啟 Duka API List (Notion) ↗
+              </a>
+              <a href="https://rsiit.notion.site/RD_SAMPLE-v0-1-41475b430353816c862ed0679bfe9718" target="_blank" class="btn btn-primary" style="text-decoration:none;">
+                <span>📘</span> 開啟 RD_SAMPLE 範本 (Notion) ↗
+              </a>
+              <button class="btn" onclick="copyReportText('dukaApiSummaryContent')">
+                <span>📋</span> 複製架構剖析摘要
+              </button>
+            </div>
+          </div>
+
+          <div class="report-meta-grid">
+            <div class="report-meta-item">
+              <div class="report-meta-label">盤點負責人與日期</div>
+              <div class="report-meta-val">Duka Chen 主管 ｜ 2026-11-10 (2026-11-12 更新)</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">示範範本定位</div>
+              <div class="report-meta-val">集團 14 套系統 Gold Standard (draw.io 雙頁規範)</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">API 體系清查總數</div>
+              <div class="report-meta-val">3 大核心體系 (D365 C# 外掛、X++ 80 ops、CQS)</div>
+            </div>
+            <div class="report-meta-item">
+              <div class="report-meta-label">RD_SAMPLE 介面總數</div>
+              <div class="report-meta-val">21 條接口 (I01～I21) ＋ 35 種批次作業</div>
+            </div>
+          </div>
+
+          <!-- Alert Box: Security Notice -->
+          <div style="background:rgba(239, 68, 68, 0.1); border-left:4px solid #ef4444; padding:16px 20px; border-radius:6px; margin-bottom:24px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <span style="font-size:1.3rem;">🚨</span>
+              <strong style="color:#ef4444; font-size:1.05rem;">重大架構與資安升級警訊 (Zero-Trust Security Finding)</strong>
+            </div>
+            <p style="margin:0 0 8px 0; font-size:0.92rem; color:var(--text); line-height:1.6;">
+              <strong>D365 C# 外掛 API (Report API / Local API) 處於「零驗證 (Zero Authentication)」狀態：</strong><br>
+              Duka 於盤點報告中明確指出：「<em>這兩個專案的 API 目前都沒有驗證機制，連得到伺服器即可呼叫。</em>」
+              在內網環境下，任何終端或潛在惡意滲透皆可未經授權任意調用此端點，匯出全集團各廠區之採購單、合同、訂單與物料等核心商業機密！
+            </p>
+            <p style="margin:0; font-size:0.92rem; color:var(--text-muted); line-height:1.6;">
+              <strong>Howard 顧問工程處方：</strong>此兩個 C# 外掛專案（.NET Framework 4.8）列為蜂巢計畫 <strong>第 1 優先保護標的</strong>。立即透過地端自建之 <strong>Microsoft YARP API Gateway</strong> 進行反向代理收攏，強制於 Gateway 層注入 API Key / OAuth2 驗證與來源 IP 白名單，在完全不改動舊有 4.8 專案程式碼之情況下，零摩擦達成 100% 零信任防護。
+            </p>
+          </div>
+
+          <div id="dukaApiSummaryContent" class="report-body-content">
+            <h2>壹、 集團三大 API 體系深度解構與規格總表</h2>
+            <p>Duka 主管於 11/12 完整盤點了集團核心業務運行之三大 API 體系，涵蓋 D365 ERP 外掛、X++ 核心服務及 CQS 品質系統：</p>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px; margin:20px 0;">
+              <!-- Card 1: D365 C# 外掛 API -->
+              <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <span style="font-weight:700; color:#38bdf8; font-size:1rem;">1. D365 C# 外掛 API</span>
+                  <span class="badge" style="background:#ef4444; color:#fff;">待補齊驗證</span>
+                </div>
+                <ul style="font-size:0.88rem; color:var(--text); margin:0; padding-left:18px; line-height:1.6;">
+                  <li><strong>技術棧</strong>：C# (.NET Framework 4.8 / ASP.NET Web API 2)</li>
+                  <li><strong>Report API</strong>：UAT <code>http://192.168.0.95:8082</code> ｜ Prod <code>http://192.168.0.95:8085</code></li>
+                  <li><strong>Local API</strong>：UAT <code>http://192.168.0.95:8081</code> ｜ Prod <code>http://192.168.0.95:80</code></li>
+                  <li><strong>回傳機制</strong>：報表類 API 成功時回傳「產生的檔案下載網址」字串，非二進位檔案本身。</li>
+                  <li><strong>共用欄位 (RqtBaseForm)</strong>：SalesId, StyleNo, ContractNo, PurchId, ItemId, VendId, CustId, BuyKeys, DataAreaId, UserName</li>
+                  <li><strong>專用術語</strong>：馬克圖（成衣主布用量）、PCT（款式代號）、WIP、F單（Forecast）、SML（洗標商）、Order Form（包材採購單）</li>
+                </ul>
+              </div>
+
+              <!-- Card 2: D365 X++ Custom Service -->
+              <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <span style="font-weight:700; color:#10b981; font-size:1rem;">2. D365 X++ Custom Service</span>
+                  <span class="badge badge-success">80 Operations</span>
+                </div>
+                <ul style="font-size:0.88rem; color:var(--text); margin:0; padding-left:18px; line-height:1.6;">
+                  <li><strong>技術棧</strong>：X++ Custom Service (Model: <code>JCOM_WebServices</code>, <code>RSI_WebServices</code>)</li>
+                  <li><strong>規模</strong>：共 31 個 Service、80 個 Operation (由 <code>Generate-ApiDoc.ps1</code> 腳本自動產生)</li>
+                  <li><strong>呼叫規範</strong>：<code>POST https://&lt;D365網址&gt;/api/services/&lt;Group&gt;/&lt;Service&gt;/&lt;Op&gt;</code></li>
+                  <li><strong>身份驗證</strong>：Azure AD Bearer Token (呼叫端 App 須在 Microsoft Entra ID 應用程式中註冊)</li>
+                  <li><strong>共用回傳格式 RSI_RT</strong>：
+                    <ul style="margin:4px 0 0 0; padding-left:16px;">
+                      <li><code>IsValid</code>：string ("Y" 成功 / "N" 失敗)</li>
+                      <li><code>Msg</code>：string (錯誤或提示訊息)</li>
+                      <li><code>TotalCount</code>：int (回傳筆數)</li>
+                      <li><code>DataList</code>：List&lt;anytype&gt; (實體業務資料陣列)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Card 3: CQS 品質管控服務 -->
+              <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <span style="font-weight:700; color:#f59e0b; font-size:1rem;">3. CQS CQSService</span>
+                  <span class="badge" style="background:#f59e0b; color:#fff;">.NET 8 微服務</span>
+                </div>
+                <ul style="font-size:0.88rem; color:var(--text); margin:0; padding-left:18px; line-height:1.6;">
+                  <li><strong>技術棧</strong>：.NET 8 / ASP.NET Core (CQSService)</li>
+                  <li><strong>環境位址</strong>：測試 <code>http://192.168.0.23:8011</code> ｜ 正式 <code>http://192.168.0.22:8011</code></li>
+                  <li><strong>反向代理架構</strong>：前端站台 <code>192.168.0.22:8012</code> 經由 IIS ARR 反向代理把 <code>/api</code> 轉至 8011 後端。</li>
+                  <li><strong>呼叫特徵</strong>：Swagger 在測試與正式機均開啟；幾乎每支 API 均攜帶 <code>userId</code> query 參數。</li>
+                  <li><strong>優化方向</strong>：Model 欄位在 Swagger 缺乏說明，需統一收納至蜂巢 API 清冊並補齊 Payload 規格。</li>
+                </ul>
+              </div>
+            </div>
+
+            <h2>貳、 RD_SAMPLE 樣品管理系統：集團金牌示範範本 (Gold Standard)</h2>
+            <p>Duka 主管響應周副總指示，率先以「樣品管理系統（RD_SAMPLE）」完成了集團第一套標準示範卡，樹立了四大交付物標竿：</p>
+            <ul>
+              <li><strong>標準交付檔 1</strong>：draw.io 雙頁原始檔（<code>RD_SAMPLE_架構與部署.drawio.xml</code>，含系統架構圖與部署拓撲圖）。</li>
+              <li><strong>標準交付檔 2</strong>：系統卡（涵蓋系統代號、負責單位、使用廠區、技術棧、資料存取模式與 CI/CD 流水線）。</li>
+              <li><strong>標準交付檔 3</strong>：21 條跨系統串接拓撲矩陣（編號 I01～I21，標註協定、連接埠、頻率與程式位置）。</li>
+              <li><strong>標準交付檔 4</strong>：RD_Batch 35 種批次作業與 Windows 工作排程器 13 大定時任務清單。</li>
+            </ul>
+
+            <div style="margin:20px 0; overflow-x:auto;">
+              <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:left;">
+                <thead>
+                  <tr style="background:var(--table-header-bg, #1f2937); border-bottom:2px solid var(--border);">
+                    <th style="padding:10px;">系統代號</th>
+                    <th style="padding:10px;">系統名稱</th>
+                    <th style="padding:10px;">負責單位</th>
+                    <th style="padding:10px;">使用廠區</th>
+                    <th style="padding:10px;">技術棧架構</th>
+                    <th style="padding:10px;">資料庫存取現況</th>
+                    <th style="padding:10px;">上版與部署機制</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px; font-weight:700; color:#38bdf8;">RD_SAMPLE</td>
+                    <td style="padding:10px;">樣品管理系統 (MoNo下單/製版/QC/出貨/IE)</td>
+                    <td style="padding:10px;">軟體組 (RD)</td>
+                    <td style="padding:10px;">總部 RDI ｜ 越南 RDV ｜ 柬埔寨 RDG</td>
+                    <td style="padding:10px;">ASP.NET WebForms (.NET 4.8) + jQuery + Knockout.js + Python TP 解析</td>
+                    <td style="padding:10px; color:#f59e0b;">自寫 DataAcess (ADO.NET)，約 1,490 處直接下 SQL</td>
+                    <td style="padding:10px;">自建 GitLab (192.168.10.134) + Runner msbuild + robocopy (SMB 445)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>參、 RD_SAMPLE 21 條跨系統串接介面 (I01～I21) 全量拓撲清查</h2>
+            <p>此 21 條接口真實呈現了傳統製造業跨國架構的現狀，其中 <strong>I05/I06</strong> 與 <strong>I07</strong> 為蜂巢計畫的核心解耦節點：</p>
+
+            <div style="margin:16px 0; overflow-x:auto;">
+              <table style="width:100%; border-collapse:collapse; font-size:0.82rem; text-align:left;">
+                <thead>
+                  <tr style="background:var(--table-header-bg, #1f2937); border-bottom:2px solid var(--border);">
+                    <th style="padding:8px 6px;">編號</th>
+                    <th style="padding:8px 6px;">對象系統</th>
+                    <th style="padding:8px 6px;">方向</th>
+                    <th style="padding:8px 6px;">串接方式／協定與 Port</th>
+                    <th style="padding:8px 6px;">端點（正式環境）</th>
+                    <th style="padding:8px 6px;">觸發／頻率</th>
+                    <th style="padding:8px 6px;">業務用途與關鍵程式</th>
+                    <th style="padding:8px 6px;">架構評定與蜂巢升級節點</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I01</td>
+                    <td style="padding:8px 6px;">使用者瀏覽器</td>
+                    <td style="padding:8px 6px;">←</td>
+                    <td style="padding:8px 6px;">HTTPS 443 (AJAX JSON)</td>
+                    <td style="padding:8px 6px;"><code>rdsample.rsiapparel.com</code></td>
+                    <td style="padding:8px 6px;">即時使用者操作</td>
+                    <td style="padding:8px 6px;">Web 系統操作 (<code>[WebMethod]</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">運作良好 (待轉型 REST API)</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border); background:rgba(245, 158, 11, 0.05);">
+                    <td style="padding:8px 6px; font-weight:700;">I02</td>
+                    <td style="padding:8px 6px;">SAM 主庫 RD_SAMPLE</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">TDS 1433 (ADO.NET 直下 SQL)</td>
+                    <td style="padding:8px 6px;">RDSMP2 / RD_SAMPLE</td>
+                    <td style="padding:8px 6px;">即時 ＋ 排程作業</td>
+                    <td style="padding:8px 6px;">主要業務資料 (約 1,490 處 <code>GetDatabase("SAM")</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">直連 SQL 密集，待下沉 DAL 模型層</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I03</td>
+                    <td style="padding:8px 6px;">PDFTAG (Tech Pack庫)</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">TDS 1433</td>
+                    <td style="padding:8px 6px;">RDSMP2 / PDFTAG</td>
+                    <td style="padding:8px 6px;">即時</td>
+                    <td style="padding:8px 6px;">Tech Pack 匯入與比對 (<code>SAM/DECONPDF/*</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">穩健</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I04</td>
+                    <td style="padding:8px 6px;">Tech Pack 解析器 (Python)</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">本機程序呼叫 (<code>PythonExePath</code>)</td>
+                    <td style="padding:8px 6px;">本機站台 <code>\TP</code></td>
+                    <td style="padding:8px 6px;">即時</td>
+                    <td style="padding:8px 6px;">PDF 解析 (<code>TechPackImport_ViewModel.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">本機程序隔離執行</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border); background:rgba(239, 68, 68, 0.08);">
+                    <td style="padding:8px 6px; font-weight:700; color:#ef4444;">I05</td>
+                    <td style="padding:8px 6px; font-weight:700;">廠區庫 (RDV / RDG)</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px; color:#ef4444;">TDS 1433 跨國專線直連</td>
+                    <td style="padding:8px 6px;">RDV 192.168.185.123 ｜ RDG 192.168.193.65</td>
+                    <td style="padding:8px 6px;">排單存檔即時 ＋ 每30分鐘排程</td>
+                    <td style="padding:8px 6px;">總部直連廠區庫寫入排單、樣品單 (<code>FactoryTransfer.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#ef4444; font-weight:600;">🚨 跨國專線直連 SQL，斷網將卡死排單！改走非同步 API 隊列</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border); background:rgba(239, 68, 68, 0.08);">
+                    <td style="padding:8px 6px; font-weight:700; color:#ef4444;">I06</td>
+                    <td style="padding:8px 6px; font-weight:700;">總部 RD_SAMPLE</td>
+                    <td style="padding:8px 6px;">←</td>
+                    <td style="padding:8px 6px; color:#ef4444;">Linked Server 跨國 MERGE</td>
+                    <td style="padding:8px 6px;"><code>[192.168.0.22].[RD_SAMPLE]</code></td>
+                    <td style="padding:8px 6px;">隨 I05 每 30 分鐘同步</td>
+                    <td style="padding:8px 6px;">廠區連總部同步 FND_USER / ROLE (<code>SyncTableFromHq</code>)</td>
+                    <td style="padding:8px 6px; color:#ef4444; font-weight:600;">🚨 Linked Server 易引起遠端鎖表，應改由 API 同步</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border); background:rgba(245, 158, 11, 0.05);">
+                    <td style="padding:8px 6px; font-weight:700;">I07</td>
+                    <td style="padding:8px 6px;">D365 資料庫 AXDB</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">TDS 1433 直接讀 (帳號 wms)</td>
+                    <td style="padding:8px 6px;">rsiaxdb1 (192.168.0.131)</td>
+                    <td style="padding:8px 6px;">即時 ＋ 每晚 23:01～23:31 排程</td>
+                    <td style="padding:8px 6px;">物料、顏色、客戶主檔 (約 23 處 <code>GetDatabase("AX")</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">外掛直查主庫，待切換為 StarRocks 離峰鏡像</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I08</td>
+                    <td style="padding:8px 6px;">D365 F&O (AXSF)</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">HTTPS 443 OData/REST (Bearer Token)</td>
+                    <td style="padding:8px 6px;"><code>rsiax.rsiapparel.com</code> (AOS 192.168.0.124~.126)</td>
+                    <td style="padding:8px 6px;">即時</td>
+                    <td style="padding:8px 6px;">建立 MS/PO 入庫、庫存日記帳 (<code>Base/ERP_API_Model.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">標準 API 呼叫 (Token 經 192.168.0.95/Auth 取得)</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I09</td>
+                    <td style="padding:8px 6px;">D365_Prod 資料庫</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">TDS 1433 直接讀</td>
+                    <td style="padding:8px 6px;">192.168.0.95 / D365_Prod</td>
+                    <td style="padding:8px 6px;">即時 ＋ 每晚排程</td>
+                    <td style="padding:8px 6px;">物料、品項、顏色主檔 (<code>ERP_Material.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">待與 I07 整合統一數據管道</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I10</td>
+                    <td style="padding:8px 6px;">D365 (ERP) 呼叫端</td>
+                    <td style="padding:8px 6px;">←</td>
+                    <td style="padding:8px 6px;">SOAP (ASMX WebService)</td>
+                    <td style="padding:8px 6px;"><code>/SAM/WEBSERVICE/RdsmpService.asmx</code></td>
+                    <td style="padding:8px 6px;">ERP 端主動觸發</td>
+                    <td style="padding:8px 6px;">RequestBOM、物料客戶同步 (<code>RdsmpService.asmx.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#38bdf8;">Legacy SOAP，後續納入 YARP 轉發</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border); opacity:0.6;">
+                    <td style="padding:8px 6px; font-weight:700;">I11</td>
+                    <td style="padding:8px 6px;">MSC2003 (舊 ERP)</td>
+                    <td style="padding:8px 6px;">—</td>
+                    <td style="padding:8px 6px;">TDS 1433 (11 處連線)</td>
+                    <td style="padding:8px 6px;">192.168.3.120 / MSC2003</td>
+                    <td style="padding:8px 6px;">—</td>
+                    <td style="padding:8px 6px;">物料主檔</td>
+                    <td style="padding:8px 6px;">🚫 <strong>已停用</strong> (已由 D365 取代，程式碼待清理)</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I12</td>
+                    <td style="padding:8px 6px;">MES IEPortal</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">TDS 1433</td>
+                    <td style="padding:8px 6px;">RDSMP2 / IEPortal</td>
+                    <td style="padding:8px 6px;">即時</td>
+                    <td style="padding:8px 6px;">讀取 IE 工時標準 (<code>Mo_ViewModel.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">同伺服器跨庫查詢</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I13</td>
+                    <td style="padding:8px 6px;">CQS 品質系統</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">TDS 1433 ＋ HTTP API</td>
+                    <td style="padding:8px 6px;">RDSMP2 / CQS ｜ API: 192.168.0.22:8012 (ARR轉8011)</td>
+                    <td style="padding:8px 6px;">即時</td>
+                    <td style="padding:8px 6px;">建立 CQS 系統使用者 (<code>FND004ViewModel.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#38bdf8;">混和架構 (DB直連＋ARR轉發 API)</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I14</td>
+                    <td style="padding:8px 6px;">BPM (UOF 簽核)</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">SOAP (HTTP 80) ＋ SMB 檔案分享</td>
+                    <td style="padding:8px 6px;">LABBPM 192.168.1.225</td>
+                    <td style="padding:8px 6px;">即時使用者送簽</td>
+                    <td style="padding:8px 6px;">樣品測試報告送簽、附件傳送 (<code>TestReport_ViewModel.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">依賴 SMB 共享，待升級物件儲存 (MinIO)</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I15</td>
+                    <td style="padding:8px 6px;">FindImage 以圖找圖 API</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">HTTPS 8081</td>
+                    <td style="padding:8px 6px;">192.168.0.23:8081 (測試機)</td>
+                    <td style="padding:8px 6px;">即時使用者查詢</td>
+                    <td style="padding:8px 6px;">樣品圖片相似度搜尋 (<code>PicList_ViewModel.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">AI 微服務</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I16</td>
+                    <td style="padding:8px 6px;">AWS EC2 AI 推論服務</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">HTTP 8000 (公網 IP)</td>
+                    <td style="padding:8px 6px;"><code>98.84.29.205:8000/submit_inference_job</code></td>
+                    <td style="padding:8px 6px;">即時</td>
+                    <td style="padding:8px 6px;">圖片 AI 推論作業 (<code>InferenceClient.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">走公網且為 HTTP 明文，待加裝 TLS/VPN</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I17</td>
+                    <td style="padding:8px 6px;">翻譯 API (LLM 14B)</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">HTTP 80 (公網 IP)</td>
+                    <td style="padding:8px 6px;"><code>98.93.175.234/translate</code></td>
+                    <td style="padding:8px 6px;">Tech Pack 匯入時 (UA 客戶)</td>
+                    <td style="padding:8px 6px;">備註多語翻譯 (<code>TechPackImport_ViewModel.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">具備總開關控制</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I18</td>
+                    <td style="padding:8px 6px;">企業郵件伺服器</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">SMTP 587 (TLS)</td>
+                    <td style="padding:8px 6px;"><code>mail.rsiapparel.com</code> (192.168.8.64)</td>
+                    <td style="padding:8px 6px;">即時 ＋ 每 5 分鐘排程</td>
+                    <td style="padding:8px 6px;">系統通知信、日報表、批次錯誤信 (<code>MailSender.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#10b981;">穩定健全</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I19</td>
+                    <td style="padding:8px 6px;">HRM 請假資料檔</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">SMB 檔案分享 (Port 445)</td>
+                    <td style="padding:8px 6px;"><code>\\192.168.0.22\hrm</code></td>
+                    <td style="padding:8px 6px;">每天 10:45 排程 (SyncHRM)</td>
+                    <td style="padding:8px 6px;">讀取同仁請假資料供工時比對 (<code>RD_Batch/Main.cs</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">檔案層依賴，待轉為 HRM REST API</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I20</td>
+                    <td style="padding:8px 6px;">附件與樣品圖檔</td>
+                    <td style="padding:8px 6px;">→</td>
+                    <td style="padding:8px 6px;">本機實體檔案路徑</td>
+                    <td style="padding:8px 6px;">RDSMP2 <code>E:\RD_SAMPLE\...</code></td>
+                    <td style="padding:8px 6px;">即時上傳與讀取</td>
+                    <td style="padding:8px 6px;">款式、瑕疵附件 (由 <code>FND_LOOKUP</code> 管理路徑)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">單機硬碟儲存，待升級地端 MinIO 叢集</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:8px 6px; font-weight:700;">I21</td>
+                    <td style="padding:8px 6px;">GitLab CI / CD</td>
+                    <td style="padding:8px 6px;">←</td>
+                    <td style="padding:8px 6px;">HTTP 拉 code ＋ SMB 445 robocopy</td>
+                    <td style="padding:8px 6px;">GitLab 192.168.10.134 → 正式機 <code>\\192.168.0.22\d$</code></td>
+                    <td style="padding:8px 6px;">dev 分支 push 自動 / master 排程手動</td>
+                    <td style="padding:8px 6px;">自動建置與線上發布 (<code>.gitlab-ci.yml</code>)</td>
+                    <td style="padding:8px 6px; color:#f59e0b;">依賴 SMB 遠端覆蓋，待改為 Agent/SSH 發布</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>肆、 Howard Liao Ph.D. 首席架構師：四大關鍵升級節點與處方建言</h2>
+            <p>在周文津副總的主持下，針對 Duka 主管所揭示之真實架構與痛點，提出以下具體落地策略：</p>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0;">
+              <div style="background:var(--card-bg); border-left:4px solid #38bdf8; padding:16px; border-radius:6px;">
+                <strong style="color:#38bdf8; font-size:0.95rem;">處方一：收攏 D365 C# 外掛至 YARP API Gateway</strong>
+                <p style="font-size:0.88rem; color:var(--text); margin:6px 0 0 0; line-height:1.6;">
+                  針對 Report API (8085) 與 Local API (80) 零驗證之現況，絕不需耗時重寫 .NET Framework 4.8 專案。直接在地端建立以 .NET 8 為基底的 <strong>Microsoft YARP Gateway</strong>，掛載 JWT 驗證中介軟體（Middleware），並對所有外掛請求進行強制鑑權與 Rate Limiting，以極低成本達成 100% 資安防護。
+                </p>
+              </div>
+
+              <div style="background:var(--card-bg); border-left:4px solid #ef4444; padding:16px; border-radius:6px;">
+                <strong style="color:#ef4444; font-size:0.95rem;">處方二：解耦跨國專線 TDS 1433 直連與 Linked Server (I05/I06)</strong>
+                <p style="font-size:0.88rem; color:var(--text); margin:6px 0 0 0; line-height:1.6;">
+                  這是實現<strong>「廠區 48～72 小時斷網自律運轉」</strong>的最大關鍵。目前總部直連越南/柬埔寨 SQL 庫以及 Linked Server 跨國 MERGE，專線一抖動即引發排單死鎖。應將資料同步轉型為「非同步 API 隊列＋本地端 SQLite/SQL Express 離線緩存」，專線斷開時廠區照常運作，專線復原後自動 Reconciliation。
+                </p>
+              </div>
+
+              <div style="background:var(--card-bg); border-left:4px solid #f59e0b; padding:16px; border-radius:6px;">
+                <strong style="color:#f59e0b; font-size:0.95rem;">處方三：解耦 AXDB (23處) 直連，實施 CQRS 讀寫分離</strong>
+                <p style="font-size:0.88rem; color:var(--text); margin:6px 0 0 0; line-height:1.6;">
+                  I07 與 I09 中 RD_SAMPLE 共有 23 處直接 SQL 讀取 D365 ERP 主庫 AXDB。為防止外部大量報表與排程 Query 衝擊財務與營運主庫，建議利用微軟 Synapse Link 或 CDC，將主檔鏡像至在地端 <strong>StarRocks 高性能湖倉</strong> 或只讀副本，徹底實現報表讀取與核心交易分離。
+                </p>
+              </div>
+
+              <div style="background:var(--card-bg); border-left:4px solid #10b981; padding:16px; border-radius:6px;">
+                <strong style="color:#10b981; font-size:0.95rem;">處方四：以 RD_SAMPLE 為標準，全面推廣至全集團 14 套系統</strong>
+                <p style="font-size:0.88rem; color:var(--text); margin:6px 0 0 0; line-height:1.6;">
+                  Duka 主管所建立之「系統卡 ＋ 21 條串接清單 ＋ draw.io 雙頁規範（系統架構圖／部署拓撲圖）」堪稱模範。PMO 應正式將此範本標準化為集團統一線上填報表單，令越南、柬埔寨、印尼與總部其他軟體窗口於第一週（11/16 前）比照完成全量填報。
+                </p>
+              </div>
+            </div>
+
+            <div style="background:var(--card-bg); border:1px solid var(--border); padding:16px; border-radius:8px; margin-top:20px;">
+              <h3 style="margin:0 0 10px 0; font-size:1rem; color:var(--text);">伍、 協同推進里程碑（Week 1 ～ Week 2 對齊）</h3>
+              <ul style="font-size:0.88rem; color:var(--text-muted); margin:0; padding-left:18px; line-height:1.6;">
+                <li><strong style="color:var(--text);">2026/11/12（已完成）</strong>：Duka 主管完成 API List 與 RD_SAMPLE 範本建置；Howard 完成架構分析與門戶網頁上線。</li>
+                <li><strong style="color:var(--text);">2026/11/13</strong>：IS 團隊開始對齊 I05/I06 跨國專線 NetFlow 頻寬量測與尖峰監控。</li>
+                <li><strong style="color:var(--text);">2026/11/15</strong>：其他各廠區系統窗口（MES、HRM、BPM 等）依循 RD_SAMPLE 範本提交 draw.io 架構圖與接口卡。</li>
+                <li><strong style="color:var(--text);">2026/11/16</strong>：軟體組在測試機（192.168.0.23）試裝 Microsoft YARP API Gateway 原型，進行 D365 C# 外掛反向代理概念驗證 (PoC)。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- /Tab 6: 訪談紀錄與顧問評估報告 -->
 
@@ -1971,6 +2408,27 @@
     const DEFAULT_DATA = {
       software: [
         {
+          id: "SOFT-00",
+          name: "樣品管理系統 (RD_SAMPLE · 示範範本)",
+          plant: "總部（內湖）",
+          archStatus: "架構圖齊全 (draw.io 示範)",
+          deployStatus: "拓撲圖齊全 (draw.io 示範)",
+          apiCount: "21 條接口 (I01～I21)",
+          dailyCalls: "320,000 次/日",
+          payload: "1.5 KB ~ 12.0 KB (JSON/TDS/SOAP)",
+          permission: "自寫 DataAcess ADO.NET (1,490處直下SQL)",
+          upgradeTarget: "解耦跨國 TDS 1433 直連與 Linked Server，導入 YARP Gateway 與斷網自律快取",
+          owner: "Duka Chen 主管 (軟體組)",
+          dueDate: "2026-11-12",
+          auditStatus: "已審核",
+          file: {
+            name: "RD_SAMPLE_架構與部署.drawio.xml",
+            size: "185 KB",
+            type: "application/xml",
+            data: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'><rect width='100%25' height='100%25' fill='%230f172a'/><text x='400' y='45' fill='%2338bdf8' font-size='20' font-family='sans-serif' font-weight='bold' text-anchor='middle'>RD_SAMPLE Architecture Topology (Gold Standard)</text><rect x='60' y='90' width='180' height='260' rx='8' fill='%231e293b' stroke='%2338bdf8' stroke-width='2'/><text x='150' y='125' fill='%23fff' font-size='15' font-family='sans-serif' text-anchor='middle'>Taipei HQ RDSMP2</text><text x='150' y='160' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• ASP.NET WebForms</text><text x='150' y='190' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• RD_Batch (35 jobs)</text><text x='150' y='220' fill='%23f59e0b' font-size='12' font-family='sans-serif' text-anchor='middle'>• 1490+ ADO.NET SQL</text><text x='150' y='250' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• GitLab CI (msbuild)</text><line x1='240' y1='180' x2='340' y2='180' stroke='%23ef4444' stroke-width='3' stroke-dasharray='6,4'/><text x='290' y='165' fill='%23ef4444' font-size='11' font-family='sans-serif' text-anchor='middle'>I05 TDS 1433</text><rect x='340' y='90' width='190' height='120' rx='8' fill='%231e293b' stroke='%23ef4444' stroke-width='2'/><text x='435' y='125' fill='%23fff' font-size='14' font-family='sans-serif' text-anchor='middle'>Vietnam RDV 185.123</text><text x='435' y='155' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• TDS 1433 Cross-Border</text><text x='435' y='185' fill='%23ef4444' font-size='11' font-family='sans-serif' text-anchor='middle'>🚨 斷網脆弱點 (待解耦)</text><line x1='240' y1='280' x2='340' y2='280' stroke='%23ef4444' stroke-width='3' stroke-dasharray='6,4'/><text x='290' y='265' fill='%23ef4444' font-size='11' font-family='sans-serif' text-anchor='middle'>I05 TDS 1433</text><rect x='340' y='230' width='190' height='120' rx='8' fill='%231e293b' stroke='%23ef4444' stroke-width='2'/><text x='435' y='265' fill='%23fff' font-size='14' font-family='sans-serif' text-anchor='middle'>Cambodia RDG 193.65</text><text x='435' y='295' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• Linked Server MERGE</text><text x='435' y='325' fill='%23ef4444' font-size='11' font-family='sans-serif' text-anchor='middle'>🚨 斷網脆弱點 (待解耦)</text><rect x='580' y='90' width='160' height='260' rx='8' fill='%231e293b' stroke='%2310b981' stroke-width='2'/><text x='660' y='125' fill='%23fff' font-size='15' font-family='sans-serif' text-anchor='middle'>D365 Core ERP</text><text x='660' y='160' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• AXDB (23處直讀)</text><text x='660' y='190' fill='%2394a3b8' font-size='12' font-family='sans-serif' text-anchor='middle'>• OData HTTPS 443</text><text x='660' y='220' fill='%2338bdf8' font-size='12' font-family='sans-serif' text-anchor='middle'>• 80 Custom Ops</text><text x='660' y='250' fill='%23f59e0b' font-size='12' font-family='sans-serif' text-anchor='middle'>• C# 外掛零驗證</text><line x1='240' y1='220' x2='580' y2='220' stroke='%2338bdf8' stroke-width='2'/></svg>"
+          }
+        },
+        {
           id: "SOFT-01",
           name: "D365 介接中繼 (RSI-D365-Hub)",
           plant: "總部（內湖）",
@@ -2052,6 +2510,48 @@
         }
       ],
       endpoints: [
+        {
+          id: "EP-00",
+          system: "RD_SAMPLE (I05/I06 廠區同步)",
+          method: "TDS/RPC",
+          uri: "TDS 1433 / Linked Server MERGE",
+          caller: "總部 RD_Batch (Sync_RSV / Sync_RSG)",
+          dailyCalls: 48,
+          qps: 5,
+          payload: "Req 12.0KB / Res 45.0KB (批次資料)",
+          crud: "Create / Update (Direct TDS)",
+          auth: "SQL 身分驗證 (帳號密碼)",
+          target: "🚨 解耦跨國專線 TDS 直連，改為 YARP 非同步隊列 ＋ 48hr 本地自律快取",
+          owner: "Duka Chen 主管 (軟體組)"
+        },
+        {
+          id: "EP-05",
+          system: "D365.Report.Service (Report API)",
+          method: "POST",
+          uri: "/api/Report/Export*",
+          caller: "業務 / 採購端 Client",
+          dailyCalls: 12000,
+          qps: 30,
+          payload: "Req 1.2KB / Res 0.4KB (URL字串)",
+          crud: "Read / Export (RqtBaseForm)",
+          auth: "🚨 目前零驗證 (連得進伺服器即可調用)",
+          target: "收攏進 YARP API Gateway 強制掛載 Bearer Token / API Key 鑑權",
+          owner: "Duka Chen 主管 (軟體組)"
+        },
+        {
+          id: "EP-06",
+          system: "D365 X++ Custom Service",
+          method: "POST",
+          uri: "/api/services/JCOM_WebServices/* (80 ops)",
+          caller: "外部整合系統 / RD_SAMPLE",
+          dailyCalls: 45000,
+          qps: 85,
+          payload: "Req 2.5KB / Res 15.0KB (RSI_RT)",
+          crud: "Create / Read / Update",
+          auth: "Azure AD Bearer Token (Entra ID 註冊)",
+          target: "維持標準 Bearer Token，納入蜂巢統一監控大屏",
+          owner: "Duka Chen 主管 (軟體組)"
+        },
         {
           id: "EP-01",
           system: "RSI-D365-Hub",
