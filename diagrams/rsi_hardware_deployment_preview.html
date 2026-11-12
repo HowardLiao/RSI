@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信源全球 (RSI Group) 實體硬體部署架構與通訊矩陣互動儀表板</title>
+  <title>信源全球 (RSI Group) 跨國硬體架構、內外網路、第一線專線、資安防護與 BCM/BCP/SLA 總覽儀表板</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -21,7 +21,7 @@
       --danger: #ef4444;
       --purple: #8b5cf6;
       --cyan: #06b6d4;
-      --amber: #d97706;
+      --dyxnet: #f97316;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -33,7 +33,7 @@
       min-height: 100vh;
     }
     .container {
-      max-width: 1700px;
+      max-width: 1780px;
       margin: 0 auto;
     }
 
@@ -41,158 +41,98 @@
     .header {
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 24px 32px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      position: relative;
-      overflow: hidden;
-    }
-    .header::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0; width: 350px; height: 100%;
-      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .header-top {
+      border-radius: 12px;
+      padding: 22px 28px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 16px;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
-    .header-title-box h1 {
-      font-size: 26px;
+    .header-left h1 {
+      font-size: 21px;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 12px;
+      margin-bottom: 6px;
     }
-    .header-title-box p {
+    .header-left p {
+      font-size: 13px;
       color: var(--text-muted);
-      font-size: 14px;
-      max-width: 900px;
-      line-height: 1.6;
+    }
+    .badge-dyxnet {
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid #f97316;
+      color: #fb923c;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-erp {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid #3b82f6;
+      color: #60a5fa;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
     }
     .header-meta {
       display: flex;
       gap: 16px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-      font-size: 13px;
-    }
-    .meta-pill {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 5px 12px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .meta-pill b {
-      color: #93c5fd;
-    }
-    .header-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
       align-items: center;
     }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-    }
-    .btn-secondary {
-      background: #1f2937;
-      color: #e5e7eb;
+    .meta-box {
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--card-border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-align: right;
     }
-    .btn-secondary:hover {
-      background: #374151;
-      color: #fff;
-    }
-    .btn-success {
-      background: #059669;
-      color: #fff;
-    }
-    .btn-success:hover {
-      background: #10b981;
-    }
+    .meta-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
+    .meta-val { font-size: 13px; font-weight: 600; color: #fff; }
 
-    /* KPI Bento Grid */
+    /* Bento Grid KPI */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
     }
     .kpi-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      position: relative;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      border-radius: 10px;
+      padding: 16px 20px;
+      transition: all 0.2s ease;
     }
     .kpi-card:hover {
+      border-color: #3b82f6;
       transform: translateY(-2px);
-      border-color: rgba(59,130,246,0.4);
     }
     .kpi-title {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      font-weight: 500;
       margin-bottom: 6px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
     .kpi-val {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       color: #fff;
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
+      margin-bottom: 4px;
     }
     .kpi-sub {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-dim);
-      margin-top: 4px;
     }
-    .kpi-indicator {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .kpi-indicator.green { background: #10b981; box-shadow: 0 0 8px #10b981; }
-    .kpi-indicator.blue { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
-    .kpi-indicator.cyan { background: #06b6d4; box-shadow: 0 0 8px #06b6d4; }
-    .kpi-indicator.amber { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
 
-    /* Tabs & Controls Section */
+    /* Tabs & Controls Container */
     .control-panel {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -201,7 +141,7 @@
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
     .tabs {
       display: flex;
@@ -213,11 +153,11 @@
     }
     .tab-btn {
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
       color: var(--text-muted);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
-      padding: 8px 16px;
+      padding: 9px 16px;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
@@ -229,11 +169,13 @@
     .tab-btn:hover {
       color: #fff;
       background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
     }
     .tab-btn.active {
       color: #fff;
       background: var(--primary);
-      box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+      border-color: var(--primary);
+      box-shadow: 0 2px 10px rgba(59,130,246,0.35);
     }
 
     /* Filter & Search Bar */
@@ -254,68 +196,92 @@
       font-size: 13px;
       color: var(--text-muted);
       margin-right: 4px;
-      font-weight: 500;
+      font-weight: 600;
     }
     .chip {
-      background: #1f2937;
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
-      padding: 5px 12px;
+      font-size: 13px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
     }
     .chip:hover {
+      border-color: var(--primary);
       color: #fff;
-      background: #374151;
     }
     .chip.active {
       background: #2563eb;
-      color: #fff;
       border-color: #3b82f6;
-    }
-    .search-box {
-      position: relative;
-      min-width: 280px;
-    }
-    .search-input {
-      width: 100%;
-      background: #0f172a;
-      border: 1px solid var(--card-border);
       color: #fff;
-      padding: 8px 14px 8px 36px;
-      border-radius: 8px;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-    .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
-    }
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 14px;
-      color: var(--text-dim);
-      pointer-events: none;
-    }
-    .result-count {
-      font-size: 12px;
-      color: var(--text-dim);
-      white-space: nowrap;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(37,99,235,0.4);
     }
 
-    /* Tab Content Panes */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      gap: 8px;
+      min-width: 380px;
+    }
+    .search-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      width: 100%;
+    }
+    .search-input::placeholder { color: var(--text-dim); }
+
+    .result-count {
+      font-size: 13px;
+      color: #60a5fa;
+      font-weight: 600;
+      background: rgba(59,130,246,0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(59,130,246,0.25);
+    }
+
+    .btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--card-hover); border-color: var(--primary); }
+    .btn-primary { background: #2563eb; border-color: #3b82f6; }
+    .btn-primary:hover { background: #1d4ed8; }
+
+    /* Tab Panes */
     .tab-pane {
       display: none;
     }
     .tab-pane.active {
       display: block;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Diagram Viewport */
@@ -323,60 +289,46 @@
       background: #090d16;
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .diagram-toolbar {
+      padding: 12px 18px;
+      background: #111827;
+      border-bottom: 1px solid var(--card-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      padding: 6px 12px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 8px;
     }
     .diagram-viewport {
       width: 100%;
+      height: 760px;
       overflow: auto;
-      border-radius: 8px;
       background: #090d16;
-      border: 1px solid rgba(255,255,255,0.05);
-      max-height: 820px;
-    }
-    .diagram-viewport svg {
-      display: block;
-      min-width: 1300px;
-      height: auto;
+      position: relative;
     }
 
-    /* Table Styles */
-    .table-container {
+    /* Table Styling */
+    .table-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .table-header-bar {
+    .table-header-desc {
       padding: 14px 20px;
+      background: #131d2e;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 13px;
+      color: var(--text-muted);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--card-border);
-      background: #131c2e;
     }
-    .table-header-bar h3 {
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .table-scroll {
+    .table-container {
+      width: 100%;
       overflow-x: auto;
-      max-height: 720px;
     }
     table {
       width: 100%;
@@ -385,36 +337,26 @@
       text-align: left;
     }
     th {
-      background: #111827;
-      color: var(--text-muted);
+      background: #0f172a;
+      color: #94a3b8;
       font-weight: 600;
       padding: 12px 16px;
       border-bottom: 1px solid var(--card-border);
-      white-space: nowrap;
       cursor: pointer;
       user-select: none;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      white-space: nowrap;
+      transition: background 0.15s;
     }
     th:hover {
-      color: #fff;
       background: #1e293b;
+      color: #fff;
     }
-    th .sort-icon {
-      font-size: 11px;
-      margin-left: 6px;
-      opacity: 0.5;
-    }
-    th.sorted-asc .sort-icon,
-    th.sorted-desc .sort-icon {
-      opacity: 1;
-      color: var(--primary);
-    }
+    th.sorted-asc::after { content: " ▲"; color: var(--primary); }
+    th.sorted-desc::after { content: " ▼"; color: var(--primary); }
     td {
       padding: 12px 16px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
-      color: #d1d5db;
+      color: var(--text-main);
       vertical-align: middle;
     }
     tr:hover td {
@@ -425,221 +367,175 @@
       display: none !important;
     }
 
-    /* Badges & Tags */
-    .badge-site {
+    /* Badges */
+    .badge {
       display: inline-block;
       padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .site-hq { background: rgba(59,130,246,0.18); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
-    .site-rdv { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
-    .site-rdg { background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
-    .site-aws { background: rgba(236,72,153,0.18); color: #f472b6; border: 1px solid rgba(236,72,153,0.3); }
-
-    .tag-proto {
-      font-family: monospace;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      background: rgba(255,255,255,0.08);
-      color: #e5e7eb;
-    }
-    .tag-port {
-      font-family: monospace;
-      font-weight: 700;
-      color: #93c5fd;
-    }
-    .badge-sec {
-      padding: 2px 8px;
       border-radius: 4px;
       font-size: 11px;
       font-weight: 600;
+      white-space: nowrap;
     }
-    .sec-high { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
-    .sec-mid { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
-    .sec-low { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge-hq { background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+    .badge-rdv { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid #10b981; }
+    .badge-rdg { background: rgba(245,158,11,0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+    .badge-rdi { background: rgba(20,184,166,0.2); color: #2dd4bf; border: 1px solid #14b8a6; }
+    .badge-aws { background: rgba(139,92,246,0.2); color: #a78bfa; border: 1px solid #8b5cf6; }
+    .badge-net { background: rgba(249,115,22,0.2); color: #fb923c; border: 1px solid #f97316; }
+    .badge-sec { background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid #ef4444; }
+    .badge-tier1 { background: rgba(239,68,68,0.25); color: #fca5a5; border: 1px solid #ef4444; font-weight:700; }
+    .badge-tier2 { background: rgba(245,158,11,0.25); color: #fcd34d; border: 1px solid #f59e0b; font-weight:700; }
+    .badge-tier3 { background: rgba(59,130,246,0.25); color: #93c5fd; border: 1px solid #3b82f6; font-weight:700; }
 
-    /* Architecture Notes Card */
-    .note-card {
+    .port-num { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; color: #38bdf8; }
+    .ip-num { font-family: ui-monospace, Menlo, Consolas, monospace; color: #cbd5e1; }
+
+    /* Specification Document Sections */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .spec-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 20px;
+      border-radius: 10px;
+      padding: 20px;
     }
-    .note-card h4 {
-      font-size: 16px;
-      color: #93c5fd;
+    .spec-box h3 {
+      font-size: 15px;
+      color: #fff;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
     }
-    .note-card p {
-      color: #d1d5db;
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-    .note-card ul {
-      margin-left: 20px;
-      color: #9ca3af;
+    .spec-item {
+      margin-bottom: 10px;
       font-size: 13px;
-      line-height: 1.7;
+      line-height: 1.6;
+      color: #d1d5db;
     }
-    .note-card li { margin-bottom: 6px; }
-    .note-card strong { color: #fff; }
-
-    /* Footer */
-    .footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--text-dim);
-      font-size: 12px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    /* Print isolation */
-    @media print {
-      body { background: #fff; color: #000; padding: 0; }
-      .header-actions, .filter-bar, .tabs, .diagram-toolbar, .footer { display: none !important; }
-      .tab-pane { display: block !important; page-break-after: always; }
-      table { font-size: 10px; }
-      th, td { border: 1px solid #ccc; color: #000 !important; background: #fff !important; }
-    }
+    .spec-item strong { color: #f3f4f6; }
   </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- Executive Header -->
+  <!-- Header -->
   <div class="header">
-    <div class="header-top">
-      <div class="header-title-box">
-        <h1>
-          <span>🏢</span> 信源全球 (RSI Group) 實體硬體部署架構與通訊矩陣
-        </h1>
-        <p>
-          Project Hive (蜂巢計畫) 全球跨國 IT 基礎架構暨實體硬體部署規格互動儀表板。涵蓋台北內湖總部核心機房（1U/2U 實體機箱外觀）、越南同奈廠 (RDV) 與柬埔寨柴楨廠 (RDG) 邊緣節點、以及 AWS 雲端 AI 算力節點之多階層架構。
-        </p>
-        <div class="header-meta">
-          <div class="meta-pill">📋 計劃代號：<b>Project Hive (蜂巢計畫) v2.2</b></div>
-          <div class="meta-pill">👔 計劃主持人：<b>周文津 副總 (Executive Sponsor)</b></div>
-          <div class="meta-pill">🎯 執行負責人：<b>Howard Liao Ph.D. (Lead Architect)</b></div>
-          <div class="meta-pill">🌐 儲存庫：<b>GitHub RSI / main</b></div>
-        </div>
+    <div class="header-left">
+      <h1>
+        <span>🐴 信源全球 (RSI Group) 跨國硬體、網路、專線、資安與 BCM/BCP/SLA 儀表板</span>
+        <span class="badge-erp">ERP：Microsoft Dynamics 365 (D365)</span>
+        <span class="badge-dyxnet">跨國專線：第一線 (DYXnet) MPLS</span>
+      </h1>
+      <p>專案：蜂巢計畫 (Project Hive) ｜ 依據周文津副總經理裁示與 Duka Chen 主管 2026/11/12 正式盤點規範編制</p>
+    </div>
+    <div class="header-meta">
+      <div class="meta-box">
+        <div class="meta-label">計劃主持人</div>
+        <div class="meta-val">周文津 副總</div>
       </div>
-      <div class="header-actions">
-        <a class="btn btn-primary" href="rsi_hardware_deployment.drawio" download title="下載可供 Diagrams.net 編輯之 XML 架構檔">
-          📥 下載 .drawio 原始檔
-        </a>
-        <a class="btn btn-secondary" href="rsi_hardware_deployment.svg" target="_blank" title="在新視窗獨立檢視 SVG 向量圖">
-          🔍 檢視 SVG 原圖
-        </a>
-        <a class="btn btn-secondary" href="https://github.com/HowardLiao/RSI" target="_blank" title="前往 GitHub 專案儲存庫">
-          🐙 GitHub Repo
-        </a>
-        <button class="btn btn-success" onclick="exportActiveTableToCSV()" title="將當前選定之表格匯出為 CSV 檔">
-          📊 匯出當前表格 (CSV)
-        </button>
+      <div class="meta-box">
+        <div class="meta-label">執行負責人</div>
+        <div class="meta-val">Howard Liao Ph.D.</div>
       </div>
+      <button class="btn btn-primary" onclick="exportActiveTableToCSV()" title="將當前選定之表格匯出為 CSV 檔">
+        📊 匯出當前表格 (CSV)
+      </button>
     </div>
   </div>
 
-  <!-- KPI Summary Bento Grid -->
+  <!-- Bento Grid KPI -->
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-title">
-        <span>實體主機與儲存設備</span>
-        <span class="kpi-indicator blue"></span>
+        <span>實體主機與伺服器集群</span>
+        <span style="color:#60a5fa;">● 規格對齊</span>
       </div>
-      <div class="kpi-val">8 <span>台設備</span></div>
-      <div class="kpi-sub">4x 2U/1U 伺服器 + 1x SAN + 1x Switch + 2x Edge</div>
+      <div class="kpi-val">RDSMP2 / RSIMDW1 / AXDB</div>
+      <div class="kpi-sub">Dell R760/R660/R650xs + Unity 480XT 全閃存 SAN</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-title">
-        <span>全閃存集中儲存容量</span>
-        <span class="kpi-indicator green"></span>
+        <span>集團跨國互聯專線</span>
+        <span style="color:#f97316;">● 第一線 DYXnet</span>
       </div>
-      <div class="kpi-val">60 <span>TB All-Flash</span></div>
-      <div class="kpi-sub">Dell Unity 480XT (淨可用 45TB RAID5)</div>
+      <div class="kpi-val">Full-Mesh MPLS</div>
+      <div class="kpi-sub">台越 40M (<42ms) ｜ 台柬 20M (<62ms) ｜ AWS 直連 (<28ms)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-title">
-        <span>虛擬機與容器執行個體</span>
-        <span class="kpi-indicator cyan"></span>
+        <span>BCM / BCP 業務連續性</span>
+        <span style="color:#34d399;">● 72H 離線自治</span>
       </div>
-      <div class="kpi-val">28+ <span>實例</span></div>
-      <div class="kpi-sub">ESXi 8.0 VMs + K8s / K3s Microservices</div>
+      <div class="kpi-val">Tier 1 SLA 99.9%</div>
+      <div class="kpi-sub">RTO < 2H ｜ RPO < 15M ｜ 斷網 72H 車間獨立生產</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-title">
-        <span>跨國專線與 VPN 延遲</span>
-        <span class="kpi-indicator amber"></span>
+        <span>企業級資安治理階層</span>
+        <span style="color:#f87171;">● Cortex AES 5階防禦</span>
       </div>
-      <div class="kpi-val">&lt;45 <span>ms</span></div>
-      <div class="kpi-sub">台越 45ms / 台柬 65ms (雙軌 MPLS + IPSec)</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-title">
-        <span>廠區邊緣離線自治能力</span>
-        <span class="kpi-indicator green"></span>
-      </div>
-      <div class="kpi-val">72 <span>小時</span></div>
-      <div class="kpi-sub">海纜斷線時產線與邊緣緩存自主運轉</div>
+      <div class="kpi-val">KOI 核心 + OT 圍堵</div>
+      <div class="kpi-sub">雙軌身分鑑別 (0元CAL) + 設備商黑盒子五道紅線隔離</div>
     </div>
   </div>
 
-  <!-- Interactive Control Panel (Tabs + Search + Site Filter) -->
+  <!-- Control & Nav Panel -->
   <div class="control-panel">
+    <!-- Tab Navigation -->
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('diagram')">🗺️ 實體機箱部署拓撲圖</button>
+      <button class="tab-btn" onclick="switchTab('bcp')">🔄 BCM / BCP / DR 設備與 SLA 矩陣</button>
       <button class="tab-btn" onclick="switchTab('hardware')">🖥️ 實體硬體與伺服器規格表</button>
+      <button class="tab-btn" onclick="switchTab('network')">🌐 內網、外網與第一線專線架構</button>
+      <button class="tab-btn" onclick="switchTab('security')">🛡️ 資安防護與零信任治理矩陣</button>
       <button class="tab-btn" onclick="switchTab('ports')">🔌 通訊埠與網路安全規則矩陣</button>
-      <button class="tab-btn" onclick="switchTab('links')">🌐 跨國混合鏈路與延遲規範</button>
-      <button class="tab-btn" onclick="switchTab('containers')">📦 容器與微服務配置表</button>
-      <button class="tab-btn" onclick="switchTab('notes')">📑 架構決策與治理規範全錄</button>
+      <button class="tab-btn" onclick="switchTab('containers')">📦 微服務與中繼服務配置表</button>
+      <button class="tab-btn" onclick="switchTab('sop')">📑 蜂巢計畫決策與營運手冊</button>
     </div>
 
+    <!-- Filter & Search Bar -->
     <div class="filter-bar">
       <div class="filter-chips">
         <span class="filter-label">站點篩選：</span>
         <button class="chip active" onclick="filterBySite('all')">🌐 全部站點 (All)</button>
-        <button class="chip" onclick="filterBySite('HQ')">🏢 台北內湖總部 (HQ)</button>
+        <button class="chip" onclick="filterBySite('HQ')">🏢 台北總部 (HQ)</button>
         <button class="chip" onclick="filterBySite('RDV')">🏭 越南同奈廠 (RDV)</button>
         <button class="chip" onclick="filterBySite('RDG')">🏭 柬埔寨柴楨廠 (RDG)</button>
+        <button class="chip" onclick="filterBySite('RDI')">🏭 印尼廠 (RDI)</button>
         <button class="chip" onclick="filterBySite('AWS')">☁️ AWS 香港雲端 (ap-east-1)</button>
       </div>
+
       <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="globalSearchInput" class="search-input" placeholder="搜尋任意關鍵字 (如 443, SAP, R760, ESXi)..." onkeyup="handleGlobalSearch()">
+        <span style="color:var(--text-dim);">🔍</span>
+        <input type="text" id="globalSearchInput" class="search-input" placeholder="即時過濾：輸入 D365, DYXnet, 第一線, BCP, SLA, RDSMP2, AXDB, KOI..." oninput="handleGlobalSearch()">
       </div>
-      <div id="resultCount" class="result-count">顯示中資料</div>
+
+      <div id="resultCount" class="result-count">顯示全部資料</div>
     </div>
   </div>
 
-  <!-- TAB 1: Diagram Viewport -->
+  <!-- ==================== TAB 1: DIAGRAM ==================== -->
   <div id="tab-diagram" class="tab-pane active">
     <div class="diagram-card">
       <div class="diagram-toolbar">
         <div style="font-size: 13px; color: var(--text-muted);">
-          💡 <strong>擬真機箱拓撲圖</strong>：包含 1U/2U 金屬機架拉絲面板、熱插拔抽取槽、LED 指示燈、SFP+/RJ45 埠與虛擬化階層。
+          💡 <strong>信源全球擬真實體機箱拓撲圖</strong>：實體 1U/2U 機箱外觀、抽換硬碟槽、雙電源、第一線 (DYXnet) MPLS 專線、D365 AOS 叢集與 Unity 480XT 全快閃 LUN 掛載。
         </div>
         <div style="display: flex; gap: 8px;">
-          <button class="btn btn-secondary" onclick="resetZoom()">重設視圖</button>
-          <button class="btn btn-secondary" onclick="toggleFullscreen()">全螢幕檢視</button>
+          <button class="btn" onclick="resetZoom()">重設視圖</button>
+          <button class="btn btn-primary" onclick="toggleFullscreen()">全螢幕檢視</button>
         </div>
       </div>
       <div class="diagram-viewport" id="diagramViewport">
-        <!-- INLINE SVG -->
+        <!-- SVG INSERTION -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 1750" width="100%" height="100%" style="background:#090d16; font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;"><defs>
   <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
     <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
@@ -691,7 +587,7 @@
   </g>
 </g>
 
-<g transform="translate(40, 130)">
+<g id="svg-group-HQ" class="svg-site-group" data-site="HQ" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('HQ') : window.filterBySite('HQ')" transform="translate(40, 130)">
   <!-- Container Box -->
   <rect width="1580" height="1140" rx="10" fill="#0c1322" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
   <rect width="1580" height="36" rx="10" fill="#1e293b"/>
@@ -1075,7 +971,7 @@
   </g>
 </g>
 
-<g transform="translate(1660, 130)">
+<g id="svg-group-RDV" class="svg-site-group" data-site="RDV" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('RDV') : window.filterBySite('RDV')" transform="translate(1660, 130)">
   <rect width="900" height="550" rx="10" fill="#0c1322" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
   <rect width="900" height="36" rx="10" fill="#064e3b"/>
   <text x="20" y="24" fill="#a7f3d0" font-size="15" font-weight="bold">
@@ -1136,7 +1032,7 @@
   </g>
 </g>
 
-<g transform="translate(1660, 710)">
+<g id="svg-group-RDG" class="svg-site-group" data-site="RDG" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('RDG') : window.filterBySite('RDG')" transform="translate(1660, 710)">
   <rect width="900" height="560" rx="10" fill="#0c1322" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
   <rect width="900" height="36" rx="10" fill="#78350f"/>
   <text x="20" y="24" fill="#fde68a" font-size="15" font-weight="bold">
@@ -1197,7 +1093,7 @@
   </g>
 </g>
 
-<g transform="translate(40, 1300)">
+<g id="svg-group-AWS" class="svg-site-group" data-site="AWS" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('AWS') : window.filterBySite('AWS')" transform="translate(40, 1300)">
   <rect width="2520" height="390" rx="10" fill="#0c1322" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
   <rect width="2520" height="36" rx="10" fill="#7c2d12"/>
   <text x="20" y="24" fill="#fdba74" font-size="15" font-weight="bold">
@@ -1274,117 +1170,244 @@
     </div>
   </div>
 
-  <!-- TAB 2: Hardware Specs Table -->
+  <!-- ==================== TAB 2: BCM / BCP / DR & SLA MATRIX ==================== -->
+  <div id="tab-bcp" class="tab-pane">
+    <div class="table-card">
+      <div class="table-header-desc">
+        <span>🔄 <strong>信源全球業務持續運作計畫 (BCM / BCP / DR) 設備、備援機制與服務等級協議 (SLA) 矩陣</strong></span>
+        <span style="font-size:12px; color:#34d399; font-weight:600;">依據 2026/11/12 盤點指引 ｜ 涵蓋 Tier 1~Tier 3 系統、RTO、RPO、DR演練與實體備援設備</span>
+      </div>
+      <div class="table-container">
+        <table id="table-bcp">
+          <thead>
+            <tr>
+              <th onclick="sortTable('table-bcp', 0)">系統/資料庫名稱 (System)</th>
+              <th onclick="sortTable('table-bcp', 1)">所屬廠區 (Site)</th>
+              <th onclick="sortTable('table-bcp', 2)">關鍵等級 (Tier)</th>
+              <th onclick="sortTable('table-bcp', 3)">可用度 SLA</th>
+              <th onclick="sortTable('table-bcp', 4)">目標 RTO</th>
+              <th onclick="sortTable('table-bcp', 5)">目標 RPO</th>
+              <th onclick="sortTable('table-bcp', 6)">本地備份與快照設備 (Local Backup)</th>
+              <th onclick="sortTable('table-bcp', 7)">異地備援與 DR 演練紀錄 (Disaster Recovery)</th>
+              <th onclick="sortTable('table-bcp', 8)">斷網自律運轉韌性 (Offline BCP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-site="HQ">
+              <td><strong>D365 營運財務主庫 (AXDB)</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2022/2019 Enterprise</span></td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><span class="badge badge-tier1">Tier 1 極關鍵</span></td>
+              <td><span class="port-num">99.9%</span></td>
+              <td><span class="port-num">< 2 小時</span></td>
+              <td><span class="port-num">< 15 分鐘</span></td>
+              <td>Dell Unity 480XT 全閃存無感快照 (LUN_BACKUP_SNAP 15TB) + 交易日誌每15分鐘連續備份</td>
+              <td><strong>Azure 雲端熱備副本 + AWS S3 Glacier WORM 不可變存儲</strong><br><span style="font-size:11px;color:#34d399;">2026/08/15 實機切換演練成功</span></td>
+              <td>WSFC 裸機 AlwaysOn 雙機鏡像，主節點故障於 30 秒內自動容錯切換</td>
+            </tr>
+            <tr data-site="RDV">
+              <td><strong>成衣裁縫 MES 營運庫</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2016 (192.168.185.123)</span></td>
+              <td><span class="badge badge-rdv">越南同奈</span></td>
+              <td><span class="badge badge-tier1">Tier 1 生產核心</span></td>
+              <td><span class="port-num">99.9%</span></td>
+              <td><span class="port-num">< 2 小時</span></td>
+              <td><span class="port-num">< 30 分鐘</span></td>
+              <td>每日本地快照 (SAS RAID10) ＋ 6小時差異備份，由 RDV-EDGE-SRV01 本地監控</td>
+              <td><strong>第一線 DYXnet 專線定時異地鏡像至台北總部 SAN</strong><br><span style="font-size:11px;color:#34d399;">2026/05/20 演練成功</span></td>
+              <td><strong>48～72 小時斷網自律運轉</strong>：內嵌雙軌快取，專線海纜斷線時產線裁床、車縫連續作業</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><strong>打樣版單與核心工藝庫 (SAM)</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2019 on RDSMP2 (192.168.0.22)</span></td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><span class="badge badge-tier1">Tier 1 極關鍵</span></td>
+              <td><span class="port-num">99.9%</span></td>
+              <td><span class="port-num">< 2 小時</span></td>
+              <td><span class="port-num">< 30 分鐘</span></td>
+              <td>每日全備 ＋ 13項核心批次排程 (D:\EXP) ＋ 實體樣品工藝圖 (E:\RD_SAMPLE) 鏡像</td>
+              <td><strong>RDSMP1 (192.168.0.23) 測試/備援機熱同步</strong><br><span style="font-size:11px;color:#34d399;">CI/CD 自動化 MSBuild 驗證</span></td>
+              <td>VMware ESXi 8.0 vSphere HA 虛擬機熱備援，實體主機故障自動於 HQ02 啟動</td>
+            </tr>
+            <tr data-site="RDG">
+              <td><strong>跨廠物流報關與人事庫</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2014 on RDG (192.168.193.65)</span></td>
+              <td><span class="badge badge-rdg">柬埔寨柴楨</span></td>
+              <td><span class="badge badge-tier2">Tier 2 關鍵營運</span></td>
+              <td><span class="port-num">99.5%</span></td>
+              <td><span class="port-num">< 8 小時</span></td>
+              <td><span class="port-num">< 2 小時</span></td>
+              <td>每日本地全備 (保留 14 天) ＋ RDG-EDGE-SRV01 邊緣本機快取</td>
+              <td><strong>離線磁碟異地保存 ＋ 總部排程備份</strong><br><span style="font-size:11px;color:#f59e0b;">2025/11/10 演練 (列為 W1 待重演)</span></td>
+              <td><strong>48～72 小時離線生產</strong>：車縫工票掃描本機暫存，復網後非同步對賬拋轉</td>
+            </tr>
+            <tr data-site="RDI">
+              <td><strong>歷史訂單樣品庫與品管庫</strong><br><span style="font-size:11px;color:#94a3b8;">MS-SQL 2012 (ID-QC-Tracking)</span></td>
+              <td><span class="badge badge-rdi">印尼廠</span></td>
+              <td><span class="badge badge-tier3">Tier 3 內部輔助</span></td>
+              <td><span class="port-num">99.0%</span></td>
+              <td><span class="port-num">< 24 小時</span></td>
+              <td><span class="port-num">< 24 小時</span></td>
+              <td>每週全備 ＋ 每季冷封存，本地 NAS 備存</td>
+              <td><strong>BCP 優先升級節點</strong>：後續統一納入 StarRocks 與 MinIO 離線備存體系</td>
+              <td>品管 REST API 條碼本地高頻快取，支援斷網單機校驗</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><strong>機房電力不斷電系統 (UPS & 發電機)</strong><br><span style="font-size:11px;color:#94a3b8;">APC Smart-UPS RT 10kVA 在線式雙迴路</span></td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><span class="badge badge-tier1">實體基建</span></td>
+              <td><span class="port-num">99.99%</span></td>
+              <td><span class="port-num">0 秒 (無縫)</span></td>
+              <td><span class="port-num">0 損失</span></td>
+              <td>APC 雙在線式 UPS 電池模組 (滿載支撐 45 分鐘)</td>
+              <td><strong>Caterpillar 500kVA 自動柴油發電機</strong> (市電中斷 8 秒內自動點火接管，油料保證 72 小時連續運轉)</td>
+              <td>雙路 ATS 自動電源切換開關，雙迴路 PDU 冗餘供電至伺服器 Platinum 電源</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: HARDWARE SPEC ==================== -->
   <div id="tab-hardware" class="tab-pane">
-    <div class="table-container">
-      <div class="table-header-bar">
-        <h3><span>🖥️</span> 實體伺服器與硬體設備規格清單 (點擊表頭可排序)</h3>
-        <span style="font-size:12px; color:var(--text-muted);">支援多欄位即時升降冪排序</span>
+    <div class="table-card">
+      <div class="table-header-desc">
+        <span>🖥️ <strong>信源全球實體主機、伺服器機箱與儲存設備規格清單</strong> (依 Duke 節點表與現場盤點嚴格對齊)</span>
+        <span style="font-size:12px; color:#9ca3af;">包含 CPU、RAM、儲存陣列、實體網卡、iDRAC 頻外管理與運行角色</span>
       </div>
-      <div class="table-scroll">
-        <table id="table-hardware-data">
+      <div class="table-container">
+        <table id="table-hardware">
           <thead>
             <tr>
-              <th onclick="sortTable('table-hardware-data', 0)">設備名稱 (Hostname) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 1)">所屬站點 (Site) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 2)">實體機型與規格 (Chassis) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 3)">角色定位 (Role) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 4)">處理器與記憶體 (CPU / RAM) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 5)">本機/集中儲存 (Storage) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 6)">網路與管理介面 (NICs / OOB) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-hardware-data', 7)">作業系統與承載服務 <span class="sort-icon">▲▼</span></th>
+              <th onclick="sortTable('table-hardware', 0)">站點 (Site)</th>
+              <th onclick="sortTable('table-hardware', 1)">主機名稱 (Hostname)</th>
+              <th onclick="sortTable('table-hardware', 2)">實體機箱型號 (Model)</th>
+              <th onclick="sortTable('table-hardware', 3)">處理器 (CPU Cores)</th>
+              <th onclick="sortTable('table-hardware', 4)">記憶體 (RAM)</th>
+              <th onclick="sortTable('table-hardware', 5)">本機/集中儲存 (Storage)</th>
+              <th onclick="sortTable('table-hardware', 6)">實體網路介面 (NIC)</th>
+              <th onclick="sortTable('table-hardware', 7)">管理/業務 IP</th>
+              <th onclick="sortTable('table-hardware', 8)">角色定位與系統 (Role & OS)</th>
             </tr>
           </thead>
           <tbody>
             <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>RSI-SRV-HQ01</strong></td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
               <td>Dell PowerEdge R760 (2U)</td>
-              <td>虛擬化運算節點 01 (VMware HA)</td>
-              <td>2x Xeon Gold 6430 (32C/64T) / 256GB ECC DDR5</td>
-              <td>2x 960GB NVMe (BOSS RAID1) + SAN 10GbE</td>
-              <td>2x 10GbE SFP+ LACP, 4x 1GbE, iDRAC9 Ent</td>
-              <td>VMware ESXi 8.0 (VM-ERP-APP01, VM-MES-CORE01)</td>
+              <td>2x Xeon Gold 6430 (64C/128T)</td>
+              <td>256GB ECC DDR5-4800</td>
+              <td>8x 1.92TB NVMe SSD (RAID10)</td>
+              <td>2x 25GbE SFP28 + 4x 10GbE</td>
+              <td><span class="ip-num">192.168.0.21 / 10.10.10.11(OOB)</span></td>
+              <td>VMware ESXi 8.0 / 承載 <strong>RDSMP2 正式打樣主機 (192.168.0.22)</strong> 與 <strong>RDSMP1 (192.168.0.23)</strong></td>
             </tr>
             <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>RSI-SRV-HQ02</strong></td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
               <td>Dell PowerEdge R760 (2U)</td>
-              <td>虛擬化運算節點 02 (VMware HA)</td>
-              <td>2x Xeon Gold 6430 (32C/64T) / 256GB ECC DDR5</td>
-              <td>2x 960GB NVMe (BOSS RAID1) + SAN 10GbE</td>
-              <td>2x 10GbE SFP+ LACP, 4x 1GbE, iDRAC9 Ent</td>
-              <td>VMware ESXi 8.0 (VM-ERP-APP02, VM-MES-CORE02)</td>
+              <td>2x Xeon Gold 6430 (64C/128T)</td>
+              <td>256GB ECC DDR5-4800</td>
+              <td>8x 1.92TB NVMe SSD (RAID10)</td>
+              <td>2x 25GbE SFP28 + 4x 10GbE</td>
+              <td><span class="ip-num">192.168.0.25 / 10.10.10.12(OOB)</span></td>
+              <td>VMware ESXi 8.0 / 承載 <strong>D365 AOS 交易叢集 (192.168.0.30)</strong> 與 <strong>YARP 網關 (192.168.0.35)</strong></td>
             </tr>
             <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>RSI-SRV-HQ03</strong></td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Dell PowerEdge R760 (2U)</td>
-              <td>裸機核心資料庫 (Bare-metal DB)</td>
-              <td>2x Xeon Platinum 8468 (48C/96T) / 512GB ECC DDR5</td>
-              <td>8x 3.84TB NVMe SSD (Hardware RAID 10)</td>
-              <td>4x 10GbE SFP+ (雙通道 LACP 資料/備份), iDRAC9 Ent</td>
-              <td>RHEL 9 (SAP HANA 2.0 / PostgreSQL HA Cluster)</td>
+              <td>Dell PowerEdge R760 (2U 裸機)</td>
+              <td>2x Xeon Gold 6430 (64C/128T)</td>
+              <td>512GB ECC DDR5-4800</td>
+              <td>10x 3.84TB SAS SSD (RAID10)</td>
+              <td>2x 25GbE RoCE v2 + 2x 10GbE</td>
+              <td><span class="ip-num">192.168.0.10 / 10.10.10.13(OOB)</span></td>
+              <td><strong>裸機 WSFC 叢集：rsiaxdb1 (192.168.0.131)</strong> / MS SQL 2022 AlwaysOn <strong>D365 AXDB 營運主庫</strong></td>
             </tr>
             <tr data-site="HQ">
-              <td><strong>RSI-SRV-HQ04</strong></td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><strong>RSIMDW1</strong></td>
               <td>Dell PowerEdge R660 (1U)</td>
-              <td>容器化平台節點 (Kubernetes Master/Worker)</td>
-              <td>2x Xeon Silver 4410Y (24C/48T) / 128GB ECC DDR5</td>
-              <td>4x 1.92TB SAS SSD (RAID5)</td>
-              <td>2x 10GbE SFP+, 2x 1GbE, iDRAC9 Ent</td>
-              <td>Ubuntu 22.04 LTS (K8s Control Plane, Hive API Gateway)</td>
+              <td>2x Xeon Silver 4410Y (24C/48T)</td>
+              <td>128GB ECC DDR5-4800</td>
+              <td>4x 1.92TB NVMe SSD (RAID1)</td>
+              <td>4x 10GbE SFP+</td>
+              <td><span class="ip-num">192.168.0.95 / 10.10.10.14(OOB)</span></td>
+              <td><strong>D365 外掛中繼主機</strong> / D365.Report.Service (:8085)、Local.WebApi (:80)、D365_Prod 唯讀庫</td>
             </tr>
             <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><strong>RSI-SRV-HQ04</strong></td>
+              <td>Dell PowerEdge R660 (1U)</td>
+              <td>2x Xeon Silver 4410Y (24C/48T)</td>
+              <td>128GB ECC DDR5-4800</td>
+              <td>4x 1.92TB NVMe SSD (RAID1)</td>
+              <td>4x 10GbE SFP+</td>
+              <td><span class="ip-num">192.168.0.50 / 10.10.10.15(OOB)</span></td>
+              <td>K8s v1.28 Master / Ingress Envoy、Prometheus TSDB 全球監控、Grafana 戰情看板</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>RSI-SAN01</strong></td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Dell Unity 480XT (2U)</td>
-              <td>企業集中儲存陣列 (Enterprise All-Flash SAN)</td>
-              <td>雙主動處理器 / 128GB NVRAM Cache</td>
-              <td>25-Bay SFF, 15x 3.84TB SAS SSD (淨可用 ~45TB)</td>
-              <td>8x 10GbE Optical iSCSI + 4x 16Gb FC, Unisphere</td>
-              <td>Dell Unity OE (VMFS DataStore, LUN 快照備份)</td>
+              <td>Dell Unity 480XT (2U SAN)</td>
+              <td>Dual SP-A / SP-B (Intel Xeon 雙控)</td>
+              <td>128GB 高速快取</td>
+              <td>25x 3.84TB Enterprise SAS SSD (80TB可用)</td>
+              <td>8x 10GbE iSCSI + 4x 16Gb FC</td>
+              <td><span class="ip-num">10.10.50.20 / 10.10.10.20(OOB)</span></td>
+              <td><strong>全快閃集中儲存陣列</strong> / LUN_D365_DATA (30TB)、LUN_D365_LOG (10TB)、LUN_ESXI (25TB)、LUN_BACKUP (15TB)</td>
             </tr>
             <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>RSI-SW-CORE01</strong></td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Dell PowerSwitch S5248F-ON (1U)</td>
-              <td>ToR 核心骨幹網路交換機</td>
-              <td>2.0 Tbps 無阻塞轉發 / 雙熱插拔電源</td>
-              <td>專用 Flash 韌體儲存</td>
-              <td>48x 25GbE SFP28, 4x 100GbE QSFP28, 2x 100GbE DD</td>
-              <td>Dell SmartFabric OS10 / VLT 跨機鏈路聚合</td>
+              <td>Dell S5248F-ON (1U Switch)</td>
+              <td>Broadcom Trident 3 晶片</td>
+              <td>2.16 Tbps 交換背板容量</td>
+              <td>雙冗餘電源熱插拔</td>
+              <td>48x 25GbE SFP28 + 4x 100GbE Uplink</td>
+              <td><span class="ip-num">10.10.10.1 (OOB)</span></td>
+              <td>機房核心交換機 / VLAN 匯聚、iSCSI 低延遲 Jumbo Frame 9000 交換、RoCE v2 RDMA 支援</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><strong>RSI-FW-HQ01/02</strong></td>
+              <td>FortiGate 200F HA (雙機熱備)</td>
+              <td>FortiASIC CP9 + NP6XLite</td>
+              <td>8GB RAM</td>
+              <td>32GB eMMC 日誌快取</td>
+              <td>4x 10GbE SFP+ + 16x 1GbE RJ45</td>
+              <td><span class="ip-num">192.168.0.254 / 61.220.x.x (WAN)</span></td>
+              <td>總部次世代防火牆 / <strong>第一線 (DYXnet) MPLS 專線終端</strong>、SD-WAN 智慧選路、DPI 資安防護</td>
             </tr>
             <tr data-site="RDV">
+              <td><span class="badge badge-rdv">越南同奈</span></td>
               <td><strong>RDV-EDGE-SRV01</strong></td>
-              <td><span class="badge-site site-rdv">越南同奈 RDV</span></td>
               <td>Dell PowerEdge R650xs (1U)</td>
-              <td>廠區邊緣運算與 MES 本地緩存 (Edge Worker)</td>
-              <td>1x Xeon Silver 4314 (16C/32T) / 64GB DDR4 ECC</td>
-              <td>2x 960GB Enterprise SATA SSD (RAID1)</td>
-              <td>4x 1GbE RJ45 (上聯 FortiGate 80F + 產線 PLC), iDRAC</td>
-              <td>Ubuntu 22.04 LTS (K3s Edge Worker, MES Collector, OPC-UA)</td>
+              <td>1x Xeon Silver 4314 (16C/32T)</td>
+              <td>64GB ECC DDR4-3200</td>
+              <td>2x 960GB NVMe + 2x 2.4TB SAS (RAID10)</td>
+              <td>4x 10GbE SFP+ + 2x 1GbE</td>
+              <td><span class="ip-num">172.16.10.10 / 192.168.185.123(DB)</span></td>
+              <td>K3s 邊緣節點 / <strong>成衣 MES (VN-MES-API 42支)</strong>、本地快取庫、<strong>48～72 小時離線生產自治</strong></td>
             </tr>
             <tr data-site="RDG">
+              <td><span class="badge badge-rdg">柬埔寨柴楨</span></td>
               <td><strong>RDG-EDGE-SRV01</strong></td>
-              <td><span class="badge-site site-rdg">柬埔寨柴楨 RDG</span></td>
               <td>Dell PowerEdge R650xs (1U)</td>
-              <td>廠區邊緣數據採集與閘道 (Edge Gateway)</td>
-              <td>1x Xeon Silver 4314 (16C/32T) / 64GB DDR4 ECC</td>
-              <td>2x 960GB Enterprise SATA SSD (RAID1)</td>
-              <td>4x 1GbE RJ45 (上聯 FortiGate 60F + 產線設備), iDRAC</td>
-              <td>Ubuntu 22.04 LTS (K3s Edge Worker, RFID 讀寫, MQTT Broker)</td>
+              <td>1x Xeon Silver 4314 (16C/32T)</td>
+              <td>64GB ECC DDR4-3200</td>
+              <td>2x 960GB NVMe + 2x 2.4TB SAS (RAID10)</td>
+              <td>4x 10GbE SFP+ + 2x 1GbE</td>
+              <td><span class="ip-num">172.16.20.10 / 192.168.193.65(DB)</span></td>
+              <td>K3s 邊緣節點 / <strong>出勤薪資 (CB-HR-Service)</strong>、車間物聯網採集、<strong>48～72 小時離線自治</strong></td>
             </tr>
             <tr data-site="AWS">
-              <td><strong>AWS-EC2-GPU01</strong></td>
-              <td><span class="badge-site site-aws">AWS 香港雲端</span></td>
-              <td>AWS EC2 g5.xlarge (Cloud Instance)</td>
-              <td>雲端 AI 視覺瑕疵檢測與 LLM 推理服務</td>
-              <td>4 vCPU (AMD EPYC) + NVIDIA A10G (24GB VRAM) / 16GB RAM</td>
-              <td>250GB gp3 EBS (3000 IOPS, 125 MB/s)</td>
-              <td>AWS ENA (最高 10 Gbps 彈性網路)</td>
-              <td>Amazon Linux 2023 (Triton Inference Server, FastViT)</td>
+              <td><span class="badge badge-aws">AWS 香港</span></td>
+              <td><strong>AWS-GPU-INF01</strong></td>
+              <td>AWS EC2 g5.xlarge (Nitro)</td>
+              <td>4 vCPU (AMD EPYC 7R32)</td>
+              <td>16GB RAM + 24GB VRAM (A10G)</td>
+              <td>250GB gp3 EBS (3000 IOPS)</td>
+              <td>Elastic Network Adapter (10Gbps)</td>
+              <td><span class="ip-num">10.200.1.50 (私有 IP)</span></td>
+              <td>AI 視覺打樣比對推論 (FastAPI :8000 / Triton :8501) ＋ 跨國術語神經網絡翻譯 (:8080)</td>
             </tr>
           </tbody>
         </table>
@@ -1392,161 +1415,325 @@
     </div>
   </div>
 
-  <!-- TAB 3: Port & Network Matrix -->
+  <!-- ==================== TAB 4: NETWORK ARCHITECTURE (DYXNET, LAN, WAN) ==================== -->
+  <div id="tab-network" class="tab-pane">
+    <div class="table-card">
+      <div class="table-header-desc">
+        <span>🌐 <strong>集團相互網絡串接（第一線 DYXnet）、內網微隔離 (VLAN) 與外網閘道清單</strong></span>
+        <span style="font-size:12px; color:#fb923c; font-weight:600;">已確認跨國集團骨幹：第一線 (DYXnet) MPLS VPN + SD-WAN 雙軌備援</span>
+      </div>
+      <div class="table-container">
+        <table id="table-network">
+          <thead>
+            <tr>
+              <th onclick="sortTable('table-network', 0)">類別 (Type)</th>
+              <th onclick="sortTable('table-network', 1)">網段/線路識別 (ID/Subnet)</th>
+              <th onclick="sortTable('table-network', 2)">站點 (Site)</th>
+              <th onclick="sortTable('table-network', 3)">頻寬與傳輸介質 (Bandwidth)</th>
+              <th onclick="sortTable('table-network', 4)">延遲 SLA (Latency)</th>
+              <th onclick="sortTable('table-network', 5)">承載設備與閘道 (Gateway)</th>
+              <th onclick="sortTable('table-network', 6)">架構用途與安全規範 (Function & Security)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-site="HQ">
+              <td><span class="badge badge-net">集團專線 (WAN)</span></td>
+              <td><strong>第一線 DYXnet MPLS (台越骨幹)</strong></td>
+              <td>台北 HQ ↔ 越南 RDV</td>
+              <td>40 Mbps CIR=PIR (保證頻寬)</td>
+              <td><span class="port-num">< 42 ms (抖動<2ms)</span></td>
+              <td>第一線 PE 路由器 ↔ FortiGate 200F / 80F</td>
+              <td>集團第一優先專用通道，承載成衣 MES 數據即時雙向複製與 D365 API，SLA 99.99%</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-net">集團專線 (WAN)</span></td>
+              <td><strong>第一線 DYXnet MPLS (台柬骨幹)</strong></td>
+              <td>台北 HQ ↔ 柬埔寨 RDG</td>
+              <td>20 Mbps CIR=PIR (保證頻寬)</td>
+              <td><span class="port-num">< 62 ms (抖動<3ms)</span></td>
+              <td>第一線 PE 路由器 ↔ FortiGate 200F / 60F</td>
+              <td>柴楨廠生管與物料出勤資料即時回傳台北，保證跨廠報關無抖動傳輸</td>
+            </tr>
+            <tr data-site="AWS">
+              <td><span class="badge badge-net">集團專線 (WAN)</span></td>
+              <td><strong>第一線 DYXnet 雲直連 (Cloud Connect)</strong></td>
+              <td>台北 HQ ↔ AWS 香港雲端</td>
+              <td>100 Mbps 虛擬專線 (VXC)</td>
+              <td><span class="port-num">< 28 ms</span></td>
+              <td>第一線 Cloud Gateway ↔ AWS VGW (IPsec)</td>
+              <td>高速專屬通道傳送打樣影像特徵值至 AWS Triton AI 推論，完全繞過公網擁塞</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-net">備援專線 (SD-WAN)</span></td>
+              <td><strong>IPSec Over Internet (自動容錯)</strong></td>
+              <td>全球所有跨站 (HQ / RDV / RDG)</td>
+              <td>視各廠對外光纖頻寬 (100M~500M)</td>
+              <td>50~90 ms</td>
+              <td>FortiGate 200F / 80F / 60F (SD-WAN Engine)</td>
+              <td>3秒無感切換！當第一線 MPLS 遭遇海纜事件時，自動發起 AES-256-GCM 備援穿隧</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
+              <td><strong>VLAN 10: OOB 頻外硬體管理網</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>10.10.10.0/24 (1 Gbps 隔離網)</td>
+              <td>< 1 ms</td>
+              <td>Dell iDRAC9, Switch Mgmt, PDU (GW: 10.10.10.254)</td>
+              <td>物理與邏輯嚴格隔離，禁止對外路由，僅允許來自跳板機之 SSH/HTTPS 登入</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
+              <td><strong>VLAN 20: 虛擬化底層叢集網</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>10.10.20.0/24 (25 Gbps LACP)</td>
+              <td>< 1 ms</td>
+              <td>ESXi 8.0 Hypervisor Host (GW: 10.10.20.254)</td>
+              <td>承載 vSphere HA 心跳、vMotion 虛擬機即時遷移與底層節點通訊</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
+              <td><strong>VLAN 30: 核心應用與微服務網</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>192.168.0.0/24 (25 Gbps SFP28)</td>
+              <td>< 1 ms</td>
+              <td>RDSMP2, RSIMDW1, YARP 網關 (GW: 192.168.0.254)</td>
+              <td>企業內部生產應用與打樣網絡，經 FortiGate 進行東西向流量檢查</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
+              <td><strong>VLAN 40: MS SQL 核心資料庫網</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>192.168.0.10~.131 (25 Gbps RoCE v2)</td>
+              <td>< 0.5 ms</td>
+              <td>rsiaxdb1 (D365 AXDB), SAM 庫 (GW: 192.168.0.254)</td>
+              <td>高敏感資料庫專網，拒絕公網直連，僅允許授權應用程式與廠端特定 IP 連線</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-hq">內網 (VLAN)</span></td>
+              <td><strong>VLAN 50: 集中儲存 iSCSI SAN 專網</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>10.10.50.0/24 (25 Gbps MPIO)</td>
+              <td>< 0.3 ms</td>
+              <td>Dell Unity 480XT All-Flash SAN (無外網閘道)</td>
+              <td>啟用 Jumbo Frame 9000，無路由隔離儲存網絡，雙控制器負載平衡與無中斷存取</td>
+            </tr>
+            <tr data-site="RDV">
+              <td><span class="badge badge-rdv">內網 (VLAN)</span></td>
+              <td><strong>VLAN 100: 越南同奈 Edge 生產網</strong></td>
+              <td>越南同奈廠 (RDV)</td>
+              <td>172.16.10.0/24 (10 Gbps SFP+)</td>
+              <td>< 1 ms</td>
+              <td>RDV-EDGE-SRV01 邊緣伺服器 (GW: 172.16.10.254)</td>
+              <td>運行廠端 MES，與台北總部透過第一線專線同步，支援 48～72H 離線生產</td>
+            </tr>
+            <tr data-site="RDV">
+              <td><span class="badge badge-rdv">內網 (VLAN)</span></td>
+              <td><strong>VLAN 110: 越南廠區 OT 車間網</strong></td>
+              <td>越南同奈廠 (RDV)</td>
+              <td>172.16.11.0/24 (1 Gbps 工業乙太網)</td>
+              <td>< 2 ms</td>
+              <td>自動化裁床、吊掛機、PLC、感測器 (GW: 172.16.11.254)</td>
+              <td><strong>OT/IT 隔離區域</strong>，嚴禁設備商容器直接聯網，落實「五道紅線」邊界圍堵</td>
+            </tr>
+            <tr data-site="RDG">
+              <td><span class="badge badge-rdg">內網 (VLAN)</span></td>
+              <td><strong>VLAN 200: 柬埔寨柴楨 Edge 生產網</strong></td>
+              <td>柬埔寨柴楨廠 (RDG)</td>
+              <td>172.16.20.0/24 (10 Gbps SFP+)</td>
+              <td>< 1 ms</td>
+              <td>RDG-EDGE-SRV01 邊緣伺服器 (GW: 172.16.20.254)</td>
+              <td>柴楨廠生管與物聯網資料彙總，本機快取與台北總部非同步對賬</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-sec">外網 (Internet)</span></td>
+              <td><strong>總部主要公網出口 (Primary ISP)</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>中華電信 HiNet 固接光纖 500M/500M</td>
+              <td>< 5 ms (國內)</td>
+              <td>FortiGate 200F WAN1 (固定實體 IP)</td>
+              <td>承載對外業務流量，經由 Cloudflare Enterprise WAF 進行防護</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-sec">外網 (Internet)</span></td>
+              <td><strong>總部備援公網出口 (Secondary ISP)</strong></td>
+              <td>台北總部 (HQ)</td>
+              <td>遠傳企業光纖雙迴路 300M/300M</td>
+              <td>< 6 ms (國內)</td>
+              <td>FortiGate 200F WAN2 (固定實體 IP)</td>
+              <td>對外網路雙線 BGP/ECMP 負載平衡與斷線自動備援切換</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 5: CYBERSECURITY & ZERO TRUST ==================== -->
+  <div id="tab-security" class="tab-pane">
+    <div class="table-card">
+      <div class="table-header-desc">
+        <span>🛡️ <strong>蜂巢計畫全方位資安治理與 Palo Alto Networks Cortex AES 5階防禦體系</strong></span>
+        <span style="font-size:12px; color:#f87171; font-weight:600;">以 KOI 為第1階進入點核心 ｜ 兼顧端點、管線、微隔離、0元CAL身分雙軌制與營運韌性</span>
+      </div>
+      <div class="table-container">
+        <table id="table-security">
+          <thead>
+            <tr>
+              <th onclick="sortTable('table-security', 0)">防禦層級 (Layer)</th>
+              <th onclick="sortTable('table-security', 1)">核心技術與模組 (Component)</th>
+              <th onclick="sortTable('table-security', 2)">保護目標與作用範圍 (Scope)</th>
+              <th onclick="sortTable('table-security', 3)">安全機制與防禦動作 (Security Policy & Action)</th>
+              <th onclick="sortTable('table-security', 4)">合規標準 (Compliance)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-site="HQ">
+              <td><span class="badge badge-sec">第1階：進入點核心</span></td>
+              <td><strong>KOI 內嵌安全閘道 (Entry Gateway)</strong></td>
+              <td>全球所有外部相依性套件、代碼庫與容器映象檔</td>
+              <td>在任何第三方套件與模型下載觸及開發與生產主機前執行攔截，封鎖供應鏈投毒與惡意注入</td>
+              <td>ISO 27001 / SLSA-3</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-sec">第2階：執行階段防護</span></td>
+              <td><strong>Cortex XDR 執行階段防護 (Runtime Shield)</strong></td>
+              <td>台北 HQ、越南 RDV、柬埔寨 RDG 全節點</td>
+              <td>主動阻斷惡意程式碼、記憶體緩衝區溢位、未經授權之開發工具外掛及可疑反彈 Shell</td>
+              <td>MITRE ATT&CK</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-sec">第3階：憑證與管道防護</span></td>
+              <td><strong>Secret & Pipeline Protection</strong></td>
+              <td>CI/CD 管道、K8s Secrets、第一線專線組態與私鑰</td>
+              <td>防止開發與維運環境之私鑰、API Token、資料庫連線字串外洩；強制標記 <strong>[REDACTED]</strong> 脫敏</td>
+              <td>CIS Benchmark</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-sec">第4階：更新冷卻緩衝</span></td>
+              <td><strong>CI/CD 版本更新冷卻緩衝 (Release Buffer)</strong></td>
+              <td>生產版本發布管道 (MSBuild / GitLab CI/CD)</td>
+              <td>於 CI/CD 管道實施 24 小時安全冷卻與自動簽章比對驗證，杜絕未經檢驗之零日漏洞直通生產</td>
+              <td>DevSecOps SOP</td>
+            </tr>
+            <tr data-site="RDV">
+              <td><span class="badge badge-sec">第5階：持續補救措施</span></td>
+              <td><strong>自動化威脅隔離與自我修復 (Remediation)</strong></td>
+              <td>跨國所有邊緣節點與伺服器 Pods</td>
+              <td>當偵測到節點異常或指標偏離時，3秒內自動實體網絡隔離受入侵裝置，防止橫向擴散</td>
+              <td>NIST CSF</td>
+            </tr>
+            <tr data-site="HQ">
+              <td><span class="badge badge-net">身分鑑別雙軌制</span></td>
+              <td><strong>AD/AAD SSO vs 產線工號+自設密碼</strong></td>
+              <td>辦公室行政/業務/財務 vs 工廠車縫/品管人員</td>
+              <td><strong>兼顧資安與成本</strong>：辦公室用 Kerberos/OAuth SSO；產線作業員用輕量 JWT，<strong>0元多餘微軟 CAL 授權費</strong></td>
+              <td>Zero Trust & 授權最佳化</td>
+            </tr>
+            <tr data-site="RDG">
+              <td><span class="badge badge-rdg">設備商黑盒子圍堵</span></td>
+              <td><strong>海外廠容器黑盒子「五道紅線」圍堵</strong></td>
+              <td>柬埔寨/越南廠自動化設備商交付之 Docker/K8s 主機</td>
+              <td>強制隔離於獨立 OT VLAN，設定嚴格 Egress 白名單，禁止直連外部網際網路與總部核心庫</td>
+              <td>工控資安 IEC 62443</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 6: PORT & PROTOCOL MATRIX ==================== -->
   <div id="tab-ports" class="tab-pane">
-    <div class="table-container">
-      <div class="table-header-bar">
-        <h3><span>🔌</span> 全球網路通訊埠與安全規則矩陣 (點擊表頭可排序)</h3>
-        <span style="font-size:12px; color:var(--text-muted);">定義服務協定、埠號、傳輸路徑與防火牆邊界</span>
+    <div class="table-card">
+      <div class="table-header-desc">
+        <span>🔌 <strong>全球跨站點網路與服務通訊埠 (Port) 安全規則矩陣</strong></span>
+        <span style="font-size:12px; color:#9ca3af;">涵蓋第一線 MPLS、內網微隔離 ACL、SQL Server TDS 1433 與外網防護規則</span>
       </div>
-      <div class="table-scroll">
-        <table id="table-ports-data">
+      <div class="table-container">
+        <table id="table-ports">
           <thead>
             <tr>
-              <th onclick="sortTable('table-ports-data', 0)">來源端 (Source) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-ports-data', 1)">目的端 (Destination) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-ports-data', 2)">站點跨度 (Scope) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-ports-data', 3)">協定 (Protocol) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-ports-data', 4)">通訊埠 (Port) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-ports-data', 5)">服務名稱與用途 (Service / Purpose) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-ports-data', 6)">安全邊界 / 存取控制 (Firewall Policy) <span class="sort-icon">▲▼</span></th>
+              <th onclick="sortTable('table-ports', 0)">來源站點 (Source)</th>
+              <th onclick="sortTable('table-ports', 1)">目標站點 (Destination)</th>
+              <th onclick="sortTable('table-ports', 2)">通訊埠號 (Port)</th>
+              <th onclick="sortTable('table-ports', 3)">通訊協定 (Protocol)</th>
+              <th onclick="sortTable('table-ports', 4)">傳輸路徑 (Carrier)</th>
+              <th onclick="sortTable('table-ports', 5)">服務名稱與業務用途 (Service Purpose)</th>
+              <th onclick="sortTable('table-ports', 6)">防火牆白名單策略 (Firewall Rule)</th>
             </tr>
           </thead>
           <tbody>
             <tr data-site="RDV">
-              <td>越南廠產線 PLC / 感測器</td>
-              <td>RDV-EDGE-SRV01 (邊緣主機)</td>
-              <td><span class="badge-site site-rdv">越南 RDV 內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">4840</span></td>
-              <td>OPC-UA 工業自動化通訊協議</td>
-              <td><span class="badge-sec sec-low">OT 產線內部 VLAN 隔離</span></td>
+              <td><span class="badge badge-rdv">越南同奈廠 RDV</span></td>
+              <td><span class="badge badge-hq">台北總部 RDSMP2 / AXDB</span></td>
+              <td><span class="port-num">1433</span></td>
+              <td>TCP (TDS 加密)</td>
+              <td><span class="badge badge-net">第一線 DYXnet MPLS</span></td>
+              <td>越南 MES 資料每 30 分鐘與台北樣品庫 SAM 及 D365 進行主檔同步</td>
+              <td>僅允許 192.168.185.123 ↔ 192.168.0.22 / 192.168.0.131</td>
             </tr>
             <tr data-site="RDG">
-              <td>柬埔寨廠產線 RFID / PLC</td>
-              <td>RDG-EDGE-SRV01 (邊緣主機)</td>
-              <td><span class="badge-site site-rdg">柬埔寨 RDG 內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">1883</span></td>
-              <td>MQTT 物聯網設備數據上報</td>
-              <td><span class="badge-sec sec-low">廠區設備專用 VLAN</span></td>
-            </tr>
-            <tr data-site="RDV">
-              <td>RDV-EDGE-SRV01 (邊緣主機)</td>
-              <td>RSI-SRV-HQ04 (總部 API 閘道)</td>
-              <td><span class="badge-site site-rdv">跨國 RDV ➔ HQ</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">443</span></td>
-              <td>HTTPS RESTful / gRPC 邊緣數據匯整</td>
-              <td><span class="badge-sec sec-high">IPSec VPN 雙軌加密通道 (TLS 1.3)</span></td>
-            </tr>
-            <tr data-site="RDG">
-              <td>RDG-EDGE-SRV01 (邊緣主機)</td>
-              <td>RSI-SRV-HQ04 (總部 API 閘道)</td>
-              <td><span class="badge-site site-rdg">跨國 RDG ➔ HQ</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">443</span></td>
-              <td>HTTPS RESTful 邊緣數據匯整與同步</td>
-              <td><span class="badge-sec sec-high">MPLS 專線 + IPSec 備援隧道</span></td>
+              <td><span class="badge badge-rdg">柬埔寨柴楨廠 RDG</span></td>
+              <td><span class="badge badge-hq">台北總部 RDSMP2</span></td>
+              <td><span class="port-num">1433</span></td>
+              <td>TCP (TDS 加密)</td>
+              <td><span class="badge badge-net">第一線 DYXnet MPLS</span></td>
+              <td>柴楨廠出勤、物料與報關資料跨國批次拋轉</td>
+              <td>僅允許 192.168.193.65 ↔ 192.168.0.22</td>
             </tr>
             <tr data-site="HQ">
-              <td>RSI-SRV-HQ04 (總部 API 閘道)</td>
-              <td>AWS-EC2-GPU01 (雲端算力)</td>
-              <td><span class="badge-site site-aws">混合雲 HQ ➔ AWS</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">50051</span></td>
-              <td>gRPC AI 瑕疵圖像特徵推理請求</td>
-              <td><span class="badge-sec sec-high">AWS Site-to-Site VPN 加密通道</span></td>
+              <td><span class="badge badge-hq">台北打樣主機 RDSMP2</span></td>
+              <td><span class="badge badge-hq">D365 外掛中繼 RSIMDW1</span></td>
+              <td><span class="port-num">8085 / 8082</span></td>
+              <td>HTTP (REST)</td>
+              <td><span class="badge badge-hq">內網 VLAN 30</span></td>
+              <td>D365.Report.Service 報表與馬克圖 (MarkerLayout) 資料調用</td>
+              <td>限制內部 192.168.0.22 呼叫 192.168.0.95</td>
             </tr>
             <tr data-site="HQ">
-              <td>RSI-SRV-HQ04 (容器微服務)</td>
-              <td>RSI-SRV-HQ03 (核心資料庫)</td>
-              <td><span class="badge-site site-hq">台北 HQ 機房內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">30015</span></td>
-              <td>SAP HANA SQL / MDX 生產交易存取</td>
-              <td><span class="badge-sec sec-high">HQ Core DMZ ➔ DB VLAN (嚴格白名單)</span></td>
+              <td><span class="badge badge-hq">台北打樣主機 RDSMP2</span></td>
+              <td><span class="badge badge-hq">D365 AOS 交易叢集</span></td>
+              <td><span class="port-num">8101 / 8201 / 8088</span></td>
+              <td>TCP / HTTP (OData)</td>
+              <td><span class="badge badge-hq">內網 VLAN 30</span></td>
+              <td>D365 Core ERP (C# 80 Operations) 與 OData 主檔數據交換</td>
+              <td>Entra ID Bearer Token 授權保護</td>
             </tr>
             <tr data-site="HQ">
-              <td>RSI-SRV-HQ04 (容器微服務)</td>
-              <td>RSI-SRV-HQ03 (核心資料庫)</td>
-              <td><span class="badge-site site-hq">台北 HQ 機房內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">5432</span></td>
-              <td>PostgreSQL Enterprise 報表庫查詢</td>
-              <td><span class="badge-sec sec-mid">內部應用網段限制</span></td>
+              <td><span class="badge badge-hq">台北打樣主機 RDSMP2</span></td>
+              <td><span class="badge badge-aws">AWS 香港 EC2 (AI)</span></td>
+              <td><span class="port-num">8000 / 80</span></td>
+              <td>HTTP (REST)</td>
+              <td><span class="badge badge-net">第一線 雲直連專線</span></td>
+              <td>AWS AI 視覺打樣比對 (98.84.29.205) 與跨國術語翻譯 (98.93.175.234)</td>
+              <td>第一線 VXC 專屬路由，嚴禁公網直接曝光</td>
             </tr>
             <tr data-site="HQ">
-              <td>RSI-SRV-HQ01 / HQ02 (ESXi)</td>
-              <td>RSI-SAN01 (Unity 480XT)</td>
-              <td><span class="badge-site site-hq">台北 HQ 機房內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">3260</span></td>
-              <td>iSCSI Block Storage I/O 虛擬磁碟讀寫</td>
-              <td><span class="badge-sec sec-high">獨立 Storage SAN 實體隔離網段 (MPIO)</span></td>
+              <td><span class="badge badge-hq">ESXi 節點 (HQ01/02)</span></td>
+              <td><span class="badge badge-hq">集中儲存 RSI-SAN01</span></td>
+              <td><span class="port-num">3260</span></td>
+              <td>TCP (iSCSI MPIO)</td>
+              <td><span class="badge badge-hq">內網 VLAN 50 (25G)</span></td>
+              <td>區塊儲存 Target 掛載，Jumbo Frame 9000 高速磁區存取 (AXDB.mdf / log.ldf)</td>
+              <td>隔離儲存專網，雙 MPIO 路徑無路由直接交換</td>
             </tr>
             <tr data-site="HQ">
-              <td>外部瀏覽器 / 廠區辦公端點</td>
-              <td>RSI-SRV-HQ04 (反向代理)</td>
-              <td><span class="badge-site site-hq">外部 Internet ➔ HQ</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">443</span></td>
-              <td>HTTPS 蜂巢戰情系統與 ERP Web Portal</td>
-              <td><span class="badge-sec sec-high">FortiGate 200F WAF / SSL 檢驗</span></td>
+              <td><span class="badge badge-rdv">跨國 FortiGate 80F/60F</span></td>
+              <td><span class="badge badge-hq">總部 FortiGate 200F</span></td>
+              <td><span class="port-num">500 / 4500</span></td>
+              <td>UDP (IPSec IKE/NAT-T)</td>
+              <td><span class="badge badge-sec">公網雙線備援</span></td>
+              <td>第一線 MPLS 斷線時，自動發起 SD-WAN 容錯 IPSec 穿隧</td>
+              <td>預設待命，SLA 探針連續 3 次丟包自動接管</td>
             </tr>
             <tr data-site="HQ">
-              <td>FortiGate 80F / 60F (海外廠)</td>
-              <td>FortiGate 200F (總部核心)</td>
-              <td><span class="badge-site site-hq">跨國網際網路 WAN</span></td>
-              <td><span class="tag-proto">UDP</span></td>
-              <td><span class="tag-port">500 / 4500</span></td>
-              <td>IPSec IKEv2 / NAT-Traversal 金鑰交換</td>
-              <td><span class="badge-sec sec-high">AES-256-GCM 跨國加密隧道</span></td>
-            </tr>
-            <tr data-site="HQ">
-              <td>Kubernetes 節點與 Pods</td>
-              <td>K8s API Server (HQ04)</td>
-              <td><span class="badge-site site-hq">台北 HQ 機房內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">6443</span></td>
-              <td>Kubernetes 控制平面通訊與調度</td>
-              <td><span class="badge-sec sec-high">K8s Control Plane mTLS 雙向認證</span></td>
-            </tr>
-            <tr data-site="HQ">
-              <td>API Gateway & 服務容器</td>
-              <td>Redis Sentinel (HQ04)</td>
-              <td><span class="badge-site site-hq">台北 HQ 機房內部</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">6379 / 26379</span></td>
-              <td>分散式 Session 快取與哨兵容錯機制</td>
-              <td><span class="badge-sec sec-mid">K8s Pod Overlay Network (Calico)</span></td>
-            </tr>
-            <tr data-site="HQ">
-              <td>Prometheus 監控主機</td>
-              <td>全球主機 Node Exporter</td>
-              <td><span class="badge-site site-hq">全域維運網段</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">9100</span></td>
-              <td>主機硬體資源（CPU/RAM/磁碟/網卡）遙測採集</td>
-              <td><span class="badge-sec sec-mid">維運網管 VLAN 白名單</span></td>
-            </tr>
-            <tr data-site="HQ">
-              <td>全網伺服器與網路設備</td>
-              <td>Syslog 日誌中心 (HQ04)</td>
-              <td><span class="badge-site site-hq">全域維運網段</span></td>
-              <td><span class="tag-proto">UDP</span></td>
-              <td><span class="tag-port">514</span></td>
-              <td>系統與安全事件審計日誌轉發 (SIEM)</td>
-              <td><span class="badge-sec sec-mid">OOB 帶外管理與維運網段</span></td>
-            </tr>
-            <tr data-site="HQ">
-              <td>維運工程師專用堡壘機</td>
-              <td>各節點 iDRAC9 / IPMI 介面</td>
-              <td><span class="badge-site site-hq">全域 OOB 網段</span></td>
-              <td><span class="tag-proto">TCP</span></td>
-              <td><span class="tag-port">443 / 5900</span></td>
-              <td>帶外硬體遠端虛擬主控台 (Remote Console)</td>
-              <td><span class="badge-sec sec-high">嚴格實體隔離之 OOB 網段 + 2FA 認證</span></td>
+              <td><span class="badge badge-hq">IT 跳板機 (Bastion)</span></td>
+              <td><span class="badge badge-hq">全球所有實體伺服器</span></td>
+              <td><span class="port-num">443 / 22</span></td>
+              <td>HTTPS / SSH</td>
+              <td><span class="badge badge-hq">內網 VLAN 10 (OOB)</span></td>
+              <td>Dell iDRAC9 頻外硬體監控、開關機、KVM 遠端控制</td>
+              <td>嚴格限定僅能由專屬跳板機連線，需 MFA 驗證</td>
             </tr>
           </tbody>
         </table>
@@ -1554,188 +1741,89 @@
     </div>
   </div>
 
-  <!-- TAB 4: Cross-Border Links -->
-  <div id="tab-links" class="tab-pane">
-    <div class="table-container">
-      <div class="table-header-bar">
-        <h3><span>🌐</span> 跨國混合鏈路、頻寬與延遲規範表 (點擊表頭可排序)</h3>
-        <span style="font-size:12px; color:var(--text-muted);">全球製造基地與雲端互聯之網路拓撲 SLA</span>
-      </div>
-      <div class="table-scroll">
-        <table id="table-links-data">
-          <thead>
-            <tr>
-              <th onclick="sortTable('table-links-data', 0)">鏈路端點 (Endpoints) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-links-data', 1)">主要鏈路類型 (Primary Link) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-links-data', 2)">備援鏈路類型 (Secondary Backup) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-links-data', 3)">保證頻寬 (Bandwidth) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-links-data', 4)">目標延遲 SLA (Round-Trip) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-links-data', 5)">容錯切換機制 (Failover Strategy) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-links-data', 6)">加密強度 (Encryption) <span class="sort-icon">▲▼</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-site="RDV">
-              <td><strong>台北內湖 HQ ↔ 越南同奈 RDV</strong></td>
-              <td>中華電信跨國 MPLS 企業專線</td>
-              <td>雙網際網路 IPSec VPN (FortiGate 雙 WAN)</td>
-              <td>100 Mbps (保證頻寬)</td>
-              <td>&lt; 45 ms</td>
-              <td>BGP 快速動態路由收斂 (&lt; 3 秒無縫切換)</td>
-              <td>IPSec AES-256-GCM / SHA-384</td>
-            </tr>
-            <tr data-site="RDG">
-              <td><strong>台北內湖 HQ ↔ 柬埔寨柴楨 RDG</strong></td>
-              <td>跨國 MPLS 企業專線</td>
-              <td>雙網際網路 IPSec VPN (雙 ISP 備援)</td>
-              <td>100 Mbps (保證頻寬)</td>
-              <td>&lt; 65 ms</td>
-              <td>IP SLA 探針自動路由導流 (&lt; 5 秒切換)</td>
-              <td>IPSec AES-256-GCM / SHA-384</td>
-            </tr>
-            <tr data-site="AWS">
-              <td><strong>台北內湖 HQ ↔ AWS 香港 VPC</strong></td>
-              <td>AWS Site-to-Site VPN (雙主動通道)</td>
-              <td>備援動態 BGP IPSec 隧道</td>
-              <td>500 Mbps (突發可達 1 Gbps)</td>
-              <td>&lt; 35 ms</td>
-              <td>雙活 (Active-Active) 負載均衡與容錯</td>
-              <td>IKEv2 / IPsec with PFS (Diffie-Hellman 19)</td>
-            </tr>
-            <tr data-site="RDV">
-              <td><strong>越南 RDV ↔ 柬埔寨 RDG</strong></td>
-              <td>經由台北 HQ 核心星狀路由轉發</td>
-              <td>廠區直連 IPSec Mesh (緊急備用)</td>
-              <td>50 Mbps 虛擬連線</td>
-              <td>&lt; 80 ms (間接傳輸)</td>
-              <td>廠區自主自治，互不強烈依賴</td>
-              <td>AES-256 加密隧道</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB 5: Containers & Services -->
+  <!-- ==================== TAB 7: CONTAINER & MICROSERVICES ==================== -->
   <div id="tab-containers" class="tab-pane">
-    <div class="table-container">
-      <div class="table-header-bar">
-        <h3><span>📦</span> 微服務、虛擬機與容器化部署配置矩陣 (點擊表頭可排序)</h3>
-        <span style="font-size:12px; color:var(--text-muted);">呈現運算負載實例、命名空間與資源配置</span>
+    <div class="table-card">
+      <div class="table-header-desc">
+        <span>📦 <strong>微服務、中繼系統與容器化叢集運算資源配置矩陣</strong></span>
+        <span style="font-size:12px; color:#9ca3af;">聚焦 D365 C# 服務、CQS 品質微服務、YARP 網關與開源平替底座</span>
       </div>
-      <div class="table-scroll">
-        <table id="table-containers-data">
+      <div class="table-container">
+        <table id="table-containers">
           <thead>
             <tr>
-              <th onclick="sortTable('table-containers-data', 0)">服務/工作負載名稱 <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-containers-data', 1)">實體宿主機 (Host Node) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-containers-data', 2)">站點 (Site) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-containers-data', 3)">執行型態 (Runtime) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-containers-data', 4)">命名空間 / 分組 <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-containers-data', 5)">分配資源 (CPU / RAM) <span class="sort-icon">▲▼</span></th>
-              <th onclick="sortTable('table-containers-data', 6)">高可用性與容錯機制 (HA Policy) <span class="sort-icon">▲▼</span></th>
+              <th onclick="sortTable('table-containers', 0)">站點 (Site)</th>
+              <th onclick="sortTable('table-containers', 1)">服務/模組名稱 (Service)</th>
+              <th onclick="sortTable('table-containers', 2)">運行架構 (Runtime)</th>
+              <th onclick="sortTable('table-containers', 3)">CPU 配額 (Request/Limit)</th>
+              <th onclick="sortTable('table-containers', 4)">記憶體配額 (RAM)</th>
+              <th onclick="sortTable('table-containers', 5)">調用負載與特性</th>
+              <th onclick="sortTable('table-containers', 6)">高可用與持久化 (HA / Storage)</th>
             </tr>
           </thead>
           <tbody>
             <tr data-site="HQ">
-              <td><strong>VM-ERP-APP01</strong></td>
-              <td>RSI-SRV-HQ01</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>VMware ESXi 8.0 虛擬機</td>
-              <td>erp-production</td>
-              <td>8 vCPU / 32GB RAM</td>
-              <td>VMware vSphere HA + Auto Restart on HQ02</td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><strong>D365-Hub 介接中繼 (RSI-D365-Hub)</strong></td>
+              <td>IIS / C# Web API on RSIMDW1</td>
+              <td>8 Cores / 16 Cores</td>
+              <td>16 GB / 32 GB</td>
+              <td>28 支自研 API ｜ 日調用 150,000 次 ｜ 18.5 KB/req</td>
+              <td>Data Entity 認證，推進 Tenant-Aware 與 RLS 機制</td>
             </tr>
             <tr data-site="HQ">
-              <td><strong>VM-MES-CORE01</strong></td>
-              <td>RSI-SRV-HQ01</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>VMware ESXi 8.0 虛擬機</td>
-              <td>mes-core</td>
-              <td>12 vCPU / 48GB RAM</td>
-              <td>VMware vSphere HA + 快照日誌定時備援</td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><strong>CQS 剪裁品質系統 (AI 導入示範燈塔)</strong></td>
+              <td>.NET 8 + Vue 3 on RDSMP1</td>
+              <td>4 Cores / 8 Cores</td>
+              <td>8 GB / 16 GB</td>
+              <td>35 道 xUnit 單元測試 ｜ 研發效率提升 28%</td>
+              <td>信封模式標準樣板，0 元委外授權開銷</td>
             </tr>
             <tr data-site="HQ">
-              <td><strong>VM-ERP-APP02</strong></td>
-              <td>RSI-SRV-HQ02</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>VMware ESXi 8.0 虛擬機</td>
-              <td>erp-production</td>
-              <td>8 vCPU / 32GB RAM</td>
-              <td>與 APP01 組成負載均衡叢集</td>
-            </tr>
-            <tr data-site="HQ">
-              <td><strong>VM-AUTH-AD01 / AD02</strong></td>
-              <td>RSI-SRV-HQ01 / HQ02</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Windows Server 2022 VM</td>
-              <td>identity-mgmt</td>
-              <td>4 vCPU / 16GB RAM</td>
-              <td>Active Directory 跨實體主機雙網域控制站</td>
-            </tr>
-            <tr data-site="HQ">
-              <td><strong>Hive API Gateway Pods</strong></td>
-              <td>RSI-SRV-HQ04</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Kubernetes Pod (containerd)</td>
-              <td>hive-gateway</td>
-              <td>2 vCPU / 4GB RAM (3 Replicas)</td>
-              <td>K8s 容器自動重啟、滾動更新 (Rolling Update)</td>
-            </tr>
-            <tr data-site="HQ">
-              <td><strong>Redis Sentinel Cluster</strong></td>
-              <td>RSI-SRV-HQ04</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Kubernetes StatefulSet</td>
-              <td>cache-layer</td>
-              <td>2 vCPU / 8GB RAM (3 節點哨兵)</td>
-              <td>一主二從自動選舉容錯，秒級切換</td>
-            </tr>
-            <tr data-site="HQ">
-              <td><strong>Prometheus & Grafana</strong></td>
-              <td>RSI-SRV-HQ04</td>
-              <td><span class="badge-site site-hq">台北總部 HQ</span></td>
-              <td>Kubernetes Deployment</td>
-              <td>observability</td>
-              <td>4 vCPU / 16GB RAM</td>
-              <td>PV 掛載集中儲存陣列，跨國數據持久化</td>
+              <td><span class="badge badge-hq">台北總部</span></td>
+              <td><strong>Microsoft YARP API Gateway</strong></td>
+              <td>.NET 8 Reverse Proxy on K8s</td>
+              <td>4 Cores / 8 Cores</td>
+              <td>8 GB / 16 GB</td>
+              <td>統一收攏認證、TLS、Rate Limiting、Gzip 壓縮</td>
+              <td>0 元微軟開源平替，取代昂貴商業網關</td>
             </tr>
             <tr data-site="RDV">
-              <td><strong>MES Edge Agent Pod</strong></td>
-              <td>RDV-EDGE-SRV01</td>
-              <td><span class="badge-site site-rdv">越南同奈 RDV</span></td>
-              <td>K3s Lightweight Pod</td>
-              <td>edge-mes</td>
-              <td>4 vCPU / 16GB RAM</td>
-              <td>斷網本地自主儲存，聯網自動補傳 (Backfill)</td>
-            </tr>
-            <tr data-site="RDV">
-              <td><strong>OPC-UA Collector Service</strong></td>
-              <td>RDV-EDGE-SRV01</td>
-              <td><span class="badge-site site-rdv">越南同奈 RDV</span></td>
-              <td>Systemd Daemon / Docker</td>
-              <td>iot-ingest</td>
-              <td>2 vCPU / 8GB RAM</td>
-              <td>自動心跳健康監測與失步重連</td>
+              <td><span class="badge badge-rdv">越南同奈</span></td>
+              <td><strong>成衣 MES 中繼 (VN-MES-API)</strong></td>
+              <td>K3s Edge Container on RDV</td>
+              <td>8 Cores / 16 Cores</td>
+              <td>16 GB / 32 GB</td>
+              <td>42 支自研 API ｜ 日調用 480,000 次 ｜ 4.2 KB/req</td>
+              <td>下沉至 C# DataModel 與 DAL 驗證，<strong>72H 離線自治</strong></td>
             </tr>
             <tr data-site="RDG">
-              <td><strong>RFID Middleware Pod</strong></td>
-              <td>RDG-EDGE-SRV01</td>
-              <td><span class="badge-site site-rdg">柬埔寨柴楨 RDG</span></td>
-              <td>K3s Lightweight Pod</td>
-              <td>edge-rfid</td>
-              <td>4 vCPU / 12GB RAM</td>
-              <td>本地佇列防丟機制，斷線暫存 SQLite</td>
+              <td><span class="badge badge-rdg">柬埔寨柴楨</span></td>
+              <td><strong>出勤薪資拋轉 (CB-HR-Service)</strong></td>
+              <td>K3s Edge Container on RDG</td>
+              <td>4 Cores / 8 Cores</td>
+              <td>8 GB / 16 GB</td>
+              <td>12 支自研 API ｜ 日調用 25,000 次 ｜ 85.0 KB 大封包</td>
+              <td>導入 MS-SQL RLS 與非同步分流排程下載</td>
+            </tr>
+            <tr data-site="RDI">
+              <td><span class="badge badge-rdi">印尼廠</span></td>
+              <td><strong>品管檢驗追蹤 (ID-QC-Tracking)</strong></td>
+              <td>REST API on RDI</td>
+              <td>2 Cores / 4 Cores</td>
+              <td>4 GB / 8 GB</td>
+              <td>18 支自研 API ｜ 日調用 85,000 次 ｜ 12.0 KB/req</td>
+              <td>條碼字串校驗與高頻查詢快取</td>
             </tr>
             <tr data-site="AWS">
-              <td><strong>Triton Inference Pod</strong></td>
-              <td>AWS-EC2-GPU01</td>
-              <td><span class="badge-site site-aws">AWS 香港雲端</span></td>
-              <td>NVIDIA Docker Container</td>
-              <td>ai-inference</td>
-              <td>4 vCPU / 16GB + A10G 24GB VRAM</td>
-              <td>AWS Auto Scaling 彈性擴縮容</td>
+              <td><span class="badge badge-aws">AWS 香港</span></td>
+              <td><strong>AI 視覺打樣推論與術語翻譯</strong></td>
+              <td>Docker on EC2 (NVIDIA Runtime)</td>
+              <td>4 vCPU + 1x A10G GPU</td>
+              <td>16 GB RAM + 24 GB VRAM</td>
+              <td>成衣瑕疵特徵比對 (<850ms) ｜ 中/越/高棉語術語翻譯</td>
+              <td>EBS gp3 250GB，依排程與專線彈性調度</td>
             </tr>
           </tbody>
         </table>
@@ -1743,36 +1831,44 @@
     </div>
   </div>
 
-  <!-- TAB 6: Architecture Notes & Governance -->
-  <div id="tab-notes" class="tab-pane">
-    <div class="note-card">
-      <h4><span>🏛️</span> 蜂巢計畫 (Project Hive) 實施藍圖與治理規範</h4>
-      <p>
-        本架構由<strong>周文津 副總 (Executive Sponsor)</strong> 擔任計劃主持人，由 <strong>Howard Liao Ph.D. (Lead Architect & C-Level Advisor)</strong> 擔任執行負責人。針對信源全球跨國製造業（台北內湖總部、越南同奈廠、柬埔寨柴楨廠）與香港 AWS 雲端進行四階層深度整合，落實「整合運用・智能營運」之年度戰略目標。
-      </p>
-      <ul>
-        <li><strong>邊緣離線自治 (Edge Offline Autonomy)</strong>：海外廠區（RDV 與 RDG）採用輕量級邊緣叢集（K3s + SQLite/Redis 本地緩衝），當跨國海底電纜或 WAN 線路意外中斷時，廠區產線工單、PLC 通訊與感測器採集皆能保持自主運轉至少 72 小時，待線路恢復後自動啟動佇列重傳補正機制（Backfill Resync）。</li>
-        <li><strong>四層安全防禦與微切分 (Micro-segmentation)</strong>：全網實施安全微切分，將 OT 產線網段（PLC/感測器）、IT 辦公網段、核心資料庫網段（SAP HANA）、以及 OOB 帶外硬體管理網段（iDRAC/IPMI）嚴格分流，外部進入核心 DB 僅限 API Gateway 於白名單 Port 30015 通訊。</li>
-        <li><strong>擬真實體伺服器機箱視覺化 (Hardware-Aware Visual Standard)</strong>：揚棄傳統軟體方框代稱，採用包含 1U/2U 深色金屬前面板、熱插拔硬碟抽取槽（Drive Bays）、雙通道 10GbE SFP+ 光纖網口、狀態 LED 燈號之高解析向量圖與 Draw.io XML，具備可直接指導機房上架佈線之實務價值。</li>
-        <li><strong>全閃存集中儲存與無單點故障 (Zero Single Point of Failure)</strong>：台北核心機房配置 Dell Unity 480XT 雙主動儲存陣列，以雙通道 10GbE iSCSI 提供 ESXi 叢集高速虛擬磁碟空間；對外透過雙網際網路 ISP 與雙軌 IPSec VPN 確保 99.99% 高可用性。</li>
-      </ul>
-    </div>
-  </div>
+  <!-- ==================== TAB 8: ARCHITECTURE SOP & DECISIONS ==================== -->
+  <div id="tab-sop" class="tab-pane">
+    <div class="spec-grid">
+      <div class="spec-box">
+        <h3>🏢 1. 集團相互網絡串接（第一線 DYXnet）與雙軌容錯</h3>
+        <div class="spec-item"><strong>● 已確認集團骨幹：</strong> 信源全球跨國網絡全面採用<strong>第一線 (DYXnet)</strong> 企業級 MPLS VPN，台北總部 HQ、越南同奈廠 (RDV) 與柬埔寨柴楨廠 (RDG) 均採用全保障頻寬與專用線路對接。</div>
+        <div class="spec-item"><strong>● 專線 SLA 保證：</strong> 台北至越南 RTT 控制在 42ms 以內，台北至柬埔寨控制在 62ms 以內，封包抖動 (Jitter) 小於 2ms，可用性達 99.99%。</div>
+        <div class="spec-item"><strong>● SD-WAN 自動容錯機制：</strong> 總部與廠端 FortiGate 防火牆皆啟動 SD-WAN 智能健康探測。當第一線專線發生異常時，系統於 3 秒內自動無感將關鍵業務切換至 IPSec Over Internet 備用通道。</div>
+      </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <div>
-      © 2026 RSI Group 信源全球 · 蜂巢計畫 Project Hive 實施藍圖 · 計劃主持人：周文津 副總 ｜ 執行負責人：Howard Liao Ph.D.
-    </div>
-    <div>
-      架構圖格式：Draw.io XML 2.0 / SVG 2600×1750 / HTML5 Responsive Dashboard
+      <div class="spec-box">
+        <h3>🔄 2. BCM / BCP 業務連續性與 SLA 嚴格分級</h3>
+        <div class="spec-item"><strong>● Tier 1 (99.9% / RTO<2H / RPO<15M)：</strong> D365 營運財務主庫 (AXDB) 與越南成衣 MES 庫。配置 WSFC AlwaysOn 雙機鏡像、Unity 全閃存無感快照與連續交易日誌備份。</div>
+        <div class="spec-item"><strong>● 48～72 小時離線生產自治：</strong> 越南同奈與柬埔寨柴楨廠端 K3s 節點內嵌本地快取庫。若海纜或專線全斷，工廠仍可離線獨立運作 72 小時，產能不中斷，復網後非同步對賬重放。</div>
+        <div class="spec-item"><strong>● 實體備援基建：</strong> APC 10kVA 在線式雙迴路 UPS (支撐45分鐘) + Caterpillar 500kVA 自動柴油發電機 (8秒接管，保證 72 小時供電)。</div>
+      </div>
+
+      <div class="spec-box">
+        <h3>🛡️ 3. 網路內外網微切分與邊界防護</h3>
+        <div class="spec-item"><strong>● 內網 802.1Q 嚴格切分：</strong> 總部劃分為 6 大 VLAN（OOB 頻外管理、Hypervisor 叢集、核心業務 App、敏感資料庫、iSCSI 高速存儲、K8s 容器網），東西向流量全數經由 FortiGate 進行存取控制清單 (ACL) 審核。</div>
+        <div class="spec-item"><strong>● 外網安全閘道：</strong> 採用中華電信 HiNet 固接光纖 + 遠傳企業光纖雙線對外，入口由 Cloudflare Enterprise WAF 進行 L3-L7 DDoS 流量清洗與 TLS 1.3 終結，內部主機完全不直接向公網暴露管理端口。</div>
+        <div class="spec-item"><strong>● 工廠 OT 容器黑盒子圍堵：</strong> 越南與柬埔寨車間自動化設備商交付之容器主機置於獨立 OT VLAN，設定五道紅線嚴格 Egress 白名單，杜絕病毒向產線蔓延。</div>
+      </div>
+
+      <div class="spec-box">
+        <h3>⚔️ 4. Palo Alto Networks Cortex AES 5階安全與 0 元 CAL 治理</h3>
+        <div class="spec-item"><strong>● 第1階進入點核心 (KOI)：</strong> 外部所有第三方開源套件、函式庫與容器映象檔必須先通過 KOI 閘道驗證，確認無惡意程式與憑證外洩後方可拉取。</div>
+        <div class="spec-item"><strong>● 身分鑑別雙軌制 (0元多餘 CAL)：</strong> 辦公室維持 AD/AAD SSO；產線作業人員維持「工號＋自設密碼」JWT Token，嚴禁為產線同仁開立 AD 帳號，每年省下數百萬元微軟客戶端授權費。</div>
+        <div class="spec-item"><strong>● 3-2-1 防勒索備份：</strong> 每日全量資料庫備份至 Unity 集中儲存，並加密上傳至 AWS S3 Glacier Object Lock（不可變性存儲），徹底防止勒索軟體篡改。</div>
+      </div>
     </div>
   </div>
 
 </div>
 
+<!-- JavaScript Logic -->
 <script>
-  // Tab Switching Logic
+  // 1. Tab Switching Function
   function switchTab(tabKey) {
     const panes = document.querySelectorAll('.tab-pane');
     panes.forEach(pane => pane.classList.remove('active'));
@@ -1780,33 +1876,72 @@
     if (targetPane) targetPane.classList.add('active');
 
     const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => btn.classList.remove('active'));
-    const clickedBtn = Array.from(tabBtns).find(b => b.getAttribute('onclick').includes(tabKey));
-    if (clickedBtn) clickedBtn.classList.add('active');
+    tabBtns.forEach(btn => {
+      btn.classList.remove('active');
+      const oc = btn.getAttribute('onclick') || '';
+      if (oc.indexOf("'" + tabKey + "'") !== -1 || oc.indexOf('"' + tabKey + '"') !== -1) {
+        btn.classList.add('active');
+      }
+    });
 
     updateResultCount();
   }
 
-  // Site Filtering Logic
+  // 2. Site Filtering Function
   let currentSite = 'all';
+  const siteLabels = {
+    'all': '全部站點 (All)',
+    'HQ': '台北總部 (HQ)',
+    'RDV': '越南同奈 (RDV)',
+    'RDG': '柬埔寨柴楨 (RDG)',
+    'RDI': '印尼廠 (RDI)',
+    'AWS': 'AWS 香港雲端'
+  };
+
   function filterBySite(site) {
     currentSite = site;
     const chips = document.querySelectorAll('.filter-chips .chip');
-    chips.forEach(c => c.classList.remove('active'));
-    const activeChip = Array.from(chips).find(c => c.getAttribute('onclick').includes("'" + site + "'"));
-    if (activeChip) activeChip.classList.add('active');
+    chips.forEach(c => {
+      c.classList.remove('active');
+      const oc = c.getAttribute('onclick') || '';
+      if (oc.indexOf("'" + site + "'") !== -1 || oc.indexOf('"' + site + '"') !== -1) {
+        c.classList.add('active');
+      }
+    });
+
+    // Link with SVG diagram nodes
+    const svgGroups = {
+      'HQ': document.getElementById('svg-group-HQ'),
+      'RDV': document.getElementById('svg-group-RDV'),
+      'RDG': document.getElementById('svg-group-RDG'),
+      'AWS': document.getElementById('svg-group-AWS')
+    };
+
+    Object.keys(svgGroups).forEach(k => {
+      const g = svgGroups[k];
+      if (g) {
+        if (site === 'all' || site === k) {
+          g.style.opacity = '1';
+          g.style.filter = (site === k) ? 'drop-shadow(0 0 16px rgba(59,130,246,0.9))' : 'none';
+        } else {
+          g.style.opacity = '0.2';
+          g.style.filter = 'none';
+        }
+      }
+    });
 
     applyFilters();
   }
 
-  // Global Search Logic
+  // 3. Search Handler
   function handleGlobalSearch() {
     applyFilters();
   }
 
-  // Combined Filtering: Site + Keyword
+  // 4. Combined Filtering (Site + Search Query)
   function applyFilters() {
-    const query = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+    const searchInput = document.getElementById('globalSearchInput');
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const tables = document.querySelectorAll('table');
 
     tables.forEach(table => {
@@ -1816,7 +1951,7 @@
         const rowText = row.innerText.toLowerCase();
 
         const matchSite = (currentSite === 'all') || (rowSite === currentSite);
-        const matchQuery = !query || rowText.includes(query);
+        const matchQuery = !query || (rowText.indexOf(query) !== -1);
 
         if (matchSite && matchQuery) {
           row.classList.remove('hidden-row');
@@ -1829,24 +1964,37 @@
     updateResultCount();
   }
 
+  // 5. Update Result Indicator Count
   function updateResultCount() {
     const activePane = document.querySelector('.tab-pane.active');
-    if (!activePane) return;
-    const table = activePane.querySelector('table');
     const countEl = document.getElementById('resultCount');
-    if (!table) {
-      countEl.innerText = '視覺圖檔檢視中';
+    if (!countEl) return;
+
+    if (!activePane || activePane.id === 'tab-diagram') {
+      if (currentSite === 'all') {
+        countEl.innerText = '視覺圖檔：顯示全球核心拓撲';
+      } else {
+        countEl.innerText = '視覺圖檔：聚焦 ' + (siteLabels[currentSite] || currentSite);
+      }
       return;
     }
+
+    const table = activePane.querySelector('table');
+    if (!table) {
+      countEl.innerText = '架構決策與治理規範檢視中';
+      return;
+    }
+
     const totalRows = table.querySelectorAll('tbody tr').length;
     const visibleRows = table.querySelectorAll('tbody tr:not(.hidden-row)').length;
-    countEl.innerText = `篩選結果：${visibleRows} / ${totalRows} 筆資料`;
+    countEl.innerText = '篩選結果：' + visibleRows + ' / ' + totalRows + ' 筆資料';
   }
 
-  // Sorting Function
+  // 6. Multi-Column Sorting
   const sortDirections = {};
   function sortTable(tableId, colIndex) {
     const table = document.getElementById(tableId);
+    if (!table) return;
     const tbody = table.querySelector('tbody');
     const rows = Array.from(tbody.querySelectorAll('tr'));
     const ths = table.querySelectorAll('th');
@@ -1863,8 +2011,8 @@
     });
 
     rows.sort((a, b) => {
-      const cellA = a.children[colIndex].innerText.trim();
-      const cellB = b.children[colIndex].innerText.trim();
+      const cellA = a.children[colIndex] ? a.children[colIndex].innerText.trim() : '';
+      const cellB = b.children[colIndex] ? b.children[colIndex].innerText.trim() : '';
 
       const numA = parseFloat(cellA.replace(/[^0-9.-]+/g, ''));
       const numB = parseFloat(cellB.replace(/[^0-9.-]+/g, ''));
@@ -1879,43 +2027,45 @@
     rows.forEach(r => tbody.appendChild(r));
   }
 
-  // Export Active Table to CSV
+  // 7. CSV Export Utility (Uses String.fromCharCode to completely prevent any escape bugs)
   function exportActiveTableToCSV() {
     const activePane = document.querySelector('.tab-pane.active');
     if (!activePane) return;
     const table = activePane.querySelector('table');
     if (!table) {
-      alert('請先切換至「硬體規格表」、「通訊矩陣」或「鏈路表」後再執行 CSV 匯出！');
+      alert('請先切換至「BCP/SLA矩陣」、「硬體規格表」、「網絡架構表」或「資安矩陣」後再匯出！');
       return;
     }
 
     const rows = Array.from(table.querySelectorAll('tr:not(.hidden-row)'));
-    let csvContent = '﻿'; // UTF-8 BOM
+    let csvContent = String.fromCharCode(0xFEFF); // UTF-8 BOM
+    const newline = String.fromCharCode(13, 10);
 
     rows.forEach(row => {
       const cols = Array.from(row.querySelectorAll('th, td')).map(cell => {
         let text = cell.innerText.replace(/"/g, '""').trim();
-        return `"${text}"`;
+        return '"' + text + '"';
       });
-      csvContent += cols.join(',') + '
-';
+      csvContent += cols.join(',') + newline;
     });
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `RSI_Deployment_${Date.now()}.csv`;
+    link.download = 'RSI_Deployment_' + Date.now() + '.csv';
     link.click();
   }
 
-  // Diagram Viewport Utilities
+  // 8. Diagram Viewport Utilities
   function resetZoom() {
     const vp = document.getElementById('diagramViewport');
-    vp.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+    if (vp) vp.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+    filterBySite('all');
   }
 
   function toggleFullscreen() {
     const card = document.querySelector('.diagram-card');
+    if (!card) return;
     if (!document.fullscreenElement) {
       card.requestFullscreen().catch(err => alert(err.message));
     } else {
@@ -1923,7 +2073,10 @@
     }
   }
 
-  // Initial call
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    updateResultCount();
+  });
   updateResultCount();
 </script>
 

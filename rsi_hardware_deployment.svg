@@ -49,7 +49,7 @@
   </g>
 </g>
 
-<g transform="translate(40, 130)">
+<g id="svg-group-HQ" class="svg-site-group" data-site="HQ" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('HQ') : window.filterBySite('HQ')" transform="translate(40, 130)">
   <!-- Container Box -->
   <rect width="1580" height="1140" rx="10" fill="#0c1322" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
   <rect width="1580" height="36" rx="10" fill="#1e293b"/>
@@ -433,7 +433,7 @@
   </g>
 </g>
 
-<g transform="translate(1660, 130)">
+<g id="svg-group-RDV" class="svg-site-group" data-site="RDV" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('RDV') : window.filterBySite('RDV')" transform="translate(1660, 130)">
   <rect width="900" height="550" rx="10" fill="#0c1322" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
   <rect width="900" height="36" rx="10" fill="#064e3b"/>
   <text x="20" y="24" fill="#a7f3d0" font-size="15" font-weight="bold">
@@ -494,7 +494,7 @@
   </g>
 </g>
 
-<g transform="translate(1660, 710)">
+<g id="svg-group-RDG" class="svg-site-group" data-site="RDG" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('RDG') : window.filterBySite('RDG')" transform="translate(1660, 710)">
   <rect width="900" height="560" rx="10" fill="#0c1322" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
   <rect width="900" height="36" rx="10" fill="#78350f"/>
   <text x="20" y="24" fill="#fde68a" font-size="15" font-weight="bold">
@@ -555,7 +555,7 @@
   </g>
 </g>
 
-<g transform="translate(40, 1300)">
+<g id="svg-group-AWS" class="svg-site-group" data-site="AWS" style="cursor:pointer; transition: opacity 0.3s ease;" onclick="parent.filterBySite ? parent.filterBySite('AWS') : window.filterBySite('AWS')" transform="translate(40, 1300)">
   <rect width="2520" height="390" rx="10" fill="#0c1322" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
   <rect width="2520" height="36" rx="10" fill="#7c2d12"/>
   <text x="20" y="24" fill="#fdba74" font-size="15" font-weight="bold">
