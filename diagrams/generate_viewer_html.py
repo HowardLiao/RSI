@@ -630,8 +630,24 @@ def generate_viewer_html():
 
     function switchTab(index) {{
       currentTabIndex = index;
+      if (diagramsData[index]) {{
+        try {{ history.replaceState(null, null, "#" + diagramsData[index].id); }} catch(e) {{}}
+      }}
       renderTabs();
       updateDiagramView();
+    }}
+
+    function checkUrlHash() {{
+      const hash = (window.location.hash || "").replace("#", "").toLowerCase();
+      if (!hash) return;
+      const idx = diagramsData.findIndex(d => 
+        d.id.toLowerCase() === hash || 
+        d.id.toLowerCase().includes(hash) || 
+        d.name.toLowerCase().includes(hash)
+      );
+      if (idx !== -1) {{
+        currentTabIndex = idx;
+      }}
     }}
 
     function updateDiagramView() {{
@@ -943,6 +959,7 @@ def generate_viewer_html():
     }}
 
     // Init
+    checkUrlHash();
     renderTabs();
     updateDiagramView();
   </script>
