@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信源全球 (RSI) 2027 蜂巢計畫 | UML 2.0 全套架構圖資 (Duke規格依據)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --card-border: #30363d;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.2);
+      --amber: #d29922;
+      --amber-bg: rgba(210, 153, 34, 0.1);
+      --green: #3fb950;
+      --green-bg: rgba(63, 185, 80, 0.1);
+      --purple: #bc8cff;
+      --purple-bg: rgba(188, 140, 255, 0.1);
+      --red: #f85149;
+      --red-bg: rgba(248, 81, 73, 0.1);
+      --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body[data-theme="milan"] {
+      --bg: #fbf9f5;
+      --card-bg: #ffffff;
+      --card-border: #e6dfd5;
+      --text-main: #2c2523;
+      --text-muted: #786c66;
+      --accent: #b45309;
+      --accent-glow: rgba(180, 83, 9, 0.15);
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --green: #15803d;
+      --green-bg: #dcfce7;
+      --purple: #6b21a8;
+      --purple-bg: #f3e8ff;
+      --red: #b91c1c;
+      --red-bg: #fee2e2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 24px 32px;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .header-container {
+      max-width: 1440px;
+      margin: 0 auto 24px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+
+    .tag-blue { background: var(--accent-glow); color: var(--accent); border: 1px solid var(--accent); }
+    .tag-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
+    .tag-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+    .tag-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+    .tag-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .role-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .role-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .role-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .role-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Action bar */
+    .action-bar {
+      max-width: 1440px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      font-family: var(--font-sans);
+    }
+
+    .btn-primary {
+      background: #238636;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #2ea043;
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      border-color: var(--card-border);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-amber {
+      background: var(--amber);
+      color: #fff;
+    }
+    .btn-amber:hover {
+      opacity: 0.9;
+    }
+
+    /* Diagram Nav Tabs */
+    .nav-tabs {
+      max-width: 1440px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 8px;
+      border-radius: 10px;
+    }
+
+    .nav-tab {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+    }
+
+    .nav-tab:hover {
+      color: var(--text-main);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .nav-tab.active {
+      color: var(--accent);
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
+
+    /* Main Diagram Container */
+    .viewer-main {
+      max-width: 1440px;
+      margin: 0 auto 30px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .diagram-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .diagram-badge {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: var(--purple-bg);
+      color: var(--purple);
+      border: 1px solid var(--purple);
+    }
+
+    .diagram-frame {
+      width: 100%;
+      min-height: 640px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .diagram-desc {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--card-border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .diagram-desc strong {
+      color: var(--text-main);
+    }
+
+    /* Spec section */
+    .spec-section {
+      max-width: 1440px;
+      margin: 40px auto;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .spec-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .spec-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .spec-card ul {
+      padding-left: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .spec-card li {
+      margin-bottom: 4px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #238636;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1000;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="header-container">
+    <div class="meta-tags">
+      <span class="tag tag-blue">信源全球 (RSI) 2027 蜂巢計畫</span>
+      <span class="tag tag-amber">依據 Duke 2026-11-12 真實交付規格</span>
+      <span class="tag tag-purple">不是 X++ 是 C# (全量 C# 架構)</span>
+      <span class="tag tag-green">UML 2.0 完整 14 張圖資</span>
+      <span class="tag tag-red">0 元開源平替 & 在地自律運轉</span>
+    </div>
+
+    <h1>信源全球 2027 蜂巢計畫 (Project Hive) UML 2.0 架構總覽圖冊</h1>
+    <div class="subtitle">
+      依據 Duka (Duke) 主管交付之真實 API List (三章 26 服務) 與 RD_SAMPLE-v0-1 示範範本 (21 條拓撲、1,490 處直接 SQL、13 項排程)，修正 D365 C# 服務定義，產出符合 ISO/IEC 19505 之 UML 2.0 全量架構圖資。
+    </div>
+
+    <div class="role-grid">
+      <div class="role-card">
+        <span class="role-title">計劃主持人</span>
+        <span class="role-name">周文津 副總</span>
+        <span class="role-desc">全球資訊戰略方針、在地自律運轉與 0 授權費架構核定</span>
+      </div>
+      <div class="role-card">
+        <span class="role-title">執行負責人</span>
+        <span class="role-name">Howard Liao Ph.D.</span>
+        <span class="role-desc">外部資訊顧問 ｜ UML 2 架構設計、API 治理與處方驗證實施</span>
+      </div>
+      <div class="role-card">
+        <span class="role-title">記錄整理</span>
+        <span class="role-name">Duka Chen (Duke) 主管</span>
+        <span class="role-desc">研發資訊主管 ｜ 交付 RD_SAMPLE-v0-1 與集團真實 API 清單</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="openInDrawio()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        在 draw.io 線上編輯 / 查看 (.drawio)
+      </button>
+
+      <a class="btn btn-secondary" href="RSI_DUKE_UML2_ALL_DIAGRAMS.drawio" download="RSI_DUKE_UML2_ALL_DIAGRAMS.drawio">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        下載 .drawio 原始檔 (多頁原生檔)
+      </a>
+
+      <button class="btn btn-secondary" onclick="copyDrawioXml()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        複製 draw.io XML 碼
+      </button>
+
+      <a class="btn btn-amber" href="duke_api_evaluation_report.html" target="_blank">
+        檢視高階主管評估報告 HTML
+      </a>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="toggleTheme()">切換主題 (米蘭暖琥珀 / 曜石深黑)</button>
+    </div>
+  </div>
+
+  <!-- Tab selector -->
+  <div class="nav-tabs" id="navTabs">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Viewer -->
+  <div class="viewer-main">
+    <div class="diagram-header">
+      <div>
+        <div class="diagram-title" id="diagTitle">01. Class Diagram (類別圖)</div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" id="diagSub">結構型圖資 Structure Diagram</div>
+      </div>
+      <div class="diagram-badge" id="diagBadge">ISO/IEC 19505 標準</div>
+    </div>
+
+    <div class="diagram-frame" id="diagramFrame">
+      <!-- SVG rendering container -->
+    </div>
+
+    <div class="diagram-desc" id="diagDesc">
+      <!-- Description updated dynamically -->
+    </div>
+  </div>
+
+  <!-- Detailed Spec Breakdown according to Duke's deliverable -->
+  <div class="spec-section">
+    <div class="section-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+      Duke 交付之關鍵架構與介面規範總成 (作為 UML 2 圖資之唯一標準)
+    </div>
+
+    <div class="spec-grid">
+      <div class="spec-card">
+        <h3>1. D365 C# 服務體系 (不是 X++ 是 C#)</h3>
+        <ul>
+          <li><strong>D365 C# 外掛 API:</strong> 運行於 <code>192.168.0.95</code> (.NET 4.8 / Web API 2)，包含 Report API (:8085 正式/:8082 UAT) 與 Local API (:80 正式/:8081 UAT)。</li>
+          <li><strong>全無驗證風險:</strong> 外掛 API 完全無 Token/身份驗證，僅需提供參數即可下載 PDF/Excel，須透過 API Gateway 收攏。</li>
+          <li><strong>D365 C# 80 Operations:</strong> 涵蓋 JCOM_WebServices、RSI_WebServices 等 31 個服務，採 Entra ID Bearer Token 授權，回傳統一結構 <code>RSI_RT&lt;T&gt;</code>。</li>
+        </ul>
+      </div>
+
+      <div class="spec-card">
+        <h3>2. CQS 品質微服務 (.NET 8 ARR)</h3>
+        <ul>
+          <li><strong>架構演進:</strong> CQS 採用最新 .NET 8 框架，正處於現代化過渡期。</li>
+          <li><strong>IIS ARR 轉發:</strong> 正式機 <code>192.168.0.22:8011</code>，測試機 <code>192.168.0.23:8011</code>，由 IIS Application Request Routing (ARR) 在 Port 8012 進行反向代理。</li>
+          <li><strong>平替方案:</strong> 建議以開源 YARP / Envoy 替換 Windows ARR，解除微軟專屬授權綁定。</li>
+        </ul>
+      </div>
+
+      <div class="spec-card">
+        <h3>3. RD_SAMPLE 示範範本核心問題</h3>
+        <ul>
+          <li><strong>1,490 處直接下 SQL:</strong> 自寫 ADO.NET 直下 SQL 語句，連線字串內含明碼 sa 帳號，缺乏 ORM 與參數化防護。</li>
+          <li><strong>跨庫查詢 AXDB (23 處):</strong> 直連 rsiaxdb1 營運主庫，引發鎖表與效能爭用。</li>
+          <li><strong>13 項 Windows 排程依賴:</strong> 包含每 5 分鐘通知輪詢、每 30 分鐘跨國專線 TDS 直寫 (Sync_RSV/RSG) 及每日 23:01 批次主檔同步。</li>
+        </ul>
+      </div>
+
+      <div class="spec-card">
+        <h3>4. 四大處方與 48~72 小時在地自律</h3>
+        <ul>
+          <li><strong>處方 1:</strong> 導入 YARP API Gateway 收攏無驗證外掛與 C# 80 Operations。</li>
+          <li><strong>處方 2:</strong> 跨國資料庫直連改為 RabbitMQ 斷網自律離線訊息佇列。</li>
+          <li><strong>處方 3:</strong> ADO.NET 重構為 Dapper + 預行編譯 SQL，拔除明碼 sa 帳號。</li>
+          <li><strong>處方 4:</strong> Windows Task Scheduler 遷移至 Hangfire / KEDA 在地容器化排程。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">已成功複製 draw.io XML 碼！可在 draw.io 中直接貼上！</div>
+
+  <script>
+    const DRAWIO_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mxfile host=\"Electron\" modified=\"2026-11-12T16:00:00.000Z\" agent=\"Howard Agent\" version=\"21.0.0\" type=\"device\">\n<diagram id=\"d01_class\" name=\"01. Class Diagram (\u985e\u5225\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u985e\u5225\u5716\u3011RD_SAMPLE \u8207 D365 C# \u670d\u52d9\u9818\u57df\u7269\u4ef6\u6a21\u578b&#xa;(\u4f9d Duke \u4ea4\u4ed8\u898f\u683c\uff1a\u5168\u9762\u4ee5 C# \u5be6\u4f5c\uff0c\u7e7c\u627f RqtBaseForm \u8207 RSI_RT \u898f\u7bc4)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&amp;#xa;RqtBaseForm (C# Core Model)&amp;#xa;--&amp;#xa;+ SalesId : string [SO\u7de8\u865f]&amp;#xa;+ StyleNo : string [\u6b3e\u865f]&amp;#xa;+ ContractNo : string [\u5408\u540c\u7de8\u865f]&amp;#xa;+ ContractGroup : string [\u5408\u540c\u7fa4\u7d44]&amp;#xa;+ PurchId : string [PO\u7de8\u865f]&amp;#xa;+ ItemId : string [\u7269\u6599\u7de8\u865f]&amp;#xa;+ VendId : string [\u4f9b\u61c9\u5546\u7de8\u865f]&amp;#xa;+ CustId : string [\u5ba2\u6236\u7de8\u865f]&amp;#xa;+ _key : string [Buy Name]&amp;#xa;+ BuyKeys : List&amp;lt;long&amp;gt; [RecId\u6e05\u55ae]&amp;#xa;+ ContractNos : List&amp;lt;string&amp;gt;&amp;#xa;+ BatchNos : List&amp;lt;string&amp;gt;&amp;#xa;+ DataAreaId : string [\u516c\u53f8\u4ee3\u78bc, \u9810\u8a2dRSI]&amp;#xa;+ UserName : string [\u532f\u51fa\u4eba\u5e33\u865f]&amp;#xa;--&amp;#xa;+ Validate() : bool&amp;#xa;+ ToParameterDictionary() : IDictionary\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"50\" y=\"100\" width=\"280\" height=\"310\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"D365ReportServiceRequest&amp;#xa;--&amp;#xa;+ ReportType : EnumReport&amp;#xa;+ MarkerLayoutId : string [\u99ac\u514b\u5716ID]&amp;#xa;+ OutputFormat : string [PDF/Excel]&amp;#xa;--&amp;#xa;+ GenerateReportAsync() : Task&amp;lt;string&amp;gt; [\u4e0b\u8f09URL]&amp;#xa;+ ExportMarkPlan() : string\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"50\" y=\"460\" width=\"280\" height=\"150\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"RSI_RT&amp;lt;T&amp;gt; (C# \u7d71\u4e00\u56de\u61c9\u5c01\u88dd)&amp;#xa;--&amp;#xa;+ IsValid : bool [\u662f\u5426\u6210\u529f]&amp;#xa;+ Msg : string [\u932f\u8aa4\u6216\u56de\u50b3\u8a0a\u606f]&amp;#xa;+ TotalCount : int [\u8cc7\u6599\u7e3d\u7b46\u6578]&amp;#xa;+ DataList : List&amp;lt;T&amp;gt; [\u696d\u52d9\u5be6\u9ad4\u96c6\u5408]&amp;#xa;--&amp;#xa;+ Success(data : List&amp;lt;T&amp;gt;) : RSI_RT&amp;lt;T&amp;gt;&amp;#xa;+ Failure(errorMsg : string) : RSI_RT&amp;lt;T&amp;gt;\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"100\" width=\"280\" height=\"180\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"&amp;lt;&amp;lt;service&amp;gt;&amp;gt;&amp;#xa;D365CSharpServices (31 Service / 80 Ops)&amp;#xa;--&amp;#xa;+ JCOM_WebServices : Module&amp;#xa;+ RSI_WebServices : Module&amp;#xa;- _tokenProvider : IAzureAdTokenProvider&amp;#xa;--&amp;#xa;+ GetStyleBom(styleNo : string) : RSI_RT&amp;lt;BomItem&amp;gt;&amp;#xa;+ QueryInventory(itemId : string) : RSI_RT&amp;lt;Stock&amp;gt;&amp;#xa;+ SyncPurchOrder(purchId : string) : RSI_RT&amp;lt;PO&amp;gt;&amp;#xa;+ Execute80OperationsAsync() : Task\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"320\" width=\"280\" height=\"180\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"MoHeader (\u6a23\u54c1\u55ae\u4e3b\u6a94 - SAM DB)&amp;#xa;--&amp;#xa;+ MoNo : string [PK, \u6a23\u54c1\u55ae\u865f]&amp;#xa;+ StyleNo : string [FK, \u6b3e\u865f]&amp;#xa;+ Season : string [\u5b63\u7bc0\u4ee3\u78bc]&amp;#xa;+ CustomerId : string [\u5ba2\u6236\u7de8\u865f]&amp;#xa;+ TechPackVersion : string [TP\u7248\u672c]&amp;#xa;+ TargetFactory : string [RSV/RSG]&amp;#xa;+ Status : EnumMoStatus&amp;#xa;+ CreatedDate : DateTime&amp;#xa;--&amp;#xa;+ CreateMo() : bool&amp;#xa;+ DispatchToFactory(facCode : string) : void\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"710\" y=\"100\" width=\"270\" height=\"210\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"MoDetail (\u6a23\u54c1\u55ae\u660e\u7d30 - SAM DB)&amp;#xa;--&amp;#xa;+ DetailId : long [PK]&amp;#xa;+ MoNo : string [FK]&amp;#xa;+ ColorCode : string [\u984f\u8272\u4ee3\u78bc]&amp;#xa;+ SizeCode : string [\u5c3a\u78bc\u4ee3\u78bc]&amp;#xa;+ OrderQty : int [\u6253\u6a23\u6578\u91cf]&amp;#xa;+ CutQty : int [\u88c1\u526a\u6578\u91cf]&amp;#xa;+ SewnQty : int [\u8eca\u7e2b\u5b8c\u6210\u91cf]&amp;#xa;--&amp;#xa;+ UpdateSewnProgress(qty : int) : void\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"710\" y=\"350\" width=\"270\" height=\"180\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"&amp;lt;&amp;lt;utility&amp;gt;&amp;gt;&amp;#xa;DataAccess (\u81ea\u5beb ADO.NET \u76f4\u4e0bSQL)&amp;#xa;--&amp;#xa;- _connectionString : string [sa\u5e33\u865f\u660e\u78bc]&amp;#xa;+ SqlOccurrencesCount : int = 1490 [SAM\u5eab]&amp;#xa;+ AxDbQueryCount : int = 23 [AXDB\u5eab]&amp;#xa;--&amp;#xa;+ ExecuteQuery(sql : string) : DataTable&amp;#xa;+ ExecuteNonQuery(sql : string) : int&amp;#xa;+ OpenConnection() : SqlConnection\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#d0e1fd;strokeColor=#1d63ed;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1030\" y=\"100\" width=\"260\" height=\"180\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"&amp;lt;&amp;lt;external CLI&amp;gt;&amp;gt;&amp;#xa;PythonTechPackParser (I04)&amp;#xa;--&amp;#xa;+ ScriptPath : string = &#x27;techpack_cli.py&#x27;&amp;#xa;+ SupportedFormats : List&amp;lt;string&amp;gt; [PDF, AI]&amp;#xa;--&amp;#xa;+ ParsePdf(pdfPath : string) : JsonSchema&amp;#xa;+ ExtractMeasurements() : DataTable\" style=\"swimlane;fontStyle=1;align=center;verticalAlign=top;fillColor=#d0e1fd;strokeColor=#1d63ed;fontSize=11;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1030\" y=\"330\" width=\"260\" height=\"150\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"inherits\" style=\"endArrow=block;endFill=0;dashed=0;strokeColor=#666;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"3\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"returns RSI_RT\" style=\"endArrow=open;dashed=1;strokeColor=#666;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"1..*\" style=\"endArrow=diamond;endFill=1;strokeColor=#333;headLabel=1..*;\" edge=\"1\" parent=\"1\" source=\"7\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"1,490 \u8655\u76f4\u63a5 SQL\" style=\"endArrow=classic;dashed=1;strokeColor=#d79b00;labelBackgroundColor=#fff;\" edge=\"1\" parent=\"1\" source=\"7\" target=\"9\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"15\" value=\"I04 \u89e3\u6790\u7522\u51fa\" style=\"endArrow=classic;strokeColor=#1d63ed;\" edge=\"1\" parent=\"1\" source=\"10\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d02_component\" name=\"02. Component Diagram (\u5143\u4ef6\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u5143\u4ef6\u5716\u3011RD_SAMPLE \u7cfb\u7d71\u7d44\u6210\u3001\u6838\u5fc3\u5143\u4ef6\u8207\u5fae\u670d\u52d9\u908a\u754c\u62d3\u64b2\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;RD_Sample.Web&amp;#xa;(ASP.NET WebForms 4.8 / IIS)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"120\" width=\"240\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;RD_Batch.Console&amp;#xa;(Windows \u5de5\u4f5c\u6392\u7a0b 13 \u4efb\u52d9)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"280\" width=\"240\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;DataAccess.Core&amp;#xa;(\u81ea\u5beb ADO.NET \u76f4\u4e0b SQL)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"190\" width=\"220\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;TechPack Parser&amp;#xa;(Python \u7368\u7acb\u7a0b\u5e8f I04)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"430\" width=\"240\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;D365 C# Integration Services&amp;#xa;(Report.Service :8085 / 80 Ops)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"680\" y=\"100\" width=\"260\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;CQS \u54c1\u7ba1\u670d\u52d9&amp;#xa;(.NET 8 Core / ARR Proxy :8012)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"680\" y=\"240\" width=\"260\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&amp;#xa;[\u8655\u65b9\u63a8\u85a6] YARP API Gateway&amp;#xa;(\u5728\u5730\u7aef\u96f6\u4fe1\u4efb\u9632\u8b77\u9598\u9053)\" style=\"shape=component;align=left;spacingLeft=36;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"680\" y=\"380\" width=\"260\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"&amp;lt;&amp;lt;database&amp;gt;&amp;gt;&amp;#xa;SAM \u4e3b\u8cc7\u6599\u5eab&amp;#xa;(SQL Server 1433)\" style=\"shape=cylinder;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1020\" y=\"180\" width=\"180\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"&amp;lt;&amp;lt;database&amp;gt;&amp;gt;&amp;#xa;rsiaxdb1 (AXDB)&amp;#xa;(D365 \u71df\u904b\u4e3b\u5eab)\" style=\"shape=cylinder;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1020\" y=\"320\" width=\"180\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"\u8abf\u7528\" style=\"endArrow=open;strokeColor=#1d63ed;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"\u8abf\u7528 (13 \u9805\u6392\u7a0b)\" style=\"endArrow=open;strokeColor=#1d63ed;dashed=1;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"I04 \u672c\u5730\u7a0b\u5e8f\u547c\u53eb\" style=\"endArrow=open;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"15\" value=\"I02: 1490 SQL\" style=\"endArrow=open;strokeColor=#d6b656;fontStyle=1;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"16\" value=\"I07: 23 SQL\" style=\"endArrow=open;strokeColor=#b85450;fontStyle=1;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"11\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"17\" value=\"I08: Bearer Token (C#)\" style=\"endArrow=open;strokeColor=#9673a6;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"18\" value=\"I13: HTTP REST\" style=\"endArrow=open;strokeColor=#82b366;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"19\" value=\"\u8cc7\u5b89\u6536\u650f\u8f49\u767c\" style=\"endArrow=open;strokeColor=#b85450;dashed=1;\" edge=\"1\" parent=\"1\" source=\"9\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d03_deploy\" name=\"03. Deployment Diagram (\u90e8\u7f72\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u90e8\u7f72\u5716\u3011\u5168\u96c6\u5718\u5be6\u9ad4\u4f3a\u670d\u5668\u3001\u7db2\u8def\u7bc0\u9ede\u3001\u5c08\u7dda\u8207\u96f2\u7aef\u62d3\u64b2 (\u4f9d Duke \u7bc0\u9ede\u8868)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1200\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&amp;#xa;RDSMP2 \u6b63\u5f0f\u4f3a\u670d\u5668 (192.168.0.22)&amp;#xa;--&amp;#xa;\u2022 IIS 443/80 (rdsample.rsiapparel.com)&amp;#xa;\u2022 SQL Server 2019 (1433) [SAM, PDFTAG, IEPortal, CQS]&amp;#xa;\u2022 Windows \u6392\u7a0b D:\\EXP (13 \u9805\u6838\u5fc3\u6279\u6b21)&amp;#xa;\u2022 \u7db2\u8def\u82b3\u9130 SMB 445 (hrm, web_backup)&amp;#xa;\u2022 \u5be6\u9ad4\u5132\u5b58 E:\\RD_SAMPLE (\u6a23\u54c1\u5de5\u85dd\u5716\u6a94)\" style=\"swimlane;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=11;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"50\" y=\"100\" width=\"350\" height=\"220\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&amp;#xa;RDSMP1 \u6e2c\u8a66\u4f3a\u670d\u5668 (192.168.0.23)&amp;#xa;--&amp;#xa;\u2022 IIS 80 (test-rdsample.rsiapparel.com)&amp;#xa;\u2022 SQL Server 1433 (SAM \u6b63\u5f0f\u526f\u672c\u3001PDFTAG)&amp;#xa;\u2022 CQS \u54c1\u8cea\u5fae\u670d\u52d9 (Port 8012 / 8011)&amp;#xa;\u2022 FindImage \u5f71\u50cf\u6bd4\u5c0d\u670d\u52d9 (Port 8081)&amp;#xa;\u2022 GitLab Runner (CI/CD \u81ea\u52d5\u5316 MSBuild)\" style=\"swimlane;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=11;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"50\" y=\"360\" width=\"350\" height=\"200\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&amp;#xa;RSIMDW1 (192.168.0.95)&amp;#xa;--&amp;#xa;\u2022 D365.Report.Service (:8085 / :8082 UAT)&amp;#xa;\u2022 Local.WebApi (:80 / :8081 UAT)&amp;#xa;\u2022 D365_Prod \u552f\u8b80\u5eab (SQL 1433)&amp;#xa;\u2022 Auth Token \u670d\u52d9 [\u5168\u7121\u9a57\u8b49\u9700\u6536\u650f]\" style=\"swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"450\" y=\"100\" width=\"330\" height=\"180\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"&amp;lt;&amp;lt;device cluster&amp;gt;&amp;gt;&amp;#xa;D365 AOS (192.168.0.124\uff5e.126)&amp;#xa;+ rsiaxdb1 (192.168.0.131)&amp;#xa;--&amp;#xa;\u2022 D365 Core ERP (C# 80 Operations)&amp;#xa;\u2022 AXDB \u71df\u904b\u4e3b\u8cc7\u6599\u5eab (SQL 1433)&amp;#xa;\u2022 Entra ID Bearer \u6388\u6b0a\u4fdd\u8b77\" style=\"swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"450\" y=\"320\" width=\"330\" height=\"160\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"&amp;lt;&amp;lt;factory nodes via DYXnet \u8de8\u570b\u5c08\u7dda&amp;gt;&amp;gt;&amp;#xa;--&amp;#xa;\u2022 \u8d8a\u5357 RDV \u5ee0\u5340 DB (192.168.185.123:1433)&amp;#xa;\u2022 \u67ec\u57d4\u5be8 RDG \u5ee0\u5340 DB (192.168.193.65:1433)&amp;#xa;\u2022 [\u5df2\u505c\u7528] \u6843\u5712 TY DB (192.168.5.123)\" style=\"swimlane;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"830\" y=\"100\" width=\"340\" height=\"150\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"&amp;lt;&amp;lt;public cloud / external&amp;gt;&amp;gt;&amp;#xa;AWS EC2 &amp;amp; Group Mail&amp;#xa;--&amp;#xa;\u2022 AWS AI \u63a8\u8ad6\u670d\u52d9 (98.84.29.205:8000 HTTP)&amp;#xa;\u2022 AWS \u8de8\u570b\u7ffb\u8b6f\u670d\u52d9 (98.93.175.234:80 HTTP)&amp;#xa;\u2022 \u96c6\u5718 SMTP \u90f5\u4ef6\u4e3b\u6a5f (192.168.8.64:587)\" style=\"swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"830\" y=\"300\" width=\"340\" height=\"150\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"I05: \u6bcf30\u5206\u9418\u5c08\u7dda TDS 1433 \u76f4\u9023\" style=\"strokeColor=#d79b00;fontStyle=1;strokeWidth=2;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"I08/I09: \u8b80\u53d6 D365_Prod\" style=\"strokeColor=#9673a6;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"I07: 23 \u8655 Direct SQL\" style=\"strokeColor=#b85450;strokeWidth=2;dashed=1;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"I16/I17: HTTP API \u8abf\u7528\" style=\"strokeColor=#b85450;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"I21: CI/CD robocopy \u90e8\u7f72\" style=\"strokeColor=#1d63ed;dashed=1;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"3\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d04_package\" name=\"04. Package Diagram (\u5957\u4ef6\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u5957\u4ef6\u5716\u3011\u96c6\u5718\u8edf\u9ad4\u547d\u540d\u7a7a\u9593\u3001\u5206\u5c64\u6a21\u7d44\u67b6\u69cb\u8207\u4f9d\u8cf4\u95dc\u4fc2 (\u4f9d Duke \u7a0b\u5f0f\u7d44\u6210)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"package RSI.RDSample.Presentation&#xa;--&#xa;+ WebForms Pages (.aspx)&#xa;+ jQuery &amp; Knockout ViewModels&#xa;+ jqxGrid Data Grids\" style=\"shape=folder;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;tabPosition=left;tabWidth=140;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"120\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"package RSI.RDSample.BusinessLogic&#xa;--&#xa;+ SampleOrderManager&#xa;+ TechPackIngestionService&#xa;+ SmvEstimationEngine&#xa;+ CrossBorderSyncOrchestrator\" style=\"shape=folder;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;tabPosition=left;tabWidth=140;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"120\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"package RSI.Core.DataAccess&#xa;--&#xa;+ SqlServerDirectAccessor&#xa;+ OracleDbDriver&#xa;+ DbConnectionPoolManager\" style=\"shape=folder;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;tabPosition=left;tabWidth=140;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"700\" y=\"120\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"package RSI.RDSample.RD_Batch&#xa;--&#xa;+ NotificationDispatcher&#xa;+ FactorySyncExecutor&#xa;+ ErpMasterSyncScheduler&#xa;+ FitSopCalculator\" style=\"shape=folder;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;tabPosition=left;tabWidth=140;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"320\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"package RSI.D365.Services (C#)&#xa;--&#xa;+ JCOM_WebServices (C#)&#xa;+ RSI_WebServices (C#)&#xa;+ D365.Report.Service&#xa;+ Local.WebApi\" style=\"shape=folder;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;tabPosition=left;tabWidth=140;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"320\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"package RSI.Quality.CQS (.NET 8)&#xa;--&#xa;+ InspectionController&#xa;+ QualityAuditService&#xa;+ ArrReverseProxyConfig\" style=\"shape=folder;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;tabPosition=left;tabWidth=140;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"700\" y=\"320\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"depends on\" style=\"endArrow=open;dashed=1;strokeColor=#1d63ed;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"depends on\" style=\"endArrow=open;dashed=1;strokeColor=#1d63ed;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"depends on\" style=\"endArrow=open;dashed=1;strokeColor=#1d63ed;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"invokes C# APIs\" style=\"endArrow=open;dashed=1;strokeColor=#9673a6;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"integrates\" style=\"endArrow=open;dashed=1;strokeColor=#82b366;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d05_object\" name=\"05. Object Diagram (\u7269\u4ef6\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u7269\u4ef6\u5716\u3011RD_SAMPLE \u904b\u884c\u6642\u671f\u771f\u5be6\u55ae\u64da\u3001\u57f7\u884c\u500b\u9ad4\u5feb\u7167 (Instance Snapshot)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"&lt;u&gt;activeMo : MoHeader&lt;/u&gt;&#xa;--&#xa;MoNo = &quot;MO-202611-0089&quot;&#xa;StyleNo = &quot;ST-NIK-902&quot;&#xa;Season = &quot;2027SS&quot;&#xa;CustomerId = &quot;CUST-NIKE-01&quot;&#xa;TargetFactory = &quot;RSV&quot;&#xa;Status = SewingInProgress\" style=\"fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=0;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"120\" width=\"250\" height=\"150\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"&lt;u&gt;itemBlackL : MoDetail&lt;/u&gt;&#xa;--&#xa;DetailId = 10402&#xa;ColorCode = &quot;BLK-01&quot;&#xa;SizeCode = &quot;L&quot;&#xa;OrderQty = 30&#xa;SewnQty = 25\" style=\"fillColor=#fff2cc;strokeColor=#d6b656;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"320\" width=\"250\" height=\"130\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"&lt;u&gt;exportRqt : RqtBaseForm&lt;/u&gt;&#xa;--&#xa;SalesId = &quot;SO-2026-8812&quot;&#xa;StyleNo = &quot;ST-NIK-902&quot;&#xa;DataAreaId = &quot;RSV&quot;&#xa;UserName = &quot;duka.chen&quot;&#xa;BuyKeys = [90812, 90815]\" style=\"fillColor=#e1d5e7;strokeColor=#9673a6;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"120\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"&lt;u&gt;d365Rt : RSI_RT&lt;/u&gt;&#xa;--&#xa;IsValid = true&#xa;Msg = &quot;SUCCESS&quot;&#xa;TotalCount = 1&#xa;DataList = [&quot;http://192.168.0.95:8085/dl/mk902.pdf&quot;]\" style=\"fillColor=#e1d5e7;strokeColor=#9673a6;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"380\" y=\"320\" width=\"260\" height=\"130\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"&lt;u&gt;rsvSyncTask : ScheduledTask&lt;/u&gt;&#xa;--&#xa;TaskName = &quot;Sync_RSV.bat&quot;&#xa;ExecTime = &quot;14:30:00&quot;&#xa;TargetIP = &quot;192.168.185.123:1433&quot;&#xa;LastStatus = &quot;Success&quot;&#xa;Duration = &quot;4.2s&quot;\" style=\"fillColor=#ffe6cc;strokeColor=#d79b00;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"700\" y=\"120\" width=\"260\" height=\"140\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"contains\" style=\"strokeColor=#333;endArrow=none;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"associated with\" style=\"strokeColor=#9673a6;endArrow=none;dashed=1;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"yields\" style=\"strokeColor=#9673a6;endArrow=none;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"syncs Mo\" style=\"strokeColor=#d79b00;endArrow=none;dashed=1;\" edge=\"1\" parent=\"1\" source=\"7\" target=\"3\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d06_composite\" name=\"06. Composite Structure Diagram (\u8907\u5408\u7d50\u69cb\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u8907\u5408\u7d50\u69cb\u5716\u3011RD_SAMPLE \u5167\u90e8\u5fae\u7d50\u69cb\u3001\u901a\u8a0a\u57e0 (Ports) \u8207\u5167\u90e8\u7d44\u4ef6\u88dd\u914d\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"RD_Sample_Host_Environment (RDSMP2)\" style=\"swimlane;fillColor=#f8f9fa;strokeColor=#495057;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"80\" y=\"100\" width=\"800\" height=\"450\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"webApp : ASP.NET Runtime\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"140\" y=\"160\" width=\"220\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"batchRunner : BatchProcess\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"140\" y=\"310\" width=\"220\" height=\"90\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"dalBridge : DataAccessBridge\" style=\"fillColor=#fff2cc;strokeColor=#d6b656;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"440\" y=\"230\" width=\"220\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"p1: Port&amp;#xa;HTTPS 443\" style=\"fillColor=#fff;strokeColor=#000;fontSize=9;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"180\" width=\"50\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"p2: Port&amp;#xa;TDS 1433\" style=\"fillColor=#fff;strokeColor=#000;fontSize=9;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"860\" y=\"260\" width=\"50\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"p3: Port&amp;#xa;REST :8085\" style=\"fillColor=#fff;strokeColor=#000;fontSize=9;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"860\" y=\"160\" width=\"50\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"7\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"9\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d07_profile\" name=\"07. Profile Diagram (\u8f2a\u5ed3\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u8f2a\u5ed3\u5716\u3011\u8702\u5de2\u8a08\u756b\u9818\u57df\u5c08\u7528\u64f4\u5145 Stereotypes \u5256\u9762\u5b9a\u7fa9\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"&amp;lt;&amp;lt;stereotype&amp;gt;&amp;gt;&amp;#xa;CSharpService&amp;#xa;--&amp;#xa;+ framework: &quot;.NET 4.8&quot; | &quot;.NET 8&quot;&amp;#xa;+ operationsCount: int&amp;#xa;+ authType: &quot;None&quot; | &quot;Bearer&quot;\" style=\"fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"120\" width=\"240\" height=\"130\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"&amp;lt;&amp;lt;stereotype&amp;gt;&amp;gt;&amp;#xa;DirectSQL&amp;#xa;--&amp;#xa;+ occurrences: int&amp;#xa;+ isSaAccount: bool = true&amp;#xa;+ targetDatabase: string\" style=\"fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"350\" y=\"120\" width=\"240\" height=\"130\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"&amp;lt;&amp;lt;stereotype&amp;gt;&amp;gt;&amp;#xa;CrossBorderRPC&amp;#xa;--&amp;#xa;+ provider: &quot;DYXnet&quot;&amp;#xa;+ protocol: &quot;TDS 1433&quot;&amp;#xa;+ offlineToleranceHours: int = 72\" style=\"fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"640\" y=\"120\" width=\"240\" height=\"130\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"&amp;lt;&amp;lt;stereotype&amp;gt;&amp;gt;&amp;#xa;BatchSchedule&amp;#xa;--&amp;#xa;+ frequency: string&amp;#xa;+ scriptPath: string&amp;#xa;+ sendsNotification: bool\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"930\" y=\"120\" width=\"240\" height=\"130\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"&amp;lt;&amp;lt;metaclass&amp;gt;&amp;gt;&amp;#xa;Component\" style=\"fillColor=#e0e0e0;strokeColor=#666;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"200\" y=\"320\" width=\"160\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"&amp;lt;&amp;lt;metaclass&amp;gt;&amp;gt;&amp;#xa;Connector\" style=\"fillColor=#e0e0e0;strokeColor=#666;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"500\" y=\"320\" width=\"160\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"&amp;lt;&amp;lt;metaclass&amp;gt;&amp;gt;&amp;#xa;Operation\" style=\"fillColor=#e0e0e0;strokeColor=#666;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"800\" y=\"320\" width=\"160\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;\" style=\"endArrow=block;endFill=1;strokeColor=#666;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;\" style=\"endArrow=block;endFill=1;strokeColor=#666;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;\" style=\"endArrow=block;endFill=1;strokeColor=#666;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;\" style=\"endArrow=block;endFill=1;strokeColor=#666;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"9\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d08_usecase\" name=\"08. Use Case Diagram (\u4f7f\u7528\u6848\u4f8b\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u4f7f\u7528\u6848\u4f8b\u5716\u3011\u7814\u767c\u6253\u6a23\u3001\u8de8\u570b\u5ee0\u5340\u8eca\u7e2b\u3001ERP\u5c0d\u9f4a\u8207\u6392\u7a0b\u4f5c\u696d\u908a\u754c\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"\u7e3d\u90e8\u6253\u6a23\u8a2d\u8a08\u5e2b&amp;#xa;(HQ Designer)\" style=\"shape=actor;fillColor=#fff;strokeColor=#333;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"160\" width=\"100\" height=\"120\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"\u6d77\u5916\u5ee0\u5340\u751f\u7ba1&amp;#xa;(RSV / RSG)\" style=\"shape=actor;fillColor=#fff;strokeColor=#333;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"380\" width=\"100\" height=\"120\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"Windows\u5de5\u4f5c\u6392\u7a0b\u5668&amp;#xa;(Task Scheduler)\" style=\"shape=actor;fillColor=#fff;strokeColor=#333;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1000\" y=\"160\" width=\"110\" height=\"120\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"D365 ERP (C#)&amp;#xa;(Core Services)\" style=\"shape=actor;fillColor=#fff;strokeColor=#333;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1000\" y=\"380\" width=\"110\" height=\"120\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"UC01: \u5efa\u7acb\u6a23\u54c1\u55ae (MoNo)\" style=\"ellipse;fillColor=#d0e1fd;strokeColor=#1d63ed;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"120\" width=\"220\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"UC02: Python \u89e3\u6790 TechPack\" style=\"ellipse;fillColor=#d0e1fd;strokeColor=#1d63ed;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"200\" width=\"220\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"UC03: \u8de8\u570b\u5c08\u7dda 30 \u5206\u9418\u540c\u6b65\" style=\"ellipse;fillColor=#ffe6cc;strokeColor=#d79b00;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"580\" y=\"140\" width=\"230\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"UC04: \u5ee0\u5340\u8eca\u7e2b\u9032\u5ea6\u8207\u56de\u5831\" style=\"ellipse;fillColor=#ffe6cc;strokeColor=#d79b00;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"360\" width=\"220\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"UC05: \u6bcf\u65e5 23:01 \u7269\u6599/\u984f\u8272\u4e3b\u6a94\u540c\u6b65\" style=\"ellipse;fillColor=#e1d5e7;strokeColor=#9673a6;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"580\" y=\"320\" width=\"240\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"UC06: \u6bcf 5 \u5206\u9418\u50ac\u8fa6\u901a\u77e5\u4fe1\" style=\"ellipse;fillColor=#f8cecc;strokeColor=#b85450;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"580\" y=\"230\" width=\"220\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"15\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"16\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"9\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"17\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"11\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"18\" value=\"\" style=\"endArrow=none;strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"12\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"19\" value=\"&amp;lt;&amp;lt;include&amp;gt;&amp;gt;\" style=\"endArrow=open;dashed=1;strokeColor=#d79b00;\" edge=\"1\" parent=\"1\" source=\"9\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"20\" value=\"&amp;lt;&amp;lt;invokes C#&amp;gt;&amp;gt;\" style=\"endArrow=open;dashed=1;strokeColor=#9673a6;\" edge=\"1\" parent=\"1\" source=\"11\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d09_activity\" name=\"09. Activity Diagram (\u6d3b\u52d5\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u6d3b\u52d5\u5716\u3011\u6a23\u54c1\u958b\u55ae\u81f3\u51fa\u8ca8\u8de8\u570b\u5354\u540c\u6cf3\u9053\u696d\u52d9\u6d41\u7a0b (Swimlanes)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"\u7e3d\u90e8\u7814\u767c (HQ RD)\" style=\"swimlane;fillColor=#fafafa;strokeColor=#999;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"100\" width=\"260\" height=\"480\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"Windows \u6392\u7a0b (RD_Batch)\" style=\"swimlane;fillColor=#fafafa;strokeColor=#999;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"320\" y=\"100\" width=\"260\" height=\"480\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"\u5ee0\u5340\u751f\u7ba1 (RSV / RSG)\" style=\"swimlane;fillColor=#fafafa;strokeColor=#999;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"580\" y=\"100\" width=\"260\" height=\"480\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"D365 ERP (C# Services)\" style=\"swimlane;fillColor=#fafafa;strokeColor=#999;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"840\" y=\"100\" width=\"260\" height=\"480\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"\" style=\"ellipse;fillColor=#000;strokeColor=#000;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"175\" y=\"140\" width=\"30\" height=\"30\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"\u4e0a\u50b3\u5ba2\u6236 TechPack PDF\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"110\" y=\"190\" width=\"160\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"Python \u89e3\u6790\u5de5\u85dd BOM&amp;#xa;\u76f4\u5beb SAM \u5eab (sa\u5e33\u865f)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"110\" y=\"270\" width=\"160\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"\u9a57\u8b49\u6b3e\u865f\u8207\u7269\u6599\u8cc7\u8a0a&amp;#xa;(C# 80 Ops / OData)\" style=\"rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"890\" y=\"270\" width=\"160\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"Sync_RSV.bat (\u6bcf30\u5206)&amp;#xa;\u5c08\u7dda\u76f4\u63a8\u6d77\u5916\u5ee0 SQL\" style=\"rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"370\" y=\"360\" width=\"160\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"\u6392\u7522\u8eca\u7e2b\u6253\u6a23&amp;#xa;&amp;amp; \u9304\u5165\u8eca\u7e2b\u5831\u8868\" style=\"rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"630\" y=\"360\" width=\"160\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"CQS \u54c1\u8cea\u6aa2\u9a57\u653e\u884c\" style=\"rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"630\" y=\"450\" width=\"160\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"\" style=\"ellipse;shape=endState;fillColor=#000;strokeColor=#000;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"695\" y=\"530\" width=\"30\" height=\"30\" as=\"geometry\"/></mxCell><mxCell id=\"15\" value=\"\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"7\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"16\" value=\"\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"8\" target=\"9\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"17\" value=\"I08 \u8abf\u7528 C#\" style=\"strokeColor=#9673a6;strokeWidth=1;\" edge=\"1\" parent=\"1\" source=\"9\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"18\" value=\"\u653e\u884c\" style=\"strokeColor=#9673a6;\" edge=\"1\" parent=\"1\" source=\"10\" target=\"11\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"19\" value=\"I05 \u5c08\u7dda\u5beb\u5eab\" style=\"strokeColor=#d79b00;strokeWidth=2;\" edge=\"1\" parent=\"1\" source=\"11\" target=\"12\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"20\" value=\"\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"12\" target=\"13\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"21\" value=\"\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"13\" target=\"14\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d10_statemachine\" name=\"10. State Machine Diagram (\u72c0\u614b\u6a5f\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u72c0\u614b\u6a5f\u5716\u3011\u6a23\u54c1\u55ae (MoNo) \u5b8c\u6574\u751f\u547d\u9031\u671f\u72c0\u614b\u8f49\u79fb\u6a21\u578b\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"\" style=\"ellipse;fillColor=#000;strokeColor=#000;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"170\" width=\"30\" height=\"30\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"Draft&amp;#xa;(\u8349\u7a3f\u5efa\u7acb)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"140\" y=\"155\" width=\"120\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"TechPackParsed&amp;#xa;(\u89e3\u6790\u5165\u5eab\u5b8c\u6210)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"320\" y=\"155\" width=\"140\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"SyncedToFactory&amp;#xa;(\u5c08\u7dda\u540c\u6b65\u81f3\u5ee0\u5340)\" style=\"rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"520\" y=\"155\" width=\"150\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"SewingInProgress&amp;#xa;(\u5ee0\u5340\u8eca\u7e2b\u6392\u7522\u4e2d)\" style=\"rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"730\" y=\"155\" width=\"150\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"QC_Inspection&amp;#xa;(\u54c1\u8cea\u6aa2\u9a57\u9304\u5165)\" style=\"rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"730\" y=\"280\" width=\"150\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"SampleApproved&amp;#xa;(\u6aa2\u9a57\u5408\u683c\u5be9\u6279)\" style=\"rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"520\" y=\"280\" width=\"150\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"Shipped&amp;#xa;(\u51fa\u8ca8\u7d50\u6848)\" style=\"rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"320\" y=\"280\" width=\"140\" height=\"60\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"\" style=\"ellipse;shape=endState;fillColor=#000;strokeColor=#000;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"185\" y=\"295\" width=\"30\" height=\"30\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"MoNo \u4e0b\u55ae\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"I04 Python \u62bd\u53d6\" style=\"strokeColor=#1d63ed;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"I05 Sync_RSV.bat\" style=\"strokeColor=#d79b00;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"15\" value=\"\u958b\u88c1\u8eca\u7e2b\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"16\" value=\"\u8eca\u7e2b\u5b8c\u6210\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"7\" target=\"8\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"17\" value=\"CQS \u653e\u884c\u901a\u904e\" style=\"strokeColor=#82b366;\" edge=\"1\" parent=\"1\" source=\"8\" target=\"9\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"18\" value=\"\u5831\u95dc\u4ea4\u4ed8\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"9\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"19\" value=\"\u5b58\u6a94\u5c01\u88dd\" style=\"strokeColor=#333;\" edge=\"1\" parent=\"1\" source=\"10\" target=\"11\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d11_sequence\" name=\"11. Sequence Diagram (\u5faa\u5e8f\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u5faa\u5e8f\u5716\u3011\u6a23\u54c1\u958b\u55ae\u3001Python \u89e3\u6790\u3001C# \u670d\u52d9\u8abf\u7528\u8207\u8de8\u570b\u6392\u7a0b\u540c\u6b65\u6642\u5e8f\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1200\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"\u8a2d\u8a08\u5e2b: Designer\" style=\"fillColor=#fff;strokeColor=#333;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"100\" width=\"140\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"RDSMP2: WebForms\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"240\" y=\"100\" width=\"150\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"I04: Python Parser\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"430\" y=\"100\" width=\"150\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"SAM DB (1433)\" style=\"fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"620\" y=\"100\" width=\"140\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"D365 C# Svc (:8085)\" style=\"fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"800\" y=\"100\" width=\"160\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"RDV \u8d8a\u5357 DB (1433)\" style=\"fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1000\" y=\"100\" width=\"160\" height=\"40\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"\" style=\"fillColor=#fff;strokeColor=#666;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"125\" y=\"140\" width=\"10\" height=\"420\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"\" style=\"fillColor=#fff;strokeColor=#666;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"310\" y=\"140\" width=\"10\" height=\"420\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"\" style=\"fillColor=#fff;strokeColor=#666;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"500\" y=\"140\" width=\"10\" height=\"420\" as=\"geometry\"/></mxCell><mxCell id=\"12\" value=\"\" style=\"fillColor=#fff;strokeColor=#666;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"685\" y=\"140\" width=\"10\" height=\"420\" as=\"geometry\"/></mxCell><mxCell id=\"13\" value=\"\" style=\"fillColor=#fff;strokeColor=#666;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"875\" y=\"140\" width=\"10\" height=\"420\" as=\"geometry\"/></mxCell><mxCell id=\"14\" value=\"\" style=\"fillColor=#fff;strokeColor=#666;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"1075\" y=\"140\" width=\"10\" height=\"420\" as=\"geometry\"/></mxCell><mxCell id=\"15\" value=\"1. \u4e0a\u50b3 TechPack PDF\" style=\"strokeColor=#333;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"9\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"16\" value=\"2. \u547c\u53eb CLI parse\" style=\"strokeColor=#1d63ed;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"10\" target=\"11\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"17\" value=\"3. \u56de\u50b3\u5de5\u85dd JSON\" style=\"strokeColor=#1d63ed;dashed=1;endArrow=open;\" edge=\"1\" parent=\"1\" source=\"11\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"18\" value=\"4. ADO.NET \u76f4\u4e0b SQL \u5beb\u5eab\" style=\"strokeColor=#d6b656;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"10\" target=\"12\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"19\" value=\"5. \u8abf\u7528 C# Report API (RqtBaseForm)\" style=\"strokeColor=#9673a6;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"10\" target=\"13\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"20\" value=\"6. \u56de\u50b3\u4e0b\u8f09 URL (\u7121\u9a57\u8b49)\" style=\"strokeColor=#9673a6;dashed=1;endArrow=open;\" edge=\"1\" parent=\"1\" source=\"13\" target=\"10\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"21\" value=\"7. Sync_RSV.bat \u6392\u7a0b (\u6bcf30\u5206)\" style=\"strokeColor=#d79b00;strokeWidth=2;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"12\" target=\"14\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d12_comm\" name=\"12. Communication Diagram (\u6e9d\u901a\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u6e9d\u901a\u5716\u3011\u6392\u7a0b\u6279\u6b21\u3001\u8cc7\u6599\u5b58\u53d6\u8207\u8de8\u570b\u8cc7\u6599\u5eab\u62d3\u64b2\u5354\u540c\u93c8\u8def\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"&lt;u&gt;1: RD_Batch.Console&lt;/u&gt;&amp;#xa;(Windows\u5de5\u4f5c\u6392\u7a0b\u5668)\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"450\" y=\"120\" width=\"200\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"&lt;u&gt;2: SAM_Database&lt;/u&gt;&amp;#xa;(\u6b63\u5f0f\u6a5f 192.168.0.22)\" style=\"fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"120\" y=\"280\" width=\"200\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"&lt;u&gt;3: D365 C# Services&lt;/u&gt;&amp;#xa;(\u5916\u639b\u4e3b\u6a5f 192.168.0.95)\" style=\"fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"450\" y=\"420\" width=\"200\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"&lt;u&gt;4: Factory_RSV_DB&lt;/u&gt;&amp;#xa;(\u8d8a\u5357 192.168.185.123)\" style=\"fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"780\" y=\"280\" width=\"200\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"1.1: \u6383\u63cf\u5f85\u6d3e\u5de5\u55ae&#xa;1.2: \u63d0\u53d6\u6700\u65b0\u984f\u8272\u7269\u6599\" style=\"strokeColor=#333;endArrow=none;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"1.3: \u6bcf30\u5206\u9418 TDS 1433 \u5beb\u5165\" style=\"strokeColor=#d79b00;endArrow=none;strokeWidth=2;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"1.4: \u6bcf\u65e5 23:01 \u540c\u6b65 C# \u4e3b\u6a94\" style=\"strokeColor=#9673a6;endArrow=none;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"2.1: Linked Server MERGE\" style=\"strokeColor=#b85450;endArrow=none;dashed=1;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d13_interact\" name=\"13. Interaction Overview Diagram (\u4e92\u52d5\u6982\u89c0\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u4e92\u52d5\u6982\u89c0\u5716\u3011\u7814\u767c\u6253\u6a23\u9ad8\u968e\u63a7\u5236\u6d41\u8207\u5d4c\u5957\u5faa\u5e8f\u4f5c\u696d\u5168\u666f\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"sd \u6a23\u54c1\u55ae\u521d\u59cb\u8207 TechPack \u63d0\u53d6&#xa;--&#xa;ref(SD_TechPack_Ingest)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"100\" y=\"120\" width=\"260\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"sd D365 C# \u898f\u683c\u8207\u5eab\u5b58\u9a57\u8b49&#xa;--&#xa;ref(SD_D365_CSharp_Verify)\" style=\"rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"440\" y=\"120\" width=\"260\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"sd \u8de8\u570b\u5c08\u7dda\u5de5\u55ae\u6392\u7a0b\u63a8\u9001&#xa;--&#xa;ref(SD_Factory_Sync_Batch)\" style=\"rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"780\" y=\"120\" width=\"260\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"sd \u5ee0\u5340\u8eca\u7e2b\u8207 CQS \u54c1\u6aa2\u56de\u5831&#xa;--&#xa;ref(SD_CQS_Quality_Audit)\" style=\"rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"780\" y=\"280\" width=\"260\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"sd \u6bcf\u65e5\u8eca\u7e2b\u65e5\u5831\u7d50\u7b97 (06:01)&#xa;--&#xa;ref(SD_Daily_Sewn_Report)\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"440\" y=\"280\" width=\"260\" height=\"100\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"BOM \u63d0\u53d6\u6210\u529f\" style=\"strokeColor=#333;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"3\" target=\"4\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"ERP \u9a57\u8b49\u7121\u8aa4\" style=\"strokeColor=#333;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"4\" target=\"5\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"\u5ee0\u5340\u63a5\u55ae\" style=\"strokeColor=#333;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"5\" target=\"6\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell><mxCell id=\"11\" value=\"\u6bcf\u65e5\u532f\u7e3d\" style=\"strokeColor=#333;endArrow=block;\" edge=\"1\" parent=\"1\" source=\"6\" target=\"7\"><mxGeometry relative=\"1\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n<diagram id=\"d14_timing\" name=\"14. Timing Diagram (\u8a08\u6642\u5716)\"><mxGraphModel dx=\"1200\" dy=\"800\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"1600\" pageHeight=\"1100\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><mxCell id=\"2\" value=\"\u3010UML 2 \u8a08\u6642\u5716\u301113 \u9805 Windows \u6392\u7a0b\u5de5\u4f5c\u6642\u9593\u8ef8\u8207\u6d77\u7e9c\u5ef6\u9072 SLA \u72c0\u614b\u6ce2\u5f62\" style=\"rounded=1;fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;fontSize=14;align=left;spacingLeft=15;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"40\" y=\"20\" width=\"1100\" height=\"50\" as=\"geometry\"/></mxCell><mxCell id=\"3\" value=\"SendNotification.bat&amp;#xa;[\u6bcf 5 \u5206\u9418\u8f2a\u8a62]&amp;#xa;Idle | Running\" style=\"fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"110\" width=\"220\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"4\" value=\"\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588\u2584\u2588 (24\u5c0f\u6642\u5168\u5929\u4e0d\u9593\u65b7)\" style=\"fillColor=#fff;strokeColor=#666;fontFamily=monospace;fontSize=12;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"110\" width=\"780\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"5\" value=\"Sync_RSV / RSG.bat&amp;#xa;[\u6bcf 30 \u5206\u9418\u8de8\u570b\u5c08\u7dda]&amp;#xa;Active | Sleep (23-06)\" style=\"fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"200\" width=\"220\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"6\" value=\"\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591 (06:00~23:00 \u57f7\u884c\uff0c\u6df1\u591c\u4f11\u7720)\" style=\"fillColor=#fff;strokeColor=#666;fontFamily=monospace;fontSize=12;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"200\" width=\"780\" height=\"70\" as=\"geometry\"/></mxCell><mxCell id=\"7\" value=\"ERP \u591c\u9593\u6279\u6b21 (C#)&amp;#xa;23:01 \u984f\u8272 / 23:15 \u5c0d\u7167&amp;#xa;23:19 \u65b0\u6599 / 23:31 \u8b8a\u66f4\" style=\"fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"290\" width=\"220\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"8\" value=\"\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591[23:01][23:15][23:19][23:31] \u9ad8\u983b\u6279\u6b21\u7a97\u53e3\" style=\"fillColor=#fff;strokeColor=#666;fontFamily=monospace;fontSize=12;align=center;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"290\" width=\"780\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"9\" value=\"DYXnet \u8de8\u570b\u5c08\u7dda\u72c0\u614b&amp;#xa;\u6b63\u5e38 (Online)&amp;#xa;\u65b7\u7db2\u81ea\u5f8b (Offline)\" style=\"fillColor=#d0e1fd;strokeColor=#1d63ed;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"60\" y=\"390\" width=\"220\" height=\"80\" as=\"geometry\"/></mxCell><mxCell id=\"10\" value=\"\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 [\u6d77\u7e9c\u4e2d\u65b7\u4e8b\u4ef6] \u2500\u2500 [48~72\u5c0f\u6642\u5728\u5730\u81ea\u5f8b\u904b\u8f49] \u2500\u2500&gt; [\u5fa9\u539f\u5c0d\u9f4a]\" style=\"fillColor=#fff;strokeColor=#666;fontFamily=monospace;fontSize=12;align=center;fontStyle=1;\" vertex=\"1\" parent=\"1\"><mxGeometry x=\"300\" y=\"390\" width=\"780\" height=\"80\" as=\"geometry\"/></mxCell></root></mxGraphModel></diagram>\n</mxfile>";
+
+    const diagramsData = [
+      {
+        id: "d01_class",
+        name: "01. Class Diagram (類別圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>展示 RD_SAMPLE 領域模型與 D365 C# 服務類別。所有 D365 外掛均繼承自 <code>RqtBaseForm</code> (包含 SalesId, StyleNo, BuyKeys, UserName 等欄位)；D365 C# 自研 80 Operations 回傳統一 <code>RSI_RT&lt;T&gt;</code> (IsValid, Msg, TotalCount, DataList)。同時揭示 DataAccess 類別中 1,490 處直接 SQL SAM 庫與 23 處 SQL AXDB 庫之結構綁定。"
+      },
+      {
+        id: "d02_component",
+        name: "02. Component Diagram (元件圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>呈現 RD_Sample.Web、RD_Batch.Console、Python TechPack Parser、D365 C# Integration Services (Report API :8085 / 80 Ops)、CQS (.NET 8 ARR :8012) 以及處方推薦之 YARP Gateway 微服務邊界與依賴關聯。"
+      },
+      {
+        id: "d03_deploy",
+        name: "03. Deployment Diagram (部署圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>全實體節點拓撲。正式伺服器 RDSMP2 (192.168.0.22)、測試伺服器 RDSMP1 (192.168.0.23)、D365 外掛主機 RSIMDW1 (192.168.0.95)、D365 核心叢集 (192.168.0.124~126 / 131 AXDB)、海外廠區 RDV (192.168.185.123:1433) 與 RDG (192.168.193.65:1433) 跨國專線直連，以及 AWS 外部推論服務。"
+      },
+      {
+        id: "d04_package",
+        name: "04. Package Diagram (套件圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>展示集團軟體分層命名空間：Presentation (.aspx WebForms)、BusinessLogic (SampleOrderManager, SyncOrchestrator)、Core.DataAccess (SqlServerDirectAccessor)、RD_Batch (排程批次)、D365.Services (C# 服務包) 及 Quality.CQS (.NET 8 品管包)。"
+      },
+      {
+        id: "d05_object",
+        name: "05. Object Diagram (物件圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>運行時期的真實物件快照實例。包含 activeMo: MoHeader ("MO-202611-0089")、itemBlackL: MoDetail、exportRqt: RqtBaseForm (由 duka.chen 發起之打樣匯出)、d365Rt: RSI_RT (C# 回應實例) 及 rsvSyncTask: ScheduledTask 排程實例。"
+      },
+      {
+        id: "d06_composite",
+        name: "06. Composite Structure Diagram (複合結構圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>展示 RDSMP2 執行環境之內部零件裝配與對外通訊埠 (Ports)：Port 1 (HTTPS 443 供外部瀏覽)、Port 2 (TDS 1433 供資料庫直連)、Port 3 (REST :8085 供 D365 C# 外掛報表介接)。"
+      },
+      {
+        id: "d07_profile",
+        name: "07. Profile Diagram (輪廓圖)",
+        category: "結構型圖 (Structure)",
+        desc: "<strong>核心重點：</strong>專為蜂巢計畫量身打造之領域 Stereotypes 定義，擴充自 UML 2 Metaclass：&lt;&lt;CSharpService&gt;&gt; (定義 .NET 版本與 Bearer 驗證)、&lt;&lt;DirectSQL&gt;&gt; (標註直下 SQL 次數與 sa 帳號)、&lt;&lt;CrossBorderRPC&gt;&gt; (標註 DYXnet 專線與斷網容忍度) 與 &lt;&lt;BatchSchedule&gt;&gt; (標註排程頻率)。"
+      },
+      {
+        id: "d08_usecase",
+        name: "08. Use Case Diagram (使用案例圖)",
+        category: "行為型圖 (Behavior)",
+        desc: "<strong>核心重點：</strong>總部打樣設計師、海外廠區生管 (RSV/RSG)、Windows 工作排程器與 D365 ERP (C# Services) 之間的業務案例邊界：UC01 建立樣品單、UC02 Python 解析工藝、UC03 跨國專線 30 分鐘同步、UC04 廠區車縫回報、UC05 每日 23:01 物料主檔同步。"
+      },
+      {
+        id: "d09_activity",
+        name: "09. Activity Diagram (活動圖)",
+        category: "行為型圖 (Behavior)",
+        desc: "<strong>核心重點：</strong>跨國四泳道協同業務流程 (Swimlanes)：總部研發 (上傳 TechPack -> Python 解析) -> D365 C# ERP (驗證物料與款號) -> Windows 排程 (Sync_RSV.bat 專線推送) -> 廠區生管 (排產車縫 -> CQS 品質檢驗放行)。"
+      },
+      {
+        id: "d10_statemachine",
+        name: "10. State Machine Diagram (狀態機圖)",
+        category: "行為型圖 (Behavior)",
+        desc: "<strong>核心重點：</strong>樣品單 (MoNo) 完整生命週期狀態轉移模型：Draft (草稿) -> TechPackParsed (解析入庫) -> SyncedToFactory (專線同步至廠區) -> SewingInProgress (排產車縫中) -> QC_Inspection (品管檢驗) -> SampleApproved (檢驗合格) -> Shipped (報關出貨)。"
+      },
+      {
+        id: "d11_sequence",
+        name: "11. Sequence Diagram (循序圖)",
+        category: "互動型圖 (Interaction)",
+        desc: "<strong>核心重點：</strong>精確時序呼叫鏈路：設計師上傳 TechPack -> WebForms 呼叫 Python CLI -> 直寫 SAM 庫 (ADO.NET) -> 呼叫 D365 C# Report API (繼承 RqtBaseForm) -> 回傳下載 URL (無驗證) -> 觸發 Sync_RSV.bat 專線推送至海外廠區。"
+      },
+      {
+        id: "d12_comm",
+        name: "12. Communication Diagram (溝通圖)",
+        category: "互動型圖 (Interaction)",
+        desc: "<strong>核心重點：</strong>強調節點間之協同通訊鏈路：RD_Batch.Console 作為中央樞紐，向 SAM 資料庫發送 1.1/1.2 查詢，向 Factory_RSV_DB 發送 1.3 跨國專線 30 分鐘寫入，向 D365 C# Services 發送 1.4 每日 23:01 主檔同步。"
+      },
+      {
+        id: "d13_interact",
+        name: "13. Interaction Overview Diagram (互動概觀圖)",
+        category: "互動型圖 (Interaction)",
+        desc: "<strong>核心重點：</strong>以高階活動控制流統整各循序作業片段 (sd)：sd_TechPack_Ingest (提取) -> sd_D365_CSharp_Verify (C# 規格驗證) -> sd_Factory_Sync_Batch (專線排程推送) -> sd_CQS_Quality_Audit (品檢回報) -> sd_Daily_Sewn_Report (每日車縫日報結算)。"
+      },
+      {
+        id: "d14_timing",
+        name: "14. Timing Diagram (計時圖)",
+        category: "互動型圖 (Interaction)",
+        desc: "<strong>核心重點：</strong>時間軸與波形分析。SendNotification.bat (每 5 分鐘高頻脈衝)、Sync_RSV/RSG.bat (每 30 分鐘，06:00~23:00 執行，深夜休眠)、ERP 夜間批次 (C#，23:01~23:31 密集批次窗口)，以及海纜斷網事件發生時之 48~72 小時在地自律運轉與復原對齊波形。"
+      }
+    ];
+
+    let currentTabIndex = 0;
+
+    function renderTabs() {
+      const navTabs = document.getElementById("navTabs");
+      navTabs.innerHTML = diagramsData.map((d, idx) => `
+        <button class="nav-tab ${idx === currentTabIndex ? 'active' : ''}" onclick="switchTab(${idx})">
+          ${d.name.split(' ')[0]} ${d.name.split(' ')[1]}
+        </button>
+      `).join('');
+    }
+
+    function switchTab(index) {
+      currentTabIndex = index;
+      renderTabs();
+      updateDiagramView();
+    }
+
+    function updateDiagramView() {
+      const data = diagramsData[currentTabIndex];
+      document.getElementById("diagTitle").innerText = data.name;
+      document.getElementById("diagSub").innerText = data.category;
+      document.getElementById("diagDesc").innerHTML = data.desc;
+
+      // Render high-clarity SVG for the active diagram
+      const frame = document.getElementById("diagramFrame");
+      frame.innerHTML = generateSvgForIndex(currentTabIndex);
+    }
+
+    function generateSvgForIndex(index) {
+      const w = 1200;
+      const h = 640;
+      
+      switch(index) {
+        case 0: // Class
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 類別圖】RD_SAMPLE 與 D365 C# 服務領域物件模型 (依 Duke 規格：全 C# 實作)</text>
+              
+              <g transform="translate(50, 80)">
+                <rect width="280" height="310" rx="4" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <rect width="280" height="40" fill="#9673a6"/>
+                <text x="140" y="18" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;abstract&gt;&gt; RqtBaseForm</text>
+                <text x="140" y="32" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#f0e6f6" text-anchor="middle">C# Core Request Model</text>
+                
+                <text x="15" y="65" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ SalesId : string [SO編號]</text>
+                <text x="15" y="85" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ StyleNo : string [款號]</text>
+                <text x="15" y="105" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ ContractNo : string [合同編號]</text>
+                <text x="15" y="125" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ PurchId : string [PO編號]</text>
+                <text x="15" y="145" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ ItemId : string [物料編號]</text>
+                <text x="15" y="165" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ VendId / CustId : string</text>
+                <text x="15" y="185" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ BuyKeys : List&lt;long&gt; [RecId]</text>
+                <text x="15" y="205" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ ContractNos : List&lt;string&gt;</text>
+                <text x="15" y="225" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ DataAreaId : string = "RSI"</text>
+                <text x="15" y="245" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ UserName : string [匯出人]</text>
+                <line x1="0" y1="260" x2="280" y2="260" stroke="#9673a6" stroke-width="1"/>
+                <text x="15" y="280" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ Validate() : bool</text>
+                <text x="15" y="300" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ ToParameterDictionary()</text>
+              </g>
+
+              <g transform="translate(380, 80)">
+                <rect width="280" height="210" rx="4" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <rect width="280" height="40" fill="#9673a6"/>
+                <text x="140" y="18" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;service&gt;&gt; D365CSharpServices</text>
+                <text x="140" y="32" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#f0e6f6" text-anchor="middle">31 Services / 80 Operations (全量C#)</text>
+                
+                <text x="15" y="65" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ JCOM_WebServices : Module</text>
+                <text x="15" y="85" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ RSI_WebServices : Module</text>
+                <text x="15" y="105" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">- _tokenProvider: EntraBearerToken</text>
+                <line x1="0" y1="120" x2="280" y2="120" stroke="#9673a6" stroke-width="1"/>
+                <text x="15" y="140" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ GetStyleBom() : RSI_RT&lt;Bom&gt;</text>
+                <text x="15" y="160" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ QueryInventory() : RSI_RT&lt;Stock&gt;</text>
+                <text x="15" y="180" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ SyncPurchOrder() : RSI_RT&lt;PO&gt;</text>
+                <text x="15" y="200" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ Execute80OperationsAsync()</text>
+              </g>
+
+              <g transform="translate(380, 320)">
+                <rect width="280" height="170" rx="4" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <rect width="280" height="35" fill="#9673a6"/>
+                <text x="140" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">RSI_RT&lt;T&gt; (C# 回應封裝)</text>
+                <text x="15" y="60" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ IsValid : bool [是否成功]</text>
+                <text x="15" y="80" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ Msg : string [回傳訊息]</text>
+                <text x="15" y="100" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ TotalCount : int [總筆數]</text>
+                <text x="15" y="120" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ DataList : List&lt;T&gt; [實體清單]</text>
+                <line x1="0" y1="135" x2="280" y2="135" stroke="#9673a6" stroke-width="1"/>
+                <text x="15" y="155" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ Success() / + Failure()</text>
+              </g>
+
+              <g transform="translate(710, 80)">
+                <rect width="240" height="210" rx="4" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+                <rect width="240" height="35" fill="#d6b656"/>
+                <text x="120" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">MoHeader (樣品單主檔)</text>
+                <text x="15" y="55" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ MoNo : string [PK]</text>
+                <text x="15" y="75" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ StyleNo : string [FK]</text>
+                <text x="15" y="95" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ Season : string</text>
+                <text x="15" y="115" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ TargetFactory : RSV / RSG</text>
+                <text x="15" y="135" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ Status : EnumMoStatus</text>
+                <line x1="0" y1="150" x2="240" y2="150" stroke="#d6b656" stroke-width="1"/>
+                <text x="15" y="175" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ CreateMo() : bool</text>
+                <text x="15" y="195" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ DispatchToFactory()</text>
+              </g>
+
+              <g transform="translate(980, 80)">
+                <rect width="200" height="190" rx="4" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <rect width="200" height="35" fill="#1d63ed"/>
+                <text x="100" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">DataAccess (ADO.NET)</text>
+                <text x="15" y="55" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">- _connStr : sa 明碼</text>
+                <text x="15" y="75" font-family="'JetBrains Mono', monospace" font-size="11" fill="#b45309" font-weight="bold">! 1490 SQL (SAM)</text>
+                <text x="15" y="95" font-family="'JetBrains Mono', monospace" font-size="11" fill="#b91c1c" font-weight="bold">! 23 SQL (AXDB)</text>
+                <line x1="0" y1="110" x2="200" y2="110" stroke="#1d63ed" stroke-width="1"/>
+                <text x="15" y="135" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ ExecuteQuery()</text>
+                <text x="15" y="155" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ ExecuteNonQuery()</text>
+                <text x="15" y="175" font-family="'JetBrains Mono', monospace" font-size="11" fill="#333">+ OpenConnection()</text>
+              </g>
+
+              <path d="M 520 290 L 520 320" fill="none" stroke="#9673a6" stroke-width="2" stroke-dasharray="4"/>
+              <path d="M 710 185 L 660 185" fill="none" stroke="#9673a6" stroke-width="2"/>
+              <path d="M 950 185 L 980 185" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="4"/>
+              <text x="965" y="175" font-family="'JetBrains Mono', monospace" font-size="10" fill="#b45309" text-anchor="middle">1490 SQL</text>
+            </svg>
+          `;
+
+        case 1: // Component
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 元件圖】RD_SAMPLE 系統組成、核心元件與微服務邊界拓撲</text>
+              
+              <g transform="translate(60, 100)">
+                <rect width="240" height="90" rx="6" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="20" y="35" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" fill="#1d63ed">&lt;&lt;component&gt;&gt;</text>
+                <text x="20" y="55" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RD_Sample.Web</text>
+                <text x="20" y="72" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">ASP.NET WebForms 4.8 / IIS</text>
+              </g>
+
+              <g transform="translate(60, 240)">
+                <rect width="240" height="90" rx="6" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="20" y="35" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" fill="#1d63ed">&lt;&lt;component&gt;&gt;</text>
+                <text x="20" y="55" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RD_Batch.Console</text>
+                <text x="20" y="72" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">Windows 排程器 (13 項核心任務)</text>
+              </g>
+
+              <g transform="translate(360, 170)">
+                <rect width="220" height="80" rx="6" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+                <text x="20" y="30" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#d6b656">&lt;&lt;component&gt;&gt;</text>
+                <text x="20" y="50" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">DataAccess.Core</text>
+                <text x="20" y="68" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">ADO.NET 直下 SQL 封裝</text>
+              </g>
+
+              <g transform="translate(640, 90)">
+                <rect width="280" height="100" rx="6" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <text x="20" y="30" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#9673a6">&lt;&lt;component&gt;&gt; (全量 C#)</text>
+                <text x="20" y="50" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">D365 C# Integration Services</text>
+                <text x="20" y="68" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">Report (:8085) / 80 Ops (Bearer)</text>
+                <text x="20" y="85" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#b91c1c">⚠️ 無驗證需收攏至 API Gateway</text>
+              </g>
+
+              <g transform="translate(640, 230)">
+                <rect width="280" height="90" rx="6" fill="#d5e8d4" stroke="#82b366" stroke-width="2"/>
+                <text x="20" y="30" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#82b366">&lt;&lt;component&gt;&gt;</text>
+                <text x="20" y="50" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">CQS 品管微服務</text>
+                <text x="20" y="68" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">.NET 8 Core / IIS ARR (:8012)</text>
+              </g>
+
+              <g transform="translate(640, 360)">
+                <rect width="280" height="90" rx="6" fill="#f8cecc" stroke="#b85450" stroke-width="2" stroke-dasharray="4"/>
+                <text x="20" y="30" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#b85450">&lt;&lt;處方推薦架構&gt;&gt;</text>
+                <text x="20" y="50" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">YARP API Gateway (0元平替)</text>
+                <text x="20" y="68" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">在地零信任統一認證閘道</text>
+              </g>
+
+              <g transform="translate(980, 160)">
+                <path d="M 0 15 C 0 5, 160 5, 160 15 L 160 85 C 160 95, 0 95, 0 85 Z" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+                <path d="M 0 15 C 0 25, 160 25, 160 15" fill="none" stroke="#d6b656" stroke-width="2"/>
+                <text x="80" y="45" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#d6b656" text-anchor="middle">&lt;&lt;database&gt;&gt;</text>
+                <text x="80" y="65" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">SAM 主資料庫</text>
+                <text x="80" y="80" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#666" text-anchor="middle">SQL Server 1433</text>
+              </g>
+
+              <path d="M 300 145 L 360 185" fill="none" stroke="#1d63ed" stroke-width="2"/>
+              <path d="M 300 285 L 360 235" fill="none" stroke="#1d63ed" stroke-width="2" stroke-dasharray="3"/>
+              <path d="M 580 210 L 980 210" fill="none" stroke="#d6b656" stroke-width="2"/>
+              <text x="780" y="200" font-family="'JetBrains Mono', monospace" font-size="11" fill="#d6b656" text-anchor="middle">I02: 1,490 處直接 SQL</text>
+              <path d="M 300 130 L 640 130" fill="none" stroke="#9673a6" stroke-width="2"/>
+              <text x="470" y="120" font-family="'JetBrains Mono', monospace" font-size="11" fill="#9673a6" text-anchor="middle">I08: D365 C# API (無驗證)</text>
+              <path d="M 300 160 L 640 270" fill="none" stroke="#82b366" stroke-width="2"/>
+              <text x="470" y="250" font-family="'JetBrains Mono', monospace" font-size="11" fill="#82b366" text-anchor="middle">I13: HTTP REST</text>
+            </svg>
+          `;
+
+        case 2: // Deployment
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 部署圖】全集團實體伺服器、網路節點、專線與雲端拓撲 (依 Duke 節點表)</text>
+              
+              <g transform="translate(50, 80)">
+                <rect width="320" height="230" rx="6" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <rect width="320" height="35" fill="#1d63ed"/>
+                <text x="160" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;device&gt;&gt; RDSMP2 正式機 (192.168.0.22)</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• IIS 443/80 (rdsample.rsiapparel.com)</text>
+                <text x="15" y="82" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• SQL Server 2019 (1433) [SAM, PDFTAG, CQS]</text>
+                <text x="15" y="104" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• Windows 排程 D:\EXP (13 項核心批次)</text>
+                <text x="15" y="126" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• SMB 445 (hrm, web_backup 芳鄰備份)</text>
+                <text x="15" y="148" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• 實體路徑 E:\RD_SAMPLE (樣品工藝圖檔)</text>
+                <text x="15" y="180" font-family="'JetBrains Mono', monospace" font-size="10" fill="#b91c1c" font-weight="bold">! 承受每30分跨國直連與夜間高頻鎖表風險</text>
+              </g>
+
+              <g transform="translate(50, 340)">
+                <rect width="320" height="200" rx="6" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <rect width="320" height="35" fill="#1d63ed"/>
+                <text x="160" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;device&gt;&gt; RDSMP1 測試機 (192.168.0.23)</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• IIS 80 (test-rdsample.rsiapparel.com)</text>
+                <text x="15" y="82" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• SQL 1433 (SAM 正式副本、PDFTAG)</text>
+                <text x="15" y="104" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• CQS 品質服務 (:8012/:8011)</text>
+                <text x="15" y="126" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• FindImage 影像比對 (:8081)</text>
+                <text x="15" y="148" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• GitLab Runner (CI/CD 自動編譯)</text>
+              </g>
+
+              <g transform="translate(420, 80)">
+                <rect width="330" height="180" rx="6" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <rect width="330" height="35" fill="#9673a6"/>
+                <text x="165" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;device&gt;&gt; RSIMDW1 (192.168.0.95)</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• D365.Report.Service (:8085 / :8082 UAT)</text>
+                <text x="15" y="82" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• Local.WebApi (:80 / :8081 UAT)</text>
+                <text x="15" y="104" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• D365_Prod 唯讀副本庫 (SQL 1433)</text>
+                <text x="15" y="130" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#b91c1c" font-weight="bold">! 報表下載 API 完全無驗證防護</text>
+              </g>
+
+              <g transform="translate(420, 300)">
+                <rect width="330" height="170" rx="6" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <rect width="330" height="35" fill="#9673a6"/>
+                <text x="165" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;device cluster&gt;&gt; D365 Core ERP (C#)</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• D365 AOS (192.168.0.124～.126)</text>
+                <text x="15" y="82" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• rsiaxdb1 (192.168.0.131 AXDB 營運主庫)</text>
+                <text x="15" y="104" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• 80 個 C# Operations (Entra ID Bearer)</text>
+                <text x="15" y="130" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#b91c1c" font-weight="bold">! RD_SAMPLE 直下 23 處 SQL 侵入 AXDB</text>
+              </g>
+
+              <g transform="translate(800, 80)">
+                <rect width="340" height="180" rx="6" fill="#ffe6cc" stroke="#d79b00" stroke-width="2"/>
+                <rect width="340" height="35" fill="#d79b00"/>
+                <text x="170" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;factory nodes&gt;&gt; 海外廠區 DB (DYXnet 專線)</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• 越南 RDV: 192.168.185.123:1433</text>
+                <text x="15" y="82" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• 柬埔寨 RDG: 192.168.193.65:1433</text>
+                <text x="15" y="104" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#666">• [已停用] 桃園廠 TY: 192.168.5.123</text>
+                <text x="15" y="130" font-family="'JetBrains Mono', monospace" font-size="10" fill="#d79b00" font-weight="bold">! 每30分同步工單; 斷網即引發阻塞</text>
+              </g>
+
+              <g transform="translate(800, 300)">
+                <rect width="340" height="160" rx="6" fill="#f8cecc" stroke="#b85450" stroke-width="2"/>
+                <rect width="340" height="35" fill="#b85450"/>
+                <text x="170" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">&lt;&lt;external cloud&gt;&gt; AWS EC2 &amp; Mail</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• AWS AI 推論: 98.84.29.205:8000</text>
+                <text x="15" y="82" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• AWS 翻譯服務: 98.93.175.234:80</text>
+                <text x="15" y="104" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">• 集團 SMTP 郵件: 192.168.8.64:587</text>
+              </g>
+
+              <path d="M 370 140 L 420 140" fill="none" stroke="#9673a6" stroke-width="2"/>
+              <path d="M 370 200 L 420 330" fill="none" stroke="#b91c1c" stroke-width="2" stroke-dasharray="4"/>
+              <path d="M 370 120 L 800 120" fill="none" stroke="#d79b00" stroke-width="3"/>
+              <text x="585" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#d79b00" font-weight="bold" text-anchor="middle">I05: 每 30 分鐘 TDS 1433 直連海外廠</text>
+            </svg>
+          `;
+
+        case 3: // Package
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 套件圖】集團軟體命名空間、分層模組架構與依賴關係</text>
+              
+              <g transform="translate(60, 90)">
+                <path d="M 0 0 L 80 0 L 100 20 L 280 20 L 280 150 L 0 150 Z" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="15" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#1d63ed">Presentation</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RSI.RDSample.Presentation</text>
+                <text x="15" y="70" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ WebForms Pages (.aspx)</text>
+                <text x="15" y="90" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ jQuery &amp; Knockout.js</text>
+                <text x="15" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ jqxGrid Enterprise Grids</text>
+              </g>
+
+              <g transform="translate(420, 90)">
+                <path d="M 0 0 L 90 0 L 110 20 L 280 20 L 280 150 L 0 150 Z" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="15" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#1d63ed">BusinessLogic</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RSI.RDSample.BLL</text>
+                <text x="15" y="70" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ SampleOrderManager</text>
+                <text x="15" y="90" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ TechPackIngestionService</text>
+                <text x="15" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ CrossBorderSyncOrchestrator</text>
+              </g>
+
+              <g transform="translate(780, 90)">
+                <path d="M 0 0 L 80 0 L 100 20 L 280 20 L 280 150 L 0 150 Z" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+                <text x="15" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#d6b656">DataAccess</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RSI.Core.DataAccess</text>
+                <text x="15" y="70" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ SqlServerDirectAccessor</text>
+                <text x="15" y="90" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ DbConnectionPoolManager</text>
+                <text x="15" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#b45309">! 1,490 直下 SQL 實作</text>
+              </g>
+
+              <g transform="translate(60, 300)">
+                <path d="M 0 0 L 80 0 L 100 20 L 280 20 L 280 150 L 0 150 Z" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="15" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#1d63ed">BatchJobs</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RSI.RDSample.RD_Batch</text>
+                <text x="15" y="70" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ NotificationDispatcher</text>
+                <text x="15" y="90" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ FactorySyncExecutor</text>
+                <text x="15" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ ErpMasterSyncScheduler</text>
+              </g>
+
+              <g transform="translate(420, 300)">
+                <path d="M 0 0 L 80 0 L 100 20 L 280 20 L 280 150 L 0 150 Z" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <text x="15" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#9673a6">C# Services</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RSI.D365.Services (C#)</text>
+                <text x="15" y="70" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ JCOM_WebServices (C#)</text>
+                <text x="15" y="90" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ RSI_WebServices (C#)</text>
+                <text x="15" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ D365.Report.Service</text>
+              </g>
+
+              <g transform="translate(780, 300)">
+                <path d="M 0 0 L 80 0 L 100 20 L 280 20 L 280 150 L 0 150 Z" fill="#d5e8d4" stroke="#82b366" stroke-width="2"/>
+                <text x="15" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#82b366">QualityCore</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333">RSI.Quality.CQS (.NET 8)</text>
+                <text x="15" y="70" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ InspectionController</text>
+                <text x="15" y="90" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ ArrReverseProxyConfig</text>
+                <text x="15" y="110" font-family="'JetBrains Mono', monospace" font-size="11" fill="#555">+ QualityAuditGateway</text>
+              </g>
+
+              <path d="M 340 160 L 420 160" fill="none" stroke="#1d63ed" stroke-width="2" stroke-dasharray="4"/>
+              <path d="M 700 160 L 780 160" fill="none" stroke="#1d63ed" stroke-width="2" stroke-dasharray="4"/>
+              <path d="M 340 375 L 420 375" fill="none" stroke="#9673a6" stroke-width="2" stroke-dasharray="4"/>
+              <path d="M 560 240 L 560 300" fill="none" stroke="#9673a6" stroke-width="2" stroke-dasharray="4"/>
+            </svg>
+          `;
+
+        case 8: // Activity Diagram
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 活動圖】樣品開單至出貨跨國協同泳道業務流程 (Swimlanes)</text>
+              
+              <!-- Swimlane Columns -->
+              <g transform="translate(60, 80)">
+                <rect width="250" height="520" fill="#f8f9fa" stroke="#ccc" stroke-width="1"/>
+                <rect width="250" height="35" fill="#e9ecef"/>
+                <text x="125" y="22" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">總部研發 (HQ RD)</text>
+                
+                <circle cx="125" cy="70" r="14" fill="#000"/>
+                <rect x="35" y="120" width="180" height="55" rx="8" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="125" y="152" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">上傳客戶 TechPack PDF</text>
+
+                <rect x="35" y="210" width="180" height="65" rx="8" fill="#d0e1fd" stroke="#1d63ed" stroke-width="2"/>
+                <text x="125" y="238" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Python CLI 抽取工藝</text>
+                <text x="125" y="258" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#666" text-anchor="middle">ADO.NET 直下 SQL 寫 SAM</text>
+              </g>
+
+              <g transform="translate(310, 80)">
+                <rect width="250" height="520" fill="#fff" stroke="#ccc" stroke-width="1"/>
+                <rect width="250" height="35" fill="#e9ecef"/>
+                <text x="125" y="22" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">D365 C# ERP 服務</text>
+
+                <rect x="35" y="210" width="180" height="65" rx="8" fill="#e1d5e7" stroke="#9673a6" stroke-width="2"/>
+                <text x="125" y="238" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">驗證款號與物料資訊</text>
+                <text x="125" y="258" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#666" text-anchor="middle">D365 C# 80 Ops (Bearer)</text>
+              </g>
+
+              <g transform="translate(560, 80)">
+                <rect width="250" height="520" fill="#f8f9fa" stroke="#ccc" stroke-width="1"/>
+                <rect width="250" height="35" fill="#e9ecef"/>
+                <text x="125" y="22" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Windows 排程 (RD_Batch)</text>
+
+                <rect x="35" y="310" width="180" height="65" rx="8" fill="#ffe6cc" stroke="#d79b00" stroke-width="2"/>
+                <text x="125" y="338" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Sync_RSV.bat (每30分)</text>
+                <text x="125" y="358" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#b45309" text-anchor="middle">DYXnet 專線直推海外廠</text>
+              </g>
+
+              <g transform="translate(810, 80)">
+                <rect width="320" height="520" fill="#fff" stroke="#ccc" stroke-width="1"/>
+                <rect width="320" height="35" fill="#e9ecef"/>
+                <text x="160" y="22" font-family="'Noto Sans TC', sans-serif" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">海外廠區生管 (RSV / RSG)</text>
+
+                <rect x="70" y="310" width="180" height="65" rx="8" fill="#ffe6cc" stroke="#d79b00" stroke-width="2"/>
+                <text x="160" y="338" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">排產車縫打樣</text>
+                <text x="160" y="358" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#666" text-anchor="middle">錄入廠區生產日報</text>
+
+                <rect x="70" y="410" width="180" height="55" rx="8" fill="#d5e8d4" stroke="#82b366" stroke-width="2"/>
+                <text x="160" y="442" font-family="'Noto Sans TC', sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">CQS 品質檢驗放行</text>
+
+                <circle cx="160" cy="520" r="14" fill="#000"/>
+                <circle cx="160" cy="520" r="18" fill="none" stroke="#000" stroke-width="2"/>
+              </g>
+
+              <!-- Flow Arrows -->
+              <path d="M 185 164 L 185 210" fill="none" stroke="#333" stroke-width="2"/>
+              <path d="M 275 242 L 345 242" fill="none" stroke="#9673a6" stroke-width="2"/>
+              <text x="310" y="235" font-family="'JetBrains Mono', monospace" font-size="10" fill="#9673a6" text-anchor="middle">I08</text>
+              <path d="M 435 275 L 435 342 L 595 342" fill="none" stroke="#333" stroke-width="2"/>
+              <path d="M 775 342 L 880 342" fill="none" stroke="#d79b00" stroke-width="3"/>
+              <text x="825" y="335" font-family="'JetBrains Mono', monospace" font-size="10" fill="#d79b00" text-anchor="middle">TDS 1433</text>
+              <path d="M 970 375 L 970 410" fill="none" stroke="#333" stroke-width="2"/>
+              <path d="M 970 465 L 970 502" fill="none" stroke="#333" stroke-width="2"/>
+            </svg>
+          `;
+
+        case 10: // Sequence Diagram
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 循序圖】樣品開單、Python 解析、C# 服務調用與跨國排程同步時序</text>
+              
+              <!-- Lifelines -->
+              <g transform="translate(60, 80)">
+                <rect width="130" height="35" rx="4" fill="#f8f9fa" stroke="#333" stroke-width="1.5"/>
+                <text x="65" y="22" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">設計師 (User)</text>
+                <line x1="65" y1="35" x2="65" y2="520" stroke="#888" stroke-dasharray="4"/>
+              </g>
+
+              <g transform="translate(240, 80)">
+                <rect width="140" height="35" rx="4" fill="#d0e1fd" stroke="#1d63ed" stroke-width="1.5"/>
+                <text x="70" y="22" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#1d63ed" text-anchor="middle">RDSMP2: WebForms</text>
+                <line x1="70" y1="35" x2="70" y2="520" stroke="#888" stroke-dasharray="4"/>
+              </g>
+
+              <g transform="translate(430, 80)">
+                <rect width="140" height="35" rx="4" fill="#d0e1fd" stroke="#1d63ed" stroke-width="1.5"/>
+                <text x="70" y="22" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#1d63ed" text-anchor="middle">I04: Python Parser</text>
+                <line x1="70" y1="35" x2="70" y2="520" stroke="#888" stroke-dasharray="4"/>
+              </g>
+
+              <g transform="translate(620, 80)">
+                <rect width="130" height="35" rx="4" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/>
+                <text x="65" y="22" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#d6b656" text-anchor="middle">SAM DB (1433)</text>
+                <line x1="65" y1="35" x2="65" y2="520" stroke="#888" stroke-dasharray="4"/>
+              </g>
+
+              <g transform="translate(800, 80)">
+                <rect width="150" height="35" rx="4" fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5"/>
+                <text x="75" y="22" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#9673a6" text-anchor="middle">D365 C# Svc (:8085)</text>
+                <line x1="75" y1="35" x2="75" y2="520" stroke="#888" stroke-dasharray="4"/>
+              </g>
+
+              <g transform="translate(1000, 80)">
+                <rect width="140" height="35" rx="4" fill="#ffe6cc" stroke="#d79b00" stroke-width="1.5"/>
+                <text x="70" y="22" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#d79b00" text-anchor="middle">海外廠 DB (RSV)</text>
+                <line x1="70" y1="35" x2="70" y2="520" stroke="#888" stroke-dasharray="4"/>
+              </g>
+
+              <!-- Messages -->
+              <path d="M 125 150 L 310 150" fill="none" stroke="#333" stroke-width="2"/>
+              <text x="217" y="142" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333" text-anchor="middle">1. 上傳 TechPack PDF</text>
+
+              <path d="M 310 190 L 500 190" fill="none" stroke="#1d63ed" stroke-width="2"/>
+              <text x="405" y="182" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#1d63ed" text-anchor="middle">2. 呼叫 CLI parse</text>
+
+              <path d="M 500 230 L 310 230" fill="none" stroke="#1d63ed" stroke-width="2" stroke-dasharray="4"/>
+              <text x="405" y="222" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#1d63ed" text-anchor="middle">3. 回傳工藝 JSON</text>
+
+              <path d="M 310 270 L 685 270" fill="none" stroke="#d6b656" stroke-width="2"/>
+              <text x="497" y="262" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#b45309" text-anchor="middle">4. ADO.NET 直下 SQL 寫庫 (sa 帳號)</text>
+
+              <path d="M 310 320 L 875 320" fill="none" stroke="#9673a6" stroke-width="2"/>
+              <text x="592" y="312" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#9673a6" text-anchor="middle">5. 調用 D365 C# Report API (RqtBaseForm)</text>
+
+              <path d="M 875 360 L 310 360" fill="none" stroke="#9673a6" stroke-width="2" stroke-dasharray="4"/>
+              <text x="592" y="352" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#9673a6" text-anchor="middle">6. 回傳下載 URL (無驗證)</text>
+
+              <path d="M 685 410 L 1070 410" fill="none" stroke="#d79b00" stroke-width="3"/>
+              <text x="877" y="402" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#d79b00" font-weight="bold" text-anchor="middle">7. Sync_RSV.bat 排程 (每30分跨國專線直推)</text>
+            </svg>
+          `;
+
+        case 13: // Timing Diagram
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 計時圖】13 項 Windows 排程工作時間軸與海纜斷網自律狀態波形</text>
+              
+              <!-- Channel 1: SendNotification -->
+              <g transform="translate(60, 90)">
+                <rect width="240" height="70" rx="4" fill="#f8cecc" stroke="#b85450" stroke-width="1.5"/>
+                <text x="15" y="25" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#b85450">SendNotification.bat</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">每 5 分鐘高頻輪詢</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#666">全天候 24 小時不間斷運行</text>
+
+                <rect x="260" y="0" width="800" height="70" fill="#fff" stroke="#ccc"/>
+                <path d="M 270 50 L 290 20 L 300 20 L 320 50 L 350 50 L 370 20 L 380 20 L 400 50 L 430 50 L 450 20 L 460 20 L 480 50 L 510 50 L 530 20 L 540 20 L 560 50 L 590 50 L 610 20 L 620 20 L 640 50 L 670 50 L 690 20 L 700 20 L 720 50 L 750 50 L 770 20 L 780 20 L 800 50 L 830 50 L 850 20 L 860 20 L 880 50 L 910 50 L 930 20 L 940 20 L 960 50 L 990 50 L 1010 20 L 1020 20 L 1040 50" fill="none" stroke="#b85450" stroke-width="2"/>
+              </g>
+
+              <!-- Channel 2: Factory Sync -->
+              <g transform="translate(60, 180)">
+                <rect width="240" height="70" rx="4" fill="#ffe6cc" stroke="#d79b00" stroke-width="1.5"/>
+                <text x="15" y="25" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#d79b00">Sync_RSV / RSG.bat</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">每 30 分鐘跨國專線推送</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#666">06:00 ~ 23:00 執行，深夜休眠</text>
+
+                <rect x="260" y="0" width="800" height="70" fill="#fff" stroke="#ccc"/>
+                <path d="M 270 50 L 280 20 L 360 20 L 370 50 L 440 50 L 450 20 L 530 20 L 540 50 L 610 50 L 620 20 L 700 20 L 710 50 L 780 50 L 790 20 L 870 20 L 880 50 L 1050 50" fill="none" stroke="#d79b00" stroke-width="2.5"/>
+                <text x="960" y="40" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#888">深夜維護窗口 (休眠)</text>
+              </g>
+
+              <!-- Channel 3: ERP Night Batch -->
+              <g transform="translate(60, 270)">
+                <rect width="240" height="80" rx="4" fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5"/>
+                <text x="15" y="25" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#9673a6">ERP 夜間批次 (C#)</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#333">23:01 顏色 / 23:15 對照</text>
+                <text x="15" y="60" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#333">23:19 新料 / 23:31 變更</text>
+
+                <rect x="260" y="0" width="800" height="80" fill="#fff" stroke="#ccc"/>
+                <line x1="270" y1="60" x2="800" y2="60" stroke="#9673a6" stroke-width="2"/>
+                <rect x="800" y="20" width="30" height="40" fill="#9673a6"/>
+                <text x="815" y="15" font-family="'JetBrains Mono', monospace" font-size="9" fill="#9673a6" text-anchor="middle">23:01</text>
+                <rect x="850" y="20" width="30" height="40" fill="#9673a6"/>
+                <text x="865" y="15" font-family="'JetBrains Mono', monospace" font-size="9" fill="#9673a6" text-anchor="middle">23:15</text>
+                <rect x="900" y="20" width="30" height="40" fill="#9673a6"/>
+                <text x="915" y="15" font-family="'JetBrains Mono', monospace" font-size="9" fill="#9673a6" text-anchor="middle">23:19</text>
+                <rect x="950" y="20" width="30" height="40" fill="#9673a6"/>
+                <text x="965" y="15" font-family="'JetBrains Mono', monospace" font-size="9" fill="#9673a6" text-anchor="middle">23:31</text>
+                <line x1="980" y1="60" x2="1050" y2="60" stroke="#9673a6" stroke-width="2"/>
+              </g>
+
+              <!-- Channel 4: Offline Tolerance -->
+              <g transform="translate(60, 370)">
+                <rect width="240" height="80" rx="4" fill="#d0e1fd" stroke="#1d63ed" stroke-width="1.5"/>
+                <text x="15" y="25" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#1d63ed">海纜斷網自律 SLA</text>
+                <text x="15" y="45" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#333">48 ~ 72 小時離線運轉</text>
+                <text x="15" y="65" font-family="'Noto Sans TC', sans-serif" font-size="10" fill="#b91c1c">現狀：專線中斷即整廠停擺</text>
+
+                <rect x="260" y="0" width="800" height="80" fill="#fff" stroke="#ccc"/>
+                <path d="M 270 25 L 500 25 L 500 65 L 850 65 L 850 25 L 1050 25" fill="none" stroke="#b91c1c" stroke-width="3"/>
+                <text x="380" y="20" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#15803d">正常專線連線 (Online)</text>
+                <text x="675" y="55" font-family="'Noto Sans TC', sans-serif" font-size="11" font-weight="bold" fill="#b91c1c">【海纜中斷事件】現狀排程連環逾時崩潰 ➔ 蜂巢處方：地端離線自律運轉</text>
+                <text x="950" y="20" font-family="'Noto Sans TC', sans-serif" font-size="11" fill="#15803d">專線復原自動對齊</text>
+              </g>
+            </svg>
+          `;
+
+        default:
+          return `
+            <svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+              <rect width="${w}" height="${h}" fill="#fcfcfd"/>
+              <text x="40" y="45" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="bold" fill="#1d63ed">【UML 2 視覺模型】${diagramsData[index].name}</text>
+              <rect x="50" y="80" width="1080" height="500" rx="8" fill="#f8f9fa" stroke="#d0d7de" stroke-width="2"/>
+              <text x="590" y="230" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="bold" fill="#24292f" text-anchor="middle">${diagramsData[index].name}</text>
+              <text x="590" y="265" font-family="'Noto Sans TC', sans-serif" font-size="13" fill="#57606a" text-anchor="middle">本張圖表已完整收錄於原生 multi-page .drawio 檔案中（Page ID: ${diagramsData[index].id}）</text>
+              <text x="590" y="295" font-family="'JetBrains Mono', monospace" font-size="12" fill="#0969da" text-anchor="middle">嚴格依據 Duke 2026-11-12 交付之 21 條介面拓撲與 D365 C# 服務規範繪製</text>
+              
+              <g transform="translate(440, 340)">
+                <rect width="300" height="50" rx="6" fill="#238636" cursor="pointer" onclick="openInDrawio()"/>
+                <text x="150" y="32" font-family="'Noto Sans TC', sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" cursor="pointer" onclick="openInDrawio()">在 draw.io 線上直接開啟 ↗</text>
+              </g>
+            </svg>
+          `;
+      }
+    }
+
+    function openInDrawio() {
+      // Opens draw.io with the XML loaded directly via data URL or diagrams.net lightbox
+      const encodedXml = encodeURIComponent(DRAWIO_XML);
+      const url = "https://app.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank#R" + encodeURIComponent(DRAWIO_XML);
+      window.open(url, "_blank");
+    }
+
+    function copyDrawioXml() {
+      navigator.clipboard.writeText(DRAWIO_XML).then(() => {
+        const toast = document.getElementById("toast");
+        toast.style.display = "block";
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 3500);
+      }).catch(err => {
+        alert("複製失敗，請手動下載 .drawio 檔案");
+      });
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute("data-theme");
+      body.setAttribute("data-theme", current === "dark" ? "milan" : "dark");
+    }
+
+    // Init
+    renderTabs();
+    updateDiagramView();
+  </script>
+</body>
+</html>
