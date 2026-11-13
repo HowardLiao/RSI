@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSI Factory API 領域類別圖與介面圖全集 (Class & Interface Diagrams)</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #d97706; /* Milan Warm Amber */
+      --accent-hover: #b45309;
+      --badge-blue: #0284c7;
+      --badge-green: #059669;
+      --badge-purple: #7c3aed;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 24px;
+      padding: 24px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header h1 {
+      font-size: 24px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header .meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .tabs {
+      max-width: 1400px;
+      margin: 0 auto 20px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn:hover {
+      background: #273549;
+      color: #fff;
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+    }
+    .content-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .tab-pane {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    .pane-header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .pane-header h2 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .pane-header p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .diagram-box {
+      background: #090d16;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      padding: 24px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    .explanation {
+      background: #162032;
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+    .explanation h4 {
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    .explanation ul {
+      margin-left: 20px;
+      color: #cbd5e1;
+    }
+    .explanation li {
+      margin-bottom: 6px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-blue { background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.4); }
+    .badge-green { background: rgba(5, 150, 105, 0.2); color: #34d399; border: 1px solid rgba(5, 150, 105, 0.4); }
+    .badge-purple { background: rgba(124, 58, 237, 0.2); color: #c084fc; border: 1px solid rgba(124, 58, 237, 0.4); }
+    .badge-amber { background: rgba(217, 119, 6, 0.2); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.4); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1><i class="fa-solid fa-diagram-project" style="color: #f59e0b;"></i> RSI Factory API 領域類別圖與介面圖全集</h1>
+      <div class="meta">基於 2026.11.13 OpenAPI 3.0 規範 · 488 支端點 · 50 個業務 Tags · UML 2.0 標準結構</div>
+    </div>
+    <div>
+      <a href="index.html" style="color: #38bdf8; text-decoration: none; font-size: 14px; margin-right: 16px;"><i class="fa-solid fa-book-open"></i> 返回 Factory API 文件</a>
+      <a href="../duke_api_evaluation_report.html" style="color: #38bdf8; text-decoration: none; font-size: 14px;"><i class="fa-solid fa-chart-line"></i> 返回集團評估報告</a>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('wms-class')"><i class="fa-solid fa-warehouse"></i> 1. WMS 倉儲類別圖</button>
+    <button class="tab-btn" onclick="switchTab('wms-interface')"><i class="fa-solid fa-network-wired"></i> 2. WMS 服務介面圖</button>
+    <button class="tab-btn" onclick="switchTab('mes-class')"><i class="fa-solid fa-scissors"></i> 3. MES 製造執行類別圖</button>
+    <button class="tab-btn" onclick="switchTab('mes-interface')"><i class="fa-solid fa-cubes"></i> 4. MES 服務介面圖</button>
+    <button class="tab-btn" onclick="switchTab('tpm-class')"><i class="fa-solid fa-screwdriver-wrench"></i> 5. TPM/AMS 設備資產類別圖</button>
+    <button class="tab-btn" onclick="switchTab('tpm-interface')"><i class="fa-solid fa-microchip"></i> 6. TPM/AMS 服務介面圖</button>
+    <button class="tab-btn" onclick="switchTab('hardware-class')"><i class="fa-solid fa-robot"></i> 7. 智慧物流硬體類別圖</button>
+    <button class="tab-btn" onclick="switchTab('qms-aps-class')"><i class="fa-solid fa-clipboard-check"></i> 8. QMS/APS 整合類別圖</button>
+  </div>
+
+  <div class="content-container">
+    <!-- TAB 1: WMS Class Diagram -->
+    <div id="wms-class" class="tab-pane active">
+      <div class="pane-header">
+        <h2><span class="badge badge-amber">Class Diagram</span> WMS 倉儲與物料物流領域實體類別圖</h2>
+        <p>涵蓋布料進料 (FabricStockIn)、驗布捲號 (Barcode)、鬆布派單 (RelaxOrder)、副料 (Auxiliary) 及手持 PDA 掃碼實體模型</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction TB
+    class FabricRelaxDetail {
+        +long FabricRelax_Key
+        +string FabricRelax_No
+        +string FabricRelax_Status
+        +string Cust_ID
+        +string Contract_No
+        +string Order_No
+        +string Material_No
+        +string Color
+        +string LotNo
+        +decimal Total_Qty
+        +int Total_Roll
+    }
+    class FabricRelaxBarcode {
+        +string LD_No
+        +string Barcode_No
+        +string Material_No
+        +string Color
+        +string LotNo
+        +decimal Actual_Qty
+        +decimal Actual_Width
+        +decimal Actual_Weight
+        +string StockLocation_ID
+        +string Status
+    }
+    class FabricRelaxCarInfo {
+        +string CarID
+        +string CarName
+        +string CarType
+        +string CarSize
+        +string CarStatus
+        +string FabricRelaxOrder
+        +int RelaxHours
+        +int HoursDifference
+        +string LocationID
+    }
+    class WmsBinLocation {
+        +long LocationKey
+        +string Location_ID
+        +string Location_Name
+        +string Location_Group
+        +string WareHouseID
+        +string LocationSize
+    }
+    class AuxiliaryMaterialItem {
+        +string BarcodeNo
+        +string ItemID
+        +string ItemName
+        +string Specification
+        +string LotNo
+        +decimal Qty
+        +string Unit
+    }
+    class PdaReceiveOrder {
+        +string ReceiveOrderNo
+        +string PO_No
+        +string VendorID
+        +string WarehouseID
+        +DateTime ReceiveDate
+        +string Status
+    }
+    class ApiResponse~T~ {
+        +boolean Is_Valid
+        +string Message
+        +string ErrMsg
+        +int DataCount
+        +T Data_List
+    }
+
+    FabricRelaxDetail "1" *-- "1..*" FabricRelaxBarcode : 包含捲條碼
+    FabricRelaxDetail "1" o-- "0..1" FabricRelaxCarInfo : 裝載於鬆布車
+    FabricRelaxCarInfo "1" --> "1" WmsBinLocation : 停放於庫位
+    FabricRelaxBarcode --> WmsBinLocation : 存儲庫位
+    PdaReceiveOrder "1" *-- "1..*" AuxiliaryMaterialItem : 點收明細
+    ApiResponse~T~ ..> FabricRelaxDetail : 回傳承載
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-circle-info"></i> 業務實體關聯說明</h4>
+        <ul>
+          <li><strong>FabricRelaxDetail 與 FabricRelaxBarcode</strong>：採「一對多實體聚合 (Composition)」，一張鬆布單包含多筆布捲條碼明細，每捲包含缸號 (LotNo)、長度 (Actual_Qty)、門幅 (Actual_Width) 與實測碼重。</li>
+          <li><strong>FabricRelaxCarInfo 實體鬆布車關聯</strong>：鬆布車載有 RFID 晶片，在經過 AGV 或立庫轉運時，與實體停車位 (WmsBinLocation) 即時關聯。</li>
+          <li><strong>手持終端 (PDA)</strong>：透過 <code>Android_API_Response</code> 與 <code>PdaReceiveOrder</code> 實現副料進出庫驗貨閉環。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 2: WMS Interface Diagram -->
+    <div id="wms-interface" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-blue">Interface Diagram</span> WMS 倉儲與物料物流服務介面圖</h2>
+        <p>定義倉儲進出庫、驗布、鬆布調度及手持 PDA 對外暴露之 RESTful 服務契約</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction LR
+    class IWmsPublicService {
+        <<interface>>
+        +FabricStockIn(Request_StockIn) ApiResponse
+        +FabricStockOut(Request_StockOut) ApiResponse
+        +FabricReject(Request_Reject) ApiResponse
+        +FabricTransfer(Request_Transfer) ApiResponse
+        +GetFabricInventory(Request_InvQuery) ApiResponse
+        +CheckWmsVersion() ApiResponse
+    }
+    class IFabricRelaxService {
+        <<interface>>
+        +CreateFabricRelaxOrder(Request_CreateRelax) ApiResponse
+        +CheckRelaxBarcode(Request_CheckBarcode) ApiResponse
+        +ConfirmFabricRelax(Request_RelaxConfirm) ApiResponse
+        +GetRelaxingCarInfo(Request_CarInfo) List~FabricRelaxCarInfo~
+        +UpdateMainActualCuttableWidth(Request_Width) ApiResponse
+    }
+    class IAuxiliaryWarehouseService {
+        <<interface>>
+        +AuxiliaryStockIn(Request_AuxStockIn) ApiResponse
+        +AuxiliaryStockOut(Request_AuxStockOut) ApiResponse
+        +AuxiliaryInventoryQuery(Request_AuxQuery) ApiResponse
+        +UpdateAuxiliaryLocation(Request_LocUpdate) ApiResponse
+    }
+    class IPdaScannerService {
+        <<interface>>
+        +AndroidFormAuth(Request_Auth) Android_API_Response
+        +CheckBarcodeReceiveStatus(Request_Check) Android_API_Response
+        +CreateReceiveOrder(Request_Receive) Android_API_Response
+        +GetMQPList(Request_MQP) Android_API_Response
+        +ScanBarcodeConfirm(Request_Scan) Android_API_Response
+    }
+
+    class WMS_PublicController {
+        +HandleFabricStockIn()
+        +HandleFabricReject()
+    }
+    class WMS_FabricAPIController {
+        +HandleRelaxProcess()
+        +HandleBarcodeValidation()
+    }
+    class WMS_AuxiliaryController {
+        +HandleAuxStockInOut()
+    }
+    class WMS_AndroidAPIController {
+        +HandlePdaRequests()
+    }
+
+    WMS_PublicController ..|> IWmsPublicService : 實作
+    WMS_FabricAPIController ..|> IFabricRelaxService : 實作
+    WMS_AuxiliaryController ..|> IAuxiliaryWarehouseService : 實作
+    WMS_AndroidAPIController ..|> IPdaScannerService : 實作
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-shield-halved"></i> 介面安全與通訊特性</h4>
+        <ul>
+          <li><strong>通訊協定</strong>：全部採 <code>POST application/json</code>，無 URL Query Parameter 洩漏敏感資訊。</li>
+          <li><strong>狀態回傳介面</strong>：所有介面統一實作 <code>ApiResponse</code> 或 <code>Android_API_Response</code>，包含 <code>Is_Valid</code> 狀態碼、<code>Total</code>、<code>Success</code>、<code>Fail</code> 統計指標。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 3: MES Class Diagram -->
+    <div id="mes-class" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-amber">Class Diagram</span> MES 製造執行與成衣全流程領域類別圖</h2>
+        <p>涵蓋裁切工單 (CutOrder)、馬克圖 (Marker)、拉布層數 (CutColor)、車縫報工 (Sewing)、特殊製程 (SpecialProcess) 與成衣出貨</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction TB
+    class CutOrder {
+        +string CO_No
+        +string Order_No
+        +string Cust_ID
+        +string Style_ID
+        +DateTime Cut_CreateDate
+        +string Status
+    }
+    class CutOrder_Marker_Info {
+        +string Mark_Key
+        +string Mark_No
+        +string CO_No
+        +string Material_No
+        +decimal MK_Width
+        +decimal Marker_Length
+        +int Total_Pieces
+        +int Total_Layers
+    }
+    class CutColor {
+        +string Cust_Color
+        +string Produce_CustColor
+        +string Produce_Color
+        +string Produce_Part
+        +string Mat_Color
+        +int Layer_Qty
+    }
+    class CutPiece_StockIn {
+        +string token
+        +string billNo
+        +DateTime billDate
+        +string sourceBlock
+        +string source
+        +string destinationBlock
+        +int qty
+    }
+    class SewingProduceDailyQty {
+        +string DocNo
+        +string LineID
+        +string SectionID
+        +string StyleID
+        +string ColorID
+        +string SizeID
+        +int OutputQty
+        +DateTime WorkDate
+        +string OperatorID
+    }
+    class SpecialProcessOrder {
+        +string ProcessOrderNo
+        +string ProcessType
+        +string VendorID
+        +int PlanQty
+        +int ActualQty
+        +DateTime SendDate
+        +DateTime ReceiveDate
+        +string Status
+    }
+    class SalesOrderShip {
+        +string IKEY
+        +string SalesOrderKey
+        +string SalesShip_ERPKey
+        +string SalesShip_PO
+        +DateTime SalesShip_ShipDate
+        +int SalesShip_Qty
+    }
+
+    CutOrder "1" *-- "1..*" CutOrder_Marker_Info : 拆解馬克排版
+    CutOrder_Marker_Info "1" *-- "1..*" CutColor : 鋪布拉布顏色層數
+    CutOrder "1" --> "1..*" CutPiece_StockIn : 裁片綁捆入庫
+    CutOrder "1" ..> "1..*" SewingProduceDailyQty : 車縫每日報工產出
+    CutOrder "1" ..> "0..*" SpecialProcessOrder : 印繡花委外派工
+    SewingProduceDailyQty ..> SalesOrderShip : 成品包裝出貨
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-circle-info"></i> 成衣製造流程鏈路</h4>
+        <ul>
+          <li><strong>裁斷中心 (Cutting Center)</strong>：以 <code>CutOrder (CO_No)</code> 為核心，展開 <code>CutOrder_Marker_Info</code> 與 <code>CutColor</code>（記錄各色布料拉布層數 <code>Layer_Qty</code>）。</li>
+          <li><strong>裁片入庫 (CutPiece_StockIn)</strong>：與立庫系統 (GIL CutAsRs) 聯動，將裁片分包捆綁送入裁片中繼庫。</li>
+          <li><strong>車縫與出貨</strong>：由 <code>SewingProduceDailyQty</code> 按產線/工段回報計數，最終匯總至 <code>SalesOrderShip</code> 進行成品出口發貨。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 4: MES Interface Diagram -->
+    <div id="mes-interface" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-blue">Interface Diagram</span> MES 製造執行服務介面圖</h2>
+        <p>定義裁切、車縫、特殊製程外發、裝箱與成品入庫之 API 服務契約</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction LR
+    class ICuttingService {
+        <<interface>>
+        +GetCutInfo(CutInfo_Request) ApiResponse
+        +GetCutOrderMarkerInfo(Marker_Request) ApiResponse
+        +UpdateCutMaterialUsage(Usage_Request) ApiResponse
+        +NotifyCutFabricRelax(Notice_Request) ApiResponse
+    }
+    class ISewingService {
+        <<interface>>
+        +ProduceDailyQty(Produce_Request) ApiResponse
+        +ProduceDailyQtyByDoc(Doc_Request) ApiResponse
+        +SY_ProduceDailyQtyByDoc(SyDoc_Request) ApiResponse
+        +SpecialCaseProduceTotalQtySetOneDay(Req) ApiResponse
+    }
+    class ISpecialProcessService {
+        <<interface>>
+        +CreateProcessNotice(Notice_Req) ApiResponse
+        +UpdateBarcodeNo(Barcode_Req) ApiResponse
+        +ConfirmProcessArrival(Arrival_Req) ApiResponse
+        +GetProcessStatus(Query_Req) ApiResponse
+    }
+    class IFinishedGoodsShippingService {
+        <<interface>>
+        +PackPieceStockIn(Pack_Req) ApiResponse
+        +CartonScanPacking(Carton_Req) ApiResponse
+        +FGwhStockIn(StockIn_Req) ApiResponse
+        +GenerateSalesShipNotice(Ship_Req) ApiResponse
+    }
+
+    class MES_CutController {
+        +HandleCuttingOrder()
+        +HandleMarkerInfo()
+    }
+    class MES_SewController {
+        +HandleDailyProduction()
+    }
+    class MES_SpecialProcessController {
+        +HandleSubconProcess()
+    }
+    class MES_ShipController {
+        +HandleShippingAndFGwh()
+    }
+
+    MES_CutController ..|> ICuttingService : 實作
+    MES_SewController ..|> ISewingService : 實作
+    MES_SpecialProcessController ..|> ISpecialProcessService : 實作
+    MES_ShipController ..|> IFinishedGoodsShippingService : 實作
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-code-compare"></i> 車縫高頻報工介面特性</h4>
+        <ul>
+          <li><strong>ProduceDailyQty / SY_ProduceDailyQtyByDoc</strong>：車縫線終端機每工件掃碼報工的高頻進入點，具備極高的即時性與高並發寫入特性。</li>
+          <li><strong>外協特殊製程 (SpecialProcess)</strong>：針對印花、刺繡、水洗等製程，透過條碼綁定實現廠內與協力廠商間的物料交接防錯。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 5: TPM/AMS Class Diagram -->
+    <div id="tpm-class" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-amber">Class Diagram</span> TPM & AMS 設備運維與資產管理領域類別圖</h2>
+        <p>涵蓋機台設備主檔 (MachineData)、超高頻無線射頻 (UHF RFID)、報修派工 (Repair)、備品零件與固定資產定期盤點 (TakeInventory)</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction TB
+    class View_MachineData {
+        +string IKEY
+        +string Machine_UHF
+        +string Machine_AssetNumber
+        +string MachineModel_ID
+        +string Brand_Name
+        +long LocationKey
+        +string Location_Group
+        +string Location_ID
+        +string Status
+    }
+    class RepairMaster {
+        +string RepairMasterIKEY
+        +string Repair_No
+        +string MachineIKEY
+        +string Machine_UHF
+        +string RepairUserID
+        +DateTime Repair_Datetime
+        +string RepairmanID
+        +string Repair_Status
+        +string Failure_Reason
+    }
+    class RepairConfirmDetail {
+        +string RepairMasterIKEY
+        +string Machine_UHF
+        +string ConfirmUserRFID
+        +string AppUserID
+        +DateTime ConfirmTime
+        +string SignOffStatus
+    }
+    class SparePartWarehouse {
+        +string FactoryName
+        +string WH_Type
+        +string PartWH_Group
+        +string Part_ID
+        +string Part_Name
+        +int Stock_Qty
+        +int Safety_Qty
+    }
+    class TakeInventoryMaster {
+        +string TakeInv_ID
+        +long FactoryKey
+        +string FTY_ID
+        +string TakeInvMaster_Process
+        +DateTime StartDate
+        +DateTime EndDate
+        +string Status
+    }
+    class TakeInventoryDetail {
+        +string TakeInv_ID
+        +string Machine_AssetNumber
+        +string Machine_UHF
+        +string ScanLocation_ID
+        +int IsScaned
+        +DateTime ScanTime
+    }
+
+    View_MachineData "1" <-- "0..*" RepairMaster : 設備故障報修
+    RepairMaster "1" *-- "1" RepairConfirmDetail : 維修完成簽核確認
+    RepairMaster "1" ..> "0..*" SparePartWarehouse : 領用備品零件扣帳
+    TakeInventoryMaster "1" *-- "1..*" TakeInventoryDetail : 盤點任務清單
+    View_MachineData "1" <-- "1" TakeInventoryDetail : 盤點核對目標
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-microchip"></i> UHF RFID 與實體資產雙重管理</h4>
+        <ul>
+          <li><strong>UHF RFID 標籤綁定</strong>：全廠萬餘台縫紉機、平車、拷克車均以 <code>Machine_UHF</code> 與 <code>Machine_AssetNumber</code> 雙軌識別。</li>
+          <li><strong>維修流程狀態機</strong>：<code>報修 (RepairStart)</code> &rarr; <code>派工 (RepairDispatch)</code> &rarr; <code>完工 (RepairEnd)</code> &rarr; <code>主管簽核 (RepairConfirm)</code>，全程紀錄於 <code>RepairMaster</code>。</li>
+          <li><strong>盤點作業 (TakeInventory)</strong>：手持 RFID 終端整排掃描，透過 <code>TakeInventoryDetail.IsScaned</code> 自動比對盤盈盤虧。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 6: TPM/AMS Interface Diagram -->
+    <div id="tpm-interface" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-blue">Interface Diagram</span> TPM & AMS 設備資產服務介面圖</h2>
+        <p>定義設備主檔維護、RFID 感應、報修維修流程、零件庫存與固定資產調撥 API 服務契約</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction LR
+    class ITpmMachineService {
+        <<interface>>
+        +GetMachineInfo(Param_MachineInfo) ApiResponse
+        +UpdateMachineUHF(Param_UpdateUHF) ApiResponse
+        +QueryMachineLocationCount(Param_Query) ApiResponse
+        +GetFixRecordByTPM(Param_Record) ApiResponse
+    }
+    class ITpmRepairWorkflowService {
+        <<interface>>
+        +RepairStart(Param_RepairStart) ApiResponse
+        +RepairDispatch(Param_Dispatch) ApiResponse
+        +RepairEnd(Param_RepairEnd) ApiResponse
+        +RepairConfirm(Param_RepairConfirm) ApiResponse
+        +GetRepairHistory(Param_History) ApiResponse
+    }
+    class ITpmInventoryService {
+        <<interface>>
+        +QuerySparePartStock(Param_PartQuery) ApiResponse
+        +SparePartStockOut(Param_PartOut) ApiResponse
+        +CheckSafetyStockAlert(Param_Alert) ApiResponse
+    }
+    class IAmsAssetService {
+        <<interface>>
+        +TakeInventoryScan(Param_TakeInv) ApiResponse
+        +AssetDispatch(Param_AssetDispatch) ApiResponse
+        +GetAssetLocationSummary(Param_Summary) ApiResponse
+        +CheckRoleCanTakeInventory(Param_Role) ApiResponse
+    }
+
+    class TPM_MachineAPIController {
+        +HandleMachineData()
+    }
+    class TPM_RepairAPIController {
+        +HandleRepairStateFlow()
+    }
+    class TPM_InventoryAPIController {
+        +HandleSpareParts()
+    }
+    class AMS_InventoryController {
+        +HandleAssetAudit()
+    }
+
+    TPM_MachineAPIController ..|> ITpmMachineService : 實作
+    TPM_RepairAPIController ..|> ITpmRepairWorkflowService : 實作
+    TPM_InventoryAPIController ..|> ITpmInventoryService : 實作
+    AMS_InventoryController ..|> IAmsAssetService : 實作
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-wrench"></i> 介面權限與業務隔離</h4>
+        <ul>
+          <li><strong>角色權限預檢介面</strong>：包含 <code>CheckRoleCanTakeInventory</code>、<code>CheckRoleCanPostCategory</code>，確保僅具現場資產盤點或維修資格之技工可呼叫異動端點。</li>
+          <li><strong>附件管理 (Attachment)</strong>：支援設備維修現場相片與保養記錄上傳，關聯至 <code>TPM_AttachmentAPI</code>。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 7: Hardware Automation Class Diagram -->
+    <div id="hardware-class" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-purple">Class Diagram</span> 智慧物流硬體與 IoT/AGV/立庫領域類別圖</h2>
+        <p>涵蓋 AGV 無人搬運車 (AGV_Public)、TASRS 布料自動立庫、GIL 裁片立庫、吊掛線 (Hanger) 與 INA/IOT 遙測節點</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction TB
+    class AGV_Task {
+        +int TaskKey
+        +string TaskID
+        +string TaskMasterID
+        +string TaskTypeID
+        +string CarID
+        +string Fr_LocationID
+        +string To_LocationID
+        +string TaskPriority
+        +string TaskStatusName
+        +DateTime TaskSendTime
+        +DateTime TaskEndTime
+    }
+    class AGV_Car {
+        +string CarID
+        +string CarName
+        +string CarSize
+        +string CarStatus
+        +string CurrentLocationID
+        +int BatteryLevel
+    }
+    class TasrsLocationCell {
+        +string CellID
+        +string RackNo
+        +int RowNo
+        +int ColumnNo
+        +string StorageStatus
+        +string BarcodeNo
+        +decimal WeightKg
+    }
+    class SunHangerStation {
+        +string StationID
+        +string LineID
+        +string StationType
+        +string CurrentCarrierID
+        +string WorkerID
+        +int BufferCount
+    }
+    class IotTelemetryNode {
+        +string DeviceID
+        +string DeviceType
+        +string LocationID
+        +decimal Voltage
+        +decimal CurrentAmp
+        +decimal Temperature
+        +decimal Humidity
+        +DateTime Timestamp
+    }
+
+    AGV_Task "0..*" --> "1" AGV_Car : 指派搬運任務
+    AGV_Task ..> TasrsLocationCell : 跨庫位取放貨物
+    SunHangerStation "1" ..> "0..*" AGV_Task : 吊掛缺料呼叫 AGV 補料
+    IotTelemetryNode ..> AGV_Car : 監控電力與運轉溫升
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-robot"></i> 工廠實體硬體與軟體排程之閉環整合</h4>
+        <ul>
+          <li><strong>AGV 任務生命週期</strong>：由 <code>InsertTask</code> 或 <code>InsertReturnFillTask</code> 觸發，經排程引擎指派車輛 (<code>CarID</code>)，回報起始地 (<code>Fr_LocationID</code>) 與目的地 (<code>To_LocationID</code>)。</li>
+          <li><strong>立體倉庫 (TASRS & CutAsRs)</strong>：實現布捲自動入庫出庫與裁片高密度存儲，與 WMS/MES 指令完全連動。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 8: QMS/APS Class Diagram -->
+    <div id="qms-aps-class" class="tab-pane">
+      <div class="pane-header">
+        <h2><span class="badge badge-green">Class Diagram</span> QMS 品質管理與 APS 排程整合類別圖</h2>
+        <p>涵蓋成衣品質疵點 (DefectData)、巡檢報告 (InlineQCReport)、工時對接 (SMV) 及排程里程碑 (APS Event)</p>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+classDiagram
+    direction TB
+    class DefectData {
+        +string DefectID
+        +string DefectName
+        +string DefectCategory
+        +int DefectScore
+        +string SeverityLevel
+    }
+    class QMS_InlineQCReport {
+        +string ReportID
+        +string Order_No
+        +string LineID
+        +string InspectorID
+        +DateTime InspectTime
+        +int SampleSize
+        +int DefectQty
+        +string ResultStatus
+    }
+    class APS_SewPlan {
+        +string PlanID
+        +string Order_No
+        +string LineID
+        +DateTime PlanStartDate
+        +DateTime PlanEndDate
+        +int TargetDailyQty
+        +decimal StandardSMV
+    }
+    class RsiGetSmvModel {
+        +string Style_ID
+        +string Operation_ID
+        +string Operation_Desc
+        +decimal Standard_SMV
+        +decimal Machine_SMV
+        +decimal Manual_SMV
+        +string Machine_Type
+    }
+
+    QMS_InlineQCReport "1" *-- "0..*" DefectData : 記錄疵點細項
+    APS_SewPlan "1" ..> "1" RsiGetSmvModel : 依據標準工時計算產能
+    APS_SewPlan "1" ..> "0..*" QMS_InlineQCReport : 產線品質巡檢合格門檻
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-scale-balanced"></i> 總部規格與在地執行雙向錨定</h4>
+        <ul>
+          <li><strong>標準工時 SMV 串接 (RSI_GetSMVToMES)</strong>：總部 D365 / CQS 定義之標準工時，做為工廠 APS 車縫排程與計件效率的核心換算基準。</li>
+          <li><strong>品質追溯 (QMS)</strong>：在車縫線與包裝線即時收集 <code>DefectData</code>，一旦累計扣分超過閾值自動連鎖警示產線停機整頓。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#090d16',
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f8fafc',
+        primaryBorderColor: '#3b82f6',
+        lineColor: '#d97706',
+        secondaryColor: '#334155',
+        tertiaryColor: '#0f172a'
+      }
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      
+      event.currentTarget.classList.add('active');
+      const pane = document.getElementById(tabId);
+      if (pane) {
+        pane.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
