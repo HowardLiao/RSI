@@ -1,0 +1,341 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 1750" width="100%" height="100%" style="background:#090d16; font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;">
+<defs>
+      <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
+      </filter>
+      <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="8" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+      <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="8" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+      <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0369a1"/>
+        <stop offset="50%" stop-color="#0284c7"/>
+        <stop offset="100%" stop-color="#075985"/>
+      </linearGradient>
+      <linearGradient id="azureGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1d4ed8"/>
+        <stop offset="100%" stop-color="#1e40af"/>
+      </linearGradient>
+      <linearGradient id="awsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#d97706"/>
+        <stop offset="100%" stop-color="#b45309"/>
+      </linearGradient>
+      <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1e293b"/>
+        <stop offset="100%" stop-color="#0f172a"/>
+      </linearGradient>
+      <pattern id="hexGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 10 0 L 20 5 L 20 15 L 10 20 L 0 15 L 0 5 Z" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/>
+      </pattern>
+      <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+      </marker>
+      <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#c084fc"/>
+      </marker>
+      <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#f59e0b"/>
+      </marker>
+      <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981"/>
+      </marker>
+    </defs>
+<rect width="2600" height="1750" fill="url(#hexGrid)"/>
+
+    <g transform="translate(40, 30)">
+      <rect width="2520" height="74" rx="12" fill="#111827" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+      <text x="30" y="38" fill="#f8fafc" font-size="22" font-weight="bold" letter-spacing="1">
+        ☁️ 信源全球（RSI Group）Project Hive 雲地整合架構圖 (Hybrid Cloud Integration &amp; Service Topology)
+      </text>
+      <text x="30" y="60" fill="#94a3b8" font-size="12">
+        地端核心：Dynamics 365 AOS 交易叢集 + AlwaysOn AXDB 營運主庫 + SAM 打樣工藝庫 ｜ 雲地鏈路：第一線 Cloud Connect &amp; ExpressRoute (100M CIR &lt;28ms) ｜ 雲端中心：AWS 香港 Triton GPU AI &amp; S3 Glacier WORM
+      </text>
+    </g>
+
+    <!-- ZONE 1: ON-PREMISES CORE (TAIPEI HQ) -->
+    <g id="node-hybrid-onprem" class="interactive-node" onclick="openDeepDive('hybrid-onprem')" style="cursor:pointer;" transform="translate(40, 130)">
+      <rect width="860" height="1140" rx="16" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)"/>
+      
+      <!-- Zone Header -->
+      <rect width="860" height="52" rx="16" fill="#0f2942"/>
+      <rect y="40" width="860" height="12" fill="#0f2942"/>
+      <text x="24" y="34" fill="#38bdf8" font-size="18" font-weight="bold">🏢 地端企業營運核心 (On-Premises Core - 台北總部)</text>
+      
+      <g transform="translate(24, 70)">
+        <!-- Dynamics 365 AOS Cluster -->
+        <g id="node-d365-aos" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('d365-aos')" transform="translate(0, 0)">
+          <rect width="812" height="150" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+          <text x="20" y="30" fill="#60a5fa" font-size="16" font-weight="bold">💼 Microsoft Dynamics 365 AOS 交易服務叢集 (ERP Core)</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">實例節點：192.168.0.124 ~ 126 (3x 負載平衡實例，承載成衣訂單、物料進銷存、財務核算)</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">硬體支撐：RSI-SRV-HQ02 (Dell R760 2U, 48 Cores / 192GB ECC RAM / 雙 25GbE 綁定)</text>
+          <text x="20" y="100" fill="#94a3b8" font-size="11">SLA 關鍵等級：Tier 1 極關鍵 (可用度 99.9% ｜ RTO &lt; 2h ｜ RPO &lt; 15min)</text>
+          <text x="20" y="122" fill="#38bdf8" font-size="11">數據互動：透過 OData / Dual-write 管道與雲端雙向拋轉；毫秒級直連底層 AXDB 營運主庫</text>
+        </g>
+        
+        <!-- rsiaxdb1 AlwaysOn Database -->
+        <g id="node-rsiaxdb1" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rsiaxdb1')" transform="translate(0, 165)">
+          <rect width="812" height="160" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+          <text x="20" y="30" fill="#fbbf24" font-size="16" font-weight="bold">🗄️ rsiaxdb1 裸機叢集：MS SQL 2022 AlwaysOn 營運主庫 (AXDB)</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">伺服器：RSI-SRV-HQ03 (Dell R760 2U 裸機雙機鏡像，無虛擬化損耗，192.168.0.131)</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">儲存掛載：Dell Unity 480XT 全閃存 (Active-Active 96TB NVMe SSD RAID10, MTU 9000)</text>
+          <text x="20" y="100" fill="#f59e0b" font-size="12">容錯切換：WSFC 叢集專用雙 25GbE 心跳線，同步提交 (Sync Commit, RPO=0, 自動容錯 &lt; 30s)</text>
+          <text x="20" y="122" fill="#94a3b8" font-size="11">合規防護：TDE 透明全庫靜態加密 ｜ 交易日誌每 15 分鐘增量封存 ｜ WORM 不可變存儲</text>
+          <text x="20" y="140" fill="#fbbf24" font-size="10">權威澄清：純微軟 Dynamics 365 混合雲架構，完全排除 SAP HANA</text>
+        </g>
+        
+        <!-- SAM Core DB (RDSMP2) -->
+        <g id="node-sam-core" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('sam-core')" transform="translate(0, 340)">
+          <rect width="812" height="145" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+          <text x="20" y="30" fill="#34d399" font-size="16" font-weight="bold">🧵 SAM 打樣版單核心工藝庫 (RDSMP2 192.168.0.22)</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">伺服器：RSI-SRV-HQ01 (Dell R760 2U, MS SQL Server 2022 Enterprise)</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">業務範疇：全球成衣樣品打樣版單、裁切用料公式、車縫工藝路徑、國際品牌標準庫</text>
+          <text x="20" y="100" fill="#94a3b8" font-size="11">SLA 指標：Tier 2 關鍵營運 (可用度 99.5% ｜ RTO &lt; 4h ｜ RPO &lt; 1h)</text>
+          <text x="20" y="122" fill="#6ee7b7" font-size="11">AI 協同：版單數據與樣品影像即時送往 AWS Triton GPU 執行成衣視覺比對與工時預測</text>
+        </g>
+        
+        <!-- RSIMDW1 Middleware -->
+        <g id="node-rsimdw1" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rsimdw1')" transform="translate(0, 500)">
+          <rect width="812" height="150" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+          <text x="20" y="30" fill="#c084fc" font-size="16" font-weight="bold">⚙️ RSIMDW1 中繼微服務 API 轉換中樞 (Dell R660 1U)</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">核心服務：C# .NET 8 打造 80 支企業級 WebAPIs ｜ 雙微服務進程並行架構</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">服務埠位：D365.Report.Service (:8085) 報表引擎 ｜ Local.WebApi (:80) 業務交換門戶</text>
+          <text x="20" y="100" fill="#94a3b8" font-size="11">橋接對象：越南成衣 MES (42 支 API)、柬埔寨報關物流、SAM 打樣、MinIO 樣品影像庫</text>
+          <text x="20" y="122" fill="#c084fc" font-size="11">高可用特性：記憶體快取 (Redis) + 本地離線重送隊列 (RabbitMQ)，保障跨國斷網不丟單</text>
+        </g>
+        
+        <!-- Storage & Factory Analytics -->
+        <g id="node-analytics-store" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('analytics-store')" transform="translate(0, 665)">
+          <rect width="812" height="145" rx="10" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="20" y="30" fill="#38bdf8" font-size="16" font-weight="bold">📊 工廠時序數據引擎與 MinIO 樣品分散式儲存</text>
+          <text x="20" y="55" fill="#cbd5e1" font-size="12">成衣樣品 CAD 與影像存儲：MinIO S3-Compatible Object Store (4 節點 64TB 分散式叢集)</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">機台時序日誌：PostgreSQL 16 + TimescaleDB (即時採集針車轉速、裁刀磨耗、針距傳感數據)</text>
+          <text x="20" y="100" fill="#cbd5e1" font-size="12">OLAP 即時分析：StarRocks 極速向量化分析引擎 (支援跨國百萬級訂單與工時秒級報表)</text>
+          <text x="20" y="122" fill="#7dd3fc" font-size="11">監控體系：Prometheus + Grafana + Graylog 集中日誌 (保留 90 天在線快速檢索)</text>
+        </g>
+        
+        <!-- Local Identity & Cortex EDR -->
+        <g id="node-local-sec" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('local-sec')" transform="translate(0, 825)">
+          <rect width="812" height="110" rx="10" fill="#1e293b" stroke="#ec4899" stroke-width="1.5"/>
+          <text x="20" y="28" fill="#f472b6" font-size="15" font-weight="bold">🛡️ 本地網域身分認證與 Cortex AES 端點防護</text>
+          <text x="20" y="52" fill="#cbd5e1" font-size="12">身分認證：Windows Server 2022 Active Directory Domain Services (双機容錯 10.10.10.11/12)</text>
+          <text x="20" y="74" fill="#cbd5e1" font-size="12">端點防護：Palo Alto Cortex AES 代理覆蓋 100% 伺服器與工控跳板，防止勒索與非授權擴充</text>
+          <text x="20" y="94" fill="#fbcfe8" font-size="11">目錄聯邦：透過 Azure AD Connect / Cloud Sync 與雲端 Entra ID 保持雙向加密同步</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ZONE 2: HYBRID CONNECTIVITY HUB & MIDDLEWARE GATEWAY -->
+    <g id="node-hybrid-hub" class="interactive-node" onclick="openDeepDive('hybrid-hub')" style="cursor:pointer;" transform="translate(930, 130)">
+      <rect width="740" height="1140" rx="16" fill="url(#cardGrad)" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+      
+      <!-- Zone Header -->
+      <rect width="740" height="52" rx="16" fill="#2e1065"/>
+      <rect y="40" width="740" height="12" fill="#2e1065"/>
+      <text x="24" y="34" fill="#c084fc" font-size="18" font-weight="bold">🔀 雲地專屬高速通道與智慧分流網關 (Hybrid Interconnect)</text>
+      
+      <g transform="translate(24, 70)">
+        <!-- DYXnet Cloud Connect -->
+        <g id="node-cloud-pipe" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cloud-pipe')" transform="translate(0, 0)">
+          <rect width="692" height="145" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="20" y="30" fill="#38bdf8" font-size="16" font-weight="bold">⚡ 第一線 (DYXnet) Cloud Connect 專屬高速光纖通道</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">技術規範：私有二層專用光纖電路 (Layer 2 Dedicated Circuit, 無公網暴露風險)</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">保證頻寬：100 Mbps CIR (承載雲地資料庫同步、AI 影像特徵傳輸、備份上傳)</text>
+          <text x="20" y="100" fill="#38bdf8" font-size="12">極速低延遲：台北 HQ ⟷ AWS 香港 &lt; 28ms ｜ 台北 HQ ⟷ Azure 東亞 &lt; 25ms</text>
+          <text x="20" y="122" fill="#94a3b8" font-size="11">SLA 承諾：可用度 99.95% ｜ BGP 動態自動線路切換 ｜ 端到端硬體 IPSec 加密</text>
+        </g>
+        
+        <!-- YARP API Gateway -->
+        <g id="node-yarp-gw" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('yarp-gw')" transform="translate(0, 160)">
+          <rect width="692" height="165" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
+          <text x="20" y="30" fill="#c084fc" font-size="16" font-weight="bold">🛡️ YARP 雲地雙向反向代理與智慧分流網關 (API Gateway)</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">架構定位：Microsoft YARP (Yet Another Reverse Proxy) 高性能反向代理架構</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">智慧分流原則：</text>
+          <text x="35" y="98" fill="#cbd5e1" font-size="11">• 成衣視覺比對與排版優化請求 ➔ 轉發至 AWS 香港 Triton GPU AI (:8501)</text>
+          <text x="35" y="116" fill="#cbd5e1" font-size="11">• 營運交易與 ERP 拋轉請求 ➔ 保留在地端 Dynamics 365 AOS (:8085)</text>
+          <text x="35" y="134" fill="#cbd5e1" font-size="11">• 跨國只讀查詢與歷史報表 ➔ 導流至 Azure SQL 唯讀複本，減輕主庫負載</text>
+          <text x="20" y="152" fill="#a855f7" font-size="11">資安驗證：mTLS 雙向憑證認證 ｜ JWT Token 短效簽名 ｜ 請求速率動態限流</text>
+        </g>
+        
+        <!-- Dual-Write & CDC -->
+        <g id="node-cdc-sync" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cdc-sync')" transform="translate(0, 340)">
+          <rect width="692" height="155" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="20" y="30" fill="#fbbf24" font-size="16" font-weight="bold">🔄 Dual-Write &amp; CDC 交易日誌增量即時同步管道</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">同步機制：Change Data Capture (CDC) 異步解析 SQL 交易日誌 (Transaction Log)</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">同步對象：D365 AXDB ↔ Azure Data Lake / Azure SQL DB 災防熱備鏡像庫</text>
+          <text x="20" y="100" fill="#cbd5e1" font-size="12">一致性保證：斷點自動續傳、嚴格時序佇列 (Kafka / RabbitMQ)、交易冪等性保護</text>
+          <text x="20" y="122" fill="#94a3b8" font-size="11">SLA 指標：日誌同步延遲 &lt; 3 秒 ｜ 容災 RPO 嚴格保證 &lt; 15 分鐘</text>
+          <text x="20" y="140" fill="#fde68a" font-size="10">監控告警：延遲超過 60 秒即刻觸發 PagerDuty 與 Telegram 自動告警</text>
+        </g>
+        
+        <!-- Cortex AES Security Hub -->
+        <g id="node-cortex-hub" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cortex-hub')" transform="translate(0, 510)">
+          <rect width="692" height="165" rx="10" fill="#1e293b" stroke="#ec4899" stroke-width="2"/>
+          <text x="20" y="30" fill="#f472b6" font-size="16" font-weight="bold">🛡️ Palo Alto Networks Cortex AES 5階端到端聯防中樞</text>
+          <text x="20" y="55" fill="#f8fafc" font-size="13">防護理念：以 KOI 為第 1 階核心，橫跨地端機房、跨國專線與公有雲端</text>
+          <text x="20" y="78" fill="#cbd5e1" font-size="12">1. KOI 內嵌安全閘道：在雲端下載或跨國數據觸及裝置前實施線速阻斷</text>
+          <text x="20" y="98" fill="#cbd5e1" font-size="12">2. 執行階段防護：監控地端與雲端容器執行期行為，阻斷惡意程式碼注入</text>
+          <text x="20" y="118" fill="#cbd5e1" font-size="12">3. 憑證與管道防護：防止 CI/CD 與雲端 API Access Key / Secret 遭外洩濫用</text>
+          <text x="20" y="138" fill="#cbd5e1" font-size="12">4. 版本更新冷卻緩衝：雲端新模組部署強制經過 48 小時隔離沙箱驗證</text>
+          <text x="20" y="156" fill="#fbcfe8" font-size="10">5. 持續補救措施：異常橫向移動時，0.5 秒內自動切斷雲地連通並通知 CISO</text>
+        </g>
+        
+        <!-- Identity Federation -->
+        <g id="node-id-federation" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('id-federation')" transform="translate(0, 690)">
+          <rect width="692" height="135" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+          <text x="20" y="28" fill="#34d399" font-size="15" font-weight="bold">🔑 混合身分認證與單一登入 (SSO &amp; Dual-Track IAM)</text>
+          <text x="20" y="52" fill="#cbd5e1" font-size="12">地端：Active Directory (內部 Kerberos 快速身分鑑別)</text>
+          <text x="20" y="72" fill="#cbd5e1" font-size="12">雲端：Microsoft Entra ID (Azure AD, 條件式存取 Conditional Access + MFA)</text>
+          <text x="20" y="92" fill="#cbd5e1" font-size="12">跨國員工漫遊：越南/柬埔寨管理幹部使用 FIDO2 / Authenticator 雙因素無密碼登入</text>
+          <text x="20" y="112" fill="#a7f3d0" font-size="10">權限隔離：依角色實施最低權限原則 (RBAC)，定期自動審計過期授權</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ZONE 3: PUBLIC CLOUD CENTER (AZURE & AWS) -->
+    <g id="node-hybrid-cloud" class="interactive-node" onclick="openDeepDive('hybrid-cloud')" style="cursor:pointer;" transform="translate(1700, 130)">
+      <rect width="860" height="1140" rx="16" fill="url(#cardGrad)" stroke="#eab308" stroke-width="2" filter="url(#shadow)"/>
+      
+      <!-- Zone Header -->
+      <rect width="860" height="52" rx="16" fill="#713f12"/>
+      <rect y="40" width="860" height="12" fill="#713f12"/>
+      <text x="24" y="34" fill="#fde047" font-size="18" font-weight="bold">☁️ 雲端算力、AI 視覺與容災中心 (Public Cloud Core)</text>
+      
+      <g transform="translate(24, 70)">
+        <!-- Azure DR Box -->
+        <g id="node-azure-dr" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('azure-dr')" transform="translate(0, 0)">
+          <rect width="812" height="230" rx="10" fill="#1e293b" stroke="#2563eb" stroke-width="2"/>
+          <rect width="812" height="34" rx="10" fill="#1d4ed8"/>
+          <text x="20" y="23" fill="#ffffff" font-size="15" font-weight="bold">🔷 Microsoft Azure 雲端熱備容災中心 (Disaster Recovery Standby)</text>
+          
+          <g transform="translate(20, 50)">
+            <text x="0" y="20" fill="#93c5fd" font-size="14" font-weight="bold">1. Azure SQL Database 異地唯讀鏡像庫 (AlwaysOn Cloud Replica)</text>
+            <text x="20" y="42" fill="#cbd5e1" font-size="12">• 地端 rsiaxdb1 主庫透過專線以非同步方式鏡像至雲端，不拖慢地端事務提交</text>
+            <text x="20" y="62" fill="#cbd5e1" font-size="12">• 台北機房若遇極端全毀災難，一鍵手動/自動提升為主庫，RTO &lt; 2h，RPO &lt; 15min</text>
+            <text x="20" y="82" fill="#94a3b8" font-size="11">• 平常作為只讀報表節點，承接跨國集團龐大 Power BI 查詢，節省地端算力</text>
+            
+            <text x="0" y="115" fill="#93c5fd" font-size="14" font-weight="bold">2. Azure Virtual Machines 備援執行個體 (Hot-Standby AOS Instances)</text>
+            <text x="20" y="137" fill="#cbd5e1" font-size="12">• 預配 2 節點 Standard_E16s_v5 鏡像虛擬機，平常處於休眠/微載狀態</text>
+            <text x="20" y="157" fill="#60a5fa" font-size="11">• 觸發 BCP 災防流程時，Terraform 自動在 10 分鐘內拉起實例並掛載 SQL 終端</text>
+          </g>
+        </g>
+        
+        <!-- AWS Triton AI Cluster -->
+        <g id="node-aws-ai" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('aws-ai')" transform="translate(0, 245)">
+          <rect width="812" height="240" rx="10" fill="#1e293b" stroke="#d97706" stroke-width="2"/>
+          <rect width="812" height="34" rx="10" fill="#b45309"/>
+          <text x="20" y="23" fill="#ffffff" font-size="15" font-weight="bold">🤖 AWS 香港 (ap-east-1) GPU AI 視覺比對與工藝推論集群</text>
+          
+          <g transform="translate(20, 50)">
+            <text x="0" y="20" fill="#fcd34d" font-size="14" font-weight="bold">1. NVIDIA Triton Inference Server (:8501) + FastAPI 微服務 (:8000)</text>
+            <text x="20" y="42" fill="#cbd5e1" font-size="12">• 算力配置：EC2 g5.xlarge (1x NVIDIA A10G 24GB VRAM, 4 vCPU, 16GB RAM)</text>
+            <text x="20" y="62" fill="#cbd5e1" font-size="12">• AI 模型：YOLOv8-Garment (布料瑕疵識別) + ResNet50 (樣品版單特徵提取向量庫)</text>
+            <text x="20" y="82" fill="#cbd5e1" font-size="12">• 性能指標：單張高解析布料影像推論延遲 &lt; 85ms，支援 50 張/秒併發處理</text>
+            
+            <text x="0" y="115" fill="#fcd34d" font-size="14" font-weight="bold">2. 雲地協同業務流程 (SAM ↔ AI Pipeline)</text>
+            <text x="20" y="137" fill="#cbd5e1" font-size="12">• 台北 SAM 主機將成衣樣品照片加密上傳至專屬 S3 臨時 Bucket</text>
+            <text x="20" y="157" fill="#cbd5e1" font-size="12">• Triton AI 提取布料紋理特徵與瑕疵熱點，自動回填 SAM 版單與產能預測欄位</text>
+            <text x="20" y="177" fill="#fde68a" font-size="11">• 成果價值：成衣打樣週期由 7 天縮減至 48 小時，布料裁剪耗損降低 4.2%</text>
+          </g>
+        </g>
+        
+        <!-- AWS S3 Glacier WORM Storage -->
+        <g id="node-glacier-worm" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('glacier-worm')" transform="translate(0, 500)">
+          <rect width="812" height="230" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+          <rect width="812" height="34" rx="10" fill="#065f46"/>
+          <text x="20" y="23" fill="#ffffff" font-size="15" font-weight="bold">🧊 AWS S3 Glacier WORM 不可變存儲 (防勒索合規備份)</text>
+          
+          <g transform="translate(20, 50)">
+            <text x="0" y="20" fill="#6ee7b7" font-size="14" font-weight="bold">1. 嚴格 WORM (Write Once, Read Many) 合規機制</text>
+            <text x="20" y="42" fill="#cbd5e1" font-size="12">• 採用 AWS S3 Object Lock 處於合規模式 (Compliance Mode)，鎖定保留 7 年</text>
+            <text x="20" y="62" fill="#cbd5e1" font-size="12">• 即使 Root 根帳號、AWS Support 或遭勒索軟體攻擊，亦無法修改或提前刪除</text>
+            
+            <text x="0" y="95" fill="#6ee7b7" font-size="14" font-weight="bold">2. 自動化備份排程與生命週期 (Backup Pipeline)</text>
+            <text x="20" y="117" fill="#cbd5e1" font-size="12">• 台北總部每日 02:00 自動執行 AXDB 完整備份，經 AES-256 加密後透過專線上傳</text>
+            <text x="20" y="137" fill="#cbd5e1" font-size="12">• 儲存分層：標準 S3 (30 天) ➔ S3 Glacier Flexible (1 年) ➔ Deep Archive (7 年)</text>
+            <text x="20" y="157" fill="#a7f3d0" font-size="11">• 演練要求：每季自動取回驗證校驗碼 (SHA-256)，確保備份檔案 100% 可用</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- ZONE 4: OVERSEAS FACTORY EDGE AUTONOMY TIER -->
+    <g id="node-hybrid-edge" class="interactive-node" onclick="openDeepDive('hybrid-edge')" style="cursor:pointer;" transform="translate(40, 1290)">
+      <rect width="2520" height="420" rx="16" fill="url(#cardGrad)" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+      <rect width="2520" height="50" rx="16" fill="#064e3b"/>
+      <rect y="38" width="2520" height="12" fill="#064e3b"/>
+      <text x="30" y="33" fill="#a7f3d0" font-size="18" font-weight="bold">🏭 海外生產基地邊緣自律層 (Edge Computing &amp; Autonomous Production)</text>
+      
+      <g transform="translate(30, 65)">
+        <!-- Vietnam RDV Edge -->
+        <g id="node-edge-rdv-box" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('edge-rdv-box')" transform="translate(0, 0)">
+          <rect width="1215" height="325" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+          <text x="20" y="30" fill="#6ee7b7" font-size="16" font-weight="bold">🇻🇳 越南同奈廠 (RDV)：MES 車間自律快取與生產排程</text>
+          
+          <g transform="translate(20, 50)">
+            <text x="0" y="20" fill="#e2e8f0" font-size="13" font-weight="bold">邊緣硬體：Dell PowerEdge R650xs (32 Cores / 128GB ECC RAM / 4x 1.92TB NVMe SSD RAID10)</text>
+            <text x="0" y="45" fill="#cbd5e1" font-size="12">業務負載：成衣 MES 42 支生產專用 API ｜ 車縫流水線 120 工位 ｜ 自動裁床 ｜ RFID 吊掛追蹤</text>
+            <text x="0" y="70" fill="#cbd5e1" font-size="12">快取數據：未來 7 天生產工單、物料 BOM 表、工藝排程、員工計件工票工時規則</text>
+            <text x="0" y="98" fill="#34d399" font-size="13" font-weight="bold">💡 48~72 小時離線自律機制 (Offline Autonomy)：</text>
+            <text x="20" y="122" fill="#cbd5e1" font-size="12">• 當第一線專線或海底光纖中斷時，邊緣節點自動切換為本機自律模式，車間機台不停擺</text>
+            <text x="20" y="144" fill="#cbd5e1" font-size="12">• 本地 SQLite/PostgreSQL 鏡像庫暫存所有即時產出數據，生成本機審計雜湊鏈</text>
+            <text x="20" y="166" fill="#cbd5e1" font-size="12">• 專線復原後，RSIMDW1 自動啟動非同步批量雙向校驗與流水號對齊拋轉，零數據遺失</text>
+            <text x="0" y="195" fill="#94a3b8" font-size="11">資安管控：Cortex AES 第 2 階本機防護 ｜ 機台 PLC VLAN 200 五道紅線實體隔離</text>
+          </g>
+        </g>
+        
+        <!-- Cambodia RDG Edge -->
+        <g id="node-edge-rdg-box" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('edge-rdg-box')" transform="translate(1245, 0)">
+          <rect width="1215" height="325" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="20" y="30" fill="#fcd34d" font-size="16" font-weight="bold">🇰🇭 柬埔寨柴楨廠 (RDG)：物流報關自律系統與人事計件核算</text>
+          
+          <g transform="translate(20, 50)">
+            <text x="0" y="20" fill="#e2e8f0" font-size="13" font-weight="bold">邊緣硬體：Dell PowerEdge R650xs (32 Cores / 128GB ECC RAM / 4x 1.92TB NVMe SSD RAID10)</text>
+            <text x="0" y="45" fill="#cbd5e1" font-size="12">業務負載：海關物流報關單證系統 ｜ 原料進口保稅追蹤 ｜ 3,500+ 名員工生物識別考勤與計件工資</text>
+            <text x="0" y="70" fill="#cbd5e1" font-size="12">快取數據：近期出貨提單、海關商品編碼 (HS Code)、成衣裝箱條碼清單、各工段計件單價</text>
+            <text x="0" y="98" fill="#fbbf24" font-size="13" font-weight="bold">💡 48~72 小時離線自律機制 (Offline Autonomy)：</text>
+            <text x="20" y="122" fill="#cbd5e1" font-size="12">• 遇跨國專線故障或颱風斷網時，報關單據本機即時套印，確保貨櫃出廠上船不延誤</text>
+            <text x="20" y="144" fill="#cbd5e1" font-size="12">• 計件刷卡終端正常運作，員工上下班打卡不受外部網路影響，工資結算無縫進行</text>
+            <text x="20" y="166" fill="#cbd5e1" font-size="12">• 線路修復後，透過專用加密通訊埠將已完成報關與出貨紀錄拋轉回台北總部 D365 核銷</text>
+            <text x="0" y="195" fill="#94a3b8" font-size="11">資安管控：員工個資與薪資在地 AES-256 加密 ｜ 雙因子認證登入跳板機</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- DATAFLOW PATHWAYS -->
+    <g id="hybrid-dataflow" stroke-width="3" fill="none" opacity="0.85">
+      <!-- D365 AOS to YARP -->
+      <path d="M 852 250 L 954 250" stroke="#38bdf8" marker-end="url(#arrow-cyan)"/>
+      
+      <!-- rsiaxdb1 to CDC Sync -->
+      <path d="M 852 470 L 954 470" stroke="#f59e0b" marker-end="url(#arrow-amber)"/>
+      
+      <!-- SAM to YARP -->
+      <path d="M 852 640 L 900 640 L 900 350 L 954 350" stroke="#10b981" marker-end="url(#arrow-green)"/>
+      
+      <!-- RSIMDW1 to YARP -->
+      <path d="M 852 800 L 920 800 L 920 370 L 954 370" stroke="#c084fc" marker-end="url(#arrow-purple)"/>
+      
+      <!-- YARP to Azure DR -->
+      <path d="M 1646 290 L 1724 290" stroke="#38bdf8" marker-end="url(#arrow-cyan)"/>
+      
+      <!-- YARP to AWS AI -->
+      <path d="M 1646 380 L 1724 380" stroke="#f59e0b" marker-end="url(#arrow-amber)"/>
+      
+      <!-- CDC Sync to Azure SQL DB -->
+      <path d="M 1646 470 L 1724 470" stroke="#f59e0b" marker-end="url(#arrow-amber)"/>
+      
+      <!-- Cloud Pipe to S3 Glacier WORM -->
+      <path d="M 1646 200 L 1675 200 L 1675 630 L 1724 630" stroke="#10b981" marker-end="url(#arrow-green)"/>
+      
+      <!-- YARP down to Vietnam Edge -->
+      <path d="M 1250 850 L 1250 1290" stroke="#10b981" stroke-dasharray="6,4" marker-end="url(#arrow-green)"/>
+      
+      <!-- YARP down to Cambodia Edge -->
+      <path d="M 1350 850 L 1350 1290" stroke="#f59e0b" stroke-dasharray="6,4" marker-end="url(#arrow-amber)"/>
+    </g>
+</svg>

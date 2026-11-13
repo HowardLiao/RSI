@@ -1,0 +1,496 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 1750" width="100%" height="100%" style="background:#090d16; font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;">
+<defs>
+      <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
+      </filter>
+      <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="8" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+      <filter id="glow-amber" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="8" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+      <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0369a1"/>
+        <stop offset="50%" stop-color="#0284c7"/>
+        <stop offset="100%" stop-color="#075985"/>
+      </linearGradient>
+      <linearGradient id="sdwanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#c2410c"/>
+        <stop offset="50%" stop-color="#ea580c"/>
+        <stop offset="100%" stop-color="#9a3412"/>
+      </linearGradient>
+      <linearGradient id="boxGradHQ" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1e293b"/>
+        <stop offset="100%" stop-color="#0f172a"/>
+      </linearGradient>
+      <pattern id="hexGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 10 0 L 20 5 L 20 15 L 10 20 L 0 15 L 0 5 Z" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/>
+      </pattern>
+      <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+      </marker>
+      <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#f59e0b"/>
+      </marker>
+      <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981"/>
+      </marker>
+    </defs>
+<rect width="2600" height="1750" fill="url(#hexGrid)"/>
+
+    <g transform="translate(40, 30)">
+      <rect width="2520" height="74" rx="12" fill="#111827" stroke="#0ea5e9" stroke-width="2" filter="url(#shadow)"/>
+      <text x="30" y="38" fill="#f8fafc" font-size="22" font-weight="bold" letter-spacing="1">
+        🌐 信源全球（RSI Group）Project Hive 全球跨國網絡拓撲與 VLAN 微切分架構圖 (WAN Topology &amp; VLAN Micro-Segmentation)
+      </text>
+      <text x="30" y="60" fill="#94a3b8" font-size="12">
+        骨幹專線：第一線 (DYXnet) MPLS VPN (台越 40M / 台柬 20M / AWS Direct Connect 100M) ｜ 備援通道：雙 ISP SD-WAN 自動 3 秒倒換 ｜ 資安防護：Cortex AES 5階閘道 &amp; OT 黑盒子五道紅線
+      </text>
+    </g>
+
+    <!-- CENTRAL WAN BACKBONE -->
+    <g id="node-dyxnet-backbone" class="interactive-node" onclick="openDeepDive('dyxnet-backbone')" style="cursor:pointer;" transform="translate(750, 140)">
+      <rect width="1100" height="230" rx="20" fill="url(#cloudGrad)" stroke="#38bdf8" stroke-width="3" filter="url(#shadow)"/>
+      <rect x="15" y="15" width="1070" height="200" rx="14" fill="#0c4a6e" fill-opacity="0.5" stroke="#0284c7" stroke-dasharray="6,4"/>
+      
+      <text x="550" y="52" fill="#ffffff" font-size="22" font-weight="bold" text-anchor="middle">
+        ☁️ 第一線 (DYXnet) 跨國企業級 MPLS VPN 私有專線骨幹雲
+      </text>
+      <text x="550" y="78" fill="#bae6fd" font-size="13" text-anchor="middle">
+        全網 SLA 承諾：可用度 99.95% ｜ 雙核心 BGP AS65001 ｜ 端到端硬體加密 AES-256 ｜ 優先保證頻寬 (CIR 100%) ｜ MTU 1500
+      </text>
+      
+      <!-- MPLS Trunk Badges -->
+      <g transform="translate(45, 105)">
+        <!-- Trunk 1: TW-VN -->
+        <g id="node-trunk-vn" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('trunk-vn')" transform="translate(0, 0)">
+          <rect width="310" height="85" rx="10" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="15" y="26" fill="#f8fafc" font-size="14" font-weight="bold">🇹🇼 台北 HQ ⟷ 🇻🇳 越南同奈 (RDV)</text>
+          <text x="15" y="48" fill="#e0f2fe" font-size="12">頻寬保證：40 Mbps CIR (可突發至 100M)</text>
+          <text x="15" y="68" fill="#7dd3fc" font-size="11">延遲 SLA &lt; 42ms ｜ 抖動 &lt; 3ms ｜ 封包遺失 0%</text>
+        </g>
+        
+        <!-- Trunk 2: TW-KH -->
+        <g id="node-trunk-kh" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('trunk-kh')" transform="translate(345, 0)">
+          <rect width="310" height="85" rx="10" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="15" y="26" fill="#f8fafc" font-size="14" font-weight="bold">🇹🇼 台北 HQ ⟷ 🇰🇭 柬埔寨柴楨 (RDG)</text>
+          <text x="15" y="48" fill="#e0f2fe" font-size="12">頻寬保證：20 Mbps CIR (保證 ERP 事務)</text>
+          <text x="15" y="68" fill="#7dd3fc" font-size="11">延遲 SLA &lt; 62ms ｜ 抖動 &lt; 4ms ｜ 封包遺失 0%</text>
+        </g>
+        
+        <!-- Trunk 3: TW-AWS -->
+        <g id="node-trunk-aws" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('trunk-aws')" transform="translate(690, 0)">
+          <rect width="320" height="85" rx="10" fill="#075985" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="15" y="26" fill="#f8fafc" font-size="14" font-weight="bold">🇹🇼 台北 HQ ⟷ ☁️ AWS 香港 Direct Connect</text>
+          <text x="15" y="48" fill="#e0f2fe" font-size="12">雲端直連：100 Mbps CIR (專屬二層光纖)</text>
+          <text x="15" y="68" fill="#7dd3fc" font-size="11">延遲 SLA &lt; 28ms ｜ Triton GPU AI / S3 Glacier</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- SD-WAN OVERLAY BACKUP -->
+    <g id="node-sdwan-backup" class="interactive-node" onclick="openDeepDive('sdwan-backup')" style="cursor:pointer;" transform="translate(750, 395)">
+      <rect width="1100" height="70" rx="12" fill="url(#sdwanGrad)" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
+      <text x="30" y="32" fill="#ffffff" font-size="16" font-weight="bold">
+        🛡️ 雙 ISP 混合 SD-WAN 自動倒換備援網關 (Secondary Internet IPsec Overlay)
+      </text>
+      <text x="30" y="53" fill="#ffedd5" font-size="12">
+        底層線路：中華電信 HiNet 雙向固定制 500M / VNPT 300M / Metfone 200M ｜ 倒換機制：BFD (300ms 探針, 3次失聯 3 秒自動切換 IPsec IKEv2 AES-GCM)
+      </text>
+      <rect x="940" y="16" width="135" height="38" rx="8" fill="#7c2d12" stroke="#fdba74"/>
+      <text x="1007" y="40" fill="#ffedd5" font-size="12" font-weight="bold" text-anchor="middle">3 秒自動無感倒換</text>
+    </g>
+
+    <!-- ZONE 1: TAIPEI HQ NETWORK & VLANS -->
+    <g id="node-zone-hq" class="interactive-node" onclick="openDeepDive('zone-hq')" style="cursor:pointer;" transform="translate(40, 500)">
+      <rect width="900" height="1200" rx="16" fill="url(#boxGradHQ)" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)"/>
+      
+      <!-- Header -->
+      <rect width="900" height="52" rx="16" fill="#1e293b"/>
+      <rect y="40" width="900" height="12" fill="#1e293b"/>
+      <text x="24" y="34" fill="#38bdf8" font-size="18" font-weight="bold">🏢 台北內湖總部核心網絡與 VLAN 微切分架構 (Taipei HQ Backbone)</text>
+      
+      <!-- Core Switch & Firewall -->
+      <g transform="translate(24, 70)">
+        <!-- FortiGate HA -->
+        <g id="node-fg-hq" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('fg-hq')" transform="translate(0, 0)">
+          <rect width="415" height="100" rx="10" fill="#1e1e38" stroke="#ef4444" stroke-width="2"/>
+          <text x="18" y="28" fill="#f87171" font-size="15" font-weight="bold">🛡️ FortiGate 200F HA 雙機熱備次世代防火牆</text>
+          <text x="18" y="50" fill="#cbd5e1" font-size="12">吞吐量 27 Gbps ｜ 威脅防禦 3 Gbps ｜ SSL-VPN 500+ 人</text>
+          <text x="18" y="70" fill="#94a3b8" font-size="11">WAN1: 第一線 MPLS (40M) ｜ WAN2: HiNet 500M 固接</text>
+          <text x="18" y="88" fill="#a78bfa" font-size="11">Cortex AES KOI 第 1 階安全閘道 ｜ 主備心跳延遲 &lt; 1ms</text>
+        </g>
+        
+        <!-- Dell S5248F Core Switch -->
+        <g id="node-sw-hq" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('sw-hq')" transform="translate(435, 0)">
+          <rect width="415" height="100" rx="10" fill="#0f2942" stroke="#0ea5e9" stroke-width="2"/>
+          <text x="18" y="28" fill="#38bdf8" font-size="15" font-weight="bold">🔀 Dell PowerSwitch S5248F-ON 核心交換機</text>
+          <text x="18" y="50" fill="#cbd5e1" font-size="12">背板 2.0 Tbps ｜ 48x 25GbE SFP28 + 4x 100GbE QSFP28</text>
+          <text x="18" y="70" fill="#94a3b8" font-size="11">VLT (Virtual Link Trunking) 雙機跨設備無迴圈聚合</text>
+          <text x="18" y="88" fill="#34d399" font-size="11">RoCE v2 RDMA 低延遲傳輸 ｜ Jumbo Frame MTU 9000</text>
+        </g>
+      </g>
+      
+      <!-- Micro-Segmentation VLANs Container -->
+      <g transform="translate(24, 190)">
+        <text x="4" y="20" fill="#e2e8f0" font-size="15" font-weight="bold">🛡️ 企業級內網 VLAN 微切分與安全邊界拓撲 (802.1Q Micro-Segmentation)</text>
+        
+        <!-- VLAN 10 -->
+        <g id="node-vlan-10" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('vlan-10')" transform="translate(0, 35)">
+          <rect width="850" height="95" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+          <rect x="0" y="0" width="12" height="95" rx="8" fill="#94a3b8"/>
+          <text x="25" y="28" fill="#f8fafc" font-size="14" font-weight="bold">VLAN 10: OOB 帶外專屬管理網 (10.10.10.0/24)</text>
+          <text x="25" y="50" fill="#cbd5e1" font-size="12">成員：iDRAC 9 Enterprise (R760/R660)、Dell Unity SP 管理埠、APC UPS NMC3、PDU 監控</text>
+          <text x="25" y="70" fill="#94a3b8" font-size="11">安全邊界：實體隔離獨立跳線，僅限網管室專屬跳板機存取，嚴禁外網與一般辦公網路由</text>
+          <text x="25" y="88" fill="#38bdf8" font-size="10">監控輪詢：SNMPv3 + Syslog UDP 514 ｜ 認證：RADIUS 802.1X</text>
+        </g>
+        
+        <!-- VLAN 20 -->
+        <g id="node-vlan-20" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('vlan-20')" transform="translate(0, 145)">
+          <rect width="850" height="95" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+          <rect x="0" y="0" width="12" height="95" rx="8" fill="#3b82f6"/>
+          <text x="25" y="28" fill="#f8fafc" font-size="14" font-weight="bold">VLAN 20: 虛擬化平台與 vMotion 叢集 (10.10.20.0/24)</text>
+          <text x="25" y="50" fill="#cbd5e1" font-size="12">成員：VMware ESXi 8.0 虛擬主機 vmkernel、vCenter Server Appliance、vMotion 遷移專網</text>
+          <text x="25" y="70" fill="#94a3b8" font-size="11">頻寬規劃：雙 25GbE 綁定 LACP，vMotion 專用無損傳輸佇列，虛擬機在線熱遷移耗時 &lt; 5 秒</text>
+          <text x="25" y="88" fill="#60a5fa" font-size="10">QoS：DSCP CS4 (Priority 4) ｜ 巨幀支援：MTU 9000 ｜ 容錯備援：Active-Standby 多路徑</text>
+        </g>
+        
+        <!-- VLAN 30 -->
+        <g id="node-vlan-30" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('vlan-30')" transform="translate(0, 255)">
+          <rect width="850" height="110" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+          <rect x="0" y="0" width="12" height="110" rx="8" fill="#10b981"/>
+          <text x="25" y="28" fill="#f8fafc" font-size="14" font-weight="bold">VLAN 30: 核心微服務與業務中繼層 (10.10.30.0/24)</text>
+          <text x="25" y="50" fill="#cbd5e1" font-size="12">成員：RSIMDW1 (Dell R660 C# 80 支 WebAPIs)、D365.Report.Service (:8085)、Local.WebApi (:80)</text>
+          <text x="25" y="70" fill="#94a3b8" font-size="11">對接系統：越南成衣 MES (42 支 API)、柬埔寨報關物流、SAM 打樣版單、MinIO 樣品影像庫</text>
+          <text x="25" y="90" fill="#34d399" font-size="11">安全策略：僅開放 TCP 80/443/8085，入站強驗 JWT Token，出站限制訪問 VLAN 40 特定資料庫 Port</text>
+          <text x="25" y="104" fill="#a7f3d0" font-size="10">Cortex AES 第 2 階：執行期進程行為異常白名單攔截 (阻止非授權腳本注入)</text>
+        </g>
+        
+        <!-- VLAN 40 -->
+        <g id="node-vlan-40" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('vlan-40')" transform="translate(0, 380)">
+          <rect width="850" height="115" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+          <rect x="0" y="0" width="12" height="115" rx="8" fill="#f59e0b"/>
+          <text x="25" y="28" fill="#fbbf24" font-size="15" font-weight="bold">VLAN 40: 核心營運資料庫專網 (10.10.40.0/24) [Tier 1 極核心]</text>
+          <text x="25" y="50" fill="#cbd5e1" font-size="12">成員：rsiaxdb1 (192.168.0.131) MS SQL 2022 AlwaysOn 雙機鏡像、SAM 打樣版單庫 (RDSMP2)</text>
+          <text x="25" y="72" fill="#94a3b8" font-size="11">心跳與同步：雙路專屬 25GbE 直連同步鏡像 (Zero Data Loss RPO=0，容錯自動切換 &lt; 30s)</text>
+          <text x="25" y="92" fill="#fbbf24" font-size="11">安全隔離：無外網路由 (No Default Gateway to WAN)，僅限 VLAN 30 應用中繼與 D365 AOS 存取</text>
+          <text x="25" y="108" fill="#fde68a" font-size="10">監控合規：TDE 全庫靜態加密 ｜ 審計日誌即時 WORM 拋轉 S3 Glacier ｜ 拒絕直接 SQL 查詢</text>
+        </g>
+        
+        <!-- VLAN 50 -->
+        <g id="node-vlan-50" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('vlan-50')" transform="translate(0, 510)">
+          <rect width="850" height="100" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+          <rect x="0" y="0" width="12" height="100" rx="8" fill="#8b5cf6"/>
+          <text x="25" y="28" fill="#c084fc" font-size="14" font-weight="bold">VLAN 50: SAN 全閃存存儲網絡 (10.10.50.0/24 - iSCSI / NVMe-oF)</text>
+          <text x="25" y="50" fill="#cbd5e1" font-size="12">成員：Dell Unity 480XT 全閃存儲存陣列 (雙控 SP-A / SP-B, 25x 3.84TB SAS SSD, 96TB 有效)</text>
+          <text x="25" y="70" fill="#94a3b8" font-size="11">協定優化：iSCSI 多路徑 (MPIO Active-Active) ｜ 巨型訊框 MTU 9000 ｜ 延遲 &lt; 0.5ms</text>
+          <text x="25" y="90" fill="#ddd6fe" font-size="10">安全規則：無跨 VLAN 路由，純二層光纖隔離，CHAP 雙向密碼認證，防止未授權主機掛載 LUN</text>
+        </g>
+        
+        <!-- VLAN 100 -->
+        <g id="node-vlan-100" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('vlan-100')" transform="translate(0, 625)">
+          <rect width="850" height="95" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+          <rect x="0" y="0" width="12" height="95" rx="8" fill="#ef4444"/>
+          <text x="25" y="28" fill="#f87171" font-size="14" font-weight="bold">VLAN 100: 外網 DMZ 緩衝隔離區 (10.10.100.0/24)</text>
+          <text x="25" y="50" fill="#cbd5e1" font-size="12">成員：反向代理伺服器 (Nginx / YARP)、外部 Web 門戶、電子發票網關、供應商打樣上傳入口</text>
+          <text x="25" y="70" fill="#94a3b8" font-size="11">安全檢測：FortiGate 深度封包檢測 (DPI)、IPS 入侵防禦、WAF 阻絕 OWASP Top 10 攻擊</text>
+          <text x="25" y="88" fill="#fca5a5" font-size="10">隔離策略：DMZ 嚴禁主動發起對內網核心（VLAN 40/50）的連線，所有數據必須透過微服務拉取</text>
+        </g>
+        
+        <!-- VLAN Summary Matrix -->
+        <g transform="translate(0, 735)">
+          <rect width="850" height="230" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+          <text x="20" y="30" fill="#e2e8f0" font-size="14" font-weight="bold">📊 台北總部核心網絡與資安防禦技術矩陣</text>
+          
+          <g transform="translate(20, 48)">
+            <rect width="810" height="28" fill="#1e293b"/>
+            <text x="10" y="19" fill="#94a3b8" font-size="11" font-weight="bold">網段代號</text>
+            <text x="130" y="19" fill="#94a3b8" font-size="11" font-weight="bold">IP 區段</text>
+            <text x="270" y="19" fill="#94a3b8" font-size="11" font-weight="bold">傳輸協定 / 埠位</text>
+            <text x="440" y="19" fill="#94a3b8" font-size="11" font-weight="bold">存取控制原則 (ACL)</text>
+            <text x="660" y="19" fill="#94a3b8" font-size="11" font-weight="bold">資安隔離等級</text>
+          </g>
+          
+          <g transform="translate(20, 80)">
+            <text x="10" y="18" fill="#e2e8f0" font-size="11">VLAN 10</text>
+            <text x="130" y="18" fill="#94a3b8" font-size="11">10.10.10.0/24</text>
+            <text x="270" y="18" fill="#cbd5e1" font-size="11">HTTPS 443, IPMI 623</text>
+            <text x="440" y="18" fill="#38bdf8" font-size="11">僅限網管專用跳板機</text>
+            <text x="660" y="18" fill="#ef4444" font-size="11">🔒 實體與邏輯最高隔離</text>
+            
+            <text x="10" y="44" fill="#e2e8f0" font-size="11">VLAN 20</text>
+            <text x="130" y="44" fill="#94a3b8" font-size="11">10.10.20.0/24</text>
+            <text x="270" y="44" fill="#cbd5e1" font-size="11">vMotion, vCenter 443</text>
+            <text x="440" y="44" fill="#38bdf8" font-size="11">ESXi 節點互聯專用</text>
+            <text x="660" y="44" fill="#f59e0b" font-size="11">⚡ 25GbE 內部無損通道</text>
+            
+            <text x="10" y="70" fill="#e2e8f0" font-size="11">VLAN 30</text>
+            <text x="130" y="70" fill="#94a3b8" font-size="11">10.10.30.0/24</text>
+            <text x="270" y="70" fill="#cbd5e1" font-size="11">TCP 80, 443, 8085</text>
+            <text x="440" y="70" fill="#38bdf8" font-size="11">授權廠區與微服務調用</text>
+            <text x="660" y="70" fill="#10b981" font-size="11">🛡️ JWT + 傳輸雙向加密</text>
+            
+            <text x="10" y="96" fill="#e2e8f0" font-size="11">VLAN 40</text>
+            <text x="130" y="96" fill="#94a3b8" font-size="11">10.10.40.0/24</text>
+            <text x="270" y="96" fill="#cbd5e1" font-size="11">TDS 1433, AlwaysOn 5022</text>
+            <text x="440" y="96" fill="#38bdf8" font-size="11">白名單：僅限 AOS 與中繼</text>
+            <text x="660" y="96" fill="#ef4444" font-size="11">🚫 嚴禁外網與直連 SQL</text>
+            
+            <text x="10" y="122" fill="#e2e8f0" font-size="11">VLAN 50</text>
+            <text x="130" y="122" fill="#94a3b8" font-size="11">10.10.50.0/24</text>
+            <text x="270" y="122" fill="#cbd5e1" font-size="11">iSCSI 3260 (MTU 9000)</text>
+            <text x="440" y="122" fill="#38bdf8" font-size="11">僅主機 HBA ↔ 儲存 SP</text>
+            <text x="660" y="122" fill="#8b5cf6" font-size="11">🟣 純二層無路由 SAN</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- ZONE 2: VIETNAM DONG NAI FACTORY (RDV) -->
+    <g id="node-zone-rdv" class="interactive-node" onclick="openDeepDive('zone-rdv')" style="cursor:pointer;" transform="translate(980, 500)">
+      <rect width="760" height="580" rx="16" fill="url(#boxGradHQ)" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+      <rect width="760" height="52" rx="16" fill="#064e3b"/>
+      <rect y="40" width="760" height="12" fill="#064e3b"/>
+      <text x="24" y="34" fill="#a7f3d0" font-size="18" font-weight="bold">🏭 越南同奈廠區網絡拓撲與 OT 工控隔離 (RDV Network &amp; OT Security)</text>
+      
+      <!-- RDV Edge Network Gateway -->
+      <g transform="translate(24, 70)">
+        <g id="node-fg-rdv" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('fg-rdv')" transform="translate(0, 0)">
+          <rect width="345" height="95" rx="8" fill="#1e1e38" stroke="#10b981" stroke-width="1.5"/>
+          <text x="16" y="26" fill="#6ee7b7" font-size="14" font-weight="bold">🛡️ FortiGate 80F 邊界網關</text>
+          <text x="16" y="46" fill="#cbd5e1" font-size="11">WAN1: 第一線 MPLS (40M CIR &lt; 42ms)</text>
+          <text x="16" y="64" fill="#cbd5e1" font-size="11">WAN2: VNPT 光纖 300M (SD-WAN 備援)</text>
+          <text x="16" y="82" fill="#34d399" font-size="10">自動 3 秒切換 ｜ Cortex AES 第 1 階網關攔截</text>
+        </g>
+        
+        <g id="node-edge-rdv" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('edge-rdv')" transform="translate(365, 0)">
+          <rect width="345" height="95" rx="8" fill="#0f2942" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="16" y="26" fill="#7dd3fc" font-size="14" font-weight="bold">🖥️ RDV-EDGE-SRV01 邊緣伺服器</text>
+          <text x="16" y="46" fill="#cbd5e1" font-size="11">型號：Dell PowerEdge R650xs (32C/128G)</text>
+          <text x="16" y="64" fill="#fcd34d" font-size="11">自律快取：越南 MES 42 支 API 離線運算</text>
+          <text x="16" y="82" fill="#38bdf8" font-size="10">斷網 48~72h 自主生產 ｜ 復網非同步對賬拋轉</text>
+        </g>
+      </g>
+      
+      <!-- RDV VLANs & OT Sandbox -->
+      <g transform="translate(24, 185)">
+        <!-- Production LAN -->
+        <g id="node-rdv-mes-lan" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rdv-mes-lan')" transform="translate(0, 0)">
+          <rect width="710" height="85" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+          <text x="20" y="26" fill="#93c5fd" font-size="14" font-weight="bold">車間生產局域網 (172.16.10.0/24 - MES Shop Floor)</text>
+          <text x="20" y="48" fill="#cbd5e1" font-size="12">覆蓋範圍：成衣車縫流水線、自動裁床控制站、吊掛工票 RFID 讀卡器 (共 180+ 工位)</text>
+          <text x="20" y="68" fill="#94a3b8" font-size="11">數據流向：MES API 即時上報產量、工時、瑕疵紀錄至 RDV-EDGE，同步彙總至總部 D365</text>
+        </g>
+        
+        <!-- OT Blackbox 5 Red Lines Sandbox -->
+        <g id="node-rdv-ot-sandbox" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rdv-ot-sandbox')" transform="translate(0, 100)">
+          <rect width="710" height="270" rx="10" fill="#1a1016" stroke="#ef4444" stroke-width="2"/>
+          <rect width="710" height="34" rx="10" fill="#7f1d1d"/>
+          <text x="20" y="23" fill="#fecaca" font-size="14" font-weight="bold">🚨 VLAN 200: 機台設備商「黑盒子」五道紅線 OT 工控隔離區</text>
+          
+          <g transform="translate(20, 50)">
+            <text x="0" y="20" fill="#f87171" font-size="13" font-weight="bold">紅線 ①：嚴禁外部直連 (Zero Public Inbound)</text>
+            <text x="20" y="40" fill="#cbd5e1" font-size="11">黑盒子設備商路由器/PLC 嚴禁配置任何公網 IP，禁止插用外部 4G/5G SIM 卡或外部 WiFi 熱點。</text>
+            
+            <text x="0" y="70" fill="#f87171" font-size="13" font-weight="bold">紅線 ②：微切分專屬 VLAN (Isolated OT VLAN 200)</text>
+            <text x="20" y="90" fill="#cbd5e1" font-size="11">所有機台控制器置於專屬 VLAN 200 (172.16.200.0/24)，實體交換埠綁定 MAC 地址防冒用。</text>
+            
+            <text x="0" y="120" fill="#f87171" font-size="13" font-weight="bold">紅線 ③：單向數據中繼與只讀提取 (Unidirectional Data Diode)</text>
+            <text x="20" y="140" fill="#cbd5e1" font-size="11">禁止機台主動訪問 ERP/MES 核心資料庫；僅允許信源 MES 邊緣代理透過 Modbus/OPC-UA 主動拉取數據。</text>
+            
+            <text x="0" y="170" fill="#f87171" font-size="13" font-weight="bold">紅線 ④：遠端維護雙因素審批審計 (2FA Bastion Host Session Recording)</text>
+            <text x="20" y="190" fill="#cbd5e1" font-size="11">設備商維護必須經由信源跳板機進行 2FA 申請，每次連線限時 2 小時，全程螢幕錄影與操作審計留存。</text>
+            
+            <text x="0" y="220" fill="#f87171" font-size="13" font-weight="bold">紅線 ⑤：Cortex AES OT 端點防護與冷卻隔離 (Instant Quarantine Buffer)</text>
+            <text x="20" y="240" fill="#cbd5e1" font-size="11">監測到異常橫向移動或非法廣播封包時，交換機立即下發 802.1X 封鎖指令，0.5 秒內實體隔離機台端口。</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- ZONE 3: CAMBODIA SVAY RIENG FACTORY (RDG) -->
+    <g id="node-zone-rdg" class="interactive-node" onclick="openDeepDive('zone-rdg')" style="cursor:pointer;" transform="translate(980, 1100)">
+      <rect width="760" height="600" rx="16" fill="url(#boxGradHQ)" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+      <rect width="760" height="52" rx="16" fill="#78350f"/>
+      <rect y="40" width="760" height="12" fill="#78350f"/>
+      <text x="24" y="34" fill="#fde68a" font-size="18" font-weight="bold">🏭 柬埔寨柴楨廠區網絡拓撲與物流物流整合 (RDG Network &amp; Logistics)</text>
+      
+      <!-- RDG Edge Network Gateway -->
+      <g transform="translate(24, 70)">
+        <g id="node-fg-rdg" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('fg-rdg')" transform="translate(0, 0)">
+          <rect width="345" height="95" rx="8" fill="#1e1e38" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="16" y="26" fill="#fcd34d" font-size="14" font-weight="bold">🛡️ FortiGate 60F 邊界網關</text>
+          <text x="16" y="46" fill="#cbd5e1" font-size="11">WAN1: 第一線 MPLS (20M CIR &lt; 62ms)</text>
+          <text x="16" y="64" fill="#cbd5e1" font-size="11">WAN2: Metfone 光纖 200M (SD-WAN 備援)</text>
+          <text x="16" y="82" fill="#fbbf24" font-size="10">自動 3 秒切換 ｜ Cortex AES 第 1 階網關攔截</text>
+        </g>
+        
+        <g id="node-edge-rdg" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('edge-rdg')" transform="translate(365, 0)">
+          <rect width="345" height="95" rx="8" fill="#0f2942" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="16" y="26" fill="#7dd3fc" font-size="14" font-weight="bold">🖥️ RDG-EDGE-SRV01 邊緣伺服器</text>
+          <text x="16" y="46" fill="#cbd5e1" font-size="11">型號：Dell PowerEdge R650xs (32C/128G)</text>
+          <text x="16" y="64" fill="#fcd34d" font-size="11">自律快取：海關物流報關、計件人事核算</text>
+          <text x="16" y="82" fill="#38bdf8" font-size="10">斷網 48~72h 自主作業 ｜ 復網安全批量對賬</text>
+        </g>
+      </g>
+      
+      <!-- RDG Subnets -->
+      <g transform="translate(24, 185)">
+        <g id="node-rdg-logistics" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rdg-logistics')" transform="translate(0, 0)">
+          <rect width="710" height="95" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="20" y="26" fill="#fde68a" font-size="14" font-weight="bold">跨國物流報關與倉儲管理網 (172.16.20.0/24 - Customs &amp; WMS)</text>
+          <text x="20" y="48" fill="#cbd5e1" font-size="12">業務範疇：柬埔寨海關出口報關單據、成品出貨條碼核銷、原物料進口料件追蹤</text>
+          <text x="20" y="70" fill="#94a3b8" font-size="11">SLA 指標：專線延遲 &lt; 62ms ｜ 報關單證同步 RTO &lt; 2h, RPO &lt; 15min</text>
+          <text x="20" y="88" fill="#fbbf24" font-size="10">通訊保障：第一線 MPLS 20M CIR 優先保證 D365 採購與出貨事務封包 (DSCP EF)</text>
+        </g>
+        
+        <g id="node-rdg-hr" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rdg-hr')" transform="translate(0, 110)">
+          <rect width="710" height="95" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+          <text x="20" y="26" fill="#93c5fd" font-size="14" font-weight="bold">人事考勤與計件工資自律系統 (172.16.21.0/24 - HR &amp; Piecework)</text>
+          <text x="20" y="48" fill="#cbd5e1" font-size="12">成員：3,500+ 當地員工生物識別考勤機、車間計件刷卡終端機</text>
+          <text x="20" y="70" fill="#94a3b8" font-size="11">離線自律機制：發薪日前夕如遇跨國光纖中斷，邊緣伺服器自動接管本廠計件算薪</text>
+          <text x="20" y="88" fill="#60a5fa" font-size="10">安全性：員工個資與薪資表單在地加密 (AES-256)，定期異步加密傳回台北總部存檔</text>
+        </g>
+        
+        <g id="node-rdg-ot-hanging" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('rdg-ot-hanging')" transform="translate(0, 220)">
+          <rect width="710" height="165" rx="8" fill="#1a1016" stroke="#ef4444" stroke-width="1.5"/>
+          <text x="20" y="26" fill="#fca5a5" font-size="14" font-weight="bold">🚨 VLAN 200: 柬埔寨車間智慧吊掛流水線 OT 隔離網</text>
+          <text x="20" y="48" fill="#cbd5e1" font-size="12">設備商吊掛導軌 PLC 控制系統 ｜ 嚴格套用信源「五道紅線」安全規範</text>
+          <text x="20" y="70" fill="#94a3b8" font-size="11">通訊限制：實體隔離獨立網段，僅允許透過專用邊緣網關上傳吊掛衣架傳感器日誌</text>
+          <text x="20" y="92" fill="#ef4444" font-size="11">禁止行為：嚴禁設備商外部連入調機，如需維修必須經由總部資安官 (Howard) 專屬授權跳板</text>
+          <text x="20" y="112" fill="#fecaca" font-size="10">端點聯防：Palo Alto Cortex AES 實時監測 ARP 欺騙與非授權廣播，違規即刻阻斷端口</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ZONE 4: AWS HONG KONG & CORTEX AES SECURITY -->
+    <g transform="translate(1780, 500)">
+      <!-- AWS VPC Box -->
+      <g id="node-zone-aws" class="interactive-node" onclick="openDeepDive('zone-aws')" style="cursor:pointer;" transform="translate(0, 0)">
+        <rect width="780" height="580" rx="16" fill="url(#boxGradHQ)" stroke="#eab308" stroke-width="2" filter="url(#shadow)"/>
+        <rect width="780" height="52" rx="16" fill="#854d0e"/>
+        <rect y="40" width="780" height="12" fill="#854d0e"/>
+        <text x="24" y="34" fill="#fef08a" font-size="18" font-weight="bold">☁️ AWS 香港 (ap-east-1) VPC 網絡與雲端 AI 算力集群</text>
+        
+        <g transform="translate(24, 70)">
+          <!-- Cloud Connect Gateway -->
+          <g id="node-aws-dx" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('aws-dx')" transform="translate(0, 0)">
+            <rect width="730" height="85" rx="8" fill="#1e293b" stroke="#eab308" stroke-width="1.5"/>
+            <text x="18" y="26" fill="#fef08a" font-size="14" font-weight="bold">🔌 第一線 Cloud Connect ↔ AWS Direct Connect 專屬通道</text>
+            <text x="18" y="48" fill="#cbd5e1" font-size="12">頻寬：100 Mbps CIR 專用光纖 ｜ 延遲 &lt; 28ms ｜ 雙路 Direct Connect 冗餘</text>
+            <text x="18" y="68" fill="#94a3b8" font-size="11">VPC 私有對等 (Private VIF) ｜ BGP 動態路由 AS65001 ｜ 無需經過公網網際網路</text>
+          </g>
+          
+          <!-- Private Subnet: Triton GPU AI -->
+          <g id="node-aws-triton" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('aws-triton')" transform="translate(0, 100)">
+            <rect width="730" height="110" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+            <text x="18" y="26" fill="#7dd3fc" font-size="14" font-weight="bold">🤖 Private Subnet 1: GPU AI 視覺推論集群 (10.200.1.0/24)</text>
+            <text x="18" y="48" fill="#cbd5e1" font-size="12">實例：EC2 g5.xlarge (NVIDIA A10G 24GB VRAM) ｜ Triton Inference Server :8501</text>
+            <text x="18" y="68" fill="#cbd5e1" font-size="12">業務：成衣布料色差檢驗、織物瑕疵 AI 比對、排版版型自動優化演算 (FastAPI :8000)</text>
+            <text x="18" y="90" fill="#38bdf8" font-size="11">安全隔離：無公網 IP (No IGW)，僅接受台北總部 SAM (RDSMP2) 與中繼 API 專線呼叫</text>
+          </g>
+          
+          <!-- Private Subnet: S3 Glacier WORM -->
+          <g id="node-aws-glacier" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('aws-glacier')" transform="translate(0, 225)">
+            <rect width="730" height="110" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+            <text x="18" y="26" fill="#6ee7b7" font-size="14" font-weight="bold">🧊 Private Subnet 2: AWS S3 Glacier WORM 不可變存儲</text>
+            <text x="18" y="48" fill="#cbd5e1" font-size="12">合規機制：S3 Object Lock (Compliance Mode) 嚴格 WORM (寫入一次、無法刪改、保留 7 年)</text>
+            <text x="18" y="68" fill="#cbd5e1" font-size="12">封存內容：D365 AXDB 每日完整備份、TDE 加密金鑰備份、全廠產線審計日誌</text>
+            <text x="18" y="90" fill="#34d399" font-size="11">防勒索保證：根憑證與 IAM 均無法提前刪除，遭遇極端災難時 4 小時內啟動快速取回</text>
+          </g>
+          
+          <!-- Transit Gateway -->
+          <g id="node-aws-tgw" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('aws-tgw')" transform="translate(0, 350)">
+            <rect width="730" height="110" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="18" y="26" fill="#d8b4fe" font-size="14" font-weight="bold">🔀 AWS Transit Gateway (TGW) 跨雲路由中樞</text>
+            <text x="18" y="48" fill="#cbd5e1" font-size="12">跨雲互聯：對接 Azure ExpressRoute (Azure SQL DR 唯讀熱備站點互通)</text>
+            <text x="18" y="68" fill="#cbd5e1" font-size="12">流量檢測：AWS Network Firewall 實時分析跨雲 VPC 流量</text>
+            <text x="18" y="90" fill="#c084fc" font-size="11">路由策略：路由表隔離生產網段與測試網段，確保雲端各服務環境安全解耦</text>
+          </g>
+        </g>
+      </g>
+      
+      <!-- Cortex AES 5-Tier Security Gateway Box -->
+      <g id="node-cortex-aes" class="interactive-node" onclick="openDeepDive('cortex-aes')" style="cursor:pointer;" transform="translate(0, 600)">
+        <rect width="780" height="600" rx="16" fill="url(#boxGradHQ)" stroke="#ec4899" stroke-width="2" filter="url(#shadow)"/>
+        <rect width="780" height="52" rx="16" fill="#831843"/>
+        <rect y="40" width="780" height="12" fill="#831843"/>
+        <text x="24" y="34" fill="#fbcfe8" font-size="18" font-weight="bold">🛡️ Palo Alto Networks Cortex AES 5階資安防護閘道體系</text>
+        
+        <g transform="translate(24, 70)">
+          <!-- Tier 1 -->
+          <g id="node-cortex-t1" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cortex-t1')" transform="translate(0, 0)">
+            <rect width="730" height="85" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1.5"/>
+            <rect x="0" y="0" width="10" height="85" rx="8" fill="#ec4899"/>
+            <text x="22" y="26" fill="#f472b6" font-size="14" font-weight="bold">第 1 階：KOI 內嵌安全閘道 (進入點攔截核心)</text>
+            <text x="22" y="48" fill="#cbd5e1" font-size="12">防禦位置：所有跨國專線、外網 DMZ、雲端直連之最前沿進入點</text>
+            <text x="22" y="68" fill="#fbcfe8" font-size="11">機制：在惡意代碼或不明負載觸及裝置前實施線速 (Line-rate) 深度檢測與阻斷</text>
+          </g>
+          
+          <!-- Tier 2 -->
+          <g id="node-cortex-t2" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cortex-t2')" transform="translate(0, 95)">
+            <rect width="730" height="85" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+            <rect x="0" y="0" width="10" height="85" rx="8" fill="#f43f5e"/>
+            <text x="22" y="26" fill="#fb7185" font-size="14" font-weight="bold">第 2 階：執行階段防護 (Runtime Protection)</text>
+            <text x="22" y="48" fill="#cbd5e1" font-size="12">防禦位置：總部 Windows/Linux 伺服器、D365 AOS、RSIMDW1、海外邊緣節點</text>
+            <text x="22" y="68" fill="#fecdd3" font-size="11">機制：阻止惡意程式碼注入、記憶體溢位攻擊與未授權開發工具擴充功能執行</text>
+          </g>
+          
+          <!-- Tier 3 -->
+          <g id="node-cortex-t3" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cortex-t3')" transform="translate(0, 190)">
+            <rect width="730" height="85" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+            <rect x="0" y="0" width="10" height="85" rx="8" fill="#a855f7"/>
+            <text x="22" y="26" fill="#c084fc" font-size="14" font-weight="bold">第 3 階：憑證與管道防護 (Credential &amp; Pipeline Shield)</text>
+            <text x="22" y="48" fill="#cbd5e1" font-size="12">防禦位置：開發環境、Git 倉庫、API 金鑰管理庫與 CI/CD 構建服務</text>
+            <text x="22" y="68" fill="#e9d5ff" font-size="11">機制：防止開發環境未經授權存取、硬編碼憑證洩漏攔截與 Token 濫用阻斷</text>
+          </g>
+          
+          <!-- Tier 4 -->
+          <g id="node-cortex-t4" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cortex-t4')" transform="translate(0, 285)">
+            <rect width="730" height="85" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+            <rect x="0" y="0" width="10" height="85" rx="8" fill="#3b82f6"/>
+            <text x="22" y="26" fill="#60a5fa" font-size="14" font-weight="bold">第 4 階：版本更新冷卻緩衝 (CI/CD Quarantine Buffer)</text>
+            <text x="22" y="48" fill="#cbd5e1" font-size="12">防禦位置：自動化發布管線、依賴套件下載快取、第三方開源庫鏡像</text>
+            <text x="22" y="68" fill="#bfdbfe" font-size="11">機制：新版本代碼與依賴套件實施強制 48 小時冷卻沙箱掃描，阻斷投毒攻擊</text>
+          </g>
+          
+          <!-- Tier 5 -->
+          <g id="node-cortex-t5" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('cortex-t5')" transform="translate(0, 380)">
+            <rect width="730" height="95" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+            <rect x="0" y="0" width="10" height="95" rx="8" fill="#10b981"/>
+            <text x="22" y="26" fill="#34d399" font-size="14" font-weight="bold">第 5 階：持續補救措施 (Continuous Remediation &amp; Isolation)</text>
+            <text x="22" y="48" fill="#cbd5e1" font-size="12">防禦位置：全網端點、VLAN 交換機埠位與 Active Directory 域控制器</text>
+            <text x="22" y="68" fill="#a7f3d0" font-size="11">機制：毫秒級自動隔離遭入侵裝置，撤銷受損憑證，啟動鑑識映像留存與復原流程</text>
+            <text x="22" y="86" fill="#6ee7b7" font-size="10">聯防響應：與 FortiGate 防火牆聯動自動封鎖外部 C2 惡意 IP，向 CISO 發送緊急警報</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- CONNECTION LINES -->
+    <g id="wan-circuits" stroke-width="3" fill="none" opacity="0.85">
+      <!-- HQ to DYXnet MPLS Backbone -->
+      <path d="M 490 500 L 490 370 L 850 370 L 850 310" stroke="#38bdf8" stroke-dasharray="8,4" marker-end="url(#arrow-cyan)"/>
+      <text x="560" y="360" fill="#38bdf8" font-size="12" font-weight="bold">DYXnet MPLS 40M CIR</text>
+      
+      <!-- HQ to SD-WAN Backup -->
+      <path d="M 450 500 L 450 430 L 750 430" stroke="#f97316" stroke-dasharray="4,4" marker-end="url(#arrow-amber)"/>
+      
+      <!-- DYXnet to Vietnam RDV -->
+      <path d="M 980 280 L 1200 280 L 1200 500" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+      <text x="1210" y="420" fill="#38bdf8" font-size="12" font-weight="bold">台越 MPLS 40M (&lt;42ms)</text>
+      
+      <!-- SD-WAN to Vietnam RDV -->
+      <path d="M 1150 465 L 1150 500" stroke="#f97316" stroke-dasharray="4,4" marker-end="url(#arrow-amber)"/>
+      
+      <!-- DYXnet to Cambodia RDG -->
+      <path d="M 1250 280 L 1250 1100" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+      <text x="1260" y="800" fill="#38bdf8" font-size="12" font-weight="bold">台柬 MPLS 20M (&lt;62ms)</text>
+      
+      <!-- DYXnet to AWS Direct Connect -->
+      <path d="M 1750 280 L 2100 280 L 2100 500" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+      <text x="2110" y="420" fill="#38bdf8" font-size="12" font-weight="bold">AWS Cloud Connect 100M (&lt;28ms)</text>
+    </g>
+</svg>
