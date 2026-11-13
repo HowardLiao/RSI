@@ -336,3 +336,496 @@ Duke 所主導之三大系統盤點展現了卓越的工程紀律與深度，全
    * 盤點指出 CQS 前端 (Vue 3) 與後端 (.NET 8) 尚無 CI 自動化部署。顧問團隊可協助於 GitLab 配置建置腳本與 Runner，免除人工覆蓋伺服器檔案的營運風險。
 5. **焦點五【正式機對測試機依賴之清理 (I17)】**：
    * 樣品系統 I17 圖檔檢視目前正式機硬編碼指向測試機 `192.168.0.23:8081`。建議安排工單將測試機舊圖檔遷移至正式儲存伺服器，消除此一單點脆弱性。
+
+
+---
+
+## 第七章：Factory API 領域類別圖 (Class Diagrams) 與介面服務圖 (Interface Diagrams)
+
+本章針對 Duke 於 2026.11.13 交付之 Factory API 488 支端點與 50 個業務 Tags，依據 DDD 領域驅動設計原則拆解為 5 大核心領域之 UML 2.0 實體類別圖與服務介面契約圖。
+
+線上互動式 UML 檢視器：[https://howardliao.github.io/RSI/FactoryAPI/factory_uml_diagrams.html](https://howardliao.github.io/RSI/FactoryAPI/factory_uml_diagrams.html)
+
+### 7.1 WMS 倉儲與物料物流領域 (Warehouse Domain)
+
+#### 7.1.1 實體類別圖 (Class Diagram)
+```mermaid
+classDiagram
+    direction TB
+    class FabricRelaxDetail {
+        +long FabricRelax_Key
+        +string FabricRelax_No
+        +string FabricRelax_Status
+        +string Cust_ID
+        +string Contract_No
+        +string Order_No
+        +string Material_No
+        +string Color
+        +string LotNo
+        +decimal Total_Qty
+        +int Total_Roll
+    }
+    class FabricRelaxBarcode {
+        +string LD_No
+        +string Barcode_No
+        +string Material_No
+        +string Color
+        +string LotNo
+        +decimal Actual_Qty
+        +decimal Actual_Width
+        +decimal Actual_Weight
+        +string StockLocation_ID
+        +string Status
+    }
+    class FabricRelaxCarInfo {
+        +string CarID
+        +string CarName
+        +string CarType
+        +string CarSize
+        +string CarStatus
+        +string FabricRelaxOrder
+        +int RelaxHours
+        +int HoursDifference
+        +string LocationID
+    }
+    class WmsBinLocation {
+        +long LocationKey
+        +string Location_ID
+        +string Location_Name
+        +string Location_Group
+        +string WareHouseID
+        +string LocationSize
+    }
+    class AuxiliaryMaterialItem {
+        +string BarcodeNo
+        +string ItemID
+        +string ItemName
+        +string Specification
+        +string LotNo
+        +decimal Qty
+        +string Unit
+    }
+    class PdaReceiveOrder {
+        +string ReceiveOrderNo
+        +string PO_No
+        +string VendorID
+        +string WarehouseID
+        +DateTime ReceiveDate
+        +string Status
+    }
+    class ApiResponse~T~ {
+        +boolean Is_Valid
+        +string Message
+        +string ErrMsg
+        +int DataCount
+        +T Data_List
+    }
+
+    FabricRelaxDetail "1" *-- "1..*" FabricRelaxBarcode : 包含捲條碼
+    FabricRelaxDetail "1" o-- "0..1" FabricRelaxCarInfo : 裝載於鬆布車
+    FabricRelaxCarInfo "1" --> "1" WmsBinLocation : 停放於庫位
+    FabricRelaxBarcode --> WmsBinLocation : 存儲庫位
+    PdaReceiveOrder "1" *-- "1..*" AuxiliaryMaterialItem : 點收明細
+    ApiResponse~T~ ..> FabricRelaxDetail : 回傳承載
+```
+
+#### 7.1.2 服務介面圖 (Interface Diagram)
+```mermaid
+classDiagram
+    direction LR
+    class IWmsPublicService {
+        <<interface>>
+        +FabricStockIn(Request_StockIn) ApiResponse
+        +FabricStockOut(Request_StockOut) ApiResponse
+        +FabricReject(Request_Reject) ApiResponse
+        +FabricTransfer(Request_Transfer) ApiResponse
+        +GetFabricInventory(Request_InvQuery) ApiResponse
+        +CheckWmsVersion() ApiResponse
+    }
+    class IFabricRelaxService {
+        <<interface>>
+        +CreateFabricRelaxOrder(Request_CreateRelax) ApiResponse
+        +CheckRelaxBarcode(Request_CheckBarcode) ApiResponse
+        +ConfirmFabricRelax(Request_RelaxConfirm) ApiResponse
+        +GetRelaxingCarInfo(Request_CarInfo) List~FabricRelaxCarInfo~
+        +UpdateMainActualCuttableWidth(Request_Width) ApiResponse
+    }
+    class IAuxiliaryWarehouseService {
+        <<interface>>
+        +AuxiliaryStockIn(Request_AuxStockIn) ApiResponse
+        +AuxiliaryStockOut(Request_AuxStockOut) ApiResponse
+        +AuxiliaryInventoryQuery(Request_AuxQuery) ApiResponse
+        +UpdateAuxiliaryLocation(Request_LocUpdate) ApiResponse
+    }
+    class IPdaScannerService {
+        <<interface>>
+        +AndroidFormAuth(Request_Auth) Android_API_Response
+        +CheckBarcodeReceiveStatus(Request_Check) Android_API_Response
+        +CreateReceiveOrder(Request_Receive) Android_API_Response
+        +GetMQPList(Request_MQP) Android_API_Response
+        +ScanBarcodeConfirm(Request_Scan) Android_API_Response
+    }
+
+    class WMS_PublicController {
+        +HandleFabricStockIn()
+        +HandleFabricReject()
+    }
+    class WMS_FabricAPIController {
+        +HandleRelaxProcess()
+        +HandleBarcodeValidation()
+    }
+    class WMS_AuxiliaryController {
+        +HandleAuxStockInOut()
+    }
+    class WMS_AndroidAPIController {
+        +HandlePdaRequests()
+    }
+
+    WMS_PublicController ..|> IWmsPublicService : 實作
+    WMS_FabricAPIController ..|> IFabricRelaxService : 實作
+    WMS_AuxiliaryController ..|> IAuxiliaryWarehouseService : 實作
+    WMS_AndroidAPIController ..|> IPdaScannerService : 實作
+```
+
+---
+
+### 7.2 MES 製造執行與成衣全流程領域 (Manufacturing Domain)
+
+#### 7.2.1 實體類別圖 (Class Diagram)
+```mermaid
+classDiagram
+    direction TB
+    class CutOrder {
+        +string CO_No
+        +string Order_No
+        +string Cust_ID
+        +string Style_ID
+        +DateTime Cut_CreateDate
+        +string Status
+    }
+    class CutOrder_Marker_Info {
+        +string Mark_Key
+        +string Mark_No
+        +string CO_No
+        +string Material_No
+        +decimal MK_Width
+        +decimal Marker_Length
+        +int Total_Pieces
+        +int Total_Layers
+    }
+    class CutColor {
+        +string Cust_Color
+        +string Produce_CustColor
+        +string Produce_Color
+        +string Produce_Part
+        +string Mat_Color
+        +int Layer_Qty
+    }
+    class CutPiece_StockIn {
+        +string token
+        +string billNo
+        +DateTime billDate
+        +string sourceBlock
+        +string source
+        +string destinationBlock
+        +int qty
+    }
+    class SewingProduceDailyQty {
+        +string DocNo
+        +string LineID
+        +string SectionID
+        +string StyleID
+        +string ColorID
+        +string SizeID
+        +int OutputQty
+        +DateTime WorkDate
+        +string OperatorID
+    }
+    class SpecialProcessOrder {
+        +string ProcessOrderNo
+        +string ProcessType
+        +string VendorID
+        +int PlanQty
+        +int ActualQty
+        +DateTime SendDate
+        +DateTime ReceiveDate
+        +string Status
+    }
+    class SalesOrderShip {
+        +string IKEY
+        +string SalesOrderKey
+        +string SalesShip_ERPKey
+        +string SalesShip_PO
+        +DateTime SalesShip_ShipDate
+        +int SalesShip_Qty
+    }
+
+    CutOrder "1" *-- "1..*" CutOrder_Marker_Info : 拆解馬克排版
+    CutOrder_Marker_Info "1" *-- "1..*" CutColor : 鋪布拉布顏色層數
+    CutOrder "1" --> "1..*" CutPiece_StockIn : 裁片綁捆入庫
+    CutOrder "1" ..> "1..*" SewingProduceDailyQty : 車縫每日報工產出
+    CutOrder "1" ..> "0..*" SpecialProcessOrder : 印繡花委外派工
+    SewingProduceDailyQty ..> SalesOrderShip : 成品包裝出貨
+```
+
+#### 7.2.2 服務介面圖 (Interface Diagram)
+```mermaid
+classDiagram
+    direction LR
+    class ICuttingService {
+        <<interface>>
+        +GetCutInfo(CutInfo_Request) ApiResponse
+        +GetCutOrderMarkerInfo(Marker_Request) ApiResponse
+        +UpdateCutMaterialUsage(Usage_Request) ApiResponse
+        +NotifyCutFabricRelax(Notice_Request) ApiResponse
+    }
+    class ISewingService {
+        <<interface>>
+        +ProduceDailyQty(Produce_Request) ApiResponse
+        +ProduceDailyQtyByDoc(Doc_Request) ApiResponse
+        +SY_ProduceDailyQtyByDoc(SyDoc_Request) ApiResponse
+        +SpecialCaseProduceTotalQtySetOneDay(Req) ApiResponse
+    }
+    class ISpecialProcessService {
+        <<interface>>
+        +CreateProcessNotice(Notice_Req) ApiResponse
+        +UpdateBarcodeNo(Barcode_Req) ApiResponse
+        +ConfirmProcessArrival(Arrival_Req) ApiResponse
+        +GetProcessStatus(Query_Req) ApiResponse
+    }
+    class IFinishedGoodsShippingService {
+        <<interface>>
+        +PackPieceStockIn(Pack_Req) ApiResponse
+        +CartonScanPacking(Carton_Req) ApiResponse
+        +FGwhStockIn(StockIn_Req) ApiResponse
+        +GenerateSalesShipNotice(Ship_Req) ApiResponse
+    }
+
+    MES_CutController ..|> ICuttingService : 實作
+    MES_SewController ..|> ISewingService : 實作
+    MES_SpecialProcessController ..|> ISpecialProcessService : 實作
+    MES_ShipController ..|> IFinishedGoodsShippingService : 實作
+```
+
+---
+
+### 7.3 TPM & AMS 設備運維與資產管理領域 (Maintenance & Asset Domain)
+
+#### 7.3.1 實體類別圖 (Class Diagram)
+```mermaid
+classDiagram
+    direction TB
+    class View_MachineData {
+        +string IKEY
+        +string Machine_UHF
+        +string Machine_AssetNumber
+        +string MachineModel_ID
+        +string Brand_Name
+        +long LocationKey
+        +string Location_Group
+        +string Location_ID
+        +string Status
+    }
+    class RepairMaster {
+        +string RepairMasterIKEY
+        +string Repair_No
+        +string MachineIKEY
+        +string Machine_UHF
+        +string RepairUserID
+        +DateTime Repair_Datetime
+        +string RepairmanID
+        +string Repair_Status
+        +string Failure_Reason
+    }
+    class RepairConfirmDetail {
+        +string RepairMasterIKEY
+        +string Machine_UHF
+        +string ConfirmUserRFID
+        +string AppUserID
+        +DateTime ConfirmTime
+        +string SignOffStatus
+    }
+    class SparePartWarehouse {
+        +string FactoryName
+        +string WH_Type
+        +string PartWH_Group
+        +string Part_ID
+        +string Part_Name
+        +int Stock_Qty
+        +int Safety_Qty
+    }
+    class TakeInventoryMaster {
+        +string TakeInv_ID
+        +long FactoryKey
+        +string FTY_ID
+        +string TakeInvMaster_Process
+        +DateTime StartDate
+        +DateTime EndDate
+        +string Status
+    }
+    class TakeInventoryDetail {
+        +string TakeInv_ID
+        +string Machine_AssetNumber
+        +string Machine_UHF
+        +string ScanLocation_ID
+        +int IsScaned
+        +DateTime ScanTime
+    }
+
+    View_MachineData "1" <-- "0..*" RepairMaster : 設備故障報修
+    RepairMaster "1" *-- "1" RepairConfirmDetail : 維修完成簽核確認
+    RepairMaster "1" ..> "0..*" SparePartWarehouse : 領用備品零件扣帳
+    TakeInventoryMaster "1" *-- "1..*" TakeInventoryDetail : 盤點任務清單
+    View_MachineData "1" <-- "1" TakeInventoryDetail : 盤點核對目標
+```
+
+#### 7.3.2 服務介面圖 (Interface Diagram)
+```mermaid
+classDiagram
+    direction LR
+    class ITpmMachineService {
+        <<interface>>
+        +GetMachineInfo(Param_MachineInfo) ApiResponse
+        +UpdateMachineUHF(Param_UpdateUHF) ApiResponse
+        +QueryMachineLocationCount(Param_Query) ApiResponse
+        +GetFixRecordByTPM(Param_Record) ApiResponse
+    }
+    class ITpmRepairWorkflowService {
+        <<interface>>
+        +RepairStart(Param_RepairStart) ApiResponse
+        +RepairDispatch(Param_Dispatch) ApiResponse
+        +RepairEnd(Param_RepairEnd) ApiResponse
+        +RepairConfirm(Param_RepairConfirm) ApiResponse
+        +GetRepairHistory(Param_History) ApiResponse
+    }
+    class ITpmInventoryService {
+        <<interface>>
+        +QuerySparePartStock(Param_PartQuery) ApiResponse
+        +SparePartStockOut(Param_PartOut) ApiResponse
+        +CheckSafetyStockAlert(Param_Alert) ApiResponse
+    }
+    class IAmsAssetService {
+        <<interface>>
+        +TakeInventoryScan(Param_TakeInv) ApiResponse
+        +AssetDispatch(Param_AssetDispatch) ApiResponse
+        +GetAssetLocationSummary(Param_Summary) ApiResponse
+        +CheckRoleCanTakeInventory(Param_Role) ApiResponse
+    }
+
+    TPM_MachineAPIController ..|> ITpmMachineService : 實作
+    TPM_RepairAPIController ..|> ITpmRepairWorkflowService : 實作
+    TPM_InventoryAPIController ..|> ITpmInventoryService : 實作
+    AMS_InventoryController ..|> IAmsAssetService : 實作
+```
+
+---
+
+### 7.4 智慧物流硬體與 IoT/AGV/立庫領域 (Hardware & Automation Domain)
+
+#### 7.4.1 實體類別圖 (Class Diagram)
+```mermaid
+classDiagram
+    direction TB
+    class AGV_Task {
+        +int TaskKey
+        +string TaskID
+        +string TaskMasterID
+        +string TaskTypeID
+        +string CarID
+        +string Fr_LocationID
+        +string To_LocationID
+        +string TaskPriority
+        +string TaskStatusName
+        +DateTime TaskSendTime
+        +DateTime TaskEndTime
+    }
+    class AGV_Car {
+        +string CarID
+        +string CarName
+        +string CarSize
+        +string CarStatus
+        +string CurrentLocationID
+        +int BatteryLevel
+    }
+    class TasrsLocationCell {
+        +string CellID
+        +string RackNo
+        +int RowNo
+        +int ColumnNo
+        +string StorageStatus
+        +string BarcodeNo
+        +decimal WeightKg
+    }
+    class SunHangerStation {
+        +string StationID
+        +string LineID
+        +string StationType
+        +string CurrentCarrierID
+        +string WorkerID
+        +int BufferCount
+    }
+    class IotTelemetryNode {
+        +string DeviceID
+        +string DeviceType
+        +string LocationID
+        +decimal Voltage
+        +decimal CurrentAmp
+        +decimal Temperature
+        +decimal Humidity
+        +DateTime Timestamp
+    }
+
+    AGV_Task "0..*" --> "1" AGV_Car : 指派搬運任務
+    AGV_Task ..> TasrsLocationCell : 跨庫位取放貨物
+    SunHangerStation "1" ..> "0..*" AGV_Task : 吊掛缺料呼叫 AGV 補料
+    IotTelemetryNode ..> AGV_Car : 監控電力與運轉溫升
+```
+
+---
+
+### 7.5 QMS 品質管理與 APS 排程整合領域 (Quality & Scheduling Domain)
+
+#### 7.5.1 實體類別圖 (Class Diagram)
+```mermaid
+classDiagram
+    direction TB
+    class DefectData {
+        +string DefectID
+        +string DefectName
+        +string DefectCategory
+        +int DefectScore
+        +string SeverityLevel
+    }
+    class QMS_InlineQCReport {
+        +string ReportID
+        +string Order_No
+        +string LineID
+        +string InspectorID
+        +DateTime InspectTime
+        +int SampleSize
+        +int DefectQty
+        +string ResultStatus
+    }
+    class APS_SewPlan {
+        +string PlanID
+        +string Order_No
+        +string LineID
+        +DateTime PlanStartDate
+        +DateTime PlanEndDate
+        +int TargetDailyQty
+        +decimal StandardSMV
+    }
+    class RsiGetSmvModel {
+        +string Style_ID
+        +string Operation_ID
+        +string Operation_Desc
+        +decimal Standard_SMV
+        +decimal Machine_SMV
+        +decimal Manual_SMV
+        +string Machine_Type
+    }
+
+    QMS_InlineQCReport "1" *-- "0..*" DefectData : 記錄疵點細項
+    APS_SewPlan "1" ..> "1" RsiGetSmvModel : 依據標準工時計算產能
+    APS_SewPlan "1" ..> "0..*" QMS_InlineQCReport : 產線品質巡檢合格門檻
+```
