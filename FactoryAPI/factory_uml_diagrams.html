@@ -167,7 +167,8 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('wms-class')"><i class="fa-solid fa-warehouse"></i> 1. WMS 倉儲類別圖</button>
+    <button class="tab-btn active" onclick="switchTab('system-arch')"><i class="fa-solid fa-sitemap"></i> 0. 系統核心整合架構圖</button>
+    <button class="tab-btn" onclick="switchTab('wms-class')"><i class="fa-solid fa-warehouse"></i> 1. WMS 倉儲類別圖</button>
     <button class="tab-btn" onclick="switchTab('wms-interface')"><i class="fa-solid fa-network-wired"></i> 2. WMS 服務介面圖</button>
     <button class="tab-btn" onclick="switchTab('mes-class')"><i class="fa-solid fa-scissors"></i> 3. MES 製造執行類別圖</button>
     <button class="tab-btn" onclick="switchTab('mes-interface')"><i class="fa-solid fa-cubes"></i> 4. MES 服務介面圖</button>
@@ -178,8 +179,77 @@
   </div>
 
   <div class="content-container">
+    <!-- TAB 0: System Architecture Flowchart -->
+    <div id="system-arch" class="tab-pane active">
+      <div class="pane-header">
+        <h2><span class="badge badge-purple">Architecture Flowchart</span> 信源自研 Factory API 與微服務群核心整合架構圖</h2>
+        <p>涵蓋前端作業終端、兩級 API 閘道邊界防護、四大自研微服務群（MES/WMS/TPM/IoT）與持久化快取（SQL Server/Redis/DuckDB 48h 離線自律）全景拓撲</p>
+      </div>
+      <div class="diagram-box">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
+flowchart TB
+    subgraph ClientLayer [前端與工廠現場作業層]
+        direction LR
+        RF[PDA 條碼掃描槍]
+        WebPortal[信源主管填報平台]
+        IPC[車間工業電腦 IPC]
+        PLC[裁床 / 模板機 PLC]
+    end
+
+    subgraph GatewayLayer [API 閘道與邊界防護層]
+        Kong[總部 / 廠端兩級 API Gateway]
+        Auth[OAuth2 / JWT 認證授權中心]
+    end
+
+    subgraph ServiceLayer [Factory API 核心自研微服務群]
+        direction TB
+        MES[MES 製造執行服務:8088]
+        WMS[WMS 智慧倉儲服務:8086]
+        TPM[TPM 設備運維服務:8087]
+        IoT[IoT / AGV 硬體協同服務:8089]
+    end
+
+    subgraph DataLayer [資料持久化與快取層]
+        direction LR
+        SQL[(MS-SQL Server 2022)]
+        Redis[(Redis Cluster 即時快取)]
+        DuckDB[(廠端 DuckDB 48h 離線自律快取)]
+    end
+
+    RF --> Kong
+    WebPortal --> Kong
+    IPC --> Kong
+    PLC --> Kong
+
+    Kong <--> Auth
+    Kong --> MES
+    Kong --> WMS
+    Kong --> TPM
+    Kong --> IoT
+
+    MES --> Redis
+    WMS --> Redis
+    MES --> SQL
+    WMS --> SQL
+    TPM --> SQL
+    IoT --> DuckDB
+    DuckDB -.->|斷網重連自動回補| SQL
+        </pre>
+      </div>
+      <div class="explanation">
+        <h4><i class="fa-solid fa-circle-info"></i> 架構設計與數據串接要點說明</h4>
+        <ul>
+          <li><strong>前端與作業終端 (Client Layer)</strong>：整合現場手持 PDA 掃描槍 (RF)、主管填報平台、車間工業電腦 (IPC) 與自動裁床/模板機 PLC 訊號。</li>
+          <li><strong>閘道與安全防護 (Gateway Layer)</strong>：部署總部與海外廠區兩級 API Gateway，集中執行 OAuth2 / JWT 認證、限流、熔斷與稽核日誌。</li>
+          <li><strong>核心微服務群 (Service Layer)</strong>：包含 MES (:8088)、WMS (:8086)、TPM (:8087) 及 IoT/AGV (:8089)，全面對齊 OpenAPI 3.0.0 規格共 488 支端點。</li>
+          <li><strong>資料快取與容災 (Data Layer)</strong>：高頻熱點由 Redis Cluster 承載，海外各廠配置邊緣 DuckDB 具備 48 小時斷網自律快取，恢復連線後非同步追補至總部 MS-SQL Server 2022。</li>
+        </ul>
+      </div>
+    </div>
+
     <!-- TAB 1: WMS Class Diagram -->
-    <div id="wms-class" class="tab-pane active">
+    <div id="wms-class" class="tab-pane">
       <div class="pane-header">
         <h2><span class="badge badge-amber">Class Diagram</span> WMS 倉儲與物料物流領域實體類別圖</h2>
         <p>涵蓋布料進料 (FabricStockIn)、驗布捲號 (Barcode)、鬆布派單 (RelaxOrder)、副料 (Auxiliary) 及手持 PDA 掃碼實體模型</p>
@@ -873,13 +943,13 @@ classDiagram
 
     // Pre-render all tabs sequentially on load to guarantee instant zero-lag tab switching
     const allTabIds = [
-      'wms-class', 'wms-interface', 'mes-class', 'mes-interface',
+      'system-arch', 'wms-class', 'wms-interface', 'mes-class', 'mes-interface',
       'tpm-class', 'tpm-interface', 'hardware-class', 'qms-aps-class'
     ];
 
     window.addEventListener('DOMContentLoaded', async () => {
       // 1. Render active tab immediately
-      await renderTabDiagram('wms-class');
+      await renderTabDiagram('system-arch');
       
       // 2. Pre-render remaining tabs sequentially in background
       for (const t of allTabIds) {
