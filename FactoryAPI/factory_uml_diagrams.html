@@ -185,7 +185,8 @@
         <p>涵蓋布料進料 (FabricStockIn)、驗布捲號 (Barcode)、鬆布派單 (RelaxOrder)、副料 (Auxiliary) 及手持 PDA 掃碼實體模型</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction TB
     class FabricRelaxDetail {
@@ -282,7 +283,8 @@ classDiagram
         <p>定義倉儲進出庫、驗布、鬆布調度及手持 PDA 對外暴露之 RESTful 服務契約</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction LR
     class IWmsPublicService {
@@ -355,7 +357,8 @@ classDiagram
         <p>涵蓋裁切工單 (CutOrder)、馬克圖 (Marker)、拉布層數 (CutColor)、車縫報工 (Sewing)、特殊製程 (SpecialProcess) 與成衣出貨</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction TB
     class CutOrder {
@@ -448,7 +451,8 @@ classDiagram
         <p>定義裁切、車縫、特殊製程外發、裝箱與成品入庫之 API 服務契約</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction LR
     class ICuttingService {
@@ -516,7 +520,8 @@ classDiagram
         <p>涵蓋機台設備主檔 (MachineData)、超高頻無線射頻 (UHF RFID)、報修派工 (Repair)、備品零件與固定資產定期盤點 (TakeInventory)</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction TB
     class View_MachineData {
@@ -600,7 +605,8 @@ classDiagram
         <p>定義設備主檔維護、RFID 感應、報修維修流程、零件庫存與固定資產調撥 API 服務契約</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction LR
     class ITpmMachineService {
@@ -667,7 +673,8 @@ classDiagram
         <p>涵蓋 AGV 無人搬運車 (AGV_Public)、TASRS 布料自動立庫、GIL 裁片立庫、吊掛線 (Hanger) 與 INA/IOT 遙測節點</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction TB
     class AGV_Task {
@@ -741,7 +748,8 @@ classDiagram
         <p>涵蓋成衣品質疵點 (DefectData)、巡檢報告 (InlineQCReport)、工時對接 (SMV) 及排程里程碑 (APS Event)</p>
       </div>
       <div class="diagram-box">
-        <pre class="mermaid">
+        <div class="mermaid-viewport"></div>
+        <pre class="mermaid-src" style="display:none;">
 classDiagram
     direction TB
     class DefectData {
@@ -797,7 +805,7 @@ classDiagram
 
   <script>
     mermaid.initialize({
-      startOnLoad: true,
+      startOnLoad: false,
       theme: 'dark',
       themeVariables: {
         darkMode: true,
@@ -805,22 +813,81 @@ classDiagram
         primaryColor: '#1e293b',
         primaryTextColor: '#f8fafc',
         primaryBorderColor: '#3b82f6',
-        lineColor: '#d97706',
-        secondaryColor: '#334155',
+        lineColor: '#60a5fa',
+        secondaryColor: '#111827',
         tertiaryColor: '#0f172a'
       }
     });
 
-    function switchTab(tabId) {
+    const renderedTabs = new Set();
+    const renderingPromises = new Map();
+
+    async function renderTabDiagram(tabId) {
+      if (renderedTabs.has(tabId)) return;
+      if (renderingPromises.has(tabId)) return renderingPromises.get(tabId);
+
+      const pane = document.getElementById(tabId);
+      if (!pane) return;
+
+      const srcEl = pane.querySelector('.mermaid-src');
+      const viewport = pane.querySelector('.mermaid-viewport');
+      if (!srcEl || !viewport) return;
+
+      const code = srcEl.textContent.trim();
+      if (!code) return;
+
+      viewport.innerHTML = '<div style="color:#94a3b8;padding:40px;text-align:center;"><i class="fas fa-spinner fa-spin"></i> 載入 UML 架構圖中...</div>';
+
+      const renderPromise = (async () => {
+        try {
+          const renderId = 'diagram_' + tabId.replace(/[^a-zA-Z0-9]/g, '_');
+          const { svg } = await mermaid.render(renderId, code);
+          viewport.innerHTML = svg;
+          renderedTabs.add(tabId);
+        } catch (err) {
+          console.error('Mermaid render error for tab ' + tabId + ':', err);
+          viewport.innerHTML = '<div style="color:#ef4444;padding:24px;text-align:center;background:rgba(239,68,68,0.1);border-radius:8px;">圖表渲染發生異常：' + (err.message || err) + '</div>';
+        } finally {
+          renderingPromises.delete(tabId);
+        }
+      })();
+
+      renderingPromises.set(tabId, renderPromise);
+      return renderPromise;
+    }
+
+    async function switchTab(tabId) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
       
-      event.currentTarget.classList.add('active');
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+      }
+      
       const pane = document.getElementById(tabId);
       if (pane) {
         pane.classList.add('active');
+        await renderTabDiagram(tabId);
       }
     }
+
+    // Pre-render all tabs sequentially on load to guarantee instant zero-lag tab switching
+    const allTabIds = [
+      'wms-class', 'wms-interface', 'mes-class', 'mes-interface',
+      'tpm-class', 'tpm-interface', 'hardware-class', 'qms-aps-class'
+    ];
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      // 1. Render active tab immediately
+      await renderTabDiagram('wms-class');
+      
+      // 2. Pre-render remaining tabs sequentially in background
+      for (const t of allTabIds) {
+        if (!renderedTabs.has(t)) {
+          await renderTabDiagram(t);
+        }
+      }
+    });
   </script>
 </body>
 </html>
