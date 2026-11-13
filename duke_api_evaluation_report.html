@@ -394,6 +394,7 @@
           <button class="btn" id="themeToggleBtn" onclick="toggleTheme()">🎨 切換米蘭暖琥珀</button>
           <a class="btn" href="https://rsiit.notion.site/API-List-41475b4303538069a392c2f052157625" target="_blank">🔗 Notion API List</a>
           <a class="btn" href="https://rsiit.notion.site/RD_SAMPLE-v0-1-41475b430353816c862ed0679bfe9718" target="_blank">🔗 Notion RD_SAMPLE</a>
+          <a class="btn btn-primary" href="https://howardliao.github.io/RSI/FactoryAPI/index.html" target="_blank" style="background:#2563eb; color:#fff; border-color:#3b82f6;">🏭 Factory API 488 支全覽</a>
           <button class="btn btn-primary" onclick="window.print()">🖨️ 列印/導出 PDF</button>
         </div>
       </div>
@@ -433,24 +434,24 @@
     <!-- Bento Overview -->
     <div class="bento-grid">
       <div class="bento-card">
-        <div class="bento-num">3 大體系</div>
-        <div class="bento-title">API 架構資安體檢</div>
-        <div class="bento-desc">D365 C# 外掛 (無驗證)、D365 C# 80 Operations (Entra ID Bearer)、CQS (.NET 8 ARR)。</div>
+        <div class="bento-num">488 支</div>
+        <div class="bento-title">Factory API (iDrive 最新)</div>
+        <div class="bento-desc">工廠端 MES/WMS/TPM/AMS/APS 50 個模組 Tags 全量自動化解析，目前無驗證 (HTTP 200 + Is_Valid)。</div>
       </div>
       <div class="bento-card">
-        <div class="bento-num">21 條</div>
-        <div class="bento-title">跨系統串接拓撲矩陣</div>
-        <div class="bento-desc">覆蓋 I01～I21 全量介面，深挖專線直連 TDS 1433 與 23 處 AXDB 直讀風險。</div>
+        <div class="bento-num">55 條</div>
+        <div class="bento-title">全量跨系統串接拓撲</div>
+        <div class="bento-desc">RD_SAMPLE (I01～I21)、D365 (D01～D21)、CQS (C01～C13)，揭露 C08 直接覆寫 AXDB 主庫。</div>
       </div>
       <div class="bento-card">
-        <div class="bento-num">13 項</div>
-        <div class="bento-title">核心排程與批次作業</div>
-        <div class="bento-desc">每 5 分鐘派工、每 30 分鐘跨國專線推送、每日 ERP 顏色與物料主檔同步。</div>
+        <div class="bento-num">8 大廠</div>
+        <div class="bento-title">海外 WMS 直連資料庫</div>
+        <div class="bento-desc">RSA, RSB, TOP, RSG, RSK, RSV, SY, RVT 專線 TDS 1433 直連比對庫存差異。</div>
       </div>
       <div class="bento-card">
         <div class="bento-num">4 大處方</div>
-        <div class="bento-title">落地升級與斷網自律</div>
-        <div class="bento-desc">YARP API Gateway 零改舊碼收攏、本地端自律快取隊列、StarRocks 唯讀鏡像、全集團填報推廣。</div>
+        <div class="bento-title">蜂巢計畫 2027 落地升級</div>
+        <div class="bento-desc">YARP API Gateway 防腐收攏、C08 報價回寫防腐層、StarRocks 唯讀鏡像、全集團填報推廣。</div>
       </div>
     </div>
 
@@ -464,7 +465,76 @@
     </div>
 
     <!-- Tab 1: API Architecture -->
-    <div id="tab-api" class="tab-pane active">
+    
+    <!-- Tab 0: Factory API 488 (iDrive Latest) -->
+    <div id="tab-factory-api" class="tab-pane active">
+      <div class="section-card">
+        <div class="section-header">
+          <h2>🏭 工廠端 Factory API 全量 488 支端點深度解析 (iDrive 最新交付 2026.11.13)</h2>
+          <span class="section-badge" style="background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.4);">OpenAPI 3.0 自動化代碼生成</span>
+        </div>
+        <p style="color: var(--color-warm-gray); line-height: 1.7; margin-bottom: 20px;">
+          透過 Synology iDrive 成功取得並解析 Duke 今日 (2026/11/13) 生成之 <code>FactoryAPI_20261113.zip</code>（含 <code>openapi.json</code> 與完整互動式 <code>index.html</code>）。
+          本系統由 <code>tools/OpenApiGen</code> 自動解析 <code>Factory_API</code> 原始碼生成，完整涵蓋 MES、QMS、WMS、TPM、AMS、APS、智慧吊掛 (SUN Hanger)、自動倉儲 (TASRS) 及 AGV 無人搬運車等 <strong>50 個核心模組 Tags、共 488 支端點</strong>（475 POST + 13 GET）。
+        </p>
+
+        <div style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
+          <a href="https://howardliao.github.io/RSI/FactoryAPI/index.html" target="_blank" class="btn btn-primary" style="background: #2563eb; color: #fff; padding: 10px 20px; font-weight: 700; text-decoration: none; border-radius: 8px;">
+            🚀 開啟線上互動式 Factory API 488 支端點文件瀏覽器
+          </a>
+        </div>
+
+        <div class="callout callout-danger" style="margin-bottom: 24px;">
+          <div class="callout-title">🚨 資安與架構重大發現（無驗證機制）</div>
+          <p style="margin: 0;">
+            1. <strong>完全無身分驗證</strong>：全數 488 支 API 目前<strong>均無任何驗證機制（無 Authorization Header / 無 API Token）</strong>，內部網路任一節點皆可偽造請求直接呼叫！<br>
+            2. <strong>錯誤碼遮蔽現象</strong>：業務邏輯錯誤多半仍回傳 <code>HTTP 200 OK</code>，僅以 Body 內 <code>Is_Valid = 'N'</code> 與 <code>Error_Message</code> 表示，對外串接監控極易產生盲區。<br>
+            3. <strong>二元回應格式分裂</strong>：MES/QMS/WMS 使用 <code>{API_ID, Is_Valid, Error_Message, Total_Count, Data_List}</code>；TPM/AMS 則使用 <code>ApiResponse {Is_Valid: bool, GetList: []}</code>，格式未完全收斂。
+          </p>
+        </div>
+
+        <div class="section-header" style="margin-top: 24px;">
+          <h3>50 大業務模組 Tags API 規模排行榜 (Top 20)</h3>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>模組標籤 (Tag)</th>
+                <th>API 數量</th>
+                <th>所屬業務領域</th>
+                <th>核心功能與涉及設備/系統</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>WMS_Public</code></td><td><strong>49 支</strong></td><td>工廠倉儲核心</td><td>布料/副料出入庫、調撥、批次查詢與盤點通用介面</td></tr>
+              <tr><td><code>TPM_DispatchAPI</code></td><td><strong>45 支</strong></td><td>設備維護管理</td><td>機台派工單開立、維修派工、保養進度與工單派發</td></tr>
+              <tr><td><code>WMS_FabricAPI</code></td><td><strong>27 支</strong></td><td>布料倉儲專用</td><td>胚布/色布檢驗入庫、碼單核對、捲號條碼掃描</td></tr>
+              <tr><td><code>TPM_InventoryAPI</code></td><td><strong>27 支</strong></td><td>設備零組件倉儲</td><td>機台備品出入庫、零組件安全庫存警示與耗用登記</td></tr>
+              <tr><td><code>AMS_Dispatch</code></td><td><strong>26 支</strong></td><td>固定資產管理</td><td>資產調撥派工、資產盤點與產線設備移轉作業</td></tr>
+              <tr><td><code>TPM_RepairAPI</code></td><td><strong>22 支</strong></td><td>機台報修流程</td><td>產線停機報修、維修回報、故障代碼統計與工時記錄</td></tr>
+              <tr><td><code>WMS_Auxiliary</code></td><td><strong>21 支</strong></td><td>副料倉儲專用</td><td>線料、拉鍊、鈕扣等副料收發、退料與儲位管理</td></tr>
+              <tr><td><code>TPM_AttachmentAPI</code></td><td><strong>20 支</strong></td><td>設備履歷附件</td><td>機台保養手冊、現場故障相片與簽核憑證附件上傳</td></tr>
+              <tr><td><code>AMS_Inventory</code></td><td><strong>19 支</strong></td><td>資產盤點盤查</td><td>全廠固定資產 RFID/條碼定期盤點與盈虧對照</td></tr>
+              <tr><td><code>WMS_AndroidAPI</code></td><td><strong>16 支</strong></td><td>PDA 行動手持終端</td><td>倉庫現場人員持 Android PDA 執行掃碼揀貨與複核</td></tr>
+              <tr><td><code>AGV_Public</code></td><td><strong>13 支</strong></td><td>智慧搬運無人車</td><td>搬運任務發布、路線呼叫、AGV 車輛狀態回傳與充電指派</td></tr>
+              <tr><td><code>INA_DataInfo</code></td><td><strong>12 支</strong></td><td>產線物聯網量測</td><td>智慧電表、溫濕度感測器及產線環境數據拋轉</td></tr>
+              <tr><td><code>TPM_CommonAPI</code></td><td><strong>12 支</strong></td><td>設備基礎主檔</td><td>設備分類、廠商清冊、機台型號與規格參數定義</td></tr>
+              <tr><td><code>MES_Cut</code></td><td><strong>11 支</strong></td><td>裁剪車間管理</td><td>馬克圖排料、拉布層數、裁切進度與裁剪單批次產出</td></tr>
+              <tr><td><code>QMS_MES</code></td><td><strong>11 支</strong></td><td>品質檢驗回報</td><td>車縫巡檢、成品抽檢、疵點代碼統計與品質異常告警</td></tr>
+              <tr><td><code>TPM_RSItoFtyAPI</code></td><td><strong>10 支</strong></td><td>總部與廠端對接</td><td>總部設備資產管理系統與廠端 TPM 雙向數據同步</td></tr>
+              <tr><td><code>SUN_TASRS</code></td><td><strong>9 支</strong></td><td>自動立體倉儲 (ASRS)</td><td>庫位預約、自動堆垛機存取料指派、入出庫命令發布</td></tr>
+              <tr><td><code>MES_SpecialProcess</code></td><td><strong>9 支</strong></td><td>特殊製程車間</td><td>繡花、印花、水洗、壓摺等委外/廠內特殊工序派單與回報</td></tr>
+              <tr><td><code>GIL_CutAsRs</code></td><td><strong>8 支</strong></td><td>裁片自動立庫</td><td>裁剪後裁片盒進入自動化立體暫存倉調度與出庫供給車縫</td></tr>
+              <tr><td><code>SUN_Hanger</code></td><td><strong>5 支</strong></td><td>智慧吊掛生產線</td><td>車縫吊掛站點分流、衣架載具 RFID 配對與工作站平衡派工</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 1: API -->
+    <div id="tab-api" class="tab-pane">
       <div class="section-card">
         <div class="section-header">
           <h2>集團三大 API 體系深度解構與體檢</h2>

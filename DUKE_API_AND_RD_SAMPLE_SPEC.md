@@ -243,7 +243,57 @@ Duke 所主導之三大系統盤點展現了卓越的工程紀律與深度，全
 
 ---
 
-## 六、Howard Liao Ph.D. 首席顧問四大工程處方
+
+---
+
+## 六、模組五：Factory API 工廠端 488 支全量端點規格與資安體檢（iDrive 最新交付）
+
+> **資料來源**：Duke 於 Synology iDrive 交付之 `FactoryAPI_20261113.zip`（由 `tools/OpenApiGen` 自動解析 `Factory_API` 原始碼生成之 OpenAPI 3.0 規範與互動式文件）。
+
+### 一、基本資訊與架構現況
+* **文件版本**：`2026.11.13`
+* **端點總數**：**488 支 Operations**（475 支 POST + 13 支 GET）
+* **模組分群**：共 **50 個業務模組 Tags**
+* **在線互動檢視器**：`https://howardliao.github.io/RSI/FactoryAPI/index.html`
+
+### 二、核心模組分類與 API 規模
+1. **工廠倉儲物流 (WMS / INV / ASRS)**：
+   * `WMS_Public` (49 支)：出入庫、調撥、盤點核心
+   * `WMS_FabricAPI` (27 支)：布料檢驗、捲號條碼掃描
+   * `WMS_Auxiliary` (21 支)：副料收發與退料管理
+   * `WMS_AndroidAPI` (16 支)：手持 PDA 掃碼作業
+   * `WMS_Subcon` (5 支)、`WMS_WF` (3 支)
+   * `SUN_TASRS` (9 支)：自動立體倉儲 (ASRS) 存取排程
+2. **生產製造執行 (MES / QMS / 吊掛)**：
+   * `MES_Cut` (11 支)：裁剪車間、拉布與馬克圖
+   * `MES_SpecialProcess` (9 支)：印花、繡花、特殊製程
+   * `MES_Sew` (6 支)：車縫產線進度與報工
+   * `MES_Pack` (5 支)、`MES_Ship` (5 支)、`MES_FGwh` (4 支)
+   * `QMS_MES` (11 支)：巡檢、抽檢與疵點統計
+   * `SUN_Hanger` (5 支)：智慧車縫吊掛生產線排站
+   * `GIL_CutAsRs` (8 支)：裁片自動立庫排程
+   * `AGV_Public` (13 支)：廠內無人搬運車調度
+3. **設備與資產維護 (TPM / AMS)**：
+   * `TPM_DispatchAPI` (45 支)：機台派工單開立與調派
+   * `TPM_InventoryAPI` (27 支)：備品零組件庫存與警示
+   * `TPM_RepairAPI` (22 支)：現場報修與工時紀錄
+   * `TPM_AttachmentAPI` (20 支)：保養手冊與現場相片
+   * `AMS_Dispatch` (26 支)、`AMS_Inventory` (19 支)：固定資產調撥與 RFID 盤點
+4. **進度排程與物聯網 (APS / IOT / INA)**：
+   * `APS_Sew` (4 支)、`APS_Order` (3 支)、`APS_Event` (2 支)
+   * `INA_DataInfo` (12 支)、`IOT_DataInfo` (7 支)：溫濕度、電表與產線感測數據
+
+### 三、關鍵架構缺陷與資安風險診斷
+1. **完全無驗證防護（重大資安漏洞）**：
+   * 官方說明直接註明：`目前沒有驗證機制（無 Authorization header）`。
+   * 廠區內部網路任何設備（包括被入侵的 PC 或惡意終端）皆可隨意呼叫任何 488 支 API，直接修改庫存、指派 AGV 甚至竄改維修工單。
+2. **錯誤處理隱蔽（HTTP 200 遮蔽）**：
+   * 即使業務邏輯失敗（如庫存不足、查無單號），伺服器依然回傳 `HTTP 200 OK`，只在 Response Body 中附帶 `Is_Valid = "N"`。外部 Gateway 難以直接以 HTTP Status Code 進行熔斷或重試策略。
+3. **缺乏宣告式驗證約束**：
+   * 程式碼中完全沒有 `[Required]` 等資料驗證標籤，欄位檢核均寫在 Controller 內，各模組行為不一致。
+
+
+## 七、Howard Liao Ph.D. 首席顧問四大工程處方
 
 ### 處方一：C08 直接寫入 AXDB 之「防腐層隔離與事件驅動重構」
 * **問題根因**：CQS 報價系統直接下 SQL UPDATE 覆寫 D365 AXDB 主庫的 `BOM.JCOM_BOMQTYQUOTE`，跳過 ERP 商業邏輯驗證、審計軌跡與併發鎖定，一旦連線中斷或欄位驗證失敗將破壞 ERP 交易一致性。
@@ -271,7 +321,7 @@ Duke 所主導之三大系統盤點展現了卓越的工程紀律與深度，全
 
 ---
 
-## 七、向 Duke 溫暖致謝與 5 大面向技術對齊探討清單
+## 八、向 Duke 溫暖致謝與 5 大面向技術對齊探討清單
 
 > **致 Duke 的技術致敬簡函**：  
 > 「Duke 您好：非常感佩您與研發、ERP 團隊在 11/12 所整理交付的整套系統規格與串接矩陣！從 RD_SAMPLE 的 21 條拓撲、D365 的 21 條拓撲到 CQS 的 13 條連線與 177 支 API，資料極具系統性與工程穿透力，為蜂巢計畫 2027 奠定了最堅實的基準。為了讓後續架構升級更加平穩，顧問團隊在此列出 5 個技術焦點，期待與您溫暖對齊交流！」
