@@ -292,55 +292,7 @@ Duke 所主導之三大系統盤點展現了卓越的工程紀律與深度，全
 3. **缺乏宣告式驗證約束**：
    * 程式碼中完全沒有 `[Required]` 等資料驗證標籤，欄位檢核均寫在 Controller 內，各模組行為不一致。
 
-
-## 七、Howard Liao Ph.D. 首席顧問四大工程處方
-
-### 處方一：C08 直接寫入 AXDB 之「防腐層隔離與事件驅動重構」
-* **問題根因**：CQS 報價系統直接下 SQL UPDATE 覆寫 D365 AXDB 主庫的 `BOM.JCOM_BOMQTYQUOTE`，跳過 ERP 商業邏輯驗證、審計軌跡與併發鎖定，一旦連線中斷或欄位驗證失敗將破壞 ERP 交易一致性。
-* **工程解方**：
-  1. 立即廢除 `UPDATE BOM` 直接連線，改由 D365 Custom Service 新增 `RSI_BOMQuoteUpdateService`。
-  2. CQS 透過 API 發送報價審核事件，由 D365 內部 X++ 交易事務（ttsbegin / ttscommit）進行校驗回寫，確保 ERP 內部審計日誌完整。
-
-### 處方二：三大跨系統拓撲（55 條連線）資安收斂與 API Gateway 落地
-* **問題根因**：全案存在 21 (RD_SAMPLE) + 21 (D365) + 13 (CQS) = 55 條串接拓撲，其中多達 15 處直接以 sa 或 whuser 帳號透過 TDS 1433 直連跨國資料庫，且 C# 外掛 80/8085 端口全無認證。
-* **工程解方**：
-  1. 導入輕量級 API Gateway（Envoy / IIS ARR 強化），將所有 HTTP 端口統一收斂至 HTTPS 443，強制掛載 Entra ID / ADFS JWT 驗證。
-  2. 跨國資料庫直連（如 8 廠 WMS、越南 RDV、柬埔寨 RDG）全面封裝為 RESTful API，禁止跨國 WAN 暴露 TDS 1433 端口。
-
-### 處方三：海外 8 廠離線自律 (48-72 小時) 與非同步補償佇列
-* **問題根因**：海外各廠區現場依賴總部連線，海纜中斷時容易導致打樣與現場生產停擺。
-* **工程解方**：
-  1. 各海外廠區本地部署 SQLite / 本地 SQL 快取，維護未來 72 小時所需之款式、物料與工單快照。
-  2. 本地作業產生之異動寫入本地非同步佇列，待專線恢復後透過 idempotency key 自動增量回傳總部，確保「斷網不停產、復網不衝突」。
-
-### 處方四：CQS 與 C# 外掛之 CI/CD 現代化標準化
-* **問題根因**：CQS 系統目前完全無 CI，採人工覆蓋檔案；外掛雖有 GitLab Runner 但採 robocopy 覆蓋，缺乏自動化測試與回滾機制。
-* **工程解方**：
-  1. 為 `cqs/cqs` 建立 GitLab CI 腳本，結合 Docker 或 IIS Web Deploy 實現藍綠無中斷部署。
-  2. 導入組態設定外部化（如 Azure Key Vault 或機密管理檔），杜絕程式碼與 Web.config 中殘留明碼帳密。
-
----
-
-## 八、向 Duke 溫暖致謝與 5 大面向技術對齊探討清單
-
-> **致 Duke 的技術致敬簡函**：  
-> 「Duke 您好：非常感佩您與研發、ERP 團隊在 11/12 所整理交付的整套系統規格與串接矩陣！從 RD_SAMPLE 的 21 條拓撲、D365 的 21 條拓撲到 CQS 的 13 條連線與 177 支 API，資料極具系統性與工程穿透力，為蜂巢計畫 2027 奠定了最堅實的基準。為了讓後續架構升級更加平穩，顧問團隊在此列出 5 個技術焦點，期待與您溫暖對齊交流！」
-
-1. **焦點一【C08 報價回寫 ERP 邊界仲裁】**：
-   * 目前 CQS 的 `CQSUpdateERPBOMQtyQuote` 採直接 UPDATE D365 AXDB。評估是否在 2027 蜂巢計畫中，由 ERP 組開放專屬 X++ Custom Service 操作，讓報價用量回寫納入 D365 交易鎖定與審計日誌？
-2. **焦點二【C# 外掛 API 驗證機制無縫升級】**：
-   * 目前 RSIMDW1 上的 `Report.Service` (:8085) 與 `Local.WebApi` (:80) 無認證。是否可由外掛目前的 `/Auth` 端點延伸，全面加上 ADFS Bearer Token 檢核，防範內網未授權呼叫？
-3. **焦點三【海外 8 廠 WMS 跨國 TDS 直連轉型】**：
-   * 目前 `ERP_WMS_inventory` 透過專線跨國直連 8 廠 TDS 1433。未來是否規劃在海外廠區部署輕量微服務，將庫存比對改為每日增量 JSON 拋轉，降低專線抖動對總部排程的衝擊？
-4. **焦點四【CQS 系統版控與 CI/CD 落地】**：
-   * 盤點指出 CQS 前端 (Vue 3) 與後端 (.NET 8) 尚無 CI 自動化部署。顧問團隊可協助於 GitLab 配置建置腳本與 Runner，免除人工覆蓋伺服器檔案的營運風險。
-5. **焦點五【正式機對測試機依賴之清理 (I17)】**：
-   * 樣品系統 I17 圖檔檢視目前正式機硬編碼指向測試機 `192.168.0.23:8081`。建議安排工單將測試機舊圖檔遷移至正式儲存伺服器，消除此一單點脆弱性。
-
-
----
-
-## 第七章：Factory API 領域類別圖 (Class Diagrams) 與介面服務圖 (Interface Diagrams)
+## 七、Factory API 領域類別圖 (Class Diagrams) 與介面服務圖 (Interface Diagrams)
 
 本章針對 Duke 於 2026.11.13 交付之 Factory API 488 支端點與 50 個業務 Tags，依據 DDD 領域驅動設計原則拆解為 5 大核心領域之 UML 2.0 實體類別圖與服務介面契約圖。
 
@@ -829,3 +781,61 @@ classDiagram
     APS_SewPlan "1" ..> "1" RsiGetSmvModel : 依據標準工時計算產能
     APS_SewPlan "1" ..> "0..*" QMS_InlineQCReport : 產線品質巡檢合格門檻
 ```
+
+---
+
+## 八、Howard Liao Ph.D. 首席顧問四大工程處方（全面升級修正版：深度融合 488 支 Factory API）
+
+本四大工程處方在深度消化 Duke 於 2026.11.13 交付之 Factory API 488 支端點（50 個業務 Tags、583 個 Data Schemas）後，進行了精準的架構深化與升級。從原先基於 55 條宏觀拓撲的架構防禦，正式躍升為**涵蓋海外 8 廠地端實體控制器與硬體協同的全鏈路落地工程處方**。
+
+### 處方一：C08 報價與海外 8 廠 MES/WMS 高頻交易之「雙向防腐層（ACL）與 ERP 交易解耦」
+* **問題根因**：
+  1. CQS 報價系統直接下 SQL UPDATE 覆寫 D365 AXDB 主庫的 `BOM.JCOM_BOMQTYQUOTE`，跳過 ERP 商業邏輯驗證、審計軌跡與併發鎖定。
+  2. 深入盤點 488 支 Factory API 後發現，海外 8 廠 `ERP_WMS_inventory` 與每日高頻車縫報工 `ProduceDailyQty` 亦存在跨國專線直連 TDS 1433 與直接鎖庫隱患，一旦海纜抖動或跨國長事務掛起，極易引發 AXDB 主庫全域鎖死（Deadlock）。
+* **工程落地解方**：
+  1. **雙向防腐層 (Anticorruption Layer, ACL)**：立即廢止跨國 Direct SQL 與 Linked Server，全面改由 D365 X++ Custom Service 進行封裝（如 `RSI_BOMQuoteUpdateService`）。
+  2. **事件驅動非同步回寫 (Event-Driven Persistence)**：CQS 報價審核與工廠端每日報工改發送非同步業務事件，由 D365 內部 X++ 交易事務（`ttsbegin` / `ttscommit`）進行校驗回寫，確保 ERP 財務與庫存主檔之交易一致性與審計日誌（Audit Log）完整。
+
+### 處方二：全鏈路 543 支 API 零信任收斂與「總部–廠端兩級 API Gateway」落地
+* **問題根因**：
+  1. 總部端：RD_SAMPLE (21)、D365 (21)、CQS (13) 共 55 條串接拓撲分散於非標準 HTTP 端口，且 C# 外掛 80/8085 端口全無認證。
+  2. **工廠端最大資安破口**：Duke 交付之 488 支 Factory API 經查核**「全數無任何身分驗證（無 Authorization Header / 無 API Token）」**，且業務錯誤多以 `HTTP 200 OK` 包覆 `Is_Valid = 'N'`，缺乏標準 HTTP 錯誤碼，極易引發內網未授權偽造派工與監控盲區。
+* **工程落地解方**：
+  1. **兩級式 API 閘道體系 (Two-Tier API Gateway)**：
+     * **總部端 (HQ Gateway)**：部署 Microsoft YARP Gateway，將 D365 / CQS / RD_SAMPLE 對外端點統一收斂至 HTTPS 443，強制掛載 Microsoft Entra ID (Azure AD) OAuth2.0 / JWT 驗證。
+     * **廠端邊緣閘道 (Edge Gateway)**：在海外 8 廠 IIS 前端加掛輕量級邊緣閘道（Envoy 或 YARP Edge），對內網手持 PDA、車載 AGV、立庫與產線 PC 實施 HMAC / JWT Token 檢驗。
+  2. **錯誤碼與契約標準化轉譯**：由邊緣閘道攔截器將傳統 `Is_Valid = 'N'` 自動映射為標準 RFC 7807 Problem Details 與 HTTP 4xx/5xx 狀態碼，達成 100% 零信任架構且「零改動既有 Controller 原始碼」。
+
+### 處方三：海外 8 廠離線自律 (48-72 小時) 之實體化落地（以 Factory API 為地端核心）
+* **問題根因**：海外廠區過去高度依賴總部連線，海纜或專線中斷時常造成打樣、裁片與車縫現場停擺。
+* **工程落地解方（獲 488 支 API 實體支撐）**：
+  1. **確立 Factory API 為地端獨立運行核心**：分析確認地端 WMS (49 支)、MES (Cut/Sew 50+ 支)、TPM/AMS (120+ 支) 及 AGV/立庫已具備完整本地商業邏輯，**完全具備在地閉環自律運作條件**！
+  2. **精準收斂總部依賴**：廠端僅需依賴 2 支核心查詢 API 下載總部主檔——`RSI_GetSMVToMES`（標準工時）與 `RSI_GetRDInfo`（款式版型），其餘 486 支 API 均於地端邊緣伺服器自主處理。
+  3. **Transactional Outbox 斷網容錯與自動對齊**：地端所有生產報工與庫存出入庫先持久化至本地端 SQLite / SQL Express 佇列；海纜復原後，透過帶有 `Idempotency-Key` 的重試機制自動增量同步回總部，真正落實「斷網不停產 72 小時、復網不衝突」。
+
+### 處方四：CQS、C# 外掛與 Factory_API 原始碼之「全自動 CI/CD 與 OpenApiGen 契約防禦」
+* **問題根因**：CQS 系統無 CI 自動化、C# 外掛採 robocopy 人工覆蓋、工廠端 Factory API 雖具備 `tools/OpenApiGen` 但尚未形成自動化相容性檢測流水線。
+* **工程落地解方**：
+  1. **全流水線化 (Automated Pipeline)**：將 CQS、C# 外掛與 Factory_API 原始碼納入 GitLab CI / GitHub Actions 流水線，代碼提交即自動執行單元測試、靜態安全掃描（SAST）與容器化建置。
+  2. **OpenAPI 契約自動防禦 (Contract Breaking-Change Guard)**：在 CI 流水線中整合 Duke 現有之 `tools/OpenApiGen`，每次發版自動生成最新 `openapi.json`，並比對是否發生破壞性變更（如必填欄位更名、型別變更），若有破壞性變更自動阻斷 Merge Request。
+  3. **組態與憑證外部化**：全面拔除原始碼與 Web.config 中的資料庫連線字串與帳密，統一接入 Azure Key Vault 或地端 HashiCorp Vault。
+
+---
+
+## 九、向 Duke 溫暖致謝與 6 大面向技術對齊探討清單（新增 Factory API 邊界防護焦點）
+
+> **致 Duke 的技術致敬簡函**：  
+> 「Duke 您好：非常感佩您與研發、ERP 團隊在 11/12 與 11/13 所整理交付的整套系統規格與串接矩陣！從 RD_SAMPLE 的 21 條拓撲、D365 的 21 條拓撲、CQS 的 13 條連線，到今日 Synology iDrive 交付的 Factory API 全量 488 支端點與 OpenAPI 規範，整體資料具備極高的系統深度與工程穿透力，為信源 2027 蜂巢計畫奠定了最堅實的數位基石。為了讓後續跨系統架構對接更加平穩高效，顧問團隊在此列出 6 個關鍵技術焦點，期待與您溫暖對齊交流！」
+
+1. **焦點一【C08 報價回寫 ERP 邊界仲裁】**：
+   * 目前 CQS 的 `CQSUpdateERPBOMQtyQuote` 採直接 UPDATE D365 AXDB。評估是否在 2027 蜂巢計畫中，由 ERP 組開放專屬 X++ Custom Service 操作，讓報價用量回寫納入 D365 交易鎖定與審計日誌？
+2. **焦點二【C# 外掛 API 驗證機制無縫升級】**：
+   * 目前 RSIMDW1 上的 `Report.Service` (:8085) 與 `Local.WebApi` (:80) 無認證。是否可由外掛目前的 `/Auth` 端點延伸，全面加上 ADFS / Entra ID Bearer Token 檢核，防範內網未授權呼叫？
+3. **焦點三【海外 8 廠 WMS 跨國 TDS 直連轉型】**：
+   * 目前 `ERP_WMS_inventory` 透過專線跨國直連 8 廠 TDS 1433。未來是否規劃在海外廠區部署輕量微服務，將庫存比對改為每日增量 JSON 拋轉，降低專線抖動對總部排程的衝擊？
+4. **焦點四【CQS 系統版控與 CI/CD 落地】**：
+   * 盤點指出 CQS 前端 (Vue 3) 與後端 (.NET 8) 尚無 CI 自動化部署。顧問團隊可協助於 GitLab 配置建置腳本與 Runner，免除人工覆蓋伺服器檔案的營運風險。
+5. **焦點五【正式機對測試機依賴之清理 (I17)】**：
+   * 樣品系統 I17 圖檔檢視目前正式機硬編碼指向測試機 `192.168.0.23:8081`。建議安排工單將測試機舊圖檔遷移至正式儲存伺服器，消除此一單點脆弱性。
+6. **焦點六【Factory API 488 支端點邊界安全防護與狀態碼標準化交流（今日新增）】**：
+   * 今日研讀您交付的 488 支 Factory API，其對 WMS、MES、TPM、AGV 與立庫的業務封裝極具深度與完整度，團隊由衷感佩！在細部規範中注意到目前端點設計採內網信任架構（無 Auth Header），且業務錯誤採 HTTP 200 包覆 `Is_Valid = 'N'`。想與您溫暖請益：在 2027 蜂巢計畫中，團隊是否可在廠端入口規劃輕量級邊界安全中繼層（例如以 Envoy 或 YARP 輕量閘道集中檢驗 Token 並做錯誤碼轉譯），以減輕各業務 Controller 改寫負擔，同時大幅強化海外 8 廠的縱深防禦能力？

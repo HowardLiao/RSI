@@ -899,147 +899,158 @@
     <div id="tab-prescriptions" class="tab-pane">
       <div class="section-card">
         <div class="section-header">
-          <h2>Howard Liao Ph.D. 首席顧問四大工程處方</h2>
-          <span class="section-badge">落地實施指南</span>
+          <h2>Howard Liao Ph.D. 首席顧問四大工程處方（全面升級修正版：深度融合 488 支 Factory API）</h2>
+          <span class="section-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">全鏈路落地實施指南</span>
         </div>
 
+        <p style="color: var(--color-warm-gray); line-height: 1.7; margin-bottom: 24px;">
+          在深入研析 Duke 今日交付之 <strong>Factory API 全量 488 支端點（50 個業務 Tags、583 個 Schemas）</strong> 後，顧問團隊將原先基於 55 條跨系統拓撲之初步處方進行了全面升級。由原先的「宏觀架構防禦」進化為「直擊工廠地端 Controller 與立庫/AGV 硬體協同的精準落地工程處方」。
+        </p>
+
+        <!-- Prescription 1 -->
         <div class="prescription-card">
           <div class="prescription-header">
-            <span class="prescription-title">處方一（資安防禦）：以地端開源 YARP API Gateway 收攏無認證 C# 外掛</span>
-            <span class="tag tag-danger">資安急迫性：極高</span>
+            <span class="prescription-title">處方一（交易邊界）：C08 報價與海外 8 廠 MES/WMS 高頻交易之「雙向防腐層 (ACL) 與 ERP 交易解耦」</span>
+            <span class="tag tag-danger">交易一致性：極高</span>
           </div>
           <p style="margin-bottom: 12px; color: var(--text-muted);">
-            <strong>【現狀挑戰】</strong> <code>192.168.0.95</code> 的 Report API 與 Local API 無驗證機制，若修改舊有的 .NET 4.8 程式碼需耗時重構與全面迴歸測試。
+            <strong>【現狀挑戰】</strong> 
+            1. CQS 報價系統直接下 SQL UPDATE 覆寫 D365 AXDB 主庫的 <code>BOM.JCOM_BOMQTYQUOTE</code>，跳過 ERP 商業邏輯校驗、審計軌跡與併發鎖定。<br>
+            2. Factory API 盤點證實：海外 8 廠 <code>ERP_WMS_inventory</code> 與每日高頻車縫報工 <code>ProduceDailyQty</code> 亦存在跨國專線直連 TDS 1433 與直接鎖庫隱患，海纜抖動時極易引發 AXDB 主庫鎖死。
           </p>
           <p style="margin-bottom: 12px;">
             <strong>【處方作為】</strong>
-            1. 在測試機 <code>192.168.0.23</code> 部署開源 .NET 8 <strong>Microsoft YARP Gateway</strong>。<br>
-            2. 伺服器 <code>192.168.0.95</code> 設定 Windows 防火牆，阻斷一般辦公網段直連，僅允許 YARP Gateway IP 訪問。<br>
-            3. 由 YARP Gateway 統一掛載 JWT 驗證、API Key、來源 IP 白名單與速率限制（Rate Limiting）。<br>
-            <strong>【落地成效】</strong> 零改舊程式碼、0 元軟體授權費，24 小時內達成 100% 零信任資安收攏。
+            1. <strong>雙向防腐層 (Anticorruption Layer, ACL)</strong>：立即廢止跨國 Direct SQL 與 Linked Server，改由 D365 X++ Custom Service 進行封裝（如新增 <code>RSI_BOMQuoteUpdateService</code>）。<br>
+            2. <strong>事件驅動非同步回寫</strong>：CQS 報價審核與工廠端每日報工改發送非同步業務事件，由 D365 內部 X++ 交易事務（<code>ttsbegin</code> / <code>ttscommit</code>）進行校驗回寫。<br>
+            <strong>【落地成效】</strong> 消除 AXDB 跨國長事務鎖表風險，ERP 主庫交易一致性與審計軌跡達成 100% 合規。
           </p>
         </div>
 
+        <!-- Prescription 2 -->
         <div class="prescription-card">
           <div class="prescription-header">
-            <span class="prescription-title">處方二（營運韌性）：解耦 I05/I06 跨國專線 TDS 1433 直連與 Linked Server</span>
-            <span class="tag tag-warning">韌性急迫性：高</span>
+            <span class="prescription-title">處方二（資安收斂）：全鏈路 543 支 API 零信任收斂與「總部–廠端兩級 API Gateway」落地</span>
+            <span class="tag tag-danger">資安急迫性：最高</span>
           </div>
           <p style="margin-bottom: 12px; color: var(--text-muted);">
-            <strong>【現狀挑戰】</strong> 總部每 30 分鐘直連越南/柬埔寨 SQL 寫庫，廠區以 Linked Server 連總部 MERGE。跨國海纜中斷或延遲飆高時，會造成資料庫長期鎖定（Locking），無法達到周副總要求的「48~72 小時斷網自律」。
+            <strong>【現狀挑戰】</strong> 
+            1. 總部端 55 條連線與 C# 外掛 80/8085 端口全無認證。<br>
+            2. <strong>工廠端重大突破口</strong>：Duke 交付之 488 支 Factory API 經查核<strong>「全數無任何身分驗證（無 Authorization Header / 無 API Token）」</strong>，且業務錯誤多以 <code>HTTP 200 OK</code> 包覆 <code>Is_Valid = 'N'</code>，缺乏標準 HTTP 錯誤狀態碼。
           </p>
           <p style="margin-bottom: 12px;">
             <strong>【處方作為】</strong>
-            1. 廢止跨國資料庫直連 RPC 與 Linked Server MERGE。<br>
-            2. 改採 <strong>「非同步 API 隊列 ＋ 本地端 SQLite / SQL Express 緩存」</strong> 機制。<br>
-            3. 總部將工單排單異動寫入本地發布佇列；廠區 Agent 透過斷點續傳 Pull 機制抓取並落庫。<br>
-            <strong>【落地成效】</strong> 斷網時廠區產線維持正常運作達 72 小時以上，專線復原後自動對齊 Reconciliation。
+            1. <strong>兩級式 API 閘道體系 (Two-Tier API Gateway)</strong>：<br>
+            &nbsp;&nbsp;• <strong>總部端 (HQ Gateway)</strong>：部署 Microsoft YARP Gateway，收斂對外端點至 HTTPS 443，強制掛載 Microsoft Entra ID (Azure AD) / JWT 驗證。<br>
+            &nbsp;&nbsp;• <strong>廠端邊緣閘道 (Edge Gateway)</strong>：在海外 8 廠 IIS 前端加掛輕量級邊緣閘道（Envoy 或 YARP Edge），對內網手持 PDA、車載 AGV、立庫與產線 PC 實施 HMAC / JWT Token 檢驗。<br>
+            2. <strong>錯誤碼與契約標準化轉譯</strong>：由邊緣閘道攔截器將 <code>Is_Valid = 'N'</code> 自動映射為標準 RFC 7807 Problem Details 與 HTTP 4xx/5xx 狀態碼。<br>
+            <strong>【落地成效】</strong> 零改動工廠端 Controller 原始碼，24 小時內達成 488 支 API 100% 零信任資安收攏與標準錯誤碼轉譯。
           </p>
         </div>
 
+        <!-- Prescription 3 -->
         <div class="prescription-card">
           <div class="prescription-header">
-            <span class="prescription-title">處方三（資料治理）：解耦 I07 程式內 23 處直接 SQL 讀取 ERP 主庫 (AXDB)</span>
-            <span class="tag tag-primary">治理急迫性：中</span>
+            <span class="prescription-title">處方三（營運韌性）：海外 8 廠離線自律 (48-72 小時) 之實體化落地（以 Factory API 為地端核心）</span>
+            <span class="tag tag-warning">韌性急迫性：極高</span>
           </div>
           <p style="margin-bottom: 12px; color: var(--text-muted);">
-            <strong>【現狀挑戰】</strong> 研發系統與排程程式直接下 SQL 查詢 ERP 營運與財務主庫（AXDB），高頻查詢容易爭搶資源，造成鎖表風險。
+            <strong>【現狀挑戰】</strong> 海外廠區過去高度依賴總部連線，海纜中斷時容易導致打樣與現場生產停擺。
+          </p>
+          <p style="margin-bottom: 12px;">
+            <strong>【處方作為（獲 488 支 API 實體支撐）】</strong>
+            1. <strong>確立 Factory API 為地端自律運行核心</strong>：盤點證實地端 WMS (49 支)、MES (Cut/Sew 50+ 支)、TPM/AMS (120+ 支) 及 AGV/立庫已具備完整本地商業邏輯，<strong>完全具備在地閉環自律運作條件</strong>！<br>
+            2. <strong>精準收斂總部依賴</strong>：廠端僅需依賴 2 支核心查詢 API 下載總部主檔——<code>RSI_GetSMVToMES</code>（標準工時）與 <code>RSI_GetRDInfo</code>（款式版型），其餘 486 支 API 均於地端邊緣伺服器自主處理。<br>
+            3. <strong>Transactional Outbox 斷網容錯與自動對齊</strong>：生產報工與庫存異動先寫入本地 SQLite / SQL Express 佇列；海纜復原後帶有 <code>Idempotency-Key</code> 自動增量同步回總部。<br>
+            <strong>【落地成效】</strong> 斷網 72 小時產線 100% 自律運作不停機、復網增量全自動對齊無衝突。
+          </p>
+        </div>
+
+        <!-- Prescription 4 -->
+        <div class="prescription-card">
+          <div class="prescription-header">
+            <span class="prescription-title">處方四（研發運維）：CQS、C# 外掛與 Factory_API 原始碼之「全自動 CI/CD 與 OpenApiGen 契約防禦」</span>
+            <span class="tag tag-success">工程成熟度：標竿</span>
+          </div>
+          <p style="margin-bottom: 12px; color: var(--text-muted);">
+            <strong>【現狀挑戰】</strong> CQS 系統無 CI 自動化、C# 外掛採 robocopy 人工覆蓋、工廠端 Factory API 雖具備 <code>tools/OpenApiGen</code> 但尚未形成自動化相容性檢測流水線。
           </p>
           <p style="margin-bottom: 12px;">
             <strong>【處方作為】</strong>
-            1. 實踐 CQRS 讀寫分離架構。<br>
-            2. 透過 D365 變更追蹤（Change Tracking）將物料、顏色、客戶主檔鏡像至地端 <strong>StarRocks 高性能湖倉</strong> 或只讀複本庫。<br>
-            3. 將 23 處 Direct SQL 全數遷移至只讀視圖或快取 API。<br>
-            <strong>【落地成效】</strong> 消除主庫讀取鎖定，ERP 主庫負載降低 40% 以上。
+            1. <strong>全流水線化 (Automated Pipeline)</strong>：將 CQS、C# 外掛與 Factory_API 原始碼納入 GitLab CI / GitHub Actions 流水線，代碼提交即自動執行單元測試、SAST 掃描與容器化建置。<br>
+            2. <strong>OpenAPI 契約自動防禦</strong>：在 CI 流水線中整合 Duke 現有之 <code>tools/OpenApiGen</code>，每次發版自動生成最新 <code>openapi.json</code>，若有破壞性變更（Breaking Changes）自動阻斷發布。<br>
+            3. <strong>組態與憑證外部化</strong>：全面拔除原始碼中的資料庫連線字串與帳密，統一接入 Azure Key Vault 或地端 HashiCorp Vault。<br>
+            <strong>【落地成效】</strong> 杜絕手動部署覆蓋二進位檔風險，全集團 API 契約變更具備自動化破壞性預警防護。
           </p>
         </div>
 
-        <div class="prescription-card">
-          <div class="prescription-header">
-            <span class="prescription-title">處方四（制度推廣）：正式將 Duke `RD_SAMPLE` 定為全集團 Week 1 統一填報標準</span>
-            <span class="tag tag-success">管理成熟度：標竿</span>
-          </div>
-          <p style="margin-bottom: 12px; color: var(--text-muted);">
-            <strong>【現狀挑戰】</strong> 海外廠區與各部門系統眾多，缺乏統一盤點標準容易導致資訊斷層。
-          </p>
-          <p style="margin-bottom: 12px;">
-            <strong>【處方作為】</strong>
-            1. PMO 以 Duke 之 <code>RD_SAMPLE</code> 為母版，通令越南、柬埔寨、印尼與總部所有系統窗口（MES、BPM、WMS、HRM 等）比照填報。<br>
-            2. 統一交付要件：draw.io 雙頁圖、系統卡、跨系統接口清冊（I01～IN）、Windows 排程任務表。<br>
-            <strong>【落地成效】</strong> 於 11/16 召開跨廠區審查會，全面建立集團統一架構資產基線。
-          </p>
+        <div class="section-header" style="margin-top: 36px;">
+          <h2>向 Duke 溫暖致謝與 6 大面向技術對齊探討清單</h2>
+          <span class="section-badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4);">新增 Factory API 邊界防護焦點</span>
         </div>
 
-      </div>
-    
+        <p style="color: var(--color-warm-gray); line-height: 1.6; margin-bottom: 16px;">
+          以下為顧問團隊研讀 Duke 11/12 交付之三大系統規格與今日交付之 Factory API 488 支端點後，彙整之 6 大面向協同確認清單，旨在以溫暖、建設性的技術語言與 Duke 團隊交流：
+        </p>
 
-    <!-- TAB 6: 向 Duke 協同提問與落地對齊清單 -->
-    <div id="tab-duke-questions" class="tab-pane">
-      <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px;">
-          <div>
-            <h2 style="font-size: 22px; color: var(--accent); margin-bottom: 6px;">💬 向 Duke 溫暖致謝與 5 大面向技術對齊探討清單</h2>
-            <div style="color: var(--text-muted); font-size: 14px;">本清單依據 Duke 11/12 交付之 API List (21 條拓撲) 與 13 項排程規格精煉，用於平穩推進 48~72hr 在地自律與 0 元開源架構</div>
-          </div>
-          <button class="btn btn-primary" onclick="copyDukeLetterReport()" style="padding: 8px 16px; font-size: 14px;">
-            📋 一鍵複製完整信函
+        <div style="margin-bottom: 20px;">
+          <button class="btn btn-primary" onclick="copyDukeLetterReport()" style="background: #2563eb; color: #fff; padding: 10px 20px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer;">
+            📋 一鍵複製致 Duke 的 6 大技術探討信函全文
           </button>
         </div>
 
-        <div style="background: rgba(210, 153, 34, 0.1); border-left: 4px solid #d29922; padding: 16px 20px; border-radius: 8px; margin-bottom: 24px; font-size: 15px; line-height: 1.7;">
-          <strong>致謝信函內文：</strong><br>
-          「Duke 您好，辛苦了！非常感謝您在 11/12 如此高效率且條理分明地盤點並交付了集團核心的 API List 與 RD_SAMPLE-v0-1 完整規格！這份技術資產梳理得非常清晰，不僅將複雜的跨系統介面（21 條拓撲）與 13 項核心排程完整透明化，更為我們推進周副總主持的『2027 蜂巢計畫（Project Hive）』奠定了極為扎實、可靠的工程基石。為了協助團隊在後續落地『在地端 48~72 小時斷網自律運轉』與『0 元開源平替架構』時更加平穩順暢，並最大程度降低對您與開發團隊日常維運的負擔，我們在深入研讀這兩份寶貴資料後，整理出以下 5 個面向的協同確認與探討點，想請教並聆聽您的實務經驗與建議：」
-        </div>
-
-        <div class="prescription-card" style="border-left: 4px solid #38bdf8;">
+        <!-- Question 1 -->
+        <div class="prescription-card" style="border-left: 4px solid #3b82f6;">
           <div class="prescription-header">
-            <span class="prescription-title" style="color: #38bdf8;">1. D365 C# 外掛 API 的邊界防護與 Gateway 平滑收攏</span>
-            <span class="tag tag-primary">資安防護縱深</span>
+            <span class="prescription-title" style="color: #3b82f6;">1. D365 C# 外掛 API 的邊界防護與 Gateway 平滑收攏</span>
+            <span class="tag tag-primary">資安防禦</span>
           </div>
           <p style="margin-bottom: 10px; color: var(--text-muted);">
             <strong>【現況背景】</strong> 清冊中清楚標記了主機 192.168.0.95 上的 Report API（:8085 / :8082）與 Local API（:80 / :8081），主要供各系統取得報表下載 URL 與成衣業務資料（馬克、PCT、WIP 等），目前採取內部信任（無驗證）模式。
           </p>
-          <p style="background: rgba(56, 189, 248, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
+          <p style="background: rgba(59, 130, 246, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
             <strong>【想請教 Duke】</strong><br>
             • 目前呼叫這兩組 API 的主要來源端（如 RD_SAMPLE 站台、現場特定工作站或批次程式），在底層網路上是否已有既定的 IP 白名單或網段限制？<br>
-            • 未來若由在地端輕量 API Gateway（如開源 YARP）在前端統籌掛載 JWT/Token 鑑權做為資安防護閘道，現有呼叫端在配合改帶 Authorization Header 方面，哪一種推進節奏對團隊來說最為平穩（例如：維持既有端口不變、由 Gateway 對外開新路由並設置平行過渡期）？
+            • 未來若由在地端輕量 API Gateway（如開源 YARP）在前端統籌掛載 JWT/Token 鑑權做為資安防護閘道，現有呼叫端在配合改帶 Authorization Header 方面，哪一種推進節奏對團隊來說最為平穩？
           </p>
         </div>
 
-        <div class="prescription-card" style="border-left: 4px solid #10b981;">
+        <!-- Question 2 -->
+        <div class="prescription-card" style="border-left: 4px solid #f59e0b;">
           <div class="prescription-header">
-            <span class="prescription-title" style="color: #10b981;">2. 跨國專線同步與廠區「48～72 小時斷網自律」落地銜接</span>
-            <span class="tag tag-success">高可用韌性</span>
+            <span class="prescription-title" style="color: #f59e0b;">2. 跨國專線同步與廠區「48～72 小時斷網自律」落地銜接</span>
+            <span class="tag tag-warning">高可用韌性</span>
           </div>
           <p style="margin-bottom: 10px; color: var(--text-muted);">
             <strong>【現況背景】</strong> Sync_RSV.bat 與 Sync_RSG.bat 每 30 分鐘透過 DYXnet 專線直連越柬廠區 SQL Server（1433）同步工單與日報資料，維繫了跨國打樣與生產節奏。
           </p>
-          <p style="background: rgba(16, 185, 129, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
+          <p style="background: rgba(245, 158, 11, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
             <strong>【想請教 Duke】</strong><br>
             • 依據過往經驗，當遇上海纜檢修或跨國專線瞬斷時，海外廠端若無法即時回寫，目前同仁的排解方式主要依賴重跑排程，或是有人工批次對齊的機制？是否有遇過主鍵衝突或時間戳鎖定需要手動處理的情形？<br>
             • 若我們在廠區邊緣端（Local Edge）導入離線暫存隊列，讓越南與柬埔寨在海纜斷線時仍可自律開單、打樣與填報達 72 小時，待專線復原後全自動非同步對齊，生管與打樣現場最核心、最不能中斷的關鍵欄位會建議優先鎖定哪些？
           </p>
         </div>
 
-        <div class="prescription-card" style="border-left: 4px solid #f59e0b;">
+        <!-- Question 3 -->
+        <div class="prescription-card" style="border-left: 4px solid #10b981;">
           <div class="prescription-header">
-            <span class="prescription-title" style="color: #f59e0b;">3. RD_SAMPLE 資料庫存取與 AXDB 正式庫連線收斂</span>
-            <span class="tag tag-warning">資料庫架構</span>
+            <span class="prescription-title" style="color: #10b981;">3. RD_SAMPLE 資料庫存取與 AXDB 正式庫連線收斂</span>
+            <span class="tag tag-success">資料治理</span>
           </div>
           <p style="margin-bottom: 10px; color: var(--text-muted);">
             <strong>【現況背景】</strong> RD_SAMPLE 內部包含 1,490 處存取 SAM 資料庫的 SQL，並有 23 處跨庫直連 AXDB 營運主庫（192.168.0.131）進行資料讀取。
           </p>
-          <p style="background: rgba(245, 158, 11, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
+          <p style="background: rgba(16, 185, 129, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
             <strong>【想請教 Duke】</strong><br>
             • 這 23 處直讀 AXDB 的查詢需求（例如料號基本檔、訂單狀態），是否有部分在您梳理的「D365 C# 80 Operations」中已具備對應的 API 服務可供直接調用？<br>
             • 針對高頻查詢部分，若未來透過夜間批次先將 AXDB 所需的唯讀視圖（Read-Only View）鏡像至地端暫存庫，解除直接對 AXDB 的連線依賴，這樣的架構調整是否符合團隊對資料即時性的預期？
           </p>
         </div>
 
+        <!-- Question 4 -->
         <div class="prescription-card" style="border-left: 4px solid #8b5cf6;">
           <div class="prescription-header">
             <span class="prescription-title" style="color: #8b5cf6;">4. 13 項核心排程之運作觀測與維運儀表體驗</span>
-            <span class="tag tag-purple">維運觀測性</span>
+            <span class="tag tag-purple">維運觀測</span>
           </div>
           <p style="margin-bottom: 10px; color: var(--text-muted);">
             <strong>【現況背景】</strong> SendNotification.bat 具備 5 分鐘高頻輪詢機制，且夜間 23:01 起有密集的顏色、物料主檔同步排程，是維持集團營運神經中樞的功臣。
@@ -1051,6 +1062,7 @@
           </p>
         </div>
 
+        <!-- Question 5 -->
         <div class="prescription-card" style="border-left: 4px solid #ec4899;">
           <div class="prescription-header">
             <span class="prescription-title" style="color: #ec4899;">5. CQS 品質微服務 (.NET 8) 現代化架構經驗借鏡</span>
@@ -1066,6 +1078,22 @@
           </p>
         </div>
 
+        <!-- Question 6 (NEW) -->
+        <div class="prescription-card" style="border-left: 4px solid #06b6d4;">
+          <div class="prescription-header">
+            <span class="prescription-title" style="color: #06b6d4;">6. Factory API 488 支端點邊界安全防護與狀態碼標準化交流（今日新增）</span>
+            <span class="tag tag-primary" style="background: #06b6d4; color: #fff;">工廠物聯網資安</span>
+          </div>
+          <p style="margin-bottom: 10px; color: var(--text-muted);">
+            <strong>【現況背景】</strong> 今日 Synology iDrive 交付之 488 支 Factory API，其對 WMS、MES、TPM、AGV、立庫與吊掛線的業務封裝極具深度與完整度，是集團海外工廠智慧化的關鍵核心！經查核端點目前採內網信任機制（無 Auth Header），且業務邏輯錯誤皆回傳 <code>HTTP 200 OK</code>（以 Body 內 <code>Is_Valid = 'N'</code> 承載）。
+          </p>
+          <p style="background: rgba(6, 182, 212, 0.08); padding: 12px 16px; border-radius: 6px; line-height: 1.6;">
+            <strong>【想請教 Duke】</strong><br>
+            • 海外 8 座實體廠區在現場呼叫這 488 支 API（例如 AGV 車載機、手持 PDA、車縫終端）時，目前各廠區是獨立部署一套地端 IIS 站台，還是統一連回某個集中式伺服器節點？<br>
+            • 在 2027 蜂巢計畫的推進中，團隊是否支持在廠端入口規劃輕量級邊界安全中繼層（例如以 Envoy 或 YARP 輕量閘道集中檢驗 Token 並做錯誤碼轉譯），以減輕各業務 Controller 改寫負擔，同時大幅強化海外 8 廠的縱深防禦能力？
+          </p>
+        </div>
+
         <div style="margin-top: 20px; text-align: right; font-size: 14px; color: var(--text-muted);">
           ※ 再次感謝 Duke 與研發團隊的扎實梳理，以上問題旨在協助後續架構對齊時能最大程度保護現有程式碼、零衝擊產線營運，期待與 Duke 共同推進計畫！
         </div>
@@ -1073,38 +1101,5 @@
     </div>
 </div>
 
-  </main>
-
-  <script>
-    function toggleTheme() {
-      const body = document.body;
-      const btn = document.getElementById('themeToggleBtn');
-      if (body.getAttribute('data-theme') === 'milan') {
-        body.setAttribute('data-theme', 'dark');
-        btn.innerHTML = '🎨 切換米蘭暖琥珀';
-      } else {
-        body.setAttribute('data-theme', 'milan');
-        btn.innerHTML = '🎨 切換曜石黑夜';
-      }
-    }
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-      
-      const targetPane = document.getElementById(tabId);
-      if (targetPane) targetPane.classList.add('active');
-      
-      const activeBtn = Array.from(document.querySelectorAll('.nav-tab')).find(btn => btn.getAttribute('onclick').includes(tabId));
-      if (activeBtn) activeBtn.classList.add('active');
-    }
-  
-    function copyDukeLetterReport() {
-      navigator.clipboard.writeText(`Duke 您好，辛苦了！\n\n非常感謝您在 11/12 如此高效率且條理分明地盤點並交付了集團核心的 API List 與 RD_SAMPLE-v0-1 完整規格！這份技術資產梳理得非常清晰，不僅將複雜的跨系統介面（21 條拓撲）與 13 項核心排程完整透明化，更為我們推進周副總主持的「2027 蜂巢計畫（Project Hive）」奠定了極為扎實、可靠的工程基石。\n\n為了協助團隊在後續落地「在地端 48~72 小時斷網自律運轉」與「0 元開源平替架構」時更加平穩順暢，並最大程度降低對您與開發團隊日常維運的負擔，我們在深入研讀這兩份寶貴資料後，整理出以下 5 個面向的協同確認與探討點。想請教並聆聽您的實務經驗與建議：\n\n1. D365 C# 外掛 API 的邊界防護與 Gateway 平滑收攏\n現況背景：\n清冊中清楚標記了主機 192.168.0.95 上的 Report API（:8085 / :8082）與 Local API（:80 / :8081），主要供各系統取得報表下載 URL 與成衣業務資料（馬克、PCT、WIP 等），目前採取內部信任（無驗證）模式。\n想請教 Duke：\n目前呼叫這兩組 API 的主要來源端（如 RD_SAMPLE 站台、現場特定工作站或批次程式），在底層網路上是否已有既定的 IP 白名單或網段限制？\n未來若由在地端輕量 API Gateway（如開源 YARP）在前端統籌掛載 JWT/Token 鑑權做為資安防護閘道，現有呼叫端在配合改帶 Authorization Header 方面，哪一種推進節奏對團隊來說最為平穩（例如：維持既有端口不變、由 Gateway 對外開新路由並設置平行過渡期）？\n\n2. 跨國專線同步與廠區「48～72 小時斷網自律」落地銜接\n現況背景：\nSync_RSV.bat 與 Sync_RSG.bat 每 30 分鐘透過 DYXnet 專線直連越柬廠區 SQL Server（1433）同步工單與日報資料，維繫了跨國打樣與生產節奏。\n想請教 Duke：\n依據過往經驗，當遇上海纜檢修或跨國專線瞬斷時，海外廠端若無法即時回寫，目前同仁的排解方式主要依賴重跑排程，或是有人工批次對齊的機制？是否有遇過主鍵衝突或時間戳鎖定需要手動處理的情形？\n若我們在廠區邊緣端（Local Edge）導入離線暫存隊列，讓越南與柬埔寨在海纜斷線時仍可自律開單、打樣與填報達 72 小時，待專線復原後全自動非同步對齊，生管與打樣現場最核心、最不能中斷的關鍵欄位會建議優先鎖定哪些？\n\n3. RD_SAMPLE 資料庫存取與 AXDB 正式庫連線收斂\n現況背景：\nRD_SAMPLE 內部包含 1,490 處存取 SAM 資料庫的 SQL，並有 23 處跨庫直連 AXDB 營運主庫（192.168.0.131）進行資料讀取。\n想請教 Duke：\n這 23 處直讀 AXDB 的查詢需求（例如料號基本檔、訂單狀態），是否有部分在您梳理的「D365 C# 80 Operations」中已具備對應的 API 服務可供直接調用？\n針對高頻查詢部分，若未來透過夜間批次先將 AXDB 所需的唯讀視圖（Read-Only View）鏡像至地端暫存庫，解除直接對 AXDB 的連線依賴，這樣的架構調整是否符合團隊對資料即時性的預期？\n\n4. 13 項核心排程之運作觀測與維運儀表體驗\n現況背景：\nSendNotification.bat 具備 5 分鐘高頻輪詢機制，且夜間 23:01 起有密集的顏色、物料主檔同步排程，是維持集團營運神經中樞的功臣。\n想請教 Duke：\n目前這些排程若在半夜遇到網路逾時或執行例外，內部現行的監控機制是透過文字 Log 巡檢，還是已串接特定的通訊軟體 / 郵件告警？\n未來若規劃一個輕量、視覺化的地端任務儀表板（可直接線上查看各排程心跳狀態、執行成功率與一鍵手動補跑），您與團隊在維運習慣上，最希望在儀表板首頁看到哪些即時指標？\n\n5. CQS 品質微服務 (.NET 8) 現代化架構經驗借鏡\n現況背景：\nCQS 已成功建構於 .NET 8 現代化微服務框架上，並由 IIS ARR（8012 轉發至 8011）負責負載調度，架構十分先進！\n想請教 Duke：\nCQS 的升級經驗非常適合作為其他系統現代化的示範標竿！想請教目前 IIS ARR 在實際承載高頻品質審核請求時的效能與記憶體表現如何？\n正式機環境上的 Swagger 頁面，團隊目前是否有預定的排程做內部權限隔離，或是未來可直接收納至統一的開發者門戶中統一管理？\n\n再次感謝 Duke 與研發團隊的扎實梳理，以上問題旨在協助後續架構對齊時能最大程度保護現有程式碼、零衝擊產線營運，期待與 Duke 共同推進計畫！`).then(() => {
-        alert('✓ 信函內容已成功複製到剪貼簿！');
-      });
-    }
-
-</script>
-</body>
-</html>
+  </mainnavigator.clipboard.writeText(`Duke 您好，辛苦了！\n\n非常感謝您在 11/12 與今日 (11/13) 如此高效率且條理分明地盤點並交付了集團核心的 API List、RD_SAMPLE-v0-1 完整規格，以及 Synology iDrive 上的 Factory API 全量 488 支端點規格！這份技術資產梳理得非常清晰，不僅將複雜的跨系統介面（55 條拓撲）與 13 項核心排程完整透明化，更為我們推進周副總主持的「2027 蜂巢計畫（Project Hive）」奠定了極為扎實、可靠的工程基石。\n\n為了協助團隊在後續落地「在地端 48~72 小時斷網自律運轉」與「0 元開源平替架構」時更加平穩順暢，並最大程度降低對您與開發團隊日常維運的負擔，我們在深入研讀這份寶貴資料後，整理出以下 6 個面向的協同確認與探討點。想請教並聆聽您的實務經驗與建議：\n\n1. D365 C# 外掛 API 的邊界防護與 Gateway 平滑收攏\n現況背景：\n清冊中清楚標記了主機 192.168.0.95 上的 Report API（:8085 / :8082）與 Local API（:80 / :8081），主要供各系統取得報表下載 URL 與成衣業務資料（馬克、PCT、WIP 等），目前採取內部信任（無驗證）模式。\n想請教 Duke：\n目前呼叫這兩組 API 的主要來源端（如 RD_SAMPLE 站台、現場特定工作站或批次程式），在底層網路上是否已有既定的 IP 白名單或網段限制？\n未來若由在地端輕量 API Gateway（如開源 YARP）在前端統籌掛載 JWT/Token 鑑權做為資安防護閘道，現有呼叫端在配合改帶 Authorization Header 方面，哪一種推進節奏對團隊來說最為平穩（例如：維持既有端口不變、由 Gateway 對外開新路由並設置平行過渡期）？\n\n2. 跨國專線同步與廠區「48～72 小時斷網自律」落地銜接\n現況背景：\nSync_RSV.bat 與 Sync_RSG.bat 每 30 分鐘透過 DYXnet 專線直連越柬廠區 SQL Server（1433）同步工單與日報資料，維繫了跨國打樣與生產節奏。\n想請教 Duke：\n依據過往經驗，當遇上海纜檢修或跨國專線瞬斷時，海外廠端若無法即時回寫，目前同仁的排解方式主要依賴重跑排程，或是有人工批次對齊的機制？是否有遇過主鍵衝突或時間戳鎖定需要手動處理的情形？\n若我們在廠區邊緣端（Local Edge）導入離線暫存隊列，讓越南與柬埔寨在海纜斷線時仍可自律開單、打樣與填報達 72 小時，待專線復原後全自動非同步對齊，生管與打樣現場最核心、最不能中斷的關鍵欄位會建議優先鎖定哪些？\n\n3. RD_SAMPLE 資料庫存取與 AXDB 正式庫連線收斂\n現況背景：\nRD_SAMPLE 內部包含 1,490 處存取 SAM 資料庫的 SQL，並有 23 處跨庫直連 AXDB 營運主庫（192.168.0.131）進行資料讀取。\n想請教 Duke：\n這 23 處直讀 AXDB 的查詢需求（例如料號基本檔、訂單狀態），是否有部分在您梳理的「D365 C# 80 Operations」中已具備對應的 API 服務可供直接調用？\n針對高頻查詢部分，若未來透過夜間批次先將 AXDB 所需的唯讀視圖（Read-Only View）鏡像至地端暫存庫，解除直接對 AXDB 的連線依賴，這樣的架構調整是否符合團隊對資料即時性的預期？\n\n4. 13 項核心排程之運作觀測與維運儀表體驗\n現況背景：\nSendNotification.bat 具備 5 分鐘高頻輪詢機制，且夜間 23:01 起有密集的顏色、物料主檔同步排程，是維持集團營運神經中樞的功臣。\n想請教 Duke：\n目前這些排程若在半夜遇到網路逾時或執行例外，內部現行的監控機制是透過文字 Log 巡檢，還是已串接特定的通訊軟體 / 郵件告警？\n未來若規劃一個輕量、視覺化的地端任務儀表板（可直接線上查看各排程心跳狀態、執行成功率與一鍵手動補跑），您與團隊在維運習慣上，最希望在儀表板首頁看到哪些即時指標？\n\n5. CQS 品質微服務 (.NET 8) 現代化架構經驗借鏡\n現況背景：\nCQS 已成功建構於 .NET 8 現代化微服務框架上，並由 IIS ARR（8012 轉發至 8011）負責負載調度，架構十分先進！\n想請教 Duke：\nCQS 的升級經驗非常適合作為其他系統現代化的示範標竿！想請教目前 IIS ARR 在實際承載高頻品質審核請求時的效能與記憶體表現如何？\n正式機環境上的 Swagger 頁面，團隊目前是否有預定的排程做內部權限隔離，或是未來可直接收納至統一的開發者門戶中統一管理？\n\n6. Factory API 488 支端點邊界安全防護與狀態碼標準化交流（今日新增）\n現況背景：\n今日研讀您交付的 488 支 Factory API，其對 WMS、MES、TPM、AGV 與立庫的業務封裝極具深度與完整度，團隊由衷感佩！在細部規範中注意到目前端點設計採內網信任架構（無 Auth Header），且業務錯誤採 HTTP 200 包覆 Is_Valid = 'N'。\n想請教 Duke：\n海外 8 座實體廠區在現場呼叫這 488 支 API（例如 AGV 車載機、手持 PDA、車縫終端）時，目前各廠區是獨立部署一套地端 IIS 站台，還是統一連回某個集中式伺服器節點？\n在 2027 蜂巢計畫的推進中，團隊是否可在廠端入口規劃輕量級邊界安全中繼層（例如以 Envoy 或 YARP 輕量閘道集中檢驗 Token 並做錯誤碼轉譯），以減輕各業務 Controller 改寫負擔，同時大幅強化海外 8 廠的縱深防禦能力？\n\n再次感謝 Duke 與研發團隊的扎實梳理，以上問題旨在協助後續架構對齊時能最大程度保護現有程式碼、零衝擊產線營運，期待與 Duke 共同推進計畫！`).then(() => {
+        >
