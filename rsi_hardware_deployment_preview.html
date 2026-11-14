@@ -784,6 +784,205 @@
     flex-wrap: wrap;
   }
 
+  
+    /* --- Dynamic Filter Results Deck --- */
+    .filter-results-deck {
+      margin-top: 1rem;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: fadeInDeck 0.35s ease-out;
+    }
+    @keyframes fadeInDeck {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .deck-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .deck-title .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .deck-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .deck-pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .deck-pill .close-pill {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.15s;
+    }
+    .deck-pill .close-pill:hover {
+      opacity: 1;
+      color: #f87171;
+    }
+    .deck-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+    .match-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .match-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #3b82f6;
+    }
+    .match-card.card-rdv::before { background: #10b981; }
+    .match-card.card-rdg::before { background: #f59e0b; }
+    .match-card.card-aws::before { background: #8b5cf6; }
+    .match-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+    .match-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .match-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 0;
+    }
+    .match-card-badges {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .match-card-desc {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+    .match-card-specs {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      font-family: var(--font-mono, monospace);
+      margin-bottom: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .match-card-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+    .match-btn {
+      flex: 1;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.15);
+      color: #bfdbfe;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
+    }
+    .match-btn:hover {
+      background: rgba(59, 130, 246, 0.35);
+      color: #ffffff;
+      border-color: #60a5fa;
+    }
+    .match-btn.btn-jump {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #a7f3d0;
+    }
+    .match-btn.btn-jump:hover {
+      background: rgba(16, 185, 129, 0.35);
+      color: #ffffff;
+      border-color: #34d399;
+    }
+    /* Tab badge counters */
+    .tab-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.1rem 0.4rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      margin-left: 0.35rem;
+      vertical-align: middle;
+    }
+    .tab-btn.active .tab-badge {
+      background: rgba(59, 130, 246, 0.4);
+      color: #ffffff;
+    }
+    .svg-pulse-active {
+      animation: svgPulse 1.8s infinite alternate !important;
+    }
+    @keyframes svgPulse {
+      0% { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8)) drop-shadow(0 0 25px rgba(59, 130, 246, 0.5)); }
+      100% { filter: drop-shadow(0 0 24px rgba(56, 189, 248, 1)) drop-shadow(0 0 45px rgba(59, 130, 246, 0.85)); }
+    }
+
   </style>
 </head>
 <body>
@@ -920,6 +1119,27 @@
         </div>
       </div>
     </div>
+    <!-- Interactive Instant Filter Results Deck -->
+    <div id="filterResultsDeck" class="filter-results-deck" style="display: none; margin-top: 14px;">
+      <div class="deck-header">
+        <div class="deck-title">
+          <span class="status-dot"></span>
+          <span id="deckHeaderTitle">🎯 即時過濾匹配清冊</span>
+        </div>
+        <div class="deck-tags" id="deckTagsContainer">
+          <!-- Dynamic Filter Tags -->
+        </div>
+        <div>
+          <button class="match-btn btn-jump" onclick="resetAllFilters()" style="padding: 0.35rem 0.85rem; font-size: 0.82rem;">
+            🔄 重設所有條件
+          </button>
+        </div>
+      </div>
+      <div class="deck-cards-grid" id="deckCardsGrid">
+        <!-- Dynamic Cards Injected Here -->
+      </div>
+    </div>
+
   </div>
 
   
@@ -1026,7 +1246,7 @@
       <!-- MPLS Trunk Badges -->
       <g transform="translate(45, 105)">
         <!-- Trunk 1: TW-VN -->
-        <g id="node-trunk-vn" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('trunk-vn')" transform="translate(0, 0)">
+        <g id="node-trunk-vn" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('node-dyxnet-backbone')" transform="translate(0, 0)">
           <rect width="310" height="85" rx="10" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
           <text x="15" y="26" fill="#f8fafc" font-size="14" font-weight="bold">🇹🇼 台北 HQ ⟷ 🇻🇳 越南同奈 (RDV)</text>
           <text x="15" y="48" fill="#e0f2fe" font-size="12">頻寬保證：40 Mbps CIR (可突發至 100M)</text>
@@ -1042,7 +1262,7 @@
         </g>
         
         <!-- Trunk 3: TW-AWS -->
-        <g id="node-trunk-aws" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('trunk-aws')" transform="translate(690, 0)">
+        <g id="node-trunk-aws" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('node-dyxnet-backbone')" transform="translate(690, 0)">
           <rect width="320" height="85" rx="10" fill="#075985" stroke="#38bdf8" stroke-width="1.5"/>
           <text x="15" y="26" fill="#f8fafc" font-size="14" font-weight="bold">🇹🇼 台北 HQ ⟷ ☁️ AWS 香港 Direct Connect</text>
           <text x="15" y="48" fill="#e0f2fe" font-size="12">雲端直連：100 Mbps CIR (專屬二層光纖)</text>
@@ -1218,7 +1438,7 @@
       
       <!-- RDV Edge Network Gateway -->
       <g transform="translate(24, 70)">
-        <g id="node-fg-rdv" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('fg-rdv')" transform="translate(0, 0)">
+        <g id="node-fg-rdv" class="interactive-node" onclick="event.stopPropagation(); openDeepDive('hw-fg-80f')" transform="translate(0, 0)">
           <rect width="345" height="95" rx="8" fill="#1e1e38" stroke="#10b981" stroke-width="1.5"/>
           <text x="16" y="26" fill="#6ee7b7" font-size="14" font-weight="bold">🛡️ FortiGate 80F 邊界網關</text>
           <text x="16" y="46" fill="#cbd5e1" font-size="11">WAN1: 第一線 MPLS (40M CIR &lt; 42ms)</text>
@@ -2815,7 +3035,7 @@
               <td><span class="ip-num">192.168.0.254 / 61.220.x.x (WAN)</span></td>
               <td>總部次世代防火牆 / <strong>第一線 (DYXnet) MPLS 專線終端</strong>、SD-WAN 智慧選路、DPI 資安防護</td>
             </tr>
-            <tr data-site="RDV" data-tier="IaaS" data-category="Server">
+            <tr data-site="RDV" data-tier="IaaS,PaaS" data-category="Server,Middleware">
               <td><span class="badge badge-rdv" onclick="filterBySite('RDV')">越南同奈</span></td>
               <td><strong>RDV-EDGE-SRV01</strong></td>
               <td><span class="badge badge-iaas-edge" onclick="filterBySite('RDV')" title="點擊篩選邊緣自律節點">IaaS 邊緣自律節點</span></td>
@@ -2827,7 +3047,7 @@
               <td><span class="ip-num">172.16.10.10 / 192.168.185.123(DB)</span></td>
               <td>K3s 邊緣節點 / <strong>成衣 MES (VN-MES-API 42支)</strong>、本地快取庫、<strong>48～72 小時離線生產自治</strong></td>
             </tr>
-            <tr data-site="RDG" data-tier="IaaS" data-category="Server">
+            <tr data-site="RDG" data-tier="IaaS,PaaS" data-category="Server,Middleware">
               <td><span class="badge badge-rdg" onclick="filterBySite('RDG')">柬埔寨柴楨</span></td>
               <td><strong>RDG-EDGE-SRV01</strong></td>
               <td><span class="badge badge-iaas-edge" onclick="filterBySite('RDG')" title="點擊篩選邊緣自律節點">IaaS 邊緣自律節點</span></td>
@@ -2839,7 +3059,7 @@
               <td><span class="ip-num">172.16.20.10 / 192.168.193.65(DB)</span></td>
               <td>K3s 邊緣節點 / <strong>出勤薪資 (CB-HR-Service)</strong>、車間物聯網採集、<strong>48～72 小時離線自治</strong></td>
             </tr>
-            <tr data-site="AWS" data-tier="PaaS" data-category="Server">
+            <tr data-site="AWS" data-tier="PaaS,IaaS" data-category="Server,Middleware">
               <td><span class="badge badge-aws" onclick="filterBySite('AWS')">AWS 香港</span></td>
               <td><strong>AWS-GPU-INF01</strong></td>
               <td><span class="badge badge-paas-cloud" onclick="filterBySite('AWS')" title="點擊篩選雲端AI算力">PaaS 雲端AI算力</span></td>
@@ -3125,7 +3345,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-site="RDV">
+            <tr data-site="RDV,HQ" data-tier="IaaS,PaaS" data-category="Database,Network,Middleware">
               <td><span class="badge badge-rdv">越南同奈廠 RDV</span></td>
               <td><span class="badge badge-hq">台北總部 RDSMP2 / AXDB</span></td>
               <td><span class="port-num">1433</span></td>
@@ -3134,7 +3354,7 @@
               <td>越南 MES 資料每 30 分鐘與台北樣品庫 SAM 及 D365 進行主檔同步</td>
               <td>僅允許 192.168.185.123 ↔ 192.168.0.22 / 192.168.0.131</td>
             </tr>
-            <tr data-site="RDG">
+            <tr data-site="RDG,HQ" data-tier="IaaS,PaaS" data-category="Database,Network,Middleware">
               <td><span class="badge badge-rdg">柬埔寨柴楨廠 RDG</span></td>
               <td><span class="badge badge-hq">台北總部 RDSMP2</span></td>
               <td><span class="port-num">1433</span></td>
@@ -3143,7 +3363,7 @@
               <td>柴楨廠出勤、物料與報關資料跨國批次拋轉</td>
               <td>僅允許 192.168.193.65 ↔ 192.168.0.22</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="PaaS" data-category="Middleware,Network">
               <td><span class="badge badge-hq">台北打樣主機 RDSMP2</span></td>
               <td><span class="badge badge-hq">D365 外掛中繼 RSIMDW1</span></td>
               <td><span class="port-num">8085 / 8082</span></td>
@@ -3152,7 +3372,7 @@
               <td>D365.Report.Service 報表與馬克圖 (MarkerLayout) 資料調用</td>
               <td>限制內部 192.168.0.22 呼叫 192.168.0.95</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="PaaS,SaaS" data-category="Middleware,Server">
               <td><span class="badge badge-hq">台北打樣主機 RDSMP2</span></td>
               <td><span class="badge badge-hq">D365 AOS 交易叢集</span></td>
               <td><span class="port-num">8101 / 8201 / 8088</span></td>
@@ -3161,7 +3381,7 @@
               <td>D365 Core ERP (C# 80 Operations) 與 OData 主檔數據交換</td>
               <td>Entra ID Bearer Token 授權保護</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ,AWS" data-tier="PaaS,IaaS" data-category="Server,Network,Middleware">
               <td><span class="badge badge-hq">台北打樣主機 RDSMP2</span></td>
               <td><span class="badge badge-aws">AWS 香港 EC2 (AI)</span></td>
               <td><span class="port-num">8000 / 80</span></td>
@@ -3170,7 +3390,7 @@
               <td>AWS AI 視覺打樣比對 (98.84.29.205) 與跨國術語翻譯 (98.93.175.234)</td>
               <td>第一線 VXC 專屬路由，嚴禁公網直接曝光</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="IaaS" data-category="Storage,Network">
               <td><span class="badge badge-hq">ESXi 節點 (HQ01/02)</span></td>
               <td><span class="badge badge-hq">集中儲存 RSI-SAN01</span></td>
               <td><span class="port-num">3260</span></td>
@@ -3179,7 +3399,7 @@
               <td>區塊儲存 Target 掛載，Jumbo Frame 9000 高速磁區存取 (AXDB.mdf / log.ldf)</td>
               <td>隔離儲存專網，雙 MPIO 路徑無路由直接交換</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="RDV,RDG,HQ,all" data-tier="IaaS" data-category="Security,Network">
               <td><span class="badge badge-rdv">跨國 FortiGate 80F/60F</span></td>
               <td><span class="badge badge-hq">總部 FortiGate 200F</span></td>
               <td><span class="port-num">500 / 4500</span></td>
@@ -3188,7 +3408,7 @@
               <td>第一線 MPLS 斷線時，自動發起 SD-WAN 容錯 IPSec 穿隧</td>
               <td>預設待命，SLA 探針連續 3 次丟包自動接管</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ,all" data-tier="IaaS" data-category="Security,Server">
               <td><span class="badge badge-hq">IT 跳板機 (Bastion)</span></td>
               <td><span class="badge badge-hq">全球所有實體伺服器</span></td>
               <td><span class="port-num">443 / 22</span></td>
@@ -3224,7 +3444,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="PaaS,IaaS" data-category="Middleware">
               <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>D365-Hub 介接中繼 (RSI-D365-Hub)</strong></td>
               <td>IIS / C# Web API on RSIMDW1</td>
@@ -3233,7 +3453,7 @@
               <td>28 支自研 API ｜ 日調用 150,000 次 ｜ 18.5 KB/req</td>
               <td>Data Entity 認證，推進 Tenant-Aware 與 RLS 機制</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="PaaS" data-category="Middleware">
               <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>CQS 剪裁品質系統 (AI 導入示範燈塔)</strong></td>
               <td>.NET 8 + Vue 3 on RDSMP1</td>
@@ -3242,7 +3462,7 @@
               <td>35 道 xUnit 單元測試 ｜ 研發效率提升 28%</td>
               <td>信封模式標準樣板，0 元委外授權開銷</td>
             </tr>
-            <tr data-site="HQ">
+            <tr data-site="HQ" data-tier="PaaS,IaaS" data-category="Middleware,Network,Security">
               <td><span class="badge badge-hq">台北總部</span></td>
               <td><strong>Microsoft YARP API Gateway</strong></td>
               <td>.NET 8 Reverse Proxy on K8s</td>
@@ -3251,7 +3471,7 @@
               <td>統一收攏認證、TLS、Rate Limiting、Gzip 壓縮</td>
               <td>0 元微軟開源平替，取代昂貴商業網關</td>
             </tr>
-            <tr data-site="RDV">
+            <tr data-site="RDV" data-tier="IaaS,PaaS" data-category="Middleware,Server">
               <td><span class="badge badge-rdv">越南同奈</span></td>
               <td><strong>成衣 MES 中繼 (VN-MES-API)</strong></td>
               <td>K3s Edge Container on RDV</td>
@@ -3260,7 +3480,7 @@
               <td>42 支自研 API ｜ 日調用 480,000 次 ｜ 4.2 KB/req</td>
               <td>下沉至 C# DataModel 與 DAL 驗證，<strong>72H 離線自治</strong></td>
             </tr>
-            <tr data-site="RDG">
+            <tr data-site="RDG" data-tier="IaaS,PaaS" data-category="Middleware,Server">
               <td><span class="badge badge-rdg">柬埔寨柴楨</span></td>
               <td><strong>出勤薪資拋轉 (CB-HR-Service)</strong></td>
               <td>K3s Edge Container on RDG</td>
@@ -3269,7 +3489,7 @@
               <td>12 支自研 API ｜ 日調用 25,000 次 ｜ 85.0 KB 大封包</td>
               <td>導入 MS-SQL RLS 與非同步分流排程下載</td>
             </tr>
-            <tr data-site="RDI">
+            <tr data-site="RDI" data-tier="IaaS,PaaS" data-category="Middleware,Server">
               <td><span class="badge badge-rdi">印尼廠</span></td>
               <td><strong>品管檢驗追蹤 (ID-QC-Tracking)</strong></td>
               <td>REST API on RDI</td>
@@ -3278,7 +3498,7 @@
               <td>18 支自研 API ｜ 日調用 85,000 次 ｜ 12.0 KB/req</td>
               <td>條碼字串校驗與高頻查詢快取</td>
             </tr>
-            <tr data-site="AWS">
+            <tr data-site="AWS" data-tier="PaaS,IaaS" data-category="Middleware,Server">
               <td><span class="badge badge-aws">AWS 香港</span></td>
               <td><strong>AI 視覺打樣推論與術語翻譯</strong></td>
               <td>Docker on EC2 (NVIDIA Runtime)</td>
@@ -3331,7 +3551,7 @@
 <!-- JavaScript Logic -->
 
 <script>
-
+  // Global State
   let currentSite = 'all';
   let currentTier = 'all';
   let currentCategory = 'all';
@@ -3348,6 +3568,301 @@
     RDI: '印尼廠 (RDI)',
     AWS: 'AWS 香港雲端 (ap-east-1)'
   };
+
+  const tierLabels = {
+    all: '全部層級',
+    IaaS: 'IaaS 實體基建/儲存/網路',
+    PaaS: 'PaaS 資料庫/中繼/平台',
+    SaaS: 'SaaS 核心業務軟體'
+  };
+
+  const catLabels = {
+    all: '全部類型',
+    Server: '運算伺服器',
+    Storage: '集中存儲陣列',
+    Network: '核心網路交換',
+    Security: '資安與專線網關',
+    Database: '核心資料庫',
+    Middleware: '中繼微服務'
+  };
+
+  // Comprehensive Catalog of Items for Instant Results Deck
+  const ALL_DECK_ITEMS = [
+    // RDV (Vietnam)
+    {
+      id: 'rdv-edge-srv01',
+      site: 'RDV',
+      siteName: '越南同奈廠 (RDV)',
+      tier: 'IaaS,PaaS',
+      category: 'Server,Middleware',
+      name: 'RDV-EDGE-SRV01 邊緣伺服器 (Dell R650xs)',
+      badges: ['IaaS 邊緣硬體', 'Tier 1 BCM'],
+      desc: '越南同奈車間現場自律中樞，託管 K3s 與 42 支成衣 MES API。具備斷網 72H 離線自治，復網自動雙向對賬。',
+      specs: 'Dell R650xs ｜ 32 Cores ｜ 128GB ECC ｜ 4x 1.92TB NVMe RAID10 ｜ 雙路 1400W AC',
+      cardClass: 'card-rdv',
+      deepDiveId: 'node-zone-rdv',
+      targetTab: 'hardware',
+      targetDiagramNode: 'node-zone-rdv'
+    },
+    {
+      id: 'rdv-mes-api',
+      site: 'RDV',
+      siteName: '越南同奈廠 (RDV)',
+      tier: 'PaaS,IaaS',
+      category: 'Middleware,Server',
+      name: '成衣 MES 中繼 (VN-MES-API 邊緣容器)',
+      badges: ['PaaS 微服務', '42 支 API'],
+      desc: '採 K3s 輕量邊緣容器運行，日調用量達 480,000 次。下沉 C# DataModel 與 DAL 驗證，本地 SQLite/SQL 緩存。',
+      specs: 'K3s Container ｜ 8 Cores / 16GB RAM ｜ 日調用 480k 次 ｜ 平均 4.2 KB/req ｜ 72H 斷網自治',
+      cardClass: 'card-rdv',
+      deepDiveId: 'node-zone-rdv',
+      targetTab: 'containers',
+      targetDiagramNode: 'node-zone-rdv'
+    },
+    {
+      id: 'rdv-mpls-trunk',
+      site: 'RDV',
+      siteName: '越南同奈廠 (RDV)',
+      tier: 'IaaS',
+      category: 'Network',
+      name: '第一線 (DYXnet) 台越跨國專線 (RDV ↔ HQ)',
+      badges: ['IaaS 跨國專線', 'SLA 99.99%'],
+      desc: '第一線 MPLS CIR 保證頻寬 40 Mbps，延遲 SLA < 42ms。配置 VNPT 300M 雙 ISP SD-WAN，BFD 3秒無感切換。',
+      specs: 'DYXnet MPLS 40M CIR ｜ VNPT 300M FTTH ｜ BFD 3.0s Failover ｜ IPSec 256-bit AES',
+      cardClass: 'card-rdv',
+      deepDiveId: 'node-dyxnet-backbone',
+      targetTab: 'network',
+      targetDiagramNode: 'node-zone-rdv'
+    },
+    {
+      id: 'rdv-fg80f-ot',
+      site: 'RDV',
+      siteName: '越南同奈廠 (RDV)',
+      tier: 'IaaS,PaaS',
+      category: 'Security,Network',
+      name: 'FortiGate 80F & 車間機台 OT 黑盒子隔離 (VLAN 200)',
+      badges: ['資安網關', '五道紅線'],
+      desc: '外部進入點經 Cortex AES 第 1 階 KOI 閘道驗證；產線自動化機台控制器嚴格劃入 VLAN 200，僅允許單向讀取。',
+      specs: 'FortiGate 80F ｜ 10 Gbps Firewall ｜ 802.1X 端口 0.5s 熔斷 ｜ OT 嚴格 Egress 白名單',
+      cardClass: 'card-rdv',
+      deepDiveId: 'hw-fg-80f',
+      targetTab: 'security',
+      targetDiagramNode: 'node-zone-rdv'
+    },
+    {
+      id: 'rdv-sql-port1433',
+      site: 'RDV',
+      siteName: '越南同奈廠 (RDV)',
+      tier: 'IaaS,PaaS',
+      category: 'Database,Network,Middleware',
+      name: 'Port 1433 資料庫加密跨國同步 (RDV ↔ RDSMP2)',
+      badges: ['資料庫同步', 'TDS 加密'],
+      desc: '越南 MES 資料每 30 分鐘經由第一線專線與台北樣品庫 SAM 及 D365 進行主檔同步，嚴格白名單 IP 限制。',
+      specs: 'TCP 1433 ｜ TDS 加密 ｜ 限制 192.168.185.123 ↔ 192.168.0.22 / 192.168.0.131',
+      cardClass: 'card-rdv',
+      deepDiveId: 'node-dyxnet-backbone',
+      targetTab: 'ports',
+      targetDiagramNode: 'node-zone-rdv'
+    },
+    // HQ (Taipei)
+    {
+      id: 'hq-srv01-02',
+      site: 'HQ',
+      siteName: '台北總部 (HQ)',
+      tier: 'IaaS',
+      category: 'Server',
+      name: 'RSI-SRV-HQ01 / HQ02 雙子星運算主機 (Dell R760)',
+      badges: ['IaaS 伺服器', 'ESXi 8.0'],
+      desc: '承載台北打樣核心 VM（RDSMP2 打樣核心、RDSMP1 測試環境與中繼服務）。雙路 Xeon Gold 6430，雙電容錯。',
+      specs: 'Dell PowerEdge R760 ｜ 2x 32C/64T Xeon Gold ｜ 512GB ECC DDR5 ｜ 2x 25GbE SFP28 雙鏈路',
+      cardClass: '',
+      deepDiveId: 'hw-r760-hq01',
+      targetTab: 'hardware',
+      targetDiagramNode: 'node-zone-hq'
+    },
+    {
+      id: 'hq-axdb',
+      site: 'HQ',
+      siteName: '台北總部 (HQ)',
+      tier: 'PaaS,IaaS',
+      category: 'Database,Server',
+      name: 'rsiaxdb1 (RSI-SRV-HQ03) D365/AXDB 核心營運庫',
+      badges: ['核心資料庫', 'Tier 1 BCM'],
+      desc: '微軟 MS SQL Server 2022 Enterprise，WSFC AlwaysOn 雙機同步鏡像。RTO < 2H、RPO < 15M，雙路 1400W 冗餘。',
+      specs: 'Dell R760 ｜ 64 Cores ｜ 512GB RAM ｜ WSFC AlwaysOn ｜ Unity SAN 雙路 FC 32G 掛載',
+      cardClass: '',
+      deepDiveId: 'node-rsiaxdb1',
+      targetTab: 'bcp',
+      targetDiagramNode: 'node-zone-hq'
+    },
+    {
+      id: 'hq-san01',
+      site: 'HQ',
+      siteName: '台北總部 (HQ)',
+      tier: 'IaaS',
+      category: 'Storage',
+      name: 'Dell Unity 480XT 全閃存集中儲存陣列 (RSI-SAN01)',
+      badges: ['集中存儲', '全閃存 NVMe'],
+      desc: '全企業核心虛擬機磁碟與 AXDB.mdf / log.ldf 專屬掛載。雙主動 (Active-Active) 控制器，0.3ms 極低延遲。',
+      specs: 'Dell Unity 480XT ｜ 80TB 淨可用容量 ｜ 16x 7.68TB NVMe SSD ｜ 4x 32Gb FC + 4x 25GbE iSCSI',
+      cardClass: '',
+      deepDiveId: 'hw-r760-hq01',
+      targetTab: 'hardware',
+      targetDiagramNode: 'node-zone-hq'
+    },
+    {
+      id: 'hq-sw-core',
+      site: 'HQ',
+      siteName: '台北總部 (HQ)',
+      tier: 'IaaS',
+      category: 'Network',
+      name: 'Dell PowerSwitch S5248F-ON 核心交換機 (雙機 VLT)',
+      badges: ['核心網路', '25GbE/100GbE'],
+      desc: '總部網路骨幹，48 埠 25GbE + 6 埠 100GbE 上行。配置 VLT 雙機虛擬鏈路聚合，毫秒級無迴圈倒換。',
+      specs: 'Dell S5248F-ON ｜ 48x 25GbE SFP28 + 6x 100GbE QSFP28 ｜ 交換容量 4.0 Tbps ｜ VLT Active-Active',
+      cardClass: '',
+      deepDiveId: 'hw-s5248f',
+      targetTab: 'hardware',
+      targetDiagramNode: 'node-zone-hq'
+    },
+    {
+      id: 'hq-fw-200f',
+      site: 'HQ',
+      siteName: '台北總部 (HQ)',
+      tier: 'IaaS',
+      category: 'Security,Network',
+      name: 'FortiGate 200F HA 雙機熱備資安網關 (RSI-FW-HQ01/02)',
+      badges: ['資安網關', 'Cortex AES'],
+      desc: '內外部邊界第一線防護，整合 Palo Alto Cortex AES 5 階防禦與 KOI 安全閘道。27 Gbps 防火牆吞吐量。',
+      specs: 'FortiGate 200F HA 雙機 ｜ 27 Gbps 吞吐 ｜ 3 Gbps 威脅防禦 ｜ 雙迴路 1+1 冗餘電源',
+      cardClass: '',
+      deepDiveId: 'hw-fg-200f',
+      targetTab: 'security',
+      targetDiagramNode: 'node-zone-hq'
+    },
+    {
+      id: 'hq-d365-hub',
+      site: 'HQ',
+      siteName: '台北總部 (HQ)',
+      tier: 'PaaS,IaaS',
+      category: 'Middleware',
+      name: 'D365-Hub 介接中繼 & Microsoft YARP API Gateway',
+      badges: ['中繼微服務', '28 支 API'],
+      desc: 'IIS / C# Web API 託管於 RSIMDW1，統一對接 D365 核心 80 Operations。前置 .NET 8 YARP 反向代理。',
+      specs: '.NET 8 YARP + IIS C# API ｜ 日調用 150k 次 ｜ Entra ID Bearer 認證 ｜ 0元微軟開源平替',
+      cardClass: '',
+      deepDiveId: 'hw-r760-hq01',
+      targetTab: 'containers',
+      targetDiagramNode: 'node-zone-hq'
+    },
+    // RDG (Cambodia)
+    {
+      id: 'rdg-edge-srv01',
+      site: 'RDG',
+      siteName: '柬埔寨柴楨廠 (RDG)',
+      tier: 'IaaS,PaaS',
+      category: 'Server,Middleware',
+      name: 'RDG-EDGE-SRV01 邊緣伺服器 (Dell R650xs)',
+      badges: ['IaaS 邊緣硬體', 'Tier 1 BCM'],
+      desc: '柬埔寨柴楨現場自律中樞，託管 K3s 與 CB-HR-Service 出勤薪資中繼，保障當地 3,500+ 名員工計件算薪。',
+      specs: 'Dell R650xs ｜ 32 Cores ｜ 128GB ECC ｜ 4x 1.92TB NVMe RAID10 ｜ 72H 離線生產自治',
+      cardClass: 'card-rdg',
+      deepDiveId: 'node-zone-rdg',
+      targetTab: 'hardware',
+      targetDiagramNode: 'node-zone-rdg'
+    },
+    {
+      id: 'rdg-hr-service',
+      site: 'RDG',
+      siteName: '柬埔寨柴楨廠 (RDG)',
+      tier: 'PaaS,IaaS',
+      category: 'Middleware,Server',
+      name: '出勤薪資拋轉服務 (CB-HR-Service 容器)',
+      badges: ['PaaS 微服務', 'HR & 報關'],
+      desc: 'K3s 輕量容器運行，導入 MS-SQL 資料列級安全性 (RLS) 與非同步分流排程下載，避免大封包阻塞專線。',
+      specs: 'K3s Container ｜ 4 Cores / 8GB RAM ｜ 日調用 25k 次 ｜ 85.0 KB 大封包排程傳輸',
+      cardClass: 'card-rdg',
+      deepDiveId: 'node-zone-rdg',
+      targetTab: 'containers',
+      targetDiagramNode: 'node-zone-rdg'
+    },
+    {
+      id: 'rdg-mpls-trunk',
+      site: 'RDG',
+      siteName: '柬埔寨柴楨廠 (RDG)',
+      tier: 'IaaS',
+      category: 'Network',
+      name: '第一線 (DYXnet) 台柬跨國專線 (RDG ↔ HQ)',
+      badges: ['IaaS 跨國專線', 'SLA 99.99%'],
+      desc: '第一線 MPLS CIR 保證頻寬 20 Mbps，延遲 SLA < 62ms。Smart 100M FTTH 備援，雙 ISP BFD 3秒切換。',
+      specs: 'DYXnet MPLS 20M CIR ｜ Smart 100M FTTH ｜ BFD 3.0s 倒換 ｜ IPSec 256-bit AES',
+      cardClass: 'card-rdg',
+      deepDiveId: 'node-dyxnet-backbone',
+      targetTab: 'network',
+      targetDiagramNode: 'node-zone-rdg'
+    },
+    {
+      id: 'rdg-fg60f-ot',
+      site: 'RDG',
+      siteName: '柬埔寨柴楨廠 (RDG)',
+      tier: 'IaaS',
+      category: 'Security,Network',
+      name: 'FortiGate 60F & 智慧吊掛流水線 OT 隔離 (VLAN 200)',
+      badges: ['資安網關', 'OT 工控隔離'],
+      desc: '智慧吊掛機台黑盒子嚴格隔離於 VLAN 200，僅允許專案小組 2FA Bastion 審批登入，杜絕未經授權穿透。',
+      specs: 'FortiGate 60F ｜ 1 Gbps 威脅防護 ｜ 802.1X 端口防禦 ｜ 嚴禁外部直連五道紅線',
+      cardClass: 'card-rdg',
+      deepDiveId: 'node-zone-rdg',
+      targetTab: 'security',
+      targetDiagramNode: 'node-zone-rdg'
+    },
+    // AWS Hong Kong
+    {
+      id: 'aws-gpu-inf01',
+      site: 'AWS',
+      siteName: 'AWS 香港 (AWS)',
+      tier: 'PaaS,IaaS',
+      category: 'Server,Middleware',
+      name: 'EC2 g5.xlarge GPU 打樣推論叢集 (AWS-GPU-INF01)',
+      badges: ['雲端 AI 運算', 'NVIDIA A10G'],
+      desc: '承載成衣瑕疵特徵比對 (<850ms) 與跨國成衣術語即時翻譯 (中/越/高棉語)。專線 VXC 專屬路由。',
+      specs: 'AWS EC2 g5.xlarge ｜ 4 vCPU ｜ 16GB RAM ｜ 1x NVIDIA A10G (24GB VRAM) ｜ EBS gp3 250GB',
+      cardClass: 'card-aws',
+      deepDiveId: 'node-zone-aws',
+      targetTab: 'hardware',
+      targetDiagramNode: 'node-zone-aws'
+    },
+    {
+      id: 'aws-s3-glacier',
+      site: 'AWS',
+      siteName: 'AWS 香港 (AWS)',
+      tier: 'PaaS,IaaS',
+      category: 'Storage',
+      name: 'AWS S3 Glacier 不可變物件儲存 (WORM 防勒索)',
+      badges: ['集中存儲', '不可變封存'],
+      desc: '落實 3-2-1 備份原則，AXDB 與成衣打樣版單每日加密上傳。啟用 Object Lock 7 年合規不可變封存。',
+      specs: 'AWS S3 Glacier Vault ｜ WORM Object Lock (不可篡改) ｜ AES-256 KMS 加密 ｜ 耐用度 99.999999999%',
+      cardClass: 'card-aws',
+      deepDiveId: 'node-zone-aws',
+      targetTab: 'bcp',
+      targetDiagramNode: 'node-zone-aws'
+    },
+    {
+      id: 'aws-direct-connect',
+      site: 'AWS',
+      siteName: 'AWS 香港 (AWS)',
+      tier: 'IaaS',
+      category: 'Network',
+      name: '第一線 Cloud Connect ↔ AWS Direct Connect (DX 100M)',
+      badges: ['雲直連專線', 'SLA 99.99%'],
+      desc: '第一線 香港 PoP 直連 AWS Direct Connect 專屬光纖 (100 Mbps CIR)，延遲 < 28ms，避開公網抖動。',
+      specs: 'DYXnet Cloud Connect 100M ｜ AWS DX Virtual Interface (VIF) ｜ AWS Transit Gateway',
+      cardClass: 'card-aws',
+      deepDiveId: 'node-dyxnet-backbone',
+      targetTab: 'network',
+      targetDiagramNode: 'node-zone-aws'
+    }
+  ];
 
   function switchTab(tabId) {
     const rawId = tabId.replace(/^tab-/, '');
@@ -3448,9 +3963,26 @@
     applyFilters();
   }
 
+  // Multi-value lenient matcher
+  function checkMultiMatch(filterVal, rowVal) {
+    if (!filterVal || filterVal === 'all') return true;
+    if (!rowVal) return true;
+    if (rowVal === 'all') return true;
+    const parts = rowVal.split(/[\s,]+/).map(s => s.trim().toLowerCase());
+    const target = filterVal.toLowerCase();
+    return parts.some(p => p === target || p.includes(target) || target.includes(p) || p === 'all');
+  }
+
   function applyFilters() {
     const tables = document.querySelectorAll('table');
+    let totalVisibleRows = 0;
+    const tabCounts = {};
+
     tables.forEach(table => {
+      const parentPane = table.closest('.tab-pane');
+      const paneId = parentPane ? parentPane.id.replace(/^tab-/, '') : '';
+      let paneVisible = 0;
+
       const rows = table.querySelectorAll('tbody tr');
       rows.forEach(tr => {
         const rowSite = tr.getAttribute('data-site') || 'all';
@@ -3461,29 +3993,22 @@
         const rowSec = tr.getAttribute('data-seclayer') || 'all';
 
         // Site match
-        let matchSite = (currentSite === 'all') || (rowSite === currentSite) || (rowSite === 'all');
+        let matchSite = checkMultiMatch(currentSite, rowSite);
 
         // Tier match
-        let matchTier = (currentTier === 'all') || (rowTier.indexOf(currentTier) !== -1);
+        let matchTier = checkMultiMatch(currentTier, rowTier);
 
         // Category match
-        let matchCat = true;
-        if (currentCategory !== 'all') {
-          if (['IaaS', 'PaaS', 'SaaS'].indexOf(currentCategory) !== -1) {
-            matchCat = (rowTier.indexOf(currentCategory) !== -1);
-          } else {
-            matchCat = (rowCat === currentCategory) || (rowCat.indexOf(currentCategory) !== -1);
-          }
-        }
+        let matchCat = checkMultiMatch(currentCategory, rowCat);
 
         // BCP Tier match
-        let matchBcp = (currentBcpTier === 'all') || (rowBcp.indexOf(currentBcpTier) !== -1);
+        let matchBcp = checkMultiMatch(currentBcpTier, rowBcp);
 
         // Net Type match
-        let matchNet = (currentNetType === 'all') || (rowNet.indexOf(currentNetType) !== -1);
+        let matchNet = checkMultiMatch(currentNetType, rowNet);
 
         // Sec Layer match
-        let matchSec = (currentSecLayer === 'all') || (rowSec.indexOf(currentSecLayer) !== -1);
+        let matchSec = checkMultiMatch(currentSecLayer, rowSec);
 
         // Query match
         let matchQuery = true;
@@ -3493,27 +4018,225 @@
 
         if (matchSite && matchTier && matchCat && matchBcp && matchNet && matchSec && matchQuery) {
           tr.classList.remove('hidden-row');
+          paneVisible++;
+          totalVisibleRows++;
         } else {
           tr.classList.add('hidden-row');
         }
       });
+
+      if (paneId) {
+        tabCounts[paneId] = paneVisible;
+      }
     });
 
+    // Update Tab Badges
+    updateTabBadges(tabCounts);
+
+    // Synchronize Dynamic Results Deck
+    renderFilterResultsDeck();
+
+    // Synchronize Diagrams
     highlightSvgSite(currentSite);
+
+    // Update Result Count Indicator
     updateResultCount();
   }
 
+  function updateTabBadges(tabCounts) {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const oc = btn.getAttribute('onclick') || '';
+      let m = oc.match(/switchTab\(['"](.*?)['"]\)/);
+      if (!m) return;
+      const tId = m[1].replace(/^tab-/, '');
+      let badge = btn.querySelector('.tab-badge');
+      if (tId === 'diagram' || tId === 'sop') {
+        if (badge) badge.remove();
+        return;
+      }
+      const count = tabCounts[tId] !== undefined ? tabCounts[tId] : null;
+      if (count !== null) {
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'tab-badge';
+          btn.appendChild(badge);
+        }
+        badge.innerText = count;
+        badge.style.display = count > 0 ? 'inline-block' : 'none';
+      }
+    });
+  }
+
+  function renderFilterResultsDeck() {
+    const deck = document.getElementById('filterResultsDeck');
+    if (!deck) return;
+
+    const isFiltered = (currentSite !== 'all' || currentTier !== 'all' || currentCategory !== 'all' || globalQuery.length > 0);
+
+    // Filter deck items
+    const matches = ALL_DECK_ITEMS.filter(item => {
+      let mSite = checkMultiMatch(currentSite, item.site);
+      let mTier = checkMultiMatch(currentTier, item.tier);
+      let mCat = checkMultiMatch(currentCategory, item.category);
+      let mQ = true;
+      if (globalQuery) {
+        const fullStr = (item.name + ' ' + item.desc + ' ' + item.specs + ' ' + item.siteName).toLowerCase();
+        mQ = fullStr.includes(globalQuery);
+      }
+      return mSite && mTier && mCat && mQ;
+    });
+
+    if (!isFiltered) {
+      deck.style.display = 'none';
+      return;
+    }
+
+    deck.style.display = 'block';
+
+    // Build Title & Filter Tags
+    const titleEl = document.getElementById('deckHeaderTitle');
+    const tagsContainer = document.getElementById('deckTagsContainer');
+    const cardsGrid = document.getElementById('deckCardsGrid');
+
+    let siteName = siteLabels[currentSite] || currentSite;
+    titleEl.innerHTML = `<span>🎯 即時過濾匹配清冊 · 找到 <strong style="color:#60a5fa; font-size:1.15rem;">${matches.length}</strong> 項設施與服務</span>`;
+
+    let tagsHtml = '';
+    if (currentSite !== 'all') {
+      tagsHtml += `<span class="deck-pill">📍 ${siteLabels[currentSite] || currentSite} <span class="close-pill" onclick="filterBySite('all')">✕</span></span>`;
+    }
+    if (currentTier !== 'all') {
+      tagsHtml += `<span class="deck-pill">🏛️ ${tierLabels[currentTier] || currentTier} <span class="close-pill" onclick="filterByTier('all')">✕</span></span>`;
+    }
+    if (currentCategory !== 'all') {
+      tagsHtml += `<span class="deck-pill">🏷️ ${catLabels[currentCategory] || currentCategory} <span class="close-pill" onclick="filterByCategory('all')">✕</span></span>`;
+    }
+    if (globalQuery) {
+      tagsHtml += `<span class="deck-pill">🔍 搜尋: "${globalQuery}" <span class="close-pill" onclick="document.getElementById('globalSearchInput').value=''; handleGlobalSearch();">✕</span></span>`;
+    }
+    tagsContainer.innerHTML = tagsHtml;
+
+    if (matches.length === 0) {
+      cardsGrid.innerHTML = `
+        <div style="grid-column: 1 / -1; padding: 2rem; text-align: center; color: #94a3b8; background: rgba(0,0,0,0.25); border-radius: 8px;">
+          <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔍</div>
+          <div style="font-size: 0.95rem; font-weight: 600;">在當前篩選組合下未找到對應項目</div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.35rem;">建議放寬層級或類型條件，或點擊上方「🔄 重設所有條件」查看全球架構</div>
+        </div>
+      `;
+      return;
+    }
+
+    let cardsHtml = '';
+    matches.forEach(item => {
+      cardsHtml += `
+        <div class="match-card ${item.cardClass}">
+          <div>
+            <div class="match-card-top">
+              <h4 class="match-card-title">${item.name}</h4>
+              <div class="match-card-badges">
+                ${item.badges.map(b => `<span class="badge badge-net" style="font-size:0.7rem; padding:0.15rem 0.45rem;">${b}</span>`).join('')}
+              </div>
+            </div>
+            <div class="match-card-desc">${item.desc}</div>
+            <div class="match-card-specs">${item.specs}</div>
+          </div>
+          <div class="match-card-actions">
+            <button class="match-btn" onclick="openDeepDive('${item.deepDiveId}')">
+              ⚡ 查看微觀規格
+            </button>
+            <button class="match-btn btn-jump" onclick="jumpToTabAndHighlight('${item.targetTab}', '${item.name}')">
+              📋 查閱資料表
+            </button>
+            <button class="match-btn" style="flex:0.6;" onclick="jumpToDiagramAndLocate('${item.targetDiagramNode}')">
+              🗺️ 拓撲
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    cardsGrid.innerHTML = cardsHtml;
+  }
+
+  function jumpToTabAndHighlight(tabId, keyword) {
+    switchTab(tabId);
+    setTimeout(() => {
+      const activePane = document.querySelector('.tab-pane.active');
+      if (!activePane) return;
+      const rows = activePane.querySelectorAll('tbody tr:not(.hidden-row)');
+      let targetRow = null;
+      rows.forEach(r => {
+        if (r.innerText.includes(keyword) || keyword.includes(r.innerText.trim().slice(0, 10))) {
+          targetRow = r;
+        }
+      });
+      if (!targetRow && rows.length > 0) targetRow = rows[0];
+      if (targetRow) {
+        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetRow.style.transition = 'all 0.4s ease';
+        targetRow.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
+        targetRow.style.outline = '2px solid #3b82f6';
+        setTimeout(() => {
+          targetRow.style.backgroundColor = '';
+          targetRow.style.outline = '';
+        }, 2200);
+      }
+    }, 150);
+  }
+
+  function jumpToDiagramAndLocate(nodeId) {
+    switchTab('diagram');
+    setTimeout(() => {
+      const el = document.getElementById(nodeId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        el.style.filter = 'drop-shadow(0 0 35px rgba(56, 189, 248, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.85))';
+        el.classList.add('svg-pulse-active');
+        setTimeout(() => {
+          el.style.filter = '';
+        }, 3500);
+      }
+    }, 150);
+  }
+
   function highlightSvgSite(site) {
-    const siteGroups = ['HQ', 'RDV', 'RDG', 'AWS'];
-    siteGroups.forEach(sg => {
-      const el = document.getElementById('svg-group-' + sg);
+    const siteMap = {
+      HQ: ['node-zone-hq', 'svg-group-HQ', 'node-hybrid-onprem'],
+      RDV: ['node-zone-rdv', 'svg-group-RDV', 'node-edge-rdv-box'],
+      RDG: ['node-zone-rdg', 'svg-group-RDG', 'node-edge-rdg-box'],
+      AWS: ['node-zone-aws', 'svg-group-AWS', 'node-hybrid-cloud']
+    };
+
+    const allIds = [
+      'node-zone-hq', 'node-zone-rdv', 'node-zone-rdg', 'node-zone-aws',
+      'svg-group-HQ', 'svg-group-RDV', 'svg-group-RDG', 'svg-group-AWS',
+      'node-hybrid-onprem', 'node-edge-rdv-box', 'node-edge-rdg-box', 'node-hybrid-cloud'
+    ];
+
+    allIds.forEach(id => {
+      const el = document.getElementById(id);
       if (!el) return;
-      if (site === 'all' || site === sg) {
+      if (site === 'all') {
         el.style.opacity = '1';
-        el.style.filter = (site === sg) ? 'drop-shadow(0 0 16px rgba(59,130,246,0.85))' : 'none';
-      } else {
-        el.style.opacity = '0.35';
         el.style.filter = 'none';
+        el.classList.remove('svg-pulse-active');
+      } else if (siteMap[site] && siteMap[site].includes(id)) {
+        el.style.opacity = '1';
+        el.style.filter = 'drop-shadow(0 0 25px rgba(56,189,248,0.95)) drop-shadow(0 0 50px rgba(59,130,246,0.65))';
+        el.classList.add('svg-pulse-active');
+        
+        // Auto-scroll diagram viewport smoothly if on diagram tab
+        const activeTab = document.querySelector('.tab-pane.active');
+        if (activeTab && activeTab.id === 'tab-diagram') {
+          try {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+          } catch (e) {}
+        }
+      } else {
+        el.style.opacity = '0.22';
+        el.style.filter = 'none';
+        el.classList.remove('svg-pulse-active');
       }
     });
   }
@@ -3523,11 +4246,18 @@
     const countEl = document.getElementById('resultCount');
     if (!countEl) return;
 
+    const isFiltered = (currentSite !== 'all' || currentTier !== 'all' || currentCategory !== 'all' || globalQuery.length > 0);
+
+    let filterLabel = '';
+    if (currentSite !== 'all') filterLabel += ' [' + (siteLabels[currentSite] || currentSite) + ']';
+    if (currentTier !== 'all') filterLabel += ' [' + currentTier + ']';
+    if (currentCategory !== 'all') filterLabel += ' [' + currentCategory + ']';
+
     if (!activePane || activePane.id === 'tab-diagram') {
-      if (currentSite === 'all') {
-        countEl.innerText = '視覺拓撲：顯示全球核心拓撲';
+      if (!isFiltered) {
+        countEl.innerHTML = '視覺拓撲：顯示全球核心拓撲';
       } else {
-        countEl.innerText = '視覺拓撲：聚焦 ' + (siteLabels[currentSite] || currentSite);
+        countEl.innerHTML = `<span style="color:#60a5fa; cursor:pointer;" onclick="document.getElementById('filterResultsDeck').scrollIntoView({behavior:'smooth'});">🎯 已聚焦 ${filterLabel} · 點此查看匹配卡片 ➔</span>`;
       }
       return;
     }
@@ -3540,11 +4270,7 @@
 
     const totalRows = table.querySelectorAll('tbody tr').length;
     const visibleRows = table.querySelectorAll('tbody tr:not(.hidden-row)').length;
-    let label = '篩選結果：' + visibleRows + ' / ' + totalRows + ' 筆';
-    if (currentSite !== 'all') label += ' [' + (siteLabels[currentSite] || currentSite) + ']';
-    if (currentTier !== 'all') label += ' [' + currentTier + ']';
-    if (currentCategory !== 'all') label += ' [' + currentCategory + ']';
-    countEl.innerText = label;
+    countEl.innerHTML = `篩選結果：<strong style="color:#60a5fa;">${visibleRows}</strong> / ${totalRows} 筆 ${filterLabel}`;
   }
 
   const sortDirections = {};
@@ -3553,208 +4279,189 @@
     if (!table) return;
     const tbody = table.querySelector('tbody');
     const rows = Array.from(tbody.querySelectorAll('tr'));
-    const ths = table.querySelectorAll('th');
 
-    const sortKey = tableId + '_' + colIndex;
-    const isAsc = !sortDirections[sortKey];
-    sortDirections[sortKey] = isAsc;
-
-    ths.forEach((th, idx) => {
-      th.classList.remove('sorted-asc', 'sorted-desc');
-      if (idx === colIndex) {
-        th.classList.add(isAsc ? 'sorted-asc' : 'sorted-desc');
-      }
-    });
+    const key = tableId + '_' + colIndex;
+    sortDirections[key] = !sortDirections[key];
+    const asc = sortDirections[key];
 
     rows.sort((a, b) => {
-      const cellA = a.children[colIndex] ? a.children[colIndex].innerText.trim() : '';
-      const cellB = b.children[colIndex] ? b.children[colIndex].innerText.trim() : '';
+      const aText = (a.cells[colIndex] ? a.cells[colIndex].innerText : '').trim();
+      const bText = (b.cells[colIndex] ? b.cells[colIndex].innerText : '').trim();
 
-      const numA = parseFloat(cellA.replace(/[^0-9.-]+/g, ''));
-      const numB = parseFloat(cellB.replace(/[^0-9.-]+/g, ''));
+      const aNum = parseFloat(aText.replace(/[^0-9.-]/g, ''));
+      const bNum = parseFloat(bText.replace(/[^0-9.-]/g, ''));
 
-      if (!isNaN(numA) && !isNaN(numB) && cellA.match(/^[0-9]/)) {
-        return isAsc ? numA - numB : numB - numA;
-      } else {
-        return isAsc ? cellA.localeCompare(cellB, 'zh-TW') : cellB.localeCompare(cellA, 'zh-TW');
+      if (!isNaN(aNum) && !isNaN(bNum)) {
+        return asc ? aNum - bNum : bNum - aNum;
       }
+      return asc ? aText.localeCompare(bText, 'zh-TW') : bText.localeCompare(aText, 'zh-TW');
     });
 
     rows.forEach(r => tbody.appendChild(r));
   }
 
-  function exportActiveTableToCSV() {
-    const activePane = document.querySelector('.tab-pane.active');
-    if (!activePane) return;
-    const table = activePane.querySelector('table');
-    if (!table) {
-      alert('請先切換至表格頁面後再匯出！');
-      return;
-    }
+  function switchDiagramView(viewId) {
+    document.querySelectorAll('.diagram-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.diagram-view-content').forEach(c => c.classList.add('hidden'));
 
-    const rows = Array.from(table.querySelectorAll('tr:not(.hidden-row)'));
-    let csvContent = String.fromCharCode(0xFEFF); // UTF-8 BOM
-    const newline = String.fromCharCode(13, 10);
+    const pill = document.getElementById('pill-' + viewId);
+    if (pill) pill.classList.add('active');
 
-    rows.forEach(row => {
-      const cols = Array.from(row.querySelectorAll('th, td')).map(cell => {
-        let text = cell.innerText.replace(/"/g, '""').trim();
-        return '"' + text + '"';
-      });
-      csvContent += cols.join(',') + newline;
-    });
+    const view = document.getElementById('view-' + viewId);
+    if (view) view.classList.remove('hidden');
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'RSI_Deployment_' + Date.now() + '.csv';
-    link.click();
+    highlightSvgSite(currentSite);
+  }
+
+  let currentZoom = 1;
+  const zoomStep = 0.15;
+  const minZoom = 0.5;
+  const maxZoom = 2.5;
+
+  function zoomIn() {
+    currentZoom = Math.min(maxZoom, currentZoom + zoomStep);
+    applyZoom();
+  }
+
+  function zoomOut() {
+    currentZoom = Math.max(minZoom, currentZoom - zoomStep);
+    applyZoom();
   }
 
   function resetZoom() {
+    currentZoom = 1;
+    applyZoom();
     const vp = document.getElementById('diagramViewport');
-    if (vp) vp.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-    filterBySite('all');
-  }
-
-  function toggleFullscreen() {
-    const card = document.querySelector('.diagram-card');
-    if (!card) return;
-    if (!document.fullscreenElement) {
-      card.requestFullscreen().catch(err => alert(err.message));
-    } else {
-      document.exitFullscreen();
+    if (vp) {
+      vp.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    updateResultCount();
-  });
-  updateResultCount();
+  function applyZoom() {
+    const activeDiagram = document.querySelector('.diagram-view-content:not(.hidden) svg');
+    if (activeDiagram) {
+      activeDiagram.style.transform = 'scale(' + currentZoom + ')';
+      activeDiagram.style.transformOrigin = 'top left';
+      activeDiagram.style.transition = 'transform 0.2s ease-out';
+    }
+    const indicator = document.getElementById('zoomIndicator');
+    if (indicator) {
+      indicator.innerText = Math.round(currentZoom * 100) + '%';
+    }
+  }
 
-  // ==================== 3 ARCHITECTURE DIAGRAMS & DEEP-DIVE INSPECTOR JS ====================
+  function fitToScreen() {
+    const vp = document.getElementById('diagramViewport');
+    const svg = document.querySelector('.diagram-view-content:not(.hidden) svg');
+    if (!vp || !svg) return;
+
+    const vpWidth = vp.clientWidth - 40;
+    const svgWidth = 1600; // base svg width
+    currentZoom = Math.max(minZoom, Math.min(1.2, vpWidth / svgWidth));
+    applyZoom();
+    vp.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+
   const NODE_METADATA = {"node-dyxnet-backbone": {"title": "第一線 (DYXnet) 跨國企業級 MPLS VPN 私有專線骨幹雲", "category": "跨國專線 (IaaS/PaaS)", "site": "跨國骨幹 (Global Backbone)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ 延遲 < 45ms ｜ 封包遺失率 < 0.1%", "table_target": "tab-network", "table_filter": "第一線", "level1": {"impact": "全球營運中樞數據動脈，負責台北內湖總部、越南同奈廠 (RDV) 與柬埔寨柴楨廠 (RDG) 及 AWS 雲端間核心交易與製造封包直連。", "owner": "信源全球 資訊治理處 / 第一線跨國 NOC 7x24 監控中心", "metrics": [{"label": "SLA 可用度承諾", "val": "99.99%"}, {"label": "台越延遲 (RTT)", "val": "38 ms"}, {"label": "台柬延遲 (RTT)", "val": "45 ms"}, {"label": "RTO 目標", "val": "< 3 秒 (自動倒換)"}]}, "level2": {"specs": [{"k": "線路類型", "v": "企業級 Layer 3 MPLS VPN (RFC 2547bis)"}, {"k": "CIR 保證頻寬", "v": "台越 40Mbps ｜ 台柬 20Mbps ｜ AWS 直連 100Mbps"}, {"k": "服務等級 (QoS)", "v": "EF (語音/MES 40%), AF (ERP/SQL 40%), BE (一般 20%)"}, {"k": "探針協議", "v": "BFD (Bidirectional Forwarding Detection) 500ms x 3"}, {"k": "備援機制", "v": "各廠雙 ISP SD-WAN 自動無感容錯倒換"}]}, "level3": {"arch_desc": "第一線專線進入各廠 FortiGate 叢集後，以 BGP 動態路由協議 (AS 65001~65003) 建立互聯。內部資料流全程使用 AES-256 加密傳輸，並經由 Palo Alto Cortex KOI 安全閘道實施第七層應用協議深度檢測。", "micro_flow": ["1. 各廠邊緣 FortiGate 與第一線 PE 節點維持 BGP+BFD 高速心跳", "2. 專線延遲或抖動異常時，控制器於 3 秒內自動平滑倒換至 SD-WAN", "3. 專線鏈路恢復正常並穩定 300 秒後，自動切回主專線以確保時序嚴整"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2 節跨國網絡中斷處置作業標準。"}}, "dyxnet-backbone": {"title": "第一線 (DYXnet) 跨國企業級 MPLS VPN 私有專線骨幹雲", "category": "跨國專線 (IaaS/PaaS)", "site": "跨國骨幹 (Global Backbone)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ 延遲 < 45ms ｜ 封包遺失率 < 0.1%", "table_target": "tab-network", "table_filter": "第一線", "level1": {"impact": "全球營運中樞數據動脈，負責台北內湖總部、越南同奈廠 (RDV) 與柬埔寨柴楨廠 (RDG) 及 AWS 雲端間核心交易與製造封包直連。", "owner": "信源全球 資訊治理處 / 第一線跨國 NOC 7x24 監控中心", "metrics": [{"label": "SLA 可用度承諾", "val": "99.99%"}, {"label": "台越延遲 (RTT)", "val": "38 ms"}, {"label": "台柬延遲 (RTT)", "val": "45 ms"}, {"label": "RTO 目標", "val": "< 3 秒 (自動倒換)"}]}, "level2": {"specs": [{"k": "線路類型", "v": "企業級 Layer 3 MPLS VPN (RFC 2547bis)"}, {"k": "CIR 保證頻寬", "v": "台越 40Mbps ｜ 台柬 20Mbps ｜ AWS 直連 100Mbps"}, {"k": "服務等級 (QoS)", "v": "EF (語音/MES 40%), AF (ERP/SQL 40%), BE (一般 20%)"}, {"k": "探針協議", "v": "BFD (Bidirectional Forwarding Detection) 500ms x 3"}, {"k": "備援機制", "v": "各廠雙 ISP SD-WAN 自動無感容錯倒換"}]}, "level3": {"arch_desc": "第一線專線進入各廠 FortiGate 叢集後，以 BGP 動態路由協議 (AS 65001~65003) 建立互聯。內部資料流全程使用 AES-256 加密傳輸，並經由 Palo Alto Cortex KOI 安全閘道實施第七層應用協議深度檢測。", "micro_flow": ["1. 各廠邊緣 FortiGate 與第一線 PE 節點維持 BGP+BFD 高速心跳", "2. 專線延遲或抖動異常時，控制器於 3 秒內自動平滑倒換至 SD-WAN", "3. 專線鏈路恢復正常並穩定 300 秒後，自動切回主專線以確保時序嚴整"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2 節跨國網絡中斷處置作業標準。"}}, "node-sdwan-backup": {"title": "跨國雙 ISP SD-WAN 自動容錯備援網格 (Zero-Touch Failover)", "category": "網絡備援 (IaaS)", "site": "全球海外廠區 (RDV / RDG / HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.95% 備援可用度 ｜ 倒換時間 < 3 秒", "table_target": "tab-network", "table_filter": "SD-WAN", "level1": {"impact": "當第一線 MPLS 專線遭逢海纜中斷或電信事故時，無縫接管跨國流量，確保製造 MES 投產與 D365 ERP 訂單傳輸零中斷。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "切換 RTO", "val": "< 3 秒"}, {"label": "資料 RPO", "val": "0 秒 (封包無損)"}, {"label": "線路組成", "val": "各廠雙在地電信 (VNPT/Viettel/Smart)"}, {"label": "加密等級", "val": "IPSec IKEv2 / AES-256-GCM"}]}, "level2": {"specs": [{"k": "傳輸技術", "v": "動態多路徑優化 (Dynamic Multi-Path Optimization)"}, {"k": "心跳頻率", "v": "500ms 探針檢測，3 次逾時即觸發切換"}, {"k": "路由協議", "v": "OSPF Cost 動態調度與 BGP 路由注入"}, {"k": "隧道容量", "v": "雙商用寬頻 100Mbps/100Mbps 負載分流"}]}, "level3": {"arch_desc": "SD-WAN 網關實時監測各線路 Jitter、Latency 與 Packet Loss 指標。當主專線封包遺失率 > 2% 時，自動啟動封包雙發複製 (Packet Duplication) 技術，確保關鍵封包抵達後再無感平滑切換通道。", "micro_flow": ["1. SD-WAN 守護進程每秒計算線路品質評分 (MOS Score)", "2. 偵測主專線中斷，立即將封包流轉導至次選 IPSec 隧道", "3. 發送高優先級警報至 IT NOC 儀表板與 Slack/Line 通報群組"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2.1 節 SD-WAN 自動倒換標準。"}}, "sdwan-backup": {"title": "跨國雙 ISP SD-WAN 自動容錯備援網格 (Zero-Touch Failover)", "category": "網絡備援 (IaaS)", "site": "全球海外廠區 (RDV / RDG / HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.95% 備援可用度 ｜ 倒換時間 < 3 秒", "table_target": "tab-network", "table_filter": "SD-WAN", "level1": {"impact": "當第一線 MPLS 專線遭逢海纜中斷或電信事故時，無縫接管跨國流量，確保製造 MES 投產與 D365 ERP 訂單傳輸零中斷。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "切換 RTO", "val": "< 3 秒"}, {"label": "資料 RPO", "val": "0 秒 (封包無損)"}, {"label": "線路組成", "val": "各廠雙在地電信 (VNPT/Viettel/Smart)"}, {"label": "加密等級", "val": "IPSec IKEv2 / AES-256-GCM"}]}, "level2": {"specs": [{"k": "傳輸技術", "v": "動態多路徑優化 (Dynamic Multi-Path Optimization)"}, {"k": "心跳頻率", "v": "500ms 探針檢測，3 次逾時即觸發切換"}, {"k": "路由協議", "v": "OSPF Cost 動態調度與 BGP 路由注入"}, {"k": "隧道容量", "v": "雙商用寬頻 100Mbps/100Mbps 負載分流"}]}, "level3": {"arch_desc": "SD-WAN 網關實時監測各線路 Jitter、Latency 與 Packet Loss 指標。當主專線封包遺失率 > 2% 時，自動啟動封包雙發複製 (Packet Duplication) 技術，確保關鍵封包抵達後再無感平滑切換通道。", "micro_flow": ["1. SD-WAN 守護進程每秒計算線路品質評分 (MOS Score)", "2. 偵測主專線中斷，立即將封包流轉導至次選 IPSec 隧道", "3. 發送高優先級警報至 IT NOC 儀表板與 Slack/Line 通報群組"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2.1 節 SD-WAN 自動倒換標準。"}}, "node-zone-hq": {"title": "台北內湖總部核心樞紐 (Taipei HQ Infrastructure Hub)", "category": "核心樞紐 (IaaS/PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 全冗餘電力空調", "table_target": "tab-hardware", "table_filter": "台北", "level1": {"impact": "全球營運治理中樞，託管核心資料庫 (rsiaxdb1)、D365 AOS 微服務叢集 (RSIMDW1) 與企業級存儲陣列。", "owner": "周文津 副總 (計劃主持人) / Howard Liao Ph.D. (執行負責人)", "metrics": [{"label": "SLA 目標", "val": "99.999%"}, {"label": "電力備援", "val": "APC 10kVA 在線式 + CAT 柴油發電機"}, {"label": "雙機熱備", "val": "A/P 自動切換 (RTO < 30s)"}, {"label": "冷卻系統", "val": "N+1 恆溫恆濕精密空調"}]}, "level2": {"specs": [{"k": "核心主機", "v": "Dell PowerEdge R760 叢集 (雙路 Xeon Gold, 512GB ECC RAM)"}, {"k": "SAN 存儲", "v": "Dell Unity 480XT 全快閃陣列 (雙控制器, 32Gbps FC)"}, {"k": "骨幹網絡", "v": "Dell S5248F-ON 25GbE 核心交換機 (MLAG 雙星型拓撲)"}, {"k": "邊界防護", "v": "FortiGate 200F HA 雙機熱備叢集"}]}, "level3": {"arch_desc": "總部機房採雙電力迴路設計，所有核心設備均配置雙電源供應器 (Redundant PSU)。伺服器虛擬化採用 Proxmox VE 高可用叢集與 Ceph 分散式存儲，支援虛擬機微秒級實時遷移 (Live Migration)。", "micro_flow": ["1. 市電異常中斷，APC 10kVA UPS 零秒無縫接管", "2. 停電持續達 60 秒，自動引導 CAT 柴油發電機發動供電", "3. 發電機穩定輸出後自動並聯供電，確保主機房持續穩定運轉 72 小時以上"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.1 節機房實體環境安全準則。"}}, "zone-hq": {"title": "台北內湖總部核心樞紐 (Taipei HQ Infrastructure Hub)", "category": "核心樞紐 (IaaS/PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 全冗餘電力空調", "table_target": "tab-hardware", "table_filter": "台北", "level1": {"impact": "全球營運治理中樞，託管核心資料庫 (rsiaxdb1)、D365 AOS 微服務叢集 (RSIMDW1) 與企業級存儲陣列。", "owner": "周文津 副總 (計劃主持人) / Howard Liao Ph.D. (執行負責人)", "metrics": [{"label": "SLA 目標", "val": "99.999%"}, {"label": "電力備援", "val": "APC 10kVA 在線式 + CAT 柴油發電機"}, {"label": "雙機熱備", "val": "A/P 自動切換 (RTO < 30s)"}, {"label": "冷卻系統", "val": "N+1 恆溫恆濕精密空調"}]}, "level2": {"specs": [{"k": "核心主機", "v": "Dell PowerEdge R760 叢集 (雙路 Xeon Gold, 512GB ECC RAM)"}, {"k": "SAN 存儲", "v": "Dell Unity 480XT 全快閃陣列 (雙控制器, 32Gbps FC)"}, {"k": "骨幹網絡", "v": "Dell S5248F-ON 25GbE 核心交換機 (MLAG 雙星型拓撲)"}, {"k": "邊界防護", "v": "FortiGate 200F HA 雙機熱備叢集"}]}, "level3": {"arch_desc": "總部機房採雙電力迴路設計，所有核心設備均配置雙電源供應器 (Redundant PSU)。伺服器虛擬化採用 Proxmox VE 高可用叢集與 Ceph 分散式存儲，支援虛擬機微秒級實時遷移 (Live Migration)。", "micro_flow": ["1. 市電異常中斷，APC 10kVA UPS 零秒無縫接管", "2. 停電持續達 60 秒，自動引導 CAT 柴油發電機發動供電", "3. 發電機穩定輸出後自動並聯供電，確保主機房持續穩定運轉 72 小時以上"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.1 節機房實體環境安全準則。"}}, "node-fg-hq": {"title": "台北總部 FortiGate 200F 主動/被動 HA 雙機熱備防火牆叢集", "category": "周界安全 (IaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ HA 狀態同步 < 1s", "table_target": "tab-hardware", "table_filter": "FortiGate 200F", "level1": {"impact": "總部互聯網邊界與跨國專線第一道硬體防禦防線，終結未授權侵入並提供全流量 SSL 深度檢測與入侵防護 (IPS)。", "owner": "信源全球 資安治理小組", "metrics": [{"label": "IPS 吞吐量", "val": "5.0 Gbps"}, {"label": "威脅防禦 (NGFW)", "val": "3.5 Gbps"}, {"label": "並行連線數", "val": "3,000,000"}, {"label": "HA 切換時間", "val": "< 1 秒 (狀態同步)"}]}, "level2": {"specs": [{"k": "配置型態", "v": "Active-Passive HA 叢集 (心跳專用 10GbE 直連)"}, {"k": "安全功能", "v": "第七層應用識別、SSL 封包解密、IPS、AV、Botnet 攔截"}, {"k": "網絡介面", "v": "16x GE RJ45, 8x 10GE SFP+ 插槽"}, {"k": "微切分管理", "v": "802.1Q VLAN 路由與跨 VLAN 訪問控制清單 (ACL)"}]}, "level3": {"arch_desc": "FortiGate HA 叢集透過專屬 Heartbeat 鏈路實時同步連線表 (Session Table) 與 TCP 狀態。當 Primary 節點硬體或電源故障時，Secondary 節點於 800ms 內自動接管 VIP，對外連線不中斷。", "micro_flow": ["1. 主節點實時廣播 Session State 至備援節點", "2. 心跳信號連續 3 次遺失，備援節點發送 Gratuitous ARP 接管虛擬 MAC", "3. 觸發 SNMP Trap 與 Syslog 告警至資安監控平台"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.1 節防火牆高可用運作標準。"}}, "fg-hq": {"title": "台北總部 FortiGate 200F 主動/被動 HA 雙機熱備防火牆叢集", "category": "周界安全 (IaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ HA 狀態同步 < 1s", "table_target": "tab-hardware", "table_filter": "FortiGate 200F", "level1": {"impact": "總部互聯網邊界與跨國專線第一道硬體防禦防線，終結未授權侵入並提供全流量 SSL 深度檢測與入侵防護 (IPS)。", "owner": "信源全球 資安治理小組", "metrics": [{"label": "IPS 吞吐量", "val": "5.0 Gbps"}, {"label": "威脅防禦 (NGFW)", "val": "3.5 Gbps"}, {"label": "並行連線數", "val": "3,000,000"}, {"label": "HA 切換時間", "val": "< 1 秒 (狀態同步)"}]}, "level2": {"specs": [{"k": "配置型態", "v": "Active-Passive HA 叢集 (心跳專用 10GbE 直連)"}, {"k": "安全功能", "v": "第七層應用識別、SSL 封包解密、IPS、AV、Botnet 攔截"}, {"k": "網絡介面", "v": "16x GE RJ45, 8x 10GE SFP+ 插槽"}, {"k": "微切分管理", "v": "802.1Q VLAN 路由與跨 VLAN 訪問控制清單 (ACL)"}]}, "level3": {"arch_desc": "FortiGate HA 叢集透過專屬 Heartbeat 鏈路實時同步連線表 (Session Table) 與 TCP 狀態。當 Primary 節點硬體或電源故障時，Secondary 節點於 800ms 內自動接管 VIP，對外連線不中斷。", "micro_flow": ["1. 主節點實時廣播 Session State 至備援節點", "2. 心跳信號連續 3 次遺失，備援節點發送 Gratuitous ARP 接管虛擬 MAC", "3. 觸發 SNMP Trap 與 Syslog 告警至資安監控平台"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.1 節防火牆高可用運作標準。"}}, "node-sw-hq": {"title": "台北總部核心交換叢集 Dell PowerSwitch S5248F-ON (25GbE MLAG)", "category": "核心網絡 (IaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 無阻塞線速轉發", "table_target": "tab-hardware", "table_filter": "S5248F", "level1": {"impact": "機房內部所有伺服器、存儲陣列與虛擬化節點之 25GbE/100GbE 高速骨幹交換中樞，保障 D365 ERP 與資料庫微秒級連線。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "交換容量", "val": "4.0 Tbps (線速全雙工)"}, {"label": "轉發延遲", "val": "< 800 奈秒 (Ultra-Low Latency)"}, {"label": "上行介面", "val": "4x 100GbE QSFP28 Uplink"}, {"label": "主機接入", "val": "48x 25GbE SFP28 Ports"}]}, "level2": {"specs": [{"k": "冗餘架構", "v": "MLAG (Multi-Chassis Link Aggregation) 跨機箱鏈路聚合"}, {"k": "作業系統", "v": "Dell SmartFabric OS10 (企業級高可用網絡 OS)"}, {"k": "VLAN 隔離", "v": "硬體支援 4094 個 802.1Q VLAN，線速硬體 ACL 隔離"}, {"k": "儲存協議", "v": "支援 RoCEv2 (RDMA over Converged Ethernet) 低延遲傳輸"}]}, "level3": {"arch_desc": "雙交換機組成 MLAG 虛擬單一邏輯交換核心，所有實體伺服器網卡 (Dual-port 25GbE) 分別接入 Switch A 與 Switch B，實現主機端 LACP 負載平衡與單台交換機停機維護零停機時間。", "micro_flow": ["1. 主機雙網卡透過 LACP (802.3ad) 分流流量", "2. 單台交換機韌體更新或重啟，MLAG 於 50ms 內隔離故障節點", "3. 資料封包無縫繞行另一交換機，業務無感持續運作"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.3 節局域網絡架構標準。"}}, "sw-hq": {"title": "台北總部核心交換叢集 Dell PowerSwitch S5248F-ON (25GbE MLAG)", "category": "核心網絡 (IaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 無阻塞線速轉發", "table_target": "tab-hardware", "table_filter": "S5248F", "level1": {"impact": "機房內部所有伺服器、存儲陣列與虛擬化節點之 25GbE/100GbE 高速骨幹交換中樞，保障 D365 ERP 與資料庫微秒級連線。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "交換容量", "val": "4.0 Tbps (線速全雙工)"}, {"label": "轉發延遲", "val": "< 800 奈秒 (Ultra-Low Latency)"}, {"label": "上行介面", "val": "4x 100GbE QSFP28 Uplink"}, {"label": "主機接入", "val": "48x 25GbE SFP28 Ports"}]}, "level2": {"specs": [{"k": "冗餘架構", "v": "MLAG (Multi-Chassis Link Aggregation) 跨機箱鏈路聚合"}, {"k": "作業系統", "v": "Dell SmartFabric OS10 (企業級高可用網絡 OS)"}, {"k": "VLAN 隔離", "v": "硬體支援 4094 個 802.1Q VLAN，線速硬體 ACL 隔離"}, {"k": "儲存協議", "v": "支援 RoCEv2 (RDMA over Converged Ethernet) 低延遲傳輸"}]}, "level3": {"arch_desc": "雙交換機組成 MLAG 虛擬單一邏輯交換核心，所有實體伺服器網卡 (Dual-port 25GbE) 分別接入 Switch A 與 Switch B，實現主機端 LACP 負載平衡與單台交換機停機維護零停機時間。", "micro_flow": ["1. 主機雙網卡透過 LACP (802.3ad) 分流流量", "2. 單台交換機韌體更新或重啟，MLAG 於 50ms 內隔離故障節點", "3. 資料封包無縫繞行另一交換機，業務無感持續運作"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.3 節局域網絡架構標準。"}}, "node-vlan-10": {"title": "VLAN 10: ERP/MES 關鍵核心伺服器微切分專用網段 (192.168.10.0/24)", "category": "網絡微切分 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "嚴格隔離 ｜ 零信任白名單訪問控制", "table_target": "tab-network", "table_filter": "VLAN 10", "level1": {"impact": "承載 Microsoft Dynamics 365 AOS 微服務叢集、rsiaxdb1 AXDB 營運主庫與 SAM 生產管理核心應用，嚴禁未授權外網直接存取。", "owner": "信源全球 企業系統治理組", "metrics": [{"label": "安全性等級", "val": "最高等級 (Zero Trust Zone)"}, {"label": "網段位址", "val": "192.168.10.0/24"}, {"label": "預設閘道", "val": "192.168.10.254 (FortiGate HA)"}, {"label": "隔離機制", "val": "第八層資安防禦 + 白名單 ACL"}]}, "level2": {"specs": [{"k": "廣播域控制", "v": "獨立 802.1Q 標籤，封閉跨網段廣播風暴"}, {"k": "存取政策", "v": "僅允許來自 VLAN 40 (管理) 特定 IP 經 Bastion Host 連線"}, {"k": "檢測防護", "v": "Palo Alto Networks Cortex AES 實時監測資料流異常"}, {"k": "連線監控", "v": "全連線狀態記錄與每小時稽核分析"}]}, "level3": {"arch_desc": "本網段實施嚴格微切分策略。伺服器之間禁止跨主機橫向通訊 (Micro-segmentation / Private VLAN)，所有對外流量必須經過 FortiGate 進行 IPS 與 Palo Alto KOI 代理閘道過濾。", "micro_flow": ["1. 用戶端連線請求抵達 FortiGate 防火牆", "2. 比對 Cortex KOI 憑證與角色授權矩陣 (RBAC)", "3. 通過檢驗者始建立 TCP 連線轉發至 VLAN 10 對應主機"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 4.1 節核心網段微切分管理辦法。"}}, "vlan-10": {"title": "VLAN 10: ERP/MES 關鍵核心伺服器微切分專用網段 (192.168.10.0/24)", "category": "網絡微切分 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "嚴格隔離 ｜ 零信任白名單訪問控制", "table_target": "tab-network", "table_filter": "VLAN 10", "level1": {"impact": "承載 Microsoft Dynamics 365 AOS 微服務叢集、rsiaxdb1 AXDB 營運主庫與 SAM 生產管理核心應用，嚴禁未授權外網直接存取。", "owner": "信源全球 企業系統治理組", "metrics": [{"label": "安全性等級", "val": "最高等級 (Zero Trust Zone)"}, {"label": "網段位址", "val": "192.168.10.0/24"}, {"label": "預設閘道", "val": "192.168.10.254 (FortiGate HA)"}, {"label": "隔離機制", "val": "第八層資安防禦 + 白名單 ACL"}]}, "level2": {"specs": [{"k": "廣播域控制", "v": "獨立 802.1Q 標籤，封閉跨網段廣播風暴"}, {"k": "存取政策", "v": "僅允許來自 VLAN 40 (管理) 特定 IP 經 Bastion Host 連線"}, {"k": "檢測防護", "v": "Palo Alto Networks Cortex AES 實時監測資料流異常"}, {"k": "連線監控", "v": "全連線狀態記錄與每小時稽核分析"}]}, "level3": {"arch_desc": "本網段實施嚴格微切分策略。伺服器之間禁止跨主機橫向通訊 (Micro-segmentation / Private VLAN)，所有對外流量必須經過 FortiGate 進行 IPS 與 Palo Alto KOI 代理閘道過濾。", "micro_flow": ["1. 用戶端連線請求抵達 FortiGate 防火牆", "2. 比對 Cortex KOI 憑證與角色授權矩陣 (RBAC)", "3. 通過檢驗者始建立 TCP 連線轉發至 VLAN 10 對應主機"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 4.1 節核心網段微切分管理辦法。"}}, "node-zone-rdv": {"title": "越南同奈廠區 (RDV / Dong Nai) 生產營運與邊緣自律節點", "category": "海外生產基地 (IaaS/PaaS)", "site": "越南同奈 (RDV)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "48~72 小時離線自律運轉 ｜ 專線恢復自動重播", "table_target": "tab-hardware", "table_filter": "越南", "level1": {"impact": "全球最大成衣智慧製造基地之一，運行現場 Edge MES 工單投產、車間條碼刷讀、智慧吊掛系統及在地出貨報關。", "owner": "越南廠 資訊部 / 總部跨國製造技術處", "metrics": [{"label": "產線規模", "val": "60 條智慧成衣吊掛流水線"}, {"label": "專線鏈路", "val": "第一線 MPLS 40Mbps (保證頻寬)"}, {"label": "自律容錯", "val": "離線持續生產 72 小時無礙"}, {"label": "在地硬體", "val": "Dell PowerEdge R660 邊緣伺服器叢集"}]}, "level2": {"specs": [{"k": "邊緣網關", "v": "FortiGate 80F (雙 ISP SD-WAN 自動容錯)"}, {"k": "邊緣快取", "v": "Local PostgreSQL / SQLite 工單離線存儲"}, {"k": "微切分網段", "v": "VLAN 100 (MES/生產) ｜ VLAN 200 (OT/沙箱隔離)"}, {"k": "本地電力", "v": "APC Smart-UPS 3kVA 在線式不斷電系統"}]}, "level3": {"arch_desc": "配置自律 Edge Broker 代理。當偵測到跨國專線與 SD-WAN 同步中斷時，自動轉入「離線自律運轉模式 (Autonomous Edge Mode)」，所有車間作業寫入本地持久化日誌；連線復原後透過 RSIMDW1 幂等佇列自動非同步重播。", "micro_flow": ["1. 跨國專線發生中斷，Edge Agent 於 3 秒內切換至本地快取資料庫", "2. 現場工人作業正常刷讀，交易記錄寫入 SQLite 序號暫存區", "3. 跨國網絡復通，啟動批次重播同步並自動仲裁庫存異動衝突"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 5.1 節海外廠區離線自律運作標準。"}}, "zone-rdv": {"title": "越南同奈廠區 (RDV / Dong Nai) 生產營運與邊緣自律節點", "category": "海外生產基地 (IaaS/PaaS)", "site": "越南同奈 (RDV)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "48~72 小時離線自律運轉 ｜ 專線恢復自動重播", "table_target": "tab-hardware", "table_filter": "越南", "level1": {"impact": "全球最大成衣智慧製造基地之一，運行現場 Edge MES 工單投產、車間條碼刷讀、智慧吊掛系統及在地出貨報關。", "owner": "越南廠 資訊部 / 總部跨國製造技術處", "metrics": [{"label": "產線規模", "val": "60 條智慧成衣吊掛流水線"}, {"label": "專線鏈路", "val": "第一線 MPLS 40Mbps (保證頻寬)"}, {"label": "自律容錯", "val": "離線持續生產 72 小時無礙"}, {"label": "在地硬體", "val": "Dell PowerEdge R660 邊緣伺服器叢集"}]}, "level2": {"specs": [{"k": "邊緣網關", "v": "FortiGate 80F (雙 ISP SD-WAN 自動容錯)"}, {"k": "邊緣快取", "v": "Local PostgreSQL / SQLite 工單離線存儲"}, {"k": "微切分網段", "v": "VLAN 100 (MES/生產) ｜ VLAN 200 (OT/沙箱隔離)"}, {"k": "本地電力", "v": "APC Smart-UPS 3kVA 在線式不斷電系統"}]}, "level3": {"arch_desc": "配置自律 Edge Broker 代理。當偵測到跨國專線與 SD-WAN 同步中斷時，自動轉入「離線自律運轉模式 (Autonomous Edge Mode)」，所有車間作業寫入本地持久化日誌；連線復原後透過 RSIMDW1 幂等佇列自動非同步重播。", "micro_flow": ["1. 跨國專線發生中斷，Edge Agent 於 3 秒內切換至本地快取資料庫", "2. 現場工人作業正常刷讀，交易記錄寫入 SQLite 序號暫存區", "3. 跨國網絡復通，啟動批次重播同步並自動仲裁庫存異動衝突"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 5.1 節海外廠區離線自律運作標準。"}}, "node-zone-rdg": {"title": "柬埔寨柴楨廠區 (RDG / Svay Rieng) 生產營運與物流自律節點", "category": "海外生產基地 (IaaS/PaaS)", "site": "柬埔寨柴楨 (RDG)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "48~72 小時離線自律運轉 ｜ 雙電信 SD-WAN 容錯", "table_target": "tab-hardware", "table_filter": "柬埔寨", "level1": {"impact": "負責柬埔寨免關稅成衣生產出口與原料進料，運行現場 Edge MES 裁床優化、縫紉吊掛及跨國海關報關清單對接。", "owner": "柬埔寨廠 資訊科 / 總部資訊治理處", "metrics": [{"label": "產線規模", "val": "45 條自動化縫製流水線"}, {"label": "專線鏈路", "val": "第一線 MPLS 20Mbps (保證頻寬)"}, {"label": "備援 ISP", "val": "Smart Axiata + CamGSM 雙備援"}, {"label": "在地硬體", "val": "Dell PowerEdge R660 邊緣伺服器叢集"}]}, "level2": {"specs": [{"k": "邊緣網關", "v": "FortiGate 80F 雙機熱備"}, {"k": "工廠網段", "v": "VLAN 100 (MES/物流) ｜ VLAN 200 (吊掛 OT 設備)"}, {"k": "本地儲存", "v": "RAID 1+0 NVMe 高速快取磁碟陣列"}, {"k": "備援電力", "v": "APC Smart-UPS 3kVA + 工廠重柴油發電機組"}]}, "level3": {"arch_desc": "因應東南亞跨國海纜修復週期較長之特性，配置超大容量離線事務日誌。支持在完全脫網狀態下持續運轉 72 小時，產線生產、裝箱、條碼出貨均在邊緣節點獨立完成簽核與核對。", "micro_flow": ["1. 離線期間由在地 Edge Controller 執行條碼唯一性防重校驗", "2. 網絡恢復後，依據 UTC 時間戳自動排序並執行增量 CDC 上傳", "3. 總部 RSIMDW1 驗證通過後回傳 ACK 並標記歷史事務完成"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 5.2 節海外廠區離線自律運作標準。"}}, "zone-rdg": {"title": "柬埔寨柴楨廠區 (RDG / Svay Rieng) 生產營運與物流自律節點", "category": "海外生產基地 (IaaS/PaaS)", "site": "柬埔寨柴楨 (RDG)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "48~72 小時離線自律運轉 ｜ 雙電信 SD-WAN 容錯", "table_target": "tab-hardware", "table_filter": "柬埔寨", "level1": {"impact": "負責柬埔寨免關稅成衣生產出口與原料進料，運行現場 Edge MES 裁床優化、縫紉吊掛及跨國海關報關清單對接。", "owner": "柬埔寨廠 資訊科 / 總部資訊治理處", "metrics": [{"label": "產線規模", "val": "45 條自動化縫製流水線"}, {"label": "專線鏈路", "val": "第一線 MPLS 20Mbps (保證頻寬)"}, {"label": "備援 ISP", "val": "Smart Axiata + CamGSM 雙備援"}, {"label": "在地硬體", "val": "Dell PowerEdge R660 邊緣伺服器叢集"}]}, "level2": {"specs": [{"k": "邊緣網關", "v": "FortiGate 80F 雙機熱備"}, {"k": "工廠網段", "v": "VLAN 100 (MES/物流) ｜ VLAN 200 (吊掛 OT 設備)"}, {"k": "本地儲存", "v": "RAID 1+0 NVMe 高速快取磁碟陣列"}, {"k": "備援電力", "v": "APC Smart-UPS 3kVA + 工廠重柴油發電機組"}]}, "level3": {"arch_desc": "因應東南亞跨國海纜修復週期較長之特性，配置超大容量離線事務日誌。支持在完全脫網狀態下持續運轉 72 小時，產線生產、裝箱、條碼出貨均在邊緣節點獨立完成簽核與核對。", "micro_flow": ["1. 離線期間由在地 Edge Controller 執行條碼唯一性防重校驗", "2. 網絡恢復後，依據 UTC 時間戳自動排序並執行增量 CDC 上傳", "3. 總部 RSIMDW1 驗證通過後回傳 ACK 並標記歷史事務完成"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 5.2 節海外廠區離線自律運作標準。"}}, "node-zone-aws": {"title": "AWS 香港直連 VPC 混合雲容器與巨量封存節點", "category": "雲端服務 (PaaS/SaaS)", "site": "AWS 香港 (ap-east-1)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "99.95% 可用度 ｜ 專用直連 Direct Connect 100M", "table_target": "tab-cloud", "table_filter": "AWS", "level1": {"impact": "託管 EKS 微服務彈性容器、Triton GPU AI 瑕疵檢測推論服務、全集團資料湖儲存 (S3) 及不可竄改之 Glacier WORM 合規日誌封存。", "owner": "信源全球 雲端架構治理組", "metrics": [{"label": "連線延遲", "val": "22 ms (專用專線直連)"}, {"label": "專線頻寬", "val": "第一線 Direct Connect 100Mbps"}, {"label": "運算叢集", "val": "AWS EKS (Kubernetes 1.29)"}, {"label": "耐久度", "val": "99.999999999% (S3 11個9)"}]}, "level2": {"specs": [{"k": "互聯方式", "v": "第一線 MPLS 延伸 Direct Connect VIF (Virtual Interface)"}, {"k": "容器環境", "v": "AWS EKS Fargate + EC2 G5 GPU 執行個體"}, {"k": "資料湖泊", "v": "Amazon S3 Standard / Intelligent-Tiering"}, {"k": "法規封存", "v": "S3 Glacier Vault Lock (WORM 不可篡改模式)"}]}, "level3": {"arch_desc": "地端核心資料庫透過 RSIMDW1 API Gateway 經由專用私有通道將去識別化資料推送至 AWS VPC。完全封閉互聯網公網存取 (PrivateLink)，確保巨量成衣打版數據與 AI 瑕疵辨識模型具備銀行級安全隔離。", "micro_flow": ["1. 地端產線將布料相機檢驗圖片透過私有專線推送至 AWS Triton", "2. GPU 容器於 150ms 內完成織物瑕疵分類並回傳瑕疵坐標", "3. 原圖與推論結果自動存檔至 S3 並觸發冷儲存分層封存"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 6.1 節雲端服務合規運作指引。"}}, "zone-aws": {"title": "AWS 香港直連 VPC 混合雲容器與巨量封存節點", "category": "雲端服務 (PaaS/SaaS)", "site": "AWS 香港 (ap-east-1)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "99.95% 可用度 ｜ 專用直連 Direct Connect 100M", "table_target": "tab-cloud", "table_filter": "AWS", "level1": {"impact": "託管 EKS 微服務彈性容器、Triton GPU AI 瑕疵檢測推論服務、全集團資料湖儲存 (S3) 及不可竄改之 Glacier WORM 合規日誌封存。", "owner": "信源全球 雲端架構治理組", "metrics": [{"label": "連線延遲", "val": "22 ms (專用專線直連)"}, {"label": "專線頻寬", "val": "第一線 Direct Connect 100Mbps"}, {"label": "運算叢集", "val": "AWS EKS (Kubernetes 1.29)"}, {"label": "耐久度", "val": "99.999999999% (S3 11個9)"}]}, "level2": {"specs": [{"k": "互聯方式", "v": "第一線 MPLS 延伸 Direct Connect VIF (Virtual Interface)"}, {"k": "容器環境", "v": "AWS EKS Fargate + EC2 G5 GPU 執行個體"}, {"k": "資料湖泊", "v": "Amazon S3 Standard / Intelligent-Tiering"}, {"k": "法規封存", "v": "S3 Glacier Vault Lock (WORM 不可篡改模式)"}]}, "level3": {"arch_desc": "地端核心資料庫透過 RSIMDW1 API Gateway 經由專用私有通道將去識別化資料推送至 AWS VPC。完全封閉互聯網公網存取 (PrivateLink)，確保巨量成衣打版數據與 AI 瑕疵辨識模型具備銀行級安全隔離。", "micro_flow": ["1. 地端產線將布料相機檢驗圖片透過私有專線推送至 AWS Triton", "2. GPU 容器於 150ms 內完成織物瑕疵分類並回傳瑕疵坐標", "3. 原圖與推論結果自動存檔至 S3 並觸發冷儲存分層封存"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 6.1 節雲端服務合規運作指引。"}}, "node-cortex-aes": {"title": "Palo Alto Networks Cortex AES 5階端到端智慧資安防禦體系", "category": "資訊安全 (SaaS/SecOps)", "site": "全球聯防體系 (Global SecOps)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "實時威脅阻斷 ｜ 零信任端點聯防", "table_target": "tab-security", "table_filter": "Palo Alto", "level1": {"impact": "保護集團全球所有伺服器、端點與開發環境免受勒索病毒、供應鏈攻擊及未授權橫向移動滲透，落實以 KOI 為第1階進入點核心的嚴密資安防護。", "owner": "信源全球 資安長 (CISO) / 資訊安全應變小組 (CSIRT)", "metrics": [{"label": "防禦覆蓋率", "val": "100% 全球伺服器與端點"}, {"label": "威脅告警 SLA", "val": "< 5 分鐘通報 / 15 分鐘隔離"}, {"label": "架構層級", "val": "5 階縱深聯防架構"}, {"label": "防護引擎", "val": "WildFire AI 即時特徵雲"}]}, "level2": {"specs": [{"k": "第 1 階", "v": "KOI 內嵌安全閘道 (在下載觸及裝置前攔截封鎖未知威脅)"}, {"k": "第 2 階", "v": "執行階段防護 (阻止惡意程式碼、DLL 注入與 IDE 擴充功能竊密)"}, {"k": "第 3 階", "v": "憑證與管道防護 (防止開發環境、SSH Keys 及雲端 Token 未授權存取)"}, {"k": "第 4 階", "v": "版本更新冷卻緩衝 (CI/CD 管道執行封鎖與組件簽名校驗)"}, {"k": "第 5 階", "v": "持續補救措施 (微秒級隔離遭入侵主機並遠端清除殘留)"}]}, "level3": {"arch_desc": "本架構嚴格貫徹 5 階安全聯防。所有流量進入裝置前一律由 KOI 安全閘道進行深度探測。一旦發現異常行為，Cortex XDR Agent 自動切斷主機網絡介面 (Host Isolation)，並將取證日誌即時上傳至不可竄改的安全分析存儲庫。", "micro_flow": ["1. KOI 閘道在封包進入實體主機前完成靜態特徵與行為沙箱檢測", "2. 發現新型攻擊模式，立即自動下發防禦特徵至全球所有 FortiGate 與主機", "3. 自動發送事件通報至 CISO 與 IT 管理團隊，生成合規事件鑑識報告"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 7.1 節資安事件應變作業流程。"}}, "cortex-aes": {"title": "Palo Alto Networks Cortex AES 5階端到端智慧資安防禦體系", "category": "資訊安全 (SaaS/SecOps)", "site": "全球聯防體系 (Global SecOps)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "實時威脅阻斷 ｜ 零信任端點聯防", "table_target": "tab-security", "table_filter": "Palo Alto", "level1": {"impact": "保護集團全球所有伺服器、端點與開發環境免受勒索病毒、供應鏈攻擊及未授權橫向移動滲透，落實以 KOI 為第1階進入點核心的嚴密資安防護。", "owner": "信源全球 資安長 (CISO) / 資訊安全應變小組 (CSIRT)", "metrics": [{"label": "防禦覆蓋率", "val": "100% 全球伺服器與端點"}, {"label": "威脅告警 SLA", "val": "< 5 分鐘通報 / 15 分鐘隔離"}, {"label": "架構層級", "val": "5 階縱深聯防架構"}, {"label": "防護引擎", "val": "WildFire AI 即時特徵雲"}]}, "level2": {"specs": [{"k": "第 1 階", "v": "KOI 內嵌安全閘道 (在下載觸及裝置前攔截封鎖未知威脅)"}, {"k": "第 2 階", "v": "執行階段防護 (阻止惡意程式碼、DLL 注入與 IDE 擴充功能竊密)"}, {"k": "第 3 階", "v": "憑證與管道防護 (防止開發環境、SSH Keys 及雲端 Token 未授權存取)"}, {"k": "第 4 階", "v": "版本更新冷卻緩衝 (CI/CD 管道執行封鎖與組件簽名校驗)"}, {"k": "第 5 階", "v": "持續補救措施 (微秒級隔離遭入侵主機並遠端清除殘留)"}]}, "level3": {"arch_desc": "本架構嚴格貫徹 5 階安全聯防。所有流量進入裝置前一律由 KOI 安全閘道進行深度探測。一旦發現異常行為，Cortex XDR Agent 自動切斷主機網絡介面 (Host Isolation)，並將取證日誌即時上傳至不可竄改的安全分析存儲庫。", "micro_flow": ["1. KOI 閘道在封包進入實體主機前完成靜態特徵與行為沙箱檢測", "2. 發現新型攻擊模式，立即自動下發防禦特徵至全球所有 FortiGate 與主機", "3. 自動發送事件通報至 CISO 與 IT 管理團隊，生成合規事件鑑識報告"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 7.1 節資安事件應變作業流程。"}}, "node-d365-aos": {"title": "Microsoft Dynamics 365 AOS 交易處理服務叢集 (Core Enterprise ERP)", "category": "核心 ERP (PaaS/SaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ RTO < 30 秒 ｜ RPO < 5 秒", "table_target": "tab-software", "table_filter": "Dynamics 365", "level1": {"impact": "全球成衣製造供應鏈運作神經中樞，掌管全集團訂單、採購、BOM、生產排程與財務主帳戶，支撐跨國上萬筆並行交易。", "owner": "信源全球 企業系統治理組", "metrics": [{"label": "交易吞吐量", "val": "> 1,200 TPS"}, {"label": "SLA 承諾", "val": "99.99% (7x24x365)"}, {"label": "容錯架構", "val": "AOS 負載平衡微服務叢集"}, {"label": "災難復原", "val": "本地雙機 + 異地熱備副本"}]}, "level2": {"specs": [{"k": "應用架構", "v": "Microsoft Dynamics 365 Application Object Server (AOS)"}, {"k": "叢集節點", "v": "3台主動平衡節點 (Dell R760 64-Core, 256GB RAM)"}, {"k": "後端資料庫", "v": "Microsoft SQL Server 2022 AlwaysOn AG (AXDB)"}, {"k": "連線協同", "v": "YARP (Yet Another Reverse Proxy) 反向代理閘道"}]}, "level3": {"arch_desc": "AOS 叢集透過虛擬 IP 與 Session State Server 保持無狀態 (Stateless) 運算架構。任何單一伺服器節點維護或異常重啟，負載均衡器於 1 秒內摘除該節點，現有用戶連線無損切換至其他節點繼續操作。", "micro_flow": ["1. 用戶透過 Web / Rich Client 發出業務交易請求", "2. YARP 閘道進行 SSL Offloading 與權杖校驗，路由至負載最低之 AOS 節點", "3. AOS 執行業務邏輯並以分散式交易認可至 AlwaysOn AXDB 主庫"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 1.1 節 ERP 核心業務連續性指引。"}}, "d365-aos": {"title": "Microsoft Dynamics 365 AOS 交易處理服務叢集 (Core Enterprise ERP)", "category": "核心 ERP (PaaS/SaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ RTO < 30 秒 ｜ RPO < 5 秒", "table_target": "tab-software", "table_filter": "Dynamics 365", "level1": {"impact": "全球成衣製造供應鏈運作神經中樞，掌管全集團訂單、採購、BOM、生產排程與財務主帳戶，支撐跨國上萬筆並行交易。", "owner": "信源全球 企業系統治理組", "metrics": [{"label": "交易吞吐量", "val": "> 1,200 TPS"}, {"label": "SLA 承諾", "val": "99.99% (7x24x365)"}, {"label": "容錯架構", "val": "AOS 負載平衡微服務叢集"}, {"label": "災難復原", "val": "本地雙機 + 異地熱備副本"}]}, "level2": {"specs": [{"k": "應用架構", "v": "Microsoft Dynamics 365 Application Object Server (AOS)"}, {"k": "叢集節點", "v": "3台主動平衡節點 (Dell R760 64-Core, 256GB RAM)"}, {"k": "後端資料庫", "v": "Microsoft SQL Server 2022 AlwaysOn AG (AXDB)"}, {"k": "連線協同", "v": "YARP (Yet Another Reverse Proxy) 反向代理閘道"}]}, "level3": {"arch_desc": "AOS 叢集透過虛擬 IP 與 Session State Server 保持無狀態 (Stateless) 運算架構。任何單一伺服器節點維護或異常重啟，負載均衡器於 1 秒內摘除該節點，現有用戶連線無損切換至其他節點繼續操作。", "micro_flow": ["1. 用戶透過 Web / Rich Client 發出業務交易請求", "2. YARP 閘道進行 SSL Offloading 與權杖校驗，路由至負載最低之 AOS 節點", "3. AOS 執行業務邏輯並以分散式交易認可至 AlwaysOn AXDB 主庫"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 1.1 節 ERP 核心業務連續性指引。"}}, "node-rsiaxdb1": {"title": "Microsoft SQL Server AlwaysOn 高可用核心主庫 (rsiaxdb1 AXDB)", "category": "核心資料庫 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ RTO < 30 秒 ｜ RPO < 5 秒", "table_target": "tab-database", "table_filter": "rsiaxdb1", "level1": {"impact": "存放全集團最核心之 D365 ERP 營運主資料 (AXDB)、交易歷史紀錄與全集團財務憑單，不允許發生任何資料遺失。", "owner": "信源全球 資料庫架構組", "metrics": [{"label": "資料庫版本", "val": "SQL Server 2022 Enterprise"}, {"label": "高可用模式", "val": "AlwaysOn 同步認可 (Sync Commit)"}, {"label": "RTO 目標", "val": "< 30 秒 (自動容錯倒換)"}, {"label": "RPO 目標", "val": "< 5 秒 (零數據遺失)"}]}, "level2": {"specs": [{"k": "實體主機", "v": "Dell PowerEdge R760 (雙路 Intel Xeon Gold 6430, 512GB ECC RAM)"}, {"k": "儲存架構", "v": "Dell Unity 480XT 全快閃陣列 (RAID 1+0 NVMe LUN 掛載)"}, {"k": "同步鏈路", "v": "專屬 25GbE 雙埠直連心跳傳輸 (低於 1ms 延遲)"}, {"k": "備援節點", "v": "rsiaxdb2 (次要同步副本) ＋ rsiaxdb-dr (非同步雲端副本)"}]}, "level3": {"arch_desc": "主庫 (rsiaxdb1) 與備庫 (rsiaxdb2) 建立同步認可可用性群組。任何交易日誌必須在兩端節點均硬化 (Harden) 至 NVMe 磁碟後才向 AOS 回應 Success。若主庫硬體故障，叢集健康探針立即觸發自動容錯移轉，備庫自動升級為主庫。", "micro_flow": ["1. 叢集仲裁服務 (Cluster Quorum) 持續監控主庫心跳", "2. 偵測主節點異常，次要副本確認日誌一致後接管主角色", "3. 虛擬接聽程式 (Availability Group Listener) 將應用程式連線指向新主庫"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.2 節資料庫容錯與災後復原規範。"}}, "rsiaxdb1": {"title": "Microsoft SQL Server AlwaysOn 高可用核心主庫 (rsiaxdb1 AXDB)", "category": "核心資料庫 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ RTO < 30 秒 ｜ RPO < 5 秒", "table_target": "tab-database", "table_filter": "rsiaxdb1", "level1": {"impact": "存放全集團最核心之 D365 ERP 營運主資料 (AXDB)、交易歷史紀錄與全集團財務憑單，不允許發生任何資料遺失。", "owner": "信源全球 資料庫架構組", "metrics": [{"label": "資料庫版本", "val": "SQL Server 2022 Enterprise"}, {"label": "高可用模式", "val": "AlwaysOn 同步認可 (Sync Commit)"}, {"label": "RTO 目標", "val": "< 30 秒 (自動容錯倒換)"}, {"label": "RPO 目標", "val": "< 5 秒 (零數據遺失)"}]}, "level2": {"specs": [{"k": "實體主機", "v": "Dell PowerEdge R760 (雙路 Intel Xeon Gold 6430, 512GB ECC RAM)"}, {"k": "儲存架構", "v": "Dell Unity 480XT 全快閃陣列 (RAID 1+0 NVMe LUN 掛載)"}, {"k": "同步鏈路", "v": "專屬 25GbE 雙埠直連心跳傳輸 (低於 1ms 延遲)"}, {"k": "備援節點", "v": "rsiaxdb2 (次要同步副本) ＋ rsiaxdb-dr (非同步雲端副本)"}]}, "level3": {"arch_desc": "主庫 (rsiaxdb1) 與備庫 (rsiaxdb2) 建立同步認可可用性群組。任何交易日誌必須在兩端節點均硬化 (Harden) 至 NVMe 磁碟後才向 AOS 回應 Success。若主庫硬體故障，叢集健康探針立即觸發自動容錯移轉，備庫自動升級為主庫。", "micro_flow": ["1. 叢集仲裁服務 (Cluster Quorum) 持續監控主庫心跳", "2. 偵測主節點異常，次要副本確認日誌一致後接管主角色", "3. 虛擬接聽程式 (Availability Group Listener) 將應用程式連線指向新主庫"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.2 節資料庫容錯與災後復原規範。"}}, "node-sam-core": {"title": "SAM 智慧製造核心引擎與排程資料庫 (SAM DB)", "category": "製造核心 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ 產線即時排程無延遲", "table_target": "tab-software", "table_filter": "SAM", "level1": {"impact": "成衣製造排程演算法大腦，掌管物料齊套分析、工序工時平衡 (Standard Allowed Minute)、自動排刀裁切與跨廠動態產能調配。", "owner": "信源全球 製造技術處 / 生產管理處", "metrics": [{"label": "排程計算效率", "val": "< 10 分鐘完成全球產能模擬"}, {"label": "SLA 承諾", "val": "99.99% 穩定運作"}, {"label": "數據同步", "val": "與 D365 AXDB 毫秒級交易連動"}, {"label": "服務層級", "val": "Tier 1 極關鍵營運系統"}]}, "level2": {"specs": [{"k": "底層主機", "v": "Dell PowerEdge R760 專用運算節點"}, {"k": "引擎語言", "v": "C# .NET Core 8 高性能多執行緒排程計算服務"}, {"k": "快取加速", "v": "Redis Cluster 記憶體快取 (處理即時工序節點狀態)"}, {"k": "資料存儲", "v": "MS SQL Server Enterprise 叢集庫"}]}, "level3": {"arch_desc": "SAM 系統以微秒級事件驅動架構 (Event-driven Architecture) 運作。越南、柬埔寨各廠現場工單異動時，透過 Kafka 訊息匯流排實時推送至 SAM 計算引擎，實現跨國全球產能即時優化與衝突警示。", "micro_flow": ["1. 各廠 Edge MES 拋送即時完工計數事件至 Kafka 佇列", "2. SAM 引擎實時消費事件並重算動態工時與車縫線瓶頸", "3. 計算結果實時反饋至現場電子看板與主管行動儀表板"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 1.2 節生產管理系統連續性規範。"}}, "sam-core": {"title": "SAM 智慧製造核心引擎與排程資料庫 (SAM DB)", "category": "製造核心 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ 產線即時排程無延遲", "table_target": "tab-software", "table_filter": "SAM", "level1": {"impact": "成衣製造排程演算法大腦，掌管物料齊套分析、工序工時平衡 (Standard Allowed Minute)、自動排刀裁切與跨廠動態產能調配。", "owner": "信源全球 製造技術處 / 生產管理處", "metrics": [{"label": "排程計算效率", "val": "< 10 分鐘完成全球產能模擬"}, {"label": "SLA 承諾", "val": "99.99% 穩定運作"}, {"label": "數據同步", "val": "與 D365 AXDB 毫秒級交易連動"}, {"label": "服務層級", "val": "Tier 1 極關鍵營運系統"}]}, "level2": {"specs": [{"k": "底層主機", "v": "Dell PowerEdge R760 專用運算節點"}, {"k": "引擎語言", "v": "C# .NET Core 8 高性能多執行緒排程計算服務"}, {"k": "快取加速", "v": "Redis Cluster 記憶體快取 (處理即時工序節點狀態)"}, {"k": "資料存儲", "v": "MS SQL Server Enterprise 叢集庫"}]}, "level3": {"arch_desc": "SAM 系統以微秒級事件驅動架構 (Event-driven Architecture) 運作。越南、柬埔寨各廠現場工單異動時，透過 Kafka 訊息匯流排實時推送至 SAM 計算引擎，實現跨國全球產能即時優化與衝突警示。", "micro_flow": ["1. 各廠 Edge MES 拋送即時完工計數事件至 Kafka 佇列", "2. SAM 引擎實時消費事件並重算動態工時與車縫線瓶頸", "3. 計算結果實時反饋至現場電子看板與主管行動儀表板"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 1.2 節生產管理系統連續性規範。"}}, "node-rsimdw1": {"title": "台北總部 RSIMDW1 中繼微服務 API Gateway 與數據交換管道", "category": "中繼平台 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ 延遲 < 10ms", "table_target": "tab-software", "table_filter": "RSIMDW1", "level1": {"impact": "集團雲地互聯與海外廠邊緣協同之核心資料交換中繼站，負責 D365 ERP、海外廠 MES、AWS 容器及第三方報關系統間所有 API 路由與事務仲裁。", "owner": "信源全球 企業架構與雲地治理組", "metrics": [{"label": "API 處理吞吐", "val": "> 3,500 RPS"}, {"label": "平均響應時間", "val": "8.5 ms"}, {"label": "容錯能力", "val": "動態重試與斷路器機制 (Polly)"}, {"label": "安全防護", "val": "OAuth2.0 / JWT / Cortex KOI 驗證"}]}, "level2": {"specs": [{"k": "架構基礎", "v": "ASP.NET Core 8 Web API + YARP 企業反向代理"}, {"k": "執行環境", "v": "Proxmox VE 高可用 Linux 容器叢集 (3 實例雙活)"}, {"k": "佇列緩衝", "v": "RabbitMQ / Kafka 事務消息中間件"}, {"k": "監控追蹤", "v": "OpenTelemetry 分散式追蹤 ＋ Prometheus 指標採集"}]}, "level3": {"arch_desc": "RSIMDW1 具備幂等事務處理能力 (Idempotency Key)。海外廠在離線重連後批次上傳的上萬筆交易，由 RSIMDW1 進行時序校驗與防重過濾，確保資料寫入 AXDB 與 SAM 時絕對精準且順序一致。", "micro_flow": ["1. 接收來自邊緣節點的非同步批次同步封包", "2. 驗證資料簽名與 Idempotency Token，剔除重覆提交", "3. 啟動分散式事務認可，並回傳同步確認代碼至邊緣節點"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 4.2 節中繼微服務整合標準。"}}, "rsimdw1": {"title": "台北總部 RSIMDW1 中繼微服務 API Gateway 與數據交換管道", "category": "中繼平台 (PaaS)", "site": "台北總部 (Taipei HQ)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 可用度 ｜ 延遲 < 10ms", "table_target": "tab-software", "table_filter": "RSIMDW1", "level1": {"impact": "集團雲地互聯與海外廠邊緣協同之核心資料交換中繼站，負責 D365 ERP、海外廠 MES、AWS 容器及第三方報關系統間所有 API 路由與事務仲裁。", "owner": "信源全球 企業架構與雲地治理組", "metrics": [{"label": "API 處理吞吐", "val": "> 3,500 RPS"}, {"label": "平均響應時間", "val": "8.5 ms"}, {"label": "容錯能力", "val": "動態重試與斷路器機制 (Polly)"}, {"label": "安全防護", "val": "OAuth2.0 / JWT / Cortex KOI 驗證"}]}, "level2": {"specs": [{"k": "架構基礎", "v": "ASP.NET Core 8 Web API + YARP 企業反向代理"}, {"k": "執行環境", "v": "Proxmox VE 高可用 Linux 容器叢集 (3 實例雙活)"}, {"k": "佇列緩衝", "v": "RabbitMQ / Kafka 事務消息中間件"}, {"k": "監控追蹤", "v": "OpenTelemetry 分散式追蹤 ＋ Prometheus 指標採集"}]}, "level3": {"arch_desc": "RSIMDW1 具備幂等事務處理能力 (Idempotency Key)。海外廠在離線重連後批次上傳的上萬筆交易，由 RSIMDW1 進行時序校驗與防重過濾，確保資料寫入 AXDB 與 SAM 時絕對精準且順序一致。", "micro_flow": ["1. 接收來自邊緣節點的非同步批次同步封包", "2. 驗證資料簽名與 Idempotency Token，剔除重覆提交", "3. 啟動分散式事務認可，並回傳同步確認代碼至邊緣節點"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 4.2 節中繼微服務整合標準。"}}, "node-yarp-gw": {"title": "YARP (Yet Another Reverse Proxy) 企業級高效能雲地安全閘道", "category": "雲地網關 (PaaS)", "site": "雲地邊界 (Hybrid Border)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 線速封包轉發", "table_target": "tab-cloud", "table_filter": "YARP", "level1": {"impact": "負責混合雲與跨國邊界流量統一調度、SSL 憑證卸載、智慧路由分發與跨國專線最佳化封包通道封裝。", "owner": "信源全球 網管與雲端架構組", "metrics": [{"label": "連線吞吐量", "val": "> 10,000 QPS"}, {"label": "轉發延遲", "val": "< 2 ms"}, {"label": "微服務協同", "val": "動態健康檢查與自動摘除壞死節點"}, {"label": "流量調度", "val": "支援基於路徑、標頭與權重的金絲雀分流"}]}, "level2": {"specs": [{"k": "技術框架", "v": "Microsoft YARP 2.1 (.NET 8 原生低延遲引擎)"}, {"k": "安全協定", "v": "強制 TLS 1.3 傳輸加密 ＋ mTLS 雙向伺服器驗證"}, {"k": "防護整合", "v": "內嵌 Palo Alto Networks Cortex KOI 探針"}, {"k": "緩衝隊列", "v": "記憶體環形緩衝區 (Ring Buffer) 零拷貝技術"}]}, "level3": {"arch_desc": "YARP 作為雲地流量樞紐，實時對後端 D365 AOS、RSIMDW1 及 AWS 容器節點執行每秒健康探針。一旦發現後端實例延遲飆高或回應 5xx 錯誤，於 100ms 內將後續流量自動繞行至其他健康節點。", "micro_flow": ["1. 接收來自第一線專線或雲端 Direct Connect 之加密請求", "2. 進行 mTLS 身份鑑別並執行 Palo Alto KOI 惡意請求攔截", "3. 經由負載加權演算法轉發至後端處理節點，並實時記錄分散式追蹤標記"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.4 節網絡反向代理運維規範。"}}, "yarp-gw": {"title": "YARP (Yet Another Reverse Proxy) 企業級高效能雲地安全閘道", "category": "雲地網關 (PaaS)", "site": "雲地邊界 (Hybrid Border)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 線速封包轉發", "table_target": "tab-cloud", "table_filter": "YARP", "level1": {"impact": "負責混合雲與跨國邊界流量統一調度、SSL 憑證卸載、智慧路由分發與跨國專線最佳化封包通道封裝。", "owner": "信源全球 網管與雲端架構組", "metrics": [{"label": "連線吞吐量", "val": "> 10,000 QPS"}, {"label": "轉發延遲", "val": "< 2 ms"}, {"label": "微服務協同", "val": "動態健康檢查與自動摘除壞死節點"}, {"label": "流量調度", "val": "支援基於路徑、標頭與權重的金絲雀分流"}]}, "level2": {"specs": [{"k": "技術框架", "v": "Microsoft YARP 2.1 (.NET 8 原生低延遲引擎)"}, {"k": "安全協定", "v": "強制 TLS 1.3 傳輸加密 ＋ mTLS 雙向伺服器驗證"}, {"k": "防護整合", "v": "內嵌 Palo Alto Networks Cortex KOI 探針"}, {"k": "緩衝隊列", "v": "記憶體環形緩衝區 (Ring Buffer) 零拷貝技術"}]}, "level3": {"arch_desc": "YARP 作為雲地流量樞紐，實時對後端 D365 AOS、RSIMDW1 及 AWS 容器節點執行每秒健康探針。一旦發現後端實例延遲飆高或回應 5xx 錯誤，於 100ms 內將後續流量自動繞行至其他健康節點。", "micro_flow": ["1. 接收來自第一線專線或雲端 Direct Connect 之加密請求", "2. 進行 mTLS 身份鑑別並執行 Palo Alto KOI 惡意請求攔截", "3. 經由負載加權演算法轉發至後端處理節點，並實時記錄分散式追蹤標記"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.4 節網絡反向代理運維規範。"}}, "node-cdc-sync": {"title": "異地 CDC (Change Data Capture) 即時資料串流同步管道", "category": "數據管道 (PaaS)", "site": "台北至雲端 (HQ to Cloud)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 管道可用度 ｜ 同步延遲 < 1 秒", "table_target": "tab-database", "table_filter": "CDC", "level1": {"impact": "將台北核心資料庫 AXDB 之即時增量變更 (CDC) 串流捕獲並鏡像同步至 Azure DR 備援庫與 AWS 巨量資料湖，實現異地雙活與零停機備份。", "owner": "信源全球 資料治理與大數據組", "metrics": [{"label": "捕獲延遲", "val": "< 800 ms"}, {"label": "資料完整性", "val": "100% (嚴格時序保障)"}, {"label": "壓縮比例", "val": "3:1 (LZ4 高速壓縮傳輸)"}, {"label": "異地 RPO", "val": "< 5 秒"}]}, "level2": {"specs": [{"k": "底層引擎", "v": "SQL Server CDC Engine + Debezium 分散式捕獲"}, {"k": "傳輸管道", "v": "Apache Kafka 分散式分區訊息匯流排"}, {"k": "目 的 地", "v": "Azure SQL Managed Instance DR / AWS S3 Parquet"}, {"k": "安全機制", "v": "TLS 1.3 加密傳輸 ＋ 欄位級敏感個資遮蔽 (Masking)"}]}, "level3": {"arch_desc": "透過資料庫交易日誌讀取器 (Transaction Log Reader) 直接從 LDF 日誌檔提取增量變更，對 rsiaxdb1 主庫零鎖定 (Zero Locking) 且不消耗主庫 CPU 資源。同步流具備斷點續傳機制，網路中斷時日誌安全駐留於本地佇列。", "micro_flow": ["1. 資料庫交易提交，變更寫入 LDF 日誌", "2. CDC Agent 解析日誌變更並生成結構化 JSON 變更事件", "3. 經由 Kafka 串流管道推送至雲端，並自動比對校驗碼 (Checksum)"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.3 節跨區數據同步與驗證指引。"}}, "cdc-sync": {"title": "異地 CDC (Change Data Capture) 即時資料串流同步管道", "category": "數據管道 (PaaS)", "site": "台北至雲端 (HQ to Cloud)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.99% 管道可用度 ｜ 同步延遲 < 1 秒", "table_target": "tab-database", "table_filter": "CDC", "level1": {"impact": "將台北核心資料庫 AXDB 之即時增量變更 (CDC) 串流捕獲並鏡像同步至 Azure DR 備援庫與 AWS 巨量資料湖，實現異地雙活與零停機備份。", "owner": "信源全球 資料治理與大數據組", "metrics": [{"label": "捕獲延遲", "val": "< 800 ms"}, {"label": "資料完整性", "val": "100% (嚴格時序保障)"}, {"label": "壓縮比例", "val": "3:1 (LZ4 高速壓縮傳輸)"}, {"label": "異地 RPO", "val": "< 5 秒"}]}, "level2": {"specs": [{"k": "底層引擎", "v": "SQL Server CDC Engine + Debezium 分散式捕獲"}, {"k": "傳輸管道", "v": "Apache Kafka 分散式分區訊息匯流排"}, {"k": "目 的 地", "v": "Azure SQL Managed Instance DR / AWS S3 Parquet"}, {"k": "安全機制", "v": "TLS 1.3 加密傳輸 ＋ 欄位級敏感個資遮蔽 (Masking)"}]}, "level3": {"arch_desc": "透過資料庫交易日誌讀取器 (Transaction Log Reader) 直接從 LDF 日誌檔提取增量變更，對 rsiaxdb1 主庫零鎖定 (Zero Locking) 且不消耗主庫 CPU 資源。同步流具備斷點續傳機制，網路中斷時日誌安全駐留於本地佇列。", "micro_flow": ["1. 資料庫交易提交，變更寫入 LDF 日誌", "2. CDC Agent 解析日誌變更並生成結構化 JSON 變更事件", "3. 經由 Kafka 串流管道推送至雲端，並自動比對校驗碼 (Checksum)"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.3 節跨區數據同步與驗證指引。"}}, "hw-fg-200f": {"title": "台北總部 FortiGate 200F 實體雙機熱備防火牆機箱 (FG-HQ01 / FG-HQ02)", "category": "實體設備 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 01-02)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 雙電源冗餘", "table_target": "tab-hardware", "table_filter": "FortiGate 200F", "level1": {"impact": "總部對外與跨國專線之第一實體防線，負責第一線 MPLS 專線、雙 ISP 互聯網與雲端通道之線路終結與硬體防護。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "機箱規格", "val": "1U 機架式 ｜ 雙可熱插拔電源"}, {"label": "處理吞吐", "val": "27 Gbps 防火牆吞吐量"}, {"label": "心跳直連", "val": "10GbE 專屬心跳纜線雙直連"}, {"label": "維修合約", "val": "7x24x4 小時原廠保固到府支援"}]}, "level2": {"specs": [{"k": "專屬處理器", "v": "Fortinet FortiASIC CP9 內容處理器 + NP6Lite 網絡處理器"}, {"k": "連接介面", "v": "16x GE RJ45, 8x 10GE SFP+ 光纖接口"}, {"k": "散熱配置", "v": "雙模組熱插拔高速散熱風扇"}, {"k": "功耗表現", "v": "最大功耗 119W，雙迴路 UPS 供電"}]}, "level3": {"arch_desc": "兩台機箱透過 HA1 (心跳) 與 HA2 (Session 同步) 兩條實體 10GbE SFP+ 專用光纖直連。底層韌體自動執行雙機健康校驗，支持無中斷無感線上手動切換進行韌體更新 (Hitless Firmware Upgrade)。", "micro_flow": ["1. 主機箱即時同步所有連線狀態表至次機箱", "2. 發生電源拔除或介面斷線，備援機箱於 500ms 內升格為 Active", "3. 交換機自動更新 MAC 表，所有跨國 VPN 隧道保持連線不中斷"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.1 節防火牆高可用運作標準。"}}, "node-hw-fg-200f": {"title": "台北總部 FortiGate 200F 實體雙機熱備防火牆機箱 (FG-HQ01 / FG-HQ02)", "category": "實體設備 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 01-02)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 雙電源冗餘", "table_target": "tab-hardware", "table_filter": "FortiGate 200F", "level1": {"impact": "總部對外與跨國專線之第一實體防線，負責第一線 MPLS 專線、雙 ISP 互聯網與雲端通道之線路終結與硬體防護。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "機箱規格", "val": "1U 機架式 ｜ 雙可熱插拔電源"}, {"label": "處理吞吐", "val": "27 Gbps 防火牆吞吐量"}, {"label": "心跳直連", "val": "10GbE 專屬心跳纜線雙直連"}, {"label": "維修合約", "val": "7x24x4 小時原廠保固到府支援"}]}, "level2": {"specs": [{"k": "專屬處理器", "v": "Fortinet FortiASIC CP9 內容處理器 + NP6Lite 網絡處理器"}, {"k": "連接介面", "v": "16x GE RJ45, 8x 10GE SFP+ 光纖接口"}, {"k": "散熱配置", "v": "雙模組熱插拔高速散熱風扇"}, {"k": "功耗表現", "v": "最大功耗 119W，雙迴路 UPS 供電"}]}, "level3": {"arch_desc": "兩台機箱透過 HA1 (心跳) 與 HA2 (Session 同步) 兩條實體 10GbE SFP+ 專用光纖直連。底層韌體自動執行雙機健康校驗，支持無中斷無感線上手動切換進行韌體更新 (Hitless Firmware Upgrade)。", "micro_flow": ["1. 主機箱即時同步所有連線狀態表至次機箱", "2. 發生電源拔除或介面斷線，備援機箱於 500ms 內升格為 Active", "3. 交換機自動更新 MAC 表，所有跨國 VPN 隧道保持連線不中斷"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.1 節防火牆高可用運作標準。"}}, "hw-s5248f": {"title": "台北總部 Dell PowerSwitch S5248F-ON 25GbE 核心實體交換機", "category": "實體設備 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 03-04)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 4.0 Tbps 交換容量", "table_target": "tab-hardware", "table_filter": "S5248F", "level1": {"impact": "總部核心骨幹交換機，為所有運算主機與儲存陣列提供 25GbE 低延遲線速轉發，是整棟企業總部局域網絡的核心支柱。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "機箱尺寸", "val": "1U 機架式 ｜ 高密度 SFP28"}, {"label": "通訊端口", "val": "48 埠 25GbE + 4 埠 100GbE QSFP28"}, {"label": "轉發延遲", "val": "< 800 奈秒 (Store-and-Forward / Cut-Through)"}, {"label": "架構佈署", "val": "MLAG 跨機箱鏈路聚合雙機架設"}]}, "level2": {"specs": [{"k": "交換晶片", "v": "Broadcom Trident 3 企業級高性能晶片"}, {"k": "冗餘電源", "v": "雙可熱插拔 750W 交流電源模組 (AC PSU)"}, {"k": "氣流設計", "v": "Normal (I/O to PowerSupply) 機房前後冷熱通道配置"}, {"k": "軟體平台", "v": "Dell SmartFabric OS10 / 支援 Ansible 自動化部署"}]}, "level3": {"arch_desc": "雙機透過 2 條 100GbE QSFP28 直連建立 Peer-Link，實現控制面獨立與資料面雙活轉發。交換機支援動態緩衝技術 (Dynamic Buffer Sharing)，可有效吸收微突發 (Micro-burst) 流量避免封包丟失。", "micro_flow": ["1. 主機端網卡透過雙上行直連兩台交換機 (Active-Active)", "2. 跨機箱鏈路同步 MAC/ARP 轉發表", "3. 單機異常時，另一台於 50ms 內獨力承擔全部線速流量"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.3 節核心交換網絡運作標準。"}}, "node-hw-s5248f": {"title": "台北總部 Dell PowerSwitch S5248F-ON 25GbE 核心實體交換機", "category": "實體設備 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 03-04)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 4.0 Tbps 交換容量", "table_target": "tab-hardware", "table_filter": "S5248F", "level1": {"impact": "總部核心骨幹交換機，為所有運算主機與儲存陣列提供 25GbE 低延遲線速轉發，是整棟企業總部局域網絡的核心支柱。", "owner": "信源全球 網管基礎設施組", "metrics": [{"label": "機箱尺寸", "val": "1U 機架式 ｜ 高密度 SFP28"}, {"label": "通訊端口", "val": "48 埠 25GbE + 4 埠 100GbE QSFP28"}, {"label": "轉發延遲", "val": "< 800 奈秒 (Store-and-Forward / Cut-Through)"}, {"label": "架構佈署", "val": "MLAG 跨機箱鏈路聚合雙機架設"}]}, "level2": {"specs": [{"k": "交換晶片", "v": "Broadcom Trident 3 企業級高性能晶片"}, {"k": "冗餘電源", "v": "雙可熱插拔 750W 交流電源模組 (AC PSU)"}, {"k": "氣流設計", "v": "Normal (I/O to PowerSupply) 機房前後冷熱通道配置"}, {"k": "軟體平台", "v": "Dell SmartFabric OS10 / 支援 Ansible 自動化部署"}]}, "level3": {"arch_desc": "雙機透過 2 條 100GbE QSFP28 直連建立 Peer-Link，實現控制面獨立與資料面雙活轉發。交換機支援動態緩衝技術 (Dynamic Buffer Sharing)，可有效吸收微突發 (Micro-burst) 流量避免封包丟失。", "micro_flow": ["1. 主機端網卡透過雙上行直連兩台交換機 (Active-Active)", "2. 跨機箱鏈路同步 MAC/ARP 轉發表", "3. 單機異常時，另一台於 50ms 內獨力承擔全部線速流量"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.3 節核心交換網絡運作標準。"}}, "hw-r760-hq01": {"title": "台北核心主機 Dell PowerEdge R760 (DB-HQ01 / rsiaxdb1)", "category": "實體伺服器 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 05)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 雙路 Xeon Gold 6430 ｜ 512GB ECC RAM", "table_target": "tab-hardware", "table_filter": "rsiaxdb1", "level1": {"impact": "承載 Microsoft Dynamics 365 核心資料庫 (AXDB) 營運主庫，全集團最重要的營運心臟，實體硬體全面採用最高工業級規格。", "owner": "信源全球 基礎設施維運處 / 資料庫治理組", "metrics": [{"label": "機箱高度", "val": "2U 雙路高性能機架式伺服器"}, {"label": "處理核心", "val": "2x Intel Xeon Gold 6430 (64 核心 / 128 執行緒)"}, {"label": "記憶容量", "val": "512GB DDR5 4800MHz ECC Registered"}, {"label": "磁碟陣列", "val": "PERC H755 Front NVMe RAID 控制器"}]}, "level2": {"specs": [{"k": "實體硬碟", "v": "8x 3.84TB 企業級 NVMe SSD (RAID 1+0 鏡像與條帶化)"}, {"k": "儲存網路", "v": "雙埠 32Gbps Fibre Channel HBA 卡直連 Unity 480XT"}, {"k": "網路介面", "v": "四埠 25GbE SFP28 聚合網卡 (Intel E810-XXV)"}, {"k": "電源供應", "v": "雙熱插拔 1400W 鈦金級高效率電源模組 (Titanium PSU)"}]}, "level3": {"arch_desc": "伺服器配備 Dell iDRAC9 Enterprise 頻外管理卡，支持 7x24 硬體健康狀態遙測 (Telemetry)。CPU 溫度、風扇轉速、ECC 記憶體錯誤更正率即時上傳至監控中心，發現單顆記憶體微小錯誤即主動派工預防性更換。", "micro_flow": ["1. 主機雙路電源分別接入 A 迴路與 B 迴路在線式 UPS", "2. 磁碟陣列由硬體 RAID 控制器提供毫秒級故障預警 (Predictive Failure)", "3. 系統主板偵測硬體嚴重異常，向叢集發送預警信號並優雅觸發主備切換"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.1 節實體伺服器管理標準。"}}, "node-hw-r760-hq01": {"title": "台北核心主機 Dell PowerEdge R760 (DB-HQ01 / rsiaxdb1)", "category": "實體伺服器 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 05)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ 雙路 Xeon Gold 6430 ｜ 512GB ECC RAM", "table_target": "tab-hardware", "table_filter": "rsiaxdb1", "level1": {"impact": "承載 Microsoft Dynamics 365 核心資料庫 (AXDB) 營運主庫，全集團最重要的營運心臟，實體硬體全面採用最高工業級規格。", "owner": "信源全球 基礎設施維運處 / 資料庫治理組", "metrics": [{"label": "機箱高度", "val": "2U 雙路高性能機架式伺服器"}, {"label": "處理核心", "val": "2x Intel Xeon Gold 6430 (64 核心 / 128 執行緒)"}, {"label": "記憶容量", "val": "512GB DDR5 4800MHz ECC Registered"}, {"label": "磁碟陣列", "val": "PERC H755 Front NVMe RAID 控制器"}]}, "level2": {"specs": [{"k": "實體硬碟", "v": "8x 3.84TB 企業級 NVMe SSD (RAID 1+0 鏡像與條帶化)"}, {"k": "儲存網路", "v": "雙埠 32Gbps Fibre Channel HBA 卡直連 Unity 480XT"}, {"k": "網路介面", "v": "四埠 25GbE SFP28 聚合網卡 (Intel E810-XXV)"}, {"k": "電源供應", "v": "雙熱插拔 1400W 鈦金級高效率電源模組 (Titanium PSU)"}]}, "level3": {"arch_desc": "伺服器配備 Dell iDRAC9 Enterprise 頻外管理卡，支持 7x24 硬體健康狀態遙測 (Telemetry)。CPU 溫度、風扇轉速、ECC 記憶體錯誤更正率即時上傳至監控中心，發現單顆記憶體微小錯誤即主動派工預防性更換。", "micro_flow": ["1. 主機雙路電源分別接入 A 迴路與 B 迴路在線式 UPS", "2. 磁碟陣列由硬體 RAID 控制器提供毫秒級故障預警 (Predictive Failure)", "3. 系統主板偵測硬體嚴重異常，向叢集發送預警信號並優雅觸發主備切換"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.1 節實體伺服器管理標準。"}}, "hw-r760-hq02": {"title": "台北備援主機 Dell PowerEdge R760 (DB-HQ02 / rsiaxdb2)", "category": "實體伺服器 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 06)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ MS SQL AlwaysOn 同步熱備副本", "table_target": "tab-hardware", "table_filter": "rsiaxdb2", "level1": {"impact": "作為 rsiaxdb1 之即時同步鏡像熱備機，100% 複製主庫數據與組態，隨時準備在主機故障時零秒接管全球營運資料庫服務。", "owner": "信源全球 基礎設施維運處", "metrics": [{"label": "硬體對等性", "val": "100% 與 DB-HQ01 完全相同之硬體規格"}, {"label": "同步狀態", "val": "Synchronized (同步認可無延遲)"}, {"label": "災備等級", "val": "同機房異機櫃物理隔離"}, {"label": "自動容錯", "val": "叢集仲裁全自動切換 (無需人工干預)"}]}, "level2": {"specs": [{"k": "機箱規格", "v": "2U 雙路高性能機架式伺服器"}, {"k": "處理核心", "v": "2x Intel Xeon Gold 6430 (64 核心 / 128 執行緒)"}, {"k": "記憶容量", "v": "512GB DDR5 4800MHz ECC Registered"}, {"k": "實體硬碟", "v": "8x 3.84TB 企業級 NVMe SSD (RAID 1+0)"}]}, "level3": {"arch_desc": "本機座落於總部獨立 Rack 06 機櫃，使用獨立斷路器與 PDU。與 DB-HQ01 之間透過 25GbE 專屬私有交換網絡實時傳送交易交易日誌，確保在最嚴苛之故障情境下資料零損失 (Zero Data Loss)。", "micro_flow": ["1. DB-HQ02 實時接收並重放 (Redo) 來自 DB-HQ01 的交易日誌", "2. 寫入日誌快取並向主庫回應 Commit ACK", "3. 若主庫停機，本機於 30 秒內自動升級為 Primary 實例"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.2 節資料庫容錯標準。"}}, "node-hw-r760-hq02": {"title": "台北備援主機 Dell PowerEdge R760 (DB-HQ02 / rsiaxdb2)", "category": "實體伺服器 (IaaS)", "site": "台北總部 (Taipei HQ 機櫃 Rack 06)", "tier": "Tier 1 極關鍵", "badge_class": "badge-t1", "sla": "99.999% 可用度 ｜ MS SQL AlwaysOn 同步熱備副本", "table_target": "tab-hardware", "table_filter": "rsiaxdb2", "level1": {"impact": "作為 rsiaxdb1 之即時同步鏡像熱備機，100% 複製主庫數據與組態，隨時準備在主機故障時零秒接管全球營運資料庫服務。", "owner": "信源全球 基礎設施維運處", "metrics": [{"label": "硬體對等性", "val": "100% 與 DB-HQ01 完全相同之硬體規格"}, {"label": "同步狀態", "val": "Synchronized (同步認可無延遲)"}, {"label": "災備等級", "val": "同機房異機櫃物理隔離"}, {"label": "自動容錯", "val": "叢集仲裁全自動切換 (無需人工干預)"}]}, "level2": {"specs": [{"k": "機箱規格", "v": "2U 雙路高性能機架式伺服器"}, {"k": "處理核心", "v": "2x Intel Xeon Gold 6430 (64 核心 / 128 執行緒)"}, {"k": "記憶容量", "v": "512GB DDR5 4800MHz ECC Registered"}, {"k": "實體硬碟", "v": "8x 3.84TB 企業級 NVMe SSD (RAID 1+0)"}]}, "level3": {"arch_desc": "本機座落於總部獨立 Rack 06 機櫃，使用獨立斷路器與 PDU。與 DB-HQ01 之間透過 25GbE 專屬私有交換網絡實時傳送交易交易日誌，確保在最嚴苛之故障情境下資料零損失 (Zero Data Loss)。", "micro_flow": ["1. DB-HQ02 實時接收並重放 (Redo) 來自 DB-HQ01 的交易日誌", "2. 寫入日誌快取並向主庫回應 Commit ACK", "3. 若主庫停機，本機於 30 秒內自動升級為 Primary 實例"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 2.2 節資料庫容錯標準。"}}, "hw-fg-80f": {"title": "越南同奈廠 FortiGate 80F 實體邊緣網關機箱 (FG-RDV01)", "category": "實體設備 (IaaS)", "site": "越南同奈 (RDV 機房機櫃)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "99.95% 可用度 ｜ 雙電信 SD-WAN 容錯", "table_target": "tab-hardware", "table_filter": "FG-RDV01", "level1": {"impact": "越南廠對外專線與在地電信的總邊界硬體，負責同奈廠數千名員工與車間連線回總部的第一線 MPLS 專線終結與安全過濾。", "owner": "越南廠 資訊工程科 / 總部資安處", "metrics": [{"label": "設備外觀", "val": "桌面/機架複合式 1U 工業機箱"}, {"label": "威脅防護", "val": "900 Mbps NGFW 防護吞吐量"}, {"label": "專線介面", "val": "第一線 MPLS 40M 專屬光纖直入"}, {"label": "備援介面", "val": "VNPT + Viettel 雙在地商業寬頻"}]}, "level2": {"specs": [{"k": "安全晶片", "v": "Fortinet SOC4 專用安全系統單晶片"}, {"k": "網絡介面", "v": "8x GE RJ45, 2x 1GE SFP 光纖接口, 2x GE WAN"}, {"k": "旁路功能", "v": "支援硬體 Bypass 網卡避免斷電阻塞"}, {"k": "微切分", "v": "工廠車間 VLAN 100 與吊掛 OT VLAN 200 實體隔離"}]}, "level3": {"arch_desc": "內嵌 SD-WAN 智慧選路引擎。實時監控越南至台灣的 MPLS 專線品質，當專線延遲超過 120ms 或丟包率超過 1% 時，自動將部分非關鍵流量 (如郵件、視訊) 導流至在地電信，優先保留專線頻寬予 MES 與 ERP 交易。", "micro_flow": ["1. SOC4 晶片以硬體線速處理封包過濾與 NAT 轉換", "2. 即時探針偵測跨國線路品質動態更新路由權重", "3. 本地資安日誌即時加密串流推送至總部 Cortex Data Lake"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2 節海外網絡安全標準。"}}, "node-hw-fg-80f": {"title": "越南同奈廠 FortiGate 80F 實體邊緣網關機箱 (FG-RDV01)", "category": "實體設備 (IaaS)", "site": "越南同奈 (RDV 機房機櫃)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "99.95% 可用度 ｜ 雙電信 SD-WAN 容錯", "table_target": "tab-hardware", "table_filter": "FG-RDV01", "level1": {"impact": "越南廠對外專線與在地電信的總邊界硬體，負責同奈廠數千名員工與車間連線回總部的第一線 MPLS 專線終結與安全過濾。", "owner": "越南廠 資訊工程科 / 總部資安處", "metrics": [{"label": "設備外觀", "val": "桌面/機架複合式 1U 工業機箱"}, {"label": "威脅防護", "val": "900 Mbps NGFW 防護吞吐量"}, {"label": "專線介面", "val": "第一線 MPLS 40M 專屬光纖直入"}, {"label": "備援介面", "val": "VNPT + Viettel 雙在地商業寬頻"}]}, "level2": {"specs": [{"k": "安全晶片", "v": "Fortinet SOC4 專用安全系統單晶片"}, {"k": "網絡介面", "v": "8x GE RJ45, 2x 1GE SFP 光纖接口, 2x GE WAN"}, {"k": "旁路功能", "v": "支援硬體 Bypass 網卡避免斷電阻塞"}, {"k": "微切分", "v": "工廠車間 VLAN 100 與吊掛 OT VLAN 200 實體隔離"}]}, "level3": {"arch_desc": "內嵌 SD-WAN 智慧選路引擎。實時監控越南至台灣的 MPLS 專線品質，當專線延遲超過 120ms 或丟包率超過 1% 時，自動將部分非關鍵流量 (如郵件、視訊) 導流至在地電信，優先保留專線頻寬予 MES 與 ERP 交易。", "micro_flow": ["1. SOC4 晶片以硬體線速處理封包過濾與 NAT 轉換", "2. 即時探針偵測跨國線路品質動態更新路由權重", "3. 本地資安日誌即時加密串流推送至總部 Cortex Data Lake"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2 節海外網絡安全標準。"}}, "hw-fg-60f": {"title": "柬埔寨柴楨廠 FortiGate 60F 實體邊緣網關機箱 (FG-RDG01)", "category": "實體設備 (IaaS)", "site": "柬埔寨柴楨 (RDG 機房機櫃)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "99.95% 可用度 ｜ 雙電信 SD-WAN 容錯", "table_target": "tab-hardware", "table_filter": "FG-RDG01", "level1": {"impact": "柬埔寨廠區跨國第一線專線終結與在地安全防護中樞，保障成衣生產車間、裁剪車間與物流倉儲系統安全對接。", "owner": "柬埔寨廠 資訊科 / 總部資安處", "metrics": [{"label": "設備外觀", "val": "桌面/機架複合式 1U 工業機箱"}, {"label": "威脅防護", "val": "700 Mbps NGFW 防護吞吐量"}, {"label": "專線介面", "val": "第一線 MPLS 20M 專屬線路"}, {"label": "備援介面", "val": "Smart Axiata + CamGSM 雙寬頻備援"}]}, "level2": {"specs": [{"k": "安全晶片", "v": "Fortinet SOC4 專用安全系統單晶片"}, {"k": "連接介面", "v": "10x GE RJ45 連接埠 (包含 2x WAN 埠、1x DMZ 埠)"}, {"k": "耐候設計", "v": "無風扇靜音防塵散熱設計 (適應東南亞高溫高濕廠區)"}, {"k": "電力配置", "v": "外接備援電源供應器 + 工業級在線式 UPS"}]}, "level3": {"arch_desc": "因應東南亞廠區偶發性市電不穩與雷擊突波，配置工業級電湧保護器 (Surge Protector) 與高耐溫元件。支援零接觸部署 (Zero Touch Provisioning)，總部工程師可遠端下發最新微切分防火牆規則與安全修補程式。", "micro_flow": ["1. 開機自動連線至總部 FortiManager 取得最新安全設定", "2. 與總部建立兩條動態 IPSec VPN 備援隧道", "3. 車間 OT 網路異常流量立即啟動本地隔離保護機制"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2 節海外網絡安全標準。"}}, "node-hw-fg-60f": {"title": "柬埔寨柴楨廠 FortiGate 60F 實體邊緣網關機箱 (FG-RDG01)", "category": "實體設備 (IaaS)", "site": "柬埔寨柴楨 (RDG 機房機櫃)", "tier": "Tier 2 關鍵", "badge_class": "badge-t2", "sla": "99.95% 可用度 ｜ 雙電信 SD-WAN 容錯", "table_target": "tab-hardware", "table_filter": "FG-RDG01", "level1": {"impact": "柬埔寨廠區跨國第一線專線終結與在地安全防護中樞，保障成衣生產車間、裁剪車間與物流倉儲系統安全對接。", "owner": "柬埔寨廠 資訊科 / 總部資安處", "metrics": [{"label": "設備外觀", "val": "桌面/機架複合式 1U 工業機箱"}, {"label": "威脅防護", "val": "700 Mbps NGFW 防護吞吐量"}, {"label": "專線介面", "val": "第一線 MPLS 20M 專屬線路"}, {"label": "備援介面", "val": "Smart Axiata + CamGSM 雙寬頻備援"}]}, "level2": {"specs": [{"k": "安全晶片", "v": "Fortinet SOC4 專用安全系統單晶片"}, {"k": "連接介面", "v": "10x GE RJ45 連接埠 (包含 2x WAN 埠、1x DMZ 埠)"}, {"k": "耐候設計", "v": "無風扇靜音防塵散熱設計 (適應東南亞高溫高濕廠區)"}, {"k": "電力配置", "v": "外接備援電源供應器 + 工業級在線式 UPS"}]}, "level3": {"arch_desc": "因應東南亞廠區偶發性市電不穩與雷擊突波，配置工業級電湧保護器 (Surge Protector) 與高耐溫元件。支援零接觸部署 (Zero Touch Provisioning)，總部工程師可遠端下發最新微切分防火牆規則與安全修補程式。", "micro_flow": ["1. 開機自動連線至總部 FortiManager 取得最新安全設定", "2. 與總部建立兩條動態 IPSec VPN 備援隧道", "3. 車間 OT 網路異常流量立即啟動本地隔離保護機制"], "sop_cite": "符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》第 3.2 節海外網絡安全標準。"}}};
+
   let currentNodeId = null;
-
-  function switchDiagramView(viewName) {
-    // 1. Update pill styles
-    document.querySelectorAll('.diagram-pill').forEach(btn => btn.classList.remove('active'));
-    const activePill = document.getElementById('pill-' + viewName);
-    if (activePill) activePill.classList.add('active');
-
-    // 2. Hide all diagram views, show target
-    document.querySelectorAll('.diagram-view-content').forEach(view => view.classList.add('hidden'));
-    const targetView = document.getElementById('view-' + viewName);
-    if (targetView) targetView.classList.remove('hidden');
-
-    // 3. Update description banner
-    const descText = document.getElementById('diagramDescText');
-    if (descText) {
-      if (viewName === 'network') {
-        descText.innerHTML = '🌐 <strong>第一線 (DYXnet) MPLS 跨國網絡與微切分拓撲圖</strong>：台北總部、越南同奈 (RDV)、柬埔寨柴楨 (RDG) 專線、雙 ISP 3秒 SD-WAN 容錯倒換、VLAN 10~200 微切分邊界與 Palo Alto Cortex AES 5階資安聯防。';
-      } else if (viewName === 'hardware') {
-        descText.innerHTML = '🖥️ <strong>信源全球擬真實體機箱拓撲圖</strong>：實體 1U/2U 機箱外觀、抽換硬碟槽、雙電源、第一線 (DYXnet) MPLS 專線、D365 AOS 叢集與 Unity 480XT 全快閃 LUN 掛載。';
-      } else if (viewName === 'hybrid') {
-        descText.innerHTML = '☁️ <strong>微軟 Dynamics 365 混合雲、AWS 香港直連與海外廠離線自律架構圖</strong>：D365 AOS 交易叢集、AWS Direct Connect 100M、Triton GPU AI 推論、S3 Glacier WORM 與海外廠 48~72h 離線自律重播機制。';
-      }
-    }
-  }
 
   function openDeepDive(nodeId) {
     currentNodeId = nodeId;
     const data = NODE_METADATA[nodeId] || NODE_METADATA['node-' + nodeId] || NODE_METADATA[nodeId.replace(/^node-/, '')];
     const drawer = document.getElementById('deepDiveDrawer');
     const overlay = document.getElementById('deepDiveOverlay');
-    if (!drawer || !overlay) return;
+    if (!drawer || !overlay) {
+      console.warn('Drawer or overlay element not found');
+      return;
+    }
 
     if (data) {
       // Set Header
-      document.getElementById('ddBreadcrumb').textContent = '全球架構 ❯ ' + (data.site || '核心網絡') + ' ❯ ' + (data.title.split(' ')[0] || '節點');
-      document.getElementById('ddTitle').textContent = data.title;
+      const bc = document.getElementById('ddBreadcrumb');
+      if (bc) bc.textContent = '全球架構 ❯ ' + (data.site || '核心網絡') + ' ❯ ' + (data.title.split(' ')[0] || '節點');
+      const tt = document.getElementById('ddTitle');
+      if (tt) tt.textContent = data.title;
       
       // Set Badges
       const badgesContainer = document.getElementById('ddBadges');
-      badgesContainer.innerHTML = '';
-      if (data.tier) {
-        const bTier = document.createElement('span');
-        bTier.className = 'badge ' + (data.badge_class || 'badge-t1');
-        bTier.textContent = data.tier;
-        badgesContainer.appendChild(bTier);
-      }
-      if (data.site) {
-        const bSite = document.createElement('span');
-        bSite.className = 'badge badge-site';
-        bSite.textContent = data.site;
-        badgesContainer.appendChild(bSite);
-      }
-      if (data.category) {
-        const bCat = document.createElement('span');
-        bCat.className = 'badge badge-cat';
-        bCat.textContent = data.category;
-        badgesContainer.appendChild(bCat);
+      if (badgesContainer) {
+        badgesContainer.innerHTML = '';
+        if (data.tier) {
+          const bTier = document.createElement('span');
+          bTier.className = 'badge ' + (data.badge_class || 'badge-t1');
+          bTier.textContent = data.tier;
+          badgesContainer.appendChild(bTier);
+        }
+        if (data.site) {
+          const bSite = document.createElement('span');
+          bSite.className = 'badge badge-site';
+          bSite.textContent = data.site;
+          badgesContainer.appendChild(bSite);
+        }
+        if (data.category) {
+          const bCat = document.createElement('span');
+          bCat.className = 'badge badge-cat';
+          bCat.textContent = data.category;
+          badgesContainer.appendChild(bCat);
+        }
       }
 
       // Level 1: Business & SLA
       if (data.level1) {
-        document.getElementById('ddLevel1Impact').textContent = data.level1.impact || '核心業務支撐模組。';
-        document.getElementById('ddLevel1Owner').textContent = data.level1.owner || '信源全球 資訊治理處';
+        const imp = document.getElementById('ddLevel1Impact');
+        if (imp) imp.textContent = data.level1.impact || '核心業務支撐模組。';
+        const own = document.getElementById('ddLevel1Owner');
+        if (own) own.textContent = data.level1.owner || '信源全球 資訊治理處';
         const metricsContainer = document.getElementById('ddLevel1Metrics');
-        metricsContainer.innerHTML = '';
-        if (data.level1.metrics && data.level1.metrics.length) {
-          data.level1.metrics.forEach(m => {
-            const mBox = document.createElement('div');
-            mBox.className = 'dd-metric-box';
-            mBox.innerHTML = '<div class="dd-metric-label">' + m.label + '</div><div class="dd-metric-val">' + m.val + '</div>';
-            metricsContainer.appendChild(mBox);
-          });
+        if (metricsContainer) {
+          metricsContainer.innerHTML = '';
+          if (data.level1.metrics && data.level1.metrics.length) {
+            data.level1.metrics.forEach(m => {
+              const mBox = document.createElement('div');
+              mBox.className = 'dd-metric-box';
+              mBox.innerHTML = '<div class="dd-metric-label">' + m.label + '</div><div class="dd-metric-val">' + m.val + '</div>';
+              metricsContainer.appendChild(mBox);
+            });
+          }
         }
       }
 
       // Level 2: Engineering Specs
       const specsContainer = document.getElementById('ddLevel2Specs');
-      specsContainer.innerHTML = '';
-      if (data.level2 && data.level2.specs && data.level2.specs.length) {
-        data.level2.specs.forEach(s => {
-          const row = document.createElement('div');
-          row.className = 'dd-spec-row';
-          row.innerHTML = '<span class="dd-spec-k">' + s.k + '</span><span class="dd-spec-v">' + s.v + '</span>';
-          specsContainer.appendChild(row);
-        });
+      if (specsContainer) {
+        specsContainer.innerHTML = '';
+        if (data.level2 && data.level2.specs && data.level2.specs.length) {
+          data.level2.specs.forEach(s => {
+            const row = document.createElement('div');
+            row.className = 'dd-spec-row';
+            row.innerHTML = '<span class="dd-spec-k">' + s.k + '</span><span class="dd-spec-v">' + s.v + '</span>';
+            specsContainer.appendChild(row);
+          });
+        }
       }
 
       // Level 3: Architecture & SOP
       if (data.level3) {
-        document.getElementById('ddLevel3Arch').textContent = data.level3.arch_desc || '內部架構遵循企業標準設計。';
+        const arch = document.getElementById('ddLevel3Arch');
+        if (arch) arch.textContent = data.level3.arch_desc || '內部架構遵循企業標準設計。';
         const flowContainer = document.getElementById('ddLevel3Flow');
-        flowContainer.innerHTML = '';
-        if (data.level3.micro_flow && data.level3.micro_flow.length) {
-          data.level3.micro_flow.forEach(f => {
-            const fStep = document.createElement('div');
-            fStep.className = 'dd-flow-step';
-            fStep.textContent = f;
-            flowContainer.appendChild(fStep);
-          });
+        if (flowContainer) {
+          flowContainer.innerHTML = '';
+          if (data.level3.micro_flow && data.level3.micro_flow.length) {
+            data.level3.micro_flow.forEach(f => {
+              const fStep = document.createElement('div');
+              fStep.className = 'dd-flow-step';
+              fStep.textContent = f;
+              flowContainer.appendChild(fStep);
+            });
+          }
         }
-        document.getElementById('ddLevel3SOPText').textContent = data.level3.sop_cite || '符合集團 IT BCP/SLA 盤點規範。';
+        const sop = document.getElementById('ddLevel3SOPText');
+        if (sop) sop.textContent = data.level3.sop_cite || '符合集團 IT BCP/SLA 盤點規範。';
       }
-    } else {
-      // Fallback for unlisted nodes
-      document.getElementById('ddBreadcrumb').textContent = '全球架構 ❯ 深入節點檢視';
-      document.getElementById('ddTitle').textContent = '架構節點: ' + nodeId;
-      document.getElementById('ddBadges').innerHTML = '<span class="badge badge-t2">Enterprise Node</span>';
-      document.getElementById('ddLevel1Impact').textContent = '此節點為信源全球高可用混合架構之組成單元，受 Palo Alto Networks Cortex AES 5階聯防管轄。';
-      document.getElementById('ddLevel1Owner').textContent = '信源全球 資訊治理處';
-      document.getElementById('ddLevel1Metrics').innerHTML = '<div class="dd-metric-box"><div class="dd-metric-label">可用度承諾</div><div class="dd-metric-val">99.9% SLA</div></div><div class="dd-metric-box"><div class="dd-metric-label">RTO 目標</div><div class="dd-metric-val">&lt; 30 秒</div></div>';
-      document.getElementById('ddLevel2Specs').innerHTML = '<div class="dd-spec-row"><span class="dd-spec-k">節點代碼</span><span class="dd-spec-v">' + nodeId + '</span></div><div class="dd-spec-row"><span class="dd-spec-k">網絡分區</span><span class="dd-spec-v">VLAN 隔離區域</span></div>';
-      document.getElementById('ddLevel3Arch').textContent = '節點配置高可用雙迴路與實體線速轉發，資料異動遵循 ACID 事務規範。';
-      document.getElementById('ddLevel3Flow').innerHTML = '<div class="dd-flow-step">1. 請求由 Palo Alto Networks Cortex KOI 安全閘道檢驗通過</div><div class="dd-flow-step">2. 經由內部 25GbE 低延遲網絡轉發至後端處理節點</div>';
-      document.getElementById('ddLevel3SOPText').textContent = '符合《RSI 全球軟體架構與IS基礎設施BCP_SLA盤點實施計畫》標準規範。';
     }
 
-    // Default to Level 1
-    switchDeepDiveLevel(1);
-
-    // Show Drawer
     drawer.classList.add('active');
     overlay.classList.add('active');
   }
@@ -3794,22 +4501,10 @@
     }, 150);
   }
 
-  function copyNodeSpecs() {
-    if (!currentNodeId) return;
-    const data = NODE_METADATA[currentNodeId] || NODE_METADATA['node-' + currentNodeId] || NODE_METADATA[currentNodeId.replace(/^node-/, '')];
-    if (!data) return;
-    const text = '【' + data.title + '】\n' +
-                 '分類: ' + (data.category || '') + ' ｜ 站點: ' + (data.site || '') + '\n' +
-                 'SLA 指標: ' + (data.sla || '') + '\n' +
-                 '業務角色: ' + (data.level1 ? data.level1.impact : '') + '\n' +
-                 'SOP 規範: ' + (data.level3 ? data.level3.sop_cite : '');
-    navigator.clipboard.writeText(text).then(() => {
-      alert('已成功複製節點工程參數！');
-    }).catch(err => {
-      console.error('複製失敗:', err);
-    });
-  }
-
+  // Initialize on DOM load
+  window.addEventListener('DOMContentLoaded', () => {
+    applyFilters();
+  });
 </script>
 </body>
 </html>
