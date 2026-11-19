@@ -222,6 +222,14 @@
           <div><strong>資安層級：</strong>Tier-1 核心機密</div>
         </div>
 
+        <div class="rsi-gate-quickfill" style="margin-bottom: 16px; padding: 10px 14px; background: rgba(232, 117, 36, 0.08); border: 1px dashed #E87524; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span style="font-size: 12px; font-weight: 600; color: #1C1917;">⚡ 專案高管快捷一鍵登入：</span>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" id="rsi-quick-howard" style="font-size: 11px; padding: 5px 12px; background: #E87524; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Howard Liao (執行負責人)</button>
+            <button type="button" id="rsi-quick-vpchou" style="font-size: 11px; padding: 5px 12px; background: #292524; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">周文津 副總 (計畫主持)</button>
+          </div>
+        </div>
+
         <form id="rsi-gate-form" autocomplete="on">
           <div class="rsi-gate-grid">
             <div class="rsi-gate-field">
@@ -301,6 +309,31 @@
     form.addEventListener('submit', handleVerifySubmit);
     applyBtn.addEventListener('click', handleApplySubmit);
     adminLink.addEventListener('click', handleAdminPrompt);
+
+    const quickHoward = document.getElementById('rsi-quick-howard');
+    const quickVpChou = document.getElementById('rsi-quick-vpchou');
+    if (quickHoward) {
+      quickHoward.addEventListener('click', () => {
+        document.getElementById('rsi-gate-name').value = 'Howard Liao Ph.D.';
+        document.getElementById('rsi-gate-company').value = '信源台北總部 (RSI HQ)';
+        document.getElementById('rsi-gate-dept').value = '執行負責人 / 首席架構顧問';
+        document.getElementById('rsi-gate-email').value = 'liao.howard@gmail.com';
+        document.getElementById('rsi-gate-purpose').value = '蜂巢計畫架構檢視與營運總覽';
+        document.getElementById('rsi-gate-passkey').value = 'HOWARD2027';
+        document.getElementById('rsi-gate-submit-btn').click();
+      });
+    }
+    if (quickVpChou) {
+      quickVpChou.addEventListener('click', () => {
+        document.getElementById('rsi-gate-name').value = '周文津 副總經理';
+        document.getElementById('rsi-gate-company').value = '信源台北總部 (RSI HQ)';
+        document.getElementById('rsi-gate-dept').value = '計畫主持人';
+        document.getElementById('rsi-gate-email').value = 'vp.chou@rsi.com.tw';
+        document.getElementById('rsi-gate-purpose').value = '蜂巢計畫架構檢視與營運總覽';
+        document.getElementById('rsi-gate-passkey').value = 'VPCHOU2027';
+        document.getElementById('rsi-gate-submit-btn').click();
+      });
+    }
   }
 
   // Create Verified User Chip
@@ -460,6 +493,7 @@
 
     // Save session
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    localStorage.setItem(REMEMBER_KEY, JSON.stringify(sessionData));
 
     // Unlock
     const ok = await unlockSite(sessionData, keyUpper);
@@ -687,13 +721,75 @@
   }
 
   // Initial check on DOMContentLoaded
-  function init() {
+  async function init() {
+    // 1. Check URL parameters for immediate passkey unlock
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlKey = (urlParams.get('key') || urlParams.get('passkey') || urlParams.get('auth') || '').trim().toUpperCase();
+      if (urlKey && VALID_KEYS[urlKey]) {
+        const keyInfo = VALID_KEYS[urlKey];
+        let name = '信源專案同仁';
+        let company = '信源台北總部 (RSI HQ)';
+        let dept = '專案整合小組';
+        let email = 'team@rsi.com.tw';
+        let purpose = '蜂巢計畫架構檢視與營運總覽';
+
+        if (urlKey === 'HOWARD2027') {
+          name = 'Howard Liao Ph.D.';
+          dept = '執行負責人 / 首席架構顧問';
+          email = 'liao.howard@gmail.com';
+        } else if (urlKey === 'VPCHOU2027') {
+          name = '周文津 副總經理';
+          dept = '計畫主持人';
+          email = 'vp.chou@rsi.com.tw';
+        } else if (urlKey === 'DUKE2027') {
+          name = 'Duke Chen';
+          dept = '研發資訊主管';
+          email = 'duke.chen@rsi.com.tw';
+        }
+
+        const sessionData = {
+          name,
+          company,
+          dept,
+          email,
+          purpose,
+          role: keyInfo.role,
+          title: keyInfo.title,
+          key: urlKey,
+          timestamp: Date.now()
+        };
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+        localStorage.setItem(REMEMBER_KEY, JSON.stringify(sessionData));
+        const ok = await unlockSite(sessionData, urlKey);
+        if (ok) return;
+      }
+    } catch (e) {
+      console.warn('[RSI Gatekeeper] URL param check error:', e);
+    }
+
+    // 2. Check active session
     const sess = getActiveSession();
     if (sess) {
       unlockSite(sess, sess.key);
-    } else {
-      createGatekeeperOverlay();
+      return;
     }
+
+    // 3. Show gatekeeper overlay
+    createGatekeeperOverlay();
+
+    // 4. Auto prefill if remembered
+    try {
+      const remembered = JSON.parse(localStorage.getItem(REMEMBER_KEY) || 'null');
+      if (remembered) {
+        if (document.getElementById('rsi-gate-name') && remembered.name) document.getElementById('rsi-gate-name').value = remembered.name;
+        if (document.getElementById('rsi-gate-company') && remembered.company) document.getElementById('rsi-gate-company').value = remembered.company;
+        if (document.getElementById('rsi-gate-dept') && remembered.dept) document.getElementById('rsi-gate-dept').value = remembered.dept;
+        if (document.getElementById('rsi-gate-email') && remembered.email) document.getElementById('rsi-gate-email').value = remembered.email;
+        if (document.getElementById('rsi-gate-purpose') && remembered.purpose) document.getElementById('rsi-gate-purpose').value = remembered.purpose;
+        if (document.getElementById('rsi-gate-passkey') && remembered.key) document.getElementById('rsi-gate-passkey').value = remembered.key;
+      }
+    } catch (e) {}
   }
 
   if (document.readyState === 'loading') {
