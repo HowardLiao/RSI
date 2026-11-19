@@ -73,16 +73,24 @@
       console.warn('[RSI Gatekeeper] Failed to save audit log:', e);
     }
 
-    // Attempt cloud webhook dispatch
+    // Attempt cloud webhook dispatch (Google Apps Script / Cloud Endpoint)
     if (CLOUD_WEBHOOK_URL) {
       try {
-        fetch(CLOUD_WEBHOOK_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(record)
-        }).catch(() => {});
-      } catch (err) {}
+        const payloadStr = JSON.stringify(record);
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payloadStr], { type: 'text/plain;charset=utf-8' });
+          navigator.sendBeacon(CLOUD_WEBHOOK_URL, blob);
+        } else {
+          fetch(CLOUD_WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: payloadStr
+          }).catch(function () {});
+        }
+      } catch (err) {
+        console.warn('[RSI Gatekeeper] Cloud dispatch notice:', err);
+      }
     }
   }
 
