@@ -40,6 +40,58 @@
   // Optional cloud webhook endpoint (can be configured to Google Sheet Web App / Formspree / Slack)
   const CLOUD_WEBHOOK_URL = ''; // Leave blank or fill if cloud endpoint is provisioned
 
+  // Enhanced Client Telemetry (Auto IP & Environment Probe)
+  const clientTelemetry = {
+    ip: '偵測中...',
+    country: '',
+    city: '',
+    isp: '',
+    location: '未知位置',
+    screenRes: (typeof window !== 'undefined' && window.screen) ? `${window.screen.width}x${window.screen.height}` : '',
+    language: (typeof navigator !== 'undefined') ? (navigator.language || '') : '',
+    referrer: (typeof document !== 'undefined') ? (document.referrer || '直接造訪 / 書籤') : '',
+    timezone: (typeof Intl !== 'undefined' && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : ''
+  };
+
+  // Silently and asynchronously probe GeoIP and ISP without blocking UI
+  async function probeClientTelemetry() {
+    try {
+      const res = await fetch('https://ipwho.is/', { mode: 'cors', cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.success) {
+          clientTelemetry.ip = data.ip || '';
+          clientTelemetry.country = data.country || '';
+          clientTelemetry.city = data.city || '';
+          clientTelemetry.isp = (data.connection && data.connection.isp) || '';
+          clientTelemetry.location = [clientTelemetry.country, clientTelemetry.city].filter(Boolean).join(' · ') || '台灣';
+          return;
+        }
+      }
+    } catch (e) {
+      // Ignore network errors on probe
+    }
+
+    // Secondary fallback to ipify for raw IP
+    try {
+      const res2 = await fetch('https://api.ipify.org?format=json', { mode: 'cors' });
+      if (res2.ok) {
+        const data2 = await res2.json();
+        if (data2 && data2.ip) {
+          clientTelemetry.ip = data2.ip;
+          if (!clientTelemetry.location || clientTelemetry.location === '未知位置') {
+            clientTelemetry.location = '已取得IP';
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore secondary probe error
+    }
+  }
+
+  // Trigger telemetry probe immediately
+  probeClientTelemetry();
+
   // Ensure early lock on document before body renders
   document.documentElement.classList.add('rsi-locked');
 
@@ -63,6 +115,17 @@
 
   // Helper: log visitor access to localStorage
   function logVisitor(record) {
+    // Enrich record with real-time telemetry if not already set
+    if (!record.ip || record.ip === '偵測中...') {
+      record.ip = clientTelemetry.ip || '內網 / 本機';
+    }
+    record.location = record.location || clientTelemetry.location || '未知位置';
+    record.isp = record.isp || clientTelemetry.isp || '未知電信';
+    record.screenRes = record.screenRes || clientTelemetry.screenRes || '';
+    record.language = record.language || clientTelemetry.language || '';
+    record.referrer = record.referrer || clientTelemetry.referrer || '';
+    record.timezone = record.timezone || clientTelemetry.timezone || '';
+
     try {
       const logs = JSON.parse(localStorage.getItem(AUDIT_LOG_KEY) || '[]');
       logs.unshift(record);
@@ -496,6 +559,7 @@
                   <th>姓名</th>
                   <th>單位 / 廠區</th>
                   <th>職稱</th>
+                  <th>來源 IP / 地區</th>
                   <th>公務信箱</th>
                   <th>存取事由</th>
                   <th>金鑰</th>
@@ -509,6 +573,7 @@
                     <td><strong>${escapeHtml(log.name)}</strong></td>
                     <td>${escapeHtml(log.company)}</td>
                     <td>${escapeHtml(log.dept)}</td>
+                    <td><code>${escapeHtml(log.ip || '—')}</code><br><small style="color:#6B7280;">${escapeHtml(log.location || '')}${log.isp ? ' (' + escapeHtml(log.isp) + ')' : ''}</small></td>
                     <td><a href="mailto:${escapeHtml(log.email)}" style="color:#B45309;">${escapeHtml(log.email)}</a></td>
                     <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;" title="${escapeHtml(log.purpose)}">${escapeHtml(log.purpose)}</td>
                     <td><code>${escapeHtml(log.keyUsed || '—')}</code></td>
@@ -547,7 +612,26 @@
       alert('無日誌資料可匯出！');
       return;
     }
-    const headers = ['紀錄ID', '存取時間', '姓名', '單位與廠區', '部門與職稱', '公務信箱', '存取事由', '使用金鑰', '角色層級', '審核狀態', '來源網址'];
+    const headers = [
+      '紀錄ID',
+      '存取時間 (台北)',
+      '姓名',
+      '單位與廠區',
+      '部門與職稱',
+      '公務信箱',
+      '存取事由',
+      '使用金鑰',
+      '角色層級',
+      '審核狀態',
+      '來源IP',
+      '地理位置',
+      '電信業者(ISP)',
+      '螢幕解析度',
+      '系統語言',
+      '來源網址',
+      '頁面路徑',
+      '裝置環境'
+    ];
     const rows = logs.map(l => [
       l.id,
       new Date(l.timestamp).toLocaleString('zh-TW'),
@@ -559,7 +643,14 @@
       l.keyUsed,
       l.role,
       l.status,
-      l.path
+      l.ip || '',
+      l.location || '',
+      l.isp || '',
+      l.screenRes || '',
+      l.language || '',
+      (l.referrer || '').replace(/"/g, '""'),
+      l.path,
+      (l.userAgent || '').replace(/"/g, '""')
     ]);
 
     const csvContent = '\uFEFF' + [

@@ -28,7 +28,7 @@ function doPost(e) {
     // 台北時區標準時間
     var nowTaipei = Utilities.formatDate(new Date(), "Asia/Taipei", "yyyy-MM-dd HH:mm:ss");
     
-    // 新增一列紀錄
+    // 新增一列完整紀錄 (含自動探測之 IP 與環境指紋)
     sheet.appendRow([
       nowTaipei,
       data.name || "未提供",
@@ -39,11 +39,16 @@ function doPost(e) {
       data.keyUsed || "無 (申請審核)",
       data.role || "訪客",
       data.status || "UNKNOWN",
+      data.ip || "內網/未提供",
+      data.location || "未知位置",
+      data.isp || "未知電信",
+      data.screenRes || "",
+      data.referrer || "直接造訪",
       data.path || "/",
       data.userAgent || ""
     ]);
     
-    // 格式化最新列的狀態顏色
+    // 格式化最新列的狀態顏色 (欄 9 驗證狀態)
     var lastRow = sheet.getLastRow();
     var statusCell = sheet.getRange(lastRow, 9);
     if (data.status === "VERIFIED_ACCESS") {
@@ -74,7 +79,7 @@ function getOrCreateAuditSheet() {
   var sheet = ss.getSheetByName("存取稽核紀錄");
   if (!sheet) {
     sheet = ss.insertSheet("存取稽核紀錄", 0);
-    // 建立米蘭風格表頭
+    // 建立米蘭風格表頭 (16 欄全維度審查)
     var headers = [
       "存取時間 (台北)",
       "訪客姓名",
@@ -85,6 +90,11 @@ function getOrCreateAuditSheet() {
       "使用通行碼",
       "核定角色",
       "驗證狀態",
+      "來源 IP 位址",
+      "地理位置 (國家/城市)",
+      "電信業者 (ISP)",
+      "螢幕解析度",
+      "來源網址",
       "訪問頁面",
       "瀏覽器與設備"
     ];
@@ -110,8 +120,13 @@ function getOrCreateAuditSheet() {
     sheet.setColumnWidth(7, 120); // 通行碼
     sheet.setColumnWidth(8, 140); // 角色
     sheet.setColumnWidth(9, 130); // 驗證狀態
-    sheet.setColumnWidth(10, 160); // 頁面
-    sheet.setColumnWidth(11, 220); // 設備
+    sheet.setColumnWidth(10, 130); // 來源 IP
+    sheet.setColumnWidth(11, 150); // 地理位置
+    sheet.setColumnWidth(12, 160); // ISP
+    sheet.setColumnWidth(13, 110); // 螢幕解析度
+    sheet.setColumnWidth(14, 160); // 來源網址
+    sheet.setColumnWidth(15, 160); // 頁面
+    sheet.setColumnWidth(16, 220); // 設備
   }
   return sheet;
 }
