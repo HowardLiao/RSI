@@ -120,7 +120,7 @@ def poll_once(processed_ids):
                 fields = parse_msg(raw_msg)
 
                 is_download = "下載" in title
-                action = "重要文件下載" if is_download else "頁面造訪"
+                action = fields.get("行為動作") or ("重要文件下載" if is_download else "頁面造訪")
                 visitor = fields.get("訪客身分", title.replace("[RSI 訪客]", "").replace("造訪", "").strip() or "外部訪客")
                 target = fields.get("下載檔案") if is_download else (fields.get("造訪頁面") or fields.get("路徑") or "首頁")
                 time_str = fields.get("時間", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
