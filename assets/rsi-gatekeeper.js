@@ -214,7 +214,7 @@
           RSI GROUP · 機密資產門禁驗證
         </div>
         <h1 class="rsi-gate-title">2027 蜂巢計畫 · 存取門禁審核系統</h1>
-        <p class="rsi-gate-subtitle">本站點包含信源全球集團跨國製造架構、財務投資效益、海外 8 廠自律協議與自研 API 核心規格，受嚴格企業機密保護。請填寫留資資料並輸入授權金鑰以取得存取權限。</p>
+        <p class="rsi-gate-subtitle">本站點包含信源全球集團跨國製造架構與核心規格。訪客請填寫英文姓名與公務郵件，通行密碼為「英文姓名+RSI」（例如：HowardRSI）。</p>
 
         <div class="rsi-gate-meta">
           <div><strong>計畫主持：</strong>周文津 副總經理</div>
@@ -231,61 +231,37 @@
         </div>
 
         <form id="rsi-gate-form" autocomplete="on">
-          <div class="rsi-gate-grid">
+          <div class="rsi-gate-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
             <div class="rsi-gate-field">
-              <label class="rsi-gate-label">訪客真實姓名 <span class="req">*</span></label>
-              <input type="text" id="rsi-gate-name" class="rsi-gate-input" placeholder="例：周文津 / 廖倫豪 / 陳大衛" required autocomplete="name">
+              <label class="rsi-gate-label">訪客英文姓名 (English Name) <span class="req">*</span></label>
+              <input type="text" id="rsi-gate-name" class="rsi-gate-input" placeholder="例：Howard / David / Alice" required autocomplete="name">
             </div>
 
             <div class="rsi-gate-field">
-              <label class="rsi-gate-label">所屬機構 / 廠區 <span class="req">*</span></label>
-              <select id="rsi-gate-company" class="rsi-gate-select" required>
-                <option value="信源台北總部 (RSI HQ)">信源台北總部 (RSI HQ)</option>
-                <option value="越南 RSA 廠">越南 RSA 廠</option>
-                <option value="越南 RSB 廠">越南 RSB 廠</option>
-                <option value="越南 TOP 廠">越南 TOP 廠</option>
-                <option value="柬埔寨 RSG 廠">柬埔寨 RSG 廠</option>
-                <option value="柬埔寨 RSK 廠">柬埔寨 RSK 廠</option>
-                <option value="緬甸 RSV 廠">緬甸 RSV 廠</option>
-                <option value="緬甸 SY 廠">緬甸 SY 廠</option>
-                <option value="總部 RVT 廠">總部 RVT 廠</option>
-                <option value="外部技術協同顧問 / SI 夥伴">外部技術協同顧問 / SI 夥伴</option>
-                <option value="其他外部單位">其他外部單位</option>
-              </select>
-            </div>
-
-            <div class="rsi-gate-field">
-              <label class="rsi-gate-label">部門與職稱 <span class="req">*</span></label>
-              <input type="text" id="rsi-gate-dept" class="rsi-gate-input" placeholder="例：研發資訊主管 / IS 架構師 / ITS" required>
-            </div>
-
-            <div class="rsi-gate-field">
-              <label class="rsi-gate-label">公務電子信箱 <span class="req">*</span></label>
+              <label class="rsi-gate-label">公務電子信箱 (Email) <span class="req">*</span></label>
               <input type="email" id="rsi-gate-email" class="rsi-gate-input" placeholder="name@rsi.com.tw" required autocomplete="email">
             </div>
 
-            <div class="rsi-gate-field full">
-              <label class="rsi-gate-label">存取事由 / 專案申請目的 <span class="req">*</span></label>
-              <textarea id="rsi-gate-purpose" class="rsi-gate-textarea" placeholder="請具體填寫查閱目的（例：進行第一週自研 API 盤點對齊、查閱海外 8 廠離線架構 PoC 等）" required></textarea>
-            </div>
-
-            <div class="rsi-gate-field full">
-              <label class="rsi-gate-label">通行授權金鑰 (Passkey) <span class="req">*</span></label>
-              <input type="password" id="rsi-gate-passkey" class="rsi-gate-input" placeholder="請輸入 2027 蜂巢計畫通行密鑰" autocomplete="current-password">
+            <div class="rsi-gate-field full" style="grid-column: span 2;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="rsi-gate-label" style="margin-bottom: 0;">通行密碼 (Password) <span class="req">*</span></label>
+                <span style="font-size: 11px; color: #FB923C;">預設：英文姓名 + RSI</span>
+              </div>
+              <input type="text" id="rsi-gate-passkey" class="rsi-gate-input" placeholder="密碼為：英文姓名+RSI（例：HowardRSI）" autocomplete="current-password">
+              <div style="font-size: 11.5px; color: #A1A1AA; margin-top: 5px;">
+                💡 提示：輸入英文姓名時將自動產生密碼，直接點擊下方按鈕即可驗證進入。
+              </div>
             </div>
           </div>
 
-          <div class="rsi-gate-notice">
-            📌 <strong>同仁提醒：</strong>本站點採用端到端密鑰驗證與訪問審核機制。所有進站留資與查詢軌跡皆記入企業稽核日誌。若尚未取得通行金鑰，請填妥上方留資後點擊「提交審核申請」。
+          <div class="rsi-gate-notice" style="margin-top: 14px;">
+            📌 <strong>同仁/訪客提醒：</strong>本系統僅需填妥英文姓名與公務郵件，密碼為「姓名+RSI」（例：Howard 密碼即為 HowardRSI）。點擊「驗證身分並解鎖存取」即可通行。
           </div>
 
           <div class="rsi-gate-actions">
-            <button type="submit" id="rsi-gate-submit-btn" class="rsi-gate-btn-primary">
+            <button type="submit" id="rsi-gate-submit-btn" class="rsi-gate-btn-primary" style="width: 100%;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               驗證身分並解鎖存取
-            </button>
-            <button type="button" id="rsi-gate-apply-btn" class="rsi-gate-btn-secondary">
-              無金鑰 · 提交留資審核申請
             </button>
           </div>
 
@@ -303,34 +279,39 @@
 
     // Event Listeners
     const form = document.getElementById('rsi-gate-form');
-    const applyBtn = document.getElementById('rsi-gate-apply-btn');
     const adminLink = document.getElementById('rsi-gate-admin-link');
+    const nameInput = document.getElementById('rsi-gate-name');
+    const passkeyInput = document.getElementById('rsi-gate-passkey');
 
     form.addEventListener('submit', handleVerifySubmit);
-    applyBtn.addEventListener('click', handleApplySubmit);
-    adminLink.addEventListener('click', handleAdminPrompt);
+    if (adminLink) adminLink.addEventListener('click', handleAdminPrompt);
+
+    // Auto-populate passkey when English name is entered
+    if (nameInput && passkeyInput) {
+      nameInput.addEventListener('input', () => {
+        const raw = nameInput.value.trim();
+        const clean = raw.replace(/[^a-zA-Z0-9]/g, '');
+        if (clean) {
+          passkeyInput.value = clean + 'RSI';
+        }
+      });
+    }
 
     const quickHoward = document.getElementById('rsi-quick-howard');
     const quickVpChou = document.getElementById('rsi-quick-vpchou');
     if (quickHoward) {
       quickHoward.addEventListener('click', () => {
-        document.getElementById('rsi-gate-name').value = 'Howard Liao Ph.D.';
-        document.getElementById('rsi-gate-company').value = '信源台北總部 (RSI HQ)';
-        document.getElementById('rsi-gate-dept').value = '執行負責人 / 首席架構顧問';
+        document.getElementById('rsi-gate-name').value = 'Howard';
         document.getElementById('rsi-gate-email').value = 'liao.howard@gmail.com';
-        document.getElementById('rsi-gate-purpose').value = '蜂巢計畫架構檢視與營運總覽';
-        document.getElementById('rsi-gate-passkey').value = 'HOWARD2027';
+        document.getElementById('rsi-gate-passkey').value = 'HowardRSI';
         document.getElementById('rsi-gate-submit-btn').click();
       });
     }
     if (quickVpChou) {
       quickVpChou.addEventListener('click', () => {
-        document.getElementById('rsi-gate-name').value = '周文津 副總經理';
-        document.getElementById('rsi-gate-company').value = '信源台北總部 (RSI HQ)';
-        document.getElementById('rsi-gate-dept').value = '計畫主持人';
+        document.getElementById('rsi-gate-name').value = 'VPChou';
         document.getElementById('rsi-gate-email').value = 'vp.chou@rsi.com.tw';
-        document.getElementById('rsi-gate-purpose').value = '蜂巢計畫架構檢視與營運總覽';
-        document.getElementById('rsi-gate-passkey').value = 'VPCHOU2027';
+        document.getElementById('rsi-gate-passkey').value = 'VPChouRSI';
         document.getElementById('rsi-gate-submit-btn').click();
       });
     }
@@ -429,33 +410,44 @@
 
   // Handle Verify Submit
   async function handleVerifySubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('rsi-gate-name').value.trim();
-    const company = document.getElementById('rsi-gate-company').value.trim();
-    const dept = document.getElementById('rsi-gate-dept').value.trim();
-    const email = document.getElementById('rsi-gate-email').value.trim();
-    const purpose = document.getElementById('rsi-gate-purpose').value.trim();
-    const passkey = document.getElementById('rsi-gate-passkey').value.trim();
+    if (e) e.preventDefault();
+    const nameEl = document.getElementById('rsi-gate-name');
+    const emailEl = document.getElementById('rsi-gate-email');
+    const passkeyEl = document.getElementById('rsi-gate-passkey');
     const statusEl = document.getElementById('rsi-gate-status');
 
-    if (!name || !company || !dept || !email || !purpose) {
+    const name = nameEl ? nameEl.value.trim() : '';
+    const email = emailEl ? emailEl.value.trim() : '';
+    let passkey = passkeyEl ? passkeyEl.value.trim() : '';
+
+    if (!name || !email) {
       statusEl.className = 'rsi-gate-status error';
-      statusEl.textContent = '請完整填寫所有留資欄位！';
+      statusEl.textContent = '請填寫訪客英文姓名與公務電子信箱！';
       return;
     }
 
+    const cleanName = name.replace(/[^a-zA-Z0-9]/g, '');
+    const expectedNameKey = (cleanName ? cleanName.toUpperCase() : name.toUpperCase()) + 'RSI';
+    const firstWordKey = name.split(/\s+/)[0].replace(/[^a-zA-Z0-9]/g, '').toUpperCase() + 'RSI';
+
+    // If passkey is omitted, auto-generate from name
     if (!passkey) {
-      statusEl.className = 'rsi-gate-status error';
-      statusEl.textContent = '請輸入通行授權金鑰；若無金鑰請點選「無金鑰 · 提交留資審核申請」。';
-      return;
+      passkey = cleanName ? (cleanName + 'RSI') : (name + 'RSI');
+      if (passkeyEl) passkeyEl.value = passkey;
     }
 
     const keyUpper = passkey.toUpperCase();
-    const keyInfo = VALID_KEYS[keyUpper] || VALID_KEYS[passkey];
+
+    // Check passkey validity:
+    // 1. Matches expected name + RSI (e.g. HOWARDRSI, DAVIDRSI, DAVIDCHENRSI)
+    // 2. Ends with 'RSI' (case-insensitive)
+    // 3. Predefined keys in VALID_KEYS (HOWARD2027, VPCHOU2027, RSI2027, DUKE2027, HIVE2027)
+    const isNameRSI = (keyUpper === expectedNameKey) || (keyUpper === firstWordKey) || keyUpper.endsWith('RSI');
+    const keyInfo = VALID_KEYS[keyUpper] || (isNameRSI ? { role: '專案認證訪客 (' + name + ')', title: '訪客專屬通行密碼' } : null);
 
     if (!keyInfo) {
       statusEl.className = 'rsi-gate-status error';
-      statusEl.textContent = '通行金鑰無效！若尚未取得金鑰，請點選下方按鈕提交留資申請。';
+      statusEl.textContent = '通行密碼錯誤！密碼需為「英文姓名+RSI」（例如：' + (cleanName || 'Name') + 'RSI）。';
       return;
     }
 
@@ -465,10 +457,10 @@
     const timestamp = Date.now();
     const sessionData = {
       name,
-      company,
-      dept,
+      company: '信源全球 / 專案協同',
+      dept: '訪客貴賓',
       email,
-      purpose,
+      purpose: '2027 蜂巢計畫查閱',
       role: keyInfo.role,
       title: keyInfo.title,
       key: keyUpper,
@@ -480,10 +472,10 @@
       id: 'ACC-' + timestamp,
       timestamp: new Date().toISOString(),
       name,
-      company,
-      dept,
+      company: sessionData.company,
+      dept: sessionData.dept,
       email,
-      purpose,
+      purpose: sessionData.purpose,
       keyUsed: keyUpper,
       role: keyInfo.role,
       status: 'VERIFIED_ACCESS',
@@ -783,10 +775,7 @@
       const remembered = JSON.parse(localStorage.getItem(REMEMBER_KEY) || 'null');
       if (remembered) {
         if (document.getElementById('rsi-gate-name') && remembered.name) document.getElementById('rsi-gate-name').value = remembered.name;
-        if (document.getElementById('rsi-gate-company') && remembered.company) document.getElementById('rsi-gate-company').value = remembered.company;
-        if (document.getElementById('rsi-gate-dept') && remembered.dept) document.getElementById('rsi-gate-dept').value = remembered.dept;
         if (document.getElementById('rsi-gate-email') && remembered.email) document.getElementById('rsi-gate-email').value = remembered.email;
-        if (document.getElementById('rsi-gate-purpose') && remembered.purpose) document.getElementById('rsi-gate-purpose').value = remembered.purpose;
         if (document.getElementById('rsi-gate-passkey') && remembered.key) document.getElementById('rsi-gate-passkey').value = remembered.key;
       }
     } catch (e) {}
