@@ -1,0 +1,26 @@
+{
+  "name": "RSI Group · 2027 IT 營運計畫與蜂巢計畫戰略藍圖",
+  "short_name": "RSI 2027 Hive",
+  "description": "RSI 信源集團 2027 數位轉型與蜂巢計畫（Project Hive）C-Level 營運架構、FinOps ROI 試算、3D 全景地圖與 25 項 WBS 戰略藍圖。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FAF7F2",
+  "theme_color": "#E87524",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "rsi_logo_opt.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "rsi_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

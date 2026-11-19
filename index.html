@@ -9,14 +9,27 @@
   <title>2027 IT 營運計畫架構討論 · RSI Group · Howard Liao Ph.D.</title>
   <meta name="author" content="Howard Liao Ph.D.">
   <meta name="description" content="2027 IT 營運計畫架構討論 — 整合運用與智能營運戰略藍圖，專為 RSI 信源集團 C-Level 經營決策層設計。">
-  
+  <meta name="theme-color" content="#E87524">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="rsi_logo_opt.png">
+
+  <!-- OpenGraph & Executive Social Share Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RSI Group · 2027 IT 營運計畫與蜂巢計畫 (Project Hive) 戰略藍圖">
+  <meta property="og:description" content="4 大核心主架構、25 項數位專案 WBS、48~72h 海外邊緣離線自治與 FinOps 硬性財務對沖模擬（年節省 NT$ 3,705 萬）。計劃主持人：周文津 副總｜執行負責人：Howard Liao Ph.D.">
+  <meta property="og:url" content="https://howardliao.github.io/RSI/">
+  <meta property="og:image" content="https://howardliao.github.io/RSI/rsi_logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RSI Group · 2027 IT 營運計畫與蜂巢計畫戰略藍圖">
+  <meta name="twitter:description" content="跨國成衣製造數位轉型藍圖：API 平台、雙軌 Data Lakehouse、48~72h 邊緣離線自治與 FinOps ROI 試算。">
+  <meta name="twitter:image" content="https://howardliao.github.io/RSI/rsi_logo.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  
-  <!-- Chart.js for High-Precision Executive Visualizations -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js Pinned Version for High-Precision Executive Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   
   <style>
     :root {
@@ -3594,13 +3607,11 @@
   </style>
   <!-- rsi-site -->
   <link rel="stylesheet" href="assets/rsi-site.css?v=d8c3ab7bca">
+  <link rel="stylesheet" href="assets/rsi-neon-milan.css?v=7.5.0">
 </head>
 <body>
   <div class="watermark-overlay"></div>
-  
-  <a href="#main-content" class="skip-to-content-link">跳至主要內容 (Skip to Main Content)</a>
   <a href="#main-content" class="skip-link">跳至主要內容區 (Skip to main content)</a>
-
 
   <!-- Watermark: Howard Liao Ph.D. -->
   
@@ -3623,7 +3634,6 @@
       </div>
     </div>
   </div>
-  </div>
 
 
   <!-- Masthead Header -->
@@ -3636,7 +3646,7 @@
           <a href="#" aria-label="RSI Reliable Source Industrial RSI Group首頁" style="display: inline-flex; align-items: center; text-decoration: none;">
             <img src="rsi_logo_transparent.png" alt="RSI Reliable Source Industrial RSI Group企業標誌" class="rsi-logo-img">
           </a>
-          <span class="masthead-badge">● C-LEVEL BLUEPRINT · v7.2.0</span>
+          <span class="masthead-badge">● C-LEVEL BLUEPRINT · v7.5.0 NEON</span>
         </div>
 
         <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
@@ -3680,7 +3690,6 @@
           </label>
         </div>
       </div>
-        </div>
 
       <!-- Centered Majestic Hero Section -->
       <div class="hero-centered-wrap">
@@ -3725,8 +3734,8 @@
           </div>
           <div class="bento-card">
             <div class="bento-label">投資回本週期</div>
-            <div class="bento-num" id="bento-val-payback">14.8 個月</div>
-            <div class="bento-desc">單件成衣成本僅 NT$ 0.27</div>
+            <div class="bento-num" id="bento-val-payback">14.2 個月</div>
+            <div class="bento-desc">全年 25 項基準 · P1 僅 6.5 個月</div>
           </div>
           <div class="bento-card">
             <div class="bento-label">車間斷網離線自律</div>
@@ -3736,25 +3745,67 @@
         </div>
       </div>
 
-      <!-- Centered Segmented Navigation Pills -->
-      <nav class="masthead-nav" aria-label="核心專案導覽">
-        <a href="#hive-pipeline" class="active" style="background:var(--rust-primary, #E87524); color:#FFF; font-weight:800; box-shadow:0 2px 6px rgba(232,117,36,0.3);">🐝 蜂巢計畫時程與閘門</a>
-        <a href="rsi_hive_week1_portal.html" target="_blank" style="background:#FFF0E6; color:#C05621; border:1.5px solid #DD6B20; font-weight:800;">📋 W1 盤點門戶與顧問報告 ↗</a>
-        <a href="rsi_duke_uml2_viewer.html" target="_blank" style="background:#EEF2FF; color:#4338CA; border:1.5px solid #6366F1; font-weight:800;">📐 Duke UML 2.0 圖冊 (含 5 大提問) ↗</a>
-        <a href="duke_api_evaluation_report.html" target="_blank" style="background:#ECFDF5; color:#065F46; border:1.5px solid #10B981; font-weight:800;">📊 Duke API 深度解構與處方 ↗</a>
-        <a href="rsi_hardware_deployment_preview.html" target="_blank" style="background:#F0FDF4; color:#166534; border:1.5px solid #22C55E; font-weight:800;">🖥️ 跨國網絡／硬體／雲地儀表板 ↗</a>
-        <a href="#hive-3d-map" style="background:#FFF8EE; color:var(--rust-primary, #E87524); border:1.5px solid var(--orange-vibrant, #E87524); font-weight:800;">🐝 蜂巢 3D 戰略地圖</a>
-        <a href="#hive-architecture" style="background:#FFF8EE; color:var(--rust-primary, #E87524); border:1.5px solid var(--orange-vibrant, #E87524); font-weight:800;">📐 蜂巢全景圖資展廳</a>
-        <a href="Hive/index.html" target="_blank" style="color:var(--text-charcoal); font-weight:700;">📑 蜂巢實施藍圖 ↗</a>
-        <a href="3D/index.html" target="_blank" style="color:#2F4538; font-weight:800;">🏙️ 3D 生活黑客群島 ↗</a>
-        <a href="rsi_hive_archipelago.html" target="_blank" style="color:#2563EB; font-weight:700;">🏝️ 3D 蜂巢群島 ↗</a>
-        <a href="ai_governance.html" target="_blank" style="color:#D97706; font-weight:700;">⚖️ AI 治理手冊 ↗</a>
-        <a href="ai_implementation_spec.html" target="_blank" style="color:#7C3AED; font-weight:700;">🤖 AI 落地實施細則 ↗</a>
-        <a href="Hive/download_center.html" target="_blank" style="color:#059669; font-weight:700;">📥 官方文檔中心 ↗</a>
-        <a href="#invest-framework" id="nav-invest">2027 投資主軸</a>
-        <a href="#pillars" id="nav-pillars">四大主架構</a>
-        <a href="#simulator" id="nav-gate">4-Gate 產前門禁</a>
-        <a href="#wbs-gantt" id="nav-wbs" style="color: var(--rust-primary, #E87524); font-weight: 800;">📅 2027 WBS 甘特圖</a>
+      <!-- Centered 4-Cluster Executive Navigation -->
+      <nav class="masthead-nav neon-nav-groups" aria-label="核心專案導覽">
+        <div class="neon-nav-group">
+          <button type="button" class="neon-nav-trigger primary-cluster" aria-expanded="false">
+            <span>🐝 蜂巢計畫與時程</span>
+            <span class="neon-nav-caret">▾</span>
+          </button>
+          <div class="neon-nav-menu">
+            <a href="#hive-pipeline"><span>🐝 蜂巢計畫時程與閘門</span><span class="menu-ext">頁內</span></a>
+            <a href="#hive-3d-map"><span>🗺️ 蜂巢 3D 戰略地圖</span><span class="menu-ext">頁內</span></a>
+            <a href="#hive-architecture"><span>📐 蜂巢全景圖資展廳</span><span class="menu-ext">頁內</span></a>
+            <div class="neon-nav-divider"></div>
+            <a href="Hive/index.html" target="_blank"><span>📑 蜂巢實施藍圖</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_hive_week1_portal.html" target="_blank"><span>📋 W1 盤點門戶與顧問報告</span><span class="menu-ext">↗</span></a>
+          </div>
+        </div>
+
+        <div class="neon-nav-group">
+          <button type="button" class="neon-nav-trigger" aria-expanded="false">
+            <span>💵 投資治理與模擬器</span>
+            <span class="neon-nav-caret">▾</span>
+          </button>
+          <div class="neon-nav-menu">
+            <a href="#invest-framework" id="nav-invest"><span>💵 2027 投資主軸 &amp; FinOps ROI</span><span class="menu-ext">頁內</span></a>
+            <a href="#visual-analytics"><span>📊 動態視覺化圖表與 IE 演算</span><span class="menu-ext">頁內</span></a>
+            <a href="#factory-monitor"><span>📡 跨國廠區邊緣韌性遙測</span><span class="menu-ext">頁內</span></a>
+            <a href="#simulator" id="nav-gate"><span>🚦 4-Gate 產前門禁模擬器</span><span class="menu-ext">頁內</span></a>
+            <a href="#wbs-gantt" id="nav-wbs"><span>📅 2027 WBS 25 項甘特圖</span><span class="menu-ext">頁內</span></a>
+          </div>
+        </div>
+
+        <div class="neon-nav-group">
+          <button type="button" class="neon-nav-trigger" aria-expanded="false">
+            <span>📐 技術架構與 3D 展廳</span>
+            <span class="neon-nav-caret">▾</span>
+          </button>
+          <div class="neon-nav-menu">
+            <a href="rsi_duke_uml2_viewer.html" target="_blank"><span>📐 Duke UML 2.0 圖冊 (5大提問)</span><span class="menu-ext">↗</span></a>
+            <a href="duke_api_evaluation_report.html" target="_blank"><span>📊 Duke API 深度解構與處方</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_hardware_deployment_preview.html" target="_blank"><span>🖥️ 跨國網絡／硬體／雲地儀表板</span><span class="menu-ext">↗</span></a>
+            <div class="neon-nav-divider"></div>
+            <a href="3D/index.html" target="_blank"><span>🏙️ 3D 生活黑客群島</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_hive_archipelago.html" target="_blank"><span>🏝️ 3D 蜂巢群島</span><span class="menu-ext">↗</span></a>
+          </div>
+        </div>
+
+        <div class="neon-nav-group">
+          <button type="button" class="neon-nav-trigger" aria-expanded="false">
+            <span>📑 治理與官方文檔</span>
+            <span class="neon-nav-caret">▾</span>
+          </button>
+          <div class="neon-nav-menu">
+            <a href="#pillars" id="nav-pillars"><span>🏛️ 四大核心戰略主架構</span><span class="menu-ext">頁內</span></a>
+            <a href="#doc-center"><span>📂 站內文檔預覽中心</span><span class="menu-ext">頁內</span></a>
+            <a href="#recommendations"><span>🎯 六大關鍵升級節點</span><span class="menu-ext">頁內</span></a>
+            <div class="neon-nav-divider"></div>
+            <a href="ai_governance.html" target="_blank"><span>⚖️ AI 治理手冊</span><span class="menu-ext">↗</span></a>
+            <a href="ai_implementation_spec.html" target="_blank"><span>🤖 AI 落地實施細則</span><span class="menu-ext">↗</span></a>
+            <a href="Hive/download_center.html" target="_blank"><span>📥 官方文檔中心</span><span class="menu-ext">↗</span></a>
+          </div>
+        </div>
       </nav>
 
     </div>
@@ -4195,12 +4246,21 @@
             💵 2027 硬性財務對沖與投資回收即時試算器 (FinOps ROI Engine)
           </h3>
           <p style="font-size:0.84rem; color:var(--text-muted); margin-top:4px;" id="t-finopsDesc">
-            基於 2027 年 IT 總預算 $640,000 USD (約 NT$ 2,016 萬，預估參考值，依 D04 選型核定)，動態調整「空運包機防禦」與「大貨布損改善」，即時驗證現金流回本速度與 ROI。
+            基於 2027 全年 25 項 WBS 總預算 $1,390,000 USD（約 NT$ 4,378.5 萬），動態調整「空運包機防禦」與「大貨布損改善」，即時驗證現金流回本速度與 ROI。
           </p>
+          <div class="finops-scope-bar" role="group" aria-label="投資範圍切換">
+            <button type="button" class="finops-scope-btn active" data-scope="full" onclick="setFinOpsScope('full')">
+              2027 全年四大主架構 ($1,390K · NT$ 4,378.5萬)
+            </button>
+            <button type="button" class="finops-scope-btn" data-scope="phase1" onclick="setFinOpsScope('phase1')">
+              Phase 1 數位底座 ($640K · NT$ 2,016萬)
+            </button>
+          </div>
         </div>
-        <div style="background:#FFF8EE; border:1px solid var(--orange-vibrant); border-radius:6px; padding:8px 14px; text-align:right;">
+        <div style="background:#FFF8EE; border:1px solid var(--orange-vibrant); border-radius:8px; padding:10px 16px; text-align:right;">
           <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;" id="t-finopsCapLbl">IT 總投資基準線</div>
-          <div style="font-family:var(--font-mono); font-size:1.15rem; font-weight:800; color:var(--rust-primary);">NT$ 20,160,000</div>
+          <div id="finopsCapBaselineVal" style="font-family:var(--font-mono); font-size:1.18rem; font-weight:800; color:var(--rust-primary);">NT$ 43,785,000</div>
+          <div id="finopsCapBaselineSub" style="font-size:0.68rem; color:var(--text-muted); margin-top:2px;">$1,390,000 USD · 2027 全年四大主架構</div>
         </div>
       </div>
 
@@ -4260,8 +4320,19 @@
 
         <div style="background:#FAF5FF; border:1.5px solid #E9D5FF; border-radius:8px; padding:16px;">
           <div style="font-size:0.75rem; color:#6B21A8; font-weight:700; text-transform:uppercase; margin-bottom:4px;" id="t-kpiPaybackLbl">全額淨投資回收期 (Payback)</div>
-          <div id="dispPaybackMonths" style="font-family:var(--font-mono); font-size:1.45rem; font-weight:900; color:#7E22CE;">14.8 個月</div>
-          <div style="font-size:0.7rem; color:#6B21A8; margin-top:3px;" id="dispRoiRatio">整體投資報酬率 ROI 1 : 3.84</div>
+          <div id="dispPaybackMonths" style="font-family:var(--font-mono); font-size:1.45rem; font-weight:900; color:#7E22CE;">14.2 個月</div>
+          <div style="font-size:0.7rem; color:#6B21A8; margin-top:3px;" id="dispRoiRatio">首年 ROI 1 : 0.85 ｜ 3年累積 ROI 1 : 2.54</div>
+        </div>
+      </div>
+
+      <!-- 24-Month Cumulative Cashflow Breakeven Curve -->
+      <div class="finops-chart-wrap">
+        <div class="finops-chart-head">
+          <span class="finops-chart-title">📈 1～24 個月累積硬性節省現金流 vs. CAPEX 投資回本曲線 (Breakeven Curve)</span>
+          <span class="finops-chart-badge" id="finopsBreakevenBadge">回本交叉點：第 14.2 個月</span>
+        </div>
+        <div class="finops-chart-canvas-box">
+          <canvas id="finopsBreakevenCanvas"></canvas>
         </div>
       </div>
     </div>
@@ -4440,10 +4511,10 @@
     <div class="factory-edge-monitor">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
         <div>
-          <div style="font-weight: 800; color: var(--text-charcoal); font-size: 1.05rem;">
+          <div class="monitor-title-main" style="font-weight: 800; color: var(--text-charcoal); font-size: 1.05rem;">
             全球廠區邊緣節點動態狀態 (Live Heartbeat Telemetry)
           </div>
-          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+          <div class="monitor-title-sub" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
             東南亞跨國邊緣主機 DuckDB WAL 異動日誌與台北總部 Data Lake 雙向同步監控
           </div>
         </div>
@@ -4461,7 +4532,6 @@
             <span id="deltaSyncStatusText" style="color:#292524;">即時監控：同步引擎待命就緒</span>
           </div>
         </div>
-      </div>
       </div>
 
       <!-- Live Telemetry Alert Toast -->
@@ -7585,13 +7655,6 @@
     });
   }
 
-  // 4. Modal Backdrop Closer
-  function closeSearchModalOnBackdrop(event) {
-    if (event.target && event.target.id === 'searchModalBackdrop') {
-      closeSearchModal();
-    }
-  }
-
   // Globally bind all click/touch triggers for Delta Sync
   function bindAllSyncTriggers() {
     const triggers = document.querySelectorAll('#btnDeltaSync, #deltaSyncLiveStatus, #btnDeltaSyncText, [data-action="delta-sync"]');
@@ -7731,6 +7794,16 @@
 
     animate() {
       if (!this.canvas) return;
+      if (this._visible === undefined && 'IntersectionObserver' in window) {
+        this._visible = true;
+        new IntersectionObserver((entries) => {
+          this._visible = entries[0]?.isIntersecting ?? true;
+        }, { threshold: 0.01 }).observe(this.canvas);
+      }
+      if (document.hidden || this._visible === false) {
+        setTimeout(() => requestAnimationFrame(() => this.animate()), 250);
+        return;
+      }
       this.ctx.clearRect(0, 0, this.width, this.height);
       this.step += 0.035;
 
@@ -8777,7 +8850,22 @@
       });
     }
 
+    let _hive3dVisible = true;
+    let _hive3dObserved = false;
     function animate() {
+      if (!_hive3dObserved && 'IntersectionObserver' in window) {
+        const vp = document.getElementById('hive-3d-viewport');
+        if (vp) {
+          _hive3dObserved = true;
+          new IntersectionObserver((entries) => {
+            _hive3dVisible = entries[0]?.isIntersecting ?? true;
+          }, { threshold: 0.02 }).observe(vp);
+        }
+      }
+      if (document.hidden || !_hive3dVisible) {
+        setTimeout(() => requestAnimationFrame(animate), 250);
+        return;
+      }
       requestAnimationFrame(animate);
 
       if (flowTexture) {
@@ -8815,6 +8903,7 @@
   });
   </script>
 
+  <script src="assets/rsi-neon-refine.js?v=7.5.0" defer></script>
   <script src="assets/rsi-site.js?v=52cc3a28d3" defer></script>
   <!-- RSI Site Analytics & Navigation Tracker -->
   <script src="assets/rsi-gatekeeper.js?v=2.0"></script>
