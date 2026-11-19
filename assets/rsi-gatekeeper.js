@@ -222,11 +222,11 @@
           <div><strong>資安層級：</strong>Tier-1 核心機密</div>
         </div>
 
-        <div class="rsi-gate-quickfill" style="margin-bottom: 16px; padding: 10px 14px; background: rgba(232, 117, 36, 0.08); border: 1px dashed #E87524; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-          <span style="font-size: 12px; font-weight: 600; color: #1C1917;">⚡ 專案高管快捷一鍵登入：</span>
+        <div class="rsi-gate-quickfill" style="margin-bottom: 16px; padding: 10px 14px; background: rgba(232, 117, 36, 0.14); border: 1px dashed #E87524; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span style="font-size: 12px; font-weight: 700; color: #F3F4F6;">⚡ 專案高管快捷一鍵登入：</span>
           <div style="display: flex; gap: 8px;">
-            <button type="button" id="rsi-quick-howard" style="font-size: 11px; padding: 5px 12px; background: #E87524; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Howard Liao (執行負責人)</button>
-            <button type="button" id="rsi-quick-vpchou" style="font-size: 11px; padding: 5px 12px; background: #292524; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">周文津 副總 (計畫主持)</button>
+            <button type="button" id="rsi-quick-howard" style="font-size: 11px; padding: 6px 12px; background: #E87524; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; cursor: pointer; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">Howard Liao (執行負責人)</button>
+            <button type="button" id="rsi-quick-vpchou" style="font-size: 11px; padding: 6px 12px; background: #27272A; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; cursor: pointer; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">周文津 副總 (計畫主持)</button>
           </div>
         </div>
 
