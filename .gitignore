@@ -22,5 +22,7 @@ RSI-meeting-brief.html
 RSI-meeting-report.html
 # 個人簡介簡報原始檔（明文）：網站只放加密版 PDF（private/f2.enc）
 RSI_Group_個人簡介與顧問報告_米蘭風格_HowardLiao.pptx
+index_raw_backup.html
+*.docx
 # macOS 系統檔
 .DS_Store
