@@ -1,24 +1,12 @@
 /**
- * RSI Project Hive - Site Navigation & Analytics Engine (GA4)
- * Open-access mode: no overlays, zero barrier.
- * Automatically captures visitor paths, scroll depth, and file downloads.
+ * RSI Project Hive - Automated Visitor Analytics & Telemetry Engine
+ * 100% Autonomous: Zero-barrier open access, real-time telemetry beacon.
+ * Automatically tracks visitor identity (?u=...), pages viewed, and file downloads.
  */
 (function () {
   "use strict";
 
-  // === 1. GA4 Configuration ===
-  // Replace with your GA4 Measurement ID (e.g. "G-XXXXXXXXXX")
-  const GA_MEASUREMENT_ID = window.RSI_GA_ID || "G-PLACEHOLDER";
-
   // Clean up any legacy modal overlays
-  try {
-    document.documentElement.classList.remove("rsi-locked");
-    if (document.body) {
-      document.body.style.overflow = "";
-      document.body.style.position = "";
-    }
-  } catch (e) {}
-
   function removeLegacyOverlays() {
     try {
       document.documentElement.classList.remove("rsi-locked");
@@ -41,73 +29,149 @@
     removeLegacyOverlays();
   }
 
-  // === 2. Dynamic GA4 Loader ===
-  function initGA4() {
-    if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "G-PLACEHOLDER") {
-      console.log("[RSI Analytics] Waiting for GA4 Measurement ID. Set window.RSI_GA_ID or update assets/rsi-gatekeeper.js.");
-      return;
+  // === Visitor Telemetry Beacon ===
+  const AUDIT_TOPIC = "howard_rsi_audit_log";
+  const BEACON_URL = "https://ntfy.sh/" + AUDIT_TOPIC;
+
+  // Extract visitor identity from query params or session cache
+  const urlParams = new URLSearchParams(window.location.search);
+  let visitor = urlParams.get("u") || urlParams.get("user") || urlParams.get("name") || urlParams.get("utm_source");
+
+  if (visitor) {
+    try {
+      sessionStorage.setItem("rsi_visitor_name", visitor);
+    } catch (e) {}
+  } else {
+    try {
+      visitor = sessionStorage.getItem("rsi_visitor_name") || "外部訪客 / 匿名主管";
+    } catch (e) {
+      visitor = "外部訪客 / 匿名主管";
     }
-
-    // Prevent duplicate injection
-    if (document.getElementById("rsi-gtag-script")) return;
-
-    const script = document.createElement("script");
-    script.id = "rsi-gtag-script";
-    script.async = true;
-    script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { window.dataLayer.push(arguments); }
-    window.gtag = gtag;
-
-    gtag("js", new Date());
-
-    // Extract visitor identity from query params (e.g., ?u=vp_chou or ?utm_source=leo)
-    const urlParams = new URLSearchParams(window.location.search);
-    const visitorIdentity = urlParams.get("u") || urlParams.get("user") || urlParams.get("utm_source") || sessionStorage.getItem("rsi_visitor_id");
-
-    const config = {
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: window.location.pathname
-    };
-
-    if (visitorIdentity) {
-      try { sessionStorage.setItem("rsi_visitor_id", visitorIdentity); } catch(e) {}
-      config.user_id = visitorIdentity;
-      config.visitor_name = visitorIdentity;
-      gtag("set", "user_properties", { visitor_identity: visitorIdentity });
-    }
-
-    gtag("config", GA_MEASUREMENT_ID, config);
-    console.log("[RSI Analytics] GA4 initialized (" + GA_MEASUREMENT_ID + ") for visitor:", visitorIdentity || "anonymous");
-
-    // Track document downloads (docx, csv, pdf, pptx, xlsx)
-    document.addEventListener("click", function(e) {
-      const a = e.target.closest("a");
-      if (!a || !a.href) return;
-      const href = a.href;
-      if (/\.(docx|csv|pdf|pptx|xlsx|zip)$/i.test(href)) {
-        gtag("event", "file_download", {
-          file_name: href.split("/").pop(),
-          file_url: href,
-          link_text: (a.innerText || "").trim(),
-          page_path: window.location.pathname
-        });
-      }
-    });
   }
 
-  initGA4();
+  // Device & Environment fingerprinting
+  function getDeviceSummary() {
+    const ua = navigator.userAgent || "";
+    let os = "PC / Desktop";
+    if (/iPhone/i.test(ua)) os = "iPhone (iOS)";
+    else if (/iPad/i.test(ua)) os = "iPad (iPadOS)";
+    else if (/Android/i.test(ua)) os = "Android 裝置";
+    else if (/Macintosh/i.test(ua)) os = "Mac (macOS)";
+    else if (/Windows/i.test(ua)) os = "Windows PC";
 
-  window.RSIGatekeeper = {
-    isOpen: true,
-    bypassed: true,
-    gaId: GA_MEASUREMENT_ID,
-    setGA: function(id) {
-      window.RSI_GA_ID = id;
-      initGA4();
+    let browser = "瀏覽器";
+    if (/Line/i.test(ua)) browser = "LINE 內建瀏覽器";
+    else if (/MicroMessenger/i.test(ua)) browser = "WeChat 內建瀏覽器";
+    else if (/Chrome/i.test(ua)) browser = "Chrome";
+    else if (/Safari/i.test(ua)) browser = "Safari";
+    else if (/Firefox/i.test(ua)) browser = "Firefox";
+
+    return os + " · " + browser;
+  }
+
+  // Dispatch event beacon
+  function sendAuditBeacon(title, body, tags) {
+    try {
+      const payload = body || "";
+      if (navigator.sendBeacon) {
+        const headers = {
+          type: "text/plain; charset=utf-8"
+        };
+        const blob = new Blob([payload], headers);
+        // Note: fetch with headers allows setting Title and Tags for ntfy
+        fetch(BEACON_URL, {
+          method: "POST",
+          headers: {
+            "Title": title,
+            "Tags": tags || "eyes",
+            "Priority": "default"
+          },
+          body: payload,
+          mode: "no-cors"
+        }).catch(function () {});
+      } else {
+        fetch(BEACON_URL, {
+          method: "POST",
+          headers: {
+            "Title": title,
+            "Tags": tags || "eyes"
+          },
+          body: payload,
+          mode: "no-cors"
+        }).catch(function () {});
+      }
+    } catch (err) {}
+  }
+
+  // Format timestamp (Taipei Time UTC+8)
+  function getTaipeiTimeString() {
+    try {
+      return new Intl.DateTimeFormat("zh-TW", {
+        timeZone: "Asia/Taipei",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      }).format(new Date());
+    } catch (e) {
+      return new Date().toISOString();
+    }
+  }
+
+  // 1. Record Page Visit
+  function recordPageVisit() {
+    const timeStr = getTaipeiTimeString();
+    const pageTitle = document.title || "RSI 蜂巢計畫頁面";
+    const path = window.location.pathname || "/";
+    const ref = document.referrer ? (new URL(document.referrer, window.location.origin).hostname || "外部推薦") : "直接點擊造訪";
+    const dev = getDeviceSummary();
+
+    const title = "[RSI 訪客] " + visitor + " 造訪";
+    const body = "訪客身分: " + visitor + "\n" +
+                 "造訪頁面: " + pageTitle + "\n" +
+                 "路徑: " + path + "\n" +
+                 "時間: " + timeStr + "\n" +
+                 "設備: " + dev + "\n" +
+                 "來源: " + ref;
+
+    sendAuditBeacon(title, body, "eyes,bell");
+    console.log("[RSI Telemetry] Logged visit for:", visitor, "on", path);
+  }
+
+  // Run on initial load
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    recordPageVisit();
+  } else {
+    window.addEventListener("DOMContentLoaded", recordPageVisit);
+  }
+
+  // 2. Record Document & Report Downloads
+  document.addEventListener("click", function (e) {
+    const a = e.target.closest("a");
+    if (!a || !a.href) return;
+    const href = a.href;
+    if (/\\.(docx|csv|pdf|pptx|xlsx|zip)$/i.test(href)) {
+      const fileName = href.split("/").pop();
+      const timeStr = getTaipeiTimeString();
+      const title = "[RSI 文件下載] " + visitor;
+      const body = "訪客身分: " + visitor + "\n" +
+                   "下載檔案: " + fileName + "\n" +
+                   "所在頁面: " + (document.title || window.location.pathname) + "\n" +
+                   "時間: " + timeStr;
+      sendAuditBeacon(title, body, "floppy_disk,inbox_tray");
+    }
+  });
+
+  // Global handle for dashboard or manual queries
+  window.RSITelemetry = {
+    visitor: visitor,
+    channel: AUDIT_TOPIC,
+    setIdentity: function (name) {
+      sessionStorage.setItem("rsi_visitor_name", name);
+      window.location.reload();
     }
   };
 })();

@@ -26,3 +26,6 @@ index_raw_backup.html
 *.docx
 # macOS 系統檔
 .DS_Store
+logs/*.csv
+logs/*.log
+logs/*.err

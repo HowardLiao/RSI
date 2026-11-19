@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>訪客即時存取與路徑稽核儀表板 · RSI 蜂巢計畫 · Howard Liao Ph.D.</title>
+  <style>
+    :root {
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --card-border: #334155;
+      --amber: #F59E0B;
+      --amber-light: #FEF3C7;
+      --emerald: #10B981;
+      --emerald-light: #D1FAE5;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .title-group h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .title-group p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: #334155;
+      color: var(--text);
+      border: 1px solid #475569;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: #475569;
+    }
+
+    .btn-amber {
+      background: var(--amber);
+      color: #0F172A;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-amber:hover {
+      background: #D97706;
+    }
+
+    /* Bento KPI Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-top: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .stat-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Generator Box */
+    .generator-card {
+      background: linear-gradient(135deg, #1E293B, #0F172A);
+      border: 1px solid #B45309;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .generator-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .generator-header h2 {
+      font-size: 1.1rem;
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .generator-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .input-field {
+      flex: 1;
+      min-width: 220px;
+      padding: 10px 14px;
+      background: #0F172A;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.875rem;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--amber);
+    }
+
+    .result-url-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: #020617;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px dashed #475569;
+    }
+
+    .result-url {
+      flex: 1;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: #38BDF8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Table */
+    .table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-header h3 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+
+    th {
+      background: #111827;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #263345;
+      color: #E2E8F0;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge-name {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--amber);
+      font-weight: 600;
+      font-size: 0.8125rem;
+    }
+
+    .badge-action {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .action-page {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+    }
+
+    .action-download {
+      background: rgba(236, 72, 153, 0.15);
+      color: #F472B6;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--amber);
+      color: #0F172A;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="title-group">
+      <h1>
+        信源全球 RSI 蜂巢計畫 · 訪客存取稽核儀表板
+        <span class="badge-live"><span class="dot"></span>即時連線中</span>
+      </h1>
+      <p>執行負責人：Howard Liao Ph.D. · 全天候自動記錄訪客身分、停留路徑與報告下載動態</p>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="fetchLogs()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg> 重新整理</button>
+      <button class="btn" onclick="exportCSV()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> 匯出 CSV</button>
+      <a href="index.html" class="btn btn-amber">返回 2027 計畫首頁</a>
+    </div>
+  </header>
+
+  <!-- KPI Bento Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">累積造訪與下載事件</div>
+      <div class="stat-value" id="kpi-total">0</div>
+      <div class="stat-desc">全站 50 個頁面與 Word/CSV 資產</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">識別長官與獨立訪客</div>
+      <div class="stat-value" id="kpi-visitors">0</div>
+      <div class="stat-desc">含專屬代號與獨立設備</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">重要文件查閱 / 下載次數</div>
+      <div class="stat-value" id="kpi-downloads">0</div>
+      <div class="stat-desc">架構評估報告、週進度總表等</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">即時 LINE 自動推播狀態</div>
+      <div class="stat-value" style="color: var(--emerald);" id="kpi-line">啟用中</div>
+      <div class="stat-desc">每次造訪直接通報 Howard 手機</div>
+    </div>
+  </div>
+
+  <!-- Personalized Tracking Link Generator -->
+  <div class="generator-card">
+    <div class="generator-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <h2>長官專屬追蹤連結產生器 (免登入、無感精確識別)</h2>
+    </div>
+    <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 12px;">
+      輸入要發送的主管姓名或代稱，點選「複製專屬連結」。對方點開時完全不用填表或登入，系統將全自動於本表與 LINE 標記為「周副總」或指定名稱，全流程跟蹤其瀏覽與下載路徑。
+    </p>
+    <div class="generator-inputs">
+      <input type="text" id="gen-name" class="input-field" placeholder="長官稱謂 (例: 周副總, Leo, ITS主管, IS主管)" value="周副總">
+      <select id="gen-page" class="input-field">
+        <option value="">計畫首頁 (index.html)</option>
+        <option value="rsi_hive_week1_portal.html">第一週推進門戶 (week1)</option>
+        <option value="doc_preview.html">架構評估報告預覽</option>
+      </select>
+      <button class="btn btn-amber" onclick="generateAndCopyLink()">一鍵產生並複製連結</button>
+    </div>
+    <div class="result-url-box">
+      <span style="font-size: 0.75rem; color: var(--text-muted);">專屬追蹤連結：</span>
+      <span class="result-url" id="gen-result">https://howardliao.github.io/RSI/?u=周副總</span>
+    </div>
+  </div>
+
+  <!-- Live Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <h3>訪客造訪與行為軌跡明細 (即時更新)</h3>
+      <span style="font-size: 0.8125rem; color: var(--text-muted);" id="last-updated">更新中...</span>
+    </div>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>存取時間 (台北)</th>
+            <th>長官 / 訪客身分</th>
+            <th>行為動作</th>
+            <th>造訪頁面 / 檔案</th>
+            <th>裝置與瀏覽器</th>
+            <th>來源管道</th>
+          </tr>
+        </thead>
+        <tbody id="log-tbody">
+          <tr>
+            <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">
+              正在同步雲端日誌資料...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">已複製連結至剪貼簿！</div>
+
+<script>
+  let logsCache = [];
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.innerText = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2500);
+  }
+
+  function updateGenerator() {
+    const name = encodeURIComponent(document.getElementById("gen-name").value.trim() || "周副總");
+    const page = document.getElementById("gen-page").value;
+    const base = window.location.origin + window.location.pathname.replace("visitor_log.html", "");
+    const url = base + (page ? page : "") + "?u=" + name;
+    document.getElementById("gen-result").innerText = url;
+  }
+
+  document.getElementById("gen-name").addEventListener("input", updateGenerator);
+  document.getElementById("gen-page").addEventListener("change", updateGenerator);
+  updateGenerator();
+
+  function generateAndCopyLink() {
+    updateGenerator();
+    const url = document.getElementById("gen-result").innerText;
+    navigator.clipboard.writeText(url).then(() => {
+      showToast("已成功複製「" + document.getElementById("gen-name").value + "」的專屬追蹤連結！");
+    });
+  }
+
+  function parseMessage(rawMsg) {
+    const lines = (rawMsg || "").split("\n");
+    const res = {};
+    lines.forEach(l => {
+      const idx = l.indexOf(":");
+      if (idx !== -1) {
+        const k = l.substring(0, idx).trim();
+        const v = l.substring(idx + 1).trim();
+        res[k] = v;
+      }
+    });
+    return res;
+  }
+
+  async function fetchLogs() {
+    try {
+      const res = await fetch("https://ntfy.sh/howard_rsi_audit_log/json?poll=1");
+      const text = await res.text();
+      const lines = text.trim().split("\n").filter(Boolean);
+      
+      const records = [];
+      const visitors = new Set();
+      let downloads = 0;
+
+      for (let line of lines) {
+        try {
+          const item = JSON.parse(line);
+          if (item.event !== "message") continue;
+
+          const p = parseMessage(item.message);
+          const isDownload = (item.title || "").includes("下載");
+          if (isDownload) downloads++;
+
+          const visitor = p["訪客身分"] || (item.title ? item.title.replace("\[RSI 訪客\]", "").replace("造訪", "").trim() : "外部訪客");
+          visitors.add(visitor);
+
+          // Format timestamp
+          const date = new Date(item.time * 1000);
+          const timeStr = p["時間"] || date.toLocaleString("zh-TW", { timeZone: "Asia/Taipei", hour12: false });
+
+          records.unshift({
+            time: timeStr,
+            visitor: visitor,
+            action: isDownload ? "重要文件下載" : "頁面造訪",
+            target: isDownload ? (p["下載檔案"] || "未知文件") : (p["造訪頁面"] || p["路徑"] || "首頁"),
+            device: p["設備"] || "PC / 手機",
+            ref: p["來源"] || "直接造訪",
+            raw: item
+          });
+        } catch(e) {}
+      }
+
+      logsCache = records;
+
+      // Update KPI
+      document.getElementById("kpi-total").innerText = records.length;
+      document.getElementById("kpi-visitors").innerText = visitors.size;
+      document.getElementById("kpi-downloads").innerText = downloads;
+      document.getElementById("last-updated").innerText = "最後更新：" + new Date().toLocaleTimeString();
+
+      // Render Table
+      const tbody = document.getElementById("log-tbody");
+      if (records.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 32px;">目前尚無新訪客紀錄。可使用上方產生器發送專屬連結測試。</td></tr>`;
+        return;
+      }
+
+      let html = "";
+      records.forEach(r => {
+        const isDown = r.action.includes("下載");
+        html += `
+          <tr>
+            <td style="font-family: var(--font-mono); font-size: 0.8125rem;">${r.time}</td>
+            <td><span class="badge-name">${r.visitor}</span></td>
+            <td><span class="badge-action ${isDown ? "action-download" : "action-page"}">${r.action}</span></td>
+            <td style="font-weight: 500;">${r.target}</td>
+            <td style="color: var(--text-muted); font-size: 0.8125rem;">${r.device}</td>
+            <td style="color: var(--text-muted); font-size: 0.8125rem;">${r.ref}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById("last-updated").innerText = "讀取失敗，將自動重試";
+    }
+  }
+
+  function exportCSV() {
+    if (!logsCache.length) {
+      alert("目前無資料可匯出");
+      return;
+    }
+    let csv = "存取時間,訪客身分,行為動作,造訪頁面與檔案,裝置與瀏覽器,來源管道\n";
+    logsCache.forEach(r => {
+      csv += `"${r.time}","${r.visitor}","${r.action}","${r.target}","${r.device}","${r.ref}"\n`;
+    });
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `RSI_Visitor_Log_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+  }
+
+  fetchLogs();
+  setInterval(fetchLogs, 10000);
+</script>
+
+</body>
+</html>
