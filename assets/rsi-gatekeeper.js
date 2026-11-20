@@ -127,22 +127,23 @@
     logPageVisit(email);
   }
 
-  // Inject floating identity badge at bottom right
+  // Inject floating identity badge at bottom left (zero collision with right FABs & mobile dock)
   function renderIdentityBadge(email) {
     let existing = document.getElementById("rsi-identity-badge");
     if (existing) existing.remove();
 
+    const isMob = window.innerWidth <= 768;
     const badge = document.createElement("div");
     badge.id = "rsi-identity-badge";
     badge.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;font-family:system-ui,-apple-system,sans-serif;font-size:12px;">
-        <span style="color:#10B981;display:inline-block;width:8px;height:8px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;"></span>
+      <div style="display:flex;align-items:center;gap:7px;font-family:system-ui,-apple-system,sans-serif;font-size:11.5px;">
+        <span style="color:#10B981;display:inline-block;width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;flex-shrink:0;"></span>
         <span style="color:#94A3B8;">已識別:</span>
-        <strong style="color:#F1F5F9;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${email}</strong>
-        <a href="javascript:void(0)" id="rsi-switch-identity-btn" style="color:#F59E0B;text-decoration:none;margin-left:4px;border-bottom:1px dotted #F59E0B;">切換</a>
+        <strong style="color:#F1F5F9;max-width:${isMob ? "120px" : "170px"};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${email}</strong>
+        <a href="javascript:void(0)" id="rsi-switch-identity-btn" style="color:#F59E0B;text-decoration:none;margin-left:3px;border-bottom:1px dotted #F59E0B;">切換</a>
       </div>
     `;
-    badge.style.cssText = "position:fixed;bottom:16px;right:16px;z-index:999990;background:rgba(15,23,42,0.92);backdrop-filter:blur(10px);border:1px solid rgba(245,158,11,0.3);border-radius:24px;padding:6px 14px;box-shadow:0 10px 25px rgba(0,0,0,0.5);transition:all 0.3s ease;";
+    badge.style.cssText = `position:fixed;bottom:${isMob ? "76px" : "18px"};left:${isMob ? "10px" : "18px"};right:auto;z-index:99990;background:rgba(21,19,17,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(245,158,11,0.34);border-radius:9999px;padding:5px 12px;box-shadow:0 8px 22px rgba(0,0,0,0.38);transition:all 0.25s ease;`;
     document.body.appendChild(badge);
 
     document.getElementById("rsi-switch-identity-btn").addEventListener("click", function () {

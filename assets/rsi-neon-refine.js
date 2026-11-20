@@ -455,13 +455,55 @@
           <span class="wbs-subtotal-item">小計預算 <span class="wbs-subtotal-val">$${shownUsd.toLocaleString()} USD</span> (約 NT$ ${ntdWan.toLocaleString()} 萬 · 佔比 ${pct}%)</span>
         </div>
         <div class="wbs-subtotal-group" style="font-size:0.74rem;">
-          <span style="color:#15803D; font-weight:700;">● Run ${cntRun}</span>
-          <span style="color:#1D4ED8; font-weight:700;">● Grow ${cntGrow}</span>
-          <span style="color:#C2410C; font-weight:700;">● Transform ${cntTrans}</span>
+          <span style="color:var(--green-run); font-weight:700;">● Run ${cntRun}</span>
+          <span style="color:var(--blue-grow); font-weight:700;">● Grow ${cntGrow}</span>
+          <span style="color:var(--purple-trans); font-weight:700;">● Transform ${cntTrans}</span>
+          <button type="button" class="wbs-csv-btn" onclick="window.__neonExportWbsCsv && window.__neonExportWbsCsv()" title="將目前篩選結果匯出為 Excel 相容 CSV">📥 匯出 CSV</button>
         </div>
       `;
     }
   }
+
+  window.__neonExportWbsCsv = function () {
+    const rows = Array.from(document.querySelectorAll('.wbs-row')).filter((r) => r.style.display !== 'none');
+    if (!rows.length) {
+      showNeonToast('⚠️ 目前無符合篩選條件的 WBS 項目');
+      return;
+    }
+    const header = ['WBS代號', '專案名稱', '主架構範疇', '資本屬性', '開始日期', '結束日期', '實質工期', '負責團隊', '關鍵里程碑與交付成果', '預算規模(USD)'];
+    const escCsv = (s) => '"' + String(s || '').replace(/\s+/g, ' ').trim().replace(/"/g, '""') + '"';
+    const lines = [header.map(escCsv).join(',')];
+    rows.forEach((r) => {
+      const c = r.querySelectorAll('td');
+      const titleDivs = c[1] ? c[1].querySelectorAll('div') : [];
+      const projName = titleDivs[0] ? titleDivs[0].textContent : (c[1]?.textContent || '');
+      const pillar = r.getAttribute('data-pillar') || (titleDivs[1]?.textContent || '');
+      const budget = (c[8]?.textContent || '').replace(/預估參考值/g, '').trim();
+      lines.push([
+        c[0]?.textContent,
+        projName,
+        pillar,
+        r.getAttribute('data-cat') || c[2]?.textContent,
+        c[3]?.textContent,
+        c[4]?.textContent,
+        c[5]?.textContent,
+        c[6]?.textContent,
+        c[7]?.textContent,
+        budget
+      ].map(escCsv).join(','));
+    });
+    const blob = new Blob(['\uFEFF' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `RSI_2027_WBS_${activeWbsCategory}_${rows.length}items.csv`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      URL.revokeObjectURL(a.href);
+      a.remove();
+    }, 500);
+    showNeonToast(`📥 已匯出 ${rows.length} 項 WBS 清單 (CSV)`);
+  };
 
   /* ------------------------------------------------------------------------
      Dimension 4B: Ready-to-Sew 4-Gate Executive Dual-Sign Override SOP
@@ -582,8 +624,89 @@
   }
 
   /* ------------------------------------------------------------------------
-     Dimension 5: Executive FAB (Copy Link / Print / Top) + Toast + SW
+     Dimension 5 & 6 (v8.0): Theme Switcher, Sticky Bar, Unified FAB, SW
      ------------------------------------------------------------------------ */
+  const THEME_KEY = 'rsi_neon_theme';
+
+  function applyNeonTheme(theme, silent) {
+    const t = theme === 'obsidian' ? 'obsidian' : 'milan';
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+
+    const icon = document.getElementById('neonThemeIcon');
+    const label = document.getElementById('neonThemeLabel');
+    const stickyIcon = document.getElementById('neonStickyThemeBtn');
+    if (icon) icon.textContent = t === 'obsidian' ? '☀️' : '🌙';
+    if (label) label.textContent = t === 'obsidian' ? '米蘭暖琥珀' : '深黑曜';
+    if (stickyIcon) stickyIcon.textContent = t === 'obsidian' ? '☀️' : '🌙';
+
+    // Sync Chart.js axis & legend colors cleanly
+    if (typeof Chart !== 'undefined' && Chart.instances) {
+      const tickColor = t === 'obsidian' ? '#A8A097' : '#6B635B';
+      const legendColor = t === 'obsidian' ? '#E7E0D8' : '#332E2A';
+      const gridColor = t === 'obsidian' ? 'rgba(255,255,255,0.08)' : 'rgba(230,221,208,0.7)';
+      Object.values(Chart.instances).forEach((ch) => {
+        try {
+          if (ch.options?.plugins?.legend?.labels) ch.options.plugins.legend.labels.color = legendColor;
+          if (ch.options?.scales) {
+            Object.values(ch.options.scales).forEach((sc) => {
+              if (sc.ticks) sc.ticks.color = tickColor;
+              if (sc.grid && sc.grid.display !== false) sc.grid.color = gridColor;
+              if (sc.pointLabels) sc.pointLabels.color = legendColor;
+            });
+          }
+          ch.update('none');
+        } catch (e) {}
+      });
+    }
+
+    if (!silent) {
+      showNeonToast(t === 'obsidian' ? '🌙 已切換至深黑曜戰情室主題' : '☀️ 已切換至米蘭暖琥珀主題');
+    }
+  }
+
+  window.__neonToggleTheme = function () {
+    const cur = document.documentElement.getAttribute('data-theme') || 'milan';
+    applyNeonTheme(cur === 'obsidian' ? 'milan' : 'obsidian', false);
+  };
+
+  function initStickyExecutiveBar() {
+    if (document.getElementById('neonStickyBar')) return;
+    const bar = document.createElement('div');
+    bar.id = 'neonStickyBar';
+    bar.className = 'neon-sticky-bar';
+    bar.setAttribute('aria-label', '捲動快速導覽列');
+    bar.innerHTML = `
+      <div class="neon-sticky-inner">
+        <a href="#" class="neon-sticky-brand"><span class="dot"></span><span>RSI 2027 · 蜂巢計畫</span></a>
+        <div class="neon-sticky-links">
+          <a href="#hive-pipeline">🐝 時程閘門</a>
+          <a href="#hive-3d-map">🗺️ 3D 地圖</a>
+          <a href="#invest-framework">💵 FinOps ROI</a>
+          <a href="#factory-monitor">📡 邊緣遙測</a>
+          <a href="#pillars">🏛️ 四大架構</a>
+          <a href="#simulator">🚦 4-Gate</a>
+          <a href="#wbs-gantt">📅 25項 WBS</a>
+          <a href="#doc-center">📑 文檔中心</a>
+        </div>
+        <div class="neon-sticky-actions">
+          <button type="button" class="executive-search-btn" onclick="openSearchModal()" style="padding:5px 12px; border-radius:9999px; font-size:0.74rem; font-weight:700;">🔍 ⌘K</button>
+          <button type="button" id="neonStickyThemeBtn" class="neon-theme-btn" onclick="window.__neonToggleTheme()" title="切換主題" aria-label="切換主題" style="padding:5px 10px !important;">🌙</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(bar);
+
+    const masthead = document.querySelector('.milan-masthead');
+    if (masthead && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        const show = !entries[0].isIntersecting;
+        bar.classList.toggle('visible', show);
+      }, { threshold: 0.05 });
+      io.observe(masthead);
+    }
+  }
+
   function showNeonToast(msg) {
     let t = document.getElementById('neonToast');
     if (!t) {
@@ -603,12 +726,16 @@
     fab.className = 'neon-fab-group';
     fab.setAttribute('aria-label', '快速高管操作');
     fab.innerHTML = `
+      <button type="button" class="neon-fab-btn fab-search" title="全站搜尋 (⌘K)" aria-label="全站搜尋" id="neonFabSearch">🔍</button>
       <button type="button" class="neon-fab-btn" title="複製本頁分享連結" aria-label="複製連結" id="neonFabCopy">🔗</button>
       <button type="button" class="neon-fab-btn" title="列印董事會紙本報告 (Cmd+P)" aria-label="列印報告" id="neonFabPrint">🖨️</button>
-      <button type="button" class="neon-fab-btn" title="回到頂部" aria-label="回到頂部" id="neonFabTop">↑</button>
+      <button type="button" class="neon-fab-btn fab-top-hidden" title="回到頂部" aria-label="回到頂部" id="neonFabTop">↑</button>
     `;
     document.body.appendChild(fab);
 
+    document.getElementById('neonFabSearch')?.addEventListener('click', () => {
+      if (typeof window.openSearchModal === 'function') window.openSearchModal();
+    });
     document.getElementById('neonFabCopy')?.addEventListener('click', () => {
       const url = window.location.href;
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -618,7 +745,12 @@
       }
     });
     document.getElementById('neonFabPrint')?.addEventListener('click', () => window.print());
-    document.getElementById('neonFabTop')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    const topBtn = document.getElementById('neonFabTop');
+    topBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    window.addEventListener('scroll', () => {
+      if (topBtn) topBtn.classList.toggle('fab-top-hidden', window.scrollY < 320);
+    }, { passive: true });
   }
 
   function registerServiceWorker() {
@@ -631,6 +763,11 @@
      Bootstrap & Hook Overrides
      ------------------------------------------------------------------------ */
   document.addEventListener('DOMContentLoaded', () => {
+    // Restore saved theme (default: Milan Warm Amber)
+    let savedTheme = 'milan';
+    try { savedTheme = localStorage.getItem(THEME_KEY) || 'milan'; } catch (e) {}
+    applyNeonTheme(savedTheme, true);
+
     // Override FinOps engine cleanly
     window.setFinOpsScope = setFinOpsScope;
     window.updateFinOpsSimulation = neonUpdateFinOps;
@@ -688,6 +825,7 @@
 
     initNavDropdowns();
     initReadingProgressAndRail();
+    initStickyExecutiveBar();
     initHeroBentoCountUp();
     initExecutiveFab();
     registerServiceWorker();
