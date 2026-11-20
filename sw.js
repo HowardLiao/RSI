@@ -1,14 +1,15 @@
-/* RSI 2027 Project Hive — Offline-Resilient Service Worker (v8.0.0-neon) */
-const CACHE_NAME = 'rsi-2027-hive-v8-0';
+/* RSI 2027 Project Hive — Offline-Resilient Service Worker (v8.5.0-fluid) */
+const CACHE_NAME = 'rsi-2027-hive-v8-5';
 const PRECACHE_URLS = [
   './',
   './index.html',
   './manifest.json',
   './rsi_logo_transparent.png',
   './rsi_logo_opt.png',
-  './assets/rsi-core.css?v=8.0.0',
-  './assets/rsi-neon-milan.css?v=8.0.0',
-  './assets/rsi-neon-refine.js?v=8.0.0',
+  './assets/rsi-core.css?v=8.5.0',
+  './assets/rsi-neon-milan.css?v=8.5.0',
+  './assets/rsi-neon-refine.js?v=8.5.0',
+  './assets/rsi-fluid-engine.js?v=8.5.0',
   './assets/rsi-site.js?v=52cc3a28d3',
   './assets/rsi-gatekeeper.js?v=2.1'
 ];

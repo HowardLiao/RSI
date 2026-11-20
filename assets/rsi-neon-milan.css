@@ -1287,3 +1287,405 @@ html[data-theme="obsidian"] .milan-footer {
   border-top-color: var(--border-subtle) !important;
   color: var(--text-muted) !important;
 }
+
+/* ==========================================================================
+   v8.5.0 NEON FLUID DYNAMICS & HYPER-INTERACTIVE LAYER
+   ========================================================================== */
+
+/* 1. Ambient Hydrodynamic Curl-Flow Canvas */
+#neonFluidAmbientCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.92;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-fluid="calm"] #neonFluidAmbientCanvas {
+  opacity: 0;
+}
+
+.milan-masthead,
+main,
+.container,
+.milan-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. Liquid Glass 3D Spring Tilt & Specular Cursor Highlight */
+.fluid-glass-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease !important;
+  will-change: transform;
+}
+
+.fluid-glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(232, 117, 36, 0.16),
+    rgba(245, 158, 11, 0.06) 42%,
+    transparent 70%
+  );
+  transition: opacity 0.32s ease;
+  z-index: 2;
+}
+
+html[data-theme="obsidian"] .fluid-glass-card::before {
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(245, 158, 11, 0.22),
+    rgba(232, 117, 36, 0.08) 44%,
+    transparent 72%
+  );
+}
+
+.fluid-glass-card:hover::before {
+  opacity: 1;
+}
+
+html[data-fluid="calm"] .fluid-glass-card::before {
+  display: none;
+}
+
+/* 3. Magnetic Fluid Buttons & Viscous Click Ripples */
+.fluid-magnetic {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+  will-change: transform;
+}
+
+.fluid-btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.42) 0%, rgba(194, 65, 12, 0.12) 55%, transparent 72%);
+  transform: scale(0);
+  animation: neonFluidRipple 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 5;
+}
+
+@keyframes neonFluidRipple {
+  0% { transform: scale(0); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* 4. Interactive Fluid Wave Canvas Coupling */
+.fluid-wave-canvas-wrap.fluid-wave-interactive {
+  position: relative;
+  cursor: pointer;
+  transition: box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fluid-wave-canvas-wrap.fluid-wave-interactive::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    180px circle at var(--wave-x, 50%) 50%,
+    rgba(245, 158, 11, 0.26),
+    transparent 70%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.fluid-wave-canvas-wrap.fluid-wave-interactive:hover::after {
+  opacity: 1;
+}
+
+/* 5. Scroll Velocity Liquid Progress Bar Glow */
+.neon-read-progress {
+  transition: width 0.08s linear, box-shadow 0.25s ease;
+}
+
+.neon-read-progress.is-flowing {
+  box-shadow: 0 0 16px rgba(232, 117, 36, var(--scroll-glow, 0.65)),
+              0 0 6px rgba(245, 158, 11, 0.85);
+}
+
+/* 6. Staggered Fluid Scroll Reveal (Zero Initial-Viewport Flicker) */
+.fluid-reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0) scale(0.988);
+  filter: blur(2px);
+}
+
+.fluid-reveal-pending.fluid-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  transition:
+    opacity 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.55s ease;
+}
+
+html[data-fluid="calm"] .fluid-reveal-pending {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* 7. WBS Interactive Clickable Rows & Fluid Slide-Over Executive Drawer */
+.wbs-row.fluid-wbs-clickable {
+  cursor: pointer;
+  transition: background-color 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wbs-row.fluid-wbs-clickable:hover td:first-child {
+  color: var(--rust-primary);
+  font-weight: 800;
+}
+
+.fluid-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 17, 15, 0.48);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 12000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fluid-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fluid-drawer-panel {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  bottom: 14px;
+  width: min(440px, calc(100vw - 28px));
+  background: var(--bg-card, #FFFFFF);
+  color: var(--text-body, #2C2723);
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(15, 12, 10, 0.32);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translate3d(110%, 0, 0) scale(0.96);
+  transition: transform 0.44s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fluid-drawer-backdrop.open .fluid-drawer-panel {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+html[data-theme="obsidian"] .fluid-drawer-panel {
+  background: linear-gradient(180deg, #1E1B18 0%, #151311 100%);
+  border-color: rgba(245, 158, 11, 0.28);
+  color: #E7E0D8;
+}
+
+.fluid-drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border-subtle, #E6DDD0);
+  background: linear-gradient(135deg, rgba(194, 65, 12, 0.08) 0%, rgba(245, 158, 11, 0.04) 100%);
+}
+
+.fluid-drawer-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rust-primary, #C2410C);
+  margin-bottom: 4px;
+}
+
+.fluid-drawer-title {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.4;
+  color: var(--text-charcoal, #1C1917);
+}
+
+.fluid-drawer-close {
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  background: transparent;
+  color: var(--text-muted, #6B635B);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.fluid-drawer-close:hover {
+  background: rgba(194, 65, 12, 0.12);
+  color: var(--rust-primary, #C2410C);
+  transform: rotate(90deg);
+}
+
+.fluid-drawer-body {
+  padding: 20px 22px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fluid-drawer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.fluid-drawer-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(232, 117, 36, 0.12);
+  color: var(--rust-primary, #C2410C);
+}
+
+.fluid-drawer-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fd-metric {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  background: rgba(232, 117, 36, 0.05);
+}
+
+.fd-label {
+  font-size: 0.72rem;
+  color: var(--text-muted, #6B635B);
+  margin-bottom: 4px;
+}
+
+.fd-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-charcoal, #1C1917);
+}
+
+.fluid-drawer-share {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle, #E6DDD0);
+}
+
+.fd-share-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+}
+
+.fd-share-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(120, 110, 100, 0.18);
+  overflow: hidden;
+}
+
+.fd-share-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #C2410C, #F59E0B);
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fluid-drawer-kv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fluid-drawer-kv > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-subtle, #E6DDD0);
+  font-size: 0.84rem;
+}
+
+.fluid-drawer-kv span {
+  font-size: 0.72rem;
+  color: var(--text-muted, #6B635B);
+}
+
+.fluid-drawer-foot {
+  display: flex;
+  gap: 10px;
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--border-subtle, #E6DDD0);
+}
+
+.fluid-drawer-btn {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  background: transparent;
+  color: var(--text-charcoal, #1C1917);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.fluid-drawer-btn.primary {
+  background: linear-gradient(135deg, #C2410C 0%, #EA580C 100%);
+  border-color: #C2410C;
+  color: #FFFFFF;
+}
+
+.fluid-drawer-btn:hover {
+  transform: translateY(-1px);
+}
+
+@media print {
+  #neonFluidAmbientCanvas,
+  .fluid-drawer-backdrop,
+  .fluid-btn-ripple {
+    display: none !important;
+  }
+  .fluid-reveal-pending {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
