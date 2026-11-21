@@ -485,6 +485,7 @@
     const backdrop = document.createElement('div');
     backdrop.id = 'neonWbsDrawerBackdrop';
     backdrop.className = 'fluid-drawer-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
     backdrop.innerHTML = `
       <aside class="fluid-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="fluidDrawerTitle">
         <div class="fluid-drawer-head">
@@ -504,10 +505,15 @@
     document.body.appendChild(backdrop);
 
     let activeSummaryText = '';
+    let lastFocusedBeforeDrawer = null;
 
     const closeDrawer = () => {
       backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('fluid-drawer-open');
+      if (lastFocusedBeforeDrawer && typeof lastFocusedBeforeDrawer.focus === 'function') {
+        lastFocusedBeforeDrawer.focus();
+      }
     };
 
     backdrop.addEventListener('click', (e) => {
@@ -594,8 +600,11 @@
         `;
 
         activeSummaryText = `[RSI 2027 WBS] ${code} ${title} (${pillar}) | 分類: ${catLabel} | 主責: ${owner} | 預算: $${usdVal.toLocaleString()} USD (約 NT$ ${ntdWan} 萬, 佔總額 ${sharePct}%) | 時程: ${schedule} | 里程碑: ${milestone}`;
+        lastFocusedBeforeDrawer = document.activeElement;
+        backdrop.setAttribute('aria-hidden', 'false');
         backdrop.classList.add('open');
         document.body.classList.add('fluid-drawer-open');
+        setTimeout(() => { document.getElementById('fluidDrawerClose')?.focus(); }, 60);
       });
     });
   }

@@ -1,17 +1,19 @@
-/* RSI 2027 Project Hive — Offline-Resilient Service Worker (v8.5.0-fluid) */
-const CACHE_NAME = 'rsi-2027-hive-v8-5';
+/* RSI 2027 Project Hive — Offline-Resilient Service Worker (v8.7.0-refined) */
+const CACHE_NAME = 'rsi-2027-hive-v8-7';
 const PRECACHE_URLS = [
   './',
   './index.html',
   './manifest.json',
   './rsi_logo_transparent.png',
   './rsi_logo_opt.png',
-  './assets/rsi-core.css?v=8.5.0',
-  './assets/rsi-neon-milan.css?v=8.5.0',
-  './assets/rsi-neon-refine.js?v=8.5.0',
-  './assets/rsi-fluid-engine.js?v=8.5.0',
+  './assets/rsi-core.css?v=8.6.0',
+  './assets/rsi-site.css?v=d8c3ab7bca',
+  './assets/rsi-neon-milan.css?v=8.7.0',
+  './assets/rsi-gatekeeper.css?v=2.0',
+  './assets/rsi-neon-refine.js?v=8.6.1',
+  './assets/rsi-fluid-engine.js?v=8.7.0',
   './assets/rsi-site.js?v=52cc3a28d3',
-  './assets/rsi-gatekeeper.js?v=2.1'
+  './assets/rsi-gatekeeper.js?v=2.2'
 ];
 
 self.addEventListener('install', (event) => {

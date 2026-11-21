@@ -25,13 +25,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Chart.js Pinned Version for High-Precision Executive Visualizations -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <!-- Chart.js Pinned Version (Deferred to eliminate render-blocking in head) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   
   <link rel="stylesheet" href="assets/rsi-core.css?v=8.6.0">
   <!-- rsi-site -->
   <link rel="stylesheet" href="assets/rsi-site.css?v=d8c3ab7bca">
-  <link rel="stylesheet" href="assets/rsi-neon-milan.css?v=8.6.1">
+  <link rel="stylesheet" href="assets/rsi-neon-milan.css?v=8.7.0">
 </head>
 <body class="neon-home-v8">
   <div class="watermark-overlay"></div>
@@ -149,24 +149,24 @@
         <!-- 4 Big C-Level Impact Bento KPI Cards -->
         <div class="hero-bento-grid">
           <div class="bento-card">
-            <div class="bento-label">集團年出貨量</div>
+            <div class="bento-label" id="bento-lbl-shipment">集團年出貨量</div>
             <div class="bento-num" id="bento-val-shipment">7,500 萬件</div>
-            <div class="bento-desc">跨國精準履約交付防禦</div>
+            <div class="bento-desc" id="bento-desc-shipment">跨國精準履約交付防禦</div>
           </div>
           <div class="bento-card">
-            <div class="bento-label">年硬性現金節省</div>
+            <div class="bento-label" id="bento-lbl-savings">年硬性現金節省</div>
             <div class="bento-num" id="bento-val-savings">NT$ 3,705 萬</div>
-            <div class="bento-desc">防禦包機 ＋ 布料降損 1.2%</div>
+            <div class="bento-desc" id="bento-desc-savings">防禦包機 ＋ 布料降損 1.2%</div>
           </div>
           <div class="bento-card">
-            <div class="bento-label">投資回本週期</div>
+            <div class="bento-label" id="bento-lbl-payback">投資回本週期</div>
             <div class="bento-num" id="bento-val-payback">14.2 個月</div>
-            <div class="bento-desc">全年 25 項基準 · P1 僅 6.5 個月</div>
+            <div class="bento-desc" id="bento-desc-payback">全年 25 項基準 · P1 僅 6.5 個月</div>
           </div>
           <div class="bento-card">
-            <div class="bento-label">車間斷網離線自律</div>
+            <div class="bento-label" id="bento-lbl-autonomy">車間斷網離線自律</div>
             <div class="bento-num" id="bento-val-autonomy">48 ～ 72 小時</div>
-            <div class="bento-desc">工業邊緣主機 DuckDB</div>
+            <div class="bento-desc" id="bento-desc-autonomy">工業邊緣主機 DuckDB</div>
           </div>
         </div>
       </div>
@@ -240,16 +240,16 @@
 
   <main class="container" id="main-content" role="main">
 
-    <!-- Compact Strategic Scope Summary Strip (De-duplicated from Hero) -->
+    <!-- Compact Executive Positioning & Strategic Scope Summary Strip -->
     <div class="author-dossier-card neon-scope-strip">
       <div class="author-profile-info">
-        <div class="author-seal">RSI</div>
+        <div class="author-seal">HL</div>
         <div>
           <div class="author-name-text" id="t-leadershipTitle" style="font-size: 1.02rem;">
-            2027 蜂巢計畫（Project Hive）全域架構基準
+            Howard Liao Ph.D. · 將複雜技術轉化為可衡量商業成果的高階技術領袖
           </div>
           <div class="author-title-text" id="t-authorTitle">
-            涵蓋 IS、ITS、ERP Team 與海外 8 廠 IT 協同治理 · 每日離峰結算入湖與 48–72h 邊緣自律
+            25+ 年跨國 IT 管理（CIO / 技術副總資歷 · 資訊管理博士）· 專精多雲與資安治理、Agentic AI / LLMOps 與 FinOps；本頁以 RSI 2027 蜂巢計畫（IS / ITS / ERP Team 與海外 8 廠 IT 協同治理）呈現完整實戰架構。
           </div>
         </div>
       </div>
@@ -1081,17 +1081,17 @@
     </div>
 
     <!-- Pillar Nav Cards -->
-    <div class="pillars-grid">
-      <div class="pillar-nav-card active" onclick="switchPillar(0, this)">
+    <div class="pillars-grid" role="group" aria-label="2027 四大核心戰略主架構">
+      <div class="pillar-nav-card active" role="button" tabindex="0" aria-pressed="true" onclick="switchPillar(0, this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchPillar(0,this);}">
         <div>
           <div class="pillar-num">Pillar I</div>
           <div class="pillar-nav-title">數位底座與治理</div>
-          <div class="pillar-nav-en">Digital Foundation & Governance</div>
+          <div class="pillar-nav-en">Digital Foundation &amp; Governance</div>
         </div>
         <div class="pillar-badge-count">8 大關鍵領域</div>
       </div>
 
-      <div class="pillar-nav-card" onclick="switchPillar(1, this)">
+      <div class="pillar-nav-card" role="button" tabindex="0" aria-pressed="false" onclick="switchPillar(1, this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchPillar(1,this);}">
         <div>
           <div class="pillar-num">Pillar II</div>
           <div class="pillar-nav-title">營運流程整合</div>
@@ -1100,20 +1100,20 @@
         <div class="pillar-badge-count">5 端到端流</div>
       </div>
 
-      <div class="pillar-nav-card" onclick="switchPillar(2, this)">
+      <div class="pillar-nav-card" role="button" tabindex="0" aria-pressed="false" onclick="switchPillar(2, this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchPillar(2,this);}">
         <div>
           <div class="pillar-num">Pillar III</div>
           <div class="pillar-nav-title">智能營運與決策</div>
-          <div class="pillar-nav-en">Intelligent Operations & Decision</div>
+          <div class="pillar-nav-en">Intelligent Operations &amp; Decision</div>
         </div>
         <div class="pillar-badge-count">7 智能應用項</div>
       </div>
 
-      <div class="pillar-nav-card" onclick="switchPillar(3, this)">
+      <div class="pillar-nav-card" role="button" tabindex="0" aria-pressed="false" onclick="switchPillar(3, this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchPillar(3,this);}">
         <div>
           <div class="pillar-num">Pillar IV</div>
           <div class="pillar-nav-title">智慧製造與設備</div>
-          <div class="pillar-nav-en">Smart Manufacturing & Infra</div>
+          <div class="pillar-nav-en">Smart Manufacturing &amp; Infra</div>
         </div>
         <div class="pillar-badge-count">5 設備與邊緣項</div>
       </div>
@@ -2115,19 +2115,19 @@
       </div>
     </div>
 
-    <!-- Executive Leadership & Direct Contact Section (v8.6 NEON) -->
+    <!-- Executive Leadership & Direct Contact Section (v8.7 REFINED) -->
     <section id="executive-architect" class="exec-architect-section" aria-labelledby="exec-architect-heading">
       <div class="section-header" style="margin-top: 0; margin-bottom: 12px;">
-        <div class="section-eyebrow">Executive Leadership &amp; Direct Engagement · 執行負責人簡介與對接</div>
+        <div class="section-eyebrow" id="t-execEyebrow">Executive Leadership &amp; Direct Engagement · 執行負責人簡介與對接</div>
         <h2 class="section-title" id="exec-architect-heading" style="margin-bottom: 6px;">Howard Liao Ph.D. · 高階技術領袖與企業架構主導人</h2>
-        <p class="section-subtitle" style="margin-bottom: 0;">
+        <p class="section-subtitle" id="t-execSubtitle" style="margin-bottom: 0;">
           25 年以上跨國 IT 管理實務經驗｜資訊管理博士｜歷任 CIO 與技術副總（VP of Technology），專注電子製造業與線上遊戲平台營運。
         </p>
       </div>
 
       <div class="exec-architect-grid">
         <div>
-          <blockquote class="exec-claim-quote">
+          <blockquote class="exec-claim-quote" id="t-execQuote">
             「將複雜技術轉化為可衡量商業成果的高階技術領袖。」
           </blockquote>
 
@@ -2140,34 +2140,78 @@
             <span class="exec-tag-pill">組織能力與韌性建構</span>
           </div>
 
-          <div class="exec-case-steps">
-            <div class="exec-case-step">
-              <div class="exec-case-step-label">01 · 商業挑戰（Business Challenge）</div>
-              <p>跨國成衣製造據點（台北總部與越南、柬埔寨、印尼等產區）長期面臨單點系統林立、跨廠資料孤島、海纜波動停線風險，以及大貨齊套不全導致拆線返修與空運包機違約成本。</p>
-            </div>
-            <div class="exec-case-step">
-              <div class="exec-case-step-label">02 · 關鍵決策與行動（Key Decisions &amp; Actions）</div>
-              <p>擔任執行負責人（Lead Architect &amp; Advisor），向計劃主持人周文津副總經理報告；建立「API 平台＋雙軌 Data Lakehouse」與每日離峰結算政策、導入 ASUS Ascent GX10 邊緣 48–72h 離線自治與 4-Gate 產前門禁，並設計 25 項 WBS 預算與治理機制。</p>
-            </div>
-            <div class="exec-case-step">
-              <div class="exec-case-step-label">03 · 成果與組織影響（Impact &amp; Org Scope）</div>
-              <p>規劃模型錨定年硬性現金節省 NT$ 3,705 萬（空運對沖＋布損改善）與 14.2 個月靜態回本週期，由 RSI 內部 16～18 人編制（IS、ITS、ERP Team 與海外 8 廠 IT）承接介接與常態維運，降低外部 SI 依賴並強化跨廠組織治理能力。</p>
-            </div>
+          <!-- Interactive Domain-Filterable Executive Impact Explorer -->
+          <div class="exec-filter-bar" role="group" aria-label="依專業領域篩選架構決策案例">
+            <button type="button" class="exec-filter-btn active" data-exec-domain="all" aria-pressed="true" id="t-execFilterAll">全部領域 (4)</button>
+            <button type="button" class="exec-filter-btn" data-exec-domain="cloud" aria-pressed="false" id="t-execFilterCloud">多雲與數據治理</button>
+            <button type="button" class="exec-filter-btn" data-exec-domain="security" aria-pressed="false" id="t-execFilterSec">邊緣韌性與資安</button>
+            <button type="button" class="exec-filter-btn" data-exec-domain="ai" aria-pressed="false" id="t-execFilterAi">Agentic AI &amp; LLMOps</button>
+            <button type="button" class="exec-filter-btn" data-exec-domain="finops" aria-pressed="false" id="t-execFilterFinops">FinOps 與組織治理</button>
           </div>
 
-          <div class="exec-boundary-note">
-            <strong>資訊揭露與佐證邊界：</strong>本頁數據皆源自 RSI 2027 營運藍圖規劃模型與公開展示內容；跨產業其他代表性專案詳情、客戶名稱、外部推薦語及正式財務稽核結果標記為「待補資料」，可於高階對談時依保密協議（NDA）提供。
+          <div id="execAdrList">
+            <details class="exec-adr-card" data-domain="cloud" open>
+              <summary class="exec-adr-summary">
+                <span id="t-adr1Title">01 · 跨國多廠數據孤島治理（API 平台＋雙軌 Lakehouse）</span>
+                <span class="exec-adr-badge">Multi-Cloud &amp; SSOT</span>
+              </summary>
+              <div class="exec-adr-body">
+                <div><strong>商業挑戰：</strong>台北總部與越南、柬埔寨、印尼等產區單點系統林立、跨廠編碼衝突與 24 小時以上資訊落差，導致備料與排程錯位。</div>
+                <div><strong>個人決策與行動：</strong>擔任執行負責人（向計劃主持人周文津副總報告），制定「API 平台＋雙軌 Data Lakehouse」與每日離峰結算入湖政策，取代高昂即時全量同步，導入 MDM 主數據品質門禁。</div>
+                <div><strong>成果與組織規模：</strong>規劃模型將跨廠報表同步自 24h 縮短至 5 分鐘、跨廠同料不同號衝突歸零；由內部 IS / ERP Team 承接標準介面開發，降低外部 SI 長期鎖定。</div>
+              </div>
+            </details>
+
+            <details class="exec-adr-card" data-domain="security">
+              <summary class="exec-adr-summary">
+                <span id="t-adr2Title">02 · 跨國製造邊緣自治與零信任資安邊界（48–72h 離線防禦）</span>
+                <span class="exec-adr-badge">Edge Resilience &amp; Zero Trust</span>
+              </summary>
+              <div class="exec-adr-body">
+                <div><strong>商業挑戰：</strong>海外產區面對海纜波動停線風險，且須兼顧國際品牌客戶（3D CAD/版型隔離）與越南 Decree 53／印尼 PDP 等地方法規。</div>
+                <div><strong>個人決策與行動：</strong>規劃 ASUS Ascent GX10 邊緣主機與本地 DuckDB 快取，搭配雙軌 SD-WAN、Microsoft Entra ID P2 條件存取（100% MFA）與敏感人事薪資在地化合規邊界。</div>
+                <div><strong>成果與組織規模：</strong>達成海外車間 48～72 小時斷網離線自律、跨國網路目標 SLA ≥ 99.95%（RPO &lt; 15 分鐘 / RTO &lt; 2 小時），交由 ITS 與海外 8 廠 IT 依標準化運維手冊分工維運。</div>
+              </div>
+            </details>
+
+            <details class="exec-adr-card" data-domain="ai">
+              <summary class="exec-adr-summary">
+                <span id="t-adr3Title">03 · 企業級 Agentic AI / LLMOps 治理閘道與 4-Gate 產前防呆</span>
+                <span class="exec-adr-badge">Agentic AI &amp; LLMOps</span>
+              </summary>
+              <div class="exec-adr-body">
+                <div><strong>商業挑戰：</strong>大貨齊套不全導致拆線返修與空運包機違約，同時企業導入生成式 AI 面對機敏提示詞外洩與 Token 成本失控風險。</div>
+                <div><strong>個人決策與行動：</strong>設計「Ready-to-Sew 4-Gate 產前強制門禁」與 AI Gateway（機敏提示詞動態遮罩、Token 預算配額與稽核軌跡），並建立 6 階段蜂巢推進決策閘門。</div>
+                <div><strong>成果與組織規模：</strong>將異常預警前移至裁剪上線前；電子製造業與線上遊戲平台之其他 Agentic AI / 高併發平台實績細節標記為「待補資料（NDA 洽談提供）」。</div>
+              </div>
+            </details>
+
+            <details class="exec-adr-card" data-domain="finops">
+              <summary class="exec-adr-summary">
+                <span id="t-adr4Title">04 · FinOps 資本配置治理與跨廠 IT 組織能力建構</span>
+                <span class="exec-adr-badge">FinOps &amp; Org Design</span>
+              </summary>
+              <div class="exec-adr-body">
+                <div><strong>商業挑戰：</strong>企業數位轉型常見預算無邊界擴張、專案缺乏財務回本錨點，或過度依賴外部系統整合商導致內化失敗。</div>
+                <div><strong>個人決策與行動：</strong>建立 25 項 WBS 預算拆解與 Run / Grow / Transform 資本配置框架，設定 Phase 1（$640K USD）先行驗證並綁定季度 FinOps 覆核與 4-Gate 雙簽。</div>
+                <div><strong>成果與組織規模：</strong>規劃模型錨定年硬性現金節省 NT$ 3,705 萬（空運對沖＋布料降損 1.2%）與 14.2 個月靜態回本（P1 僅 6.5 個月），由 16～18 人內部 IT 編制（IS、ITS、ERP Team、海外 8 廠 IT）承接營運。</div>
+              </div>
+            </details>
+          </div>
+
+          <div class="exec-boundary-note" id="t-execBoundary">
+            <strong>資訊揭露與佐證邊界：</strong>本頁量化數據皆源自 RSI 2027 營運藍圖規劃模型與公開展示內容；電子製造業與線上遊戲平台之代表性專案成果、客戶名稱、外部推薦語及正式財務稽核數據標記為「待補資料」，可於高階對談時依保密協議（NDA）提供。
           </div>
         </div>
 
         <div class="exec-inquiry-form-card">
-          <h3 style="margin: 0 0 6px 0; font-size: 1.02rem; font-weight: 800;">高階職位評估、董事會顧問或專案對接</h3>
-          <p style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted); line-height: 1.55;">
+          <h3 id="t-execFormTitle" style="margin: 0 0 6px 0; font-size: 1.02rem; font-weight: 800;">高階職位評估、董事會顧問或專案對接</h3>
+          <p id="t-execFormLead" style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted); line-height: 1.55;">
             歡迎國際獵才顧問、企業董事長／CEO 與技術決策團隊直接聯繫。
           </p>
 
           <div class="exec-direct-actions">
-            <a href="mailto:liao.howard@gmail.com?subject=%5BExecutive%20Inquiry%5D%20Howard%20Liao%20Ph.D.%20%E9%AB%98%E9%9A%8E%E5%B0%8D%E8%AB%87%E6%B4%BD%E8%A9%A2" class="exec-direct-btn primary">
+            <a href="mailto:liao.howard@gmail.com?subject=%5BExecutive%20Inquiry%5D%20Howard%20Liao%20Ph.D.%20%E9%AB%98%E9%9A%8E%E5%B0%8D%E8%AB%87%E6%B4%BD%E8%A9%A2" class="exec-direct-btn primary" id="t-execDirectMail">
               <span>✉️</span><span>直接寄信聯繫</span>
             </a>
             <button type="button" id="execCopyEmailBtn" class="exec-direct-btn">
@@ -2177,15 +2221,17 @@
 
           <form id="execInquiryForm" novalidate>
             <div class="exec-form-field">
-              <label for="execSenderName">姓名與職稱 *</label>
-              <input type="text" id="execSenderName" class="exec-form-input" placeholder="例如：Jane Chen / Managing Partner" maxlength="80" required>
+              <label for="execSenderName" id="t-execLblName">姓名與職稱 *</label>
+              <input type="text" id="execSenderName" class="exec-form-input" placeholder="例如：Jane Chen / Managing Partner" maxlength="80" autocomplete="name" aria-describedby="execErrName" required>
+              <span id="execErrName" class="exec-field-error" aria-live="polite"></span>
             </div>
             <div class="exec-form-field">
-              <label for="execSenderOrg">企業或獵才機構 *</label>
-              <input type="text" id="execSenderOrg" class="exec-form-input" placeholder="例如：Executive Search / 企業名稱" maxlength="100" required>
+              <label for="execSenderOrg" id="t-execLblOrg">企業或獵才機構 *</label>
+              <input type="text" id="execSenderOrg" class="exec-form-input" placeholder="例如：Executive Search / 企業名稱" maxlength="100" autocomplete="organization" aria-describedby="execErrOrg" required>
+              <span id="execErrOrg" class="exec-field-error" aria-live="polite"></span>
             </div>
             <div class="exec-form-field">
-              <label for="execTopic">洽詢主題</label>
+              <label for="execTopic" id="t-execLblTopic">洽詢主題</label>
               <select id="execTopic" class="exec-form-select">
                 <option value="C-Level / CIO / CTO / VP 高階職位評估">C-Level / CIO / CTO / VP 高階職位評估</option>
                 <option value="企業 IT 藍圖 / 多雲 / AI 治理顧問合作">企業 IT 藍圖 / 多雲 / AI 治理顧問合作</option>
@@ -2194,19 +2240,20 @@
               </select>
             </div>
             <div class="exec-form-field">
-              <label for="execMessage">簡短說明 *</label>
-              <textarea id="execMessage" class="exec-form-textarea" rows="3" placeholder="簡述職位範疇、企業挑戰或預計對談時段..." maxlength="600" required></textarea>
+              <label for="execMessage" id="t-execLblMsg">簡短說明 *</label>
+              <textarea id="execMessage" class="exec-form-textarea" rows="3" placeholder="簡述職位範疇、企業挑戰或預計對談時段..." maxlength="600" aria-describedby="execErrMsg" required></textarea>
+              <span id="execErrMsg" class="exec-field-error" aria-live="polite"></span>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button type="submit" id="execSubmitBtn" class="exec-direct-btn primary" style="flex: 1; justify-content: center;">
-                <span>📤</span><span>產生郵件並開啟寄信</span>
+                <span>📤</span><span id="t-execSubmitLbl">產生郵件並開啟寄信</span>
               </button>
               <button type="button" id="execCopyDraftBtn" class="exec-direct-btn" style="justify-content: center;">
-                <span>📄</span><span>複製草稿</span>
+                <span>📄</span><span id="t-execCopyDraftLbl">複製草稿</span>
               </button>
             </div>
             <div id="execFormStatus" class="exec-form-status" role="status" aria-live="polite"></div>
-            <div class="exec-privacy-note">
+            <div class="exec-privacy-note" id="t-execPrivacyNote">
               🔒 個資最小化聲明：本表單僅於您的瀏覽器本機組合郵件草稿並呼叫郵件程式，不會傳送至任何未經授權的第三方表單伺服器。
             </div>
           </form>
@@ -2906,10 +2953,11 @@
       `;
       }).join('');
 
+      const enSubtitle = (pData.en && pData.en.title && currentLang !== 'en') ? `<div class="pillar-banner-en">${pData.en.title}</div>` : '';
       view.innerHTML = `
         <div class="pillar-banner">
           <div class="pillar-banner-title">${pInfo.title}</div>
-          <div class="pillar-banner-en">${pInfo.title}</div>
+          ${enSubtitle}
           <p class="pillar-banner-position">${pInfo.position}</p>
           <p class="pillar-banner-desc">${pInfo.desc}</p>
         </div>
@@ -2920,8 +2968,14 @@
     }
 
     function switchPillar(index, btn) {
-      document.querySelectorAll(".pillar-tab").forEach(b => b.classList.remove("active"));
-      if (btn) btn.classList.add("active");
+      document.querySelectorAll(".pillar-nav-card, .pillar-tab").forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      if (btn) {
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
+      }
       renderPillar(index);
     }
 
@@ -3076,6 +3130,73 @@
       if (document.getElementById('t-metric1Lbl')) document.getElementById('t-metric1Lbl').innerText = dict.metric1Lbl;
       if (document.getElementById('t-metric2Lbl')) document.getElementById('t-metric2Lbl').innerText = dict.metric2Lbl;
       if (document.getElementById('t-metric3Lbl')) document.getElementById('t-metric3Lbl').innerText = dict.metric3Lbl;
+
+      // Bilingual Executive Positioning, Hero Bento & Executive Architect Section (v8.7.0)
+      const isEn = currentLang === 'en';
+      const execI18n = isEn ? {
+        't-leadershipTitle': 'Howard Liao Ph.D. · Executive Technology Leader Turning Complex Architecture into Measurable Business Outcomes',
+        't-authorTitle': '25+ Years Global IT Leadership (CIO / VP of Technology · Ph.D. in Information Management) · Multi-Cloud, Security Governance, Agentic AI / LLMOps & FinOps · Demonstrated via RSI 2027 Project Hive across IS, ITS, ERP Team & 8 Overseas Plant IT Units.',
+        'bento-lbl-shipment': 'Annual Group Volume',
+        'bento-desc-shipment': 'Global Precision Fulfillment Defense',
+        'bento-lbl-savings': 'Annual Hard Cash Savings',
+        'bento-desc-savings': 'Air-Freight Hedge + 1.2% Fabric Yield',
+        'bento-lbl-payback': 'Static Payback Period',
+        'bento-desc-payback': '25-WBS Baseline · Phase 1 Only 6.5 Mos',
+        'bento-lbl-autonomy': 'Shopfloor Offline Autonomy',
+        'bento-desc-autonomy': 'Industrial Edge Host + DuckDB',
+        't-execEyebrow': 'Executive Leadership & Direct Engagement · CIO / CTO / VP of Technology',
+        'exec-architect-heading': 'Howard Liao Ph.D. · Executive Technology Leader & Enterprise Architect',
+        't-execSubtitle': '25+ years of multinational IT management experience | Ph.D. in Information Management | Former CIO & VP of Technology spanning electronics manufacturing and online gaming platforms.',
+        't-execQuote': '“An executive technology leader who translates complex architectures into measurable business outcomes.”',
+        't-execFilterAll': 'All Domains (4)',
+        't-execFilterCloud': 'Multi-Cloud & Data',
+        't-execFilterSec': 'Edge & Security',
+        't-execFilterAi': 'Agentic AI & LLMOps',
+        't-execFilterFinops': 'FinOps & Org Design',
+        't-execFormTitle': 'Executive Search, Board Advisory & Strategic Engagement',
+        't-execFormLead': 'Direct channel for international executive headhunters, Chairmen/CEOs, and technical decision makers.',
+        't-execLblName': 'Name & Title *',
+        't-execLblOrg': 'Company or Search Firm *',
+        't-execLblTopic': 'Engagement Topic',
+        't-execLblMsg': 'Brief Context *',
+        't-execSubmitLbl': 'Compose & Open Email',
+        't-execCopyDraftLbl': 'Copy Draft',
+        't-execPrivacyNote': '🔒 Data Minimization: This form composes an email draft locally in your browser and opens your mail client; no personal data is sent to unauthorized third-party form servers.'
+      } : {
+        't-leadershipTitle': 'Howard Liao Ph.D. · 將複雜技術轉化為可衡量商業成果的高階技術領袖',
+        't-authorTitle': '25+ 年跨國 IT 管理（CIO / 技術副總資歷 · 資訊管理博士）· 專精多雲與資安治理、Agentic AI / LLMOps 與 FinOps；本頁以 RSI 2027 蜂巢計畫（IS / ITS / ERP Team 與海外 8 廠 IT 協同治理）呈現完整實戰架構。',
+        'bento-lbl-shipment': '集團年出貨量',
+        'bento-desc-shipment': '跨國精準履約交付防禦',
+        'bento-lbl-savings': '年硬性現金節省',
+        'bento-desc-savings': '防禦包機 ＋ 布料降損 1.2%',
+        'bento-lbl-payback': '投資回本週期',
+        'bento-desc-payback': '全年 25 項基準 · P1 僅 6.5 個月',
+        'bento-lbl-autonomy': '車間斷網離線自律',
+        'bento-desc-autonomy': '工業邊緣主機 DuckDB',
+        't-execEyebrow': 'Executive Leadership & Direct Engagement · 執行負責人簡介與對接',
+        'exec-architect-heading': 'Howard Liao Ph.D. · 高階技術領袖與企業架構主導人',
+        't-execSubtitle': '25 年以上跨國 IT 管理實務經驗｜資訊管理博士｜歷任 CIO 與技術副總（VP of Technology），專注電子製造業與線上遊戲平台營運。',
+        't-execQuote': '「將複雜技術轉化為可衡量商業成果的高階技術領袖。」',
+        't-execFilterAll': '全部領域 (4)',
+        't-execFilterCloud': '多雲與數據治理',
+        't-execFilterSec': '邊緣韌性與資安',
+        't-execFilterAi': 'Agentic AI & LLMOps',
+        't-execFilterFinops': 'FinOps 與組織治理',
+        't-execFormTitle': '高階職位評估、董事會顧問或專案對接',
+        't-execFormLead': '歡迎國際獵才顧問、企業董事長／CEO 與技術決策團隊直接聯繫。',
+        't-execLblName': '姓名與職稱 *',
+        't-execLblOrg': '企業或獵才機構 *',
+        't-execLblTopic': '洽詢主題',
+        't-execLblMsg': '簡短說明 *',
+        't-execSubmitLbl': '產生郵件並開啟寄信',
+        't-execCopyDraftLbl': '複製草稿',
+        't-execPrivacyNote': '🔒 個資最小化聲明：本表單僅於您的瀏覽器本機組合郵件草稿並呼叫郵件程式，不會傳送至任何未經授權的第三方表單伺服器。'
+      };
+      Object.keys(execI18n).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = execI18n[id];
+      });
+      document.documentElement.lang = isEn ? 'en' : (currentLang === 'ja' ? 'ja' : (currentLang === 'vi' ? 'vi' : 'zh-TW'));
 
       // Update Investment Section
       if (document.getElementById('t-investEyebrow')) document.getElementById('t-investEyebrow').innerText = dict.investEyebrow;
@@ -3640,7 +3761,6 @@
       initCharts();
       updateIESimulation();
       updateFinOpsSimulation();
-      initCharts();
     });
   </script>
 
@@ -3781,7 +3901,7 @@
   const valueChainData = [{"step": "01", "tag": "L1 物理邊緣與資料基底", "enTitle": "Infrastructure / Data", "zhTitle": "基礎設備與資料層", "mission": "建構東南亞跨國邊緣離線自治能力與企業單一真實資料來源（SSOT），為全集團營運築起不可中斷之數位底座。", "tech": "• 淘汰老舊 Dell R740 伺服器，導入 VMware vSAN 雙重容錯虛擬化叢集\\n• 海外產區部署工業邊緣主機 (IPC)，支援輕量容器\\n• 30TB 企業湖倉 (Bronze/Silver/Gold 三層架構)\\n• MDM 主數據平台全球主數據去重，配置自動品質門禁", "ot": "• 車間智慧電錶、蒸汽流量計與水錶 IoT 連網，即時採集環境與能源數據\\n• OPC-UA 與 MQTT 邊緣採集，直連裁床與模板機控制器\\n• 本地嵌入式 DuckDB 高速快取，支撐海外產線 48～72 小時斷網自律\\n• 全集團原副料唯一編碼字典，徹底消滅跨廠同料不同號與重複採購呆料", "kpis": [{"label": "海外廠斷網離線自主運轉時長", "val": "48 ～ 72 小時"}, {"label": "Tier-1 核心資料庫災備復原點 (RPO)", "val": "< 15 分鐘"}, {"label": "Tier-1 系統災難復原時間 (RTO)", "val": "< 2 小時"}, {"label": "跨廠同料不同號衝突率", "val": "0% (徹底清零)"}, {"label": "湖倉跨國報表同步時效", "val": "24h ➔ 5 分鐘"}], "owner": "雲端基礎架構組長 ＋ 數據治理主管 ＋ 系統維運主管"}, {"step": "02", "tag": "L2 服務匯流與身分邊界", "enTitle": "Integration / Security", "zhTitle": "API / 服務介接與身分整合", "mission": "統一跨國安全通訊標準，實現台北總部雙活與大客戶即時拋單，嚴格恪守東南亞各國數據主權合規邊界。", "tech": "• API 管理平台 企業級 API 網關，統一跨廠微服務路由與流量治理\\n• Microsoft Entra ID P2 零信任條件存取 (ABAC) ＋ 全面強制 MFA 雙因子\\n• 雙軌 SD-WAN (專線 ＋ 商業寬頻 ＋ 4G/5G 容錯)，智慧動態選路\\n• AI 閘道 AI 模型網關，配置機敏提示詞動態遮罩與 Token 預算控制", "ot": "• 品牌大客戶 (Nike/Lululemon) 3D CAD 與馬克版型實體無菌室隔離\\n• 跨境數據本地化：敏感人事薪資在地邊緣留存，符合越南 Decree 53 與印尼 PDP\\n• 提供大客戶採購端安全加密 EDI API，即時調閱車間生產進度與 QA 報告\\n• 拔除海外本機管理員權限，結合 CrowdStrike Falcon 端點即時防護", "kpis": [{"label": "跨國專線與網路可用性 (SLA)", "val": "≥ 99.95%"}, {"label": "跨廠核心 API 呼叫平均延遲", "val": "< 80 ms"}, {"label": "全集團帳號雙因子認證 (MFA) 覆蓋率", "val": "100% 覆蓋"}, {"label": "國際頂級品牌客戶資安驗廠合格率", "val": "100% 零缺失"}, {"label": "未授權外部連線攔截率", "val": "100% 阻斷"}], "owner": "身分資安組長 (CISO) ＋ 網路通訊組長 ＋ 法務合規顧問"}, {"step": "03", "tag": "L3 業務編排與製造執行", "enTitle": "Process / Manufacturing", "zhTitle": "端到端營運履約流程", "mission": "串聯跨國接單、採購、裁剪、車縫至包裝出運之全價值鏈，消弭跨廠資訊時差、停工待料與換線窩工。", "tech": "• 流程編排 BPMN 企業級流程引擎，驅動跨系統工作流自動化流轉\\n• 核心 MES 製造執行系統，深度採集工序進度、工時 SAM 與疵點代碼\\n• WMS 條碼與 RFID 智能倉儲，原副料入庫、檢驗、上架與發料精確對齊\\n• RPA 進出口報關拋單機器人，自動比對海關品名代碼與提單數據", "ot": "• 接單 (Order) ➔ 採購 (Sourcing) ➔ 裁剪 (Cutting) ➔ 車縫 (Sewing) ➔ 報關 (Shipping) 貫通\\n• 裁片超市特工齊套檢核，確保裁片、印繡花與熱壓配件 100% 齊套再上線\\n• 跨國生產工藝 IE 系統標準工時庫比對，確立各款式人機標準作業標準\\n• 現場吊掛線站點 RFID 刷卡即時計工，產出日報與工時自動拋轉總帳", "kpis": [{"label": "集團整體準時交貨率 (OTD)", "val": "≥ 98.5% (基線 94.2%)"}, {"label": "換線首日生產達標率", "val": "60.5% ➔ 85.0% (▲ 35%)"}, {"label": "跨國進出口報關單證處理時長", "val": "大幅縮短 80%"}, {"label": "車間換線等待與拆線返工損失", "val": "工時減少 30%"}, {"label": "WMS 倉庫帳實相符率", "val": "≥ 99.2%"}], "owner": "營運流程架構組長 ＋ 各海外基地總廠長 ＋ 供應鏈物流處長"}, {"step": "04", "tag": "L4 營運遙測與全球可視化", "enTitle": "Visibility / Control Tower", "zhTitle": "即時透明戰情看板", "mission": "打破跨國製造黑盒子，將 4 大基地所有生產節拍、物料在製品與機台狀態化為 CEO 與現場主管的即時戰情。", "tech": "• Power BI 企業級決策戰情儀表板，提供董事會按季審核之可稽核指標\\n• Grafana 機房基礎設施與車間 OT 邊緣即時遙測，微秒級掌握主機負載\\n• 供應鏈 Control Tower 全球控制塔，串接上游布廠出貨與海運船期追蹤\\n• 邊緣即時資料串流管道，將車間 MES 數據低延遲匯聚至台北總部湖倉", "ot": "• 4 大基地（台北、越南、柬埔寨、印尼、孟加拉）產能達成率與目標產出實時並列\\n• 車間各線工段首檢良率、車縫在製品 (WIP) 庫存與瓶頸工位水位透視\\n• 智慧機台稼動率 (OEE) 與故障停機告警，現場看板與手機端同步廣播\\n• 歐盟 DPP 數位產品護照單件成衣 Scope 3 碳足跡動態追蹤大屏", "kpis": [{"label": "車間產出數據實時刷新頻率", "val": "≤ 5 秒 (近即時)"}, {"label": "跨國經營決策報表產出時效", "val": "24h ➔ 5 分鐘"}, {"label": "車間關鍵設備綜合稼動率 (OEE) 可視化", "val": "覆蓋率 100%"}, {"label": "產線瓶頸在製品水位告警響應", "val": "< 3 分鐘"}, {"label": "歐盟 DPP 碳足跡單件追溯覆蓋", "val": "100% 批次"}], "owner": "數據中台組長 ＋ 製造營運處長 ＋ 永續 ESG 專案小組"}, {"step": "05", "tag": "L5 即時流運算與硬性門禁", "enTitle": "Exception / 4-Gate", "zhTitle": "主動異常辨識與門禁", "mission": "由被動事後補救升級為主動事前攔截，以硬性門禁與複雜事件處理 (CEP) 徹底撲滅空運包機違約風險。", "tech": "• Apache 預警引擎 實時流運算引擎，比對上游染整廠 ETA 與預計裁剪日 (PCD)\\n• Ready-to-Sew 4-Gate 產前門禁硬性攔截系統，未齊套自動鎖死發料\\n• 自動品質門禁 數據品質自動校驗門禁，未經 MDM 審核禁止採購下單\\n• 24/7 MDR 威脅主動隔離，異常端點 15 分鐘內拔線遏止", "ot": "• PCD 提前 72 小時主動推播缺料告警，提供大貨採購催料與調撥緩衝時效\\n• 門禁雙簽特許流程 (Override SOP)：緊急急件鎖定海外總廠長 ＋ 周副總線上雙簽\\n• 車縫品質疵點率突發超標即時紅燈示警，自動觸發巡檢品管師駐點檢驗\\n• 異地備份不可篡改防禦：雲端 WORM 不可篡改鎖定，防勒索銷毀", "kpis": [{"label": "PCD 缺料主動預警時長", "val": "提前 72 小時"}, {"label": "防禦跨國空運包機違約罰款", "val": "年防 2 次 (省 NT$ 15,000,000)"}, {"label": "Ready-to-Sew 4-Gate 硬鎖放行率", "val": "100% (無漏放)"}, {"label": "重大勒索與資安中斷事件", "val": "0 件 (Zero Breach)"}, {"label": "異常工單責任歸屬追蹤率", "val": "100% 可稽核"}], "owner": "生管處長 ＋ 數據架構組長 ＋ 資安長 (CISO) ＋ 品保處長"}, {"step": "06", "tag": "L6 運籌演算法與動態模擬", "enTitle": "Decision / Line Balance", "zhTitle": "模擬與決策輔助", "mission": "運用數理優化與數位分身模擬，為排線平衡、物料利用與跨廠產能調配提供最佳決策處方。", "tech": "• 最佳化求解器 混合整數線性規劃 (MILP)，求解人機最佳工序配比\\n• IE 車縫線平衡即時動態模擬器，依標準工時與技能矩陣動態平衡節拍\\n• CAD 布料馬克排料利用率演算法，極大化裁剪碼長利用率\\n• FinOps 雲端成本預測模擬器，分層授權動態配置降低維運費用", "ot": "• 換線前預先模擬生產線平衡率，預測潛在節拍瓶頸並建議輔助工位配置\\n• 跨國 4 大基地產能負荷動態模擬，最佳化各廠大單與急單分流配比\\n• 大貨布料利用率提升，結合 MDM 主數據治理將裁損率實質壓低 1.2%\\n• 2,500 席企業軟體分層授權 (400 核心 + 2,100 現場)，降低維運成本 8%~12%", "kpis": [{"label": "車縫排線平衡率 (Line Balance Rate)", "val": "88.0% ➔ 95.0%+"}, {"label": "大貨布料損耗率降低幅度", "val": "降低 1.2% (省 NT$ 22,000,000)"}, {"label": "全集團年硬性現金流節省總額", "val": "NT$ 37,000,000 / 年"}, {"label": "靜態投資現金全額回本期", "val": "14.8 個月 (ROI 1:3.84)"}, {"label": "單件成衣數位成本 (DCPG)", "val": "NT$ 0.27 / 件 (▼ 40%)"}], "owner": "IE 工程總監 ＋ 流程架構師 ＋ 採購副總 ＋ 財務長"}, {"step": "07", "tag": "L7 自主智能體與工藝智庫", "enTitle": "Agent / Autonomous AI", "zhTitle": "AI Copilot 協同與自主代理", "mission": "在 ISO 42001 安全框架下，以自主多智能體傳承跨國工藝智識，自動跟單催料，釋放高階幹部核心工時。", "tech": "• Enterprise RAG 工藝知識庫 (LangChain / LlamaIndex)，限縮溫度係數 < 0.2\\n• Agentic AI 生管追單代理人，自主解析訂單進度並比對物料齊套狀態\\n• 做工規範多國語 (中/英/越/高棉/印尼) 即時轉譯與視覺對比代理\\n• Human-in-the-Loop 雙簽審批機制，禁止 AI 自主變更車間 MES 參數", "ot": "• 第一線組長隨身調閱越語/高棉語 Tech Pack 工藝標準，做工細節零歧義\\n• 智能跟單代理人接管生管向外部布廠/副料廠詢單催料，拋出異常提醒\\n• 車間換線前 AI 自動比對歷史類似款號易錯工藝，生成產前會議備忘錄\\n• 員工禁止私用 Shadow AI，專利圖資強制透過 AI 模型閘道遮罩", "kpis": [{"label": "做工手冊 (Tech Pack) 檢索提效", "val": "提效 70%"}, {"label": "跨語言誤解引發之拆工返修率", "val": "4.8% ➔ 2.4% (▼ 50%)"}, {"label": "400 核心知識幹部特定工時釋放", "val": "釋放 15% ～ 25%"}, {"label": "Agentic AI 全年淨營運經濟效益", "val": "$900,000 USD (ROI 1:20)"}, {"label": "客戶專利版型與 CAD 外洩事件", "val": "0 件 (Zero Leak)"}], "owner": "AI 研發組長 ＋ 技術研發副總 ＋ 營業副總 ＋ CISO"}];
   let currentValueChainIndex = 0;
 
-  function switchValueChainStep(index) {
+  function switchValueChainStep(index, shouldScroll = true) {
     if (index < 0 || index >= valueChainData.length) return;
     currentValueChainIndex = index;
     const data = valueChainData[index];
@@ -3808,10 +3928,14 @@
       }
     }
 
-    // Scroll active item into view on mobile
+    // Horizontally center active step inside its own strip on mobile (never vertically hijack page scroll)
     const activeItem = document.getElementById('flow-step-' + index);
-    if (activeItem && window.innerWidth <= 768) {
-      activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (shouldScroll && activeItem && window.innerWidth <= 768) {
+      const strip = activeItem.closest('.flow-steps');
+      if (strip && strip.scrollWidth > strip.clientWidth) {
+        const targetLeft = activeItem.offsetLeft - (strip.clientWidth - activeItem.clientWidth) / 2;
+        strip.scrollTo({ left: Math.max(0, targetLeft), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }
     }
 
     // Render Detail Card
@@ -3885,9 +4009,9 @@
     `;
   }
 
-  // Auto initialize on load
+  // Auto initialize on load (without scrolling page)
   window.addEventListener("DOMContentLoaded", function() {
-    switchValueChainStep(0);
+    switchValueChainStep(0, false);
   });
 
 
@@ -4344,6 +4468,9 @@
       // Layer 3: Vibrant Citrus Gold (#F28C28)
       this.drawWave('#F28C28', 0.42, 1.6, 0.015, this.height * 0.18, baseH - 5);
 
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
       requestAnimationFrame(() => this.animate());
     }
   }
@@ -5394,7 +5521,7 @@
       }
       requestAnimationFrame(animate);
 
-      if (flowTexture) {
+      if (flowTexture && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
         flowTexture.offset.x -= flowSpeed;
       }
 
@@ -5438,25 +5565,88 @@
     const statusEl = document.getElementById('execFormStatus');
     const submitBtn = document.getElementById('execSubmitBtn');
 
+    // Interactive Domain Filter for Executive ADR Case Cards (v8.7.0)
+    const filterBtns = document.querySelectorAll('.exec-filter-btn[data-exec-domain]');
+    const adrCards = document.querySelectorAll('#execAdrList .exec-adr-card[data-domain]');
+    if (filterBtns.length && adrCards.length) {
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const domain = btn.getAttribute('data-exec-domain') || 'all';
+          filterBtns.forEach(b => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          adrCards.forEach(card => {
+            const match = domain === 'all' || card.getAttribute('data-domain') === domain;
+            card.hidden = !match;
+            if (match && domain !== 'all') card.open = true;
+          });
+        });
+      });
+    }
+
     function setStatus(type, msg) {
       if (!statusEl) return;
       statusEl.className = 'exec-form-status ' + type;
       statusEl.textContent = msg;
     }
 
+    function setFieldError(inputId, errId, msg) {
+      const inp = document.getElementById(inputId);
+      const err = document.getElementById(errId);
+      if (inp) inp.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (err) err.textContent = msg || '';
+    }
+
     function buildPayload() {
+      const isEn = document.documentElement.lang === 'en';
       const name = (document.getElementById('execSenderName')?.value || '').trim();
       const org = (document.getElementById('execSenderOrg')?.value || '').trim();
       const topic = (document.getElementById('execTopic')?.value || '').trim();
       const msg = (document.getElementById('execMessage')?.value || '').trim();
-      if (!name || !org || msg.length < 6) {
-        setStatus('error', '請完整填寫姓名與職稱、機構名稱，以及至少 6 字的簡短說明。');
+
+      let firstInvalid = null;
+      if (!name) {
+        setFieldError('execSenderName', 'execErrName', isEn ? 'Please enter your name and title.' : '請填寫姓名與職稱。');
+        firstInvalid = firstInvalid || 'execSenderName';
+      } else {
+        setFieldError('execSenderName', 'execErrName', '');
+      }
+      if (!org) {
+        setFieldError('execSenderOrg', 'execErrOrg', isEn ? 'Please enter your company or search firm.' : '請填寫企業或獵才機構名稱。');
+        firstInvalid = firstInvalid || 'execSenderOrg';
+      } else {
+        setFieldError('execSenderOrg', 'execErrOrg', '');
+      }
+      if (msg.length < 6) {
+        setFieldError('execMessage', 'execErrMsg', isEn ? 'Please enter at least 6 characters.' : '請填寫至少 6 字的簡短說明。');
+        firstInvalid = firstInvalid || 'execMessage';
+      } else {
+        setFieldError('execMessage', 'execErrMsg', '');
+      }
+
+      if (firstInvalid) {
+        setStatus('error', isEn ? 'Please complete the highlighted required fields.' : '請修正上方標示之必填欄位後再試。');
+        document.getElementById(firstInvalid)?.focus();
         return null;
       }
       const subject = `[Executive Inquiry] ${topic} — ${name} (${org})`;
-      const body = `您好 Howard Liao Ph.D.：\n\n聯絡人：${name}\n機構：${org}\n主題：${topic}\n\n說明：\n${msg}\n\n（來源：RSI 2027 戰略藍圖網站）`;
+      const body = `您好 Howard Liao Ph.D.：\n\n聯絡人：${name}\n機構：${org}\n主題：${topic}\n\n說明：\n${msg}\n\n（來源：Howard Liao Ph.D. / RSI 2027 戰略藍圖網站）`;
       return { subject, body };
     }
+
+    ['execSenderName', 'execSenderOrg', 'execMessage'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', () => {
+          el.setAttribute('aria-invalid', 'false');
+          const errMap = { execSenderName: 'execErrName', execSenderOrg: 'execErrOrg', execMessage: 'execErrMsg' };
+          const errEl = document.getElementById(errMap[id]);
+          if (errEl) errEl.textContent = '';
+        });
+      }
+    });
 
     if (copyBtn) {
       copyBtn.addEventListener('click', async () => {
@@ -5501,7 +5691,8 @@
   </script>
 
   <script src="assets/rsi-neon-refine.js?v=8.6.1" defer></script>
-  <script src="assets/rsi-fluid-engine.js?v=8.6.0" defer></script>
+  <!-- v8.7.0 Interactive Fluid Engine (Drawer, Scroll-Spy & A11y Focus Management) -->
+  <script src="assets/rsi-fluid-engine.js?v=8.7.0" defer></script>
   <script src="assets/rsi-site.js?v=52cc3a28d3" defer></script>
   <!-- RSI Site Analytics & Navigation Tracker -->
   <script src="assets/rsi-gatekeeper.js?v=2.2"></script>

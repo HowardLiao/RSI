@@ -1475,13 +1475,16 @@ html[data-fluid="calm"] .fluid-reveal-pending {
   -webkit-backdrop-filter: blur(6px);
   z-index: 12000;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.32s;
 }
 
 .fluid-drawer-backdrop.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
 }
 
 .fluid-drawer-panel {
@@ -1988,5 +1991,183 @@ html[data-theme="obsidian"] .exec-direct-btn:not(.primary) {
   }
   .exec-architect-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   v8.7.0 REFINEMENT: Executive Impact Explorer, A11y Focus, Mobile Containment &
+   prefers-reduced-motion Compliance
+   ============================================================================ */
+
+/* 1. Interactive Executive Domain Filter & Expandable ADR Cards */
+.exec-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.exec-filter-btn {
+  appearance: none;
+  border: 1px solid rgba(168, 50, 18, 0.22);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-body, #3D352E);
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.exec-filter-btn:hover {
+  border-color: var(--rust-primary, #A83212);
+  color: var(--rust-primary, #A83212);
+}
+
+.exec-filter-btn.active,
+.exec-filter-btn[aria-pressed="true"] {
+  background: var(--rust-primary, #A83212);
+  border-color: var(--rust-primary, #A83212);
+  color: #FFFFFF;
+}
+
+.exec-adr-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(168, 50, 18, 0.16);
+  border-radius: 12px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exec-adr-card[hidden] {
+  display: none;
+}
+
+.exec-adr-card[open] {
+  border-color: rgba(168, 50, 18, 0.36);
+  box-shadow: 0 6px 18px rgba(44, 39, 35, 0.06);
+}
+
+.exec-adr-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--text-heading, #1F1B18);
+}
+
+.exec-adr-summary::-webkit-details-marker {
+  display: none;
+}
+
+.exec-adr-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--rust-primary, #A83212);
+  background: rgba(168, 50, 18, 0.08);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.exec-adr-body {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(168, 50, 18, 0.18);
+  display: grid;
+  gap: 6px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text-body, #3D352E);
+}
+
+.exec-adr-body strong {
+  color: var(--text-heading, #1F1B18);
+}
+
+.exec-form-input[aria-invalid="true"],
+.exec-form-textarea[aria-invalid="true"] {
+  border-color: #B91C1C !important;
+  box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.18);
+}
+
+.exec-field-error {
+  display: block;
+  font-size: 0.76rem;
+  color: #B91C1C;
+  margin-top: 4px;
+  min-height: 1em;
+}
+
+html[data-theme="obsidian"] .exec-filter-btn {
+  background: #201D1A;
+  border-color: rgba(245, 158, 11, 0.24);
+  color: #E7E0D6;
+}
+
+html[data-theme="obsidian"] .exec-filter-btn.active,
+html[data-theme="obsidian"] .exec-filter-btn[aria-pressed="true"] {
+  background: #D97706;
+  border-color: #D97706;
+  color: #141210;
+}
+
+html[data-theme="obsidian"] .exec-adr-card {
+  background: #201D1A;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+html[data-theme="obsidian"] .exec-adr-summary,
+html[data-theme="obsidian"] .exec-adr-body,
+html[data-theme="obsidian"] .exec-adr-body strong {
+  color: #F3EFE9;
+}
+
+/* 2. Keyboard Focus Visibility across Interactive Elements */
+.pillar-nav-card:focus-visible,
+.exec-filter-btn:focus-visible,
+.exec-adr-summary:focus-visible,
+.exec-direct-btn:focus-visible,
+.fluid-drawer-close:focus-visible {
+  outline: 2px solid var(--orange-vibrant, #D97706);
+  outline-offset: 2px;
+}
+
+/* 3. Mobile 3D Map Pin Containment (Prevent Overflow beyond 390px) */
+#hive-3d-viewport,
+.hive-3d-stage,
+.hive-map-container {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .flow-steps {
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 4. Strict Accessibility: prefers-reduced-motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #neonFluidAmbientCanvas,
+  .fluid-bg-mesh {
+    display: none !important;
   }
 }
