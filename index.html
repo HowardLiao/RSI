@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RSI Group · 2027 IT 營運計畫與蜂巢計畫藍圖 · Howard Liao Ph.D.</title>
@@ -31,10 +28,10 @@
   <!-- Chart.js Pinned Version for High-Precision Executive Visualizations -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   
-  <link rel="stylesheet" href="assets/rsi-core.css?v=8.5.0">
+  <link rel="stylesheet" href="assets/rsi-core.css?v=8.6.0">
   <!-- rsi-site -->
   <link rel="stylesheet" href="assets/rsi-site.css?v=d8c3ab7bca">
-  <link rel="stylesheet" href="assets/rsi-neon-milan.css?v=8.5.0">
+  <link rel="stylesheet" href="assets/rsi-neon-milan.css?v=8.6.1">
 </head>
 <body class="neon-home-v8">
   <div class="watermark-overlay"></div>
@@ -43,12 +40,12 @@
   <!-- Watermark: Howard Liao Ph.D. -->
   
   <!-- Executive Command Palette Search Modal -->
-  <div class="search-modal-backdrop" id="searchModalBackdrop" onclick="closeSearchModalOnBackdrop(event)">
+  <div class="search-modal-backdrop" id="searchModalBackdrop" role="dialog" aria-modal="true" aria-label="全站檢索" onclick="closeSearchModalOnBackdrop(event)">
     <div class="search-modal-card">
       <div class="search-modal-header">
-        <span style="font-size: 1.2rem; color: var(--rust-primary);">🔍</span>
-        <input type="text" class="search-modal-input" id="searchModalInput" placeholder="檢索 2027 IT 藍圖全站內容 (如: 55%, API 平台, 門禁, 越南, 預警引擎)..." oninput="runModalSearch()">
-        <button onclick="closeSearchModal()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem; padding: 4px 8px;">✕</button>
+        <span style="font-size: 1.2rem; color: var(--rust-primary);" aria-hidden="true">🔍</span>
+        <input type="text" class="search-modal-input" id="searchModalInput" aria-label="檢索 2027 IT 藍圖全站內容" placeholder="檢索 2027 IT 藍圖全站內容 (如: 55%, API 平台, 門禁, 越南, 預警引擎)..." oninput="runModalSearch()">
+        <button type="button" onclick="closeSearchModal()" aria-label="關閉搜尋視窗" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem; padding: 4px 8px;">✕</button>
       </div>
       <div class="search-modal-results" id="searchModalResults">
         <div style="text-align:center; padding:30px; color:var(--text-muted); font-size:0.85rem;">
@@ -71,9 +68,9 @@
       <div class="masthead-top-bar">
         <div class="masthead-brand-lockup" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
           <a href="#" aria-label="RSI Reliable Source Industrial 首頁" style="display: inline-flex; align-items: center; text-decoration: none;">
-            <img src="rsi_logo_transparent.png" alt="RSI Reliable Source Industrial 企業標誌" class="rsi-logo-img">
+            <img src="rsi_logo_transparent.png" alt="RSI Reliable Source Industrial 企業標誌" class="rsi-logo-img" width="180" height="36" decoding="async" fetchpriority="high">
           </a>
-          <span class="masthead-badge">● C-LEVEL BLUEPRINT · v8.0 NEON</span>
+          <span class="masthead-badge">● C-LEVEL BLUEPRINT · v8.6 NEON</span>
         </div>
 
         <div class="masthead-utility-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
@@ -129,7 +126,7 @@
           </div>
           <span class="divider-dot" aria-hidden="true">•</span>
           <div class="role-item">
-            <span>執行負責人：</span> <strong style="color:var(--rust-primary);">Howard Liao Ph.D.</strong> <span class="role-en">(Lead Architect &amp; Advisor)</span>
+            <span>執行負責人：</span> <a href="#executive-architect" style="color:var(--rust-primary); font-weight:800; text-decoration:none; border-bottom:1px dotted var(--rust-primary);">Howard Liao Ph.D.</a> <span class="role-en">(Lead Architect &amp; Advisor)</span>
           </div>
         </div>
 
@@ -144,8 +141,8 @@
           <a href="#doc-center" class="hero-cta-btn">
             <span>📑</span><span>官方文檔預覽中心</span>
           </a>
-          <a href="gantt_chart_2027.html" target="_blank" class="hero-cta-btn">
-            <span>↗</span><span>全屏互動甘特圖</span>
+          <a href="#executive-architect" class="hero-cta-btn">
+            <span>👤</span><span>執行負責人與高階對接</span>
           </a>
         </div>
 
@@ -186,8 +183,8 @@
             <a href="#hive-3d-map"><span>🗺️ 蜂巢 3D 戰略地圖</span><span class="menu-ext">頁內</span></a>
             <a href="#hive-architecture"><span>📐 蜂巢全景圖資展廳</span><span class="menu-ext">頁內</span></a>
             <div class="neon-nav-divider"></div>
-            <a href="Hive/index.html" target="_blank"><span>📑 蜂巢實施藍圖</span><span class="menu-ext">↗</span></a>
-            <a href="rsi_hive_week1_portal.html" target="_blank"><span>📋 W1 盤點門戶與顧問報告</span><span class="menu-ext">↗</span></a>
+            <a href="Hive/index.html" target="_blank" rel="noopener noreferrer"><span>📑 蜂巢實施藍圖</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_hive_week1_portal.html" target="_blank" rel="noopener noreferrer"><span>📋 W1 盤點門戶與顧問報告</span><span class="menu-ext">↗</span></a>
           </div>
         </div>
 
@@ -211,12 +208,12 @@
             <span class="neon-nav-caret">▾</span>
           </button>
           <div class="neon-nav-menu">
-            <a href="rsi_duke_uml2_viewer.html" target="_blank"><span>📐 Duke UML 2.0 圖冊 (5大提問)</span><span class="menu-ext">↗</span></a>
-            <a href="duke_api_evaluation_report.html" target="_blank"><span>📊 Duke API 深度解構與處方</span><span class="menu-ext">↗</span></a>
-            <a href="rsi_hardware_deployment_preview.html" target="_blank"><span>🖥️ 跨國網絡／硬體／雲地儀表板</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_duke_uml2_viewer.html" target="_blank" rel="noopener noreferrer"><span>📐 Duke UML 2.0 圖冊 (5大提問)</span><span class="menu-ext">↗</span></a>
+            <a href="duke_api_evaluation_report.html" target="_blank" rel="noopener noreferrer"><span>📊 Duke API 深度解構與處方</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_hardware_deployment_preview.html" target="_blank" rel="noopener noreferrer"><span>🖥️ 跨國網絡／硬體／雲地儀表板</span><span class="menu-ext">↗</span></a>
             <div class="neon-nav-divider"></div>
-            <a href="3D/index.html" target="_blank"><span>🏙️ 3D 生活黑客群島</span><span class="menu-ext">↗</span></a>
-            <a href="rsi_hive_archipelago.html" target="_blank"><span>🏝️ 3D 蜂巢群島</span><span class="menu-ext">↗</span></a>
+            <a href="3D/index.html" target="_blank" rel="noopener noreferrer"><span>🏙️ 3D 生活黑客群島</span><span class="menu-ext">↗</span></a>
+            <a href="rsi_hive_archipelago.html" target="_blank" rel="noopener noreferrer"><span>🏝️ 3D 蜂巢群島</span><span class="menu-ext">↗</span></a>
           </div>
         </div>
 
@@ -229,10 +226,11 @@
             <a href="#pillars" id="nav-pillars"><span>🏛️ 四大核心戰略主架構</span><span class="menu-ext">頁內</span></a>
             <a href="#doc-center"><span>📂 站內文檔預覽中心</span><span class="menu-ext">頁內</span></a>
             <a href="#recommendations"><span>🎯 六大關鍵升級節點</span><span class="menu-ext">頁內</span></a>
+            <a href="#executive-architect"><span>👤 執行負責人簡介與聯繫</span><span class="menu-ext">頁內</span></a>
             <div class="neon-nav-divider"></div>
-            <a href="ai_governance.html" target="_blank"><span>⚖️ AI 治理手冊</span><span class="menu-ext">↗</span></a>
-            <a href="ai_implementation_spec.html" target="_blank"><span>🤖 AI 落地實施細則</span><span class="menu-ext">↗</span></a>
-            <a href="Hive/download_center.html" target="_blank"><span>📥 官方文檔中心</span><span class="menu-ext">↗</span></a>
+            <a href="ai_governance.html" target="_blank" rel="noopener noreferrer"><span>⚖️ AI 治理手冊</span><span class="menu-ext">↗</span></a>
+            <a href="ai_implementation_spec.html" target="_blank" rel="noopener noreferrer"><span>🤖 AI 落地實施細則</span><span class="menu-ext">↗</span></a>
+            <a href="Hive/download_center.html" target="_blank" rel="noopener noreferrer"><span>📥 官方文檔中心</span><span class="menu-ext">↗</span></a>
           </div>
         </div>
       </nav>
@@ -287,11 +285,11 @@
         </div>
       </div>
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-        <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (34頁)')" style="border: none; background: var(--rust-primary); color: #FFF; padding: 8px 20px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(168,50,18,0.25); cursor: pointer;">
+        <button type="button" onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (34頁)')" style="border: none; background: var(--rust-primary); color: #FFF; padding: 8px 20px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(168,50,18,0.25); cursor: pointer;">
           <span>👁️</span>
           <span>線上審閱 34 頁高管簡報 PDF (周文津副總審批版)</span>
         </button>
-        <button onclick="window.print()" style="background: transparent; border: 1px solid var(--rust-primary); color: var(--rust-primary); padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+        <button type="button" onclick="window.print()" style="background: transparent; border: 1px solid var(--rust-primary); color: var(--rust-primary); padding: 8px 18px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
           🖨️ 列印匯報版面
         </button>
       </div>
@@ -327,10 +325,10 @@
           <span style="color:var(--text-muted); font-size:0.78rem;">（顧問合約期間：2026/11/02 – 2027/02/28 · 每週一服務日）</span>
         </div>
         <div style="display:flex; gap:8px; align-items:center;">
-          <a href="Hive/index.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:5px 12px; border-radius:9999px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:4px;">
+          <a href="Hive/index.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:5px 12px; border-radius:9999px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:4px;" rel="noopener noreferrer">
             <span>📑 檢視蜂巢實施藍圖全文</span>
           </a>
-          <a href="gantt_chart_2027.html" target="_blank" style="text-decoration:none; background:var(--rust-primary); color:#FFF; padding:5px 12px; border-radius:9999px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:4px;">
+          <a href="gantt_chart_2027.html" target="_blank" style="text-decoration:none; background:var(--rust-primary); color:#FFF; padding:5px 12px; border-radius:9999px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:4px;" rel="noopener noreferrer">
             <span>📅 開啟全專案甘特圖 ↗</span>
           </a>
         </div>
@@ -949,10 +947,10 @@
         </div>
 
         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <button id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border: 2px solid #E87524; color:#C2410C; font-weight:800; cursor:pointer; padding: 8px 16px; border-radius: 9999px; font-size: 0.85rem;" title="點擊模擬或恢復國際海底電纜通訊">
+          <button type="button" id="btnCableCutSim" class="executive-search-btn" onclick="toggleCableCutSimulation()" style="background:#FFF7ED; border: 2px solid #E87524; color:#C2410C; font-weight:800; cursor:pointer; padding: 8px 16px; border-radius: 9999px; font-size: 0.85rem;" title="點擊模擬或恢復國際海底電纜通訊">
             ⚡ 模擬海底電纜突發斷網演練 (Simulate Cable Cut)
           </button>
-          <button id="btnDeltaSync" class="executive-search-btn delta-sync-interactive-btn" onclick="triggerManualDeltaSync()" style="background: #FFF7ED; border: 2px solid #E87524; color: #9A3412; font-weight: 800; cursor: pointer; padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(232, 117, 36, 0.25); font-size: 0.85rem;" title="點擊立即執行雙向增量同步">
+          <button type="button" id="btnDeltaSync" class="executive-search-btn delta-sync-interactive-btn" onclick="triggerManualDeltaSync()" style="background: #FFF7ED; border: 2px solid #E87524; color: #9A3412; font-weight: 800; cursor: pointer; padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(232, 117, 36, 0.25); font-size: 0.85rem;" title="點擊立即執行雙向增量同步">
             <span id="syncSpinIcon" style="font-size: 1.1rem;">⚡</span>
             <span id="btnDeltaSyncText">雙向增量同步 (Delta Sync Engine Active)</span>
           </button>
@@ -1360,13 +1358,13 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid var(--border-subtle); padding-top:14px;">
-          <a href="Hive/RSI-data-architecture.html" target="_blank" style="text-decoration:none; background:var(--rust-primary); color:#FFF; padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <a href="Hive/RSI-data-architecture.html" target="_blank" style="text-decoration:none; background:var(--rust-primary); color:#FFF; padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;" rel="noopener noreferrer">
             <span>📊 瀏覽米蘭風格互動架構圖</span>
           </a>
-          <a href="Hive/datalake_etl_elt_drawio.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <a href="Hive/datalake_etl_elt_drawio.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;" rel="noopener noreferrer">
             <span>📐 Draw.io 向量圖資</span>
           </a>
-          <button onclick="openPdfPreview('Hive/RSI_資料整合架構_第一階段_米蘭風格.pdf', 'RSI 第一階段資料整合架構手冊')" style="background:transparent; border:1px solid var(--rust-primary); color:var(--rust-primary); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; cursor:pointer;">
+          <button type="button" onclick="openPdfPreview('Hive/RSI_資料整合架構_第一階段_米蘭風格.pdf', 'RSI 第一階段資料整合架構手冊')" style="background:transparent; border:1px solid var(--rust-primary); color:var(--rust-primary); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; cursor:pointer;">
             <span>👁️ 審閱出版級 PDF</span>
           </button>
         </div>
@@ -1426,16 +1424,16 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid var(--border-subtle); padding-top:14px;">
-          <a href="rsi_hive_archipelago.html" target="_blank" style="text-decoration:none; background:#059669; color:#FFF; padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <a href="rsi_hive_archipelago.html" target="_blank" style="text-decoration:none; background:#059669; color:#FFF; padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;" rel="noopener noreferrer">
             <span>🏝️ 體驗 3D 工業群島數位孿生</span>
           </a>
-          <a href="Hive/togaf_api_quality_standards.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <a href="Hive/togaf_api_quality_standards.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;" rel="noopener noreferrer">
             <span>🏛️ TOGAF 10 BDAT 四層拓撲</span>
           </a>
-          <a href="ai_governance.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <a href="ai_governance.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid var(--border-subtle); color:var(--text-charcoal); padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;" rel="noopener noreferrer">
             <span>⚖️ 雙層語意層架構手冊</span>
           </a>
-          <a href="ai_implementation_spec.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid #7C3AED; color:#7C3AED; padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <a href="ai_implementation_spec.html" target="_blank" style="text-decoration:none; background:#FFF; border:1px solid #7C3AED; color:#7C3AED; padding:6px 14px; border-radius:6px; font-size:0.76rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;" rel="noopener noreferrer">
             <span>🤖 企業級 AI 實施細則</span>
           </a>
         </div>
@@ -1458,19 +1456,19 @@
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
           <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-charcoal); margin-right: 4px;">WBS 篩選：</span>
-          <button class="wbs-filter-btn active" onclick="filterWbs('all', this)" style="background: var(--rust-primary); color: #fff; border: 1px solid var(--rust-primary); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">全部 25 項</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Pillar I', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar I (8項)</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Pillar II', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar II (5項)</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Pillar III', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar III (7項)</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Pillar IV', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar IV (5項)</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Run', this)" style="background: var(--bg-card); color: var(--green-run); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Run (基礎)</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Grow', this)" style="background: var(--bg-card); color: var(--blue-grow); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Grow (增長)</button>
-          <button class="wbs-filter-btn" onclick="filterWbs('Transform', this)" style="background: var(--bg-card); color: var(--purple-trans); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Transform (轉型)</button>
+          <button type="button" class="wbs-filter-btn active" onclick="filterWbs('all', this)" style="background: var(--rust-primary); color: #fff; border: 1px solid var(--rust-primary); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">全部 25 項</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Pillar I', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar I (8項)</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Pillar II', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar II (5項)</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Pillar III', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar III (7項)</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Pillar IV', this)" style="background: var(--bg-card); color: var(--text-body); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Pillar IV (5項)</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Run', this)" style="background: var(--bg-card); color: var(--green-run); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Run (基礎)</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Grow', this)" style="background: var(--bg-card); color: var(--blue-grow); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Grow (增長)</button>
+          <button type="button" class="wbs-filter-btn" onclick="filterWbs('Transform', this)" style="background: var(--bg-card); color: var(--purple-trans); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Transform (轉型)</button>
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
           <input type="text" id="wbsSearchInput" oninput="searchWbs()" placeholder="搜尋 WBS 代號、專案、負責人..." style="padding: 6px 14px; border: 1px solid var(--border-subtle); border-radius: 9999px; font-size: 0.78rem; outline: none; width: 220px;" />
-          <a href="gantt_chart_2027.html" target="_blank" class="executive-search-btn" style="text-decoration: none; background: #FFF8EE; border: 2px solid var(--orange-vibrant); color: var(--rust-primary); font-weight: 800; padding: 6px 16px; border-radius: 9999px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 6px;" title="開啟獨立跨國甘特圖視窗">
+          <a href="gantt_chart_2027.html" target="_blank" class="executive-search-btn" style="text-decoration: none; background: #FFF8EE; border: 2px solid var(--orange-vibrant); color: var(--rust-primary); font-weight: 800; padding: 6px 16px; border-radius: 9999px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 6px;" title="開啟獨立跨國甘特圖視窗" rel="noopener noreferrer">
             <span>📅</span>
             <span>開啟 25 項全屏互動甘特圖 ↗</span>
           </a>
@@ -1924,7 +1922,7 @@
             <span>規格：<strong>完整 34 頁橫式 16:9 投影片</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">7.4 MB</strong></span>
           </div>
-          <button onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (周文津副總審批版)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
+          <button type="button" onclick="openPdfPreview('RSI_2027_IT營運計畫_周文津副總_HowardLiao.pdf', '2027 IT 營運計畫高階簡報 (周文津副總審批版)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
             <span>👁️</span> 線上即時審閱預覽 (Preview Document)
           </button>
         </div>
@@ -1945,7 +1943,7 @@
             <span>規格：<strong>白皮書詳細章節與實施規約</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">11.2 MB</strong></span>
           </div>
-          <button onclick="openPdfPreview('RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf', '2027 執行長戰略藍圖白皮書 (CEO Strategic Blueprint)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
+          <button type="button" onclick="openPdfPreview('RSI_2027_CEO戰略藍圖白皮書_周文津副總_HowardLiao.pdf', '2027 執行長戰略藍圖白皮書 (CEO Strategic Blueprint)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
             <span>👁️</span> 線上即時審閱預覽 (Preview Document)
           </button>
         </div>
@@ -1966,7 +1964,7 @@
             <span>規格：<strong>25 項核心專案全排程甘特圖</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">3.6 MB</strong></span>
           </div>
-          <button onclick="openPdfPreview('RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf', '2027 全專案 WBS 工作分解結構與實施甘特圖手冊')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
+          <button type="button" onclick="openPdfPreview('RSI_2027_全專案WBS與實施甘特圖_周文津副總_HowardLiao.pdf', '2027 全專案 WBS 工作分解結構與實施甘特圖手冊')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
             <span>👁️</span> 線上即時審閱預覽 (Preview Document)
           </button>
         </div>
@@ -1987,7 +1985,7 @@
             <span>規格：<strong>RACI 矩陣與 4 廠配置藍圖</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">3.1 MB</strong></span>
           </div>
-          <button onclick="openPdfPreview('RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf', '2027 跨國組織職能與資源配置實施手冊')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
+          <button type="button" onclick="openPdfPreview('RSI_2027_組織職能與資源配置手冊_周文津副總_HowardLiao.pdf', '2027 跨國組織職能與資源配置實施手冊')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
             <span>👁️</span> 線上即時審閱預覽 (Preview Document)
           </button>
         </div>
@@ -2008,7 +2006,7 @@
             <span>規格：<strong>SOP 推動規範與 5 大標準表單</strong></span>
             <span>大小：<strong style="color:var(--rust-primary);">1.5 MB</strong></span>
           </div>
-          <button onclick="openPdfPreview('RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf', '2027 現有技術職能與資通設備盤點實施手冊 (SOP 與 5 大表單)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
+          <button type="button" onclick="openPdfPreview('RSI_2027_職能與設備盤點實施手冊_周文津副總_HowardLiao.pdf', '2027 現有技術職能與資通設備盤點實施手冊 (SOP 與 5 大表單)')" class="executive-search-btn" style="width:100%; justify-content:center; background:var(--rust-primary); border:1.5px solid var(--rust-primary); color:#FFF; font-weight:800; cursor:pointer; padding:10px 16px; border-radius:8px; font-size:0.82rem; display:flex; align-items:center; gap:8px; box-shadow:0 2px 6px rgba(168,50,18,0.25);" title="在瀏覽器中直接審閱預覽此 PDF">
             <span>👁️</span> 線上即時審閱預覽 (Preview Document)
           </button>
         </div>
@@ -2117,6 +2115,105 @@
       </div>
     </div>
 
+    <!-- Executive Leadership & Direct Contact Section (v8.6 NEON) -->
+    <section id="executive-architect" class="exec-architect-section" aria-labelledby="exec-architect-heading">
+      <div class="section-header" style="margin-top: 0; margin-bottom: 12px;">
+        <div class="section-eyebrow">Executive Leadership &amp; Direct Engagement · 執行負責人簡介與對接</div>
+        <h2 class="section-title" id="exec-architect-heading" style="margin-bottom: 6px;">Howard Liao Ph.D. · 高階技術領袖與企業架構主導人</h2>
+        <p class="section-subtitle" style="margin-bottom: 0;">
+          25 年以上跨國 IT 管理實務經驗｜資訊管理博士｜歷任 CIO 與技術副總（VP of Technology），專注電子製造業與線上遊戲平台營運。
+        </p>
+      </div>
+
+      <div class="exec-architect-grid">
+        <div>
+          <blockquote class="exec-claim-quote">
+            「將複雜技術轉化為可衡量商業成果的高階技術領袖。」
+          </blockquote>
+
+          <div class="exec-tags-row" aria-label="核心專業領域">
+            <span class="exec-tag-pill">多雲治理 Multi-Cloud</span>
+            <span class="exec-tag-pill">資安治理 Security Governance</span>
+            <span class="exec-tag-pill">Agentic AI &amp; LLMOps</span>
+            <span class="exec-tag-pill">FinOps 成本治理</span>
+            <span class="exec-tag-pill">跨國企業數位轉型</span>
+            <span class="exec-tag-pill">組織能力與韌性建構</span>
+          </div>
+
+          <div class="exec-case-steps">
+            <div class="exec-case-step">
+              <div class="exec-case-step-label">01 · 商業挑戰（Business Challenge）</div>
+              <p>跨國成衣製造據點（台北總部與越南、柬埔寨、印尼等產區）長期面臨單點系統林立、跨廠資料孤島、海纜波動停線風險，以及大貨齊套不全導致拆線返修與空運包機違約成本。</p>
+            </div>
+            <div class="exec-case-step">
+              <div class="exec-case-step-label">02 · 關鍵決策與行動（Key Decisions &amp; Actions）</div>
+              <p>擔任執行負責人（Lead Architect &amp; Advisor），向計劃主持人周文津副總經理報告；建立「API 平台＋雙軌 Data Lakehouse」與每日離峰結算政策、導入 ASUS Ascent GX10 邊緣 48–72h 離線自治與 4-Gate 產前門禁，並設計 25 項 WBS 預算與治理機制。</p>
+            </div>
+            <div class="exec-case-step">
+              <div class="exec-case-step-label">03 · 成果與組織影響（Impact &amp; Org Scope）</div>
+              <p>規劃模型錨定年硬性現金節省 NT$ 3,705 萬（空運對沖＋布損改善）與 14.2 個月靜態回本週期，由 RSI 內部 16～18 人編制（IS、ITS、ERP Team 與海外 8 廠 IT）承接介接與常態維運，降低外部 SI 依賴並強化跨廠組織治理能力。</p>
+            </div>
+          </div>
+
+          <div class="exec-boundary-note">
+            <strong>資訊揭露與佐證邊界：</strong>本頁數據皆源自 RSI 2027 營運藍圖規劃模型與公開展示內容；跨產業其他代表性專案詳情、客戶名稱、外部推薦語及正式財務稽核結果標記為「待補資料」，可於高階對談時依保密協議（NDA）提供。
+          </div>
+        </div>
+
+        <div class="exec-inquiry-form-card">
+          <h3 style="margin: 0 0 6px 0; font-size: 1.02rem; font-weight: 800;">高階職位評估、董事會顧問或專案對接</h3>
+          <p style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted); line-height: 1.55;">
+            歡迎國際獵才顧問、企業董事長／CEO 與技術決策團隊直接聯繫。
+          </p>
+
+          <div class="exec-direct-actions">
+            <a href="mailto:liao.howard@gmail.com?subject=%5BExecutive%20Inquiry%5D%20Howard%20Liao%20Ph.D.%20%E9%AB%98%E9%9A%8E%E5%B0%8D%E8%AB%87%E6%B4%BD%E8%A9%A2" class="exec-direct-btn primary">
+              <span>✉️</span><span>直接寄信聯繫</span>
+            </a>
+            <button type="button" id="execCopyEmailBtn" class="exec-direct-btn">
+              <span>📋</span><span>複製 liao.howard@gmail.com</span>
+            </button>
+          </div>
+
+          <form id="execInquiryForm" novalidate>
+            <div class="exec-form-field">
+              <label for="execSenderName">姓名與職稱 *</label>
+              <input type="text" id="execSenderName" class="exec-form-input" placeholder="例如：Jane Chen / Managing Partner" maxlength="80" required>
+            </div>
+            <div class="exec-form-field">
+              <label for="execSenderOrg">企業或獵才機構 *</label>
+              <input type="text" id="execSenderOrg" class="exec-form-input" placeholder="例如：Executive Search / 企業名稱" maxlength="100" required>
+            </div>
+            <div class="exec-form-field">
+              <label for="execTopic">洽詢主題</label>
+              <select id="execTopic" class="exec-form-select">
+                <option value="C-Level / CIO / CTO / VP 高階職位評估">C-Level / CIO / CTO / VP 高階職位評估</option>
+                <option value="企業 IT 藍圖 / 多雲 / AI 治理顧問合作">企業 IT 藍圖 / 多雲 / AI 治理顧問合作</option>
+                <option value="RSI 2027 蜂巢計畫架構討論">RSI 2027 蜂巢計畫架構討論</option>
+                <option value="其他策略合作">其他策略合作</option>
+              </select>
+            </div>
+            <div class="exec-form-field">
+              <label for="execMessage">簡短說明 *</label>
+              <textarea id="execMessage" class="exec-form-textarea" rows="3" placeholder="簡述職位範疇、企業挑戰或預計對談時段..." maxlength="600" required></textarea>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="submit" id="execSubmitBtn" class="exec-direct-btn primary" style="flex: 1; justify-content: center;">
+                <span>📤</span><span>產生郵件並開啟寄信</span>
+              </button>
+              <button type="button" id="execCopyDraftBtn" class="exec-direct-btn" style="justify-content: center;">
+                <span>📄</span><span>複製草稿</span>
+              </button>
+            </div>
+            <div id="execFormStatus" class="exec-form-status" role="status" aria-live="polite"></div>
+            <div class="exec-privacy-note">
+              🔒 個資最小化聲明：本表單僅於您的瀏覽器本機組合郵件草稿並呼叫郵件程式，不會傳送至任何未經授權的第三方表單伺服器。
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
@@ -2128,8 +2225,8 @@
         <div class="footer-copy" style="margin-top: 6px;">整合運用與智能營運 (Integration & Intelligent Operations) · 專為高階經營團隊設計</div>
       </div>
       <div style="font-size: 0.82rem; color: var(--text-muted); text-align: right;">
-        Swiss Modernist Precision Theme (Linear Minimal)<br>
-        Version 3.2 · Authored by Howard Liao Ph.D.<br>
+        Milan Warm Amber &amp; Deep Obsidian<br>
+        Version 8.6 NEON · Authored by Howard Liao Ph.D.<br>
         Confidential Strategic Architecture
       </div>
     </div>
@@ -3551,7 +3648,7 @@
 
 
   <!-- Floating Mobile Back To Top Button -->
-  <button class="mobile-back-to-top" id="mobileBackToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="回到頁首">
+  <button type="button" class="mobile-back-to-top" id="mobileBackToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="回到頁首">
     ↑
   </button>
 
@@ -3591,7 +3688,7 @@
         <h3 style="font-size:1.15rem; font-weight:800; color:#1C1917; margin:0;">2027 策略藍圖全景目錄</h3>
         <p style="font-size:0.75rem; color:#78716C; margin:2px 0 0 0;">點擊任一章節即可立即平滑跳轉</p>
       </div>
-      <button onclick="closeAllSectionsDrawer()" style="background:#F5F5F4; border:none; border-radius:50%; width:32px; height:32px; font-weight:bold; cursor:pointer; color:#44403C; font-size:14px;">✕</button>
+      <button type="button" onclick="closeAllSectionsDrawer()" style="background:#F5F5F4; border:none; border-radius:50%; width:32px; height:32px; font-weight:bold; cursor:pointer; color:#44403C; font-size:14px;">✕</button>
     </div>
     <div style="display:grid; grid-template-columns:1fr; gap:8px;">
       <a href="#invest-framework" onclick="handleDrawerClick(event, 'invest-framework')" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:#FAFAF9; border-radius:10px; border:1px solid #E7E5E4; text-decoration:none; color:#1C1917; font-weight:700; font-size:0.88rem;">
@@ -4498,7 +4595,7 @@
       <span id="modalSyncIcon" style="font-size: 1.4rem; display: inline-block;">🔄</span>
       <span style="font-weight: 800; font-size: 1.05rem; color: #9A3412;" id="modalSyncTitle">Delta Sync 雙向增量同步中</span>
     </div>
-    <button onclick="closeDeltaSyncModal()" style="background: #F5F5F4; border: 1px solid #E7E5E4; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; color: #78716C; padding: 0;">✕</button>
+    <button type="button" onclick="closeDeltaSyncModal()" style="background: #F5F5F4; border: 1px solid #E7E5E4; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; color: #78716C; padding: 0;">✕</button>
   </div>
   <div style="font-size: 0.82rem; color: #44403C; margin-bottom: 12px; line-height: 1.5;" id="modalSyncDesc">
     正在比對海外 4 產區 DuckDB WAL 本地異動日誌與台北總部 Data Lake 湖倉...
@@ -4515,7 +4612,7 @@
     <div id="step4" style="display: flex; align-items: center; gap: 6px; opacity: 0.6;"><span id="step4Icon">⏳</span> 台北總部 Data Lake：ACID 事務原子寫入確認...</div>
   </div>
   <div style="margin-top: 14px; text-align: center;">
-    <button onclick="closeDeltaSyncModal()" id="btnModalCloseOk" style="display: none; background: #E87524; color: white; font-weight: 800; border: none; padding: 6px 20px; border-radius: 9999px; font-size: 0.8rem; cursor: pointer;">完成並返回儀表板</button>
+    <button type="button" onclick="closeDeltaSyncModal()" id="btnModalCloseOk" style="display: none; background: #E87524; color: white; font-weight: 800; border: none; padding: 6px 20px; border-radius: 9999px; font-size: 0.8rem; cursor: pointer;">完成並返回儀表板</button>
   </div>
 </div>
 <div id="deltaSyncModalBackdrop" onclick="closeDeltaSyncModal()" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.45); z-index: 2147483646; backdrop-filter: blur(2px);"></div>
@@ -4540,7 +4637,7 @@
         <span>🔒</span>
         <span>機密審批件 · 僅供線上即時預覽 (Preview Only · Do Not Download)</span>
       </span>
-      <button onclick="closePdfPreview()" style="background:#F5F5F4; border:1px solid #E7E5E4; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; cursor:pointer; color:#78716C; padding:0;" title="關閉預覽 (ESC)">
+      <button type="button" onclick="closePdfPreview()" style="background:#F5F5F4; border:1px solid #E7E5E4; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; cursor:pointer; color:#78716C; padding:0;" title="關閉預覽 (ESC)">
         ✕
       </button>
     </div>
@@ -5332,10 +5429,81 @@
   });
   </script>
 
-  <script src="assets/rsi-neon-refine.js?v=8.5.0" defer></script>
-  <script src="assets/rsi-fluid-engine.js?v=8.5.0" defer></script>
+  <script>
+  (function () {
+    const EMAIL = 'liao.howard@gmail.com';
+    const copyBtn = document.getElementById('execCopyEmailBtn');
+    const form = document.getElementById('execInquiryForm');
+    const copyDraftBtn = document.getElementById('execCopyDraftBtn');
+    const statusEl = document.getElementById('execFormStatus');
+    const submitBtn = document.getElementById('execSubmitBtn');
+
+    function setStatus(type, msg) {
+      if (!statusEl) return;
+      statusEl.className = 'exec-form-status ' + type;
+      statusEl.textContent = msg;
+    }
+
+    function buildPayload() {
+      const name = (document.getElementById('execSenderName')?.value || '').trim();
+      const org = (document.getElementById('execSenderOrg')?.value || '').trim();
+      const topic = (document.getElementById('execTopic')?.value || '').trim();
+      const msg = (document.getElementById('execMessage')?.value || '').trim();
+      if (!name || !org || msg.length < 6) {
+        setStatus('error', '請完整填寫姓名與職稱、機構名稱，以及至少 6 字的簡短說明。');
+        return null;
+      }
+      const subject = `[Executive Inquiry] ${topic} — ${name} (${org})`;
+      const body = `您好 Howard Liao Ph.D.：\n\n聯絡人：${name}\n機構：${org}\n主題：${topic}\n\n說明：\n${msg}\n\n（來源：RSI 2027 戰略藍圖網站）`;
+      return { subject, body };
+    }
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(EMAIL);
+          setStatus('success', '已複製聯絡信箱：' + EMAIL);
+        } catch (err) {
+          setStatus('error', '瀏覽器未允許自動複製，請手動複製：' + EMAIL);
+        }
+      });
+    }
+
+    if (copyDraftBtn) {
+      copyDraftBtn.addEventListener('click', async () => {
+        const data = buildPayload();
+        if (!data) return;
+        try {
+          await navigator.clipboard.writeText(`收件人：${EMAIL}\n主旨：${data.subject}\n\n${data.body}`);
+          setStatus('success', '已將完整洽詢草稿複製到剪貼簿，可直接貼上至您的郵件軟體或 LINE。');
+        } catch (err) {
+          setStatus('error', '無法存取剪貼簿，請點擊「產生郵件並開啟寄信」或直接寄信至 ' + EMAIL);
+        }
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = buildPayload();
+        if (!data) return;
+        if (submitBtn) submitBtn.disabled = true;
+        setStatus('pending', '正在為您整理郵件草稿並呼叫本機郵件程式...');
+        const mailtoUrl = `mailto:${EMAIL}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(data.body)}`;
+        setTimeout(() => {
+          window.location.href = mailtoUrl;
+          setStatus('success', '已觸發郵件程式。若未自動開啟，請點「複製草稿」或直接寄信至 ' + EMAIL + '。');
+          if (submitBtn) submitBtn.disabled = false;
+        }, 250);
+      });
+    }
+  })();
+  </script>
+
+  <script src="assets/rsi-neon-refine.js?v=8.6.1" defer></script>
+  <script src="assets/rsi-fluid-engine.js?v=8.6.0" defer></script>
   <script src="assets/rsi-site.js?v=52cc3a28d3" defer></script>
   <!-- RSI Site Analytics & Navigation Tracker -->
-  <script src="assets/rsi-gatekeeper.js?v=2.1"></script>
+  <script src="assets/rsi-gatekeeper.js?v=2.2"></script>
 </body>
 </html>

@@ -102,6 +102,12 @@ canvas, img {
   border-top: 3px solid var(--orange-vibrant);
   box-shadow: var(--neon-shadow-card);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  text-align: center;
+}
+
+.hero-bento-grid .bento-num,
+.hero-bento-grid .bento-desc {
+  text-align: center !important;
 }
 
 .hero-bento-grid .bento-card:hover {
@@ -752,6 +758,11 @@ canvas, img {
   .neon-fab-group {
     right: 12px;
     bottom: 76px;
+  }
+  /* Prevent floating FAB stack from colliding with mobile Hero CTAs & cards;
+     mobile already provides top utility bar + bottom dock. Keep back-to-top only. */
+  .neon-fab-group .neon-fab-btn:not(#neonFabTop) {
+    display: none !important;
   }
 }
 
@@ -1680,12 +1691,302 @@ html[data-theme="obsidian"] .fluid-drawer-panel {
 @media print {
   #neonFluidAmbientCanvas,
   .fluid-drawer-backdrop,
-  .fluid-btn-ripple {
+  .fluid-btn-ripple,
+  .exec-inquiry-form-card {
     display: none !important;
   }
   .fluid-reveal-pending {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+}
+
+/* ==========================================================================
+   v8.6.0 EXECUTIVE REFINEMENT: Keyboard Focus, Mobile Hero Compact, Architect Dossier & Contact
+   ========================================================================== */
+:focus-visible {
+  outline: 2.5px solid #E87524 !important;
+  outline-offset: 2px !important;
+}
+
+@media (max-width: 768px) {
+  .masthead-top-bar {
+    gap: 8px !important;
+    padding-bottom: 10px !important;
+  }
+  .masthead-badge {
+    display: none !important;
+  }
+  .masthead-utility-actions {
+    gap: 6px !important;
+  }
+  .masthead-utility-actions .executive-search-btn {
+    padding: 5px 10px !important;
+    font-size: 0.72rem !important;
+  }
+  .hero-centered-wrap {
+    padding-top: 10px !important;
+    padding-bottom: 14px !important;
+  }
+  .hero-attribution-card {
+    padding: 10px 14px !important;
+    gap: 6px !important;
+    margin: 12px auto 14px !important;
+  }
+  .hero-cta-strip {
+    gap: 8px !important;
+    margin-bottom: 16px !important;
+  }
+  .hero-cta-btn {
+    padding: 8px 13px !important;
+    font-size: 0.78rem !important;
+  }
+}
+
+/* Executive Architect & Direct Contact Section */
+.exec-architect-section {
+  margin: 56px 0 36px;
+  padding: 36px 32px;
+  background: var(--bg-surface, #FFFFFF);
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(28, 25, 23, 0.05);
+}
+
+.exec-architect-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 28px;
+  margin-top: 22px;
+  align-items: start;
+}
+
+.exec-claim-quote {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-charcoal, #1C1917);
+  border-left: 4px solid var(--rust-primary, #C2410C);
+  padding: 8px 0 8px 16px;
+  margin: 0 0 18px 0;
+  line-height: 1.5;
+}
+
+.exec-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 20px;
+}
+
+.exec-tag-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 9999px;
+  background: var(--bg-warm-tint, #FBF7F0);
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  color: var(--text-charcoal, #1C1917);
+}
+
+.exec-case-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.exec-case-step {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-warm-tint, #FBF7F0);
+  border: 1px solid var(--border-subtle, #E6DDD0);
+}
+
+.exec-case-step-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rust-primary, #C2410C);
+  margin-bottom: 4px;
+}
+
+.exec-case-step p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-charcoal, #1C1917);
+}
+
+.exec-boundary-note {
+  margin-top: 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px dashed var(--border-subtle, #D6C9B8);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-muted, #6B635B);
+}
+
+.exec-inquiry-form-card {
+  padding: 24px 22px;
+  border-radius: 16px;
+  background: var(--bg-warm-tint, #FBF7F0);
+  border: 1px solid var(--border-subtle, #E6DDD0);
+}
+
+.exec-direct-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+
+.exec-direct-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle, #E6DDD0);
+  background: var(--bg-surface, #FFFFFF);
+  color: var(--text-charcoal, #1C1917);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.exec-direct-btn.primary {
+  background: linear-gradient(135deg, #C2410C 0%, #EA580C 100%);
+  border-color: #C2410C;
+  color: #FFFFFF;
+}
+
+.exec-direct-btn:hover {
+  transform: translateY(-1px);
+  border-color: #E87524;
+}
+
+.exec-form-field {
+  margin-bottom: 12px;
+}
+
+.exec-form-field label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-charcoal, #1C1917);
+  margin-bottom: 5px;
+}
+
+.exec-form-input,
+.exec-form-select,
+.exec-form-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-subtle, #D6C9B8);
+  background: var(--bg-surface, #FFFFFF);
+  color: var(--text-charcoal, #1C1917);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.15s ease;
+}
+
+.exec-form-input:focus,
+.exec-form-select:focus,
+.exec-form-textarea:focus {
+  border-color: #E87524;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 117, 36, 0.22);
+}
+
+.exec-direct-btn:focus-visible,
+.hero-cta-btn:focus-visible,
+.neon-nav-trigger:focus-visible,
+.neon-fab-btn:focus-visible {
+  outline: 2px solid #E87524;
+  outline-offset: 2px;
+}
+
+#executive-architect {
+  scroll-margin-top: 76px;
+}
+
+.exec-form-status {
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  display: none;
+}
+
+.exec-form-status.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #B91C1C;
+}
+
+.exec-form-status.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #047857;
+}
+
+.exec-form-status.pending {
+  display: block;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #B45309;
+}
+
+.exec-privacy-note {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--text-muted, #6B635B);
+  line-height: 1.45;
+}
+
+html[data-theme="obsidian"] .exec-architect-section {
+  background: #171513;
+  border-color: rgba(245, 158, 11, 0.22);
+}
+
+html[data-theme="obsidian"] .exec-case-step,
+html[data-theme="obsidian"] .exec-inquiry-form-card,
+html[data-theme="obsidian"] .exec-tag-pill {
+  background: #201D1A;
+  border-color: rgba(245, 158, 11, 0.18);
+  color: #F3EFE9;
+}
+
+html[data-theme="obsidian"] .exec-claim-quote,
+html[data-theme="obsidian"] .exec-case-step p,
+html[data-theme="obsidian"] .exec-form-field label {
+  color: #F3EFE9;
+}
+
+html[data-theme="obsidian"] .exec-form-input,
+html[data-theme="obsidian"] .exec-form-select,
+html[data-theme="obsidian"] .exec-form-textarea,
+html[data-theme="obsidian"] .exec-direct-btn:not(.primary) {
+  background: #141210;
+  border-color: rgba(245, 158, 11, 0.24);
+  color: #F3EFE9;
+}
+
+@media (max-width: 900px) {
+  .exec-architect-section {
+    padding: 24px 18px;
+  }
+  .exec-architect-grid {
+    grid-template-columns: 1fr;
   }
 }

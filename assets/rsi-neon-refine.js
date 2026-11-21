@@ -236,7 +236,8 @@
       { id: 'pillars', label: '四大核心主架構' },
       { id: 'simulator', label: '4-Gate 產前門禁' },
       { id: 'wbs-gantt', label: '25項 WBS 與甘特' },
-      { id: 'recommendations', label: '六大升級節點' }
+      { id: 'recommendations', label: '六大升級節點' },
+      { id: 'executive-architect', label: '執行負責人與聯繫' }
     ].filter((c) => document.getElementById(c.id));
 
     const rail = document.createElement('nav');
@@ -688,6 +689,7 @@
           <a href="#simulator">🚦 4-Gate</a>
           <a href="#wbs-gantt">📅 25項 WBS</a>
           <a href="#doc-center">📑 文檔中心</a>
+          <a href="#executive-architect">👤 負責人對接</a>
         </div>
         <div class="neon-sticky-actions">
           <button type="button" class="executive-search-btn" onclick="openSearchModal()" style="padding:5px 12px; border-radius:9999px; font-size:0.74rem; font-weight:700;">🔍 ⌘K</button>

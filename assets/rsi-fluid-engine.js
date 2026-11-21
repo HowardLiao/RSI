@@ -11,17 +11,20 @@
 (function () {
   'use strict';
 
-  const FLUID_MODE_KEY = 'rsi_neon_fluid_mode'; // 'standard' | 'turbo' | 'calm'
+  const FLUID_MODE_KEY = 'rsi_neon_fluid_mode'; // 'calm' | 'standard' | 'turbo'
   const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const IS_TOUCH = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
 
-  let fluidMode = REDUCED_MOTION ? 'calm' : 'standard';
-  try {
-    const saved = localStorage.getItem(FLUID_MODE_KEY);
-    if (saved === 'standard' || saved === 'turbo' || saved === 'calm') {
-      fluidMode = saved;
-    }
-  } catch (e) {}
+  // Default to calm executive mode (zero background particle distraction unless opted in)
+  let fluidMode = 'calm';
+  if (!REDUCED_MOTION) {
+    try {
+      const saved = localStorage.getItem(FLUID_MODE_KEY);
+      if (saved === 'standard' || saved === 'turbo' || saved === 'calm') {
+        fluidMode = saved;
+      }
+    } catch (e) {}
+  }
 
   /* ------------------------------------------------------------------------
      1. Ambient Hydrodynamic Fluid Field Canvas (Curl-Noise + Vortex Ripples)

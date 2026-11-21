@@ -72,18 +72,26 @@
     } catch (err) {}
   }
 
+  // Strict email validation helper (prevents DOM-XSS from query params)
+  const EMAIL_REGEX = /^[^\s@<>'"]+@[^\s@<>'"]+\.[^\s@<>'"]+$/;
+
   // Check URL query parameters (?email=... or ?u=...)
   const urlParams = new URLSearchParams(window.location.search);
-  const paramEmail = urlParams.get("email") || urlParams.get("u") || urlParams.get("user");
-  if (paramEmail) {
+  const rawParamEmail = (urlParams.get("email") || urlParams.get("u") || urlParams.get("user") || "").trim().toLowerCase();
+  if (rawParamEmail && EMAIL_REGEX.test(rawParamEmail) && rawParamEmail.length <= 160) {
     try {
-      localStorage.setItem(STORAGE_KEY, paramEmail.trim());
+      localStorage.setItem(STORAGE_KEY, rawParamEmail);
     } catch (e) {}
   }
 
   let currentEmail = "";
   try {
-    currentEmail = localStorage.getItem(STORAGE_KEY) || "";
+    const stored = (localStorage.getItem(STORAGE_KEY) || "").trim().toLowerCase();
+    if (stored && EMAIL_REGEX.test(stored)) {
+      currentEmail = stored;
+    } else if (stored) {
+      localStorage.removeItem(STORAGE_KEY);
+    }
   } catch (e) {}
 
   // Log page visit
@@ -127,7 +135,7 @@
     logPageVisit(email);
   }
 
-  // Inject floating identity badge at bottom left (zero collision with right FABs & mobile dock)
+  // Inject compact collapsible floating identity badge at bottom left (XSS-safe textContent)
   function renderIdentityBadge(email) {
     let existing = document.getElementById("rsi-identity-badge");
     if (existing) existing.remove();
@@ -135,22 +143,67 @@
     const isMob = window.innerWidth <= 768;
     const badge = document.createElement("div");
     badge.id = "rsi-identity-badge";
-    badge.innerHTML = `
-      <div style="display:flex;align-items:center;gap:7px;font-family:system-ui,-apple-system,sans-serif;font-size:11.5px;">
-        <span style="color:#10B981;display:inline-block;width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;flex-shrink:0;"></span>
-        <span style="color:#94A3B8;">已識別:</span>
-        <strong style="color:#F1F5F9;max-width:${isMob ? "120px" : "170px"};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${email}</strong>
-        <a href="javascript:void(0)" id="rsi-switch-identity-btn" style="color:#F59E0B;text-decoration:none;margin-left:3px;border-bottom:1px dotted #F59E0B;">切換</a>
-      </div>
-    `;
-    badge.style.cssText = `position:fixed;bottom:${isMob ? "76px" : "18px"};left:${isMob ? "10px" : "18px"};right:auto;z-index:99990;background:rgba(21,19,17,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(245,158,11,0.34);border-radius:9999px;padding:5px 12px;box-shadow:0 8px 22px rgba(0,0,0,0.38);transition:all 0.25s ease;`;
-    document.body.appendChild(badge);
+    badge.setAttribute("role", "status");
+    badge.setAttribute("aria-label", "已識別訪客身份");
 
-    document.getElementById("rsi-switch-identity-btn").addEventListener("click", function () {
+    const row = document.createElement("div");
+    row.style.cssText = "display:flex;align-items:center;gap:6px;font-family:system-ui,-apple-system,sans-serif;font-size:11px;";
+
+    const dot = document.createElement("span");
+    dot.style.cssText = "display:inline-block;width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;flex-shrink:0;";
+
+    const details = document.createElement("span");
+    details.style.cssText = "display:inline-flex;align-items:center;gap:5px;";
+
+    const emailEl = document.createElement("strong");
+    emailEl.style.cssText = `color:#F1F5F9;max-width:${isMob ? "105px" : "150px"};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;`;
+    emailEl.textContent = email;
+
+    const switchBtn = document.createElement("button");
+    switchBtn.type = "button";
+    switchBtn.id = "rsi-switch-identity-btn";
+    switchBtn.textContent = "切換";
+    switchBtn.style.cssText = "background:none;border:none;border-bottom:1px dotted #F59E0B;color:#F59E0B;cursor:pointer;font-size:11px;padding:0;margin-left:2px;";
+
+    const collapseBtn = document.createElement("button");
+    collapseBtn.type = "button";
+    collapseBtn.setAttribute("aria-label", "收合或展開訪客徽章");
+    collapseBtn.title = "收合／展開";
+    collapseBtn.textContent = "×";
+    collapseBtn.style.cssText = "background:none;border:none;color:#94A3B8;cursor:pointer;font-size:13px;line-height:1;padding:0 2px;margin-left:2px;";
+
+    details.appendChild(emailEl);
+    details.appendChild(switchBtn);
+    row.appendChild(dot);
+    row.appendChild(details);
+    row.appendChild(collapseBtn);
+    badge.appendChild(row);
+
+    badge.style.cssText = `position:fixed;bottom:${isMob ? "76px" : "14px"};left:${isMob ? "10px" : "14px"};right:auto;z-index:9400;background:rgba(21,19,17,0.84);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(245,158,11,0.3);border-radius:9999px;padding:4px 10px;box-shadow:0 6px 18px rgba(0,0,0,0.28);opacity:0.78;transition:opacity 0.2s ease,padding 0.2s ease;`;
+    badge.addEventListener("mouseenter", function () { badge.style.opacity = "1"; });
+    badge.addEventListener("mouseleave", function () { badge.style.opacity = "0.78"; });
+
+    let collapsed = isMob;
+    const syncCollapsed = () => {
+      details.style.display = collapsed ? "none" : "inline-flex";
+      collapseBtn.textContent = collapsed ? "ID" : "×";
+      collapseBtn.style.fontSize = collapsed ? "10px" : "13px";
+      badge.style.padding = collapsed ? "4px 8px" : "4px 10px";
+    };
+    syncCollapsed();
+
+    collapseBtn.addEventListener("click", function () {
+      collapsed = !collapsed;
+      syncCollapsed();
+    });
+
+    switchBtn.addEventListener("click", function () {
       localStorage.removeItem(STORAGE_KEY);
       badge.remove();
       showEmailModal();
     });
+
+    document.body.appendChild(badge);
   }
 
   // Show Email input modal
@@ -278,18 +331,22 @@
 
     const overlay = document.createElement("div");
     overlay.id = "rsi-email-modal-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "rsi-email-modal-title");
     overlay.innerHTML = `
       <div class="rsi-email-card">
         <div class="rsi-email-badge">
           <span>🏛️</span> RSI Group · 企業架構審閱
         </div>
-        <h2 class="rsi-email-title">閱讀存取確認</h2>
+        <h2 class="rsi-email-title" id="rsi-email-modal-title">閱讀存取確認</h2>
         <p class="rsi-email-desc">本專案包含 2027 IT 營運藍圖與核心投資評估報告。請輸入您的公司 Email 即可開始閱讀：</p>
         
-        <form id="rsi-email-form">
+        <form id="rsi-email-form" novalidate>
           <div class="rsi-input-group">
-            <input type="email" id="rsi-email-input-field" class="rsi-email-input" placeholder="請輸入 Email (例如: user@rsiglobal.com)" required autocomplete="email" />
-            <div id="rsi-email-error" class="rsi-error-msg">請輸入有效的 Email 地址</div>
+            <label for="rsi-email-input-field" style="display:block;font-size:12px;color:#CBD5E1;margin-bottom:6px;">公司或聯絡 Email（例如：user@rsiglobal.com）</label>
+            <input type="email" id="rsi-email-input-field" class="rsi-email-input" style="font-size:16px;" placeholder="name@company.com" required autocomplete="email" inputmode="email" />
+            <div id="rsi-email-error" class="rsi-error-msg" role="alert">請輸入有效的 Email 地址</div>
           </div>
           <button type="submit" class="rsi-email-btn" id="rsi-submit-btn">
             <span>開始查閱完整報告</span>
